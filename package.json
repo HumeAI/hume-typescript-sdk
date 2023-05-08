@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/hume",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "private": false,
     "repository": "https://github.com/fern-hume/hume-typescript-sdk",
     "main": "./index.js",
