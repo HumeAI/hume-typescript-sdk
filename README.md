@@ -11,12 +11,28 @@ API reference documentation is available [here](https://docs.hume.ai/doc/batch-a
 
 ## Usage
 
-[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](TODO)
+[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-clt8mx?file=package.json&view=editor)
 
 ```typescript
-import { TODO } from "TODO";
+import { HumeBatchClient } from "@fern-api/hume";
 
-const TODO
+const client = new HumeBatchClient({
+  apiKey: "<your-api-key",
+});
+
+const job = await client.submitJob({
+  urls: ["https://tinyurl.com/hume-img"],
+  identifyFaces: true
+});
+
+console.log("Running...");
+await job.awaitResult();
+
+await job.downloadPredictions("predictions.json");
+console.log("Predictions downloaded to predictions.json")
+
+await job.downloadArtifacts("artifacts.zip");
+console.log("Artifacts downloaded to artifacts.zip")
 ```
 
 ## Beta status
