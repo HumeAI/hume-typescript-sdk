@@ -1,6 +1,9 @@
-import { HumeBatchClient } from "./HumeBatchClient";
+import { createWriteStream } from "fs";
+import { writeFile } from "fs/promises";
+import { pipeline } from "stream/promises";
 import * as Hume from "../api";
 import * as errors from "../errors";
+import { HumeBatchClient } from "./HumeBatchClient";
 
 export class Job implements Hume.JobId {
     constructor(public readonly jobId: string, private readonly client: HumeBatchClient) {}
@@ -17,11 +20,13 @@ export class Job implements Hume.JobId {
     }
 
     async downloadPredictions(filepath: string): Promise<void> {
-        // TODO
+        const response = await this.client.getJobPredictions(this.jobId);
+        await writeFile(filepath, JSON.stringify(response, undefined, 4));
     }
 
-    async downloadArtifacts(): Promise<void> {
-        // TODO
+    async downloadArtifacts(filepath: string): Promise<void> {
+        const response = await this.client.getJobArtifacts(this.jobId);
+        await pipeline(response, createWriteStream(filepath));
     }
 }
 
