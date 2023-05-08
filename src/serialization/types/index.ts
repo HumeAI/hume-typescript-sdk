@@ -1,4 +1,3 @@
-export * from "./BaseRequest";
 export * from "./Bcp47Tag";
 export * from "./BoundingBox";
 export * from "./BurstPrediction";
