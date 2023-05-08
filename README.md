@@ -17,22 +17,24 @@ API reference documentation is available [here](https://docs.hume.ai/doc/batch-a
 import { HumeBatchClient } from "@fern-api/hume";
 
 const client = new HumeBatchClient({
-  apiKey: "<your-api-key",
+  apiKey: '<your-api-key',
 });
 
 const job = await client.submitJob({
-  urls: ["https://tinyurl.com/hume-img"],
-  identifyFaces: true
+  urls: ['https://tinyurl.com/hume-img'],
+  models: {
+    face: {},
+  },
 });
 
-console.log("Running...");
-await job.awaitResult();
+console.log('Running...');
+await job.awaitCompletion();
 
-await job.downloadPredictions("predictions.json");
-console.log("Predictions downloaded to predictions.json")
+await job.downloadPredictions('predictions.json');
+console.log('Predictions downloaded to predictions.json');
 
-await job.downloadArtifacts("artifacts.zip");
-console.log("Artifacts downloaded to artifacts.zip")
+await job.downloadArtifacts('artifacts.zip');
+console.log('Artifacts downloaded to artifacts.zip');
 ```
 
 ## Beta status
