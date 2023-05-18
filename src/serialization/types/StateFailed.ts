@@ -7,12 +7,8 @@ import * as Hume from "../../api";
 import * as core from "../../core";
 
 export const StateFailed: core.serialization.ObjectSchema<serializers.StateFailed.Raw, Hume.StateFailed> =
-    core.serialization.object({
-        status: core.serialization.string().optional(),
-    });
+    core.serialization.lazyObject(async () => (await import("..")).Failed);
 
 export declare namespace StateFailed {
-    interface Raw {
-        status?: string | null;
-    }
+    type Raw = serializers.Failed.Raw;
 }

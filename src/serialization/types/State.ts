@@ -7,11 +7,11 @@ import * as Hume from "../../api";
 import * as core from "../../core";
 
 export const State: core.serialization.Schema<serializers.State.Raw, Hume.State> = core.serialization
-    .union("type", {
-        QUEUED: core.serialization.lazyObject(async () => (await import("..")).StateQueued),
-        IN_PROGRESS: core.serialization.lazyObject(async () => (await import("..")).StateInProgress),
-        COMPLETED: core.serialization.lazyObject(async () => (await import("..")).StateCompleted),
-        FAILED: core.serialization.lazyObject(async () => (await import("..")).StateFailed),
+    .union("status", {
+        QUEUED: core.serialization.lazyObject(async () => (await import("..")).Queued),
+        IN_PROGRESS: core.serialization.lazyObject(async () => (await import("..")).InProgress),
+        COMPLETED: core.serialization.lazyObject(async () => (await import("..")).Completed),
+        FAILED: core.serialization.lazyObject(async () => (await import("..")).Failed),
     })
     .transform<Hume.State>({
         transform: (value) => value,
@@ -21,19 +21,19 @@ export const State: core.serialization.Schema<serializers.State.Raw, Hume.State>
 export declare namespace State {
     type Raw = State.Queued | State.InProgress | State.Completed | State.Failed;
 
-    interface Queued extends serializers.StateQueued.Raw {
-        type: "QUEUED";
+    interface Queued extends serializers.Queued.Raw {
+        status: "QUEUED";
     }
 
-    interface InProgress extends serializers.StateInProgress.Raw {
-        type: "IN_PROGRESS";
+    interface InProgress extends serializers.InProgress.Raw {
+        status: "IN_PROGRESS";
     }
 
-    interface Completed extends serializers.StateCompleted.Raw {
-        type: "COMPLETED";
+    interface Completed extends serializers.Completed.Raw {
+        status: "COMPLETED";
     }
 
-    interface Failed extends serializers.StateFailed.Raw {
-        type: "FAILED";
+    interface Failed extends serializers.Failed.Raw {
+        status: "FAILED";
     }
 }

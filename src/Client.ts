@@ -5,15 +5,14 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import * as Hume from "./api";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "./serialization";
 import * as errors from "./errors";
-import * as stream from "stream";
 
 export declare namespace HumeClient {
     interface Options {
-        environment?: environments.HumeEnvironment | string;
+        environment?: core.Supplier<environments.HumeEnvironment | string>;
         apiKey: core.Supplier<string>;
     }
 }
@@ -21,6 +20,9 @@ export declare namespace HumeClient {
 export class HumeClient {
     constructor(protected readonly options: HumeClient.Options) {}
 
+    /**
+     * Sort and filter jobs.
+     */
     public async listJobs(request: Hume.ListJobsRequest = {}): Promise<Hume.JobRequest[]> {
         const { limit, status, when, timestampMs, sortBy, direction } = request;
         const _queryParams = new URLSearchParams();
@@ -55,13 +57,16 @@ export class HumeClient {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.HumeEnvironment.Default, "v0/batch/jobs"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.HumeEnvironment.Default,
+                "v0/batch/jobs"
+            ),
             method: "GET",
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this.options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.0.7",
+                "X-Fern-SDK-Version": "0.0.9",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -72,6 +77,7 @@ export class HumeClient {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -97,15 +103,21 @@ export class HumeClient {
         }
     }
 
+    /**
+     * Start a new batch job.
+     */
     public async submitJob(request: Hume.BaseRequest = {}): Promise<Hume.JobId> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.HumeEnvironment.Default, "v0/batch/jobs"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.HumeEnvironment.Default,
+                "v0/batch/jobs"
+            ),
             method: "POST",
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this.options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.0.7",
+                "X-Fern-SDK-Version": "0.0.9",
             },
             contentType: "application/json",
             body: await serializers.BaseRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -116,6 +128,7 @@ export class HumeClient {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -141,10 +154,13 @@ export class HumeClient {
         }
     }
 
+    /**
+     * Get the JSON predictions of a completed job.
+     */
     public async getJobPredictions(id: string): Promise<Hume.SourceResult[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.HumeEnvironment.Default,
                 `v0/batch/jobs/${id}/predictions`
             ),
             method: "GET",
@@ -152,7 +168,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this.options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.0.7",
+                "X-Fern-SDK-Version": "0.0.9",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -162,6 +178,7 @@ export class HumeClient {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -187,10 +204,13 @@ export class HumeClient {
         }
     }
 
-    public async getJobArtifacts(id: string): Promise<stream.Readable> {
-        return await core.streamingFetcher({
+    /**
+     * Get the artifacts ZIP of a completed job.
+     */
+    public async getJobArtifacts(id: string): Promise<Blob> {
+        const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.HumeEnvironment.Default,
                 `v0/batch/jobs/${id}/artifacts`
             ),
             method: "GET",
@@ -198,21 +218,53 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this.options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.0.7",
+                "X-Fern-SDK-Version": "0.0.9",
             },
+            contentType: "application/json",
+            responseType: "blob",
             timeoutMs: 60000,
         });
+        if (_response.ok) {
+            return _response.body;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.HumeError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
 
+    /**
+     * Get the request details and state of a given job.
+     */
     public async getJobDetails(id: string): Promise<Hume.JobRequest> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.HumeEnvironment.Default, `v0/batch/jobs/${id}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.HumeEnvironment.Default,
+                `v0/batch/jobs/${id}`
+            ),
             method: "GET",
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this.options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.0.7",
+                "X-Fern-SDK-Version": "0.0.9",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -222,6 +274,7 @@ export class HumeClient {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 

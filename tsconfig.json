@@ -2,7 +2,7 @@
     "compilerOptions": {
         "extendedDiagnostics": true,
         "strict": true,
-        "target": "esnext",
+        "target": "ES6",
         "module": "CommonJS",
         "moduleResolution": "node",
         "esModuleInterop": true,

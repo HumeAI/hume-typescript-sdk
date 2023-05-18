@@ -7,12 +7,8 @@ import * as Hume from "../../api";
 import * as core from "../../core";
 
 export const StateQueued: core.serialization.ObjectSchema<serializers.StateQueued.Raw, Hume.StateQueued> =
-    core.serialization.object({
-        status: core.serialization.string().optional(),
-    });
+    core.serialization.lazyObject(async () => (await import("..")).Queued);
 
 export declare namespace StateQueued {
-    interface Raw {
-        status?: string | null;
-    }
+    type Raw = serializers.Queued.Raw;
 }

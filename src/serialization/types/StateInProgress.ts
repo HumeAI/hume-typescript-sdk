@@ -7,12 +7,8 @@ import * as Hume from "../../api";
 import * as core from "../../core";
 
 export const StateInProgress: core.serialization.ObjectSchema<serializers.StateInProgress.Raw, Hume.StateInProgress> =
-    core.serialization.object({
-        status: core.serialization.string().optional(),
-    });
+    core.serialization.lazyObject(async () => (await import("..")).InProgress);
 
 export declare namespace StateInProgress {
-    interface Raw {
-        status?: string | null;
-    }
+    type Raw = serializers.InProgress.Raw;
 }

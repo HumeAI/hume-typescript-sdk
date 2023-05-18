@@ -5,10 +5,28 @@
 import * as Hume from "../..";
 
 export interface ListJobsRequest {
+    /**
+     * The maximum number of jobs to include in the response.
+     */
     limit?: number;
+    /**
+     * Include only jobs with these statuses.
+     */
     status?: Hume.Status | Hume.Status[];
+    /**
+     * Include only jobs that were created before or after `timestamp_ms`.
+     */
     when?: Hume.When;
+    /**
+     * Defaults to the current date and time. See `when`.
+     */
     timestampMs?: number;
+    /**
+     * The job timestamp to sort by.
+     */
     sortBy?: Hume.SortBy;
+    /**
+     * The sort direction.
+     */
     direction?: Hume.Direction;
 }

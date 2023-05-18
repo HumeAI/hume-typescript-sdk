@@ -7,19 +7,19 @@ import * as Hume from "..";
 export type State = Hume.State.Queued | Hume.State.InProgress | Hume.State.Completed | Hume.State.Failed;
 
 export declare namespace State {
-    interface Queued extends Hume.StateQueued {
-        type: "QUEUED";
+    interface Queued extends Hume.Queued {
+        status: "QUEUED";
     }
 
-    interface InProgress extends Hume.StateInProgress {
-        type: "IN_PROGRESS";
+    interface InProgress extends Hume.InProgress {
+        status: "IN_PROGRESS";
     }
 
-    interface Completed extends Hume.StateCompleted {
-        type: "COMPLETED";
+    interface Completed extends Hume.Completed {
+        status: "COMPLETED";
     }
 
-    interface Failed extends Hume.StateFailed {
-        type: "FAILED";
+    interface Failed extends Hume.Failed {
+        status: "FAILED";
     }
 }
