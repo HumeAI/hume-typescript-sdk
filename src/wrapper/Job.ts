@@ -18,16 +18,6 @@ export class Job implements Hume.JobId {
             }, timeoutInSeconds * 1_000);
         });
     }
-
-    async downloadPredictions(filepath: string): Promise<void> {
-        const response = await this.client.getJobPredictions(this.jobId);
-        await writeFile(filepath, JSON.stringify(response, undefined, 4));
-    }
-
-    async downloadArtifacts(filepath: string): Promise<void> {
-        const response = await this.client.getJobArtifacts(this.jobId);
-        await pipeline(response, createWriteStream(filepath));
-    }
 }
 
 class JobCompletionPoller {
@@ -46,7 +36,7 @@ class JobCompletionPoller {
     private async poll(onTerminal: () => void): Promise<void> {
         try {
             const jobDetails = await this.client.getJobDetails(this.jobId);
-            if (jobDetails.state.type === "COMPLETED" || jobDetails.state.type === "FAILED") {
+            if (jobDetails.state.status === "COMPLETED" || jobDetails.state.status === "FAILED") {
                 onTerminal();
                 this.stop();
             }
