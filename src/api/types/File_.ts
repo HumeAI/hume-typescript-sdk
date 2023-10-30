@@ -6,7 +6,7 @@ export interface File_ {
     /** The name of the file. */
     filename?: string;
     /** The content type of the file. */
-    contentType?: string;
+    content_type?: string;
     /** The MD5 checksum of the file. */
-    md5Sum: string;
+    md5sum: string;
 }

@@ -10,7 +10,7 @@ export interface ModelsInput {
      * Configuration used to specify which models should be used and with what settings.
      *
      */
-    models?: Hume.ModelsInputModels;
+    models?: Hume.ModelConfig;
     /**
      * Length in milliseconds of streaming sliding window.
      *
@@ -23,7 +23,7 @@ export interface ModelsInput {
      * Note: This feature is currently only supported for audio data and audio models. For other file types and models this parameter will be ignored.
      *
      */
-    streamWindowMs?: number;
+    stream_window_ms?: number;
     /**
      * Whether to reset the streaming sliding window before processing the current payload.
      *
@@ -32,13 +32,13 @@ export interface ModelsInput {
      * Use reset_stream when one audio file is done being processed and you do not want context to leak across files.
      *
      */
-    resetStream?: boolean;
+    reset_stream?: boolean;
     /**
      * Set to `true` to enable the data parameter to be parsed as raw text rather than base64 encoded bytes.
      * This parameter is useful if you want to send text to be processed by the language model, but it cannot be used with other file types like audio, image, or video.
      *
      */
-    rawText?: boolean;
+    raw_text?: boolean;
     /**
      * Set to `true` to get details about the job.
      *
@@ -47,12 +47,12 @@ export interface ModelsInput {
      * This parameter is useful to get the unique job ID.
      *
      */
-    jobDetails?: boolean;
+    job_details?: boolean;
     /**
      * Pass an arbitrary string as the payload ID and get it back at the top level of the socket response.
      *
      * This can be useful if you have multiple requests running asynchronously and want to disambiguate responses as they are received.
      *
      */
-    payloadId?: string;
+    payload_id?: string;
 }

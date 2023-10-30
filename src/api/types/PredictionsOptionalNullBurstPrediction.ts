@@ -6,5 +6,5 @@ import * as Hume from "..";
 
 export interface PredictionsOptionalNullBurstPrediction {
     metadata?: Hume.Null;
-    groupedPredictions: Hume.GroupedPredictionsBurstPrediction[];
+    grouped_predictions: Hume.GroupedPredictionsBurstPrediction[];
 }

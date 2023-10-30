@@ -6,7 +6,6 @@ import * as environments from "./environments";
 import * as core from "./core";
 import * as Hume from "./api";
 import urlJoin from "url-join";
-import * as serializers from "./serialization";
 import * as errors from "./errors";
 
 export declare namespace HumeClient {
@@ -73,7 +72,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -81,12 +80,7 @@ export class HumeClient {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.listJobs.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body as Hume.JobRequest[];
         }
 
         if (_response.error.reason === "status-code") {
@@ -128,20 +122,15 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
             },
             contentType: "application/json",
-            body: await serializers.BaseRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.JobId.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body as Hume.JobId;
         }
 
         if (_response.error.reason === "status-code") {
@@ -183,19 +172,14 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.getJobPredictions.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body as Hume.SourceResult[];
         }
 
         if (_response.error.reason === "status-code") {
@@ -234,7 +218,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
             },
             contentType: "application/json",
             responseType: "blob",
@@ -281,19 +265,14 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.JobRequest.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body as Hume.JobRequest;
         }
 
         if (_response.error.reason === "status-code") {

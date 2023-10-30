@@ -14,7 +14,7 @@ export interface Request {
      */
     urls?: string[];
     /** If provided, a `POST` request will be made to the URL with the generated predictions on completion or the error message on failure. */
-    callbackUrl?: string;
+    callback_url?: string;
     /** Whether to send an email notification to the user upon job completion/failure. */
     notify?: boolean;
     files: Hume.File_[];

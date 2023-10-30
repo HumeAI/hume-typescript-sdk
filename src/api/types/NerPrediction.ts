@@ -9,18 +9,18 @@ export interface NerPrediction {
     entity: string;
     position: Hume.PositionInterval;
     /** Our NER model's relative confidence in the recognized topic or entity. */
-    entityConfidence: number;
+    entity_confidence: number;
     /** A measure of how often the entity is linked to by other entities. */
     support: number;
     /** A URL which provides more information about the recognized topic or entity. */
     uri: string;
     /** The specific word to which the emotion predictions are linked. */
-    linkWord: string;
+    link_word: string;
     time?: Hume.TimeInterval;
     /** Value between `0.0` and `1.0` that indicates our transcription model’s relative confidence in this text. */
     confidence?: number;
     /** Value between `0.0` and `1.0` that indicates our transcription model’s relative confidence that this text was spoken by this speaker. */
-    speakerConfidence?: number;
+    speaker_confidence?: number;
     /** A high-dimensional embedding in emotion space. */
     emotions: Hume.EmotionScore[];
 }

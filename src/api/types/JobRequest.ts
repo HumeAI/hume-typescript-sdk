@@ -5,8 +5,8 @@
 import * as Hume from "..";
 
 export interface JobRequest {
-    userId: string;
-    jobId: string;
+    user_id: string;
+    job_id: string;
     request: Hume.Request;
     state: Hume.State;
 }
