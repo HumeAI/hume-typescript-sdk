@@ -1,11 +1,8 @@
-import { default as URLSearchParams } from "@ungap/url-search-params";
-import axios, { AxiosAdapter, AxiosError } from "axios";
+import axios, { AxiosAdapter, AxiosError, AxiosResponse } from "axios";
+import qs from "qs";
 import { APIResponse } from "./APIResponse";
 
-export interface FetchFunction {
-    (args: Fetcher.Args & { responseType?: "json" }): Promise<APIResponse<unknown, Fetcher.Error>>;
-    (args: Fetcher.Args & { responseType: "blob" }): Promise<APIResponse<Blob, Fetcher.Error>>;
-}
+export type FetchFunction = <R = unknown>(args: Fetcher.Args) => Promise<APIResponse<R, Fetcher.Error>>;
 
 export declare namespace Fetcher {
     export interface Args {
@@ -13,9 +10,10 @@ export declare namespace Fetcher {
         method: string;
         contentType?: string;
         headers?: Record<string, string | undefined>;
-        queryParameters?: URLSearchParams;
+        queryParameters?: Record<string, string>;
         body?: unknown;
         timeoutMs?: number;
+        maxRetries?: number;
         withCredentials?: boolean;
         responseType?: "json" | "blob";
         adapter?: AxiosAdapter;
@@ -46,9 +44,11 @@ export declare namespace Fetcher {
     }
 }
 
-function fetcherImpl(args: Fetcher.Args & { responseType?: "json" }): Promise<APIResponse<unknown, Fetcher.Error>>;
-function fetcherImpl(args: Fetcher.Args & { responseType: "blob" }): Promise<APIResponse<Blob, Fetcher.Error>>;
-async function fetcherImpl(args: Fetcher.Args): Promise<APIResponse<unknown, Fetcher.Error>> {
+const INITIAL_RETRY_DELAY = 1;
+const MAX_RETRY_DELAY = 60;
+const DEFAULT_MAX_RETRIES = 2;
+
+async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse<R, Fetcher.Error>> {
     const headers: Record<string, string> = {};
     if (args.body !== undefined && args.contentType != null) {
         headers["Content-Type"] = args.contentType;
@@ -62,10 +62,13 @@ async function fetcherImpl(args: Fetcher.Args): Promise<APIResponse<unknown, Fet
         }
     }
 
-    try {
-        const response = await axios({
+    const makeRequest = async (): Promise<AxiosResponse> =>
+        await axios({
             url: args.url,
             params: args.queryParameters,
+            paramsSerializer: (params) => {
+                return qs.stringify(params);
+            },
             method: args.method,
             headers,
             data: args.body,
@@ -83,8 +86,27 @@ async function fetcherImpl(args: Fetcher.Args): Promise<APIResponse<unknown, Fet
             responseType: args.responseType ?? "json",
         });
 
+    try {
+        let response = await makeRequest();
+
+        for (let i = 0; i < (args.maxRetries ?? DEFAULT_MAX_RETRIES); ++i) {
+            if (
+                response.status === 408 ||
+                response.status === 409 ||
+                response.status === 429 ||
+                response.status >= 500
+            ) {
+                const delay = Math.min(INITIAL_RETRY_DELAY * Math.pow(i, 2), MAX_RETRY_DELAY);
+                response = await new Promise((resolve) => setTimeout(resolve, delay));
+            } else {
+                break;
+            }
+        }
+
         let body: unknown;
-        if (response.data != null && response.data.length > 0) {
+        if (args.responseType === "blob") {
+            body = response.data;
+        } else if (response.data != null && response.data.length > 0) {
             try {
                 body = JSON.parse(response.data) ?? undefined;
             } catch {
@@ -102,7 +124,7 @@ async function fetcherImpl(args: Fetcher.Args): Promise<APIResponse<unknown, Fet
         if (response.status >= 200 && response.status < 400) {
             return {
                 ok: true,
-                body,
+                body: body as R,
             };
         } else {
             return {

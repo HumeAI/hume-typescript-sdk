@@ -7,7 +7,7 @@ export class HumeError extends Error {
     readonly body?: unknown;
 
     constructor({ message, statusCode, body }: { message?: string; statusCode?: number; body?: unknown }) {
-        super(message);
+        super(buildMessage({ message, statusCode, body }));
         Object.setPrototypeOf(this, HumeError.prototype);
         if (statusCode != null) {
             this.statusCode = statusCode;
@@ -17,4 +17,29 @@ export class HumeError extends Error {
             this.body = body;
         }
     }
+}
+
+function buildMessage({
+    message,
+    statusCode,
+    body,
+}: {
+    message: string | undefined;
+    statusCode: number | undefined;
+    body: unknown | undefined;
+}): string {
+    let lines: string[] = [];
+    if (message != null) {
+        lines.push(message);
+    }
+
+    if (statusCode != null) {
+        lines.push(`Status code: ${statusCode.toString()}`);
+    }
+
+    if (body != null) {
+        lines.push(`Body: ${JSON.stringify(body, undefined, 2)}`);
+    }
+
+    return lines.join("\n");
 }

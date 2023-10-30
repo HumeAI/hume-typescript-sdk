@@ -8,17 +8,17 @@ import * as core from "../../core";
 
 export const BoundingBox: core.serialization.ObjectSchema<serializers.BoundingBox.Raw, Hume.BoundingBox> =
     core.serialization.object({
-        x: core.serialization.number(),
-        y: core.serialization.number(),
-        w: core.serialization.number(),
-        h: core.serialization.number(),
+        x: core.serialization.number().optional(),
+        y: core.serialization.number().optional(),
+        w: core.serialization.number().optional(),
+        h: core.serialization.number().optional(),
     });
 
 export declare namespace BoundingBox {
     interface Raw {
-        x: number;
-        y: number;
-        w: number;
-        h: number;
+        x?: number | null;
+        y?: number | null;
+        w?: number | null;
+        h?: number | null;
     }
 }

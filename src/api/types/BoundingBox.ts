@@ -7,11 +7,11 @@
  */
 export interface BoundingBox {
     /** x-coordinate of bounding box top left corner. */
-    x: number;
+    x?: number;
     /** y-coordinate of bounding box top left corner. */
-    y: number;
+    y?: number;
     /** Bounding box width. */
-    w: number;
+    w?: number;
     /** Bounding box height. */
-    h: number;
+    h?: number;
 }
