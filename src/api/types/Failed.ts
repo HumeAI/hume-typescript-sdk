@@ -4,11 +4,11 @@
 
 export interface Failed {
     /** When this job was created (Unix timestamp in milliseconds). */
-    created_timestamp_ms: number;
+    createdTimestampMs: number;
     /** When this job started (Unix timestamp in milliseconds). */
-    started_timestamp_ms: number;
+    startedTimestampMs: number;
     /** When this job ended (Unix timestamp in milliseconds). */
-    ended_timestamp_ms: number;
+    endedTimestampMs: number;
     /** An error message. */
     message: string;
 }

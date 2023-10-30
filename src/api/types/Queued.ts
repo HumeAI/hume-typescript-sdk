@@ -4,5 +4,5 @@
 
 export interface Queued {
     /** When this job was created (Unix timestamp in milliseconds). */
-    created_timestamp_ms: number;
+    createdTimestampMs: number;
 }

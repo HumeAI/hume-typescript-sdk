@@ -17,20 +17,20 @@ export interface FaceModelConfig {
      * Whether to return identifiers for faces across frames. If true, unique identifiers will be assigned to face bounding boxes to differentiate different faces. If false, all faces will be tagged with an "unknown" ID.
      *
      */
-    identify_faces?: boolean;
+    identifyFaces?: boolean;
     /**
      * Number of frames per second to process. Other frames will be omitted from the response.
      *
      */
-    fps_pred?: number;
+    fpsPred?: number;
     /**
      * Face detection probability threshold. Faces detected with a probability less than this threshold will be omitted from the response.
      *
      */
-    prob_threshold?: number;
+    probThreshold?: number;
     /**
      * Minimum bounding box side length in pixels to treat as a face. Faces detected with a bounding box side length in pixels less than this threshold will be omitted from the response.
      *
      */
-    min_face_size?: number;
+    minFaceSize?: number;
 }

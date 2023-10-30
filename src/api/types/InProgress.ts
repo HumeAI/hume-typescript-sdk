@@ -4,7 +4,7 @@
 
 export interface InProgress {
     /** When this job was created (Unix timestamp in milliseconds). */
-    created_timestamp_ms: number;
+    createdTimestampMs: number;
     /** When this job started (Unix timestamp in milliseconds). */
-    started_timestamp_ms: number;
+    startedTimestampMs: number;
 }

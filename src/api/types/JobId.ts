@@ -4,5 +4,5 @@
 
 export interface JobId {
     /** The ID of the started job. */
-    job_id: string;
+    jobId: string;
 }

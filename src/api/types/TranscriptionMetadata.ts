@@ -10,5 +10,5 @@ import * as Hume from "..";
 export interface TranscriptionMetadata {
     /** Value between `0.0` and `1.0` indicating our transcription model’s relative confidence in the transcription of your media file. */
     confidence: number;
-    detected_language?: Hume.Bcp47Tag;
+    detectedLanguage?: Hume.Bcp47Tag;
 }

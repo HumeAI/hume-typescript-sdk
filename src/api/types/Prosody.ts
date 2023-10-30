@@ -10,6 +10,6 @@ import * as Hume from "..";
 export interface Prosody {
     granularity?: Hume.Granularity;
     /** Whether to return identifiers for speakers over time. If `true`, unique identifiers will be assigned to spoken words to differentiate different speakers. If `false`, all speakers will be tagged with an `unknown` ID. */
-    identify_speakers?: boolean;
+    identifySpeakers?: boolean;
     window?: Hume.Window;
 }

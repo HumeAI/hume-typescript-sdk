@@ -11,7 +11,7 @@ export interface ProsodyPrediction {
     /** Value between `0.0` and `1.0` that indicates our transcription model’s relative confidence in this text. */
     confidence?: number;
     /** Value between `0.0` and `1.0` that indicates our transcription model’s relative confidence that this text was spoken by this speaker. */
-    speaker_confidence?: number;
+    speakerConfidence?: number;
     /** A high-dimensional embedding in emotion space. */
     emotions: Hume.EmotionScore[];
 }

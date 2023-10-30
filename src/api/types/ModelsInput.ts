@@ -23,7 +23,7 @@ export interface ModelsInput {
      * Note: This feature is currently only supported for audio data and audio models. For other file types and models this parameter will be ignored.
      *
      */
-    stream_window_ms?: number;
+    streamWindowMs?: number;
     /**
      * Whether to reset the streaming sliding window before processing the current payload.
      *
@@ -32,13 +32,13 @@ export interface ModelsInput {
      * Use reset_stream when one audio file is done being processed and you do not want context to leak across files.
      *
      */
-    reset_stream?: boolean;
+    resetStream?: boolean;
     /**
      * Set to `true` to enable the data parameter to be parsed as raw text rather than base64 encoded bytes.
      * This parameter is useful if you want to send text to be processed by the language model, but it cannot be used with other file types like audio, image, or video.
      *
      */
-    raw_text?: boolean;
+    rawText?: boolean;
     /**
      * Set to `true` to get details about the job.
      *
@@ -47,12 +47,12 @@ export interface ModelsInput {
      * This parameter is useful to get the unique job ID.
      *
      */
-    job_details?: boolean;
+    jobDetails?: boolean;
     /**
      * Pass an arbitrary string as the payload ID and get it back at the top level of the socket response.
      *
      * This can be useful if you have multiple requests running asynchronously and want to disambiguate responses as they are received.
      *
      */
-    payload_id?: string;
+    payloadId?: string;
 }

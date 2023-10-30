@@ -13,7 +13,7 @@ export interface ModelsSuccessFacePredictionsItem {
     /** The predicted probability that a detected face was actually a face. */
     prob?: number;
     /** Identifier for a face. Not that this defaults to `unknown` unless face identification is enabled in the face model configuration. */
-    face_id?: string;
+    faceId?: string;
     emotions?: Hume.EmotionEmbedding;
     facs?: Hume.EmotionEmbedding;
     descriptions?: Hume.EmotionEmbedding;

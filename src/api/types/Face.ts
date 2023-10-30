@@ -6,15 +6,15 @@ import * as Hume from "..";
 
 export interface Face {
     /** Number of frames per second to process. Other frames will be omitted from the response. Set to `0` to process every frame. */
-    fps_pred?: number;
+    fpsPred?: number;
     /** Face detection probability threshold. Faces detected with a probability less than this threshold will be omitted from the response. */
-    prob_threshold?: number;
+    probThreshold?: number;
     /** Whether to return identifiers for faces across frames. If `true`, unique identifiers will be assigned to face bounding boxes to differentiate different faces. If `false`, all faces will be tagged with an `unknown` ID. */
-    identify_faces?: boolean;
+    identifyFaces?: boolean;
     /** Minimum bounding box side length in pixels to treat as a face. Faces detected with a bounding box side length in pixels less than this threshold will be omitted from the response. */
-    min_face_size?: number;
+    minFaceSize?: number;
     facs?: Hume.Empty;
     descriptions?: Hume.Empty;
     /** Whether to extract and save the detected faces in the artifacts zip created by each job. */
-    save_faces?: boolean;
+    saveFaces?: boolean;
 }

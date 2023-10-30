@@ -6,5 +6,5 @@ import * as Hume from "..";
 
 export interface PredictionsOptionalNullFacemeshPrediction {
     metadata?: Hume.Null;
-    grouped_predictions: Hume.GroupedPredictionsFacemeshPrediction[];
+    groupedPredictions: Hume.GroupedPredictionsFacemeshPrediction[];
 }

@@ -6,5 +6,5 @@ import * as Hume from "..";
 
 export interface PredictionsOptionalTranscriptionMetadataNerPrediction {
     metadata?: Hume.TranscriptionMetadata;
-    grouped_predictions: Hume.GroupedPredictionsNerPrediction[];
+    groupedPredictions: Hume.GroupedPredictionsNerPrediction[];
 }
