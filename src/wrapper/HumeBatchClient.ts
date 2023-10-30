@@ -4,7 +4,7 @@ import { Job } from "./Job";
 
 export class HumeBatchClient extends FernClient {
     public async submitJob(request: Hume.BaseRequest = {}): Promise<Job> {
-        const { jobId } = await super.submitJob(request);
+        const { job_id } = await super.submitJob(request);
         return new Job(jobId, this);
     }
 }

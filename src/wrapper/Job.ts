@@ -1,16 +1,13 @@
-import { createWriteStream } from "fs";
-import { writeFile } from "fs/promises";
-import { pipeline } from "stream/promises";
 import * as Hume from "../api";
 import * as errors from "../errors";
 import { HumeBatchClient } from "./HumeBatchClient";
 
 export class Job implements Hume.JobId {
-    constructor(public readonly jobId: string, private readonly client: HumeBatchClient) {}
+    constructor(public readonly job_id: string, private readonly client: HumeBatchClient) {}
 
     public async awaitCompletion(timeoutInSeconds = 300): Promise<void> {
         return new Promise((resolve, reject) => {
-            const poller = new JobCompletionPoller(this.jobId, this.client);
+            const poller = new JobCompletionPoller(this.job_id, this.client);
             poller.start(resolve);
             setTimeout(() => {
                 poller.stop();
