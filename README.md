@@ -9,9 +9,15 @@ The Hume Node.js library provides access to the Hume API from JavaScript/TypeScr
 
 API reference documentation is available [here](https://docs.hume.ai/doc/batch-api).
 
-## Usage
+## Installation 
+```
+npm install --save @fern-api/hume
+# or
+yarn add @fern-api/hume
+```
 
-[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-clt8mx?file=package.json&view=editor)
+## Batch Client 
+The SDK exports a batch client which you can use to hit our REST APIs.
 
 ```typescript
 import { HumeBatchClient } from "@fern-api/hume";
@@ -29,12 +35,50 @@ const job = await client.submitJob({
 
 console.log('Running...');
 await job.awaitCompletion();
+```
 
-await job.downloadPredictions('predictions.json');
-console.log('Predictions downloaded to predictions.json');
+## Errors
 
-await job.downloadArtifacts('artifacts.zip');
-console.log('Artifacts downloaded to artifacts.zip');
+When the API returns a non-success status code (4xx or 5xx response),
+a subclass of [HumeError](./src/errors/HumeError.ts) will be thrown:
+
+```typescript
+import { HumeError, HumeTimeoutError } from "@fern-api/hume";
+
+try {
+    await hume.submitJob(/* ... */);
+} catch (err) {
+    if (err instanceof HumeTimeoutError) {
+        console.log("Request timed out", err);
+    } else if (err instanceof HumeError) {
+        // catch all errros
+        console.log(err.statusCode);
+        console.log(err.message);
+        console.log(err.body);
+    }
+}
+```
+
+## Retries
+
+409 Conflict, 429 Rate Limit, and >=500 Internal errors will all be retried twice with exponential bakcoff.
+You can use the maxRetries option to configure this behavior:
+
+```typescript
+await hume.submitJob(..., {
+    maxRetries: 0, // disable retries
+});
+```
+
+## Timeouts
+
+By default, the SDK has a timeout of 60s. You can use the `timeoutInSeconds` option to configure
+this behavior
+
+```typescript
+await hume.submitJob(..., {
+    timeoutInSeconds: 10, // timeout after 10 seconds
+});
 ```
 
 ## Beta status
