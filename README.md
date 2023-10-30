@@ -9,32 +9,59 @@ The Hume Node.js library provides access to the Hume API from JavaScript/TypeScr
 
 API reference documentation is available [here](https://docs.hume.ai/doc/batch-api).
 
-## Installation 
+## Installation
+
 ```
 npm install --save @fern-api/hume
 # or
 yarn add @fern-api/hume
 ```
 
-## Batch Client 
+## Batch Client
+
 The SDK exports a batch client which you can use to hit our REST APIs.
 
 ```typescript
 import { HumeBatchClient } from "@fern-api/hume";
 
 const client = new HumeBatchClient({
-  apiKey: '<your-api-key',
+    apiKey: "<your-api-key",
 });
 
 const job = await client.submitJob({
-  urls: ['https://tinyurl.com/hume-img'],
-  models: {
-    face: {},
-  },
+    urls: ["https://tinyurl.com/hume-img"],
+    models: {
+        face: {},
+    },
 });
 
-console.log('Running...');
+console.log("Running...");
 await job.awaitCompletion();
+```
+
+## Streaming Client
+
+The SDK exports a streaming client which you can use to hit our WebSocket APIs.
+
+```typescript
+import { HumeStreamingClient } from "@fern-api/hume";
+
+const client = new HumeStreamingClient({
+    apiKey: "<your-api-key",
+});
+
+const stream = await client.connect({
+    configs: {
+        face: {},
+    },
+    listeners: {
+        message: (response) => {
+            console.log(response.?burst);
+        },
+    },
+});
+
+stream.sendFile(...);
 ```
 
 ## Errors
