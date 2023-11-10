@@ -6,8 +6,15 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Granularity: core.serialization.Schema<serializers.Granularity.Raw, Hume.Granularity> =
-    core.serialization.enum_(["word", "sentence", "utterance", "conversational_turn"]);
+export const Granularity: core.serialization.Schema<
+    serializers.Granularity.Raw,
+    Hume.Granularity
+> = core.serialization.enum_([
+    "word",
+    "sentence",
+    "utterance",
+    "conversational_turn",
+]);
 
 export declare namespace Granularity {
     type Raw = "word" | "sentence" | "utterance" | "conversational_turn";

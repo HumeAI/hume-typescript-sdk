@@ -6,12 +6,23 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const State: core.serialization.Schema<serializers.State.Raw, Hume.State> = core.serialization
+export const State: core.serialization.Schema<
+    serializers.State.Raw,
+    Hume.State
+> = core.serialization
     .union("status", {
-        QUEUED: core.serialization.lazyObject(async () => (await import("..")).Queued),
-        IN_PROGRESS: core.serialization.lazyObject(async () => (await import("..")).InProgress),
-        COMPLETED: core.serialization.lazyObject(async () => (await import("..")).Completed),
-        FAILED: core.serialization.lazyObject(async () => (await import("..")).Failed),
+        QUEUED: core.serialization.lazyObject(
+            async () => (await import("..")).Queued
+        ),
+        IN_PROGRESS: core.serialization.lazyObject(
+            async () => (await import("..")).InProgress
+        ),
+        COMPLETED: core.serialization.lazyObject(
+            async () => (await import("..")).Completed
+        ),
+        FAILED: core.serialization.lazyObject(
+            async () => (await import("..")).Failed
+        ),
     })
     .transform<Hume.State>({
         transform: (value) => value,

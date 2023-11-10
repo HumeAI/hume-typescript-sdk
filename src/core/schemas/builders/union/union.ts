@@ -9,14 +9,25 @@ import { ObjectSchema } from "../object";
 import { getObjectLikeUtils, ObjectLikeSchema } from "../object-like";
 import { getSchemaUtils } from "../schema-utils";
 import { Discriminant } from "./discriminant";
-import { inferParsedDiscriminant, inferParsedUnion, inferRawDiscriminant, inferRawUnion, UnionSubtypes } from "./types";
+import {
+    inferParsedDiscriminant,
+    inferParsedUnion,
+    inferRawDiscriminant,
+    inferRawUnion,
+    UnionSubtypes,
+} from "./types";
 
-export function union<D extends string | Discriminant<any, any>, U extends UnionSubtypes<any>>(
+export function union<
+    D extends string | Discriminant<any, any>,
+    U extends UnionSubtypes<any>
+>(
     discriminant: D,
     union: U
 ): ObjectLikeSchema<inferRawUnion<D, U>, inferParsedUnion<D, U>> {
     const rawDiscriminant =
-        typeof discriminant === "string" ? discriminant : (discriminant.rawDiscriminant as inferRawDiscriminant<D>);
+        typeof discriminant === "string"
+            ? discriminant
+            : (discriminant.rawDiscriminant as inferRawDiscriminant<D>);
     const parsedDiscriminant =
         typeof discriminant === "string"
             ? discriminant
@@ -24,7 +35,10 @@ export function union<D extends string | Discriminant<any, any>, U extends Union
 
     const discriminantValueSchema = enum_(keys(union) as string[]);
 
-    const baseSchema: BaseSchema<inferRawUnion<D, U>, inferParsedUnion<D, U>> = {
+    const baseSchema: BaseSchema<
+        inferRawUnion<D, U>,
+        inferParsedUnion<D, U>
+    > = {
         parse: async (raw, opts) => {
             return transformAndValidateUnion({
                 value: raw,
@@ -32,13 +46,25 @@ export function union<D extends string | Discriminant<any, any>, U extends Union
                 transformedDiscriminant: parsedDiscriminant,
                 transformDiscriminantValue: (discriminantValue) =>
                     discriminantValueSchema.parse(discriminantValue, {
-                        allowUnrecognizedEnumValues: opts?.allowUnrecognizedUnionMembers,
-                        breadcrumbsPrefix: [...(opts?.breadcrumbsPrefix ?? []), rawDiscriminant],
+                        allowUnrecognizedEnumValues:
+                            opts?.allowUnrecognizedUnionMembers,
+                        breadcrumbsPrefix: [
+                            ...(opts?.breadcrumbsPrefix ?? []),
+                            rawDiscriminant,
+                        ],
                     }),
-                getAdditionalPropertiesSchema: (discriminantValue) => union[discriminantValue],
-                allowUnrecognizedUnionMembers: opts?.allowUnrecognizedUnionMembers,
-                transformAdditionalProperties: (additionalProperties, additionalPropertiesSchema) =>
-                    additionalPropertiesSchema.parse(additionalProperties, opts),
+                getAdditionalPropertiesSchema: (discriminantValue) =>
+                    union[discriminantValue],
+                allowUnrecognizedUnionMembers:
+                    opts?.allowUnrecognizedUnionMembers,
+                transformAdditionalProperties: (
+                    additionalProperties,
+                    additionalPropertiesSchema
+                ) =>
+                    additionalPropertiesSchema.parse(
+                        additionalProperties,
+                        opts
+                    ),
                 breadcrumbsPrefix: opts?.breadcrumbsPrefix,
             });
         },
@@ -49,12 +75,21 @@ export function union<D extends string | Discriminant<any, any>, U extends Union
                 transformedDiscriminant: rawDiscriminant,
                 transformDiscriminantValue: (discriminantValue) =>
                     discriminantValueSchema.json(discriminantValue, {
-                        allowUnrecognizedEnumValues: opts?.allowUnrecognizedUnionMembers,
-                        breadcrumbsPrefix: [...(opts?.breadcrumbsPrefix ?? []), parsedDiscriminant],
+                        allowUnrecognizedEnumValues:
+                            opts?.allowUnrecognizedUnionMembers,
+                        breadcrumbsPrefix: [
+                            ...(opts?.breadcrumbsPrefix ?? []),
+                            parsedDiscriminant,
+                        ],
                     }),
-                getAdditionalPropertiesSchema: (discriminantValue) => union[discriminantValue],
-                allowUnrecognizedUnionMembers: opts?.allowUnrecognizedUnionMembers,
-                transformAdditionalProperties: (additionalProperties, additionalPropertiesSchema) =>
+                getAdditionalPropertiesSchema: (discriminantValue) =>
+                    union[discriminantValue],
+                allowUnrecognizedUnionMembers:
+                    opts?.allowUnrecognizedUnionMembers,
+                transformAdditionalProperties: (
+                    additionalProperties,
+                    additionalPropertiesSchema
+                ) =>
                     additionalPropertiesSchema.json(additionalProperties, opts),
                 breadcrumbsPrefix: opts?.breadcrumbsPrefix,
             });
@@ -86,8 +121,12 @@ async function transformAndValidateUnion<
     value: unknown;
     discriminant: string;
     transformedDiscriminant: TransformedDiscriminant;
-    transformDiscriminantValue: (discriminantValue: unknown) => MaybePromise<MaybeValid<TransformedDiscriminantValue>>;
-    getAdditionalPropertiesSchema: (discriminantValue: string) => ObjectSchema<any, any> | undefined;
+    transformDiscriminantValue: (
+        discriminantValue: unknown
+    ) => MaybePromise<MaybeValid<TransformedDiscriminantValue>>;
+    getAdditionalPropertiesSchema: (
+        discriminantValue: string
+    ) => ObjectSchema<any, any> | undefined;
     allowUnrecognizedUnionMembers: boolean | undefined;
     transformAdditionalProperties: (
         additionalProperties: unknown,
@@ -95,7 +134,10 @@ async function transformAndValidateUnion<
     ) => MaybePromise<MaybeValid<TransformedAdditionalProperties>>;
     breadcrumbsPrefix: string[] | undefined;
 }): Promise<
-    MaybeValid<Record<TransformedDiscriminant, TransformedDiscriminantValue> & TransformedAdditionalProperties>
+    MaybeValid<
+        Record<TransformedDiscriminant, TransformedDiscriminantValue> &
+            TransformedAdditionalProperties
+    >
 > {
     if (!isPlainObject(value)) {
         return {
@@ -109,7 +151,8 @@ async function transformAndValidateUnion<
         };
     }
 
-    const { [discriminant]: discriminantValue, ...additionalProperties } = value;
+    const { [discriminant]: discriminantValue, ...additionalProperties } =
+        value;
 
     if (discriminantValue == null) {
         return {
@@ -123,7 +166,9 @@ async function transformAndValidateUnion<
         };
     }
 
-    const transformedDiscriminantValue = await transformDiscriminantValue(discriminantValue);
+    const transformedDiscriminantValue = await transformDiscriminantValue(
+        discriminantValue
+    );
     if (!transformedDiscriminantValue.ok) {
         return {
             ok: false,
@@ -131,16 +176,23 @@ async function transformAndValidateUnion<
         };
     }
 
-    const additionalPropertiesSchema = getAdditionalPropertiesSchema(transformedDiscriminantValue.value);
+    const additionalPropertiesSchema = getAdditionalPropertiesSchema(
+        transformedDiscriminantValue.value
+    );
 
     if (additionalPropertiesSchema == null) {
         if (allowUnrecognizedUnionMembers) {
             return {
                 ok: true,
                 value: {
-                    [transformedDiscriminant]: transformedDiscriminantValue.value,
+                    [transformedDiscriminant]:
+                        transformedDiscriminantValue.value,
                     ...additionalProperties,
-                } as Record<TransformedDiscriminant, TransformedDiscriminantValue> & TransformedAdditionalProperties,
+                } as Record<
+                    TransformedDiscriminant,
+                    TransformedDiscriminantValue
+                > &
+                    TransformedAdditionalProperties,
             };
         } else {
             return {
@@ -168,6 +220,7 @@ async function transformAndValidateUnion<
         value: {
             [transformedDiscriminant]: discriminantValue,
             ...transformedAdditionalProperties.value,
-        } as Record<TransformedDiscriminant, TransformedDiscriminantValue> & TransformedAdditionalProperties,
+        } as Record<TransformedDiscriminant, TransformedDiscriminantValue> &
+            TransformedAdditionalProperties,
     };
 }

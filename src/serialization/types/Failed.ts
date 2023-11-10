@@ -6,10 +6,22 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Failed: core.serialization.ObjectSchema<serializers.Failed.Raw, Hume.Failed> = core.serialization.object({
-    createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
-    startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),
-    endedTimestampMs: core.serialization.property("ended_timestamp_ms", core.serialization.number()),
+export const Failed: core.serialization.ObjectSchema<
+    serializers.Failed.Raw,
+    Hume.Failed
+> = core.serialization.object({
+    createdTimestampMs: core.serialization.property(
+        "created_timestamp_ms",
+        core.serialization.number()
+    ),
+    startedTimestampMs: core.serialization.property(
+        "started_timestamp_ms",
+        core.serialization.number()
+    ),
+    endedTimestampMs: core.serialization.property(
+        "ended_timestamp_ms",
+        core.serialization.number()
+    ),
     message: core.serialization.string(),
 });
 

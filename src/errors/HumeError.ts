@@ -6,7 +6,15 @@ export class HumeError extends Error {
     readonly statusCode?: number;
     readonly body?: unknown;
 
-    constructor({ message, statusCode, body }: { message?: string; statusCode?: number; body?: unknown }) {
+    constructor({
+        message,
+        statusCode,
+        body,
+    }: {
+        message?: string;
+        statusCode?: number;
+        body?: unknown;
+    }) {
         super(buildMessage({ message, statusCode, body }));
         Object.setPrototypeOf(this, HumeError.prototype);
         if (statusCode != null) {

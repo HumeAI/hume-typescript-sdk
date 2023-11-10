@@ -12,7 +12,9 @@ export const GroupedPredictionsFacePrediction: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     predictions: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("..")).FacePrediction)
+        core.serialization.lazyObject(
+            async () => (await import("..")).FacePrediction
+        )
     ),
 });
 

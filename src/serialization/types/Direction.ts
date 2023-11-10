@@ -6,9 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Direction: core.serialization.Schema<serializers.Direction.Raw, Hume.Direction> = core.serialization.enum_(
-    ["asc", "desc"]
-);
+export const Direction: core.serialization.Schema<
+    serializers.Direction.Raw,
+    Hume.Direction
+> = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace Direction {
     type Raw = "asc" | "desc";

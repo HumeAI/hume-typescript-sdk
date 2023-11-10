@@ -11,16 +11,35 @@ export const LanguagePrediction: core.serialization.ObjectSchema<
     Hume.LanguagePrediction
 > = core.serialization.object({
     text: core.serialization.string(),
-    position: core.serialization.lazyObject(async () => (await import("..")).PositionInterval),
-    time: core.serialization.lazyObject(async () => (await import("..")).TimeInterval).optional(),
+    position: core.serialization.lazyObject(
+        async () => (await import("..")).PositionInterval
+    ),
+    time: core.serialization
+        .lazyObject(async () => (await import("..")).TimeInterval)
+        .optional(),
     confidence: core.serialization.number().optional(),
-    speakerConfidence: core.serialization.property("speaker_confidence", core.serialization.number().optional()),
-    emotions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionScore)),
+    speakerConfidence: core.serialization.property(
+        "speaker_confidence",
+        core.serialization.number().optional()
+    ),
+    emotions: core.serialization.list(
+        core.serialization.lazyObject(
+            async () => (await import("..")).EmotionScore
+        )
+    ),
     sentiment: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).SentimentScore))
+        .list(
+            core.serialization.lazyObject(
+                async () => (await import("..")).SentimentScore
+            )
+        )
         .optional(),
     toxicity: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).ToxicityScore))
+        .list(
+            core.serialization.lazyObject(
+                async () => (await import("..")).ToxicityScore
+            )
+        )
         .optional(),
 });
 

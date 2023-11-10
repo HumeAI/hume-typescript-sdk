@@ -6,13 +6,28 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Models: core.serialization.ObjectSchema<serializers.Models.Raw, Hume.Models> = core.serialization.object({
-    face: core.serialization.lazyObject(async () => (await import("..")).Face).optional(),
-    burst: core.serialization.lazy(async () => (await import("..")).Empty).optional(),
-    prosody: core.serialization.lazyObject(async () => (await import("..")).Prosody).optional(),
-    language: core.serialization.lazyObject(async () => (await import("..")).Language).optional(),
-    ner: core.serialization.lazyObject(async () => (await import("..")).Ner).optional(),
-    facemesh: core.serialization.lazy(async () => (await import("..")).Empty).optional(),
+export const Models: core.serialization.ObjectSchema<
+    serializers.Models.Raw,
+    Hume.Models
+> = core.serialization.object({
+    face: core.serialization
+        .lazyObject(async () => (await import("..")).Face)
+        .optional(),
+    burst: core.serialization
+        .lazy(async () => (await import("..")).Empty)
+        .optional(),
+    prosody: core.serialization
+        .lazyObject(async () => (await import("..")).Prosody)
+        .optional(),
+    language: core.serialization
+        .lazyObject(async () => (await import("..")).Language)
+        .optional(),
+    ner: core.serialization
+        .lazyObject(async () => (await import("..")).Ner)
+        .optional(),
+    facemesh: core.serialization
+        .lazy(async () => (await import("..")).Empty)
+        .optional(),
 });
 
 export declare namespace Models {

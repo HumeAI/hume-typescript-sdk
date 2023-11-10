@@ -6,10 +6,8 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const When: core.serialization.Schema<serializers.When.Raw, Hume.When> = core.serialization.enum_([
-    "created_before",
-    "created_after",
-]);
+export const When: core.serialization.Schema<serializers.When.Raw, Hume.When> =
+    core.serialization.enum_(["created_before", "created_after"]);
 
 export declare namespace When {
     type Raw = "created_before" | "created_after";

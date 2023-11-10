@@ -6,11 +6,13 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const TimeRange: core.serialization.ObjectSchema<serializers.TimeRange.Raw, Hume.TimeRange> =
-    core.serialization.object({
-        begin: core.serialization.number().optional(),
-        end: core.serialization.number().optional(),
-    });
+export const TimeRange: core.serialization.ObjectSchema<
+    serializers.TimeRange.Raw,
+    Hume.TimeRange
+> = core.serialization.object({
+    begin: core.serialization.number().optional(),
+    end: core.serialization.number().optional(),
+});
 
 export declare namespace TimeRange {
     interface Raw {

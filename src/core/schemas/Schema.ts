@@ -1,14 +1,25 @@
 import { SchemaUtils } from "./builders";
 import { MaybePromise } from "./utils/MaybePromise";
 
-export type Schema<Raw = unknown, Parsed = unknown> = BaseSchema<Raw, Parsed> & SchemaUtils<Raw, Parsed>;
+export type Schema<Raw = unknown, Parsed = unknown> = BaseSchema<Raw, Parsed> &
+    SchemaUtils<Raw, Parsed>;
 
-export type inferRaw<S extends Schema> = S extends Schema<infer Raw, any> ? Raw : never;
-export type inferParsed<S extends Schema> = S extends Schema<any, infer Parsed> ? Parsed : never;
+export type inferRaw<S extends Schema> = S extends Schema<infer Raw, any>
+    ? Raw
+    : never;
+export type inferParsed<S extends Schema> = S extends Schema<any, infer Parsed>
+    ? Parsed
+    : never;
 
 export interface BaseSchema<Raw, Parsed> {
-    parse: (raw: unknown, opts?: SchemaOptions) => MaybePromise<MaybeValid<Parsed>>;
-    json: (parsed: unknown, opts?: SchemaOptions) => MaybePromise<MaybeValid<Raw>>;
+    parse: (
+        raw: unknown,
+        opts?: SchemaOptions
+    ) => MaybePromise<MaybeValid<Parsed>>;
+    json: (
+        parsed: unknown,
+        opts?: SchemaOptions
+    ) => MaybePromise<MaybeValid<Raw>>;
     getType: () => SchemaType | Promise<SchemaType>;
 }
 

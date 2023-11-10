@@ -6,11 +6,13 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const ModelsWarning: core.serialization.ObjectSchema<serializers.ModelsWarning.Raw, Hume.ModelsWarning> =
-    core.serialization.object({
-        warning: core.serialization.string().optional(),
-        code: core.serialization.string().optional(),
-    });
+export const ModelsWarning: core.serialization.ObjectSchema<
+    serializers.ModelsWarning.Raw,
+    Hume.ModelsWarning
+> = core.serialization.object({
+    warning: core.serialization.string().optional(),
+    code: core.serialization.string().optional(),
+});
 
 export declare namespace ModelsWarning {
     interface Raw {

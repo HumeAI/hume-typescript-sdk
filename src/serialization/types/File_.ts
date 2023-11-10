@@ -6,9 +6,15 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const File_: core.serialization.ObjectSchema<serializers.File_.Raw, Hume.File_> = core.serialization.object({
+export const File_: core.serialization.ObjectSchema<
+    serializers.File_.Raw,
+    Hume.File_
+> = core.serialization.object({
     filename: core.serialization.string().optional(),
-    contentType: core.serialization.property("content_type", core.serialization.string().optional()),
+    contentType: core.serialization.property(
+        "content_type",
+        core.serialization.string().optional()
+    ),
     md5Sum: core.serialization.property("md5sum", core.serialization.string()),
 });
 

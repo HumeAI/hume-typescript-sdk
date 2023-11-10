@@ -10,7 +10,9 @@ export const ModelsSuccessFacemeshPredictionsItem: core.serialization.ObjectSche
     serializers.ModelsSuccessFacemeshPredictionsItem.Raw,
     Hume.ModelsSuccessFacemeshPredictionsItem
 > = core.serialization.object({
-    emotions: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
+    emotions: core.serialization
+        .lazy(async () => (await import("..")).EmotionEmbedding)
+        .optional(),
 });
 
 export declare namespace ModelsSuccessFacemeshPredictionsItem {

@@ -12,12 +12,23 @@ export const ModelsSuccessFacePredictionsItem: core.serialization.ObjectSchema<
 > = core.serialization.object({
     frame: core.serialization.number().optional(),
     time: core.serialization.number().optional(),
-    bbox: core.serialization.lazyObject(async () => (await import("..")).BoundingBox).optional(),
+    bbox: core.serialization
+        .lazyObject(async () => (await import("..")).BoundingBox)
+        .optional(),
     prob: core.serialization.number().optional(),
-    faceId: core.serialization.property("face_id", core.serialization.string().optional()),
-    emotions: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
-    facs: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
-    descriptions: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
+    faceId: core.serialization.property(
+        "face_id",
+        core.serialization.string().optional()
+    ),
+    emotions: core.serialization
+        .lazy(async () => (await import("..")).EmotionEmbedding)
+        .optional(),
+    facs: core.serialization
+        .lazy(async () => (await import("..")).EmotionEmbedding)
+        .optional(),
+    descriptions: core.serialization
+        .lazy(async () => (await import("..")).EmotionEmbedding)
+        .optional(),
 });
 
 export declare namespace ModelsSuccessFacePredictionsItem {

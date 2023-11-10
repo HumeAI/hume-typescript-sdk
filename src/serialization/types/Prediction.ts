@@ -6,11 +6,15 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Prediction: core.serialization.ObjectSchema<serializers.Prediction.Raw, Hume.Prediction> =
-    core.serialization.object({
-        file: core.serialization.string(),
-        models: core.serialization.lazyObject(async () => (await import("..")).ModelsPredictions),
-    });
+export const Prediction: core.serialization.ObjectSchema<
+    serializers.Prediction.Raw,
+    Hume.Prediction
+> = core.serialization.object({
+    file: core.serialization.string(),
+    models: core.serialization.lazyObject(
+        async () => (await import("..")).ModelsPredictions
+    ),
+});
 
 export declare namespace Prediction {
     interface Raw {

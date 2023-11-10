@@ -11,12 +11,19 @@ export const FacemeshResponse: core.serialization.ObjectSchema<
     Hume.FacemeshResponse
 > = core.serialization.object({
     predictions: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).ModelsSuccessFacemeshPredictionsItem))
+        .list(
+            core.serialization.lazyObject(
+                async () =>
+                    (await import("..")).ModelsSuccessFacemeshPredictionsItem
+            )
+        )
         .optional(),
 });
 
 export declare namespace FacemeshResponse {
     interface Raw {
-        predictions?: serializers.ModelsSuccessFacemeshPredictionsItem.Raw[] | null;
+        predictions?:
+            | serializers.ModelsSuccessFacemeshPredictionsItem.Raw[]
+            | null;
     }
 }

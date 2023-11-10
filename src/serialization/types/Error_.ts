@@ -6,7 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Error_: core.serialization.ObjectSchema<serializers.Error_.Raw, Hume.Error_> = core.serialization.object({
+export const Error_: core.serialization.ObjectSchema<
+    serializers.Error_.Raw,
+    Hume.Error_
+> = core.serialization.object({
     message: core.serialization.string(),
     file: core.serialization.string(),
 });

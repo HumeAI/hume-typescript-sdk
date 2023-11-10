@@ -10,11 +10,16 @@ export const PredictionsOptionalNullFacemeshPrediction: core.serialization.Objec
     serializers.PredictionsOptionalNullFacemeshPrediction.Raw,
     Hume.PredictionsOptionalNullFacemeshPrediction
 > = core.serialization.object({
-    metadata: core.serialization.lazy(async () => (await import("..")).Null).optional(),
+    metadata: core.serialization
+        .lazy(async () => (await import("..")).Null)
+        .optional(),
     groupedPredictions: core.serialization.property(
         "grouped_predictions",
         core.serialization.list(
-            core.serialization.lazyObject(async () => (await import("..")).GroupedPredictionsFacemeshPrediction)
+            core.serialization.lazyObject(
+                async () =>
+                    (await import("..")).GroupedPredictionsFacemeshPrediction
+            )
         )
     ),
 });

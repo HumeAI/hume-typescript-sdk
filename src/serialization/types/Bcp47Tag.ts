@@ -6,7 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Bcp47Tag: core.serialization.Schema<serializers.Bcp47Tag.Raw, Hume.Bcp47Tag> = core.serialization.enum_([
+export const Bcp47Tag: core.serialization.Schema<
+    serializers.Bcp47Tag.Raw,
+    Hume.Bcp47Tag
+> = core.serialization.enum_([
     "zh",
     "da",
     "nl",

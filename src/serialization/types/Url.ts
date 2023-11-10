@@ -6,7 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Url: core.serialization.ObjectSchema<serializers.Url.Raw, Hume.Url> = core.serialization.object({
+export const Url: core.serialization.ObjectSchema<
+    serializers.Url.Raw,
+    Hume.Url
+> = core.serialization.object({
     url: core.serialization.string(),
 });
 

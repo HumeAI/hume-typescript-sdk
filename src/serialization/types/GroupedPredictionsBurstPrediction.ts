@@ -12,7 +12,9 @@ export const GroupedPredictionsBurstPrediction: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     predictions: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("..")).BurstPrediction)
+        core.serialization.lazyObject(
+            async () => (await import("..")).BurstPrediction
+        )
     ),
 });
 

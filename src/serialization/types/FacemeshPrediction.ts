@@ -10,7 +10,11 @@ export const FacemeshPrediction: core.serialization.ObjectSchema<
     serializers.FacemeshPrediction.Raw,
     Hume.FacemeshPrediction
 > = core.serialization.object({
-    emotions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionScore)),
+    emotions: core.serialization.list(
+        core.serialization.lazyObject(
+            async () => (await import("..")).EmotionScore
+        )
+    ),
 });
 
 export declare namespace FacemeshPrediction {

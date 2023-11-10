@@ -11,12 +11,19 @@ export const LanguageResponse: core.serialization.ObjectSchema<
     Hume.LanguageResponse
 > = core.serialization.object({
     predictions: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).ModelsSuccessLanguagePredictionsItem))
+        .list(
+            core.serialization.lazyObject(
+                async () =>
+                    (await import("..")).ModelsSuccessLanguagePredictionsItem
+            )
+        )
         .optional(),
 });
 
 export declare namespace LanguageResponse {
     interface Raw {
-        predictions?: serializers.ModelsSuccessLanguagePredictionsItem.Raw[] | null;
+        predictions?:
+            | serializers.ModelsSuccessLanguagePredictionsItem.Raw[]
+            | null;
     }
 }

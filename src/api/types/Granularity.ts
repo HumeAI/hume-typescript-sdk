@@ -5,7 +5,11 @@
 /**
  * The granularity at which to generate predictions. `utterance` corresponds to a natural pause or break in conversation, while `conversational_turn` corresponds to a change in speaker.
  */
-export type Granularity = "word" | "sentence" | "utterance" | "conversational_turn";
+export type Granularity =
+    | "word"
+    | "sentence"
+    | "utterance"
+    | "conversational_turn";
 
 export const Granularity = {
     Word: "word",

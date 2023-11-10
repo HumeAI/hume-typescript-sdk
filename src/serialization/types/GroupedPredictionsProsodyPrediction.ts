@@ -12,7 +12,9 @@ export const GroupedPredictionsProsodyPrediction: core.serialization.ObjectSchem
 > = core.serialization.object({
     id: core.serialization.string(),
     predictions: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("..")).ProsodyPrediction)
+        core.serialization.lazyObject(
+            async () => (await import("..")).ProsodyPrediction
+        )
     ),
 });
 

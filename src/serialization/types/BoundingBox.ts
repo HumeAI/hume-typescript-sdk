@@ -6,13 +6,15 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const BoundingBox: core.serialization.ObjectSchema<serializers.BoundingBox.Raw, Hume.BoundingBox> =
-    core.serialization.object({
-        x: core.serialization.number().optional(),
-        y: core.serialization.number().optional(),
-        w: core.serialization.number().optional(),
-        h: core.serialization.number().optional(),
-    });
+export const BoundingBox: core.serialization.ObjectSchema<
+    serializers.BoundingBox.Raw,
+    Hume.BoundingBox
+> = core.serialization.object({
+    x: core.serialization.number().optional(),
+    y: core.serialization.number().optional(),
+    w: core.serialization.number().optional(),
+    h: core.serialization.number().optional(),
+});
 
 export declare namespace BoundingBox {
     interface Raw {

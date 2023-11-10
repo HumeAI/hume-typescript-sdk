@@ -16,7 +16,10 @@ export const number = createIdentitySchemaCreator<number>(
                 errors: [
                     {
                         path: breadcrumbsPrefix,
-                        message: getErrorMessageForIncorrectType(value, "number"),
+                        message: getErrorMessageForIncorrectType(
+                            value,
+                            "number"
+                        ),
                     },
                 ],
             };

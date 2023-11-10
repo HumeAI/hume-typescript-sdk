@@ -6,7 +6,10 @@ import * as errors from "../errors";
 import { HumeBatchClient } from "./HumeBatchClient";
 
 export class Job implements Hume.JobId {
-    constructor(public readonly jobId: string, private readonly client: HumeBatchClient) {}
+    constructor(
+        public readonly jobId: string,
+        private readonly client: HumeBatchClient
+    ) {}
 
     public async awaitCompletion(timeoutInSeconds = 300): Promise<void> {
         return new Promise((resolve, reject) => {
@@ -22,7 +25,10 @@ export class Job implements Hume.JobId {
 
 class JobCompletionPoller {
     private isPolling = true;
-    constructor(private readonly jobId: string, private readonly client: HumeBatchClient) {}
+    constructor(
+        private readonly jobId: string,
+        private readonly client: HumeBatchClient
+    ) {}
 
     public start(onTerminal: () => void) {
         this.isPolling = true;
@@ -36,7 +42,10 @@ class JobCompletionPoller {
     private async poll(onTerminal: () => void): Promise<void> {
         try {
             const jobDetails = await this.client.getJobDetails(this.jobId);
-            if (jobDetails.state.status === "COMPLETED" || jobDetails.state.status === "FAILED") {
+            if (
+                jobDetails.state.status === "COMPLETED" ||
+                jobDetails.state.status === "FAILED"
+            ) {
                 onTerminal();
                 this.stop();
             }

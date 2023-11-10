@@ -65,7 +65,8 @@ export class HumeClient {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Default,
                 "v0/batch/jobs"
             ),
             method: "GET",
@@ -77,16 +78,22 @@ export class HumeClient {
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs:
+                requestOptions?.timeoutInSeconds != null
+                    ? requestOptions.timeoutInSeconds * 1000
+                    : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.listJobs.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return await serializers.listJobs.Response.parseOrThrow(
+                _response.body,
+                {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }
+            );
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +127,8 @@ export class HumeClient {
     ): Promise<Hume.JobId> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Default,
                 "v0/batch/jobs"
             ),
             method: "POST",
@@ -131,8 +139,13 @@ export class HumeClient {
                 "X-Fern-SDK-Version": "0.1.5",
             },
             contentType: "application/json",
-            body: await serializers.BaseRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            body: await serializers.BaseRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs:
+                requestOptions?.timeoutInSeconds != null
+                    ? requestOptions.timeoutInSeconds * 1000
+                    : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
@@ -175,7 +188,8 @@ export class HumeClient {
     ): Promise<Hume.SourceResult[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Default,
                 `v0/batch/jobs/${id}/predictions`
             ),
             method: "GET",
@@ -186,16 +200,22 @@ export class HumeClient {
                 "X-Fern-SDK-Version": "0.1.5",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs:
+                requestOptions?.timeoutInSeconds != null
+                    ? requestOptions.timeoutInSeconds * 1000
+                    : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.getJobPredictions.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return await serializers.getJobPredictions.Response.parseOrThrow(
+                _response.body,
+                {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }
+            );
         }
 
         if (_response.error.reason === "status-code") {
@@ -223,10 +243,14 @@ export class HumeClient {
     /**
      * Get the artifacts ZIP of a completed job.
      */
-    public async getJobArtifacts(id: string, requestOptions?: HumeClient.RequestOptions): Promise<Blob> {
+    public async getJobArtifacts(
+        id: string,
+        requestOptions?: HumeClient.RequestOptions
+    ): Promise<Blob> {
         const _response = await core.fetcher<Blob>({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Default,
                 `v0/batch/jobs/${id}/artifacts`
             ),
             method: "GET",
@@ -238,7 +262,10 @@ export class HumeClient {
             },
             contentType: "application/json",
             responseType: "blob",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs:
+                requestOptions?.timeoutInSeconds != null
+                    ? requestOptions.timeoutInSeconds * 1000
+                    : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
@@ -270,10 +297,14 @@ export class HumeClient {
     /**
      * Get the request details and state of a given job.
      */
-    public async getJobDetails(id: string, requestOptions?: HumeClient.RequestOptions): Promise<Hume.JobRequest> {
+    public async getJobDetails(
+        id: string,
+        requestOptions?: HumeClient.RequestOptions
+    ): Promise<Hume.JobRequest> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Default,
                 `v0/batch/jobs/${id}`
             ),
             method: "GET",
@@ -284,7 +315,10 @@ export class HumeClient {
                 "X-Fern-SDK-Version": "0.1.5",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs:
+                requestOptions?.timeoutInSeconds != null
+                    ? requestOptions.timeoutInSeconds * 1000
+                    : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {

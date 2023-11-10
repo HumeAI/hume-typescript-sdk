@@ -6,8 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const StateQueued: core.serialization.ObjectSchema<serializers.StateQueued.Raw, Hume.StateQueued> =
-    core.serialization.lazyObject(async () => (await import("..")).Queued);
+export const StateQueued: core.serialization.ObjectSchema<
+    serializers.StateQueued.Raw,
+    Hume.StateQueued
+> = core.serialization.lazyObject(async () => (await import("..")).Queued);
 
 export declare namespace StateQueued {
     type Raw = serializers.Queued.Raw;

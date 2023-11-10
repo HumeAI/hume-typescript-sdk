@@ -6,8 +6,13 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Sentiment: core.serialization.Schema<serializers.Sentiment.Raw, Hume.Sentiment> = core.serialization.list(
-    core.serialization.lazyObject(async () => (await import("..")).SentimentItem)
+export const Sentiment: core.serialization.Schema<
+    serializers.Sentiment.Raw,
+    Hume.Sentiment
+> = core.serialization.list(
+    core.serialization.lazyObject(
+        async () => (await import("..")).SentimentItem
+    )
 );
 
 export declare namespace Sentiment {

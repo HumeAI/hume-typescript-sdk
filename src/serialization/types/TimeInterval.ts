@@ -6,11 +6,13 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const TimeInterval: core.serialization.ObjectSchema<serializers.TimeInterval.Raw, Hume.TimeInterval> =
-    core.serialization.object({
-        begin: core.serialization.number(),
-        end: core.serialization.number(),
-    });
+export const TimeInterval: core.serialization.ObjectSchema<
+    serializers.TimeInterval.Raw,
+    Hume.TimeInterval
+> = core.serialization.object({
+    begin: core.serialization.number(),
+    end: core.serialization.number(),
+});
 
 export declare namespace TimeInterval {
     interface Raw {

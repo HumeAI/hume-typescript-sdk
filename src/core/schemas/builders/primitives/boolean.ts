@@ -16,7 +16,10 @@ export const boolean = createIdentitySchemaCreator<boolean>(
                 errors: [
                     {
                         path: breadcrumbsPrefix,
-                        message: getErrorMessageForIncorrectType(value, "boolean"),
+                        message: getErrorMessageForIncorrectType(
+                            value,
+                            "boolean"
+                        ),
                     },
                 ],
             };

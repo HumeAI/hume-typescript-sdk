@@ -6,14 +6,26 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const ModelConfig: core.serialization.ObjectSchema<serializers.ModelConfig.Raw, Hume.ModelConfig> =
-    core.serialization.object({
-        burst: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        face: core.serialization.lazyObject(async () => (await import("..")).FaceModelConfig).optional(),
-        facemesh: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        language: core.serialization.lazyObject(async () => (await import("..")).LanguageConfig).optional(),
-        prosody: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    });
+export const ModelConfig: core.serialization.ObjectSchema<
+    serializers.ModelConfig.Raw,
+    Hume.ModelConfig
+> = core.serialization.object({
+    burst: core.serialization
+        .record(core.serialization.string(), core.serialization.unknown())
+        .optional(),
+    face: core.serialization
+        .lazyObject(async () => (await import("..")).FaceModelConfig)
+        .optional(),
+    facemesh: core.serialization
+        .record(core.serialization.string(), core.serialization.unknown())
+        .optional(),
+    language: core.serialization
+        .lazyObject(async () => (await import("..")).LanguageConfig)
+        .optional(),
+    prosody: core.serialization
+        .record(core.serialization.string(), core.serialization.unknown())
+        .optional(),
+});
 
 export declare namespace ModelConfig {
     interface Raw {

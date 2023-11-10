@@ -6,12 +6,19 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const FaceResponse: core.serialization.ObjectSchema<serializers.FaceResponse.Raw, Hume.FaceResponse> =
-    core.serialization.object({
-        predictions: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).ModelsSuccessFacePredictionsItem))
-            .optional(),
-    });
+export const FaceResponse: core.serialization.ObjectSchema<
+    serializers.FaceResponse.Raw,
+    Hume.FaceResponse
+> = core.serialization.object({
+    predictions: core.serialization
+        .list(
+            core.serialization.lazyObject(
+                async () =>
+                    (await import("..")).ModelsSuccessFacePredictionsItem
+            )
+        )
+        .optional(),
+});
 
 export declare namespace FaceResponse {
     interface Raw {

@@ -12,7 +12,9 @@ export const GroupedPredictionsFacemeshPrediction: core.serialization.ObjectSche
 > = core.serialization.object({
     id: core.serialization.string(),
     predictions: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("..")).FacemeshPrediction)
+        core.serialization.lazyObject(
+            async () => (await import("..")).FacemeshPrediction
+        )
     ),
 });
 

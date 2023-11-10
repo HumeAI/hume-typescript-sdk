@@ -6,8 +6,12 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Response: core.serialization.Schema<serializers.listJobs.Response.Raw, Hume.JobRequest[]> =
-    core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).JobRequest));
+export const Response: core.serialization.Schema<
+    serializers.listJobs.Response.Raw,
+    Hume.JobRequest[]
+> = core.serialization.list(
+    core.serialization.lazyObject(async () => (await import("..")).JobRequest)
+);
 
 export declare namespace Response {
     type Raw = serializers.JobRequest.Raw[];

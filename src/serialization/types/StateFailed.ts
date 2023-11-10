@@ -6,8 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const StateFailed: core.serialization.ObjectSchema<serializers.StateFailed.Raw, Hume.StateFailed> =
-    core.serialization.lazyObject(async () => (await import("..")).Failed);
+export const StateFailed: core.serialization.ObjectSchema<
+    serializers.StateFailed.Raw,
+    Hume.StateFailed
+> = core.serialization.lazyObject(async () => (await import("..")).Failed);
 
 export declare namespace StateFailed {
     type Raw = serializers.Failed.Raw;

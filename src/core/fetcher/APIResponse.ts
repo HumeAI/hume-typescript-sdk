@@ -1,4 +1,6 @@
-export type APIResponse<Success, Failure> = SuccessfulResponse<Success> | FailedResponse<Failure>;
+export type APIResponse<Success, Failure> =
+    | SuccessfulResponse<Success>
+    | FailedResponse<Failure>;
 
 export interface SuccessfulResponse<T> {
     ok: true;

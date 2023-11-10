@@ -6,15 +6,26 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Request: core.serialization.ObjectSchema<serializers.Request.Raw, Hume.Request> =
-    core.serialization.object({
-        models: core.serialization.lazyObject(async () => (await import("..")).Models).optional(),
-        transcription: core.serialization.lazyObject(async () => (await import("..")).Transcription).optional(),
-        urls: core.serialization.list(core.serialization.string()).optional(),
-        callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
-        notify: core.serialization.boolean().optional(),
-        files: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).File_)),
-    });
+export const Request: core.serialization.ObjectSchema<
+    serializers.Request.Raw,
+    Hume.Request
+> = core.serialization.object({
+    models: core.serialization
+        .lazyObject(async () => (await import("..")).Models)
+        .optional(),
+    transcription: core.serialization
+        .lazyObject(async () => (await import("..")).Transcription)
+        .optional(),
+    urls: core.serialization.list(core.serialization.string()).optional(),
+    callbackUrl: core.serialization.property(
+        "callback_url",
+        core.serialization.string().optional()
+    ),
+    notify: core.serialization.boolean().optional(),
+    files: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("..")).File_)
+    ),
+});
 
 export declare namespace Request {
     interface Raw {

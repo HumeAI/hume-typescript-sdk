@@ -6,15 +6,33 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const FaceModelConfig: core.serialization.ObjectSchema<serializers.FaceModelConfig.Raw, Hume.FaceModelConfig> =
-    core.serialization.object({
-        facs: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        descriptions: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        identifyFaces: core.serialization.property("identify_faces", core.serialization.boolean().optional()),
-        fpsPred: core.serialization.property("fps_pred", core.serialization.number().optional()),
-        probThreshold: core.serialization.property("prob_threshold", core.serialization.number().optional()),
-        minFaceSize: core.serialization.property("min_face_size", core.serialization.number().optional()),
-    });
+export const FaceModelConfig: core.serialization.ObjectSchema<
+    serializers.FaceModelConfig.Raw,
+    Hume.FaceModelConfig
+> = core.serialization.object({
+    facs: core.serialization
+        .record(core.serialization.string(), core.serialization.unknown())
+        .optional(),
+    descriptions: core.serialization
+        .record(core.serialization.string(), core.serialization.unknown())
+        .optional(),
+    identifyFaces: core.serialization.property(
+        "identify_faces",
+        core.serialization.boolean().optional()
+    ),
+    fpsPred: core.serialization.property(
+        "fps_pred",
+        core.serialization.number().optional()
+    ),
+    probThreshold: core.serialization.property(
+        "prob_threshold",
+        core.serialization.number().optional()
+    ),
+    minFaceSize: core.serialization.property(
+        "min_face_size",
+        core.serialization.number().optional()
+    ),
+});
 
 export declare namespace FaceModelConfig {
     interface Raw {

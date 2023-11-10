@@ -4,7 +4,9 @@ import { ParseError } from "./ParseError";
 
 export interface SchemaUtils<Raw, Parsed> {
     optional: () => Schema<Raw | null | undefined, Parsed | undefined>;
-    transform: <Transformed>(transformer: SchemaTransformer<Parsed, Transformed>) => Schema<Raw, Transformed>;
+    transform: <Transformed>(
+        transformer: SchemaTransformer<Parsed, Transformed>
+    ) => Schema<Raw, Transformed>;
     parseOrThrow: (raw: unknown, opts?: SchemaOptions) => Promise<Parsed>;
     jsonOrThrow: (raw: unknown, opts?: SchemaOptions) => Promise<Raw>;
 }
@@ -14,7 +16,9 @@ export interface SchemaTransformer<Parsed, Transformed> {
     untransform: (transformed: any) => Parsed;
 }
 
-export function getSchemaUtils<Raw, Parsed>(schema: BaseSchema<Raw, Parsed>): SchemaUtils<Raw, Parsed> {
+export function getSchemaUtils<Raw, Parsed>(
+    schema: BaseSchema<Raw, Parsed>
+): SchemaUtils<Raw, Parsed> {
     return {
         optional: () => optional(schema),
         transform: (transformer) => transform(schema, transformer),

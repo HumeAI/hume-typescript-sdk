@@ -6,13 +6,19 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Results: core.serialization.ObjectSchema<serializers.Results.Raw, Hume.Results> =
-    core.serialization.object({
-        predictions: core.serialization.list(
-            core.serialization.lazyObject(async () => (await import("..")).Prediction)
-        ),
-        errors: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).Error_)),
-    });
+export const Results: core.serialization.ObjectSchema<
+    serializers.Results.Raw,
+    Hume.Results
+> = core.serialization.object({
+    predictions: core.serialization.list(
+        core.serialization.lazyObject(
+            async () => (await import("..")).Prediction
+        )
+    ),
+    errors: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("..")).Error_)
+    ),
+});
 
 export declare namespace Results {
     interface Raw {
