@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/hume",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "private": false,
     "repository": "https://github.com/fern-hume/hume-typescript-sdk",
     "main": "./index.js",
@@ -15,7 +15,9 @@
         "@types/url-join": "4.0.1",
         "axios": "0.27.2",
         "qs": "6.11.2",
-        "@types/qs": "6.9.8"
+        "@types/qs": "6.9.8",
+        "ws": "^8.14.2",
+        "@types/ws": "^8.5.9"
     },
     "devDependencies": {
         "@types/node": "17.0.33",
