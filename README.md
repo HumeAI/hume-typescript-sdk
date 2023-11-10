@@ -70,6 +70,9 @@ const stream = await client.connect({
             console.log(response.language.predictions);
         }
     },
+    onError: (err) => {
+      console.log(err);
+    }
 });
 
 stream.sendText({
