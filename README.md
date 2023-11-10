@@ -8,7 +8,7 @@
 
   <br>
   <div>
-    <a href="https://www.npmjs.com/package/@fern-api/hume"><img src="https://img.shields.io/npm/v/@fern-api/hume">
+    <a href="https://www.npmjs.com/package/hume"><img src="https://img.shields.io/npm/v/hume">
     <a href="https://buildwithfern.com/"><img src="https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen">     
   </div>
   <br>
@@ -21,9 +21,7 @@ API reference documentation is available [here](https://docs.hume.ai/doc/batch-a
 ## Installation
 
 ```
-npm install --save @fern-api/hume
-# or
-yarn add @fern-api/hume
+npm i hume
 ```
 
 ## Batch Client
@@ -33,7 +31,7 @@ The SDK exports a batch client which you can use to hit our REST APIs.
 <a href="https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-jlhehr?file=app.ts&view=editor"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg">
 
 ```typescript
-import { HumeBatchClient } from "@fern-api/hume";
+import { HumeBatchClient } from "hume";
 
 const client = new HumeBatchClient({
     apiKey: "YOUR_API_KEY",
@@ -55,7 +53,7 @@ await job.awaitCompletion();
 The SDK exports a streaming client which you can use to hit our WebSocket APIs.
 
 ```typescript
-import { HumeStreamingClient } from "@fern-api/hume";
+import { HumeStreamingClient } from "hume";
 
 const client = new HumeStreamingClient({
     apiKey: "YOUR_API_KEY",
@@ -86,7 +84,7 @@ When the API returns a non-success status code (4xx or 5xx response),
 a subclass of [HumeError](./src/errors/HumeError.ts) will be thrown:
 
 ```typescript
-import { HumeError, HumeTimeoutError } from "@fern-api/hume";
+import { HumeError, HumeTimeoutError } from "hume";
 
 try {
     await hume.submitJob(/* ... */);
