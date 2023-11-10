@@ -14,6 +14,9 @@
   <br>
 </div>
 
+> **Note**
+> This TypeScript SDK is under heavy development. It is NOT recommended that anyone uses this SDK in their production workloads. We will continue to publish updates to this SDK and hope to ensure a more stable and reliable release in the future. We encourage you to keep up with our [API changelog](https://dev.hume.ai/changelog) and mailing list to stay up to date with the latest changes.
+
 ## Documentation
 
 API reference documentation is available [here](https://docs.hume.ai/doc/batch-api).
@@ -121,13 +124,3 @@ await hume.submitJob(..., {
     timeoutInSeconds: 10, // timeout after 10 seconds
 });
 ```
-
-## Beta status
-
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your package.json file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
-
-## Contributing
-
-While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest opening an issue first to discuss with us!
-
-On the other hand, contributions to the README are always very welcome!
