@@ -10,16 +10,11 @@ export const PredictionsOptionalTranscriptionMetadataProsodyPrediction: core.ser
     serializers.PredictionsOptionalTranscriptionMetadataProsodyPrediction.Raw,
     Hume.PredictionsOptionalTranscriptionMetadataProsodyPrediction
 > = core.serialization.object({
-    metadata: core.serialization
-        .lazyObject(async () => (await import("..")).TranscriptionMetadata)
-        .optional(),
+    metadata: core.serialization.lazyObject(async () => (await import("..")).TranscriptionMetadata).optional(),
     groupedPredictions: core.serialization.property(
         "grouped_predictions",
         core.serialization.list(
-            core.serialization.lazyObject(
-                async () =>
-                    (await import("..")).GroupedPredictionsProsodyPrediction
-            )
+            core.serialization.lazyObject(async () => (await import("..")).GroupedPredictionsProsodyPrediction)
         )
     ),
 });

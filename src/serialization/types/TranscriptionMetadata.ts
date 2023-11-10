@@ -13,9 +13,7 @@ export const TranscriptionMetadata: core.serialization.ObjectSchema<
     confidence: core.serialization.number(),
     detectedLanguage: core.serialization.property(
         "detected_language",
-        core.serialization
-            .lazy(async () => (await import("..")).Bcp47Tag)
-            .optional()
+        core.serialization.lazy(async () => (await import("..")).Bcp47Tag).optional()
     ),
 });
 

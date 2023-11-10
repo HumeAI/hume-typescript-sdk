@@ -6,10 +6,8 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const SourceFile: core.serialization.ObjectSchema<
-    serializers.SourceFile.Raw,
-    Hume.SourceFile
-> = core.serialization.lazyObject(async () => (await import("..")).File_);
+export const SourceFile: core.serialization.ObjectSchema<serializers.SourceFile.Raw, Hume.SourceFile> =
+    core.serialization.lazyObject(async () => (await import("..")).File_);
 
 export declare namespace SourceFile {
     type Raw = serializers.File_.Raw;

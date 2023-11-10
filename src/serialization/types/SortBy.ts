@@ -6,10 +6,11 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const SortBy: core.serialization.Schema<
-    serializers.SortBy.Raw,
-    Hume.SortBy
-> = core.serialization.enum_(["created", "started", "ended"]);
+export const SortBy: core.serialization.Schema<serializers.SortBy.Raw, Hume.SortBy> = core.serialization.enum_([
+    "created",
+    "started",
+    "ended",
+]);
 
 export declare namespace SortBy {
     type Raw = "created" | "started" | "ended";

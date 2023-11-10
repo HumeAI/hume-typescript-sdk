@@ -6,14 +6,8 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Ner: core.serialization.ObjectSchema<
-    serializers.Ner.Raw,
-    Hume.Ner
-> = core.serialization.object({
-    identifySpeakers: core.serialization.property(
-        "identify_speakers",
-        core.serialization.boolean().optional()
-    ),
+export const Ner: core.serialization.ObjectSchema<serializers.Ner.Raw, Hume.Ner> = core.serialization.object({
+    identifySpeakers: core.serialization.property("identify_speakers", core.serialization.boolean().optional()),
 });
 
 export declare namespace Ner {

@@ -10,12 +10,8 @@ export const ModelsSuccessProsodyPredictionsItem: core.serialization.ObjectSchem
     serializers.ModelsSuccessProsodyPredictionsItem.Raw,
     Hume.ModelsSuccessProsodyPredictionsItem
 > = core.serialization.object({
-    time: core.serialization
-        .lazyObject(async () => (await import("..")).TimeRange)
-        .optional(),
-    emotions: core.serialization
-        .lazy(async () => (await import("..")).EmotionEmbedding)
-        .optional(),
+    time: core.serialization.lazyObject(async () => (await import("..")).TimeRange).optional(),
+    emotions: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
 });
 
 export declare namespace ModelsSuccessProsodyPredictionsItem {

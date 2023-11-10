@@ -6,10 +6,7 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Window: core.serialization.ObjectSchema<
-    serializers.Window.Raw,
-    Hume.Window
-> = core.serialization.object({
+export const Window: core.serialization.ObjectSchema<serializers.Window.Raw, Hume.Window> = core.serialization.object({
     length: core.serialization.number().optional(),
     step: core.serialization.number().optional(),
 });

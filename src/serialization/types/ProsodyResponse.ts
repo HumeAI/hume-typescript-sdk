@@ -6,24 +6,15 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const ProsodyResponse: core.serialization.ObjectSchema<
-    serializers.ProsodyResponse.Raw,
-    Hume.ProsodyResponse
-> = core.serialization.object({
-    predictions: core.serialization
-        .list(
-            core.serialization.lazyObject(
-                async () =>
-                    (await import("..")).ModelsSuccessProsodyPredictionsItem
-            )
-        )
-        .optional(),
-});
+export const ProsodyResponse: core.serialization.ObjectSchema<serializers.ProsodyResponse.Raw, Hume.ProsodyResponse> =
+    core.serialization.object({
+        predictions: core.serialization
+            .list(core.serialization.lazyObject(async () => (await import("..")).ModelsSuccessProsodyPredictionsItem))
+            .optional(),
+    });
 
 export declare namespace ProsodyResponse {
     interface Raw {
-        predictions?:
-            | serializers.ModelsSuccessProsodyPredictionsItem.Raw[]
-            | null;
+        predictions?: serializers.ModelsSuccessProsodyPredictionsItem.Raw[] | null;
     }
 }

@@ -10,12 +10,8 @@ export const ModelsSuccessBurstPredictionsItem: core.serialization.ObjectSchema<
     serializers.ModelsSuccessBurstPredictionsItem.Raw,
     Hume.ModelsSuccessBurstPredictionsItem
 > = core.serialization.object({
-    time: core.serialization
-        .lazyObject(async () => (await import("..")).TimeRange)
-        .optional(),
-    emotions: core.serialization
-        .lazy(async () => (await import("..")).EmotionEmbedding)
-        .optional(),
+    time: core.serialization.lazyObject(async () => (await import("..")).TimeRange).optional(),
+    emotions: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
 });
 
 export declare namespace ModelsSuccessBurstPredictionsItem {

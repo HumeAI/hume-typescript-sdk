@@ -6,10 +6,7 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const JobId: core.serialization.ObjectSchema<
-    serializers.JobId.Raw,
-    Hume.JobId
-> = core.serialization.object({
+export const JobId: core.serialization.ObjectSchema<serializers.JobId.Raw, Hume.JobId> = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string()),
 });
 

@@ -6,24 +6,13 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Language: core.serialization.ObjectSchema<
-    serializers.Language.Raw,
-    Hume.Language
-> = core.serialization.object({
-    granularity: core.serialization
-        .lazy(async () => (await import("..")).Granularity)
-        .optional(),
-    identifySpeakers: core.serialization.property(
-        "identify_speakers",
-        core.serialization.boolean().optional()
-    ),
-    sentiment: core.serialization
-        .lazy(async () => (await import("..")).Empty)
-        .optional(),
-    toxicity: core.serialization
-        .lazy(async () => (await import("..")).Empty)
-        .optional(),
-});
+export const Language: core.serialization.ObjectSchema<serializers.Language.Raw, Hume.Language> =
+    core.serialization.object({
+        granularity: core.serialization.lazy(async () => (await import("..")).Granularity).optional(),
+        identifySpeakers: core.serialization.property("identify_speakers", core.serialization.boolean().optional()),
+        sentiment: core.serialization.lazy(async () => (await import("..")).Empty).optional(),
+        toxicity: core.serialization.lazy(async () => (await import("..")).Empty).optional(),
+    });
 
 export declare namespace Language {
     interface Raw {

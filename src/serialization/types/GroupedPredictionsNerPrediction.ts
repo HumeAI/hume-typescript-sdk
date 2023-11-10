@@ -11,11 +11,7 @@ export const GroupedPredictionsNerPrediction: core.serialization.ObjectSchema<
     Hume.GroupedPredictionsNerPrediction
 > = core.serialization.object({
     id: core.serialization.string(),
-    predictions: core.serialization.list(
-        core.serialization.lazyObject(
-            async () => (await import("..")).NerPrediction
-        )
-    ),
+    predictions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).NerPrediction)),
 });
 
 export declare namespace GroupedPredictionsNerPrediction {

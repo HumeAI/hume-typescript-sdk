@@ -6,36 +6,14 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Face: core.serialization.ObjectSchema<
-    serializers.Face.Raw,
-    Hume.Face
-> = core.serialization.object({
-    fpsPred: core.serialization.property(
-        "fps_pred",
-        core.serialization.number().optional()
-    ),
-    probThreshold: core.serialization.property(
-        "prob_threshold",
-        core.serialization.number().optional()
-    ),
-    identifyFaces: core.serialization.property(
-        "identify_faces",
-        core.serialization.boolean().optional()
-    ),
-    minFaceSize: core.serialization.property(
-        "min_face_size",
-        core.serialization.number().optional()
-    ),
-    facs: core.serialization
-        .lazy(async () => (await import("..")).Empty)
-        .optional(),
-    descriptions: core.serialization
-        .lazy(async () => (await import("..")).Empty)
-        .optional(),
-    saveFaces: core.serialization.property(
-        "save_faces",
-        core.serialization.boolean().optional()
-    ),
+export const Face: core.serialization.ObjectSchema<serializers.Face.Raw, Hume.Face> = core.serialization.object({
+    fpsPred: core.serialization.property("fps_pred", core.serialization.number().optional()),
+    probThreshold: core.serialization.property("prob_threshold", core.serialization.number().optional()),
+    identifyFaces: core.serialization.property("identify_faces", core.serialization.boolean().optional()),
+    minFaceSize: core.serialization.property("min_face_size", core.serialization.number().optional()),
+    facs: core.serialization.lazy(async () => (await import("..")).Empty).optional(),
+    descriptions: core.serialization.lazy(async () => (await import("..")).Empty).optional(),
+    saveFaces: core.serialization.property("save_faces", core.serialization.boolean().optional()),
 });
 
 export declare namespace Face {

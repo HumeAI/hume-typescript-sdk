@@ -6,24 +6,14 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const BurstPrediction: core.serialization.ObjectSchema<
-    serializers.BurstPrediction.Raw,
-    Hume.BurstPrediction
-> = core.serialization.object({
-    time: core.serialization.lazyObject(
-        async () => (await import("..")).TimeInterval
-    ),
-    emotions: core.serialization.list(
-        core.serialization.lazyObject(
-            async () => (await import("..")).EmotionScore
-        )
-    ),
-    descriptions: core.serialization.list(
-        core.serialization.lazyObject(
-            async () => (await import("..")).DescriptionsScore
-        )
-    ),
-});
+export const BurstPrediction: core.serialization.ObjectSchema<serializers.BurstPrediction.Raw, Hume.BurstPrediction> =
+    core.serialization.object({
+        time: core.serialization.lazyObject(async () => (await import("..")).TimeInterval),
+        emotions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionScore)),
+        descriptions: core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("..")).DescriptionsScore)
+        ),
+    });
 
 export declare namespace BurstPrediction {
     interface Raw {

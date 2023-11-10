@@ -6,16 +6,12 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const SourceResult: core.serialization.ObjectSchema<
-    serializers.SourceResult.Raw,
-    Hume.SourceResult
-> = core.serialization.object({
-    source: core.serialization.lazy(async () => (await import("..")).Source),
-    results: core.serialization
-        .lazyObject(async () => (await import("..")).Results)
-        .optional(),
-    error: core.serialization.string().optional(),
-});
+export const SourceResult: core.serialization.ObjectSchema<serializers.SourceResult.Raw, Hume.SourceResult> =
+    core.serialization.object({
+        source: core.serialization.lazy(async () => (await import("..")).Source),
+        results: core.serialization.lazyObject(async () => (await import("..")).Results).optional(),
+        error: core.serialization.string().optional(),
+    });
 
 export declare namespace SourceResult {
     interface Raw {

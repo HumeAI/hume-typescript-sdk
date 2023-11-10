@@ -6,35 +6,16 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const ModelsInput: core.serialization.ObjectSchema<
-    serializers.ModelsInput.Raw,
-    Hume.ModelsInput
-> = core.serialization.object({
-    data: core.serialization.string().optional(),
-    models: core.serialization
-        .lazyObject(async () => (await import("..")).ModelConfig)
-        .optional(),
-    streamWindowMs: core.serialization.property(
-        "stream_window_ms",
-        core.serialization.number().optional()
-    ),
-    resetStream: core.serialization.property(
-        "reset_stream",
-        core.serialization.boolean().optional()
-    ),
-    rawText: core.serialization.property(
-        "raw_text",
-        core.serialization.boolean().optional()
-    ),
-    jobDetails: core.serialization.property(
-        "job_details",
-        core.serialization.boolean().optional()
-    ),
-    payloadId: core.serialization.property(
-        "payload_id",
-        core.serialization.string().optional()
-    ),
-});
+export const ModelsInput: core.serialization.ObjectSchema<serializers.ModelsInput.Raw, Hume.ModelsInput> =
+    core.serialization.object({
+        data: core.serialization.string().optional(),
+        models: core.serialization.lazyObject(async () => (await import("..")).ModelConfig).optional(),
+        streamWindowMs: core.serialization.property("stream_window_ms", core.serialization.number().optional()),
+        resetStream: core.serialization.property("reset_stream", core.serialization.boolean().optional()),
+        rawText: core.serialization.property("raw_text", core.serialization.boolean().optional()),
+        jobDetails: core.serialization.property("job_details", core.serialization.boolean().optional()),
+        payloadId: core.serialization.property("payload_id", core.serialization.string().optional()),
+    });
 
 export declare namespace ModelsInput {
     interface Raw {

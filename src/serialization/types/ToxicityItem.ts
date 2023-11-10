@@ -6,13 +6,11 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const ToxicityItem: core.serialization.ObjectSchema<
-    serializers.ToxicityItem.Raw,
-    Hume.ToxicityItem
-> = core.serialization.object({
-    name: core.serialization.string().optional(),
-    score: core.serialization.number().optional(),
-});
+export const ToxicityItem: core.serialization.ObjectSchema<serializers.ToxicityItem.Raw, Hume.ToxicityItem> =
+    core.serialization.object({
+        name: core.serialization.string().optional(),
+        score: core.serialization.number().optional(),
+    });
 
 export declare namespace ToxicityItem {
     interface Raw {

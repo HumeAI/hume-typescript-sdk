@@ -6,18 +6,12 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const LanguageConfig: core.serialization.ObjectSchema<
-    serializers.LanguageConfig.Raw,
-    Hume.LanguageConfig
-> = core.serialization.object({
-    sentiment: core.serialization
-        .record(core.serialization.string(), core.serialization.unknown())
-        .optional(),
-    toxicity: core.serialization
-        .record(core.serialization.string(), core.serialization.unknown())
-        .optional(),
-    granularity: core.serialization.string().optional(),
-});
+export const LanguageConfig: core.serialization.ObjectSchema<serializers.LanguageConfig.Raw, Hume.LanguageConfig> =
+    core.serialization.object({
+        sentiment: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        toxicity: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        granularity: core.serialization.string().optional(),
+    });
 
 export declare namespace LanguageConfig {
     interface Raw {

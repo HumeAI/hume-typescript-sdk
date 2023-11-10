@@ -6,17 +6,13 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const JobRequest: core.serialization.ObjectSchema<
-    serializers.JobRequest.Raw,
-    Hume.JobRequest
-> = core.serialization.object({
-    userId: core.serialization.property("user_id", core.serialization.string()),
-    jobId: core.serialization.property("job_id", core.serialization.string()),
-    request: core.serialization.lazyObject(
-        async () => (await import("..")).Request
-    ),
-    state: core.serialization.lazy(async () => (await import("..")).State),
-});
+export const JobRequest: core.serialization.ObjectSchema<serializers.JobRequest.Raw, Hume.JobRequest> =
+    core.serialization.object({
+        userId: core.serialization.property("user_id", core.serialization.string()),
+        jobId: core.serialization.property("job_id", core.serialization.string()),
+        request: core.serialization.lazyObject(async () => (await import("..")).Request),
+        state: core.serialization.lazy(async () => (await import("..")).State),
+    });
 
 export declare namespace JobRequest {
     interface Raw {

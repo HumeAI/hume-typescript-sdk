@@ -6,14 +6,8 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const EmotionEmbedding: core.serialization.Schema<
-    serializers.EmotionEmbedding.Raw,
-    Hume.EmotionEmbedding
-> = core.serialization.list(
-    core.serialization.lazyObject(
-        async () => (await import("..")).EmotionEmbeddingItem
-    )
-);
+export const EmotionEmbedding: core.serialization.Schema<serializers.EmotionEmbedding.Raw, Hume.EmotionEmbedding> =
+    core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionEmbeddingItem));
 
 export declare namespace EmotionEmbedding {
     type Raw = serializers.EmotionEmbeddingItem.Raw[];

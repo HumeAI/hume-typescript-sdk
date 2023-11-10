@@ -6,36 +6,20 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const FacePrediction: core.serialization.ObjectSchema<
-    serializers.FacePrediction.Raw,
-    Hume.FacePrediction
-> = core.serialization.object({
-    frame: core.serialization.number(),
-    time: core.serialization.number(),
-    prob: core.serialization.number(),
-    box: core.serialization.lazyObject(
-        async () => (await import("..")).BoundingBox
-    ),
-    emotions: core.serialization.list(
-        core.serialization.lazyObject(
-            async () => (await import("..")).EmotionScore
-        )
-    ),
-    facs: core.serialization
-        .list(
-            core.serialization.lazyObject(
-                async () => (await import("..")).FacsScore
-            )
-        )
-        .optional(),
-    descriptions: core.serialization
-        .list(
-            core.serialization.lazyObject(
-                async () => (await import("..")).DescriptionsScore
-            )
-        )
-        .optional(),
-});
+export const FacePrediction: core.serialization.ObjectSchema<serializers.FacePrediction.Raw, Hume.FacePrediction> =
+    core.serialization.object({
+        frame: core.serialization.number(),
+        time: core.serialization.number(),
+        prob: core.serialization.number(),
+        box: core.serialization.lazyObject(async () => (await import("..")).BoundingBox),
+        emotions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionScore)),
+        facs: core.serialization
+            .list(core.serialization.lazyObject(async () => (await import("..")).FacsScore))
+            .optional(),
+        descriptions: core.serialization
+            .list(core.serialization.lazyObject(async () => (await import("..")).DescriptionsScore))
+            .optional(),
+    });
 
 export declare namespace FacePrediction {
     interface Raw {

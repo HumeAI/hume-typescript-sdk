@@ -6,13 +6,11 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const TextPosition: core.serialization.ObjectSchema<
-    serializers.TextPosition.Raw,
-    Hume.TextPosition
-> = core.serialization.object({
-    begin: core.serialization.number().optional(),
-    end: core.serialization.number().optional(),
-});
+export const TextPosition: core.serialization.ObjectSchema<serializers.TextPosition.Raw, Hume.TextPosition> =
+    core.serialization.object({
+        begin: core.serialization.number().optional(),
+        end: core.serialization.number().optional(),
+    });
 
 export declare namespace TextPosition {
     interface Raw {

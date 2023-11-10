@@ -6,13 +6,11 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const FacsScore: core.serialization.ObjectSchema<
-    serializers.FacsScore.Raw,
-    Hume.FacsScore
-> = core.serialization.object({
-    name: core.serialization.string(),
-    score: core.serialization.string(),
-});
+export const FacsScore: core.serialization.ObjectSchema<serializers.FacsScore.Raw, Hume.FacsScore> =
+    core.serialization.object({
+        name: core.serialization.string(),
+        score: core.serialization.string(),
+    });
 
 export declare namespace FacsScore {
     interface Raw {

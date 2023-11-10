@@ -11,18 +11,10 @@ export const ModelsSuccessLanguagePredictionsItem: core.serialization.ObjectSche
     Hume.ModelsSuccessLanguagePredictionsItem
 > = core.serialization.object({
     text: core.serialization.string().optional(),
-    position: core.serialization
-        .lazyObject(async () => (await import("..")).TextPosition)
-        .optional(),
-    emotions: core.serialization
-        .lazy(async () => (await import("..")).EmotionEmbedding)
-        .optional(),
-    sentiment: core.serialization
-        .lazy(async () => (await import("..")).Sentiment)
-        .optional(),
-    toxicity: core.serialization
-        .lazy(async () => (await import("..")).Toxicity)
-        .optional(),
+    position: core.serialization.lazyObject(async () => (await import("..")).TextPosition).optional(),
+    emotions: core.serialization.lazy(async () => (await import("..")).EmotionEmbedding).optional(),
+    sentiment: core.serialization.lazy(async () => (await import("..")).Sentiment).optional(),
+    toxicity: core.serialization.lazy(async () => (await import("..")).Toxicity).optional(),
 });
 
 export declare namespace ModelsSuccessLanguagePredictionsItem {

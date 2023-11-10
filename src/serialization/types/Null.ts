@@ -6,11 +6,10 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Null: core.serialization.Schema<serializers.Null.Raw, Hume.Null> =
-    core.serialization.record(
-        core.serialization.string(),
-        core.serialization.unknown()
-    );
+export const Null: core.serialization.Schema<serializers.Null.Raw, Hume.Null> = core.serialization.record(
+    core.serialization.string(),
+    core.serialization.unknown()
+);
 
 export declare namespace Null {
     type Raw = Record<string, unknown>;

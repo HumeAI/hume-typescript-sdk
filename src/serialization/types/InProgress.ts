@@ -6,19 +6,11 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const InProgress: core.serialization.ObjectSchema<
-    serializers.InProgress.Raw,
-    Hume.InProgress
-> = core.serialization.object({
-    createdTimestampMs: core.serialization.property(
-        "created_timestamp_ms",
-        core.serialization.number()
-    ),
-    startedTimestampMs: core.serialization.property(
-        "started_timestamp_ms",
-        core.serialization.number()
-    ),
-});
+export const InProgress: core.serialization.ObjectSchema<serializers.InProgress.Raw, Hume.InProgress> =
+    core.serialization.object({
+        createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
+        startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),
+    });
 
 export declare namespace InProgress {
     interface Raw {

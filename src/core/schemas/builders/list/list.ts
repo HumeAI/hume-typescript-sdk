@@ -1,37 +1,23 @@
-import {
-    BaseSchema,
-    MaybeValid,
-    Schema,
-    SchemaType,
-    ValidationError,
-} from "../../Schema";
+import { BaseSchema, MaybeValid, Schema, SchemaType, ValidationError } from "../../Schema";
 import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
 import { MaybePromise } from "../../utils/MaybePromise";
 import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
 import { getSchemaUtils } from "../schema-utils";
 
-export function list<Raw, Parsed>(
-    schema: Schema<Raw, Parsed>
-): Schema<Raw[], Parsed[]> {
+export function list<Raw, Parsed>(schema: Schema<Raw, Parsed>): Schema<Raw[], Parsed[]> {
     const baseSchema: BaseSchema<Raw[], Parsed[]> = {
         parse: async (raw, opts) =>
             validateAndTransformArray(raw, (item, index) =>
                 schema.parse(item, {
                     ...opts,
-                    breadcrumbsPrefix: [
-                        ...(opts?.breadcrumbsPrefix ?? []),
-                        `[${index}]`,
-                    ],
+                    breadcrumbsPrefix: [...(opts?.breadcrumbsPrefix ?? []), `[${index}]`],
                 })
             ),
         json: (parsed, opts) =>
             validateAndTransformArray(parsed, (item, index) =>
                 schema.json(item, {
                     ...opts,
-                    breadcrumbsPrefix: [
-                        ...(opts?.breadcrumbsPrefix ?? []),
-                        `[${index}]`,
-                    ],
+                    breadcrumbsPrefix: [...(opts?.breadcrumbsPrefix ?? []), `[${index}]`],
                 })
             ),
         getType: () => SchemaType.LIST,
@@ -45,10 +31,7 @@ export function list<Raw, Parsed>(
 
 async function validateAndTransformArray<Raw, Parsed>(
     value: unknown,
-    transformItem: (
-        item: Raw,
-        index: number
-    ) => MaybePromise<MaybeValid<Parsed>>
+    transformItem: (item: Raw, index: number) => MaybePromise<MaybeValid<Parsed>>
 ): Promise<MaybeValid<Parsed[]>> {
     if (!Array.isArray(value)) {
         return {
@@ -62,9 +45,7 @@ async function validateAndTransformArray<Raw, Parsed>(
         };
     }
 
-    const maybeValidItems = await Promise.all(
-        value.map((item, index) => transformItem(item, index))
-    );
+    const maybeValidItems = await Promise.all(value.map((item, index) => transformItem(item, index)));
 
     return maybeValidItems.reduce<MaybeValid<Parsed[]>>(
         (acc, item) => {

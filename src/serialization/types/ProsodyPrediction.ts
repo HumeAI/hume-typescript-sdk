@@ -11,19 +11,10 @@ export const ProsodyPrediction: core.serialization.ObjectSchema<
     Hume.ProsodyPrediction
 > = core.serialization.object({
     text: core.serialization.string().optional(),
-    time: core.serialization.lazyObject(
-        async () => (await import("..")).TimeInterval
-    ),
+    time: core.serialization.lazyObject(async () => (await import("..")).TimeInterval),
     confidence: core.serialization.number().optional(),
-    speakerConfidence: core.serialization.property(
-        "speaker_confidence",
-        core.serialization.number().optional()
-    ),
-    emotions: core.serialization.list(
-        core.serialization.lazyObject(
-            async () => (await import("..")).EmotionScore
-        )
-    ),
+    speakerConfidence: core.serialization.property("speaker_confidence", core.serialization.number().optional()),
+    emotions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionScore)),
 });
 
 export declare namespace ProsodyPrediction {

@@ -6,10 +6,12 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Status: core.serialization.Schema<
-    serializers.Status.Raw,
-    Hume.Status
-> = core.serialization.enum_(["QUEUED", "IN_PROGRESS", "COMPLETED", "FAILED"]);
+export const Status: core.serialization.Schema<serializers.Status.Raw, Hume.Status> = core.serialization.enum_([
+    "QUEUED",
+    "IN_PROGRESS",
+    "COMPLETED",
+    "FAILED",
+]);
 
 export declare namespace Status {
     type Raw = "QUEUED" | "IN_PROGRESS" | "COMPLETED" | "FAILED";

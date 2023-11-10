@@ -2,9 +2,9 @@ import { Schema, SchemaType } from "../../Schema";
 import { createIdentitySchemaCreator } from "../../utils/createIdentitySchemaCreator";
 import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
 
-export function stringLiteral<V extends string>(literal: V): Schema<V, V> {
+export function booleanLiteral<V extends boolean>(literal: V): Schema<V, V> {
     const schemaCreator = createIdentitySchemaCreator(
-        SchemaType.STRING_LITERAL,
+        SchemaType.BOOLEAN_LITERAL,
         (value, { breadcrumbsPrefix = [] } = {}) => {
             if (value === literal) {
                 return {
@@ -17,7 +17,7 @@ export function stringLiteral<V extends string>(literal: V): Schema<V, V> {
                     errors: [
                         {
                             path: breadcrumbsPrefix,
-                            message: getErrorMessageForIncorrectType(value, `"${literal}"`),
+                            message: getErrorMessageForIncorrectType(value, `${literal.toString()}`),
                         },
                     ],
                 };

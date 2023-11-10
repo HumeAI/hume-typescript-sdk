@@ -4,11 +4,7 @@
 
 import * as Hume from "..";
 
-export type State =
-    | Hume.State.Queued
-    | Hume.State.InProgress
-    | Hume.State.Completed
-    | Hume.State.Failed;
+export type State = Hume.State.Queued | Hume.State.InProgress | Hume.State.Completed | Hume.State.Failed;
 
 export declare namespace State {
     interface Queued extends Hume.Queued {

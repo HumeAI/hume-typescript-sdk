@@ -6,38 +6,19 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const NerPrediction: core.serialization.ObjectSchema<
-    serializers.NerPrediction.Raw,
-    Hume.NerPrediction
-> = core.serialization.object({
-    entity: core.serialization.string(),
-    position: core.serialization.lazyObject(
-        async () => (await import("..")).PositionInterval
-    ),
-    entityConfidence: core.serialization.property(
-        "entity_confidence",
-        core.serialization.number()
-    ),
-    support: core.serialization.number(),
-    uri: core.serialization.string(),
-    linkWord: core.serialization.property(
-        "link_word",
-        core.serialization.string()
-    ),
-    time: core.serialization
-        .lazyObject(async () => (await import("..")).TimeInterval)
-        .optional(),
-    confidence: core.serialization.number().optional(),
-    speakerConfidence: core.serialization.property(
-        "speaker_confidence",
-        core.serialization.number().optional()
-    ),
-    emotions: core.serialization.list(
-        core.serialization.lazyObject(
-            async () => (await import("..")).EmotionScore
-        )
-    ),
-});
+export const NerPrediction: core.serialization.ObjectSchema<serializers.NerPrediction.Raw, Hume.NerPrediction> =
+    core.serialization.object({
+        entity: core.serialization.string(),
+        position: core.serialization.lazyObject(async () => (await import("..")).PositionInterval),
+        entityConfidence: core.serialization.property("entity_confidence", core.serialization.number()),
+        support: core.serialization.number(),
+        uri: core.serialization.string(),
+        linkWord: core.serialization.property("link_word", core.serialization.string()),
+        time: core.serialization.lazyObject(async () => (await import("..")).TimeInterval).optional(),
+        confidence: core.serialization.number().optional(),
+        speakerConfidence: core.serialization.property("speaker_confidence", core.serialization.number().optional()),
+        emotions: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EmotionScore)),
+    });
 
 export declare namespace NerPrediction {
     interface Raw {

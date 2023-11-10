@@ -6,21 +6,12 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Prosody: core.serialization.ObjectSchema<
-    serializers.Prosody.Raw,
-    Hume.Prosody
-> = core.serialization.object({
-    granularity: core.serialization
-        .lazy(async () => (await import("..")).Granularity)
-        .optional(),
-    identifySpeakers: core.serialization.property(
-        "identify_speakers",
-        core.serialization.boolean().optional()
-    ),
-    window: core.serialization
-        .lazyObject(async () => (await import("..")).Window)
-        .optional(),
-});
+export const Prosody: core.serialization.ObjectSchema<serializers.Prosody.Raw, Hume.Prosody> =
+    core.serialization.object({
+        granularity: core.serialization.lazy(async () => (await import("..")).Granularity).optional(),
+        identifySpeakers: core.serialization.property("identify_speakers", core.serialization.boolean().optional()),
+        window: core.serialization.lazyObject(async () => (await import("..")).Window).optional(),
+    });
 
 export declare namespace Prosody {
     interface Raw {

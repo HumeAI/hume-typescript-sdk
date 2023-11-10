@@ -6,31 +6,14 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Completed: core.serialization.ObjectSchema<
-    serializers.Completed.Raw,
-    Hume.Completed
-> = core.serialization.object({
-    createdTimestampMs: core.serialization.property(
-        "created_timestamp_ms",
-        core.serialization.number()
-    ),
-    startedTimestampMs: core.serialization.property(
-        "started_timestamp_ms",
-        core.serialization.number()
-    ),
-    endedTimestampMs: core.serialization.property(
-        "ended_timestamp_ms",
-        core.serialization.number()
-    ),
-    numPredictions: core.serialization.property(
-        "num_predictions",
-        core.serialization.number()
-    ),
-    numErrors: core.serialization.property(
-        "num_errors",
-        core.serialization.number()
-    ),
-});
+export const Completed: core.serialization.ObjectSchema<serializers.Completed.Raw, Hume.Completed> =
+    core.serialization.object({
+        createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
+        startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),
+        endedTimestampMs: core.serialization.property("ended_timestamp_ms", core.serialization.number()),
+        numPredictions: core.serialization.property("num_predictions", core.serialization.number()),
+        numErrors: core.serialization.property("num_errors", core.serialization.number()),
+    });
 
 export declare namespace Completed {
     interface Raw {

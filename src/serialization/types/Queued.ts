@@ -6,14 +6,8 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const Queued: core.serialization.ObjectSchema<
-    serializers.Queued.Raw,
-    Hume.Queued
-> = core.serialization.object({
-    createdTimestampMs: core.serialization.property(
-        "created_timestamp_ms",
-        core.serialization.number()
-    ),
+export const Queued: core.serialization.ObjectSchema<serializers.Queued.Raw, Hume.Queued> = core.serialization.object({
+    createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
 });
 
 export declare namespace Queued {

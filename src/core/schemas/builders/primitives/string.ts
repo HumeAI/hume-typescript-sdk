@@ -16,10 +16,7 @@ export const string = createIdentitySchemaCreator<string>(
                 errors: [
                     {
                         path: breadcrumbsPrefix,
-                        message: getErrorMessageForIncorrectType(
-                            value,
-                            "string"
-                        ),
+                        message: getErrorMessageForIncorrectType(value, "string"),
                     },
                 ],
             };

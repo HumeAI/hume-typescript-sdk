@@ -6,13 +6,11 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const EmotionScore: core.serialization.ObjectSchema<
-    serializers.EmotionScore.Raw,
-    Hume.EmotionScore
-> = core.serialization.object({
-    name: core.serialization.string(),
-    score: core.serialization.string(),
-});
+export const EmotionScore: core.serialization.ObjectSchema<serializers.EmotionScore.Raw, Hume.EmotionScore> =
+    core.serialization.object({
+        name: core.serialization.string(),
+        score: core.serialization.string(),
+    });
 
 export declare namespace EmotionScore {
     interface Raw {

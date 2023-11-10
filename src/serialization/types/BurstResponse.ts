@@ -6,24 +6,15 @@ import * as serializers from "..";
 import * as Hume from "../../api";
 import * as core from "../../core";
 
-export const BurstResponse: core.serialization.ObjectSchema<
-    serializers.BurstResponse.Raw,
-    Hume.BurstResponse
-> = core.serialization.object({
-    predictions: core.serialization
-        .list(
-            core.serialization.lazyObject(
-                async () =>
-                    (await import("..")).ModelsSuccessBurstPredictionsItem
-            )
-        )
-        .optional(),
-});
+export const BurstResponse: core.serialization.ObjectSchema<serializers.BurstResponse.Raw, Hume.BurstResponse> =
+    core.serialization.object({
+        predictions: core.serialization
+            .list(core.serialization.lazyObject(async () => (await import("..")).ModelsSuccessBurstPredictionsItem))
+            .optional(),
+    });
 
 export declare namespace BurstResponse {
     interface Raw {
-        predictions?:
-            | serializers.ModelsSuccessBurstPredictionsItem.Raw[]
-            | null;
+        predictions?: serializers.ModelsSuccessBurstPredictionsItem.Raw[] | null;
     }
 }

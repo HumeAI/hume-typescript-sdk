@@ -11,43 +11,22 @@ export const ModelsPredictions: core.serialization.ObjectSchema<
     Hume.ModelsPredictions
 > = core.serialization.object({
     face: core.serialization
-        .lazyObject(
-            async () =>
-                (await import("..")).PredictionsOptionalNullFacePrediction
-        )
+        .lazyObject(async () => (await import("..")).PredictionsOptionalNullFacePrediction)
         .optional(),
     burst: core.serialization
-        .lazyObject(
-            async () =>
-                (await import("..")).PredictionsOptionalNullBurstPrediction
-        )
+        .lazyObject(async () => (await import("..")).PredictionsOptionalNullBurstPrediction)
         .optional(),
     prosody: core.serialization
-        .lazyObject(
-            async () =>
-                (await import(".."))
-                    .PredictionsOptionalTranscriptionMetadataProsodyPrediction
-        )
+        .lazyObject(async () => (await import("..")).PredictionsOptionalTranscriptionMetadataProsodyPrediction)
         .optional(),
     language: core.serialization
-        .lazyObject(
-            async () =>
-                (await import(".."))
-                    .PredictionsOptionalTranscriptionMetadataLanguagePrediction
-        )
+        .lazyObject(async () => (await import("..")).PredictionsOptionalTranscriptionMetadataLanguagePrediction)
         .optional(),
     ner: core.serialization
-        .lazyObject(
-            async () =>
-                (await import(".."))
-                    .PredictionsOptionalTranscriptionMetadataNerPrediction
-        )
+        .lazyObject(async () => (await import("..")).PredictionsOptionalTranscriptionMetadataNerPrediction)
         .optional(),
     facemesh: core.serialization
-        .lazyObject(
-            async () =>
-                (await import("..")).PredictionsOptionalNullFacemeshPrediction
-        )
+        .lazyObject(async () => (await import("..")).PredictionsOptionalNullFacemeshPrediction)
         .optional(),
 });
 
