@@ -1,6 +1,8 @@
 # Specify files that shouldn't be modified by Fern
 
 README.md
+CITATIONS.md
+LICENSE
 src/wrapper/
 src/index.ts
 tsconfig.json
