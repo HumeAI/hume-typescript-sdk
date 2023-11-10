@@ -1,9 +1,18 @@
-# Hume TypeScript Library
+<div align="center">
+  <img src="https://storage.googleapis.com/hume-public-logos/hume/hume-banner.png">
+  <h1>Hume AI TypeScript SDK</h1>
 
-[![npm shield](https://img.shields.io/npm/v/@fern-api/hume)](https://www.npmjs.com/package/@fern-api/hume)
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+  <p>
+    <strong>Integrate Hume APIs directly into your Node application or frontend</strong>
+  </p>
 
-The Hume Node.js library provides access to the Hume API from JavaScript/TypeScript.
+  <br>
+  <div>
+    <a href="https://www.npmjs.com/package/@fern-api/hume"><img src="https://img.shields.io/npm/v/@fern-api/hume">
+    <a href="https://buildwithfern.com/"><img src="https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen">
+  </div>
+  <br>
+</div>
 
 ## Documentation
 
@@ -25,7 +34,7 @@ The SDK exports a batch client which you can use to hit our REST APIs.
 import { HumeBatchClient } from "@fern-api/hume";
 
 const client = new HumeBatchClient({
-    apiKey: "<your-api-key",
+    apiKey: "YOUR_API_KEY",
 });
 
 const job = await client.submitJob({
@@ -47,21 +56,23 @@ The SDK exports a streaming client which you can use to hit our WebSocket APIs.
 import { HumeStreamingClient } from "@fern-api/hume";
 
 const client = new HumeStreamingClient({
-    apiKey: "<your-api-key",
+    apiKey: "YOUR_API_KEY",
 });
 
 const stream = await client.connect({
     configs: {
-        face: {},
+        language: {},
     },
-    listeners: {
-        message: (response) => {
-            console.log(response.?burst);
-        },
+    onMessage: (response) => {
+        if (response.language != null) {
+            console.log(response.language.predictions);
+        }
     },
 });
 
-stream.sendFile(...);
+stream.sendText({
+    text: "Mary had a little lamb,"
+});
 ```
 
 ## Errors
