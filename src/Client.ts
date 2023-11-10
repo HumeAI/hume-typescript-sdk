@@ -71,8 +71,8 @@ export class HumeClient {
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.2.3",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.2.4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -126,8 +126,8 @@ export class HumeClient {
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.2.3",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.2.4",
             },
             contentType: "application/json",
             body: await serializers.BaseRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -181,8 +181,8 @@ export class HumeClient {
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.2.3",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.2.4",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -232,8 +232,8 @@ export class HumeClient {
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.2.3",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.2.4",
             },
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
@@ -253,8 +253,8 @@ export class HumeClient {
             headers: {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@fern-api/hume",
-                "X-Fern-SDK-Version": "0.2.3",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.2.4",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

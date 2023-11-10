@@ -1,8 +1,8 @@
 {
-    "name": "@fern-api/hume",
-    "version": "0.2.3",
+    "name": "hume",
+    "version": "0.2.4",
     "private": false,
-    "repository": "https://github.com/fern-hume/hume-typescript-sdk",
+    "repository": "https://github.com/HumeAI/hume-typescript-sdk",
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {
