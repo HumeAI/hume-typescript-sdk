@@ -1,4 +1,3 @@
-import axios, { AxiosAdapter, AxiosError, AxiosResponse } from "axios";
 import qs from "qs";
 import { APIResponse } from "./APIResponse";
 
@@ -16,7 +15,6 @@ export declare namespace Fetcher {
         maxRetries?: number;
         withCredentials?: boolean;
         responseType?: "json" | "blob";
-        adapter?: AxiosAdapter;
         onUploadProgress?: (event: ProgressEvent) => void;
     }
 
@@ -62,29 +60,18 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
         }
     }
 
-    const makeRequest = async (): Promise<AxiosResponse> =>
-        await axios({
-            url: args.url,
-            params: args.queryParameters,
-            paramsSerializer: (params) => {
-                return qs.stringify(params, { arrayFormat: "repeat" });
-            },
+    const url =
+        Object.keys(args.queryParameters ?? {}).length > 0
+            ? `${args.url}?${qs.stringify(args.queryParameters, { arrayFormat: "repeat" })}`
+            : args.url;
+
+    const makeRequest = async (): Promise<Response> => {
+        return await fetch(url, {
             method: args.method,
             headers,
-            data: args.body,
-            validateStatus: () => true,
-            transformResponse: (response) => response,
-            timeout: args.timeoutMs,
-            transitional: {
-                clarifyTimeoutError: true,
-            },
-            withCredentials: args.withCredentials,
-            adapter: args.adapter,
-            onUploadProgress: args.onUploadProgress,
-            maxBodyLength: Infinity,
-            maxContentLength: Infinity,
-            responseType: args.responseType ?? "json",
+            body: args.body === undefined ? undefined : JSON.stringify(args.body),
         });
+    };
 
     try {
         let response = await makeRequest();
@@ -97,7 +84,8 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
                 response.status >= 500
             ) {
                 const delay = Math.min(INITIAL_RETRY_DELAY * Math.pow(i, 2), MAX_RETRY_DELAY);
-                response = await new Promise((resolve) => setTimeout(resolve, delay));
+                await new Promise((resolve) => setTimeout(resolve, delay));
+                response = await makeRequest();
             } else {
                 break;
             }
@@ -105,17 +93,17 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
 
         let body: unknown;
         if (args.responseType === "blob") {
-            body = response.data;
-        } else if (response.data != null && response.data.length > 0) {
+            body = await response.blob();
+        } else if (response.body != null) {
             try {
-                body = JSON.parse(response.data) ?? undefined;
+                body = await response.json();
             } catch {
                 return {
                     ok: false,
                     error: {
                         reason: "non-json",
                         statusCode: response.status,
-                        rawBody: response.data,
+                        rawBody: await response.text(),
                     },
                 };
             }
@@ -137,11 +125,12 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
             };
         }
     } catch (error) {
-        if ((error as AxiosError).code === "ETIMEDOUT") {
+        if (error instanceof Error) {
             return {
                 ok: false,
                 error: {
-                    reason: "timeout",
+                    reason: "unknown",
+                    errorMessage: error.message,
                 },
             };
         }
@@ -150,7 +139,7 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
             ok: false,
             error: {
                 reason: "unknown",
-                errorMessage: (error as AxiosError).message,
+                errorMessage: JSON.stringify(error),
             },
         };
     }
