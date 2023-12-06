@@ -135,12 +135,11 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
             };
         }
     } catch (error) {
-        if (error instanceof Error) {
+        if ((error instanceof Error) && error.name === 'AbortError') {
             return {
                 ok: false,
                 error: {
-                    reason: "unknown",
-                    errorMessage: error.message,
+                    reason: "timeout",
                 },
             };
         }
