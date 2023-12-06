@@ -15,7 +15,6 @@ export declare namespace Fetcher {
         maxRetries?: number;
         withCredentials?: boolean;
         responseType?: "json" | "blob";
-        onUploadProgress?: (event: ProgressEvent) => void;
     }
 
     export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
@@ -66,11 +65,22 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
             : args.url;
 
     const makeRequest = async (): Promise<Response> => {
-        return await fetch(url, {
+        const controller = new AbortController();
+        let abortId = undefined;
+        if (args.timeoutMs != null) {
+            abortId = setTimeout(() => controller.abort(), args.timeoutMs);
+        }
+        const response = await fetch(url, {
             method: args.method,
             headers,
             body: args.body === undefined ? undefined : JSON.stringify(args.body),
+            signal: controller.signal,
+            credentials: args.withCredentials ? "same-origin" : undefined,
         });
+        if (abortId != null) {
+            clearTimeout(abortId);
+        }
+        return response;
     };
 
     try {
@@ -92,7 +102,7 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
         }
 
         let body: unknown;
-        if (args.responseType === "blob") {
+        if (response.body != null && args.responseType === "blob") {
             body = await response.blob();
         } else if (response.body != null) {
             try {
