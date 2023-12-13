@@ -3,7 +3,6 @@
 README.md
 CITATIONS.md
 LICENSE
-src/core/fetcher/Fetcher.ts
 src/wrapper/
 src/index.ts
 tsconfig.json
