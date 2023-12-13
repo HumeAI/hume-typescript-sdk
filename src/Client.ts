@@ -27,6 +27,14 @@ export class HumeClient {
 
     /**
      * Sort and filter jobs.
+     *
+     * @example
+     *     await hume.listJobs({
+     *         status: Hume.Status.Queued,
+     *         when: Hume.When.CreatedBefore,
+     *         sortBy: Hume.SortBy.Created,
+     *         direction: Hume.Direction.Asc
+     *     })
      */
     public async listJobs(
         request: Hume.ListJobsRequest = {},
@@ -72,7 +80,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.2.7",
+                "X-Fern-SDK-Version": "0.3.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -127,7 +135,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.2.7",
+                "X-Fern-SDK-Version": "0.3.0",
             },
             contentType: "application/json",
             body: await serializers.BaseRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -167,6 +175,9 @@ export class HumeClient {
 
     /**
      * Get the JSON predictions of a completed job.
+     *
+     * @example
+     *     await hume.getJobPredictions("id")
      */
     public async getJobPredictions(
         id: string,
@@ -182,7 +193,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.2.7",
+                "X-Fern-SDK-Version": "0.3.0",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -223,7 +234,7 @@ export class HumeClient {
      * Get the artifacts ZIP of a completed job.
      */
     public async getJobArtifacts(id: string, requestOptions?: HumeClient.RequestOptions): Promise<stream.Readable> {
-        const _response = await core.streamingFetcher({
+        const _response = await core.fetcher<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Default,
                 `v0/batch/jobs/${id}/artifacts`
@@ -233,11 +244,37 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.2.7",
+                "X-Fern-SDK-Version": "0.3.0",
             },
+            contentType: "application/json",
+            responseType: "streaming",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
         });
-        return _response.data;
+        if (_response.ok) {
+            return _response.body;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.HumeError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
 
     /**
@@ -254,7 +291,7 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.2.7",
+                "X-Fern-SDK-Version": "0.3.0",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
