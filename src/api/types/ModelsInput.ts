@@ -6,10 +6,7 @@ import * as Hume from "..";
 
 export interface ModelsInput {
     data?: string;
-    /**
-     * Configuration used to specify which models should be used and with what settings.
-     *
-     */
+    /** Configuration used to specify which models should be used and with what settings. */
     models?: Hume.ModelConfig;
     /**
      * Length in milliseconds of streaming sliding window.
@@ -21,7 +18,6 @@ export interface ModelsInput {
      * A window of 600ms would append the full 500ms of the second payload to the last 100ms of the first payload.
      *
      * Note: This feature is currently only supported for audio data and audio models. For other file types and models this parameter will be ignored.
-     *
      */
     streamWindowMs?: number;
     /**
@@ -30,13 +26,11 @@ export interface ModelsInput {
      * If this parameter is set to `true` then past context will be deleted before processing the current payload.
      *
      * Use reset_stream when one audio file is done being processed and you do not want context to leak across files.
-     *
      */
     resetStream?: boolean;
     /**
      * Set to `true` to enable the data parameter to be parsed as raw text rather than base64 encoded bytes.
      * This parameter is useful if you want to send text to be processed by the language model, but it cannot be used with other file types like audio, image, or video.
-     *
      */
     rawText?: boolean;
     /**
@@ -45,14 +39,12 @@ export interface ModelsInput {
      * This parameter can be set in the same payload as data or it can be set without data and models configuration to get the job details between payloads.
      *
      * This parameter is useful to get the unique job ID.
-     *
      */
     jobDetails?: boolean;
     /**
      * Pass an arbitrary string as the payload ID and get it back at the top level of the socket response.
      *
      * This can be useful if you have multiple requests running asynchronously and want to disambiguate responses as they are received.
-     *
      */
     payloadId?: string;
 }
