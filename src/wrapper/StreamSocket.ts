@@ -1,10 +1,11 @@
 import WebSocket from "ws";
-import * as Hume from "../api";
 import { v4 as uuid } from "uuid";
 import { parse } from "./HumeStreamingClient";
-import * as serializers from "../serialization";
 import { base64Encode } from "./base64Encode";
+import * as Hume from "../api";
+import * as serializers from "../serialization";
 import * as errors from "../errors";
+import * as fs from "fs";
 
 export declare namespace StreamSocket {
     interface Args {
@@ -23,6 +24,57 @@ export class StreamSocket {
         this.websocket = websocket;
         this.config = config;
         this.streamWindowMs = streamWindowMs;
+    }
+
+    /**
+     * Send file on the `StreamSocket`
+     *
+     * @param file A fs.ReadStream | File | Blob
+     * @param config This method is intended for use with a `LanguageConfig`.
+     * When the socket is configured for other modalities this method will fail.
+     */
+    public async sendFile({
+        file,
+        config,
+    }: {
+        file: fs.ReadStream | Blob;
+        config?: Hume.ModelConfig;
+    }): Promise<Hume.ModelResponse> {
+        if (config != null) {
+            this.config = config;
+        }
+        let contents = "";
+        if (file instanceof fs.ReadStream) {
+            const chunks = [];
+            for await (const chunk of file) {
+                chunks.push(Buffer.from(chunk));
+            }
+            contents = Buffer.concat(chunks).toString("base64");
+        } else if (file instanceof Blob) {
+            const toBase64 = (file: Blob): Promise<string> =>
+                new Promise((res, err) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => res(reader.result as string);
+                });
+            contents = await toBase64(file);
+        } else {
+            throw new errors.HumeError({ message: `file must be one of ReadStream or Blob.` });
+        }
+        const request: Hume.ModelsInput = {
+            payloadId: uuid(),
+            data: contents,
+            models: this.config,
+            rawText: false,
+        };
+        if (this.streamWindowMs != null) {
+            request.streamWindowMs = this.streamWindowMs;
+        }
+        const response = await this.send(request);
+        if (response == null) {
+            throw new errors.HumeError({ message: `Received no response after sending file: ${file}` });
+        }
+        return response;
     }
 
     /**
@@ -112,7 +164,6 @@ export class StreamSocket {
         const jsonPayload = await serializers.ModelsInput.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
-        console.log("payload: ", JSON.stringify(jsonPayload));
         this.websocket.send(JSON.stringify(jsonPayload));
         const response = await new Promise<Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError | undefined>(
             (resolve, reject) => {
@@ -122,7 +173,6 @@ export class StreamSocket {
                 });
             }
         );
-        console.log(response);
         if (response != null && isError(response)) {
             throw new errors.HumeError({ message: `CODE ${response.code}: ${response.error}` });
         }
@@ -132,7 +182,10 @@ export class StreamSocket {
         return response;
     }
 
-    private tillSocketOpen(): Promise<WebSocket> {
+    private async tillSocketOpen(): Promise<WebSocket> {
+        if (this.websocket.readyState === WebSocket.OPEN) {
+            return this.websocket;
+        }
         return new Promise((resolve, reject) => {
             this.websocket.addEventListener("open", () => {
                 resolve(this.websocket);
