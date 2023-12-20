@@ -62,23 +62,35 @@ const client = new HumeStreamingClient({
     apiKey: "YOUR_API_KEY",
 });
 
-const stream = await client.connect({
+const stream = client.connect({
     configs: {
         language: {},
     },
-    onMessage: (response) => {
-        if (response.language != null) {
-            console.log(response.language.predictions);
-        }
-    },
-    onError: (err) => {
-      console.log(err);
-    }
+    onMessage: (response) => { console.log("Socket opened") },
+    onWarning: (warning) => { console.log(warning)},
+    onError: (error) => { console.log(error)},
+    onClose: () => { console.log("Socket closed")},
 });
 
-stream.sendText({
+const response = await stream.sendText({
     text: "Mary had a little lamb,"
 });
+console.log(response);
+```
+
+### Sending Files
+You can use the `sendFile` method to upload files. 
+
+```typescript
+const response = await socket.sendFile({
+    file: fs.createReadStream(path.join(__dirname, "obama.png")),
+    config: {
+        face: {
+            identifyFaces: true,
+        },
+    },
+});
+console.log(response);
 ```
 
 ## Errors
@@ -124,3 +136,17 @@ await hume.submitJob(..., {
     timeoutInSeconds: 10, // timeout after 10 seconds
 });
 ```
+
+## Beta Status
+This SDK is in beta, and there may be breaking changes between versions without a major 
+version update. Therefore, we recommend pinning the package version to a specific version. 
+This way, you can install the same version each time without breaking changes.
+
+## Contributing
+While we value open-source contributions to this SDK, this library is generated programmatically. 
+Additions made directly to this library would have to be moved over to our generation code, 
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a
+proof of concept, but know that we will not be able to merge it as-is. We suggest opening an 
+issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!
