@@ -1,6 +1,6 @@
 {
     "name": "hume",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "private": false,
     "repository": "https://github.com/HumeAI/hume-typescript-sdk",
     "main": "./index.js",
@@ -16,7 +16,8 @@
         "node-fetch": "2.7.0",
         "qs": "6.11.2",
         "ws": "^8.14.2",
-        "@types/ws": "^8.5.9"
+        "@types/ws": "^8.5.9",
+        "uuid": "9.0.1"
     },
     "devDependencies": {
         "@types/url-join": "4.0.1",
