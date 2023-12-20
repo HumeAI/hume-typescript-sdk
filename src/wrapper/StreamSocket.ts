@@ -1,6 +1,10 @@
 import WebSocket from "ws";
 import * as Hume from "../api";
-import { readFile } from "fs/promises";
+import { v4 as uuid } from "uuid";
+import { parse } from "./HumeStreamingClient";
+import * as serializers from "../serialization";
+import { base64Encode } from "./base64Encode";
+import * as errors from "../errors";
 
 export declare namespace StreamSocket {
     interface Args {
@@ -22,72 +26,30 @@ export class StreamSocket {
     }
 
     /**
-     * Send a file on the `StreamSocket`
-     *
-     * @param filepath Path to media file to send on socket connection
-     * @param config List of model configurations.
-     * If set these configurations will overwrite any configurations
-     * set when initializing the `StreamSocket`
-     */
-    public async sendFile({
-        filepath,
-        config,
-    }: {
-        filepath: string;
-        config?: Hume.ModelConfig;
-    }): Promise<void> {
-        this.sendBuffer({
-            buffer: await readFile(filepath),
-            config,
-        });
-    }
-
-    /**
-     * Send raw bytes on the `StreamSocket`
-     *
-     * @param buffer Raw bytes of media to send on socket connection
-     * @param config List of model configurations.
-     * If set these configurations will overwrite any configurations
-     * set when initializing the `StreamSocket`
-     */
-    public sendBuffer({
-        buffer,
-        config,
-    }: {
-        buffer: Buffer;
-        config?: Hume.ModelConfig;
-    }): void {
-        this.sendText({
-            text: buffer.toString("base64"),
-            config,
-        });
-    }
-
-    /**
      * Send text on the `StreamSocket`
      *
      * @param text Text to send to the language model.
      * @param config This method is intended for use with a `LanguageConfig`.
      * When the socket is configured for other modalities this method will fail.
      */
-    public sendText({
-        text,
-        config,
-    }: {
-        text: string;
-        config?: Hume.ModelConfig;
-    }): void {
+    public async sendText({ text, config }: { text: string; config?: Hume.ModelConfig }): Promise<Hume.ModelResponse> {
         if (config != null) {
             this.config = config;
         }
-        this.websocket.send(
-            JSON.stringify({
-                data: text,
-                raw_text: true,
-                models: this.config,
-                stream_window_ms: this.streamWindowMs,
-            })
-        );
+        const request: Hume.ModelsInput = {
+            payloadId: uuid(),
+            data: text,
+            rawText: true,
+            models: this.config,
+        };
+        if (this.streamWindowMs != null) {
+            request.streamWindowMs = this.streamWindowMs;
+        }
+        const response = await this.send(request);
+        if (response == null) {
+            throw new errors.HumeError({ message: `Received no response after sending text: ${text}` });
+        }
+        return response;
     }
 
     /**
@@ -100,18 +62,18 @@ export class StreamSocket {
      * @param config List of model configurations.
      * If set these configurations will overwrite existing configurations
      */
-    public sendFacemesh({
+    public async sendFacemesh({
         landmarks,
         config,
     }: {
         landmarks: number[][][];
         config?: Hume.ModelConfig;
-    }): void {
-        const stringifiedLandmarks = JSON.stringify(landmarks);
-        this.sendText({
-            text: Buffer.from(stringifiedLandmarks).toString("base64"),
+    }): Promise<Hume.ModelResponse> {
+        const response = this.sendText({
+            text: base64Encode(JSON.stringify(landmarks)),
             config,
         });
+        return response;
     }
 
     /**
@@ -121,12 +83,10 @@ export class StreamSocket {
      * Call this method when some media has been fully processed and you want to continue using the same
      * streaming connection without leaking context across media samples.
      */
-    public reset(): void {
-        this.websocket.send(
-            JSON.stringify({
-                reset_stream: true,
-            })
-        );
+    public async reset(): Promise<void> {
+        await this.send({
+            resetStream: true,
+        });
     }
 
     /**
@@ -134,12 +94,10 @@ export class StreamSocket {
      * Get details associated with the current streaming connection.
      *
      */
-    public getJobDetails(): void {
-        this.websocket.send(
-            JSON.stringify({
-                job_details: true,
-            })
-        );
+    public async getJobDetails(): Promise<void> {
+        await this.send({
+            jobDetails: true,
+        });
     }
 
     /**
@@ -148,4 +106,51 @@ export class StreamSocket {
     public close(): void {
         this.websocket.close();
     }
+
+    private async send(payload: Hume.ModelsInput): Promise<Hume.ModelResponse | void> {
+        await this.tillSocketOpen();
+        const jsonPayload = await serializers.ModelsInput.jsonOrThrow(payload, {
+            unrecognizedObjectKeys: "strip",
+        });
+        console.log("payload: ", JSON.stringify(jsonPayload));
+        this.websocket.send(JSON.stringify(jsonPayload));
+        const response = await new Promise<Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError | undefined>(
+            (resolve, reject) => {
+                this.websocket.addEventListener("message", (event) => {
+                    const response = parse(event.data);
+                    resolve(response);
+                });
+            }
+        );
+        console.log(response);
+        if (response != null && isError(response)) {
+            throw new errors.HumeError({ message: `CODE ${response.code}: ${response.error}` });
+        }
+        if (response != null && isWarning(response)) {
+            throw new errors.HumeError({ message: `CODE ${response.code}: ${response.warning}` });
+        }
+        return response;
+    }
+
+    private tillSocketOpen(): Promise<WebSocket> {
+        return new Promise((resolve, reject) => {
+            this.websocket.addEventListener("open", () => {
+                resolve(this.websocket);
+            });
+
+            this.websocket.addEventListener("error", (event) => {
+                reject(event);
+            });
+        });
+    }
+}
+
+function isError(response: Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError): response is Hume.ModelsError {
+    return (response as Hume.ModelsError).error != null;
+}
+
+function isWarning(
+    response: Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError
+): response is Hume.ModelsWarning {
+    return (response as Hume.ModelsWarning).warning != null;
 }
