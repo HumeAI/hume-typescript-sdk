@@ -49,6 +49,9 @@ const job = await client.submitJob({
 
 console.log("Running...");
 await job.awaitCompletion();
+
+const predictions = client.getJobPredictions(job.jobId);
+console.log(predictions)
 ```
 
 ## Streaming Client
@@ -63,7 +66,7 @@ const client = new HumeStreamingClient({
 });
 
 const stream = client.connect({
-    configs: {
+    config: {
         language: {},
     },
     onMessage: (response) => { console.log("Socket opened") },
