@@ -50,7 +50,7 @@ const job = await client.submitJob({
 console.log("Running...");
 await job.awaitCompletion();
 
-const predictions = client.getJobPredictions(job.jobId);
+const predictions = await client.getJobPredictions(job.jobId);
 console.log(predictions)
 ```
 
