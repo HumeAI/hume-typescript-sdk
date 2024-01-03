@@ -9,12 +9,12 @@ import * as core from "../../core";
 export const EmotionScore: core.serialization.ObjectSchema<serializers.EmotionScore.Raw, Hume.EmotionScore> =
     core.serialization.object({
         name: core.serialization.string(),
-        score: core.serialization.string(),
+        score: core.serialization.number(),
     });
 
 export declare namespace EmotionScore {
     interface Raw {
         name: string;
-        score: string;
+        score: number;
     }
 }
