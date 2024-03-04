@@ -6,12 +6,7 @@ import * as Hume from "../..";
 
 /**
  * @example
- *     {
- *         status: Hume.Status.Queued,
- *         when: Hume.When.CreatedBefore,
- *         sortBy: Hume.SortBy.Created,
- *         direction: Hume.Direction.Asc
- *     }
+ *     {}
  */
 export interface ListJobsRequest {
     /**
