@@ -29,12 +29,7 @@ export class HumeClient {
      * Sort and filter jobs.
      *
      * @example
-     *     await hume.listJobs({
-     *         status: Hume.Status.Queued,
-     *         when: Hume.When.CreatedBefore,
-     *         sortBy: Hume.SortBy.Created,
-     *         direction: Hume.Direction.Asc
-     *     })
+     *     await hume.listJobs({})
      */
     public async listJobs(
         request: Hume.ListJobsRequest = {},
@@ -80,7 +75,9 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.4.1",
+                "X-Fern-SDK-Version": "0.4.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -120,6 +117,9 @@ export class HumeClient {
 
     /**
      * Start a new batch job.
+     *
+     * @example
+     *     await hume.submitJob({})
      */
     public async submitJob(
         request: Hume.BaseRequest = {},
@@ -135,7 +135,9 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.4.1",
+                "X-Fern-SDK-Version": "0.4.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.BaseRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -193,7 +195,9 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.4.1",
+                "X-Fern-SDK-Version": "0.4.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -244,7 +248,9 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.4.1",
+                "X-Fern-SDK-Version": "0.4.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             responseType: "streaming",
@@ -291,7 +297,9 @@ export class HumeClient {
                 "X-Hume-Api-Key": await core.Supplier.get(this._options.apiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.4.1",
+                "X-Fern-SDK-Version": "0.4.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

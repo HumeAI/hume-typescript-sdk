@@ -4,6 +4,10 @@
 
 import * as Hume from "../..";
 
+/**
+ * @example
+ *     {}
+ */
 export interface BaseRequest {
     models?: Hume.Models;
     transcription?: Hume.Transcription;
