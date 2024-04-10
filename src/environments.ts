@@ -3,7 +3,7 @@
  */
 
 export const HumeEnvironment = {
-    Default: "https://api.hume.ai",
+    Production: "https://api.hume.ai",
 } as const;
 
-export type HumeEnvironment = typeof HumeEnvironment.Default;
+export type HumeEnvironment = typeof HumeEnvironment.Production;
