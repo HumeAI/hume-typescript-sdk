@@ -1,4 +1,4 @@
 export * as Hume from "./api";
-export { HumeClient } from "./wrapper/HumeClient";
+export * from "./wrapper";
 export { HumeEnvironment } from "./environments";
 export { HumeError, HumeTimeoutError } from "./errors";

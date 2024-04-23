@@ -1,8 +1,7 @@
-import { HumeClient } from "../../src/"
-import { play } from "../../src/wrapper/empathicVoice/chat/audio/play"
+import { HumeClient, ffplay, base64Decode } from "../../src/";
 
 describe("Empathic Voice Interface", () => {
-    it("Chat", async () => {
+    it.skip("Chat", async () => {
         const hume = new HumeClient({
             apiKey: "<>",
             clientSecret: "<>",
@@ -11,8 +10,8 @@ describe("Empathic Voice Interface", () => {
         const socket = await hume.empathicVoice.chat.connect({
             async onMessage(message): Promise<void> {
                 if (message.type === "audio_output") {
-                    const decodedString = Buffer.from(message.data, 'base64');
-                    await play(decodedString)
+                    const decoded = Buffer.from(message.data, "base64");
+                    await ffplay(decoded);
                 }
             }
         });
@@ -20,11 +19,6 @@ describe("Empathic Voice Interface", () => {
         await socket.sendRaw({
             type: "user_input",
             text: "Hello, how are you?",
-        });
-
-        await socket.sendRaw({
-            type: "user_input",
-            text: "Nothing much! what about you?",
         });
 
     }, 100000);
