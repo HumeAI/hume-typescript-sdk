@@ -31,7 +31,7 @@ export class StreamClient {
             headers: {
                 "X-Hume-Api-Key": typeof this._options.apiKey === "string" ? this._options.apiKey : "",
             },
-            timeout: 10
+            timeout: 10,
         });
 
         websocket.addEventListener("open", (event) => {

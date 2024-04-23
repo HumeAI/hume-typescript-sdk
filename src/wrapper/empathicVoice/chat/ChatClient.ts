@@ -15,10 +15,10 @@ export declare namespace ChatClient {
 
     interface ConnectArgs {
         /** The ID of the configuration. */
-        configId: string;
+        configId?: string;
 
         /** The version of the configuration. */
-        configVersion: string;
+        configVersion?: string;
 
         onOpen?: (event: WebSocket.Event) => void;
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
@@ -30,16 +30,20 @@ export declare namespace ChatClient {
 export class ChatClient {
     constructor(protected readonly _options: ChatClient.Options) {}
 
-    public async connect(args: ChatClient.ConnectArgs): Promise<StreamSocket> {
+    public async connect(args: ChatClient.ConnectArgs = {}): Promise<StreamSocket> {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
 
         queryParams["accessToken"] = await this.fetchAccessToken();
         queryParams["apiKey"] = core.Supplier.get(this._options.apiKey);
-        queryParams["config_id"] = args.configId;
-        queryParams["config_id"] = args.configVersion;
+        if (args.configId != null) {
+            queryParams["config_id"] = args.configId;
+        }
+        if (args.configVersion != null) {
+            queryParams["config_version"] = args.configVersion;
+        }
 
-        const websocket = new WebSocket(`wss://api.hume.ai/v0/evi/chat${qs.stringify(queryParams)}`, {
-            timeout: 10
+        const websocket = new WebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, {
+            timeout: 10,
         });
 
         websocket.addEventListener("open", (event) => {
@@ -51,7 +55,7 @@ export class ChatClient {
                 type: "error",
                 code: e.type,
                 message: e.message,
-                slug: "websocket-error"
+                slug: "websocket-error",
             });
         });
 
@@ -71,7 +75,6 @@ export class ChatClient {
         });
     }
 
-
     private async fetchAccessToken(): Promise<string> {
         const apiKey = await core.Supplier.get(this._options.apiKey);
         const clientSecret = await core.Supplier.get(this._options.clientSecret);
@@ -80,10 +83,11 @@ export class ChatClient {
         const encoded = base64Encode(authString);
 
         const response = await core.fetcher({
-            url: `https://api.hume.ai/oauth2-cc/token`,
+            url: "https://api.hume.ai/oauth2-cc/token",
             method: "POST",
+            contentType: "application/x-www-form-urlencoded",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
                 Authorization: `Basic ${encoded}`,
             },
             body: new URLSearchParams({
@@ -98,7 +102,7 @@ export class ChatClient {
                     body: response.error.body,
                 });
             }
-    
+
             switch (response.error.reason) {
                 case "non-json":
                     throw new errors.HumeError({
@@ -114,8 +118,9 @@ export class ChatClient {
             }
         }
 
-        return (response.body as any).access_token as string;
-      };
+        const token = ((await response.body) as any).access_token as string;
+        return token;
+    }
 }
 
 export async function parse(
@@ -126,6 +131,7 @@ export async function parse(
     } = {}
 ): Promise<Hume.empathicVoice.SubscribeEvent | undefined> {
     const message = JSON.parse(data as string);
+    console.log(message);
 
     const parsedResponse = await serializers.empathicVoice.SubscribeEvent.parse(message, {
         unrecognizedObjectKeys: "passthrough",
@@ -143,4 +149,3 @@ export async function parse(
         return parsedResponse.value;
     }
 }
-
