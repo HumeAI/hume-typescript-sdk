@@ -1,6 +1,6 @@
 {
     "name": "hume",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "private": false,
     "repository": "https://github.com/HumeAI/hume-typescript-sdk",
     "main": "./index.js",
