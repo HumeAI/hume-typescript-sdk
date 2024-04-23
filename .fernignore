@@ -5,4 +5,6 @@ CITATIONS.md
 LICENSE
 src/wrapper/
 src/index.ts
+tests/empathicVoice
+tests/expressionMeasurement
 tsconfig.json
