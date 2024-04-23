@@ -32,9 +32,11 @@ export class StreamSocket {
     /**
      * Send text input
      */
-    public async sendTextInput(message: Hume.empathicVoice.TextInput): Promise<void> {
-        console.log("sendTextInput", message);
-        await this.send(message);
+    public async sendTextInput(text: string): Promise<void> {
+        await this.send({
+            type: "user_input",
+            text,
+        });
     }
 
     /**
@@ -59,11 +61,6 @@ export class StreamSocket {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
-    }
-
-    public async sendRaw(value: any): Promise<void> {
-        await this.tillSocketOpen();
-        this.websocket.send(JSON.stringify(value));
     }
 
     private async tillSocketOpen(): Promise<WebSocket> {

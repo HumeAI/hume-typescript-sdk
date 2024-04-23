@@ -1,4 +1,4 @@
-import { HumeClient, ffplay, base64Decode } from "../../src/";
+import { HumeClient, ffplay } from "../../src/";
 
 describe("Empathic Voice Interface", () => {
     it.skip("Chat", async () => {
@@ -16,10 +16,7 @@ describe("Empathic Voice Interface", () => {
             }
         });
 
-        await socket.sendRaw({
-            type: "user_input",
-            text: "Hello, how are you?",
-        });
+        await socket.sendTextInput("Hello, how are you?");
 
     }, 100000);
 });

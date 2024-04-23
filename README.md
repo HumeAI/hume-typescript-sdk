@@ -14,12 +14,9 @@
   <br>
 </div>
 
-> **Note**
-> This TypeScript SDK is under heavy development. It is NOT recommended that anyone uses this SDK in their production workloads. We will continue to publish updates to this SDK and hope to ensure a more stable and reliable release in the future. We encourage you to keep up with our [API changelog](https://dev.hume.ai/changelog) and mailing list to stay up to date with the latest changes.
-
 ## Documentation
 
-API reference documentation is available [here](https://docs.hume.ai/doc/batch-api).
+API reference documentation is available [here](https://dev.hume.ai/reference/).
 
 ## Installation
 
@@ -27,73 +24,94 @@ API reference documentation is available [here](https://docs.hume.ai/doc/batch-a
 npm i hume
 ```
 
-## Batch Client
-
-The SDK exports a batch client which you can use to hit our REST APIs.
-
-<a href="https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-jlhehr?file=app.ts&view=editor"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg">
+## Usage
 
 ```typescript
-import { HumeBatchClient } from "hume";
+import { HumeClient } from "hume";
 
-const client = new HumeBatchClient({
-    apiKey: "YOUR_API_KEY",
+const hume = new HumeClient({
+    apiKey: "YOUR_API_KEY"
 });
 
-const job = await client.submitJob({
-    urls: ["https://tinyurl.com/hume-img"],
+const job = await hume.expressionMeasurement.batch.startInferenceJob({
     models: {
-        face: {},
+        face: {}
     },
+    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"]
 });
 
 console.log("Running...");
 await job.awaitCompletion();
 
-const predictions = await client.getJobPredictions(job.jobId);
+
+const predictions = await hume.expressionMeasurement.batch.getJobPredictions(job.jobId);
 console.log(predictions)
 ```
 
-## Streaming Client
+## Namespaces
+This SDK contains the APIs for expression measurement, empathic voice and custom models. Even 
+if you do not plan on using more than one API to start, the SDK provides easy access in 
+case you find additional APIs in the future. 
 
-The SDK exports a streaming client which you can use to hit our WebSocket APIs.
+Each category is namespaced:
 
 ```typescript
-import { HumeStreamingClient } from "hume";
+import { HumeClient } from "hume";
 
-const client = new HumeStreamingClient({
-    apiKey: "YOUR_API_KEY",
+const hume = new HumeClient({
+    apiKey: "YOUR_API_KEY"
 });
 
-const stream = client.connect({
-    config: {
-        language: {},
-    },
-    onMessage: (response) => { console.log("Socket opened") },
-    onWarning: (warning) => { console.log(warning)},
-    onError: (error) => { console.log(error)},
-    onClose: () => { console.log("Socket closed")},
-});
+hume.expressionMeasurement. // APIs specific to Expression Measurement
 
-const response = await stream.sendText({
-    text: "Mary had a little lamb,"
-});
-console.log(response);
+hume.emapthicVoice. // APIs specific to Empathic Voice
 ```
 
-### Sending Files
-You can use the `sendFile` method to upload files. 
+## Websockets
+The SDK supports interacting with both WebSocket and REST APIs. 
+
+### Request-Reply
+The expression measurement SDK supports a request-reply pattern, 
+where you can send text and wait till the model provides a result. 
 
 ```typescript
-const response = await socket.sendFile({
-    file: fs.createReadStream(path.join(__dirname, "obama.png")),
-    config: {
-        face: {
-            identifyFaces: true,
-        },
-    },
+import { HumeClient } from "hume";
+
+const hume = new HumeClient({
+    apiKey: "YOUR_API_KEY"
 });
-console.log(response);
+const socket = hume.expressionMeasurement.stream.connect({
+    config: {
+        language: {}
+    }
+});
+for (const sample of samples) {
+    const result = await socket.sendText({ text: sample })
+    console.log(result)
+}
+```
+
+### Empathic Voice
+The empathic voice API is also accessible via the SDK. 
+
+```typescript
+import { HumeClient, ffplay } from "hume";
+
+const hume = new HumeClient({
+    apiKey: "<>",
+    clientSecret: "<>",
+});
+
+const socket = await hume.empathicVoice.chat.connect({
+    async onMessage(message): Promise<void> {
+        if (message.type === "audio_output") {
+            const decoded = Buffer.from(message.data, "base64");
+            await ffplay(decoded);
+        }
+    }
+});
+
+await socket.sendTextInput("Hello, how are you?");
 ```
 
 ## Errors
@@ -105,7 +123,7 @@ a subclass of [HumeError](./src/errors/HumeError.ts) will be thrown:
 import { HumeError, HumeTimeoutError } from "hume";
 
 try {
-    await hume.submitJob(/* ... */);
+    await hume.expressionMeasurement.batch.submitJob(/* ... */);
 } catch (err) {
     if (err instanceof HumeTimeoutError) {
         console.log("Request timed out", err);
@@ -124,7 +142,7 @@ try {
 You can use the maxRetries option to configure this behavior:
 
 ```typescript
-await hume.submitJob(..., {
+await hume.expressionMeasurement.batch.submitJob(..., {
     maxRetries: 0, // disable retries
 });
 ```
@@ -135,7 +153,7 @@ By default, the SDK has a timeout of 60s. You can use the `timeoutInSeconds` opt
 this behavior
 
 ```typescript
-await hume.submitJob(..., {
+await hume.expressionMeasurement.batch.submitJob(..., {
     timeoutInSeconds: 10, // timeout after 10 seconds
 });
 ```
