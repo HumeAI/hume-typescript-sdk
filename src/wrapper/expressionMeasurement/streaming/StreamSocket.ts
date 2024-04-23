@@ -1,16 +1,16 @@
 import WebSocket from "ws";
 import { v4 as uuid } from "uuid";
-import { parse } from "./HumeStreamingClient";
+import { parse } from "./StreamingClient";
 import { base64Encode } from "./base64Encode";
-import * as Hume from "../api";
-import * as serializers from "../serialization";
-import * as errors from "../errors";
+import * as Hume from "../../../api";
+import * as errors from "../../../errors";
+import * as serializers from "../../../serialization";
 import * as fs from "fs";
 
 export declare namespace StreamSocket {
     interface Args {
         websocket: WebSocket;
-        config: Hume.ModelConfig;
+        config: Hume.expressionMeasurement.StreamDataModels;
         streamWindowMs?: number;
     }
 }
@@ -18,7 +18,7 @@ export declare namespace StreamSocket {
 export class StreamSocket {
     readonly websocket: WebSocket;
     private readonly streamWindowMs?: number;
-    private config: Hume.ModelConfig;
+    private config: Hume.expressionMeasurement.StreamDataModels;
 
     constructor({ websocket, config, streamWindowMs }: StreamSocket.Args) {
         this.websocket = websocket;
@@ -38,8 +38,8 @@ export class StreamSocket {
         config,
     }: {
         file: fs.ReadStream | Blob;
-        config?: Hume.ModelConfig;
-    }): Promise<Hume.ModelResponse> {
+        config?: Hume.expressionMeasurement.StreamDataModels;
+    }): Promise<Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError> {
         if (config != null) {
             this.config = config;
         }
@@ -61,7 +61,7 @@ export class StreamSocket {
         } else {
             throw new errors.HumeError({ message: `file must be one of ReadStream or Blob.` });
         }
-        const request: Hume.ModelsInput = {
+        const request: Hume.expressionMeasurement.stream.StreamData = {
             payloadId: uuid(),
             data: contents,
             models: this.config,
@@ -84,11 +84,17 @@ export class StreamSocket {
      * @param config This method is intended for use with a `LanguageConfig`.
      * When the socket is configured for other modalities this method will fail.
      */
-    public async sendText({ text, config }: { text: string; config?: Hume.ModelConfig }): Promise<Hume.ModelResponse> {
+    public async sendText({
+        text,
+        config,
+    }: {
+        text: string;
+        config?: Hume.expressionMeasurement.StreamDataModels;
+    }): Promise<Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError> {
         if (config != null) {
             this.config = config;
         }
-        const request: Hume.ModelsInput = {
+        const request: Hume.expressionMeasurement.StreamData = {
             payloadId: uuid(),
             data: text,
             rawText: true,
@@ -119,8 +125,8 @@ export class StreamSocket {
         config,
     }: {
         landmarks: number[][][];
-        config?: Hume.ModelConfig;
-    }): Promise<Hume.ModelResponse> {
+        config?: Hume.expressionMeasurement.StreamDataModels;
+    }): Promise<Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError> {
         const response = this.sendText({
             text: base64Encode(JSON.stringify(landmarks)),
             config,
@@ -159,25 +165,24 @@ export class StreamSocket {
         this.websocket.close();
     }
 
-    private async send(payload: Hume.ModelsInput): Promise<Hume.ModelResponse | void> {
+    private async send(
+        payload: Hume.expressionMeasurement.StreamData
+    ): Promise<Hume.expressionMeasurement.SubscribeEvent | void> {
         await this.tillSocketOpen();
-        const jsonPayload = await serializers.ModelsInput.jsonOrThrow(payload, {
+        const jsonPayload = await serializers.expressionMeasurement.StreamData.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
-        const response = await new Promise<Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError | undefined>(
-            (resolve, reject) => {
-                this.websocket.addEventListener("message", (event) => {
-                    const response = parse(event.data);
-                    resolve(response);
-                });
-            }
-        );
+        const response = await new Promise<
+            Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError | undefined
+        >((resolve, reject) => {
+            this.websocket.addEventListener("message", (event) => {
+                const response = parse(event.data);
+                resolve(response);
+            });
+        });
         if (response != null && isError(response)) {
             throw new errors.HumeError({ message: `CODE ${response.code}: ${response.error}` });
-        }
-        if (response != null && isWarning(response)) {
-            throw new errors.HumeError({ message: `CODE ${response.code}: ${response.warning}` });
         }
         return response;
     }
@@ -198,12 +203,8 @@ export class StreamSocket {
     }
 }
 
-function isError(response: Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError): response is Hume.ModelsError {
-    return (response as Hume.ModelsError).error != null;
-}
-
-function isWarning(
-    response: Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError
-): response is Hume.ModelsWarning {
-    return (response as Hume.ModelsWarning).warning != null;
+function isError(
+    response: Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError
+): response is Hume.expressionMeasurement.StreamError {
+    return (response as Hume.expressionMeasurement.StreamError).error != null;
 }

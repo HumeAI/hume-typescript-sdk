@@ -1,6 +1,4 @@
 export * as Hume from "./api";
-export { HumeBatchClient } from "./wrapper/HumeBatchClient";
-export { HumeStreamingClient } from "./wrapper/HumeStreamingClient";
-export { Job } from "./wrapper/Job";
+export { HumeClient } from "./wrapper/HumeClient";
 export { HumeEnvironment } from "./environments";
 export { HumeError, HumeTimeoutError } from "./errors";

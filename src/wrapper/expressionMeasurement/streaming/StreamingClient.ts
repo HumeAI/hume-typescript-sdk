@@ -1,39 +1,37 @@
-import * as Hume from "../api";
-import * as serializers from "../serialization";
+import * as Hume from "../../../api";
+import * as serializers from "../../../serialization";
+import * as core from "../../../core";
 import { StreamSocket } from "./StreamSocket";
 import WebSocket from "ws";
 
-export declare namespace HumeStreamingClient {
+export declare namespace StreamClient {
     interface Options {
-        apiKey: string;
-        /* Defaults to 10 seconds */
-        openTimeoutInSeconds?: number;
+        apiKey?: core.Supplier<string | undefined>;
     }
 
     interface ConnectArgs {
         /* Job config */
-        config: Hume.ModelConfig;
+        config: Hume.expressionMeasurement.StreamDataModels;
         /* Length of the sliding window in milliseconds to use when 
             aggregating media across streaming payloads within one WebSocket connection. */
         streamWindowMs?: number;
 
         onOpen?: (event: WebSocket.Event) => void;
-        onMessage?: (message: Hume.ModelResponse) => void;
-        onWarning?: (error: Hume.ModelsWarning) => void;
-        onError?: (error: Hume.ModelsError) => void;
+        onMessage?: (message: Hume.expressionMeasurement.stream.StreamBurst) => void;
+        onError?: (error: Hume.expressionMeasurement.stream.StreamError) => void;
         onClose?: (event: WebSocket.Event) => void;
     }
 }
 
-export class HumeStreamingClient {
-    constructor(protected readonly _options: HumeStreamingClient.Options) {}
+export class StreamClient {
+    constructor(protected readonly _options: StreamClient.Options) {}
 
-    public connect(args: HumeStreamingClient.ConnectArgs): StreamSocket {
+    public connect(args: StreamClient.ConnectArgs): StreamSocket {
         const websocket = new WebSocket(`wss://api.hume.ai/v0/stream/models`, {
             headers: {
-                "X-Hume-Api-Key": this._options.apiKey,
+                "X-Hume-Api-Key": typeof this._options.apiKey === "string" ? this._options.apiKey : "",
             },
-            timeout: this._options.openTimeoutInSeconds,
+            timeout: 10
         });
 
         websocket.addEventListener("open", (event) => {
@@ -50,7 +48,6 @@ export class HumeStreamingClient {
         websocket.addEventListener("message", async ({ data }) => {
             parse(data, {
                 onMessage: args.onMessage,
-                onWarning: args.onWarning,
                 onError: args.onError,
             });
         });
@@ -70,14 +67,13 @@ export class HumeStreamingClient {
 export async function parse(
     data: WebSocket.Data,
     args: {
-        onMessage?: (message: Hume.ModelResponse) => void;
-        onWarning?: (error: Hume.ModelsWarning) => void;
-        onError?: (error: Hume.ModelsError) => void;
+        onMessage?: (message: Hume.expressionMeasurement.stream.StreamBurst) => void;
+        onError?: (error: Hume.expressionMeasurement.stream.StreamError) => void;
     } = {}
-): Promise<Hume.ModelResponse | Hume.ModelsWarning | Hume.ModelsError | undefined> {
+): Promise<Hume.expressionMeasurement.stream.StreamBurst | Hume.expressionMeasurement.stream.StreamError | undefined> {
     const message = JSON.parse(data as string);
 
-    const parsedResponse = await serializers.ModelResponse.parse(message, {
+    const parsedResponse = await serializers.expressionMeasurement.stream.StreamBurst.parse(message, {
         unrecognizedObjectKeys: "passthrough",
         allowUnrecognizedUnionMembers: true,
         allowUnrecognizedEnumValues: true,
@@ -88,18 +84,7 @@ export async function parse(
         return parsedResponse.value;
     }
 
-    const parsedWarning = await serializers.ModelsWarning.parse(message, {
-        unrecognizedObjectKeys: "passthrough",
-        allowUnrecognizedUnionMembers: true,
-        allowUnrecognizedEnumValues: true,
-        breadcrumbsPrefix: ["response"],
-    });
-    if (parsedWarning.ok) {
-        args.onWarning?.(parsedWarning.value);
-        return parsedWarning.value;
-    }
-
-    const parsedError = await serializers.ModelsError.parse(message, {
+    const parsedError = await serializers.expressionMeasurement.stream.StreamError.parse(message, {
         unrecognizedObjectKeys: "passthrough",
         allowUnrecognizedUnionMembers: true,
         allowUnrecognizedEnumValues: true,

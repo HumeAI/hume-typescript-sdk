@@ -1,15 +1,9 @@
-import { createWriteStream } from "fs";
-import { writeFile } from "fs/promises";
-import { pipeline } from "stream/promises";
-import * as Hume from "../api";
-import * as errors from "../errors";
-import { HumeBatchClient } from "./HumeBatchClient";
+import * as Hume from "../../../api";
+import * as errors from "../../../errors";
+import { BatchClient } from "./BatchClient";
 
-export class Job implements Hume.JobId {
-    constructor(
-        public readonly jobId: string,
-        private readonly client: HumeBatchClient
-    ) {}
+export class Job implements Hume.expressionMeasurement.JobId {
+    constructor(public readonly jobId: string, private readonly client: BatchClient) {}
 
     public async awaitCompletion(timeoutInSeconds = 300): Promise<void> {
         return new Promise((resolve, reject) => {
@@ -25,10 +19,7 @@ export class Job implements Hume.JobId {
 
 class JobCompletionPoller {
     private isPolling = true;
-    constructor(
-        private readonly jobId: string,
-        private readonly client: HumeBatchClient
-    ) {}
+    constructor(private readonly jobId: string, private readonly client: BatchClient) {}
 
     public start(onTerminal: () => void) {
         this.isPolling = true;
@@ -42,10 +33,7 @@ class JobCompletionPoller {
     private async poll(onTerminal: () => void): Promise<void> {
         try {
             const jobDetails = await this.client.getJobDetails(this.jobId);
-            if (
-                jobDetails.state.status === "COMPLETED" ||
-                jobDetails.state.status === "FAILED"
-            ) {
+            if (jobDetails.state.status === "COMPLETED" || jobDetails.state.status === "FAILED") {
                 onTerminal();
                 this.stop();
             }
