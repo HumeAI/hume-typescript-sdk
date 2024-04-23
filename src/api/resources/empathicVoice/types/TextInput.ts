@@ -5,5 +5,5 @@
 export interface TextInput {
     /** Text to insert into the conversation. */
     text: string;
-    type?: "text";
+    type: "text_input";
 }

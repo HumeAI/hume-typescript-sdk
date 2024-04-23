@@ -3,5 +3,5 @@
  */
 
 export interface AssistantEnd {
-    type?: "assistant_end";
+    type: "assistant_end";
 }

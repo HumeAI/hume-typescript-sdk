@@ -12,13 +12,13 @@ export const AudioOutput: core.serialization.ObjectSchema<
 > = core.serialization.object({
     data: core.serialization.string(),
     id: core.serialization.string(),
-    type: core.serialization.stringLiteral("audio_output").optional(),
+    type: core.serialization.stringLiteral("audio_output"),
 });
 
 export declare namespace AudioOutput {
     interface Raw {
         data: string;
         id: string;
-        type?: "audio_output" | null;
+        type: "audio_output";
     }
 }

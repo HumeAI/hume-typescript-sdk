@@ -4,5 +4,5 @@
 
 export interface UserInterruption {
     time: number;
-    type?: unknown;
+    type: "user_interruption";
 }

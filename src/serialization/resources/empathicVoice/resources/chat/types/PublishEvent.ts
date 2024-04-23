@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import * as Hume from "../../../../../../api";
 import * as core from "../../../../../../core";
 import { AudioInput } from "../../../types/AudioInput";
-import { Configuration } from "../../../types/Configuration";
+import { SessionSettings } from "../../../types/SessionSettings";
 import { TextInput } from "../../../types/TextInput";
 import { TtsInput } from "../../../types/TtsInput";
 
 export const PublishEvent: core.serialization.Schema<
     serializers.empathicVoice.PublishEvent.Raw,
     Hume.empathicVoice.PublishEvent
-> = core.serialization.undiscriminatedUnion([AudioInput, Configuration, TextInput, TtsInput]);
+> = core.serialization.undiscriminatedUnion([AudioInput, SessionSettings, TextInput, TtsInput]);
 
 export declare namespace PublishEvent {
-    type Raw = AudioInput.Raw | Configuration.Raw | TextInput.Raw | TtsInput.Raw;
+    type Raw = AudioInput.Raw | SessionSettings.Raw | TextInput.Raw | TtsInput.Raw;
 }

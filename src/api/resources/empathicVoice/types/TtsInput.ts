@@ -3,11 +3,7 @@
  */
 
 export interface TtsInput {
-    /** Sample ID for the TTS system. */
-    sampleId?: number;
-    /** Speaker for the TTS system. */
-    speaker?: string;
     /** Text to be synthesized. */
     text: string;
-    type?: "tts";
+    type: "tts";
 }

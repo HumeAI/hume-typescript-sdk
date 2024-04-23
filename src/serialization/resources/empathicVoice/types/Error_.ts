@@ -11,7 +11,7 @@ export const Error_: core.serialization.ObjectSchema<serializers.empathicVoice.E
         code: core.serialization.string(),
         message: core.serialization.string(),
         slug: core.serialization.string(),
-        type: core.serialization.unknown().optional(),
+        type: core.serialization.stringLiteral("error"),
     });
 
 export declare namespace Error_ {
@@ -19,6 +19,6 @@ export declare namespace Error_ {
         code: string;
         message: string;
         slug: string;
-        type?: unknown | null;
+        type: "error";
     }
 }

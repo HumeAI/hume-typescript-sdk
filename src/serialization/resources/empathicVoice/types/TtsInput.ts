@@ -10,17 +10,13 @@ export const TtsInput: core.serialization.ObjectSchema<
     serializers.empathicVoice.TtsInput.Raw,
     Hume.empathicVoice.TtsInput
 > = core.serialization.object({
-    sampleId: core.serialization.property("sample_id", core.serialization.number().optional()),
-    speaker: core.serialization.string().optional(),
     text: core.serialization.string(),
-    type: core.serialization.stringLiteral("tts").optional(),
+    type: core.serialization.stringLiteral("tts"),
 });
 
 export declare namespace TtsInput {
     interface Raw {
-        sample_id?: number | null;
-        speaker?: string | null;
         text: string;
-        type?: "tts" | null;
+        type: "tts";
     }
 }

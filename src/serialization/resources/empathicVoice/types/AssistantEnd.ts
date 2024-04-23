@@ -10,11 +10,11 @@ export const AssistantEnd: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantEnd.Raw,
     Hume.empathicVoice.AssistantEnd
 > = core.serialization.object({
-    type: core.serialization.stringLiteral("assistant_end").optional(),
+    type: core.serialization.stringLiteral("assistant_end"),
 });
 
 export declare namespace AssistantEnd {
     interface Raw {
-        type?: "assistant_end" | null;
+        type: "assistant_end";
     }
 }

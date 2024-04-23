@@ -11,12 +11,12 @@ export const AudioInput: core.serialization.ObjectSchema<
     Hume.empathicVoice.AudioInput
 > = core.serialization.object({
     data: core.serialization.string(),
-    type: core.serialization.stringLiteral("audio_input").optional(),
+    type: core.serialization.stringLiteral("audio_input"),
 });
 
 export declare namespace AudioInput {
     interface Raw {
         data: string;
-        type?: "audio_input" | null;
+        type: "audio_input";
     }
 }

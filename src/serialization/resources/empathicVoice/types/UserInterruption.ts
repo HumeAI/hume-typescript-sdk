@@ -11,12 +11,12 @@ export const UserInterruption: core.serialization.ObjectSchema<
     Hume.empathicVoice.UserInterruption
 > = core.serialization.object({
     time: core.serialization.number(),
-    type: core.serialization.unknown().optional(),
+    type: core.serialization.stringLiteral("user_interruption"),
 });
 
 export declare namespace UserInterruption {
     interface Raw {
         time: number;
-        type?: unknown | null;
+        type: "user_interruption";
     }
 }

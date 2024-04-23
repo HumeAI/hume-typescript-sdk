@@ -7,5 +7,5 @@ export interface AudioOutput {
     data: string;
     /** ID of the audio output. */
     id: string;
-    type?: "audio_output";
+    type: "audio_output";
 }

@@ -6,6 +6,6 @@ import * as Hume from "../../../../..";
 
 export type PublishEvent =
     | Hume.empathicVoice.AudioInput
-    | Hume.empathicVoice.Configuration
+    | Hume.empathicVoice.SessionSettings
     | Hume.empathicVoice.TextInput
     | Hume.empathicVoice.TtsInput;
