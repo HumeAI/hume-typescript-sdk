@@ -5,5 +5,5 @@
 export interface AudioInput {
     /** Base64 encoded audio input. */
     data: string;
-    type: "user_input";
+    type: "audio_input";
 }

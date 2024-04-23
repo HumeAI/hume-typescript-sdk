@@ -72,8 +72,6 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
         body = args.body;
     } else if (args.body instanceof Uint8Array) {
         body = args.body;
-    } else if (args.contentType === "application/x-www-form-urlencoded" && typeof args.body === "string") {
-        body = args.body;
     } else {
         body = JSON.stringify(args.body);
     }
