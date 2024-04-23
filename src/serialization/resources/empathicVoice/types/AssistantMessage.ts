@@ -12,19 +12,17 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantMessage.Raw,
     Hume.empathicVoice.AssistantMessage
 > = core.serialization.object({
-    fromTts: core.serialization.property("from_tts", core.serialization.boolean()),
     id: core.serialization.string().optional(),
     message: ChatMessage,
     models: Inference,
-    type: core.serialization.stringLiteral("assistant_message"),
+    type: core.serialization.stringLiteral("assistant_message").optional(),
 });
 
 export declare namespace AssistantMessage {
     interface Raw {
-        from_tts: boolean;
         id?: string | null;
         message: ChatMessage.Raw;
         models: Inference.Raw;
-        type: "assistant_message";
+        type?: "assistant_message" | null;
     }
 }

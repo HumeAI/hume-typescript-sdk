@@ -11,13 +11,13 @@ export const ChatMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ChatMessage.Raw,
     Hume.empathicVoice.ChatMessage
 > = core.serialization.object({
-    content: core.serialization.string().optional(),
+    content: core.serialization.string(),
     role: Role,
 });
 
 export declare namespace ChatMessage {
     interface Raw {
-        content?: string | null;
+        content: string;
         role: Role.Raw;
     }
 }

@@ -5,13 +5,11 @@
 import * as Hume from "../../..";
 
 export interface AssistantMessage {
-    /** Indicates if this message was constructed from a TtsInput message. */
-    fromTts: boolean;
     /** ID of the assistant message. */
     id?: string;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */
     models: Hume.empathicVoice.Inference;
-    type: "assistant_message";
+    type?: "assistant_message";
 }

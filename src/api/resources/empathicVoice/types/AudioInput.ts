@@ -3,7 +3,7 @@
  */
 
 export interface AudioInput {
-    /** Base64 encoded audio input. */
+    /** Base64 encoded Linear16 PCM input. */
     data: string;
-    type: "audio_input";
+    type?: "audio_input";
 }

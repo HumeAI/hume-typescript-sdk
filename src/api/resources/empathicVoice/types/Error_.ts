@@ -9,5 +9,5 @@ export interface Error_ {
     message: string;
     /** Error slug. */
     slug: string;
-    type: "error";
+    type?: unknown;
 }

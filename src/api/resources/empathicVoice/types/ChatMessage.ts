@@ -5,7 +5,8 @@
 import * as Hume from "../../..";
 
 export interface ChatMessage {
-    content?: string;
+    /** Transcript of the message. */
+    content: string;
     /** Role of who is providing the message. */
     role: Hume.empathicVoice.Role;
 }

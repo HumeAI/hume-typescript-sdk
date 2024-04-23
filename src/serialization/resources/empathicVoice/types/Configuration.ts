@@ -6,17 +6,17 @@ import * as serializers from "../../..";
 import * as Hume from "../../../../api";
 import * as core from "../../../../core";
 
-export const UserInterruption: core.serialization.ObjectSchema<
-    serializers.empathicVoice.UserInterruption.Raw,
-    Hume.empathicVoice.UserInterruption
+export const Configuration: core.serialization.ObjectSchema<
+    serializers.empathicVoice.Configuration.Raw,
+    Hume.empathicVoice.Configuration
 > = core.serialization.object({
-    time: core.serialization.number(),
+    systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
     type: core.serialization.unknown().optional(),
 });
 
-export declare namespace UserInterruption {
+export declare namespace Configuration {
     interface Raw {
-        time: number;
+        system_prompt?: string | null;
         type?: unknown | null;
     }
 }
