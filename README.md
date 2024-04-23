@@ -53,7 +53,7 @@ This SDK contains the APIs for expression measurement, empathic voice and custom
 if you do not plan on using more than one API to start, the SDK provides easy access in 
 case you find additional APIs in the future. 
 
-Each category is namespaced:
+Each API is namespaced accordingly: 
 
 ```typescript
 import { HumeClient } from "hume";
@@ -71,8 +71,8 @@ hume.emapthicVoice. // APIs specific to Empathic Voice
 The SDK supports interacting with both WebSocket and REST APIs. 
 
 ### Request-Reply
-The expression measurement SDK supports a request-reply pattern, 
-where you can send text and wait till the model provides a result. 
+The SDK supports a request-reply pattern for the streaming expression measurement API. 
+You'll be able to pass an inference request and `await` till the response is received. 
 
 ```typescript
 import { HumeClient } from "hume";
@@ -92,7 +92,9 @@ for (const sample of samples) {
 ```
 
 ### Empathic Voice
-The empathic voice API is also accessible via the SDK. 
+The SDK supports sending and receiving audio from Empathic Voice. If you're 
+running with Node.js you can also import our `ffplay` function which will 
+play the audio for you.  
 
 ```typescript
 import { HumeClient, ffplay } from "hume";
@@ -123,7 +125,7 @@ a subclass of [HumeError](./src/errors/HumeError.ts) will be thrown:
 import { HumeError, HumeTimeoutError } from "hume";
 
 try {
-    await hume.expressionMeasurement.batch.submitJob(/* ... */);
+    await hume.expressionMeasurement.batch.startInferenceJob(/* ... */);
 } catch (err) {
     if (err instanceof HumeTimeoutError) {
         console.log("Request timed out", err);
@@ -142,7 +144,7 @@ try {
 You can use the maxRetries option to configure this behavior:
 
 ```typescript
-await hume.expressionMeasurement.batch.submitJob(..., {
+await hume.expressionMeasurement.batch.startInferenceJob(..., {
     maxRetries: 0, // disable retries
 });
 ```
@@ -153,7 +155,7 @@ By default, the SDK has a timeout of 60s. You can use the `timeoutInSeconds` opt
 this behavior
 
 ```typescript
-await hume.expressionMeasurement.batch.submitJob(..., {
+await hume.expressionMeasurement.batch.startInferenceJob(..., {
     timeoutInSeconds: 10, // timeout after 10 seconds
 });
 ```
