@@ -11,12 +11,12 @@ export const TtsInput: core.serialization.ObjectSchema<
     Hume.empathicVoice.TtsInput
 > = core.serialization.object({
     text: core.serialization.string(),
-    type: core.serialization.stringLiteral("tts"),
+    type: core.serialization.stringLiteral("assistant_input"),
 });
 
 export declare namespace TtsInput {
     interface Raw {
         text: string;
-        type: "tts";
+        type: "assistant_input";
     }
 }
