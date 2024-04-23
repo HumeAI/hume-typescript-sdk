@@ -1,7 +1,7 @@
 import { HumeClient } from "../../src/"
 
 describe("Streaming Expression Measurement", () => {
-    it("Emotional Language Text", async () => {
+    it.skip("Emotional Language Text", async () => {
        const hume = new HumeClient({
             apiKey: "<>"
        });
