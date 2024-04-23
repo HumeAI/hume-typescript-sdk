@@ -3,6 +3,9 @@
 README.md
 CITATIONS.md
 LICENSE
+src/core/fetcher/Fetcher.ts
 src/wrapper/
 src/index.ts
+tests/empathicVoice
+tests/expressionMeasurement
 tsconfig.json
