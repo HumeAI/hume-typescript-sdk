@@ -4,9 +4,13 @@
 
 import * as Hume from "../../..";
 
+/**
+ * When provided, the output is an assistant message.
+ */
 export interface AssistantMessage {
-    /** Indicates if this message was constructed from a TtsInput message. */
-    fromTts: boolean;
+    customSessionId?: string;
+    /** Indicates if this message was constructed from a text input message. */
+    fromText: boolean;
     /** ID of the assistant message. */
     id?: string;
     /** Transcript of the message. */

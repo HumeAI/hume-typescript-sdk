@@ -6,19 +6,19 @@ import * as serializers from "../../..";
 import * as Hume from "../../../../api";
 import * as core from "../../../../core";
 
-export const AudioInput: core.serialization.ObjectSchema<
-    serializers.empathicVoice.AudioInput.Raw,
-    Hume.empathicVoice.AudioInput
+export const UserInput: core.serialization.ObjectSchema<
+    serializers.empathicVoice.UserInput.Raw,
+    Hume.empathicVoice.UserInput
 > = core.serialization.object({
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    data: core.serialization.string(),
-    type: core.serialization.stringLiteral("audio_input"),
+    text: core.serialization.string(),
+    type: core.serialization.stringLiteral("user_input"),
 });
 
-export declare namespace AudioInput {
+export declare namespace UserInput {
     interface Raw {
         custom_session_id?: string | null;
-        data: string;
-        type: "audio_input";
+        text: string;
+        type: "user_input";
     }
 }

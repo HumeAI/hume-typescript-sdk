@@ -4,15 +4,17 @@
 
 import * as Hume from "../../..";
 
+/**
+ * When provided, the output is a user message.
+ */
 export interface UserMessage {
+    customSessionId?: string;
     /** Indicates if this message was constructed from a text input message. */
     fromText: boolean;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */
     models: Hume.empathicVoice.Inference;
-    /** Segments of the user message. */
-    serializedSegments: Record<string, unknown>[];
     /** Start and End time of user message. */
     time: Hume.empathicVoice.MillisecondInterval;
     type: "user_message";

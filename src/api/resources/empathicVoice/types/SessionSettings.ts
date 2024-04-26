@@ -4,8 +4,13 @@
 
 import * as Hume from "../../..";
 
+/**
+ * Settings for this chat session.
+ */
 export interface SessionSettings {
+    customSessionId?: string;
     audio?: Hume.empathicVoice.AudioConfiguration;
     languageModelApiKey?: string;
-    type?: "session_settings";
+    systemPrompt?: string;
+    type: "session_settings";
 }

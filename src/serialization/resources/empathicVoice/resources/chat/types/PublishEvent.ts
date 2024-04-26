@@ -7,14 +7,14 @@ import * as Hume from "../../../../../../api";
 import * as core from "../../../../../../core";
 import { AudioInput } from "../../../types/AudioInput";
 import { SessionSettings } from "../../../types/SessionSettings";
-import { TextInput } from "../../../types/TextInput";
-import { TtsInput } from "../../../types/TtsInput";
+import { UserInput } from "../../../types/UserInput";
+import { AssistantInput } from "../../../types/AssistantInput";
 
 export const PublishEvent: core.serialization.Schema<
     serializers.empathicVoice.PublishEvent.Raw,
     Hume.empathicVoice.PublishEvent
-> = core.serialization.undiscriminatedUnion([AudioInput, SessionSettings, TextInput, TtsInput]);
+> = core.serialization.undiscriminatedUnion([AudioInput, SessionSettings, UserInput, AssistantInput]);
 
 export declare namespace PublishEvent {
-    type Raw = AudioInput.Raw | SessionSettings.Raw | TextInput.Raw | TtsInput.Raw;
+    type Raw = AudioInput.Raw | SessionSettings.Raw | UserInput.Raw | AssistantInput.Raw;
 }
