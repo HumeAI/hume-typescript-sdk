@@ -3,7 +3,6 @@ import * as serializers from "../../../serialization";
 import * as core from "../../../core";
 import * as errors from "../../../errors";
 import qs from "qs";
-import WebSocket from "ws";
 import { base64Encode } from "../../base64Encode";
 import { StreamSocket } from "./StreamSocket";
 
@@ -20,10 +19,10 @@ export declare namespace ChatClient {
         /** The version of the configuration. */
         configVersion?: string;
 
-        onOpen?: (event: WebSocket.Event) => void;
+        onOpen?: () => void;
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
         onError?: (error: Hume.empathicVoice.Error_) => void;
-        onClose?: (event: WebSocket.Event) => void;
+        onClose?: () => void;
     }
 }
 
@@ -42,15 +41,15 @@ export class ChatClient {
             queryParams["config_version"] = args.configVersion;
         }
 
-        const websocket = new WebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, {
+        const websocket = new core.WebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, {
             timeout: 10,
         });
 
-        websocket.addEventListener("open", (event) => {
-            args.onOpen?.(event);
+        websocket.addEventListener("open", () => {
+            args.onOpen?.();
         });
 
-        websocket.addEventListener("error", (e) => {
+        websocket.addEventListener("error", (e: any) => {
             args.onError?.({
                 type: "error",
                 code: e.type,
@@ -59,15 +58,15 @@ export class ChatClient {
             });
         });
 
-        websocket.addEventListener("message", async ({ data }) => {
+        websocket.addEventListener("message", async ({ data }: any) => {
             parse(data, {
                 onMessage: args.onMessage,
                 onError: args.onError,
             });
         });
 
-        websocket.addEventListener("close", (event) => {
-            args.onClose?.(event);
+        websocket.addEventListener("close", () => {
+            args.onClose?.();
         });
 
         return new StreamSocket({
@@ -124,7 +123,7 @@ export class ChatClient {
 }
 
 export async function parse(
-    data: WebSocket.Data,
+    data: any,
     args: {
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
         onError?: (error: Hume.empathicVoice.Error_) => void;
