@@ -1,1 +1,1 @@
-export { IsomorphicWebSocket as WebSocket } from "./WebSocket";
+export { connect } from "./WebSocket";
