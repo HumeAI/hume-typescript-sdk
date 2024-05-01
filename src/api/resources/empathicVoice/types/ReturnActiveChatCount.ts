@@ -9,13 +9,13 @@ import * as Hume from "../../..";
  */
 export interface ReturnActiveChatCount {
     /** The timestamp for when chat status was measured. Formatted as a Unix epoch milliseconds. */
-    timestamp?: number;
+    timestamp: number;
     /** The total number of active chats for this user. */
-    totalUserActiveChats?: number;
+    totalUserActiveChats: number;
     /** The maximum number of concurrent active chats for this user. */
     maxAllowedActiveChats?: number;
     /** Boolean indicating if the user is allowed to start more chats. */
-    moreActiveChatsAllowed?: boolean;
+    moreActiveChatsAllowed: boolean;
     /** Optional List of chat counts per tag. */
-    perTag?: Hume.empathicVoice.ReturnActiveChatCountPerTag[];
+    perTag?: (Hume.empathicVoice.ReturnActiveChatCountPerTag | undefined)[];
 }

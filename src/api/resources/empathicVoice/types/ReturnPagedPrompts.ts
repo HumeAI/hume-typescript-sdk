@@ -9,9 +9,9 @@ import * as Hume from "../../..";
  */
 export interface ReturnPagedPrompts {
     /** The page number of the returned results. */
-    pageNumber?: number;
+    pageNumber: number;
     /** The number of results returned per page. */
-    pageSize?: number;
+    pageSize: number;
     /** List of prompts returned for the specified page number and page size. */
-    promptsPage?: Hume.empathicVoice.ReturnPrompt[];
+    promptsPage: (Hume.empathicVoice.ReturnPrompt | undefined)[];
 }

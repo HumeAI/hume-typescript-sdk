@@ -10,23 +10,23 @@ export const ReturnPrompt: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPrompt.Raw,
     Hume.empathicVoice.ReturnPrompt
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
+    id: core.serialization.string(),
+    version: core.serialization.number(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    name: core.serialization.string().optional(),
-    createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
-    modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
-    text: core.serialization.string().optional(),
+    name: core.serialization.string(),
+    createdOn: core.serialization.property("created_on", core.serialization.number()),
+    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
+    text: core.serialization.string(),
 });
 
 export declare namespace ReturnPrompt {
     interface Raw {
-        id?: string | null;
-        version?: number | null;
+        id: string;
+        version: number;
         version_description?: string | null;
-        name?: string | null;
-        created_on?: number | null;
-        modified_on?: number | null;
-        text?: string | null;
+        name: string;
+        created_on: number;
+        modified_on: number;
+        text: string;
     }
 }

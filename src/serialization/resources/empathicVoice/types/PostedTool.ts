@@ -10,17 +10,17 @@ export const PostedTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedTool.Raw,
     Hume.empathicVoice.PostedTool
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
+    name: core.serialization.string(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    docstring: core.serialization.string().optional(),
-    schema: core.serialization.string().optional(),
+    description: core.serialization.string().optional(),
+    parameters: core.serialization.string(),
 });
 
 export declare namespace PostedTool {
     interface Raw {
-        name?: string | null;
+        name: string;
         version_description?: string | null;
-        docstring?: string | null;
-        schema?: string | null;
+        description?: string | null;
+        parameters: string;
     }
 }

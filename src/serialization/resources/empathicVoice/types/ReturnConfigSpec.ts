@@ -10,13 +10,13 @@ export const ReturnConfigSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfigSpec.Raw,
     Hume.empathicVoice.ReturnConfigSpec
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
+    id: core.serialization.string(),
     version: core.serialization.number().optional(),
 });
 
 export declare namespace ReturnConfigSpec {
     interface Raw {
-        id?: string | null;
+        id: string;
         version?: number | null;
     }
 }

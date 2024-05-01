@@ -3,13 +3,14 @@
  */
 
 /**
- * A prompt to be posted to the server
+ * @example
+ *     {
+ *         text: "text"
+ *     }
  */
-export interface PostedPrompt {
-    /** Name applied to all versions of a particular Prompt. */
-    name?: string;
+export interface PostedPromptVersion {
     /** Description that is appended to a specific version of a Prompt. */
     versionDescription?: string;
     /** Text used for this version of the Prompt. */
-    text?: string;
+    text: string;
 }

@@ -11,15 +11,15 @@ export const ReturnPagedPrompts: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPagedPrompts.Raw,
     Hume.empathicVoice.ReturnPagedPrompts
 > = core.serialization.object({
-    pageNumber: core.serialization.property("page_number", core.serialization.number().optional()),
-    pageSize: core.serialization.property("page_size", core.serialization.number().optional()),
-    promptsPage: core.serialization.property("prompts_page", core.serialization.list(ReturnPrompt).optional()),
+    pageNumber: core.serialization.property("page_number", core.serialization.number()),
+    pageSize: core.serialization.property("page_size", core.serialization.number()),
+    promptsPage: core.serialization.property("prompts_page", core.serialization.list(ReturnPrompt.optional())),
 });
 
 export declare namespace ReturnPagedPrompts {
     interface Raw {
-        page_number?: number | null;
-        page_size?: number | null;
-        prompts_page?: ReturnPrompt.Raw[] | null;
+        page_number: number;
+        page_size: number;
+        prompts_page: (ReturnPrompt.Raw | null | undefined)[];
     }
 }

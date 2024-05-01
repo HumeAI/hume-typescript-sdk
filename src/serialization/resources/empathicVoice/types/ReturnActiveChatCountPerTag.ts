@@ -10,13 +10,13 @@ export const ReturnActiveChatCountPerTag: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnActiveChatCountPerTag.Raw,
     Hume.empathicVoice.ReturnActiveChatCountPerTag
 > = core.serialization.object({
-    tag: core.serialization.string().optional(),
-    totalTagActiveChats: core.serialization.property("total_tag_active_chats", core.serialization.number().optional()),
+    tag: core.serialization.string(),
+    totalTagActiveChats: core.serialization.property("total_tag_active_chats", core.serialization.number()),
 });
 
 export declare namespace ReturnActiveChatCountPerTag {
     interface Raw {
-        tag?: string | null;
-        total_tag_active_chats?: number | null;
+        tag: string;
+        total_tag_active_chats: number;
     }
 }

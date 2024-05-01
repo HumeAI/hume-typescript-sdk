@@ -9,9 +9,9 @@ import * as Hume from "../../..";
  */
 export interface ReturnPagedChats {
     /** The page number of the returned results. */
-    pageNumber?: number;
+    pageNumber: number;
     /** The number of results returned per page. */
-    pageSize?: number;
+    pageSize: number;
     /** List of chats and their metadata returned for the specified page number and page size. */
-    chatsPage?: Hume.empathicVoice.ReturnChat[];
+    chatsPage: Hume.empathicVoice.ReturnChat[];
 }

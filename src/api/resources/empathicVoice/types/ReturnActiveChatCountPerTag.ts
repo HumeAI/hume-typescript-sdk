@@ -7,7 +7,7 @@
  */
 export interface ReturnActiveChatCountPerTag {
     /** User tag applied to a chat. */
-    tag?: string;
+    tag: string;
     /** The total number of active chats for this user with the specified tag. */
-    totalTagActiveChats?: number;
+    totalTagActiveChats: number;
 }

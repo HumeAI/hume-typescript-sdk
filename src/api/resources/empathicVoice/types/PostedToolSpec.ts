@@ -7,7 +7,7 @@
  */
 export interface PostedToolSpec {
     /** Identifier for a Tool. Formatted as a UUID. */
-    id?: string;
+    id: string;
     /** Version number for a Tool. Version numbers should be integers. The combination of configId and version number is unique. */
-    version?: number;
+    version: number;
 }

@@ -4,9 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "name"
+ *     }
  */
 export interface PostedPromptName {
     /** Name applied to all versions of a particular Prompt. */
-    name?: string;
+    name: string;
 }

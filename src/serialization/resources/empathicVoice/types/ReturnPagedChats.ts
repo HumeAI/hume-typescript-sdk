@@ -11,15 +11,15 @@ export const ReturnPagedChats: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPagedChats.Raw,
     Hume.empathicVoice.ReturnPagedChats
 > = core.serialization.object({
-    pageNumber: core.serialization.property("page_number", core.serialization.number().optional()),
-    pageSize: core.serialization.property("page_size", core.serialization.number().optional()),
-    chatsPage: core.serialization.property("chats_page", core.serialization.list(ReturnChat).optional()),
+    pageNumber: core.serialization.property("page_number", core.serialization.number()),
+    pageSize: core.serialization.property("page_size", core.serialization.number()),
+    chatsPage: core.serialization.property("chats_page", core.serialization.list(ReturnChat)),
 });
 
 export declare namespace ReturnPagedChats {
     interface Raw {
-        page_number?: number | null;
-        page_size?: number | null;
-        chats_page?: ReturnChat.Raw[] | null;
+        page_number: number;
+        page_size: number;
+        chats_page: ReturnChat.Raw[];
     }
 }

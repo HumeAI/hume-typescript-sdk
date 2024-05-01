@@ -9,15 +9,15 @@ import * as Hume from "../../..";
  */
 export interface ReturnChat {
     /** Identifier for a chat. Formatted as a UUID. */
-    id?: string;
+    id: string;
     /** Optional Identifier for the chatId that this chat was resumed from. Formatted as a UUID. */
     resumedFromId?: string;
     /** Optional tag applied to this chat used to group chats by user, application, etc. */
     tag?: string;
     /** The status of the chat. Values from the ChatStatus enum. */
-    status?: string;
+    status: string;
     /** The timestamp when the chat started, formatted as a Unix epoch milliseconds. */
-    startTimestamp?: number;
+    startTimestamp: number;
     /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
     endTimestamp?: number;
     /** Stringified JSON with additional metadata about the chat. */

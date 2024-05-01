@@ -10,12 +10,14 @@ export const UserInterruption: core.serialization.ObjectSchema<
     serializers.empathicVoice.UserInterruption.Raw,
     Hume.empathicVoice.UserInterruption
 > = core.serialization.object({
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     time: core.serialization.number(),
     type: core.serialization.stringLiteral("user_interruption"),
 });
 
 export declare namespace UserInterruption {
     interface Raw {
+        custom_session_id?: string | null;
         time: number;
         type: "user_interruption";
     }

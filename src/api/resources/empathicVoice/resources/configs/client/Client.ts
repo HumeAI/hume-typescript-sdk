@@ -57,7 +57,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -116,7 +116,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -192,7 +192,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,7 +236,7 @@ export class Configs {
 
     public async addNewConfigVersion(
         id: string,
-        request: Hume.empathicVoice.PostedConfig,
+        request: Hume.empathicVoice.PostedConfigVersion = {},
         requestOptions?: Configs.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnConfig> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -252,13 +252,13 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.empathicVoice.PostedConfig.jsonOrThrow(request, {
+            body: await serializers.empathicVoice.PostedConfigVersion.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -310,7 +310,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -347,7 +347,7 @@ export class Configs {
 
     public async updateConfigName(
         id: string,
-        request: Hume.empathicVoice.PostedConfigName = {},
+        request: Hume.empathicVoice.PostedConfigName,
         requestOptions?: Configs.RequestOptions
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -363,7 +363,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -419,7 +419,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -478,7 +478,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -532,7 +532,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.5",
+                "X-Fern-SDK-Version": "0.5.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

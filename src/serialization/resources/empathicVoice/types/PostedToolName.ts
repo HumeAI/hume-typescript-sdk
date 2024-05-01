@@ -10,11 +10,11 @@ export const PostedToolName: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedToolName.Raw,
     Hume.empathicVoice.PostedToolName
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
+    name: core.serialization.string(),
 });
 
 export declare namespace PostedToolName {
     interface Raw {
-        name?: string | null;
+        name: string;
     }
 }

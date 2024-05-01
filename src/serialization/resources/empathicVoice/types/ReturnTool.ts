@@ -10,25 +10,25 @@ export const ReturnTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnTool.Raw,
     Hume.empathicVoice.ReturnTool
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
+    id: core.serialization.string(),
+    version: core.serialization.number(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    name: core.serialization.string().optional(),
-    createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
-    modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
-    docstring: core.serialization.string().optional(),
-    schema: core.serialization.string().optional(),
+    name: core.serialization.string(),
+    createdOn: core.serialization.property("created_on", core.serialization.number()),
+    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
+    description: core.serialization.string().optional(),
+    parameters: core.serialization.string(),
 });
 
 export declare namespace ReturnTool {
     interface Raw {
-        id?: string | null;
-        version?: number | null;
+        id: string;
+        version: number;
         version_description?: string | null;
-        name?: string | null;
-        created_on?: number | null;
-        modified_on?: number | null;
-        docstring?: string | null;
-        schema?: string | null;
+        name: string;
+        created_on: number;
+        modified_on: number;
+        description?: string | null;
+        parameters: string;
     }
 }

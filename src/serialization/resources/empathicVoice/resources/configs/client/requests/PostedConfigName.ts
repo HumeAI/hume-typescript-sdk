@@ -10,11 +10,11 @@ export const PostedConfigName: core.serialization.Schema<
     serializers.empathicVoice.PostedConfigName.Raw,
     Hume.empathicVoice.PostedConfigName
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
+    name: core.serialization.string(),
 });
 
 export declare namespace PostedConfigName {
     interface Raw {
-        name?: string | null;
+        name: string;
     }
 }

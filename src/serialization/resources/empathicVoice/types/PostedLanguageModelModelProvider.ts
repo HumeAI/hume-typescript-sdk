@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const PostedLanguageModelModelProvider: core.serialization.Schema<
     serializers.empathicVoice.PostedLanguageModelModelProvider.Raw,
     Hume.empathicVoice.PostedLanguageModelModelProvider
-> = core.serialization.enum_(["OPEN_AI", "BYO_TEXT", "ANTHROPIC", "FIREWORKS"]);
+> = core.serialization.enum_(["OPEN_AI", "BYO_TEXT", "CUSTOM_LANGUAGE_MODEL", "ANTHROPIC", "FIREWORKS"]);
 
 export declare namespace PostedLanguageModelModelProvider {
-    type Raw = "OPEN_AI" | "BYO_TEXT" | "ANTHROPIC" | "FIREWORKS";
+    type Raw = "OPEN_AI" | "BYO_TEXT" | "CUSTOM_LANGUAGE_MODEL" | "ANTHROPIC" | "FIREWORKS";
 }

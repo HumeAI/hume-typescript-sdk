@@ -10,12 +10,14 @@ export const AudioInput: core.serialization.ObjectSchema<
     serializers.empathicVoice.AudioInput.Raw,
     Hume.empathicVoice.AudioInput
 > = core.serialization.object({
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     data: core.serialization.string(),
     type: core.serialization.stringLiteral("audio_input"),
 });
 
 export declare namespace AudioInput {
     interface Raw {
+        custom_session_id?: string | null;
         data: string;
         type: "audio_input";
     }
