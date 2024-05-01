@@ -7,19 +7,19 @@
  */
 export interface ReturnTool {
     /** Identifier for a Tool. Formatted as a UUID. */
-    id?: string;
+    id: string;
     /** Version number for a Tool. Version numbers should be integers. The combination of configId and version number is unique. */
-    version?: number;
+    version: number;
     /** Description that is appended to a specific version of a Tool. */
     versionDescription?: string;
     /** Name applied to all versions of a particular Tool. */
-    name?: string;
+    name: string;
     /** The timestamp when the first version of this tool was created. */
-    createdOn?: number;
+    createdOn: number;
     /** The timestamp when this version of the tool was created. */
-    modifiedOn?: number;
+    modifiedOn: number;
     /** Text describing what the tool does. */
-    docstring?: string;
-    /** Stringified JSON defining the schema for this version of the Tool. */
-    schema?: string;
+    description?: string;
+    /** Stringified JSON defining the parameters used by this version of the Tool. */
+    parameters: string;
 }

@@ -10,11 +10,11 @@ export const PostedPromptName: core.serialization.Schema<
     serializers.empathicVoice.PostedPromptName.Raw,
     Hume.empathicVoice.PostedPromptName
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
+    name: core.serialization.string(),
 });
 
 export declare namespace PostedPromptName {
     interface Raw {
-        name?: string | null;
+        name: string;
     }
 }

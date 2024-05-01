@@ -11,28 +11,25 @@ export const ReturnActiveChatCount: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnActiveChatCount.Raw,
     Hume.empathicVoice.ReturnActiveChatCount
 > = core.serialization.object({
-    timestamp: core.serialization.number().optional(),
-    totalUserActiveChats: core.serialization.property(
-        "total_user_active_chats",
-        core.serialization.number().optional()
-    ),
+    timestamp: core.serialization.number(),
+    totalUserActiveChats: core.serialization.property("total_user_active_chats", core.serialization.number()),
     maxAllowedActiveChats: core.serialization.property(
         "max_allowed_active_chats",
         core.serialization.number().optional()
     ),
-    moreActiveChatsAllowed: core.serialization.property(
-        "more_active_chats_allowed",
-        core.serialization.boolean().optional()
+    moreActiveChatsAllowed: core.serialization.property("more_active_chats_allowed", core.serialization.boolean()),
+    perTag: core.serialization.property(
+        "per_tag",
+        core.serialization.list(ReturnActiveChatCountPerTag.optional()).optional()
     ),
-    perTag: core.serialization.property("per_tag", core.serialization.list(ReturnActiveChatCountPerTag).optional()),
 });
 
 export declare namespace ReturnActiveChatCount {
     interface Raw {
-        timestamp?: number | null;
-        total_user_active_chats?: number | null;
+        timestamp: number;
+        total_user_active_chats: number;
         max_allowed_active_chats?: number | null;
-        more_active_chats_allowed?: boolean | null;
-        per_tag?: ReturnActiveChatCountPerTag.Raw[] | null;
+        more_active_chats_allowed: boolean;
+        per_tag?: (ReturnActiveChatCountPerTag.Raw | null | undefined)[] | null;
     }
 }

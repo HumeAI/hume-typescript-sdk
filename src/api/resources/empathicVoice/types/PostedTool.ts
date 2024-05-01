@@ -7,11 +7,11 @@
  */
 export interface PostedTool {
     /** Name applied to all versions of a particular Tool. */
-    name?: string;
+    name: string;
     /** Description that is appended to a specific version of a Tool. */
     versionDescription?: string;
     /** Text describing what the tool does. */
-    docstring?: string;
-    /** Stringified JSON defining the schema for this version of the Tool. */
-    schema?: string;
+    description?: string;
+    /** Stringified JSON defining the parameters used by this version of the Tool. */
+    parameters: string;
 }

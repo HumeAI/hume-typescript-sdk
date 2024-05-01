@@ -7,5 +7,5 @@
  */
 export interface PostedToolName {
     /** Name applied to all versions of a particular Tool. */
-    name?: string;
+    name: string;
 }

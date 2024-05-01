@@ -7,17 +7,17 @@
  */
 export interface ReturnPrompt {
     /** Identifier for a Prompt. Formatted as a UUID. */
-    id?: string;
+    id: string;
     /** Version number for a Prompt. Version numbers should be integers. The combination of configId and version number is unique. */
-    version?: number;
+    version: number;
     /** Description that is appended to a specific version of a Prompt. */
     versionDescription?: string;
     /** Name applied to all versions of a particular Prompt. */
-    name?: string;
+    name: string;
     /** The timestamp when the first version of this prompt was created. */
-    createdOn?: number;
+    createdOn: number;
     /** The timestamp when this version of the prompt was created. */
-    modifiedOn?: number;
+    modifiedOn: number;
     /** Text used for this version of the Prompt. */
-    text?: string;
+    text: string;
 }

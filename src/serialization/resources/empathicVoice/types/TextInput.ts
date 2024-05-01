@@ -10,13 +10,11 @@ export const TextInput: core.serialization.ObjectSchema<
     serializers.empathicVoice.TextInput.Raw,
     Hume.empathicVoice.TextInput
 > = core.serialization.object({
-    text: core.serialization.string(),
-    type: core.serialization.stringLiteral("user_input"),
+    type: core.serialization.stringLiteral("text_input").optional(),
 });
 
 export declare namespace TextInput {
     interface Raw {
-        text: string;
-        type: "user_input";
+        type?: "text_input" | null;
     }
 }

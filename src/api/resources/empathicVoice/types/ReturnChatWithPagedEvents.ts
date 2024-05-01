@@ -9,24 +9,24 @@ import * as Hume from "../../..";
  */
 export interface ReturnChatWithPagedEvents {
     /** Identifier for a chat. Formatted as a UUID. */
-    id?: string;
+    id: string;
     /** Optional Identifier for the chatId that this chat was resumed from. Formatted as a UUID. */
     resumedFromId?: string;
     /** Optional tag applied to this chat used to group chats by user, application, etc. */
     tag?: string;
     /** The status of the chat. Values from the ChatStatus enum. */
-    status?: string;
+    status: string;
     /** The timestamp when the chat started, formatted as a Unix epoch milliseconds. */
-    startTimestamp?: number;
+    startTimestamp: number;
     /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
     endTimestamp?: number;
     /** List of chat events with the specified page number and page size. */
-    eventsPage?: Hume.empathicVoice.ReturnChatEvent[];
+    eventsPage: Hume.empathicVoice.ReturnChatEvent[];
     /** Stringified JSON with additional metadata about the chat. */
     metadata?: string;
     /** The page number of the returned results. */
-    pageNumber?: number;
+    pageNumber: number;
     /** The number of results returned per page. */
-    pageSize?: number;
+    pageSize: number;
     config?: Hume.empathicVoice.ReturnConfigSpec;
 }

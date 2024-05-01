@@ -10,13 +10,13 @@ export const PostedPromptSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedPromptSpec.Raw,
     Hume.empathicVoice.PostedPromptSpec
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
+    id: core.serialization.string(),
+    version: core.serialization.number(),
 });
 
 export declare namespace PostedPromptSpec {
     interface Raw {
-        id?: string | null;
-        version?: number | null;
+        id: string;
+        version: number;
     }
 }

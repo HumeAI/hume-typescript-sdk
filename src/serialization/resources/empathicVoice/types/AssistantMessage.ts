@@ -12,7 +12,8 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantMessage.Raw,
     Hume.empathicVoice.AssistantMessage
 > = core.serialization.object({
-    fromTts: core.serialization.property("from_tts", core.serialization.boolean()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    fromText: core.serialization.property("from_text", core.serialization.boolean()),
     id: core.serialization.string().optional(),
     message: ChatMessage,
     models: Inference,
@@ -21,7 +22,8 @@ export const AssistantMessage: core.serialization.ObjectSchema<
 
 export declare namespace AssistantMessage {
     interface Raw {
-        from_tts: boolean;
+        custom_session_id?: string | null;
+        from_text: boolean;
         id?: string | null;
         message: ChatMessage.Raw;
         models: Inference.Raw;

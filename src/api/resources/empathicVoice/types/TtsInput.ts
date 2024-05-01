@@ -3,7 +3,5 @@
  */
 
 export interface TtsInput {
-    /** Text to be synthesized. */
-    text: string;
-    type: "assistant_input";
+    type?: "tts";
 }

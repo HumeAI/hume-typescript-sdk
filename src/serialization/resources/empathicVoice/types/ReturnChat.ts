@@ -11,11 +11,11 @@ export const ReturnChat: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChat.Raw,
     Hume.empathicVoice.ReturnChat
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
+    id: core.serialization.string(),
     resumedFromId: core.serialization.property("resumed_from_id", core.serialization.string().optional()),
     tag: core.serialization.string().optional(),
-    status: core.serialization.string().optional(),
-    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number().optional()),
+    status: core.serialization.string(),
+    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
     metadata: core.serialization.string().optional(),
     config: ReturnConfigSpec.optional(),
@@ -23,11 +23,11 @@ export const ReturnChat: core.serialization.ObjectSchema<
 
 export declare namespace ReturnChat {
     interface Raw {
-        id?: string | null;
+        id: string;
         resumed_from_id?: string | null;
         tag?: string | null;
-        status?: string | null;
-        start_timestamp?: number | null;
+        status: string;
+        start_timestamp: number;
         end_timestamp?: number | null;
         metadata?: string | null;
         config?: ReturnConfigSpec.Raw | null;

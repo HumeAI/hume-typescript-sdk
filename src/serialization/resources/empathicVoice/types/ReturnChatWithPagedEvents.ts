@@ -12,31 +12,31 @@ export const ReturnChatWithPagedEvents: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatWithPagedEvents.Raw,
     Hume.empathicVoice.ReturnChatWithPagedEvents
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
+    id: core.serialization.string(),
     resumedFromId: core.serialization.property("resumed_from_id", core.serialization.string().optional()),
     tag: core.serialization.string().optional(),
-    status: core.serialization.string().optional(),
-    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number().optional()),
+    status: core.serialization.string(),
+    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
-    eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent).optional()),
+    eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
     metadata: core.serialization.string().optional(),
-    pageNumber: core.serialization.property("page_number", core.serialization.number().optional()),
-    pageSize: core.serialization.property("page_size", core.serialization.number().optional()),
+    pageNumber: core.serialization.property("page_number", core.serialization.number()),
+    pageSize: core.serialization.property("page_size", core.serialization.number()),
     config: ReturnConfigSpec.optional(),
 });
 
 export declare namespace ReturnChatWithPagedEvents {
     interface Raw {
-        id?: string | null;
+        id: string;
         resumed_from_id?: string | null;
         tag?: string | null;
-        status?: string | null;
-        start_timestamp?: number | null;
+        status: string;
+        start_timestamp: number;
         end_timestamp?: number | null;
-        events_page?: ReturnChatEvent.Raw[] | null;
+        events_page: ReturnChatEvent.Raw[];
         metadata?: string | null;
-        page_number?: number | null;
-        page_size?: number | null;
+        page_number: number;
+        page_size: number;
         config?: ReturnConfigSpec.Raw | null;
     }
 }

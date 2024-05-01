@@ -11,15 +11,19 @@ export const SessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.SessionSettings.Raw,
     Hume.empathicVoice.SessionSettings
 > = core.serialization.object({
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     audio: AudioConfiguration.optional(),
     languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
-    type: core.serialization.stringLiteral("session_settings").optional(),
+    systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
+    type: core.serialization.stringLiteral("session_settings"),
 });
 
 export declare namespace SessionSettings {
     interface Raw {
+        custom_session_id?: string | null;
         audio?: AudioConfiguration.Raw | null;
         language_model_api_key?: string | null;
-        type?: "session_settings" | null;
+        system_prompt?: string | null;
+        type: "session_settings";
     }
 }

@@ -4,9 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "name"
+ *     }
  */
 export interface PostedConfigName {
     /** Name applied to all versions of a particular Config. */
-    name?: string;
+    name: string;
 }
