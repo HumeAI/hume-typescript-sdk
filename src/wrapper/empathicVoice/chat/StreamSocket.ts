@@ -17,29 +17,29 @@ export class StreamSocket {
     /**
      * Send audio input
      **/
-    public async sendAudioInput(message: Hume.empathicVoice.AudioInput): Promise<void> {
-        await this.send(message);
+    public async sendAudioInput(message: string | ArrayBuffer | Blob | ArrayBufferView): Promise<void> {
+        await this.sendRaw(message);
     }
 
     /**
      * Send session settings
      */
     public async sendSessionSettings(message: Hume.empathicVoice.SessionSettings): Promise<void> {
-        await this.send(message);
+        await this.sendJson(message);
     }
 
     /**
      * Send session settings
      */
     public async sendAssistantInput(message: Hume.empathicVoice.AssistantInput): Promise<void> {
-        await this.send(message);
+        await this.sendJson(message);
     }
 
     /**
      * Send text input
      */
     public async sendTextInput(text: string): Promise<void> {
-        await this.send({
+        await this.sendJson({
             type: "user_input",
             text,
         });
@@ -52,12 +52,17 @@ export class StreamSocket {
         this.websocket.close();
     }
 
-    private async send(payload: Hume.empathicVoice.PublishEvent): Promise<void> {
+    private async sendJson(payload: Hume.empathicVoice.PublishEvent): Promise<void> {
         await this.tillSocketOpen();
         const jsonPayload = await serializers.empathicVoice.PublishEvent.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
+    }
+
+    private async sendRaw(payload: any): Promise<void> {
+        await this.tillSocketOpen();
+        this.websocket.send(payload);
     }
 
     private async tillSocketOpen(): Promise<WebSocket> {
