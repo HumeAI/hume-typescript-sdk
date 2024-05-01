@@ -41,9 +41,7 @@ export class ChatClient {
             queryParams["config_version"] = args.configVersion;
         }
 
-        const websocket = new core.WebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, {
-            timeout: 10,
-        });
+        const websocket = await core.connect(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`);
 
         websocket.addEventListener("open", () => {
             args.onOpen?.();
