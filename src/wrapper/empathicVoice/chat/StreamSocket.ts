@@ -29,6 +29,13 @@ export class StreamSocket {
     }
 
     /**
+     * Send session settings
+     */
+    public async sendAssistantInput(message: Hume.empathicVoice.AssistantInput): Promise<void> {
+        await this.send(message);
+    }
+
+    /**
      * Send text input
      */
     public async sendTextInput(text: string): Promise<void> {
@@ -36,15 +43,6 @@ export class StreamSocket {
             type: "user_input",
             text,
         });
-    }
-
-    /**
-     *
-     * Send TTS input
-     *
-     */
-    public async sendTtsInput(message: Hume.empathicVoice.TtsInput): Promise<void> {
-        await this.send(message);
     }
 
     /**
