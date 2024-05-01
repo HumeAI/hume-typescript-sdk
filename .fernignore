@@ -3,7 +3,7 @@
 README.md
 CITATIONS.md
 LICENSE
-src/core/fetcher/Fetcher.ts
+src/core/
 src/wrapper/
 src/index.ts
 tests/empathicVoice

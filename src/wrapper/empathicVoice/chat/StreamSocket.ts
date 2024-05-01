@@ -1,15 +1,14 @@
-import WebSocket from "ws";
 import * as Hume from "../../../api";
 import * as serializers from "../../../serialization";
 
 export declare namespace StreamSocket {
     interface Args {
-        websocket: WebSocket;
+        websocket: any;
     }
 }
 
 export class StreamSocket {
-    public readonly websocket: WebSocket;
+    public readonly websocket: any;
 
     constructor({ websocket }: StreamSocket.Args) {
         this.websocket = websocket;
@@ -57,14 +56,14 @@ export class StreamSocket {
 
     private async send(payload: Hume.empathicVoice.PublishEvent): Promise<void> {
         await this.tillSocketOpen();
-        const jsonPayload = await serializers.expressionMeasurement.StreamData.jsonOrThrow(payload, {
+        const jsonPayload = await serializers.empathicVoice.PublishEvent.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
     }
 
     private async tillSocketOpen(): Promise<WebSocket> {
-        if (this.websocket.readyState === WebSocket.OPEN) {
+        if (this.websocket.readyState === 1) {
             return this.websocket;
         }
         return new Promise((resolve, reject) => {
@@ -72,7 +71,7 @@ export class StreamSocket {
                 resolve(this.websocket);
             });
 
-            this.websocket.addEventListener("error", (event) => {
+            this.websocket.addEventListener("error", (event: any) => {
                 reject(event);
             });
         });
