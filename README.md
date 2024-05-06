@@ -92,12 +92,10 @@ for (const sample of samples) {
 ```
 
 ### Empathic Voice
-The SDK supports sending and receiving audio from Empathic Voice. If you're 
-running with Node.js you can also import our `ffplay` function which will 
-play the audio for you.  
+The SDK supports sending and receiving audio from Empathic Voice. 
 
 ```typescript
-import { HumeClient, ffplay } from "hume";
+import { HumeClient } from "hume";
 
 const hume = new HumeClient({
     apiKey: "<>",
@@ -108,7 +106,7 @@ const socket = await hume.empathicVoice.chat.connect({
     async onMessage(message): Promise<void> {
         if (message.type === "audio_output") {
             const decoded = Buffer.from(message.data, "base64");
-            await ffplay(decoded);
+            // play decoded message
         }
     }
 });
