@@ -128,7 +128,6 @@ export async function parse(
     } = {}
 ): Promise<Hume.empathicVoice.SubscribeEvent | undefined> {
     const message = JSON.parse(data as string);
-    console.log(message);
 
     const parsedResponse = await serializers.empathicVoice.SubscribeEvent.parse(message, {
         unrecognizedObjectKeys: "passthrough",
