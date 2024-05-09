@@ -24,15 +24,21 @@ export class StreamSocket {
     /**
      * Send session settings
      */
-    public async sendSessionSettings(message: Hume.empathicVoice.SessionSettings): Promise<void> {
-        await this.sendJson(message);
+    public async sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type">): Promise<void> {
+        await this.sendJson({
+            type: "session_settings",
+            ...message,
+        });
     }
 
     /**
      * Send session settings
      */
-    public async sendAssistantInput(message: Hume.empathicVoice.AssistantInput): Promise<void> {
-        await this.sendJson(message);
+    public async sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): Promise<void> {
+        await this.sendJson({
+            ...message,
+            type: "assistant_input"
+        });
     }
 
     /**
