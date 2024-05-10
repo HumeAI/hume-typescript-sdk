@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
+import * as Hume from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Models {
     interface Options {
@@ -29,6 +29,9 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Model
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.models.getModelById("id")
      */
@@ -39,7 +42,7 @@ export class Models {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `models/${id}`
+                `models/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -49,7 +52,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -93,6 +96,10 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Model
+     * @param {Hume.customModels.ModelsRenameModelRequest} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.models.renameModel("id", {
      *         name: "name"
@@ -109,7 +116,7 @@ export class Models {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `models/${id}`
+                `models/${encodeURIComponent(id)}`
             ),
             method: "PATCH",
             headers: {
@@ -119,7 +126,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -164,6 +171,10 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Model version
+     * @param {Hume.customModels.ModelsGetExternalModelVersionsByIdRequest} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.models.getExternalModelVersionsById("id")
      */
@@ -181,7 +192,7 @@ export class Models {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `models/version/${id}`
+                `models/version/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -191,7 +202,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,6 +247,10 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Model Version
+     * @param {string} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.models.updateModelVersionDescription("id", "string")
      */
@@ -247,7 +262,7 @@ export class Models {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `models/version/${id}`
+                `models/version/${encodeURIComponent(id)}`
             ),
             method: "PATCH",
             headers: {
@@ -257,7 +272,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -304,6 +319,9 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {Hume.customModels.ModelsGetModelsByUserAndNameRequest} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.models.getModelsByUserAndName()
      */
@@ -342,7 +360,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -387,6 +405,9 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {Hume.customModels.ModelsGetModelVersionsByQueryRequest} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.models.getModelVersionsByQuery()
      */
@@ -429,7 +450,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

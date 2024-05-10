@@ -1,8 +1,10 @@
 export * as chat from "./chat";
 export * from "./chat/types";
+export * as tools from "./tools";
 export * as prompts from "./prompts";
 export * as configs from "./configs";
 export * as chats from "./chats";
+export * from "./tools/client/requests";
 export * from "./prompts/client/requests";
 export * from "./configs/client/requests";
 export * from "./chats/client/requests";

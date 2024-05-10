@@ -3,15 +3,18 @@
  */
 
 /**
- * A tool to be posted to the server
+ * @example
+ *     {
+ *         parameters: "parameters"
+ *     }
  */
-export interface PostedTool {
-    /** Name applied to all versions of a particular Tool. */
-    name: string;
+export interface PostedUserDefinedToolVersion {
     /** Description that is appended to a specific version of a Tool. */
     versionDescription?: string;
     /** Text describing what the tool does. */
     description?: string;
     /** Stringified JSON defining the parameters used by this version of the Tool. */
     parameters: string;
+    /** Text to use if the tool fails to generate content. */
+    fallbackContent?: string;
 }

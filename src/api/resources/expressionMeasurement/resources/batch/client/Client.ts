@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
+import * as Hume from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 import * as stream from "stream";
 import * as fs from "fs";
 import { default as FormData } from "form-data";
@@ -31,6 +31,9 @@ export class Batch {
 
     /**
      * Sort and filter jobs.
+     *
+     * @param {Hume.expressionMeasurement.BatchListJobsRequest} request
+     * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await hume.expressionMeasurement.batch.listJobs()
@@ -90,7 +93,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,6 +138,9 @@ export class Batch {
     /**
      * Start a new measurement inference job.
      *
+     * @param {Hume.expressionMeasurement.InferenceBaseRequest} request
+     * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.expressionMeasurement.batch.startInferenceJob({
      *         urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
@@ -158,7 +164,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -205,8 +211,8 @@ export class Batch {
     /**
      * Get the request details and state of a given job.
      *
-     * @example
-     *     await hume.expressionMeasurement.batch.getJobDetails("job_id")
+     * @param {string} id
+     * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await hume.expressionMeasurement.batch.getJobDetails("job_id")
@@ -218,7 +224,7 @@ export class Batch {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/batch/jobs/${id}`
+                `v0/batch/jobs/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -228,7 +234,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -272,6 +278,9 @@ export class Batch {
     /**
      * Get the JSON predictions of a completed measurement or custom models inference job.
      *
+     * @param {string} id
+     * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.expressionMeasurement.batch.getJobPredictions("job_id")
      */
@@ -282,7 +291,7 @@ export class Batch {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/batch/jobs/${id}/predictions`
+                `v0/batch/jobs/${encodeURIComponent(id)}/predictions`
             ),
             method: "GET",
             headers: {
@@ -292,7 +301,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -343,7 +352,7 @@ export class Batch {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/batch/jobs/${id}/artifacts`
+                `v0/batch/jobs/${encodeURIComponent(id)}/artifacts`
             ),
             method: "GET",
             headers: {
@@ -353,7 +362,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -391,9 +400,16 @@ export class Batch {
 
     /**
      * Start a new batch inference job.
+     *
+     * @param {File[] | fs.ReadStream[]} file
+     * @param {Hume.expressionMeasurement.BatchStartInferenceJobWithFileRequest} request
+     * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.expressionMeasurement.batch.startInferenceJobWithFile([fs.createReadStream("/path/to/your/file")], {})
      */
     public async startInferenceJobWithFile(
-        file: File | fs.ReadStream,
+        file: File[] | fs.ReadStream[],
         request: Hume.expressionMeasurement.BatchStartInferenceJobWithFileRequest,
         requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.JobId> {
@@ -402,7 +418,10 @@ export class Batch {
             _request.append("json", JSON.stringify(request.json));
         }
 
-        _request.append("file", file);
+        for (const _file of file) {
+            _request.append("file", _file);
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -416,7 +435,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

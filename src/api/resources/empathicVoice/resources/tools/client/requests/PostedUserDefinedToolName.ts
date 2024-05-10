@@ -3,9 +3,12 @@
  */
 
 /**
- * A tool name change to be posted to the server
+ * @example
+ *     {
+ *         name: "string"
+ *     }
  */
-export interface PostedToolName {
+export interface PostedUserDefinedToolName {
     /** Name applied to all versions of a particular Tool. */
     name: string;
 }

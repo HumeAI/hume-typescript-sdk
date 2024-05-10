@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
+import * as Hume from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Configs {
     interface Options {
@@ -26,6 +26,13 @@ export declare namespace Configs {
 export class Configs {
     constructor(protected readonly _options: Configs.Options = {}) {}
 
+    /**
+     * @param {Hume.empathicVoice.GetReturnConfigsForUserRequest} request
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.getReturnConfigsForUser()
+     */
     public async getReturnConfigsForUser(
         request: Hume.empathicVoice.GetReturnConfigsForUserRequest = {},
         requestOptions?: Configs.RequestOptions
@@ -57,7 +64,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -99,6 +106,15 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {Hume.empathicVoice.PostedConfig} request
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.createNewConfig({
+     *         name: "name"
+     *     })
+     */
     public async createNewConfig(
         request: Hume.empathicVoice.PostedConfig,
         requestOptions?: Configs.RequestOptions
@@ -116,7 +132,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -160,6 +176,14 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {Hume.empathicVoice.GetReturnConfigByVersionIdRequest} request
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.getReturnConfigByVersionId("id")
+     */
     public async getReturnConfigByVersionId(
         id: string,
         request: Hume.empathicVoice.GetReturnConfigByVersionIdRequest = {},
@@ -182,7 +206,7 @@ export class Configs {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}`
+                `configs/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -192,7 +216,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,6 +258,14 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {Hume.empathicVoice.PostedConfigVersion} request
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.addNewConfigVersion("id")
+     */
     public async addNewConfigVersion(
         id: string,
         request: Hume.empathicVoice.PostedConfigVersion = {},
@@ -242,7 +274,7 @@ export class Configs {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}`
+                `configs/${encodeURIComponent(id)}`
             ),
             method: "POST",
             headers: {
@@ -252,7 +284,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -296,11 +328,18 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.deleteConfig("id")
+     */
     public async deleteConfig(id: string, requestOptions?: Configs.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}`
+                `configs/${encodeURIComponent(id)}`
             ),
             method: "DELETE",
             headers: {
@@ -310,7 +349,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -345,15 +384,25 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {Hume.empathicVoice.PostedConfigName} request
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.updateConfigName("string", {
+     *         name: "string"
+     *     })
+     */
     public async updateConfigName(
         id: string,
         request: Hume.empathicVoice.PostedConfigName,
         requestOptions?: Configs.RequestOptions
-    ): Promise<void> {
+    ): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}`
+                `configs/${encodeURIComponent(id)}`
             ),
             method: "PATCH",
             headers: {
@@ -363,7 +412,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -372,11 +421,12 @@ export class Configs {
             body: await serializers.empathicVoice.PostedConfigName.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            responseType: "text",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return _response.body as string;
         }
 
         if (_response.error.reason === "status-code") {
@@ -401,6 +451,14 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {number} version - Version number for a config. Version numbers should be integers.
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.getReturnPromptByRevisionId("id", 1)
+     */
     public async getReturnPromptByRevisionId(
         id: string,
         version: number,
@@ -409,7 +467,7 @@ export class Configs {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}/version/${version}`
+                `configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "GET",
             headers: {
@@ -419,7 +477,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -460,6 +518,14 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {number} version - Version number for a config. Version numbers should be integers.
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.deleteConfigVersion("id", 1)
+     */
     public async deleteConfigVersion(
         id: string,
         version: number,
@@ -468,7 +534,7 @@ export class Configs {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}/version/${version}`
+                `configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "DELETE",
             headers: {
@@ -478,7 +544,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -513,6 +579,15 @@ export class Configs {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {number} version - Version number for a config. Version numbers should be integers.
+     * @param {Hume.empathicVoice.PostedConfigVersionDescription} request
+     * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.configs.updateConfigVersionDescription("id", 1)
+     */
     public async updateConfigVersionDescription(
         id: string,
         version: number,
@@ -522,7 +597,7 @@ export class Configs {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `configs/${id}/version/${version}`
+                `configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "PATCH",
             headers: {
@@ -532,7 +607,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

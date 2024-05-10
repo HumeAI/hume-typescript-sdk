@@ -6,6 +6,5 @@
  * When provided, the output is an assistant end message.
  */
 export interface AssistantEnd {
-    customSessionId?: string;
     type: "assistant_end";
 }

@@ -1,6 +1,6 @@
-export { GetReturnPromptsForUserRequest } from "./GetReturnPromptsForUserRequest";
-export { PostedPrompt } from "./PostedPrompt";
-export { GetReturnPromptByPromptIdRequest } from "./GetReturnPromptByPromptIdRequest";
-export { PostedPromptVersion } from "./PostedPromptVersion";
-export { PostedPromptName } from "./PostedPromptName";
-export { PostedPromptVersionDescription } from "./PostedPromptVersionDescription";
+export { type GetReturnPromptsForUserRequest } from "./GetReturnPromptsForUserRequest";
+export { type PostedPrompt } from "./PostedPrompt";
+export { type GetReturnPromptByPromptIdRequest } from "./GetReturnPromptByPromptIdRequest";
+export { type PostedPromptVersion } from "./PostedPromptVersion";
+export { type PostedPromptName } from "./PostedPromptName";
+export { type PostedPromptVersionDescription } from "./PostedPromptVersionDescription";

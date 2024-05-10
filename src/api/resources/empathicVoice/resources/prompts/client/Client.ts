@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
+import * as Hume from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Prompts {
     interface Options {
@@ -26,6 +26,13 @@ export declare namespace Prompts {
 export class Prompts {
     constructor(protected readonly _options: Prompts.Options = {}) {}
 
+    /**
+     * @param {Hume.empathicVoice.GetReturnPromptsForUserRequest} request
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.getReturnPromptsForUser()
+     */
     public async getReturnPromptsForUser(
         request: Hume.empathicVoice.GetReturnPromptsForUserRequest = {},
         requestOptions?: Prompts.RequestOptions
@@ -57,7 +64,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -99,6 +106,16 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {Hume.empathicVoice.PostedPrompt} request
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.createNewPrompt({
+     *         name: "name",
+     *         text: "text"
+     *     })
+     */
     public async createNewPrompt(
         request: Hume.empathicVoice.PostedPrompt,
         requestOptions?: Prompts.RequestOptions
@@ -116,7 +133,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -160,6 +177,14 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id
+     * @param {Hume.empathicVoice.GetReturnPromptByPromptIdRequest} request
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.getReturnPromptByPromptId("id")
+     */
     public async getReturnPromptByPromptId(
         id: string,
         request: Hume.empathicVoice.GetReturnPromptByPromptIdRequest = {},
@@ -182,7 +207,7 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}`
+                `prompts/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -192,7 +217,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,6 +259,16 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {Hume.empathicVoice.PostedPromptVersion} request
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.addNewPromptVersion("id", {
+     *         text: "text"
+     *     })
+     */
     public async addNewPromptVersion(
         id: string,
         request: Hume.empathicVoice.PostedPromptVersion,
@@ -242,7 +277,7 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}`
+                `prompts/${encodeURIComponent(id)}`
             ),
             method: "POST",
             headers: {
@@ -252,7 +287,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -296,11 +331,18 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.deletePromptVersion("id")
+     */
     public async deletePromptVersion(id: string, requestOptions?: Prompts.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}`
+                `prompts/${encodeURIComponent(id)}`
             ),
             method: "DELETE",
             headers: {
@@ -310,7 +352,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -345,15 +387,25 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {Hume.empathicVoice.PostedPromptName} request
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.updatePromptName("string", {
+     *         name: "string"
+     *     })
+     */
     public async updatePromptName(
         id: string,
         request: Hume.empathicVoice.PostedPromptName,
         requestOptions?: Prompts.RequestOptions
-    ): Promise<void> {
+    ): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}`
+                `prompts/${encodeURIComponent(id)}`
             ),
             method: "PATCH",
             headers: {
@@ -363,7 +415,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -372,11 +424,12 @@ export class Prompts {
             body: await serializers.empathicVoice.PostedPromptName.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            responseType: "text",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return _response.body as string;
         }
 
         if (_response.error.reason === "status-code") {
@@ -401,6 +454,14 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.getReturnPromptByVersionNumber("id", 1)
+     */
     public async getReturnPromptByVersionNumber(
         id: string,
         version: number,
@@ -409,7 +470,7 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}/version/${version}`
+                `prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "GET",
             headers: {
@@ -419,7 +480,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -463,6 +524,14 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.deletePromptVersion1("id", 1)
+     */
     public async deletePromptVersion1(
         id: string,
         version: number,
@@ -471,7 +540,7 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}/version/${version}`
+                `prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "DELETE",
             headers: {
@@ -481,7 +550,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -516,6 +585,15 @@ export class Prompts {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * @param {Hume.empathicVoice.PostedPromptVersionDescription} request
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.prompts.updatePromptVersionDescription("id", 1)
+     */
     public async updatePromptVersionDescription(
         id: string,
         version: number,
@@ -525,7 +603,7 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `prompts/${id}/version/${version}`
+                `prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "PATCH",
             headers: {
@@ -535,7 +613,7 @@ export class Prompts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

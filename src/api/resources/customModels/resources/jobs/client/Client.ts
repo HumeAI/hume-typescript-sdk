@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
-import * as serializers from "../../../../../../serialization";
+import * as Hume from "../../../../../index";
+import * as serializers from "../../../../../../serialization/index";
 import urlJoin from "url-join";
-import * as errors from "../../../../../../errors";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Jobs {
     interface Options {
@@ -28,6 +28,9 @@ export class Jobs {
 
     /**
      * Start a new custom models training job.
+     *
+     * @param {Hume.customModels.TrainingBaseRequest} request
+     * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await hume.customModels.jobs.startInferenceJobs({
@@ -56,7 +59,7 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -103,6 +106,9 @@ export class Jobs {
     /**
      * Start a new custom models inference job.
      *
+     * @param {Hume.customModels.TlInferenceBaseRequest} request
+     * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.jobs.startTransferLearningInferenceJobs({
      *         customModel: {
@@ -127,7 +133,7 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
