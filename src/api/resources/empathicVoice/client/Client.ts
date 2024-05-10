@@ -4,6 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
+import { Tools } from "../resources/tools/client/Client";
 import { Prompts } from "../resources/prompts/client/Client";
 import { Configs } from "../resources/configs/client/Client";
 import { Chats } from "../resources/chats/client/Client";
@@ -24,6 +25,12 @@ export declare namespace EmpathicVoice {
 
 export class EmpathicVoice {
     constructor(protected readonly _options: EmpathicVoice.Options = {}) {}
+
+    protected _tools: Tools | undefined;
+
+    public get tools(): Tools {
+        return (this._tools ??= new Tools(this._options));
+    }
 
     protected _prompts: Prompts | undefined;
 

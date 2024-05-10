@@ -9,3 +9,5 @@ src/index.ts
 tests/empathicVoice
 tests/expressionMeasurement
 tsconfig.json
+src/api/resources/empathicVoice/client/StreamSocket.ts
+src/api/resources/empathicVoice/client/index.ts

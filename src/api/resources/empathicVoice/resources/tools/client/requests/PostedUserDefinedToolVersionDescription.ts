@@ -3,9 +3,10 @@
  */
 
 /**
- * A tool version description to be posted to the server
+ * @example
+ *     {}
  */
-export interface PostedToolVersionDescription {
+export interface PostedUserDefinedToolVersionDescription {
     /** Description that is appended to a specific version of a Tool. */
     versionDescription?: string;
 }

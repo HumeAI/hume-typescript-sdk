@@ -1,2 +1,2 @@
-export { GetReturnChatsForUserRequest } from "./GetReturnChatsForUserRequest";
-export { GetChatByChatIdRequest } from "./GetChatByChatIdRequest";
+export { type GetReturnChatsForUserRequest } from "./GetReturnChatsForUserRequest";
+export { type GetChatByChatIdRequest } from "./GetChatByChatIdRequest";

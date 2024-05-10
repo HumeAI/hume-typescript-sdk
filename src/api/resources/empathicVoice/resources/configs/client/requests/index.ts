@@ -1,6 +1,6 @@
-export { GetReturnConfigsForUserRequest } from "./GetReturnConfigsForUserRequest";
-export { PostedConfig } from "./PostedConfig";
-export { GetReturnConfigByVersionIdRequest } from "./GetReturnConfigByVersionIdRequest";
-export { PostedConfigVersion } from "./PostedConfigVersion";
-export { PostedConfigName } from "./PostedConfigName";
-export { PostedConfigVersionDescription } from "./PostedConfigVersionDescription";
+export { type GetReturnConfigsForUserRequest } from "./GetReturnConfigsForUserRequest";
+export { type PostedConfig } from "./PostedConfig";
+export { type GetReturnConfigByVersionIdRequest } from "./GetReturnConfigByVersionIdRequest";
+export { type PostedConfigVersion } from "./PostedConfigVersion";
+export { type PostedConfigName } from "./PostedConfigName";
+export { type PostedConfigVersionDescription } from "./PostedConfigVersionDescription";

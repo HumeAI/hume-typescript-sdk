@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
+import * as Hume from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 import * as fs from "fs";
 import { default as FormData } from "form-data";
 
@@ -30,6 +30,9 @@ export class Datasets {
 
     /**
      * Returns 200 if successful
+     *
+     * @param {Hume.customModels.DatasetsListDatasetsRequest} request
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await hume.customModels.datasets.listDatasets()
@@ -69,7 +72,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -113,6 +116,16 @@ export class Datasets {
 
     /**
      * Returns 201 if successful
+     *
+     * @param {File | fs.ReadStream | undefined} featureTypes
+     * @param {File | fs.ReadStream} labelsFile
+     * @param {Hume.customModels.DatasetsCreateDataset1Request} request
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.customModels.datasets.createDataset1(fs.createReadStream("/path/to/your/file"), fs.createReadStream("/path/to/your/file"), {
+     *         name: "name"
+     *     })
      */
     public async createDataset1(
         featureTypes: File | fs.ReadStream | undefined,
@@ -140,7 +153,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -185,6 +198,9 @@ export class Datasets {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Dataset
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.datasets.getDatasetById("id")
      */
@@ -195,7 +211,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/${id}`
+                `datasets/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -205,7 +221,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -248,6 +264,14 @@ export class Datasets {
 
     /**
      * Returns 200 if successful
+     *
+     * @param {File | fs.ReadStream | undefined} featureTypes
+     * @param {File | fs.ReadStream} labelsFile
+     * @param {string} id
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.customModels.datasets.updateDataset(fs.createReadStream("/path/to/your/file"), fs.createReadStream("/path/to/your/file"), "id")
      */
     public async updateDataset(
         featureTypes: File | fs.ReadStream | undefined,
@@ -264,7 +288,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/${id}`
+                `datasets/${encodeURIComponent(id)}`
             ),
             method: "POST",
             headers: {
@@ -274,7 +298,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -319,6 +343,9 @@ export class Datasets {
     /**
      * Returns 204 if successful
      *
+     * @param {string} id - Hume-generated ID of a Dataset
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.datasets.deleteDataset("id")
      */
@@ -326,7 +353,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/${id}`
+                `datasets/${encodeURIComponent(id)}`
             ),
             method: "DELETE",
             headers: {
@@ -336,7 +363,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -374,6 +401,10 @@ export class Datasets {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Dataset
+     * @param {Hume.customModels.DatasetsListDatasetVersionsRequest} request
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.datasets.listDatasetVersions("id")
      */
@@ -399,7 +430,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/${id}/versions`
+                `datasets/${encodeURIComponent(id)}/versions`
             ),
             method: "GET",
             headers: {
@@ -409,7 +440,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -454,6 +485,10 @@ export class Datasets {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Dataset
+     * @param {Hume.customModels.DatasetsGetFilesFromDatasetLatestVersionRequest} request
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.datasets.getFilesFromDatasetLatestVersion("id")
      */
@@ -479,7 +514,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/${id}/files`
+                `datasets/${encodeURIComponent(id)}/files`
             ),
             method: "GET",
             headers: {
@@ -489,7 +524,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -537,6 +572,9 @@ export class Datasets {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Dataset version
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.datasets.getDatasetVersionById("id")
      */
@@ -547,7 +585,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/version/${id}`
+                `datasets/version/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -557,7 +595,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -601,6 +639,10 @@ export class Datasets {
     /**
      * Returns 200 if successful
      *
+     * @param {string} id - Hume-generated ID of a Dataset version
+     * @param {Hume.customModels.DatasetsGetFilesFromDatasetVersionRequest} request
+     * @param {Datasets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @example
      *     await hume.customModels.datasets.getFilesFromDatasetVersion("id")
      */
@@ -626,7 +668,7 @@ export class Datasets {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `datasets/version/${id}/files`
+                `datasets/version/${encodeURIComponent(id)}/files`
             ),
             method: "GET",
             headers: {
@@ -636,7 +678,7 @@ export class Datasets {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

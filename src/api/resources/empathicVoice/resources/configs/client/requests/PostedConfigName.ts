@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         name: "name"
+ *         name: "string"
  *     }
  */
 export interface PostedConfigName {

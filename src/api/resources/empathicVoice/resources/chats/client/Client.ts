@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Hume from "../../../../..";
+import * as Hume from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Chats {
     interface Options {
@@ -26,6 +26,13 @@ export declare namespace Chats {
 export class Chats {
     constructor(protected readonly _options: Chats.Options = {}) {}
 
+    /**
+     * @param {Hume.empathicVoice.GetReturnChatsForUserRequest} request
+     * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.chats.getReturnChatsForUser()
+     */
     public async getReturnChatsForUser(
         request: Hume.empathicVoice.GetReturnChatsForUserRequest = {},
         requestOptions?: Chats.RequestOptions
@@ -53,7 +60,7 @@ export class Chats {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -95,6 +102,14 @@ export class Chats {
         }
     }
 
+    /**
+     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * @param {Hume.empathicVoice.GetChatByChatIdRequest} request
+     * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.empathicVoice.chats.getChatByChatId("id")
+     */
     public async getChatByChatId(
         id: string,
         request: Hume.empathicVoice.GetChatByChatIdRequest = {},
@@ -113,7 +128,7 @@ export class Chats {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `chats/${id}`
+                `chats/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
@@ -123,7 +138,7 @@ export class Chats {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.8",
+                "X-Fern-SDK-Version": "0.5.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -1,2 +1,2 @@
-export { BatchListJobsRequest } from "./BatchListJobsRequest";
-export { BatchStartInferenceJobWithFileRequest } from "./BatchStartInferenceJobWithFileRequest";
+export { type BatchListJobsRequest } from "./BatchListJobsRequest";
+export { type BatchStartInferenceJobWithFileRequest } from "./BatchStartInferenceJobWithFileRequest";
