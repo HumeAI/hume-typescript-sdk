@@ -21,7 +21,7 @@ export declare namespace ChatClient {
 
         onOpen?: () => void;
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
-        onError?: (error: Hume.empathicVoice.Error_) => void;
+        onError?: (error: Hume.empathicVoice.WebSocketError) => void;
         onClose?: () => void;
     }
 }
@@ -124,7 +124,7 @@ export async function parse(
     data: any,
     args: {
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
-        onError?: (error: Hume.empathicVoice.Error_) => void;
+        onError?: (error: Hume.empathicVoice.WebSocketError) => void;
     } = {}
 ): Promise<Hume.empathicVoice.SubscribeEvent | undefined> {
     const message = JSON.parse(data as string);
