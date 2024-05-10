@@ -1,4 +1,4 @@
-import { HumeClient } from "../../src/"
+import { HumeClient, Hume } from "../../src/"
 
 const samples = [
    "Mary had a little lamb,",

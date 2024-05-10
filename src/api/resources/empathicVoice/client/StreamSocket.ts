@@ -1,5 +1,5 @@
-import * as Hume from "../../../api";
-import * as serializers from "../../../serialization";
+import * as Hume from "../../../../api";
+import * as serializers from "../../../../serialization";
 
 export declare namespace StreamSocket {
     interface Args {
