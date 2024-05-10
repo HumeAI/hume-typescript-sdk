@@ -27,14 +27,14 @@ export class Chats {
     constructor(protected readonly _options: Chats.Options = {}) {}
 
     /**
-     * @param {Hume.empathicVoice.GetReturnChatsForUserRequest} request
+     * @param {Hume.empathicVoice.ChatsListChatsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.chats.getReturnChatsForUser()
+     *     await hume.empathicVoice.chats.listChats()
      */
-    public async getReturnChatsForUser(
-        request: Hume.empathicVoice.GetReturnChatsForUserRequest = {},
+    public async listChats(
+        request: Hume.empathicVoice.ChatsListChatsRequest = {},
         requestOptions?: Chats.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedChats> {
         const { pageNumber, pageSize } = request;
@@ -60,7 +60,7 @@ export class Chats {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -104,15 +104,15 @@ export class Chats {
 
     /**
      * @param {string} id - Identifier for a chat. Formatted as a UUID.
-     * @param {Hume.empathicVoice.GetChatByChatIdRequest} request
+     * @param {Hume.empathicVoice.ChatsListChatEventsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.chats.getChatByChatId("id")
+     *     await hume.empathicVoice.chats.listChatEvents("id")
      */
-    public async getChatByChatId(
+    public async listChatEvents(
         id: string,
-        request: Hume.empathicVoice.GetChatByChatIdRequest = {},
+        request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
         requestOptions?: Chats.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnChatWithPagedEvents> {
         const { pageSize, pageNumber } = request;
@@ -138,7 +138,7 @@ export class Chats {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

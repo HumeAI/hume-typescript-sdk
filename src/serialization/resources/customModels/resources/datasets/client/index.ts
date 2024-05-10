@@ -1,3 +1,3 @@
-export * as updateDataset from "./updateDataset";
-export * as getFilesFromDatasetLatestVersion from "./getFilesFromDatasetLatestVersion";
-export * as getFilesFromDatasetVersion from "./getFilesFromDatasetVersion";
+export * as createDatasetVersion from "./createDatasetVersion";
+export * as listDatasetFiles from "./listDatasetFiles";
+export * as listDatasetVersionFiles from "./listDatasetVersionFiles";

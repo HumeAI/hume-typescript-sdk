@@ -27,17 +27,17 @@ export class Tools {
     constructor(protected readonly _options: Tools.Options = {}) {}
 
     /**
-     * @param {Hume.empathicVoice.GetReturnToolsForUserRequest} request
+     * @param {Hume.empathicVoice.ToolsListToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.getReturnToolsForUser({
+     *     await hume.empathicVoice.tools.listTools({
      *         pageNumber: 0,
      *         pageSize: 2
      *     })
      */
-    public async getReturnToolsForUser(
-        request: Hume.empathicVoice.GetReturnToolsForUserRequest = {},
+    public async listTools(
+        request: Hume.empathicVoice.ToolsListToolsRequest = {},
         requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedUserDefinedTools> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
@@ -67,7 +67,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -114,7 +114,7 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.createNewTool({
+     *     await hume.empathicVoice.tools.createTool({
      *         name: "get_current_weather",
      *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
      *         versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
@@ -122,7 +122,7 @@ export class Tools {
      *         fallbackContent: "Unable to fetch current weather."
      *     })
      */
-    public async createNewTool(
+    public async createTool(
         request: Hume.empathicVoice.PostedUserDefinedTool,
         requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
@@ -139,7 +139,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -152,7 +152,7 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.empathicVoice.tools.createNewTool.Response.parseOrThrow(_response.body, {
+            return await serializers.empathicVoice.tools.createTool.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -185,15 +185,15 @@ export class Tools {
 
     /**
      * @param {string} id
-     * @param {Hume.empathicVoice.GetReturnToolByToolIdRequest} request
+     * @param {Hume.empathicVoice.ToolsListToolVersionsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.getReturnToolByToolId("00183a3f-79ba-413d-9f3b-609864268bea")
+     *     await hume.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea")
      */
-    public async getReturnToolByToolId(
+    public async listToolVersions(
         id: string,
-        request: Hume.empathicVoice.GetReturnToolByToolIdRequest = {},
+        request: Hume.empathicVoice.ToolsListToolVersionsRequest = {},
         requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedUserDefinedTools> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
@@ -223,7 +223,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -271,14 +271,14 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.addNewToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *     await hume.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
      *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
      *         versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
      *         fallbackContent: "Unable to fetch current weather.",
      *         description: "This tool is for getting the current weather."
      *     })
      */
-    public async addNewToolVersion(
+    public async createToolVersion(
         id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolVersion,
         requestOptions?: Tools.RequestOptions
@@ -296,7 +296,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -309,7 +309,7 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.empathicVoice.tools.addNewToolVersion.Response.parseOrThrow(_response.body, {
+            return await serializers.empathicVoice.tools.createToolVersion.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -345,9 +345,9 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea")
+     *     await hume.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea")
      */
-    public async deleteToolVersion(id: string, requestOptions?: Tools.RequestOptions): Promise<void> {
+    public async deleteTool(id: string, requestOptions?: Tools.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -361,7 +361,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -424,7 +424,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -469,9 +469,9 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.getReturnToolByVersionNumber("00183a3f-79ba-413d-9f3b-609864268bea", 1)
+     *     await hume.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
      */
-    public async getReturnToolByVersionNumber(
+    public async getToolVersion(
         id: string,
         version: number,
         requestOptions?: Tools.RequestOptions
@@ -489,7 +489,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -499,16 +499,13 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.empathicVoice.tools.getReturnToolByVersionNumber.Response.parseOrThrow(
-                _response.body,
-                {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }
-            );
+            return await serializers.empathicVoice.tools.getToolVersion.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -539,9 +536,9 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.deleteToolVersion1("id", 1)
+     *     await hume.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
      */
-    public async deleteToolVersion1(id: string, version: number, requestOptions?: Tools.RequestOptions): Promise<void> {
+    public async deleteToolVersion(id: string, version: number, requestOptions?: Tools.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -555,7 +552,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -597,11 +594,11 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.updateToolVersionDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+     *     await hume.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
      *         versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
      *     })
      */
-    public async updateToolVersionDescription(
+    public async updateToolDescription(
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedUserDefinedToolVersionDescription = {},
@@ -620,7 +617,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -633,16 +630,13 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.empathicVoice.tools.updateToolVersionDescription.Response.parseOrThrow(
-                _response.body,
-                {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }
-            );
+            return await serializers.empathicVoice.tools.updateToolDescription.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {

@@ -1,3 +1,3 @@
-export { type FilesGetFilesAndAttributesByUserRequest } from "./FilesGetFilesAndAttributesByUserRequest";
+export { type FilesListFilesRequest } from "./FilesListFilesRequest";
 export { type FilesUploadFileRequest } from "./FilesUploadFileRequest";
-export { type FilesRenameFileRequest } from "./FilesRenameFileRequest";
+export { type FilesUpdateFileNameRequest } from "./FilesUpdateFileNameRequest";

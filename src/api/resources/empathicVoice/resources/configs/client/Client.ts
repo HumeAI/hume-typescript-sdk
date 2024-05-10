@@ -27,14 +27,14 @@ export class Configs {
     constructor(protected readonly _options: Configs.Options = {}) {}
 
     /**
-     * @param {Hume.empathicVoice.GetReturnConfigsForUserRequest} request
+     * @param {Hume.empathicVoice.ConfigsListConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.getReturnConfigsForUser()
+     *     await hume.empathicVoice.configs.listConfigs()
      */
-    public async getReturnConfigsForUser(
-        request: Hume.empathicVoice.GetReturnConfigsForUserRequest = {},
+    public async listConfigs(
+        request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
         requestOptions?: Configs.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedConfigs> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
@@ -64,7 +64,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -111,11 +111,11 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.createNewConfig({
+     *     await hume.empathicVoice.configs.createConfig({
      *         name: "name"
      *     })
      */
-    public async createNewConfig(
+    public async createConfig(
         request: Hume.empathicVoice.PostedConfig,
         requestOptions?: Configs.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnConfig> {
@@ -132,7 +132,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -178,15 +178,15 @@ export class Configs {
 
     /**
      * @param {string} id - Identifier for a config. Formatted as a UUID.
-     * @param {Hume.empathicVoice.GetReturnConfigByVersionIdRequest} request
+     * @param {Hume.empathicVoice.ConfigsListConfigVersionsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.getReturnConfigByVersionId("id")
+     *     await hume.empathicVoice.configs.listConfigVersions("id")
      */
-    public async getReturnConfigByVersionId(
+    public async listConfigVersions(
         id: string,
-        request: Hume.empathicVoice.GetReturnConfigByVersionIdRequest = {},
+        request: Hume.empathicVoice.ConfigsListConfigVersionsRequest = {},
         requestOptions?: Configs.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedConfigs> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
@@ -216,7 +216,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -264,9 +264,9 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.addNewConfigVersion("id")
+     *     await hume.empathicVoice.configs.createConfigVersion("id")
      */
-    public async addNewConfigVersion(
+    public async createConfigVersion(
         id: string,
         request: Hume.empathicVoice.PostedConfigVersion = {},
         requestOptions?: Configs.RequestOptions
@@ -284,7 +284,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -349,7 +349,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -412,7 +412,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -457,9 +457,9 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.getReturnPromptByRevisionId("id", 1)
+     *     await hume.empathicVoice.configs.getConfigVersion("id", 1)
      */
-    public async getReturnPromptByRevisionId(
+    public async getConfigVersion(
         id: string,
         version: number,
         requestOptions?: Configs.RequestOptions
@@ -477,7 +477,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -544,7 +544,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -586,9 +586,9 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.updateConfigVersionDescription("id", 1)
+     *     await hume.empathicVoice.configs.updateConfigDescription("id", 1)
      */
-    public async updateConfigVersionDescription(
+    public async updateConfigDescription(
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedConfigVersionDescription = {},
@@ -607,7 +607,7 @@ export class Configs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

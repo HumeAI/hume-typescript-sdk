@@ -29,13 +29,99 @@ export class Models {
     /**
      * Returns 200 if successful
      *
+     * @param {Hume.customModels.ModelsListModelsRequest} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.customModels.models.listModels()
+     */
+    public async listModels(
+        request: Hume.customModels.ModelsListModelsRequest = {},
+        requestOptions?: Models.RequestOptions
+    ): Promise<Hume.customModels.ModelPage> {
+        const { name, pageNumber, pageSize, sharedAssets } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (name != null) {
+            _queryParams["name"] = name;
+        }
+
+        if (pageNumber != null) {
+            _queryParams["page_number"] = pageNumber.toString();
+        }
+
+        if (pageSize != null) {
+            _queryParams["page_size"] = pageSize.toString();
+        }
+
+        if (sharedAssets != null) {
+            _queryParams["shared_assets"] = sharedAssets.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
+                "models"
+            ),
+            method: "GET",
+            headers: {
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.5.14",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.customModels.ModelPage.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.HumeError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Returns 200 if successful
+     *
      * @param {string} id - Hume-generated ID of a Model
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.getModelById("id")
+     *     await hume.customModels.models.getModelDetails("id")
      */
-    public async getModelById(
+    public async getModelDetails(
         id: string,
         requestOptions?: Models.RequestOptions
     ): Promise<Hume.customModels.ExternalModel> {
@@ -52,7 +138,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -97,17 +183,17 @@ export class Models {
      * Returns 200 if successful
      *
      * @param {string} id - Hume-generated ID of a Model
-     * @param {Hume.customModels.ModelsRenameModelRequest} request
+     * @param {Hume.customModels.ModelsUpdateModelNameRequest} request
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.renameModel("id", {
+     *     await hume.customModels.models.updateModelName("id", {
      *         name: "name"
      *     })
      */
-    public async renameModel(
+    public async updateModelName(
         id: string,
-        request: Hume.customModels.ModelsRenameModelRequest,
+        request: Hume.customModels.ModelsUpdateModelNameRequest,
         requestOptions?: Models.RequestOptions
     ): Promise<Hume.customModels.ExternalModel> {
         const { name } = request;
@@ -126,7 +212,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -171,16 +257,106 @@ export class Models {
     /**
      * Returns 200 if successful
      *
-     * @param {string} id - Hume-generated ID of a Model version
-     * @param {Hume.customModels.ModelsGetExternalModelVersionsByIdRequest} request
+     * @param {Hume.customModels.ModelsListModelVersionsRequest} request
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.getExternalModelVersionsById("id")
+     *     await hume.customModels.models.listModelVersions()
      */
-    public async getExternalModelVersionsById(
+    public async listModelVersions(
+        request: Hume.customModels.ModelsListModelVersionsRequest = {},
+        requestOptions?: Models.RequestOptions
+    ): Promise<Hume.customModels.ExternalModelVersion[]> {
+        const { id, name, version, sharedAssets } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (id != null) {
+            if (Array.isArray(id)) {
+                _queryParams["id"] = id.map((item) => item);
+            } else {
+                _queryParams["id"] = id;
+            }
+        }
+
+        if (name != null) {
+            _queryParams["name"] = name;
+        }
+
+        if (version != null) {
+            _queryParams["version"] = version;
+        }
+
+        if (sharedAssets != null) {
+            _queryParams["shared_assets"] = sharedAssets.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
+                "models/version"
+            ),
+            method: "GET",
+            headers: {
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.5.14",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.customModels.models.listModelVersions.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.HumeError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Returns 200 if successful
+     *
+     * @param {string} id - Hume-generated ID of a Model version
+     * @param {Hume.customModels.ModelsGetModelVersionRequest} request
+     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await hume.customModels.models.getModelVersion("id")
+     */
+    public async getModelVersion(
         id: string,
-        request: Hume.customModels.ModelsGetExternalModelVersionsByIdRequest = {},
+        request: Hume.customModels.ModelsGetModelVersionRequest = {},
         requestOptions?: Models.RequestOptions
     ): Promise<Hume.customModels.ExternalModelVersion> {
         const { sharedAssets } = request;
@@ -202,7 +378,7 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -252,9 +428,9 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.updateModelVersionDescription("id", "string")
+     *     await hume.customModels.models.updateModelDescription("id", "string")
      */
-    public async updateModelVersionDescription(
+    public async updateModelDescription(
         id: string,
         request: string,
         requestOptions?: Models.RequestOptions
@@ -272,13 +448,13 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.customModels.models.updateModelVersionDescription.Request.jsonOrThrow(request, {
+            body: await serializers.customModels.models.updateModelDescription.Request.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -286,182 +462,6 @@ export class Models {
         });
         if (_response.ok) {
             return await serializers.customModels.ExternalModelVersion.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError();
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Returns 200 if successful
-     *
-     * @param {Hume.customModels.ModelsGetModelsByUserAndNameRequest} request
-     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await hume.customModels.models.getModelsByUserAndName()
-     */
-    public async getModelsByUserAndName(
-        request: Hume.customModels.ModelsGetModelsByUserAndNameRequest = {},
-        requestOptions?: Models.RequestOptions
-    ): Promise<Hume.customModels.ModelPage> {
-        const { name, pageNumber, pageSize, sharedAssets } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (name != null) {
-            _queryParams["name"] = name;
-        }
-
-        if (pageNumber != null) {
-            _queryParams["page_number"] = pageNumber.toString();
-        }
-
-        if (pageSize != null) {
-            _queryParams["page_size"] = pageSize.toString();
-        }
-
-        if (sharedAssets != null) {
-            _queryParams["shared_assets"] = sharedAssets.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "models"
-            ),
-            method: "GET",
-            headers: {
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-        });
-        if (_response.ok) {
-            return await serializers.customModels.ModelPage.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError();
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Returns 200 if successful
-     *
-     * @param {Hume.customModels.ModelsGetModelVersionsByQueryRequest} request
-     * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await hume.customModels.models.getModelVersionsByQuery()
-     */
-    public async getModelVersionsByQuery(
-        request: Hume.customModels.ModelsGetModelVersionsByQueryRequest = {},
-        requestOptions?: Models.RequestOptions
-    ): Promise<Hume.customModels.ExternalModelVersion[]> {
-        const { id, name, version, sharedAssets } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (id != null) {
-            if (Array.isArray(id)) {
-                _queryParams["id"] = id.map((item) => item);
-            } else {
-                _queryParams["id"] = id;
-            }
-        }
-
-        if (name != null) {
-            _queryParams["name"] = name;
-        }
-
-        if (version != null) {
-            _queryParams["version"] = version;
-        }
-
-        if (sharedAssets != null) {
-            _queryParams["shared_assets"] = sharedAssets.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "models/version"
-            ),
-            method: "GET",
-            headers: {
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-        });
-        if (_response.ok) {
-            return await serializers.customModels.models.getModelVersionsByQuery.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

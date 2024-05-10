@@ -31,14 +31,14 @@ export class Files {
     /**
      * Returns 200 if successful
      *
-     * @param {Hume.customModels.FilesGetFilesAndAttributesByUserRequest} request
+     * @param {Hume.customModels.FilesListFilesRequest} request
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.files.getFilesAndAttributesByUser()
+     *     await hume.customModels.files.listFiles()
      */
-    public async getFilesAndAttributesByUser(
-        request: Hume.customModels.FilesGetFilesAndAttributesByUserRequest = {},
+    public async listFiles(
+        request: Hume.customModels.FilesListFilesRequest = {},
         requestOptions?: Files.RequestOptions
     ): Promise<Hume.customModels.FilePage> {
         const { pageNumber, pageSize, sharedAssets } = request;
@@ -68,7 +68,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -142,7 +142,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -220,7 +220,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -269,9 +269,9 @@ export class Files {
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.files.getFileAndAttributesById("id")
+     *     await hume.customModels.files.getFile("id")
      */
-    public async getFileAndAttributesById(
+    public async getFile(
         id: string,
         requestOptions?: Files.RequestOptions
     ): Promise<Hume.customModels.FileWithAttributes> {
@@ -288,7 +288,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -352,7 +352,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -391,17 +391,17 @@ export class Files {
      * Returns 200 if successful
      *
      * @param {string} id - Hume-generated ID of a File
-     * @param {Hume.customModels.FilesRenameFileRequest} request
+     * @param {Hume.customModels.FilesUpdateFileNameRequest} request
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.files.renameFile("id", {
+     *     await hume.customModels.files.updateFileName("id", {
      *         name: "name"
      *     })
      */
-    public async renameFile(
+    public async updateFileName(
         id: string,
-        request: Hume.customModels.FilesRenameFileRequest,
+        request: Hume.customModels.FilesUpdateFileNameRequest,
         requestOptions?: Files.RequestOptions
     ): Promise<Hume.customModels.FileWithAttributes> {
         const { name } = request;
@@ -420,7 +420,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -469,9 +469,9 @@ export class Files {
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.files.getPredictionsByFileId("id")
+     *     await hume.customModels.files.getFilePredictions("id")
      */
-    public async getPredictionsByFileId(id: string, requestOptions?: Files.RequestOptions): Promise<void> {
+    public async getFilePredictions(id: string, requestOptions?: Files.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -485,7 +485,7 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -1,5 +1,5 @@
-export * as createNewPrompt from "./createNewPrompt";
-export * as addNewPromptVersion from "./addNewPromptVersion";
-export * as getReturnPromptByVersionNumber from "./getReturnPromptByVersionNumber";
-export * as updatePromptVersionDescription from "./updatePromptVersionDescription";
+export * as createPrompt from "./createPrompt";
+export * as createPromptVerison from "./createPromptVerison";
+export * as getPromptVersion from "./getPromptVersion";
+export * as updatePromptDescription from "./updatePromptDescription";
 export * from "./requests";

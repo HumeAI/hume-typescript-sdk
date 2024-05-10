@@ -93,7 +93,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -164,7 +164,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,7 +234,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -301,7 +301,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -348,7 +348,7 @@ export class Batch {
     /**
      * Get the artifacts ZIP of a completed measurement or custom models inference job.
      */
-    public async getArtifacts(id: string, requestOptions?: Batch.RequestOptions): Promise<stream.Readable> {
+    public async getJobArtifacts(id: string, requestOptions?: Batch.RequestOptions): Promise<stream.Readable> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -362,7 +362,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -402,15 +402,15 @@ export class Batch {
      * Start a new batch inference job.
      *
      * @param {File[] | fs.ReadStream[]} file
-     * @param {Hume.expressionMeasurement.BatchStartInferenceJobWithFileRequest} request
+     * @param {Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.expressionMeasurement.batch.startInferenceJobWithFile([fs.createReadStream("/path/to/your/file")], {})
+     *     await hume.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {})
      */
-    public async startInferenceJobWithFile(
+    public async startInferenceJobFromLocalFile(
         file: File[] | fs.ReadStream[],
-        request: Hume.expressionMeasurement.BatchStartInferenceJobWithFileRequest,
+        request: Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest,
         requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.JobId> {
         const _request = new FormData();
@@ -435,7 +435,7 @@ export class Batch {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.13",
+                "X-Fern-SDK-Version": "0.5.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

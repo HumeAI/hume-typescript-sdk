@@ -1,5 +1,5 @@
-export * as createNewTool from "./createNewTool";
-export * as addNewToolVersion from "./addNewToolVersion";
-export * as getReturnToolByVersionNumber from "./getReturnToolByVersionNumber";
-export * as updateToolVersionDescription from "./updateToolVersionDescription";
+export * as createTool from "./createTool";
+export * as createToolVersion from "./createToolVersion";
+export * as getToolVersion from "./getToolVersion";
+export * as updateToolDescription from "./updateToolDescription";
 export * from "./requests";

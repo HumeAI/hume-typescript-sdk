@@ -1,4 +1,4 @@
-export { type ModelsRenameModelRequest } from "./ModelsRenameModelRequest";
-export { type ModelsGetExternalModelVersionsByIdRequest } from "./ModelsGetExternalModelVersionsByIdRequest";
-export { type ModelsGetModelsByUserAndNameRequest } from "./ModelsGetModelsByUserAndNameRequest";
-export { type ModelsGetModelVersionsByQueryRequest } from "./ModelsGetModelVersionsByQueryRequest";
+export { type ModelsListModelsRequest } from "./ModelsListModelsRequest";
+export { type ModelsUpdateModelNameRequest } from "./ModelsUpdateModelNameRequest";
+export { type ModelsListModelVersionsRequest } from "./ModelsListModelVersionsRequest";
+export { type ModelsGetModelVersionRequest } from "./ModelsGetModelVersionRequest";

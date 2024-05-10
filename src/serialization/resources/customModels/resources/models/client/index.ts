@@ -1,2 +1,2 @@
-export * as updateModelVersionDescription from "./updateModelVersionDescription";
-export * as getModelVersionsByQuery from "./getModelVersionsByQuery";
+export * as listModelVersions from "./listModelVersions";
+export * as updateModelDescription from "./updateModelDescription";
