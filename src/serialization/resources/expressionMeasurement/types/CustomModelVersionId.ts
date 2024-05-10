@@ -6,14 +6,14 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const TlInferenceCustomModelVersionId: core.serialization.ObjectSchema<
-    serializers.customModels.TlInferenceCustomModelVersionId.Raw,
-    Hume.customModels.TlInferenceCustomModelVersionId
+export const CustomModelVersionId: core.serialization.ObjectSchema<
+    serializers.expressionMeasurement.CustomModelVersionId.Raw,
+    Hume.expressionMeasurement.CustomModelVersionId
 > = core.serialization.object({
     versionId: core.serialization.property("version_id", core.serialization.string()),
 });
 
-export declare namespace TlInferenceCustomModelVersionId {
+export declare namespace CustomModelVersionId {
     interface Raw {
         version_id: string;
     }

@@ -5,7 +5,7 @@
 import * as Hume from "../../../index";
 
 export interface TlInferenceBaseRequest {
-    customModel: Hume.customModels.TlInferenceCustomModel;
+    customModel: Hume.customModels.CustomModel;
     /**
      * URLs to the media files to be processed. Each must be a valid public URL to a media file (see recommended input filetypes) or an archive (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar.xz`) of media files.
      *

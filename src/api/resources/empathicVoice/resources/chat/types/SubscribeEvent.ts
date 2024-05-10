@@ -8,7 +8,7 @@ export type SubscribeEvent =
     | Hume.empathicVoice.AssistantEnd
     | Hume.empathicVoice.AssistantMessage
     | Hume.empathicVoice.AudioOutput
-    | Hume.empathicVoice.Error_
+    | Hume.empathicVoice.WebSocketError
     | Hume.empathicVoice.UserInterruption
     | Hume.empathicVoice.UserMessage
     | Hume.empathicVoice.ToolCallMessage
