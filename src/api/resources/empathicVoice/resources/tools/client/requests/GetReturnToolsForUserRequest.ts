@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         pageNumber: 0,
+ *         pageSize: 2
+ *     }
  */
 export interface GetReturnToolsForUserRequest {
     /**

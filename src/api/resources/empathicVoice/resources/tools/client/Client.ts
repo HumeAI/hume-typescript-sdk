@@ -31,7 +31,10 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.getReturnToolsForUser()
+     *     await hume.empathicVoice.tools.getReturnToolsForUser({
+     *         pageNumber: 0,
+     *         pageSize: 2
+     *     })
      */
     public async getReturnToolsForUser(
         request: Hume.empathicVoice.GetReturnToolsForUserRequest = {},
@@ -64,7 +67,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -112,8 +115,11 @@ export class Tools {
      *
      * @example
      *     await hume.empathicVoice.tools.createNewTool({
-     *         name: "name",
-     *         parameters: "parameters"
+     *         name: "get_current_weather",
+     *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
+     *         versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
+     *         description: "This tool is for getting the current weather.",
+     *         fallbackContent: "Unable to fetch current weather."
      *     })
      */
     public async createNewTool(
@@ -133,7 +139,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -183,7 +189,7 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.getReturnToolByToolId("id")
+     *     await hume.empathicVoice.tools.getReturnToolByToolId("00183a3f-79ba-413d-9f3b-609864268bea")
      */
     public async getReturnToolByToolId(
         id: string,
@@ -217,7 +223,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -265,8 +271,11 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.addNewToolVersion("id", {
-     *         parameters: "parameters"
+     *     await hume.empathicVoice.tools.addNewToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
+     *         versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
+     *         fallbackContent: "Unable to fetch current weather.",
+     *         description: "This tool is for getting the current weather."
      *     })
      */
     public async addNewToolVersion(
@@ -287,7 +296,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -336,7 +345,7 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.deleteToolVersion("id")
+     *     await hume.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea")
      */
     public async deleteToolVersion(id: string, requestOptions?: Tools.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -352,7 +361,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -393,8 +402,8 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.updateToolName("string", {
-     *         name: "string"
+     *     await hume.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *         name: "get_current_temperature"
      *     })
      */
     public async updateToolName(
@@ -415,7 +424,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -460,7 +469,7 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.getReturnToolByVersionNumber("id", 1)
+     *     await hume.empathicVoice.tools.getReturnToolByVersionNumber("00183a3f-79ba-413d-9f3b-609864268bea", 1)
      */
     public async getReturnToolByVersionNumber(
         id: string,
@@ -480,7 +489,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -546,7 +555,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -588,7 +597,9 @@ export class Tools {
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.tools.updateToolVersionDescription("id", 1)
+     *     await hume.empathicVoice.tools.updateToolVersionDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+     *         versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
+     *     })
      */
     public async updateToolVersionDescription(
         id: string,
@@ -609,7 +620,7 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.11",
+                "X-Fern-SDK-Version": "0.5.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

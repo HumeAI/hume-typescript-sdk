@@ -5,7 +5,7 @@
 /**
  * When provided, the output is an error message.
  */
-export interface WebSocketError {
+export interface Error_ {
     /** Error code. */
     code: string;
     customSessionId?: string;

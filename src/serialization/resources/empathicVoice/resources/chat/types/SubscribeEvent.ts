@@ -8,7 +8,7 @@ import * as core from "../../../../../../core";
 import { AssistantEnd } from "../../../types/AssistantEnd";
 import { AssistantMessage } from "../../../types/AssistantMessage";
 import { AudioOutput } from "../../../types/AudioOutput";
-import { WebSocketError } from "../../../types/WebSocketError";
+import { Error_ } from "../../../types/Error_";
 import { UserInterruption } from "../../../types/UserInterruption";
 import { UserMessage } from "../../../types/UserMessage";
 import { ToolCallMessage } from "../../../types/ToolCallMessage";
@@ -22,7 +22,7 @@ export const SubscribeEvent: core.serialization.Schema<
     AssistantEnd,
     AssistantMessage,
     AudioOutput,
-    WebSocketError,
+    Error_,
     UserInterruption,
     UserMessage,
     ToolCallMessage,
@@ -35,7 +35,7 @@ export declare namespace SubscribeEvent {
         | AssistantEnd.Raw
         | AssistantMessage.Raw
         | AudioOutput.Raw
-        | WebSocketError.Raw
+        | Error_.Raw
         | UserInterruption.Raw
         | UserMessage.Raw
         | ToolCallMessage.Raw

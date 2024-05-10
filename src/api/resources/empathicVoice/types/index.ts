@@ -35,7 +35,7 @@ export * from "./ToolResponseMessage";
 export * from "./ToolType";
 export * from "./EmotionScores";
 export * from "./Encoding";
-export * from "./WebSocketError";
+export * from "./Error_";
 export * from "./Inference";
 export * from "./MillisecondInterval";
 export * from "./ProsodyInference";

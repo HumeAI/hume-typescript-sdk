@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         name: "string"
+ *         name: "get_current_temperature"
  *     }
  */
 export interface PostedUserDefinedToolName {

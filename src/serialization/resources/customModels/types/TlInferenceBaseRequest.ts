@@ -5,13 +5,13 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { CustomModel } from "./CustomModel";
+import { TlInferenceCustomModel } from "./TlInferenceCustomModel";
 
 export const TlInferenceBaseRequest: core.serialization.ObjectSchema<
     serializers.customModels.TlInferenceBaseRequest.Raw,
     Hume.customModels.TlInferenceBaseRequest
 > = core.serialization.object({
-    customModel: core.serialization.property("custom_model", CustomModel),
+    customModel: core.serialization.property("custom_model", TlInferenceCustomModel),
     urls: core.serialization.list(core.serialization.string()).optional(),
     registryFiles: core.serialization.property(
         "registry_files",
@@ -23,7 +23,7 @@ export const TlInferenceBaseRequest: core.serialization.ObjectSchema<
 
 export declare namespace TlInferenceBaseRequest {
     interface Raw {
-        custom_model: CustomModel.Raw;
+        custom_model: TlInferenceCustomModel.Raw;
         urls?: string[] | null;
         registry_files?: string[] | null;
         callback_url?: string | null;

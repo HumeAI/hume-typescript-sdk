@@ -5,8 +5,11 @@
 /**
  * @example
  *     {
- *         name: "name",
- *         parameters: "parameters"
+ *         name: "get_current_weather",
+ *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
+ *         versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
+ *         description: "This tool is for getting the current weather.",
+ *         fallbackContent: "Unable to fetch current weather."
  *     }
  */
 export interface PostedUserDefinedTool {

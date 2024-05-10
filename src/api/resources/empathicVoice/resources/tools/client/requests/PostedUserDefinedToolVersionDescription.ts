@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
+ *     }
  */
 export interface PostedUserDefinedToolVersionDescription {
     /** Description that is appended to a specific version of a Tool. */
