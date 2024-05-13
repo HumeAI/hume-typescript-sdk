@@ -16,9 +16,12 @@ export class StreamSocket {
 
     /**
      * Send audio input
-     **/
-    public async sendAudioInput(message: string | ArrayBuffer | Blob | ArrayBufferView): Promise<void> {
-        await this.sendRaw(message);
+     */
+    public async sendAudioInput(message: Omit<Hume.empathicVoice.AudioInput, "type">): Promise<void> {
+        await this.sendJson({
+            type: "audio_input",
+            ...message,
+        });
     }
 
     /**
@@ -36,8 +39,8 @@ export class StreamSocket {
      */
     public async sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): Promise<void> {
         await this.sendJson({
+            type: "assistant_input",
             ...message,
-            type: "assistant_input"
         });
     }
 
@@ -64,11 +67,6 @@ export class StreamSocket {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
-    }
-
-    private async sendRaw(payload: any): Promise<void> {
-        await this.tillSocketOpen();
-        this.websocket.send(payload);
     }
 
     private async tillSocketOpen(): Promise<WebSocket> {
