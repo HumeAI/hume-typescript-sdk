@@ -13,7 +13,6 @@ export declare namespace Chats {
     interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
-        accountToken?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -54,13 +53,9 @@ export class Chats {
             ),
             method: "GET",
             headers: {
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.15",
+                "X-Fern-SDK-Version": "0.5.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -132,13 +127,9 @@ export class Chats {
             ),
             method: "GET",
             headers: {
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.15",
+                "X-Fern-SDK-Version": "0.5.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

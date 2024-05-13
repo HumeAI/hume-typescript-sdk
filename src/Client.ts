@@ -12,7 +12,6 @@ export declare namespace HumeClient {
     interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
-        accountToken?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
