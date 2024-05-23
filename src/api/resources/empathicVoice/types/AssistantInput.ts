@@ -9,5 +9,6 @@ export interface AssistantInput {
     customSessionId?: string;
     /** Text to be synthesized. */
     text: string;
+    /** The type of message sent through the socket; for an Assistant Input message, this must be 'assistant_input'. */
     type: "assistant_input";
 }

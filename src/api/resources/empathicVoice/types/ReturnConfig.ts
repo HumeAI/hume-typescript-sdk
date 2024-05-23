@@ -21,6 +21,7 @@ export interface ReturnConfig {
     /** The timestamp when this version of the config was created. */
     modifiedOn?: number;
     prompt?: Hume.empathicVoice.ReturnPrompt;
+    voice?: Hume.empathicVoice.ReturnVoice;
     languageModel?: Hume.empathicVoice.ReturnLanguageModel;
     /** List of user-defined tools associated with this config. */
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];

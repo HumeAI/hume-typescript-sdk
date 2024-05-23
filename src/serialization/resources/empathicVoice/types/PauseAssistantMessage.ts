@@ -6,17 +6,17 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const AssistantEnd: core.serialization.ObjectSchema<
-    serializers.empathicVoice.AssistantEnd.Raw,
-    Hume.empathicVoice.AssistantEnd
+export const PauseAssistantMessage: core.serialization.ObjectSchema<
+    serializers.empathicVoice.PauseAssistantMessage.Raw,
+    Hume.empathicVoice.PauseAssistantMessage
 > = core.serialization.object({
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    type: core.serialization.stringLiteral("assistant_end"),
+    type: core.serialization.stringLiteral("pause_assistant_message").optional(),
 });
 
-export declare namespace AssistantEnd {
+export declare namespace PauseAssistantMessage {
     interface Raw {
         custom_session_id?: string | null;
-        type: "assistant_end";
+        type?: "pause_assistant_message" | null;
     }
 }

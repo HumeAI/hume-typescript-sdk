@@ -6,5 +6,7 @@
  * When provided, the output is an assistant end message.
  */
 export interface AssistantEnd {
+    customSessionId?: string;
+    /** The type of message sent through the socket; for an Assistant End message, this must be 'assistant_end'. */
     type: "assistant_end";
 }

@@ -55,7 +55,7 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.16",
+                "X-Fern-SDK-Version": "0.5.17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -109,7 +109,7 @@ export class Chats {
         id: string,
         request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
         requestOptions?: Chats.RequestOptions
-    ): Promise<Hume.empathicVoice.ReturnChatWithPagedEvents> {
+    ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> {
         const { pageSize, pageNumber } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageSize != null) {
@@ -129,7 +129,7 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.5.16",
+                "X-Fern-SDK-Version": "0.5.17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -140,7 +140,7 @@ export class Chats {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.empathicVoice.ReturnChatWithPagedEvents.parseOrThrow(_response.body, {
+            return await serializers.empathicVoice.ReturnChatPagedEvents.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

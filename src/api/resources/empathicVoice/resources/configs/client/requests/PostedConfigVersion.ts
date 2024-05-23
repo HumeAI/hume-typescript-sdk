@@ -12,6 +12,7 @@ export interface PostedConfigVersion {
     /** Description that is appended to a specific version of a Config. */
     versionDescription?: string;
     prompt?: Hume.empathicVoice.PostedPromptSpec;
+    voice?: Hume.empathicVoice.PostedVoice;
     languageModel?: Hume.empathicVoice.PostedLanguageModel;
     /** Tool specification for a Config. */
     tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];

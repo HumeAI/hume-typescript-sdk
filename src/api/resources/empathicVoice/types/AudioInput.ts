@@ -9,5 +9,6 @@ export interface AudioInput {
     customSessionId?: string;
     /** Base64 encoded audio input. */
     data: string;
+    /** The type of message sent through the socket; for an Audio Input message, this must be 'audio_input'. */
     type: "audio_input";
 }

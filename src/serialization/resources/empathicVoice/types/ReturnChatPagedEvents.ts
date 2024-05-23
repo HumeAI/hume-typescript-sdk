@@ -8,9 +8,9 @@ import * as core from "../../../../core";
 import { ReturnChatEvent } from "./ReturnChatEvent";
 import { ReturnConfigSpec } from "./ReturnConfigSpec";
 
-export const ReturnChatWithPagedEvents: core.serialization.ObjectSchema<
-    serializers.empathicVoice.ReturnChatWithPagedEvents.Raw,
-    Hume.empathicVoice.ReturnChatWithPagedEvents
+export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
+    serializers.empathicVoice.ReturnChatPagedEvents.Raw,
+    Hume.empathicVoice.ReturnChatPagedEvents
 > = core.serialization.object({
     id: core.serialization.string(),
     tag: core.serialization.string().optional(),
@@ -24,7 +24,7 @@ export const ReturnChatWithPagedEvents: core.serialization.ObjectSchema<
     config: ReturnConfigSpec.optional(),
 });
 
-export declare namespace ReturnChatWithPagedEvents {
+export declare namespace ReturnChatPagedEvents {
     interface Raw {
         id: string;
         tag?: string | null;

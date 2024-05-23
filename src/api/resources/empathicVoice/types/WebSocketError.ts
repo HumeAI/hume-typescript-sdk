@@ -13,5 +13,6 @@ export interface WebSocketError {
     message: string;
     /** Error slug. */
     slug: string;
+    /** The type of message sent through the socket; for a Web Socket Error message, this must be 'error'. */
     type: "error";
 }

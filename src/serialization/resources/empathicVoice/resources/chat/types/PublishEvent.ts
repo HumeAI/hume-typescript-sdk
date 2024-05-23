@@ -11,6 +11,8 @@ import { UserInput } from "../../../types/UserInput";
 import { AssistantInput } from "../../../types/AssistantInput";
 import { ToolResponseMessage } from "../../../types/ToolResponseMessage";
 import { ToolErrorMessage } from "../../../types/ToolErrorMessage";
+import { PauseAssistantMessage } from "../../../types/PauseAssistantMessage";
+import { ResumeAssistantMessage } from "../../../types/ResumeAssistantMessage";
 
 export const PublishEvent: core.serialization.Schema<
     serializers.empathicVoice.PublishEvent.Raw,
@@ -22,6 +24,8 @@ export const PublishEvent: core.serialization.Schema<
     AssistantInput,
     ToolResponseMessage,
     ToolErrorMessage,
+    PauseAssistantMessage,
+    ResumeAssistantMessage,
 ]);
 
 export declare namespace PublishEvent {
@@ -31,5 +35,7 @@ export declare namespace PublishEvent {
         | UserInput.Raw
         | AssistantInput.Raw
         | ToolResponseMessage.Raw
-        | ToolErrorMessage.Raw;
+        | ToolErrorMessage.Raw
+        | PauseAssistantMessage.Raw
+        | ResumeAssistantMessage.Raw;
 }

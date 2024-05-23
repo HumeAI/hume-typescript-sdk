@@ -6,6 +6,7 @@ import * as serializers from "../../../../../../index";
 import * as Hume from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 import { PostedPromptSpec } from "../../../../types/PostedPromptSpec";
+import { PostedVoice } from "../../../../types/PostedVoice";
 import { PostedLanguageModel } from "../../../../types/PostedLanguageModel";
 import { PostedUserDefinedToolSpec } from "../../../../types/PostedUserDefinedToolSpec";
 import { PostedBuiltinTool } from "../../../../types/PostedBuiltinTool";
@@ -16,6 +17,7 @@ export const PostedConfigVersion: core.serialization.Schema<
 > = core.serialization.object({
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     prompt: PostedPromptSpec.optional(),
+    voice: PostedVoice.optional(),
     languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
     tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
     builtinTools: core.serialization.property(
@@ -28,6 +30,7 @@ export declare namespace PostedConfigVersion {
     interface Raw {
         version_description?: string | null;
         prompt?: PostedPromptSpec.Raw | null;
+        voice?: PostedVoice.Raw | null;
         language_model?: PostedLanguageModel.Raw | null;
         tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
         builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;

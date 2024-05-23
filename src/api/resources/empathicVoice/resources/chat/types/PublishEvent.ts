@@ -10,4 +10,6 @@ export type PublishEvent =
     | Hume.empathicVoice.UserInput
     | Hume.empathicVoice.AssistantInput
     | Hume.empathicVoice.ToolResponseMessage
-    | Hume.empathicVoice.ToolErrorMessage;
+    | Hume.empathicVoice.ToolErrorMessage
+    | Hume.empathicVoice.PauseAssistantMessage
+    | Hume.empathicVoice.ResumeAssistantMessage;

@@ -18,6 +18,8 @@ export interface ReturnChat {
     startTimestamp: number;
     /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
     endTimestamp?: number;
+    /** The total number of events currently in this chat. */
+    eventCount?: number;
     /** Stringified JSON with additional metadata about the chat. */
     metadata?: string;
     config?: Hume.empathicVoice.ReturnConfigSpec;

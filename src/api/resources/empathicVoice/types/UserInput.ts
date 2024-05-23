@@ -9,5 +9,6 @@ export interface UserInput {
     customSessionId?: string;
     /** User text to insert into the conversation. */
     text: string;
+    /** The type of message sent through the socket; for a User Input message, this must be ‘user_input’. */
     type: "user_input";
 }

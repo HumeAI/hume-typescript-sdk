@@ -7,6 +7,8 @@
  */
 export interface UserInterruption {
     customSessionId?: string;
+    /** Unix timestamp of the detected user interruption. */
     time: number;
+    /** The type of message sent through the socket; for a User Interruption message, this must be 'user_interruption'. */
     type: "user_interruption";
 }

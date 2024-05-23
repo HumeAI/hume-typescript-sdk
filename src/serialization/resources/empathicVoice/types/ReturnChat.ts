@@ -16,6 +16,7 @@ export const ReturnChat: core.serialization.ObjectSchema<
     status: core.serialization.string(),
     startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
+    eventCount: core.serialization.property("event_count", core.serialization.number().optional()),
     metadata: core.serialization.string().optional(),
     config: ReturnConfigSpec.optional(),
 });
@@ -27,6 +28,7 @@ export declare namespace ReturnChat {
         status: string;
         start_timestamp: number;
         end_timestamp?: number | null;
+        event_count?: number | null;
         metadata?: string | null;
         config?: ReturnConfigSpec.Raw | null;
     }

@@ -7,7 +7,7 @@ import * as Hume from "../../../index";
 /**
  * A description of chat status with a paginated list of chat events returned from the server
  */
-export interface ReturnChatWithPagedEvents {
+export interface ReturnChatPagedEvents {
     /** Identifier for a chat. Formatted as a UUID. */
     id: string;
     /** Optional tag applied to this chat used to group chats by user, application, etc. */

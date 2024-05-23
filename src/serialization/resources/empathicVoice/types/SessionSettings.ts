@@ -6,27 +6,30 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { AudioConfiguration } from "./AudioConfiguration";
+import { BuiltinToolConfig } from "./BuiltinToolConfig";
 import { Tool } from "./Tool";
 
 export const SessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.SessionSettings.Raw,
     Hume.empathicVoice.SessionSettings
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     audio: AudioConfiguration.optional(),
+    builtinTools: core.serialization.property("builtin_tools", core.serialization.list(BuiltinToolConfig).optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
     systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
-    type: core.serialization.stringLiteral("session_settings"),
     tools: core.serialization.list(Tool).optional(),
+    type: core.serialization.stringLiteral("session_settings"),
 });
 
 export declare namespace SessionSettings {
     interface Raw {
-        custom_session_id?: string | null;
         audio?: AudioConfiguration.Raw | null;
+        builtin_tools?: BuiltinToolConfig.Raw[] | null;
+        custom_session_id?: string | null;
         language_model_api_key?: string | null;
         system_prompt?: string | null;
-        type: "session_settings";
         tools?: Tool.Raw[] | null;
+        type: "session_settings";
     }
 }

@@ -11,23 +11,23 @@ export const ToolCallMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ToolCallMessage.Raw,
     Hume.empathicVoice.ToolCallMessage
 > = core.serialization.object({
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     name: core.serialization.string(),
     parameters: core.serialization.string(),
-    toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
-    type: core.serialization.stringLiteral("tool_call").optional(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    toolType: core.serialization.property("tool_type", ToolType),
     responseRequired: core.serialization.property("response_required", core.serialization.boolean()),
+    toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
+    toolType: core.serialization.property("tool_type", ToolType),
+    type: core.serialization.stringLiteral("tool_call").optional(),
 });
 
 export declare namespace ToolCallMessage {
     interface Raw {
+        custom_session_id?: string | null;
         name: string;
         parameters: string;
-        tool_call_id: string;
-        type?: "tool_call" | null;
-        custom_session_id?: string | null;
-        tool_type: ToolType.Raw;
         response_required: boolean;
+        tool_call_id: string;
+        tool_type: ToolType.Raw;
+        type?: "tool_call" | null;
     }
 }

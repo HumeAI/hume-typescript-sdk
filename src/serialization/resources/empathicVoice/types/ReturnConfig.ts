@@ -6,6 +6,7 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { ReturnPrompt } from "./ReturnPrompt";
+import { ReturnVoice } from "./ReturnVoice";
 import { ReturnLanguageModel } from "./ReturnLanguageModel";
 import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool";
@@ -21,6 +22,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
     prompt: ReturnPrompt.optional(),
+    voice: ReturnVoice.optional(),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
     builtinTools: core.serialization.property(
@@ -38,6 +40,7 @@ export declare namespace ReturnConfig {
         created_on?: number | null;
         modified_on?: number | null;
         prompt?: ReturnPrompt.Raw | null;
+        voice?: ReturnVoice.Raw | null;
         language_model?: ReturnLanguageModel.Raw | null;
         tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;

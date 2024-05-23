@@ -5,17 +5,12 @@
 /**
  * The provider of this model. Based on the enum modelProvider.
  */
-export type PostedLanguageModelModelProvider =
-    | "OPEN_AI"
-    | "BYO_TEXT"
-    | "CUSTOM_LANGUAGE_MODEL"
-    | "ANTHROPIC"
-    | "FIREWORKS";
+export type PostedLanguageModelModelProvider = "OPEN_AI" | "CUSTOM_LANGUAGE_MODEL" | "ANTHROPIC" | "FIREWORKS" | "GROQ";
 
 export const PostedLanguageModelModelProvider = {
     OpenAi: "OPEN_AI",
-    ByoText: "BYO_TEXT",
     CustomLanguageModel: "CUSTOM_LANGUAGE_MODEL",
     Anthropic: "ANTHROPIC",
     Fireworks: "FIREWORKS",
+    Groq: "GROQ",
 } as const;
