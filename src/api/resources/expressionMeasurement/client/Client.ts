@@ -16,6 +16,7 @@ export declare namespace ExpressionMeasurement {
     interface RequestOptions {
         timeoutInSeconds?: number;
         maxRetries?: number;
+        abortSignal?: AbortSignal;
     }
 }
 

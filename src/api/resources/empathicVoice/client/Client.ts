@@ -19,6 +19,7 @@ export declare namespace EmpathicVoice {
     interface RequestOptions {
         timeoutInSeconds?: number;
         maxRetries?: number;
+        abortSignal?: AbortSignal;
     }
 }
 
