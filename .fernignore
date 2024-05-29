@@ -15,6 +15,7 @@ src/index.ts
 src/api/resources/empathicVoice/client/StreamSocket.ts
 src/api/resources/empathicVoice/client/index.ts
 src/core/websocket
+src/core/index.ts
 
 # Tests
 tests/empathicVoice
