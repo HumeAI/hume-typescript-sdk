@@ -35,11 +35,31 @@ export class StreamSocket {
     }
 
     /**
-     * Send session settings
+     * Send assistant input
      */
     public async sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): Promise<void> {
         await this.sendJson({
             type: "assistant_input",
+            ...message,
+        });
+    }
+
+    /**
+     * Send pause assistant message
+     */
+    public async pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type">): Promise<void> {
+        await this.sendJson({
+            type: "pause_assistant_message",
+            ...message,
+        });
+    }
+
+    /**
+     * Send resume assistant message
+     */
+    public async resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type">): Promise<void> {
+        await this.sendJson({
+            type: "resume_assistant_message",
             ...message,
         });
     }
