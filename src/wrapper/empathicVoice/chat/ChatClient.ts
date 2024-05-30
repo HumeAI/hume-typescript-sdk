@@ -18,6 +18,9 @@ export declare namespace ChatClient {
         /** The version of the configuration. */
         configVersion?: string;
 
+        /** The ID of a chat group, used to resume a previous chat. */
+        resumedChatGroupId?: string;
+
         onOpen?: () => void;
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
         onError?: (error: Hume.empathicVoice.WebSocketError) => void;
@@ -38,6 +41,9 @@ export class ChatClient {
         }
         if (args.configVersion != null) {
             queryParams["config_version"] = args.configVersion;
+        }
+        if (args.resumedChatGroupId != null) {
+            queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
         }
 
         const websocket = await core.connect(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`);
