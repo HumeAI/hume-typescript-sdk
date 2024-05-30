@@ -1,6 +1,6 @@
 {
     "name": "hume",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "private": false,
     "repository": "https://github.com/HumeAI/hume-typescript-sdk",
     "main": "./index.js",
@@ -9,7 +9,7 @@
         "format": "prettier . --write --ignore-unknown",
         "build": "tsc",
         "prepack": "cp -rv dist/. .",
-        "test": "jest"
+        "test": "fern test --command='jest'"
     },
     "dependencies": {
         "url-join": "4.0.1",

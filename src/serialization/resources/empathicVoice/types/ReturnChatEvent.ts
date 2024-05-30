@@ -11,6 +11,7 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnChatEvent
 > = core.serialization.object({
     id: core.serialization.string(),
+    chatId: core.serialization.property("chat_id", core.serialization.string()),
     timestamp: core.serialization.number(),
     role: core.serialization.string(),
     type: core.serialization.string(),
@@ -22,6 +23,7 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
 export declare namespace ReturnChatEvent {
     interface Raw {
         id: string;
+        chat_id: string;
         timestamp: number;
         role: string;
         type: string;

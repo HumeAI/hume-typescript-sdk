@@ -17,6 +17,6 @@ export interface AssistantMessage {
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */
     models: Hume.empathicVoice.Inference;
-    /** The type of message sent through the socket; for an Assistant Message message, this must be 'assistant_message'. */
+    /** The type of message sent through the socket; for an Assistant Message, this must be 'assistant_message'. */
     type: "assistant_message";
 }

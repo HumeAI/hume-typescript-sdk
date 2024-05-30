@@ -26,8 +26,11 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v3
 
-      - name: Compile
-        run: yarn && yarn test    
+      - name: Test
+        run: |
+          yarn
+          yarn fern test --command='jest --env=node'
+          yarn fern test --command='jest --env=jsdom'
 
   publish:
     needs: [ compile, test ]

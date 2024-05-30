@@ -10,6 +10,8 @@ import * as Hume from "../../../index";
 export interface ReturnChat {
     /** Identifier for a chat. Formatted as a UUID. */
     id: string;
+    /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
+    chatGroupId: string;
     /** Optional tag applied to this chat used to group chats by user, application, etc. */
     tag?: string;
     /** The status of the chat. Values from the ChatStatus enum. */

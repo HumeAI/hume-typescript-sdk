@@ -8,6 +8,7 @@ import { Tools } from "../resources/tools/client/Client";
 import { Prompts } from "../resources/prompts/client/Client";
 import { Configs } from "../resources/configs/client/Client";
 import { Chats } from "../resources/chats/client/Client";
+import { ChatGroups } from "../resources/chatGroups/client/Client";
 
 export declare namespace EmpathicVoice {
     interface Options {
@@ -48,5 +49,11 @@ export class EmpathicVoice {
 
     public get chats(): Chats {
         return (this._chats ??= new Chats(this._options));
+    }
+
+    protected _chatGroups: ChatGroups | undefined;
+
+    public get chatGroups(): ChatGroups {
+        return (this._chatGroups ??= new ChatGroups(this._options));
     }
 }
