@@ -14,9 +14,10 @@ export declare namespace ChatClient {
     interface ConnectArgs {
         /** The ID of the configuration. */
         configId?: string;
-
         /** The version of the configuration. */
         configVersion?: string;
+        /** Resumed Chat Group Id */
+        resumedChatGroupId?: string;
 
         onOpen?: () => void;
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
@@ -35,6 +36,9 @@ export class ChatClient {
         queryParams["apiKey"] = core.Supplier.get(this._options.apiKey);
         if (args.configId != null) {
             queryParams["config_id"] = args.configId;
+        }
+        if (args.resumedChatGroupId != null) {
+            queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
         }
         if (args.configVersion != null) {
             queryParams["config_version"] = args.configVersion;
