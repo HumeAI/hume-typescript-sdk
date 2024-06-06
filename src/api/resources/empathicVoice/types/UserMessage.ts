@@ -8,6 +8,7 @@ import * as Hume from "../../../index";
  * When provided, the output is a user message.
  */
 export interface UserMessage {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Indicates if this message was constructed from a text input message. */
     fromText: boolean;

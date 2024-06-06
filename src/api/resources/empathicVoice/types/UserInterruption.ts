@@ -6,6 +6,7 @@
  * When provided, the output is an interruption.
  */
 export interface UserInterruption {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Unix timestamp of the detected user interruption. */
     time: number;

@@ -10,6 +10,7 @@ import * as Hume from "../../../index";
 export interface ToolResponseMessage {
     /** Return value of the tool call. */
     content: string;
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** ID of the tool call. */
     toolCallId: string;

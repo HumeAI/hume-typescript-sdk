@@ -14,8 +14,6 @@ export interface PostedConfigVersion {
     prompt?: Hume.empathicVoice.PostedPromptSpec;
     voice?: Hume.empathicVoice.PostedVoice;
     languageModel?: Hume.empathicVoice.PostedLanguageModel;
-    /** Tool specification for a Config. */
-    tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
-    /** Built-in tool specification for a Config. */
-    builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
+    tools?: Hume.empathicVoice.PostedUserDefinedToolSpec;
+    builtinTools?: Hume.empathicVoice.PostedBuiltinTool;
 }

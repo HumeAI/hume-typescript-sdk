@@ -6,6 +6,7 @@
  * User text to insert into the conversation.
  */
 export interface UserInput {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** User text to insert into the conversation. */
     text: string;

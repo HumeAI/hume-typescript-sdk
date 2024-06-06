@@ -8,6 +8,7 @@
 export interface WebSocketError {
     /** Error code. */
     code: string;
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Error message. */
     message: string;

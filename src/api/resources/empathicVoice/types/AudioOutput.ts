@@ -6,6 +6,7 @@
  * When provided, the output is audio.
  */
 export interface AudioOutput {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Base64 encoded audio output. */
     data: string;

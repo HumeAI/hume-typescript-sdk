@@ -20,11 +20,8 @@ export const PostedConfig: core.serialization.Schema<
     prompt: PostedPromptSpec.optional(),
     voice: PostedVoice.optional(),
     languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
-    tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
-    builtinTools: core.serialization.property(
-        "builtin_tools",
-        core.serialization.list(PostedBuiltinTool.optional()).optional()
-    ),
+    tools: PostedUserDefinedToolSpec.optional(),
+    builtinTools: core.serialization.property("builtin_tools", PostedBuiltinTool.optional()),
 });
 
 export declare namespace PostedConfig {
@@ -34,7 +31,7 @@ export declare namespace PostedConfig {
         prompt?: PostedPromptSpec.Raw | null;
         voice?: PostedVoice.Raw | null;
         language_model?: PostedLanguageModel.Raw | null;
-        tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
-        builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;
+        tools?: PostedUserDefinedToolSpec.Raw | null;
+        builtin_tools?: PostedBuiltinTool.Raw | null;
     }
 }

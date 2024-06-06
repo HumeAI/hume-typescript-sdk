@@ -7,7 +7,7 @@ service:
     list-tools:
       path: /v0/evi/tools
       method: GET
-      auth: false
+      auth: true
       display-name: List tools
       request:
         name: ToolsListToolsRequest
@@ -71,7 +71,7 @@ service:
     create-tool:
       path: /v0/evi/tools
       method: POST
-      auth: false
+      auth: true
       display-name: Create tool
       request:
         name: PostedUserDefinedTool
@@ -136,7 +136,7 @@ service:
     list-tool-versions:
       path: /v0/evi/tools/{id}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -187,7 +187,7 @@ service:
     create-tool-version:
       path: /v0/evi/tools/{id}
       method: POST
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -254,7 +254,7 @@ service:
     delete-tool:
       path: /v0/evi/tools/{id}
       method: DELETE
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -266,7 +266,7 @@ service:
     update-tool-name:
       path: /v0/evi/tools/{id}
       method: PATCH
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -290,7 +290,7 @@ service:
     get-tool-version:
       path: /v0/evi/tools/{id}/version/{version}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -330,7 +330,7 @@ service:
     delete-tool-version:
       path: /v0/evi/tools/{id}/version/{version}
       method: DELETE
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -346,7 +346,7 @@ service:
     update-tool-description:
       path: /v0/evi/tools/{id}/version/{version}
       method: PATCH
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string

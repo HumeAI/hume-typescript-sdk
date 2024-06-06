@@ -8,11 +8,17 @@ import * as Hume from "../../../index";
  * Settings for this chat session.
  */
 export interface SessionSettings {
+    /** Audio configuration. */
     audio?: Hume.empathicVoice.AudioConfiguration;
+    /** List of builtin tools to enable. */
     builtinTools?: Hume.empathicVoice.BuiltinToolConfig[];
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
+    /** Third party API key for the language model used for non-Hume models. */
     languageModelApiKey?: string;
+    /** Instructions for how the system should respond to the user. Set to null to use the default system prompt. */
     systemPrompt?: string;
+    /** List of tools to enable. */
     tools?: Hume.empathicVoice.Tool[];
     /** The type of message sent through the socket; for a Session Settings message, this must be 'session_settings'. */
     type: "session_settings";

@@ -6,6 +6,7 @@
  * When provided, the input is spoken by EVI.
  */
 export interface AssistantInput {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Text to be synthesized. */
     text: string;

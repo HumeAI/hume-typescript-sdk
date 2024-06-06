@@ -15,4 +15,8 @@ export interface ChatsListChatsRequest {
      * The maximum number of results to include per page.
      */
     pageSize?: number;
+    /**
+     * List chats in ascending order.
+     */
+    ascendingOrder?: boolean;
 }

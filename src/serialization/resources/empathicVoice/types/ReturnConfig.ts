@@ -24,11 +24,8 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     prompt: ReturnPrompt.optional(),
     voice: ReturnVoice.optional(),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
-    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
-    builtinTools: core.serialization.property(
-        "builtin_tools",
-        core.serialization.list(ReturnBuiltinTool.optional()).optional()
-    ),
+    tools: ReturnUserDefinedTool.optional(),
+    builtinTools: core.serialization.property("builtin_tools", ReturnBuiltinTool.optional()),
 });
 
 export declare namespace ReturnConfig {
@@ -42,7 +39,7 @@ export declare namespace ReturnConfig {
         prompt?: ReturnPrompt.Raw | null;
         voice?: ReturnVoice.Raw | null;
         language_model?: ReturnLanguageModel.Raw | null;
-        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
-        builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
+        tools?: ReturnUserDefinedTool.Raw | null;
+        builtin_tools?: ReturnBuiltinTool.Raw | null;
     }
 }

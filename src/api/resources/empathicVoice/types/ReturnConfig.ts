@@ -23,8 +23,6 @@ export interface ReturnConfig {
     prompt?: Hume.empathicVoice.ReturnPrompt;
     voice?: Hume.empathicVoice.ReturnVoice;
     languageModel?: Hume.empathicVoice.ReturnLanguageModel;
-    /** List of user-defined tools associated with this config. */
-    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
-    /** List of built-in tools associated with this config */
-    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
+    tools?: Hume.empathicVoice.ReturnUserDefinedTool;
+    builtinTools?: Hume.empathicVoice.ReturnBuiltinTool;
 }

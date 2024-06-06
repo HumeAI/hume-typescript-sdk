@@ -37,7 +37,7 @@ export class Chats {
         request: Hume.empathicVoice.ChatsListChatsRequest = {},
         requestOptions?: Chats.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedChats> {
-        const { pageNumber, pageSize } = request;
+        const { pageNumber, pageSize, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
@@ -45,6 +45,10 @@ export class Chats {
 
         if (pageSize != null) {
             _queryParams["page_size"] = pageSize.toString();
+        }
+
+        if (ascendingOrder != null) {
+            _queryParams["ascending_order"] = ascendingOrder.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -56,7 +60,7 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.6.1",
+                "X-Fern-SDK-Version": "0.6.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -131,7 +135,7 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.6.1",
+                "X-Fern-SDK-Version": "0.6.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
