@@ -48,7 +48,7 @@ export class ChatClient {
         if (args.resumedChatGroupId != null) {
             queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
         }
-        if (args.ascending_order != null) {
+        if (args.ascendingOrder != null) {
             queryParams["ascending_order"] = args.ascendingOrder.toString();
         }
 
