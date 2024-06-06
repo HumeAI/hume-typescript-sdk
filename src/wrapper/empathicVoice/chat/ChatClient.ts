@@ -21,6 +21,9 @@ export declare namespace ChatClient {
         /** The ID of a chat group, used to resume a previous chat. */
         resumedChatGroupId?: string;
 
+        /** List chats in ascending order. */
+        ascendingOrder?: boolean;
+
         onOpen?: () => void;
         onMessage?: (message: Hume.empathicVoice.SubscribeEvent) => void;
         onError?: (error: Hume.empathicVoice.WebSocketError) => void;
@@ -44,6 +47,9 @@ export class ChatClient {
         }
         if (args.resumedChatGroupId != null) {
             queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
+        }
+        if (args.ascendingOrder != null) {
+            queryParams["ascending_order"] = args.ascendingOrder.toString();
         }
 
         const websocket = await core.connect(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`);
