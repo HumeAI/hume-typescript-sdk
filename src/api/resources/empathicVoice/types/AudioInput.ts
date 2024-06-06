@@ -6,6 +6,7 @@
  * When provided, the input is audio.
  */
 export interface AudioInput {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Base64 encoded audio input. */
     data: string;

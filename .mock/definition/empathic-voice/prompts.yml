@@ -7,7 +7,7 @@ service:
     list-prompts:
       path: /v0/evi/prompts
       method: GET
-      auth: false
+      auth: true
       display-name: List prompts
       request:
         name: PromptsListPromptsRequest
@@ -41,7 +41,7 @@ service:
     create-prompt:
       path: /v0/evi/prompts
       method: POST
-      auth: false
+      auth: true
       display-name: Create prompt
       request:
         name: PostedPrompt
@@ -76,7 +76,7 @@ service:
     list-prompt-versions:
       path: /v0/evi/prompts/{id}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -116,7 +116,7 @@ service:
     create-prompt-verison:
       path: /v0/evi/prompts/{id}
       method: POST
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -153,7 +153,7 @@ service:
     delete-prompt:
       path: /v0/evi/prompts/{id}
       method: DELETE
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -165,7 +165,7 @@ service:
     update-prompt-name:
       path: /v0/evi/prompts/{id}
       method: PATCH
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -184,7 +184,7 @@ service:
     get-prompt-version:
       path: /v0/evi/prompts/{id}/version/{version}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -213,7 +213,7 @@ service:
     delete-prompt-version:
       path: /v0/evi/prompts/{id}/version/{version}
       method: DELETE
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -229,7 +229,7 @@ service:
     update-prompt-description:
       path: /v0/evi/prompts/{id}/version/{version}
       method: PATCH
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string

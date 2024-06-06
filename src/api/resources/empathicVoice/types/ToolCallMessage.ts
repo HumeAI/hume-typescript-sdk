@@ -8,6 +8,7 @@ import * as Hume from "../../../index";
  * When provided, the output is a tool call.
  */
 export interface ToolCallMessage {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Name of the tool called. */
     name: string;

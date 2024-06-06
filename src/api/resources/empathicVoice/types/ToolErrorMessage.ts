@@ -8,14 +8,19 @@ import * as Hume from "../../../index";
  * When provided, the output is a function call error.
  */
 export interface ToolErrorMessage {
+    /** Error code. */
     code?: string;
+    /** The content passed to the LLM in place of the tool response. */
     content?: string;
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Error message from the tool call, not exposed to the LLM or user. */
     error: string;
+    /** Error level. */
     level?: Hume.empathicVoice.ErrorLevel;
     /** ID of the tool call. */
     toolCallId: string;
+    /** Type of tool called, either 'builtin' or 'function'. */
     toolType?: Hume.empathicVoice.ToolType;
     /** The type of message sent through the socket; for a Tool Error message, this must be 'tool_error'. */
     type?: "tool_error";

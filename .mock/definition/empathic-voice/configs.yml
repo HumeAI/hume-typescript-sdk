@@ -7,7 +7,7 @@ service:
     list-configs:
       path: /v0/evi/configs
       method: GET
-      auth: false
+      auth: true
       display-name: List configs
       request:
         name: ConfigsListConfigsRequest
@@ -47,10 +47,22 @@ service:
                   voice:
                     provider: provider
                     name: name
+                  tools:
+                    tool_type: tool_type
+                    id: id
+                    version: 1
+                    version_type: version_type
+                    name: name
+                    created_on: 1
+                    modified_on: 1
+                    parameters: parameters
+                  builtin_tools:
+                    tool_type: tool_type
+                    name: name
     create-config:
       path: /v0/evi/configs
       method: POST
-      auth: false
+      auth: true
       display-name: Create config
       request:
         name: PostedConfig
@@ -65,12 +77,8 @@ service:
             prompt: optional<root.PostedPromptSpec>
             voice: optional<root.PostedVoice>
             language_model: optional<root.PostedLanguageModel>
-            tools:
-              type: optional<list<optional<root.PostedUserDefinedToolSpec>>>
-              docs: Tool specification for a Config.
-            builtin_tools:
-              type: optional<list<optional<root.PostedBuiltinTool>>>
-              docs: Built-in tool specification for a Config.
+            tools: optional<root.PostedUserDefinedToolSpec>
+            builtin_tools: optional<root.PostedBuiltinTool>
       response:
         docs: Success
         type: root.ReturnConfig
@@ -102,25 +110,25 @@ service:
                 model_resource: model_resource
                 temperature: 1.1
               tools:
-                - tool_type: tool_type
-                  id: id
-                  version: 1
-                  version_type: version_type
-                  version_description: version_description
-                  name: name
-                  created_on: 1
-                  modified_on: 1
-                  fallback_content: fallback_content
-                  description: description
-                  parameters: parameters
+                tool_type: tool_type
+                id: id
+                version: 1
+                version_type: version_type
+                version_description: version_description
+                name: name
+                created_on: 1
+                modified_on: 1
+                fallback_content: fallback_content
+                description: description
+                parameters: parameters
               builtin_tools:
-                - tool_type: tool_type
-                  name: name
-                  fallback_content: fallback_content
+                tool_type: tool_type
+                name: name
+                fallback_content: fallback_content
     list-config-versions:
       path: /v0/evi/configs/{id}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -166,10 +174,22 @@ service:
                   voice:
                     provider: provider
                     name: name
+                  tools:
+                    tool_type: tool_type
+                    id: id
+                    version: 1
+                    version_type: version_type
+                    name: name
+                    created_on: 1
+                    modified_on: 1
+                    parameters: parameters
+                  builtin_tools:
+                    tool_type: tool_type
+                    name: name
     create-config-version:
       path: /v0/evi/configs/{id}
       method: POST
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -185,12 +205,8 @@ service:
             prompt: optional<root.PostedPromptSpec>
             voice: optional<root.PostedVoice>
             language_model: optional<root.PostedLanguageModel>
-            tools:
-              type: optional<list<optional<root.PostedUserDefinedToolSpec>>>
-              docs: Tool specification for a Config.
-            builtin_tools:
-              type: optional<list<optional<root.PostedBuiltinTool>>>
-              docs: Built-in tool specification for a Config.
+            tools: optional<root.PostedUserDefinedToolSpec>
+            builtin_tools: optional<root.PostedBuiltinTool>
       response:
         docs: Success
         type: root.ReturnConfig
@@ -223,25 +239,25 @@ service:
                 model_resource: model_resource
                 temperature: 1.1
               tools:
-                - tool_type: tool_type
-                  id: id
-                  version: 1
-                  version_type: version_type
-                  version_description: version_description
-                  name: name
-                  created_on: 1
-                  modified_on: 1
-                  fallback_content: fallback_content
-                  description: description
-                  parameters: parameters
+                tool_type: tool_type
+                id: id
+                version: 1
+                version_type: version_type
+                version_description: version_description
+                name: name
+                created_on: 1
+                modified_on: 1
+                fallback_content: fallback_content
+                description: description
+                parameters: parameters
               builtin_tools:
-                - tool_type: tool_type
-                  name: name
-                  fallback_content: fallback_content
+                tool_type: tool_type
+                name: name
+                fallback_content: fallback_content
     delete-config:
       path: /v0/evi/configs/{id}
       method: DELETE
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -253,7 +269,7 @@ service:
     update-config-name:
       path: /v0/evi/configs/{id}
       method: PATCH
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -272,7 +288,7 @@ service:
     get-config-version:
       path: /v0/evi/configs/{id}/version/{version}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -313,25 +329,25 @@ service:
                 model_resource: model_resource
                 temperature: 1.1
               tools:
-                - tool_type: tool_type
-                  id: id
-                  version: 1
-                  version_type: version_type
-                  version_description: version_description
-                  name: name
-                  created_on: 1
-                  modified_on: 1
-                  fallback_content: fallback_content
-                  description: description
-                  parameters: parameters
+                tool_type: tool_type
+                id: id
+                version: 1
+                version_type: version_type
+                version_description: version_description
+                name: name
+                created_on: 1
+                modified_on: 1
+                fallback_content: fallback_content
+                description: description
+                parameters: parameters
               builtin_tools:
-                - tool_type: tool_type
-                  name: name
-                  fallback_content: fallback_content
+                tool_type: tool_type
+                name: name
+                fallback_content: fallback_content
     delete-config-version:
       path: /v0/evi/configs/{id}/version/{version}
       method: DELETE
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -347,7 +363,7 @@ service:
     update-config-description:
       path: /v0/evi/configs/{id}/version/{version}
       method: PATCH
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string
@@ -396,18 +412,18 @@ service:
                 model_resource: model_resource
                 temperature: 1.1
               tools:
-                - tool_type: tool_type
-                  id: id
-                  version: 1
-                  version_type: version_type
-                  version_description: version_description
-                  name: name
-                  created_on: 1
-                  modified_on: 1
-                  fallback_content: fallback_content
-                  description: description
-                  parameters: parameters
+                tool_type: tool_type
+                id: id
+                version: 1
+                version_type: version_type
+                version_description: version_description
+                name: name
+                created_on: 1
+                modified_on: 1
+                fallback_content: fallback_content
+                description: description
+                parameters: parameters
               builtin_tools:
-                - tool_type: tool_type
-                  name: name
-                  fallback_content: fallback_content
+                tool_type: tool_type
+                name: name
+                fallback_content: fallback_content

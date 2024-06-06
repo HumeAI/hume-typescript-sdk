@@ -7,7 +7,7 @@ service:
     list-chats:
       path: /v0/evi/chats
       method: GET
-      auth: false
+      auth: true
       display-name: List chats
       request:
         name: ChatsListChatsRequest
@@ -18,6 +18,9 @@ service:
           page_size:
             type: optional<integer>
             docs: The maximum number of results to include per page.
+          ascending_order:
+            type: optional<boolean>
+            docs: List chats in ascending order.
       response:
         docs: Success
         type: root.ReturnPagedChats
@@ -40,7 +43,7 @@ service:
     list-chat-events:
       path: /v0/evi/chats/{id}
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string

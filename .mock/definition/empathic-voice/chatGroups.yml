@@ -7,7 +7,7 @@ service:
     list-chat-groups:
       path: /v0/evi/chat_groups
       method: GET
-      auth: false
+      auth: true
       display-name: List chat_groups
       request:
         name: ChatGroupsListChatGroupsRequest
@@ -36,7 +36,7 @@ service:
     list-chat-group-events:
       path: /v0/evi/chat_groups/{id}/events
       method: GET
-      auth: false
+      auth: true
       path-parameters:
         id:
           type: string

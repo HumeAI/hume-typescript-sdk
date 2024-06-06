@@ -5,5 +5,6 @@
 import * as Hume from "../../../index";
 
 export interface Inference {
+    /** Prosody model inference results. */
     prosody?: Hume.empathicVoice.ProsodyInference;
 }
