@@ -4,7 +4,14 @@ channel:
   query-parameters:
     access_token:
       type: optional<string>
-      docs: Access token used for authenticating the client.
+      docs: >-
+        Access token used for authenticating the client. If not provided, an
+        `api_key` must be provided to authenticate.
+    api_key:
+      type: optional<string>
+      docs: >-
+        API key used for authenticating the client. If not provided, an
+        `access_token` must be provided to authenticate.
     config_id:
       type: optional<string>
       docs: The unique identifier for the EVI configuration to be used.
