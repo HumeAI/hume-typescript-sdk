@@ -4,7 +4,7 @@ import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasure
 
 export declare namespace HumeClient {
     export interface Options extends FernClient.Options {
-        clientSecret?: string;
+        secretKey?: string;
     }
 }
 

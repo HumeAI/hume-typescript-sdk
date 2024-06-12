@@ -30,30 +30,30 @@ npm i hume
 import { HumeClient } from "hume";
 
 const hume = new HumeClient({
-    apiKey: "YOUR_API_KEY"
+    apiKey: "YOUR_API_KEY",
 });
 
 const job = await hume.expressionMeasurement.batch.startInferenceJob({
     models: {
-        face: {}
+        face: {},
     },
-    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"]
+    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
 });
 
 console.log("Running...");
 await job.awaitCompletion();
 
-
 const predictions = await hume.expressionMeasurement.batch.getJobPredictions(job.jobId);
-console.log(predictions)
+console.log(predictions);
 ```
 
 ## Namespaces
-This SDK contains the APIs for expression measurement, empathic voice and custom models. Even 
-if you do not plan on using more than one API to start, the SDK provides easy access in 
-case you find additional APIs in the future. 
 
-Each API is namespaced accordingly: 
+This SDK contains the APIs for expression measurement, empathic voice and custom models. Even
+if you do not plan on using more than one API to start, the SDK provides easy access in
+case you find additional APIs in the future.
+
+Each API is namespaced accordingly:
 
 ```typescript
 import { HumeClient } from "hume";
@@ -68,38 +68,41 @@ hume.emapthicVoice. // APIs specific to Empathic Voice
 ```
 
 ## Websockets
-The SDK supports interacting with both WebSocket and REST APIs. 
+
+The SDK supports interacting with both WebSocket and REST APIs.
 
 ### Request-Reply
-The SDK supports a request-reply pattern for the streaming expression measurement API. 
-You'll be able to pass an inference request and `await` till the response is received. 
+
+The SDK supports a request-reply pattern for the streaming expression measurement API.
+You'll be able to pass an inference request and `await` till the response is received.
 
 ```typescript
 import { HumeClient } from "hume";
 
 const hume = new HumeClient({
-    apiKey: "YOUR_API_KEY"
+    apiKey: "YOUR_API_KEY",
 });
 const socket = hume.expressionMeasurement.stream.connect({
     config: {
-        language: {}
-    }
+        language: {},
+    },
 });
 for (const sample of samples) {
-    const result = await socket.sendText({ text: sample })
-    console.log(result)
+    const result = await socket.sendText({ text: sample });
+    console.log(result);
 }
 ```
 
 ### Empathic Voice
-The SDK supports sending and receiving audio from Empathic Voice. 
+
+The SDK supports sending and receiving audio from Empathic Voice.
 
 ```typescript
 import { HumeClient } from "hume";
 
 const hume = new HumeClient({
     apiKey: "<>",
-    clientSecret: "<>",
+    secretKey: "<>",
 });
 
 const socket = await hume.empathicVoice.chat.connect({
@@ -108,7 +111,7 @@ const socket = await hume.empathicVoice.chat.connect({
             const decoded = Buffer.from(message.data, "base64");
             // play decoded message
         }
-    }
+    },
 });
 
 await socket.sendTextInput("Hello, how are you?");
@@ -159,15 +162,17 @@ await hume.expressionMeasurement.batch.startInferenceJob(..., {
 ```
 
 ## Beta Status
-This SDK is in beta, and there may be breaking changes between versions without a major 
-version update. Therefore, we recommend pinning the package version to a specific version. 
+
+This SDK is in beta, and there may be breaking changes between versions without a major
+version update. Therefore, we recommend pinning the package version to a specific version.
 This way, you can install the same version each time without breaking changes.
 
 ## Contributing
-While we value open-source contributions to this SDK, this library is generated programmatically. 
-Additions made directly to this library would have to be moved over to our generation code, 
+
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
 otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a
-proof of concept, but know that we will not be able to merge it as-is. We suggest opening an 
+proof of concept, but know that we will not be able to merge it as-is. We suggest opening an
 issue first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!

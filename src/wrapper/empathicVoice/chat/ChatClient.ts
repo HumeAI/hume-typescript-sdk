@@ -8,7 +8,7 @@ import { base64Encode } from "../../base64Encode";
 export declare namespace ChatClient {
     interface Options {
         apiKey?: core.Supplier<string | undefined>;
-        clientSecret?: core.Supplier<string | undefined>;
+        secretKey?: core.Supplier<string | undefined>;
     }
 
     interface ConnectArgs {
@@ -79,9 +79,9 @@ export class ChatClient {
 
     private async fetchAccessToken(): Promise<string> {
         const apiKey = await core.Supplier.get(this._options.apiKey);
-        const clientSecret = await core.Supplier.get(this._options.clientSecret);
+        const secretKey = await core.Supplier.get(this._options.secretKey);
 
-        const authString = `${apiKey}:${clientSecret}`;
+        const authString = `${apiKey}:${secretKey}`;
         const encoded = base64Encode(authString);
 
         const response = await core.fetcher({
