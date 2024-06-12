@@ -3,7 +3,7 @@ import { ChatClient } from "./chat/ChatClient";
 
 export declare namespace EmpathicVoice {
     export interface Options extends FernClient.Options {
-        clientSecret?: string;
+        secretKey?: string;
     }
 }
 
