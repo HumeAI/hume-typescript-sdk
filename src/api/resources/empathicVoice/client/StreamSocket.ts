@@ -65,6 +65,26 @@ export class StreamSocket {
     }
 
     /**
+     * Send tool response message
+     */
+    public async sendToolResponseMessage(message: Omit<Hume.empathicVoice.ToolResponseMessage, "type">): Promise<void> {
+        await this.sendJson({
+            type: "tool_response",
+            ...message,
+        });
+    }
+
+    /**
+     * Send tool error message
+     */
+    public async sendToolErrorMessage(message: Omit<Hume.empathicVoice.ToolErrorMessage, "type">): Promise<void> {
+        await this.sendJson({
+            type: "tool_error",
+            ...message,
+        });
+    }
+
+    /**
      * Send text input
      */
     public async sendTextInput(text: string): Promise<void> {
