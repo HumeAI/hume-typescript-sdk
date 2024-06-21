@@ -20,6 +20,8 @@ export interface ReturnChatPagedEvents {
     startTimestamp: number;
     /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
     endTimestamp?: number;
+    /** The direction of the pagination (ASC or DESC). */
+    paginationDirection: string;
     /** List of chat events with the specified page number and page size. */
     eventsPage: Hume.empathicVoice.ReturnChatEvent[];
     /** Stringified JSON with additional metadata about the chat. */
@@ -28,5 +30,7 @@ export interface ReturnChatPagedEvents {
     pageNumber: number;
     /** The number of results returned per page. */
     pageSize: number;
+    /** The total number of pages in the collection */
+    totalPages: number;
     config?: Hume.empathicVoice.ReturnConfigSpec;
 }

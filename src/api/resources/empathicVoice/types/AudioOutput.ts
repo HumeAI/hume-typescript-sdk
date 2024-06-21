@@ -12,6 +12,6 @@ export interface AudioOutput {
     data: string;
     /** ID of the audio output. */
     id: string;
-    /** The type of message sent through the socket; for an Audio Output message, this must be 'audio_output'. */
+    /** The type of message sent through the socket; for an Audio Output message, this must be `audio_output`. */
     type: "audio_output";
 }

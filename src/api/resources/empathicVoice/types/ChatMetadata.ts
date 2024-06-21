@@ -12,6 +12,6 @@ export interface ChatMetadata {
     chatId: string;
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
-    /** The type of message sent through the socket; for a Chat Metadata message, this must be 'chat_metadata'. */
+    /** The type of message sent through the socket; for a Chat Metadata message, this must be `chat_metadata`. */
     type: "chat_metadata";
 }

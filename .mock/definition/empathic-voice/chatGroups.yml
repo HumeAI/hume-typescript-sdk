@@ -18,6 +18,12 @@ service:
           page_size:
             type: optional<integer>
             docs: The maximum number of results to include per page.
+          ascending_order:
+            type: optional<boolean>
+            docs: >-
+              Boolean to indicate if the results should be paginated in
+              chronological order or reverse-chronological order. Defaults to
+              true.
       response:
         docs: Success
         type: root.ReturnPagedChatGroups
@@ -26,6 +32,8 @@ service:
             body:
               page_number: 1
               page_size: 1
+              total_pages: 1
+              pagination_direction: pagination_direction
               chat_groups_page:
                 - id: id
                   first_start_timestamp: 1
@@ -68,6 +76,7 @@ service:
               id: id
               page_number: 1
               page_size: 1
+              total_pages: 1
               pagination_direction: pagination_direction
               events_page:
                 - id: id

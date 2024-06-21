@@ -29,6 +29,7 @@ service:
             body:
               page_number: 1
               page_size: 1
+              total_pages: 1
               prompts_page:
                 - id: id
                   version: 1
@@ -57,7 +58,7 @@ service:
               type: string
               docs: Text used for this version of the Prompt.
       response:
-        docs: Success
+        docs: Created
         type: optional<root.ReturnPrompt>
       examples:
         - request:
@@ -104,6 +105,7 @@ service:
             body:
               page_number: 1
               page_size: 1
+              total_pages: 1
               prompts_page:
                 - id: id
                   version: 1
@@ -133,7 +135,7 @@ service:
               type: string
               docs: Text used for this version of the Prompt.
       response:
-        docs: Success
+        docs: Created
         type: optional<root.ReturnPrompt>
       examples:
         - path-parameters:

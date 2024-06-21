@@ -31,7 +31,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.listConfigs()
+     *     await client.empathicVoice.configs.listConfigs()
      */
     public async listConfigs(
         request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
@@ -60,7 +60,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -108,7 +108,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.createConfig({
+     *     await client.empathicVoice.configs.createConfig({
      *         name: "name"
      *     })
      */
@@ -125,7 +125,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -176,7 +176,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.listConfigVersions("id")
+     *     await client.empathicVoice.configs.listConfigVersions("id")
      */
     public async listConfigVersions(
         id: string,
@@ -206,7 +206,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -255,7 +255,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.createConfigVersion("id")
+     *     await client.empathicVoice.configs.createConfigVersion("id")
      */
     public async createConfigVersion(
         id: string,
@@ -271,7 +271,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -321,7 +321,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.deleteConfig("id")
+     *     await client.empathicVoice.configs.deleteConfig("id")
      */
     public async deleteConfig(id: string, requestOptions?: Configs.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -333,7 +333,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -375,7 +375,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.updateConfigName("string", {
+     *     await client.empathicVoice.configs.updateConfigName("string", {
      *         name: "string"
      *     })
      */
@@ -393,7 +393,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -439,7 +439,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.getConfigVersion("id", 1)
+     *     await client.empathicVoice.configs.getConfigVersion("id", 1)
      */
     public async getConfigVersion(
         id: string,
@@ -455,7 +455,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -503,7 +503,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.deleteConfigVersion("id", 1)
+     *     await client.empathicVoice.configs.deleteConfigVersion("id", 1)
      */
     public async deleteConfigVersion(
         id: string,
@@ -519,7 +519,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -562,7 +562,7 @@ export class Configs {
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.configs.updateConfigDescription("id", 1)
+     *     await client.empathicVoice.configs.updateConfigDescription("id", 1)
      */
     public async updateConfigDescription(
         id: string,
@@ -579,7 +579,7 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

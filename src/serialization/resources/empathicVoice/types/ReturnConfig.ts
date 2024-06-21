@@ -8,8 +8,11 @@ import * as core from "../../../../core";
 import { ReturnPrompt } from "./ReturnPrompt";
 import { ReturnVoice } from "./ReturnVoice";
 import { ReturnLanguageModel } from "./ReturnLanguageModel";
+import { ReturnEllmModel } from "./ReturnEllmModel";
 import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool";
+import { ReturnEventMessageSpec } from "./ReturnEventMessageSpec";
+import { ReturnTimeoutSpec } from "./ReturnTimeoutSpec";
 
 export const ReturnConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfig.Raw,
@@ -24,8 +27,17 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     prompt: ReturnPrompt.optional(),
     voice: ReturnVoice.optional(),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
-    tools: ReturnUserDefinedTool.optional(),
-    builtinTools: core.serialization.property("builtin_tools", ReturnBuiltinTool.optional()),
+    ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
+    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
+    builtinTools: core.serialization.property(
+        "builtin_tools",
+        core.serialization.list(ReturnBuiltinTool.optional()).optional()
+    ),
+    eventMessages: core.serialization.property(
+        "event_messages",
+        core.serialization.record(core.serialization.string(), ReturnEventMessageSpec.optional()).optional()
+    ),
+    timeouts: core.serialization.record(core.serialization.string(), ReturnTimeoutSpec.optional()).optional(),
 });
 
 export declare namespace ReturnConfig {
@@ -39,7 +51,10 @@ export declare namespace ReturnConfig {
         prompt?: ReturnPrompt.Raw | null;
         voice?: ReturnVoice.Raw | null;
         language_model?: ReturnLanguageModel.Raw | null;
-        tools?: ReturnUserDefinedTool.Raw | null;
-        builtin_tools?: ReturnBuiltinTool.Raw | null;
+        ellm_model?: ReturnEllmModel.Raw | null;
+        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
+        builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
+        event_messages?: Record<string, ReturnEventMessageSpec.Raw | null | undefined> | null;
+        timeouts?: Record<string, ReturnTimeoutSpec.Raw | null | undefined> | null;
     }
 }

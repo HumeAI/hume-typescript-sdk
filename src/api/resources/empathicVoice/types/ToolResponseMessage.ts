@@ -16,6 +16,6 @@ export interface ToolResponseMessage {
     toolCallId: string;
     toolName?: string;
     toolType?: Hume.empathicVoice.ToolType;
-    /** The type of message sent through the socket; for a Tool Response message, this must be ‘tool_response’. */
-    type?: "tool_response";
+    /** The type of message sent through the socket; for a Tool Response message, this must be `tool_response`. */
+    type: "tool_response";
 }

@@ -7,6 +7,7 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { AudioConfiguration } from "./AudioConfiguration";
 import { BuiltinToolConfig } from "./BuiltinToolConfig";
+import { Context } from "./Context";
 import { Tool } from "./Tool";
 
 export const SessionSettings: core.serialization.ObjectSchema<
@@ -15,6 +16,7 @@ export const SessionSettings: core.serialization.ObjectSchema<
 > = core.serialization.object({
     audio: AudioConfiguration.optional(),
     builtinTools: core.serialization.property("builtin_tools", core.serialization.list(BuiltinToolConfig).optional()),
+    context: Context.optional(),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
     systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
@@ -26,6 +28,7 @@ export declare namespace SessionSettings {
     interface Raw {
         audio?: AudioConfiguration.Raw | null;
         builtin_tools?: BuiltinToolConfig.Raw[] | null;
+        context?: Context.Raw | null;
         custom_session_id?: string | null;
         language_model_api_key?: string | null;
         system_prompt?: string | null;

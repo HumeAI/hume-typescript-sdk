@@ -18,5 +18,6 @@ export interface UserMessage {
     models: Hume.empathicVoice.Inference;
     /** Start and End time of user message. */
     time: Hume.empathicVoice.MillisecondInterval;
+    /** The type of message sent through the socket; for a User message, this must be `user_message`. */
     type: "user_message";
 }

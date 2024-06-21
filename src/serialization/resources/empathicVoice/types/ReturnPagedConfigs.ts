@@ -13,6 +13,7 @@ export const ReturnPagedConfigs: core.serialization.ObjectSchema<
 > = core.serialization.object({
     pageNumber: core.serialization.property("page_number", core.serialization.number().optional()),
     pageSize: core.serialization.property("page_size", core.serialization.number().optional()),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
     configsPage: core.serialization.property("configs_page", core.serialization.list(ReturnConfig).optional()),
 });
 
@@ -20,6 +21,7 @@ export declare namespace ReturnPagedConfigs {
     interface Raw {
         page_number?: number | null;
         page_size?: number | null;
+        total_pages: number;
         configs_page?: ReturnConfig.Raw[] | null;
     }
 }
