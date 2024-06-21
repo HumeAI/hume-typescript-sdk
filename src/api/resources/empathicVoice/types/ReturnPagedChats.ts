@@ -12,6 +12,10 @@ export interface ReturnPagedChats {
     pageNumber: number;
     /** The number of results returned per page. */
     pageSize: number;
+    /** The total number of pages in the collection */
+    totalPages: number;
+    /** The direction of the pagination (ASC or DESC). */
+    paginationDirection: string;
     /** List of chats and their metadata returned for the specified page number and page size. */
     chatsPage: Hume.empathicVoice.ReturnChat[];
 }

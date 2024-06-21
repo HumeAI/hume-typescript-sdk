@@ -1,6 +1,6 @@
 ## CustomModels Files
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">listFiles</a>({ ...params }) -> Hume.FilePage</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">listFiles</a>({ ...params }) -> Hume.FilePage</code> </summary>
 
 <dl>
 
@@ -37,7 +37,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.files.listFiles();
+await client.customModels.files.listFiles();
 ```
 
 </dd>
@@ -83,7 +83,7 @@ await hume.customModels.files.listFiles();
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">createFiles</a>({ ...params }) -> Hume.FileWithAttributes[]</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">createFiles</a>({ ...params }) -> Hume.FileWithAttributes[]</code> </summary>
 
 <dl>
 
@@ -120,7 +120,7 @@ Returns 201 if successful
 <dd>
 
 ```ts
-await hume.customModels.files.createFiles([
+await client.customModels.files.createFiles([
     {
         file: {
             name: "name",
@@ -174,7 +174,7 @@ await hume.customModels.files.createFiles([
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">uploadFile</a>(file, attributes) -> Hume.FileWithAttributes</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">uploadFile</a>(file, attributes) -> Hume.FileWithAttributes</code> </summary>
 
 <dl>
 
@@ -211,7 +211,7 @@ Upload a file synchronously. Returns 201 if successful. Files must have a name. 
 <dd>
 
 ```ts
-await hume.customModels.files.uploadFile(
+await client.customModels.files.uploadFile(
     fs.createReadStream("/path/to/your/file"),
     fs.createReadStream("/path/to/your/file")
 );
@@ -270,7 +270,7 @@ await hume.customModels.files.uploadFile(
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">getFile</a>(id) -> Hume.FileWithAttributes</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">getFile</a>(id) -> Hume.FileWithAttributes</code> </summary>
 
 <dl>
 
@@ -307,7 +307,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.files.getFile("id");
+await client.customModels.files.getFile("id");
 ```
 
 </dd>
@@ -353,7 +353,7 @@ await hume.customModels.files.getFile("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">deleteFile</a>(id) -> void</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">deleteFile</a>(id) -> void</code> </summary>
 
 <dl>
 
@@ -390,7 +390,7 @@ Returns 204 if successful
 <dd>
 
 ```ts
-await hume.customModels.files.deleteFile("id");
+await client.customModels.files.deleteFile("id");
 ```
 
 </dd>
@@ -436,7 +436,7 @@ await hume.customModels.files.deleteFile("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">updateFileName</a>(id, { ...params }) -> Hume.FileWithAttributes</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">updateFileName</a>(id, { ...params }) -> Hume.FileWithAttributes</code> </summary>
 
 <dl>
 
@@ -473,7 +473,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.files.updateFileName("id", {
+await client.customModels.files.updateFileName("id", {
     name: "name",
 });
 ```
@@ -531,7 +531,7 @@ await hume.customModels.files.updateFileName("id", {
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">getFilePredictions</a>(id) -> void</code> </summary>
+<details><summary> <code>client.customModels.files.<a href="./src/api/resources/customModels/resources/files/client/Client.ts">getFilePredictions</a>(id) -> void</code> </summary>
 
 <dl>
 
@@ -568,7 +568,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.files.getFilePredictions("id");
+await client.customModels.files.getFilePredictions("id");
 ```
 
 </dd>
@@ -616,7 +616,7 @@ await hume.customModels.files.getFilePredictions("id");
 
 ## CustomModels Datasets
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasets</a>({ ...params }) -> Hume.DatasetPage</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasets</a>({ ...params }) -> Hume.DatasetPage</code> </summary>
 
 <dl>
 
@@ -653,7 +653,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.listDatasets();
+await client.customModels.datasets.listDatasets();
 ```
 
 </dd>
@@ -699,7 +699,7 @@ await hume.customModels.datasets.listDatasets();
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">createDataset</a>(featureTypes, labelsFile, { ...params }) -> Hume.ReturnDataset</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">createDataset</a>(featureTypes, labelsFile, { ...params }) -> Hume.ReturnDataset</code> </summary>
 
 <dl>
 
@@ -736,7 +736,7 @@ Returns 201 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.createDataset(
+await client.customModels.datasets.createDataset(
     fs.createReadStream("/path/to/your/file"),
     fs.createReadStream("/path/to/your/file"),
     {
@@ -808,7 +808,7 @@ await hume.customModels.datasets.createDataset(
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">getDataset</a>(id) -> Hume.ReturnDataset</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">getDataset</a>(id) -> Hume.ReturnDataset</code> </summary>
 
 <dl>
 
@@ -845,7 +845,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.getDataset("id");
+await client.customModels.datasets.getDataset("id");
 ```
 
 </dd>
@@ -891,7 +891,7 @@ await hume.customModels.datasets.getDataset("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">createDatasetVersion</a>(featureTypes, labelsFile, id) -> Hume.ReturnDataset[]</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">createDatasetVersion</a>(featureTypes, labelsFile, id) -> Hume.ReturnDataset[]</code> </summary>
 
 <dl>
 
@@ -928,7 +928,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.createDatasetVersion(
+await client.customModels.datasets.createDatasetVersion(
     fs.createReadStream("/path/to/your/file"),
     fs.createReadStream("/path/to/your/file"),
     "id"
@@ -998,7 +998,7 @@ await hume.customModels.datasets.createDatasetVersion(
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">deleteDataset</a>(id) -> void</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">deleteDataset</a>(id) -> void</code> </summary>
 
 <dl>
 
@@ -1035,7 +1035,7 @@ Returns 204 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.deleteDataset("id");
+await client.customModels.datasets.deleteDataset("id");
 ```
 
 </dd>
@@ -1081,7 +1081,7 @@ await hume.customModels.datasets.deleteDataset("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasetVersions</a>(id, { ...params }) -> Hume.DatasetVersionPage</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasetVersions</a>(id, { ...params }) -> Hume.DatasetVersionPage</code> </summary>
 
 <dl>
 
@@ -1118,7 +1118,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.listDatasetVersions("id");
+await client.customModels.datasets.listDatasetVersions("id");
 ```
 
 </dd>
@@ -1174,7 +1174,7 @@ await hume.customModels.datasets.listDatasetVersions("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasetFiles</a>(id, { ...params }) -> Hume.FilePage[]</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasetFiles</a>(id, { ...params }) -> Hume.FilePage[]</code> </summary>
 
 <dl>
 
@@ -1211,7 +1211,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.listDatasetFiles("id");
+await client.customModels.datasets.listDatasetFiles("id");
 ```
 
 </dd>
@@ -1267,7 +1267,7 @@ await hume.customModels.datasets.listDatasetFiles("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">getDatasetVersion</a>(id) -> Hume.DatasetLabels</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">getDatasetVersion</a>(id) -> Hume.DatasetLabels</code> </summary>
 
 <dl>
 
@@ -1304,7 +1304,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.getDatasetVersion("id");
+await client.customModels.datasets.getDatasetVersion("id");
 ```
 
 </dd>
@@ -1350,7 +1350,7 @@ await hume.customModels.datasets.getDatasetVersion("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasetVersionFiles</a>(id, { ...params }) -> Hume.FilePage[]</code> </summary>
+<details><summary> <code>client.customModels.datasets.<a href="./src/api/resources/customModels/resources/datasets/client/Client.ts">listDatasetVersionFiles</a>(id, { ...params }) -> Hume.FilePage[]</code> </summary>
 
 <dl>
 
@@ -1387,7 +1387,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.datasets.listDatasetVersionFiles("id");
+await client.customModels.datasets.listDatasetVersionFiles("id");
 ```
 
 </dd>
@@ -1445,7 +1445,7 @@ await hume.customModels.datasets.listDatasetVersionFiles("id");
 
 ## CustomModels Models
 
-<details><summary> <code>hume.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">listModels</a>({ ...params }) -> Hume.ModelPage</code> </summary>
+<details><summary> <code>client.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">listModels</a>({ ...params }) -> Hume.ModelPage</code> </summary>
 
 <dl>
 
@@ -1482,7 +1482,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.models.listModels();
+await client.customModels.models.listModels();
 ```
 
 </dd>
@@ -1528,7 +1528,7 @@ await hume.customModels.models.listModels();
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">getModelDetails</a>(id) -> Hume.ExternalModel</code> </summary>
+<details><summary> <code>client.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">getModelDetails</a>(id) -> Hume.ExternalModel</code> </summary>
 
 <dl>
 
@@ -1565,7 +1565,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.models.getModelDetails("id");
+await client.customModels.models.getModelDetails("id");
 ```
 
 </dd>
@@ -1611,7 +1611,7 @@ await hume.customModels.models.getModelDetails("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">updateModelName</a>(id, { ...params }) -> Hume.ExternalModel</code> </summary>
+<details><summary> <code>client.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">updateModelName</a>(id, { ...params }) -> Hume.ExternalModel</code> </summary>
 
 <dl>
 
@@ -1648,7 +1648,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.models.updateModelName("id", {
+await client.customModels.models.updateModelName("id", {
     name: "name",
 });
 ```
@@ -1706,7 +1706,7 @@ await hume.customModels.models.updateModelName("id", {
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">listModelVersions</a>({ ...params }) -> Hume.ExternalModelVersion[]</code> </summary>
+<details><summary> <code>client.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">listModelVersions</a>({ ...params }) -> Hume.ExternalModelVersion[]</code> </summary>
 
 <dl>
 
@@ -1743,7 +1743,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.models.listModelVersions();
+await client.customModels.models.listModelVersions();
 ```
 
 </dd>
@@ -1789,7 +1789,7 @@ await hume.customModels.models.listModelVersions();
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">getModelVersion</a>(id, { ...params }) -> Hume.ExternalModelVersion</code> </summary>
+<details><summary> <code>client.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">getModelVersion</a>(id, { ...params }) -> Hume.ExternalModelVersion</code> </summary>
 
 <dl>
 
@@ -1826,7 +1826,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.models.getModelVersion("id");
+await client.customModels.models.getModelVersion("id");
 ```
 
 </dd>
@@ -1882,7 +1882,7 @@ await hume.customModels.models.getModelVersion("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">updateModelDescription</a>(id, { ...params }) -> Hume.ExternalModelVersion</code> </summary>
+<details><summary> <code>client.customModels.models.<a href="./src/api/resources/customModels/resources/models/client/Client.ts">updateModelDescription</a>(id, { ...params }) -> Hume.ExternalModelVersion</code> </summary>
 
 <dl>
 
@@ -1919,7 +1919,7 @@ Returns 200 if successful
 <dd>
 
 ```ts
-await hume.customModels.models.updateModelDescription("id", "string");
+await client.customModels.models.updateModelDescription("id", "string");
 ```
 
 </dd>
@@ -1977,7 +1977,7 @@ await hume.customModels.models.updateModelDescription("id", "string");
 
 ## CustomModels Jobs
 
-<details><summary> <code>hume.customModels.jobs.<a href="./src/api/resources/customModels/resources/jobs/client/Client.ts">startTrainingJob</a>({ ...params }) -> Hume.JobId</code> </summary>
+<details><summary> <code>client.customModels.jobs.<a href="./src/api/resources/customModels/resources/jobs/client/Client.ts">startTrainingJob</a>({ ...params }) -> Hume.JobId</code> </summary>
 
 <dl>
 
@@ -2014,7 +2014,7 @@ Start a new custom models training job.
 <dd>
 
 ```ts
-await hume.customModels.jobs.startTrainingJob({
+await client.customModels.jobs.startTrainingJob({
     customModel: {
         name: "name",
     },
@@ -2067,7 +2067,7 @@ await hume.customModels.jobs.startTrainingJob({
 </dl>
 </details>
 
-<details><summary> <code>hume.customModels.jobs.<a href="./src/api/resources/customModels/resources/jobs/client/Client.ts">startCustomModelsInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
+<details><summary> <code>client.customModels.jobs.<a href="./src/api/resources/customModels/resources/jobs/client/Client.ts">startCustomModelsInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
 
 <dl>
 
@@ -2104,7 +2104,7 @@ Start a new custom models inference job.
 <dd>
 
 ```ts
-await hume.customModels.jobs.startCustomModelsInferenceJob({
+await client.customModels.jobs.startCustomModelsInferenceJob({
     customModel: {
         id: "id",
     },
@@ -2156,7 +2156,7 @@ await hume.customModels.jobs.startCustomModelsInferenceJob({
 
 ## EmpathicVoice Tools
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> Hume.ReturnPagedUserDefinedTools</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> Hume.ReturnPagedUserDefinedTools</code> </summary>
 
 <dl>
 
@@ -2173,7 +2173,7 @@ await hume.customModels.jobs.startCustomModelsInferenceJob({
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.listTools({
+await client.empathicVoice.tools.listTools({
     pageNumber: 0,
     pageSize: 2,
 });
@@ -2222,7 +2222,7 @@ await hume.empathicVoice.tools.listTools({
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">createTool</a>({ ...params }) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">createTool</a>({ ...params }) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
 
 <dl>
 
@@ -2239,7 +2239,7 @@ await hume.empathicVoice.tools.listTools({
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.createTool({
+await client.empathicVoice.tools.createTool({
     name: "get_current_weather",
     parameters:
         '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
@@ -2292,7 +2292,7 @@ await hume.empathicVoice.tools.createTool({
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> Hume.ReturnPagedUserDefinedTools</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> Hume.ReturnPagedUserDefinedTools</code> </summary>
 
 <dl>
 
@@ -2309,7 +2309,7 @@ await hume.empathicVoice.tools.createTool({
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
 ```
 
 </dd>
@@ -2365,7 +2365,7 @@ await hume.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-6098642
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">createToolVersion</a>(id, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">createToolVersion</a>(id, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
 
 <dl>
 
@@ -2382,7 +2382,7 @@ await hume.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-6098642
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
     parameters:
         '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
     versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
@@ -2444,7 +2444,7 @@ await hume.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteTool</a>(id) -> void</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteTool</a>(id) -> void</code> </summary>
 
 <dl>
 
@@ -2461,7 +2461,7 @@ await hume.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
+await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
 ```
 
 </dd>
@@ -2507,7 +2507,7 @@ await hume.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea"
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolName</a>(id, { ...params }) -> string</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolName</a>(id, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -2524,7 +2524,7 @@ await hume.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea"
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
     name: "get_current_temperature",
 });
 ```
@@ -2582,7 +2582,7 @@ await hume.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">getToolVersion</a>(id, version) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">getToolVersion</a>(id, version) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
 
 <dl>
 
@@ -2599,7 +2599,7 @@ await hume.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
 ```
 
 </dd>
@@ -2655,7 +2655,7 @@ await hume.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteToolVersion</a>(id, version) -> void</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteToolVersion</a>(id, version) -> void</code> </summary>
 
 <dl>
 
@@ -2672,7 +2672,7 @@ await hume.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
 ```
 
 </dd>
@@ -2728,7 +2728,7 @@ await hume.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolDescription</a>(id, version, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolDescription</a>(id, version, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code> </summary>
 
 <dl>
 
@@ -2745,7 +2745,7 @@ await hume.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864
 <dd>
 
 ```ts
-await hume.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
     versionDescription:
         "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
 });
@@ -2816,7 +2816,7 @@ await hume.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-60
 
 ## EmpathicVoice Prompts
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> Hume.ReturnPagedPrompts</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> Hume.ReturnPagedPrompts</code> </summary>
 
 <dl>
 
@@ -2833,7 +2833,7 @@ await hume.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-60
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.listPrompts();
+await client.empathicVoice.prompts.listPrompts();
 ```
 
 </dd>
@@ -2879,7 +2879,7 @@ await hume.empathicVoice.prompts.listPrompts();
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPrompt</a>({ ...params }) -> Hume.ReturnPrompt | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPrompt</a>({ ...params }) -> Hume.ReturnPrompt | undefined</code> </summary>
 
 <dl>
 
@@ -2896,7 +2896,7 @@ await hume.empathicVoice.prompts.listPrompts();
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.createPrompt({
+await client.empathicVoice.prompts.createPrompt({
     name: "name",
     text: "text",
 });
@@ -2945,7 +2945,7 @@ await hume.empathicVoice.prompts.createPrompt({
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPromptVersions</a>(id, { ...params }) -> Hume.ReturnPagedPrompts</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPromptVersions</a>(id, { ...params }) -> Hume.ReturnPagedPrompts</code> </summary>
 
 <dl>
 
@@ -2962,7 +2962,7 @@ await hume.empathicVoice.prompts.createPrompt({
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.listPromptVersions("id");
+await client.empathicVoice.prompts.listPromptVersions("id");
 ```
 
 </dd>
@@ -3018,7 +3018,7 @@ await hume.empathicVoice.prompts.listPromptVersions("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVerison</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVerison</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code> </summary>
 
 <dl>
 
@@ -3035,7 +3035,7 @@ await hume.empathicVoice.prompts.listPromptVersions("id");
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.createPromptVerison("id", {
+await client.empathicVoice.prompts.createPromptVerison("id", {
     text: "text",
 });
 ```
@@ -3093,7 +3093,7 @@ await hume.empathicVoice.prompts.createPromptVerison("id", {
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePrompt</a>(id) -> void</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePrompt</a>(id) -> void</code> </summary>
 
 <dl>
 
@@ -3110,7 +3110,7 @@ await hume.empathicVoice.prompts.createPromptVerison("id", {
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.deletePrompt("id");
+await client.empathicVoice.prompts.deletePrompt("id");
 ```
 
 </dd>
@@ -3156,7 +3156,7 @@ await hume.empathicVoice.prompts.deletePrompt("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptName</a>(id, { ...params }) -> string</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptName</a>(id, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -3173,7 +3173,7 @@ await hume.empathicVoice.prompts.deletePrompt("id");
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.updatePromptName("string", {
+await client.empathicVoice.prompts.updatePromptName("string", {
     name: "string",
 });
 ```
@@ -3231,7 +3231,7 @@ await hume.empathicVoice.prompts.updatePromptName("string", {
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">getPromptVersion</a>(id, version) -> Hume.ReturnPrompt | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">getPromptVersion</a>(id, version) -> Hume.ReturnPrompt | undefined</code> </summary>
 
 <dl>
 
@@ -3248,7 +3248,7 @@ await hume.empathicVoice.prompts.updatePromptName("string", {
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.getPromptVersion("id", 1);
+await client.empathicVoice.prompts.getPromptVersion("id", 1);
 ```
 
 </dd>
@@ -3304,7 +3304,7 @@ await hume.empathicVoice.prompts.getPromptVersion("id", 1);
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePromptVersion</a>(id, version) -> void</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePromptVersion</a>(id, version) -> void</code> </summary>
 
 <dl>
 
@@ -3321,7 +3321,7 @@ await hume.empathicVoice.prompts.getPromptVersion("id", 1);
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.deletePromptVersion("id", 1);
+await client.empathicVoice.prompts.deletePromptVersion("id", 1);
 ```
 
 </dd>
@@ -3377,7 +3377,7 @@ await hume.empathicVoice.prompts.deletePromptVersion("id", 1);
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptDescription</a>(id, version, { ...params }) -> Hume.ReturnPrompt | undefined</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptDescription</a>(id, version, { ...params }) -> Hume.ReturnPrompt | undefined</code> </summary>
 
 <dl>
 
@@ -3394,7 +3394,7 @@ await hume.empathicVoice.prompts.deletePromptVersion("id", 1);
 <dd>
 
 ```ts
-await hume.empathicVoice.prompts.updatePromptDescription("id", 1);
+await client.empathicVoice.prompts.updatePromptDescription("id", 1);
 ```
 
 </dd>
@@ -3462,7 +3462,7 @@ await hume.empathicVoice.prompts.updatePromptDescription("id", 1);
 
 ## EmpathicVoice Configs
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> Hume.ReturnPagedConfigs</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> Hume.ReturnPagedConfigs</code> </summary>
 
 <dl>
 
@@ -3479,7 +3479,7 @@ await hume.empathicVoice.prompts.updatePromptDescription("id", 1);
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.listConfigs();
+await client.empathicVoice.configs.listConfigs();
 ```
 
 </dd>
@@ -3525,7 +3525,7 @@ await hume.empathicVoice.configs.listConfigs();
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">createConfig</a>({ ...params }) -> Hume.ReturnConfig</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">createConfig</a>({ ...params }) -> Hume.ReturnConfig</code> </summary>
 
 <dl>
 
@@ -3542,7 +3542,7 @@ await hume.empathicVoice.configs.listConfigs();
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.createConfig({
+await client.empathicVoice.configs.createConfig({
     name: "name",
 });
 ```
@@ -3590,7 +3590,7 @@ await hume.empathicVoice.configs.createConfig({
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> Hume.ReturnPagedConfigs</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> Hume.ReturnPagedConfigs</code> </summary>
 
 <dl>
 
@@ -3607,7 +3607,7 @@ await hume.empathicVoice.configs.createConfig({
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.listConfigVersions("id");
+await client.empathicVoice.configs.listConfigVersions("id");
 ```
 
 </dd>
@@ -3663,7 +3663,7 @@ await hume.empathicVoice.configs.listConfigVersions("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">createConfigVersion</a>(id, { ...params }) -> Hume.ReturnConfig</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">createConfigVersion</a>(id, { ...params }) -> Hume.ReturnConfig</code> </summary>
 
 <dl>
 
@@ -3680,7 +3680,7 @@ await hume.empathicVoice.configs.listConfigVersions("id");
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.createConfigVersion("id");
+await client.empathicVoice.configs.createConfigVersion("id");
 ```
 
 </dd>
@@ -3736,7 +3736,7 @@ await hume.empathicVoice.configs.createConfigVersion("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">deleteConfig</a>(id) -> void</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">deleteConfig</a>(id) -> void</code> </summary>
 
 <dl>
 
@@ -3753,7 +3753,7 @@ await hume.empathicVoice.configs.createConfigVersion("id");
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.deleteConfig("id");
+await client.empathicVoice.configs.deleteConfig("id");
 ```
 
 </dd>
@@ -3799,7 +3799,7 @@ await hume.empathicVoice.configs.deleteConfig("id");
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">updateConfigName</a>(id, { ...params }) -> string</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">updateConfigName</a>(id, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -3816,7 +3816,7 @@ await hume.empathicVoice.configs.deleteConfig("id");
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.updateConfigName("string", {
+await client.empathicVoice.configs.updateConfigName("string", {
     name: "string",
 });
 ```
@@ -3874,7 +3874,7 @@ await hume.empathicVoice.configs.updateConfigName("string", {
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">getConfigVersion</a>(id, version) -> Hume.ReturnConfig</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">getConfigVersion</a>(id, version) -> Hume.ReturnConfig</code> </summary>
 
 <dl>
 
@@ -3891,7 +3891,7 @@ await hume.empathicVoice.configs.updateConfigName("string", {
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.getConfigVersion("id", 1);
+await client.empathicVoice.configs.getConfigVersion("id", 1);
 ```
 
 </dd>
@@ -3947,7 +3947,7 @@ await hume.empathicVoice.configs.getConfigVersion("id", 1);
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">deleteConfigVersion</a>(id, version) -> void</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">deleteConfigVersion</a>(id, version) -> void</code> </summary>
 
 <dl>
 
@@ -3964,7 +3964,7 @@ await hume.empathicVoice.configs.getConfigVersion("id", 1);
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.deleteConfigVersion("id", 1);
+await client.empathicVoice.configs.deleteConfigVersion("id", 1);
 ```
 
 </dd>
@@ -4020,7 +4020,7 @@ await hume.empathicVoice.configs.deleteConfigVersion("id", 1);
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">updateConfigDescription</a>(id, version, { ...params }) -> Hume.ReturnConfig</code> </summary>
+<details><summary> <code>client.empathicVoice.configs.<a href="./src/api/resources/empathicVoice/resources/configs/client/Client.ts">updateConfigDescription</a>(id, version, { ...params }) -> Hume.ReturnConfig</code> </summary>
 
 <dl>
 
@@ -4037,7 +4037,7 @@ await hume.empathicVoice.configs.deleteConfigVersion("id", 1);
 <dd>
 
 ```ts
-await hume.empathicVoice.configs.updateConfigDescription("id", 1);
+await client.empathicVoice.configs.updateConfigDescription("id", 1);
 ```
 
 </dd>
@@ -4105,7 +4105,7 @@ await hume.empathicVoice.configs.updateConfigDescription("id", 1);
 
 ## EmpathicVoice Chats
 
-<details><summary> <code>hume.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> Hume.ReturnPagedChats</code> </summary>
+<details><summary> <code>client.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> Hume.ReturnPagedChats</code> </summary>
 
 <dl>
 
@@ -4122,7 +4122,7 @@ await hume.empathicVoice.configs.updateConfigDescription("id", 1);
 <dd>
 
 ```ts
-await hume.empathicVoice.chats.listChats();
+await client.empathicVoice.chats.listChats();
 ```
 
 </dd>
@@ -4168,7 +4168,7 @@ await hume.empathicVoice.chats.listChats();
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> Hume.ReturnChatPagedEvents</code> </summary>
+<details><summary> <code>client.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> Hume.ReturnChatPagedEvents</code> </summary>
 
 <dl>
 
@@ -4185,7 +4185,7 @@ await hume.empathicVoice.chats.listChats();
 <dd>
 
 ```ts
-await hume.empathicVoice.chats.listChatEvents("id");
+await client.empathicVoice.chats.listChatEvents("id");
 ```
 
 </dd>
@@ -4243,7 +4243,7 @@ await hume.empathicVoice.chats.listChatEvents("id");
 
 ## EmpathicVoice ChatGroups
 
-<details><summary> <code>hume.empathicVoice.chatGroups.<a href="./src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> Hume.ReturnPagedChatGroups</code> </summary>
+<details><summary> <code>client.empathicVoice.chatGroups.<a href="./src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> Hume.ReturnPagedChatGroups</code> </summary>
 
 <dl>
 
@@ -4260,7 +4260,7 @@ await hume.empathicVoice.chats.listChatEvents("id");
 <dd>
 
 ```ts
-await hume.empathicVoice.chatGroups.listChatGroups();
+await client.empathicVoice.chatGroups.listChatGroups();
 ```
 
 </dd>
@@ -4306,7 +4306,7 @@ await hume.empathicVoice.chatGroups.listChatGroups();
 </dl>
 </details>
 
-<details><summary> <code>hume.empathicVoice.chatGroups.<a href="./src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedEvents</code> </summary>
+<details><summary> <code>client.empathicVoice.chatGroups.<a href="./src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedEvents</code> </summary>
 
 <dl>
 
@@ -4323,7 +4323,7 @@ await hume.empathicVoice.chatGroups.listChatGroups();
 <dd>
 
 ```ts
-await hume.empathicVoice.chatGroups.listChatGroupEvents("id");
+await client.empathicVoice.chatGroups.listChatGroupEvents("id");
 ```
 
 </dd>
@@ -4381,7 +4381,7 @@ await hume.empathicVoice.chatGroups.listChatGroupEvents("id");
 
 ## ExpressionMeasurement Batch
 
-<details><summary> <code>hume.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code> </summary>
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code> </summary>
 
 <dl>
 
@@ -4418,7 +4418,7 @@ Sort and filter jobs.
 <dd>
 
 ```ts
-await hume.expressionMeasurement.batch.listJobs();
+await client.expressionMeasurement.batch.listJobs();
 ```
 
 </dd>
@@ -4464,7 +4464,7 @@ await hume.expressionMeasurement.batch.listJobs();
 </dl>
 </details>
 
-<details><summary> <code>hume.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
 
 <dl>
 
@@ -4501,7 +4501,7 @@ Start a new measurement inference job.
 <dd>
 
 ```ts
-await hume.expressionMeasurement.batch.startInferenceJob({
+await client.expressionMeasurement.batch.startInferenceJob({
     urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
     notify: true,
 });
@@ -4550,7 +4550,7 @@ await hume.expressionMeasurement.batch.startInferenceJob({
 </dl>
 </details>
 
-<details><summary> <code>hume.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
 
 <dl>
 
@@ -4587,7 +4587,7 @@ Get the request details and state of a given job.
 <dd>
 
 ```ts
-await hume.expressionMeasurement.batch.getJobDetails("job_id");
+await client.expressionMeasurement.batch.getJobDetails("job_id");
 ```
 
 </dd>
@@ -4633,7 +4633,90 @@ await hume.expressionMeasurement.batch.getJobDetails("job_id");
 </dl>
 </details>
 
-<details><summary> <code>hume.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code> </summary>
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the request details and state of a given job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobDetails("job_id");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code> </summary>
 
 <dl>
 
@@ -4670,7 +4753,7 @@ Get the JSON predictions of a completed measurement or custom models inference j
 <dd>
 
 ```ts
-await hume.expressionMeasurement.batch.getJobPredictions("job_id");
+await client.expressionMeasurement.batch.getJobPredictions("job_id");
 ```
 
 </dd>
@@ -4716,7 +4799,7 @@ await hume.expressionMeasurement.batch.getJobPredictions("job_id");
 </dl>
 </details>
 
-<details><summary> <code>hume.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code> </summary>
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code> </summary>
 
 <dl>
 
@@ -4753,7 +4836,7 @@ Get the artifacts ZIP of a completed measurement or custom models inference job.
 <dd>
 
 ```ts
-await hume.expressionMeasurement.batch.getJobArtifacts("string");
+await client.expressionMeasurement.batch.getJobArtifacts("string");
 ```
 
 </dd>
@@ -4799,7 +4882,7 @@ await hume.expressionMeasurement.batch.getJobArtifacts("string");
 </dl>
 </details>
 
-<details><summary> <code>hume.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code> </summary>
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code> </summary>
 
 <dl>
 
@@ -4836,7 +4919,10 @@ Start a new batch inference job.
 <dd>
 
 ```ts
-await hume.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {});
+await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
+    [fs.createReadStream("/path/to/your/file")],
+    {}
+);
 ```
 
 </dd>

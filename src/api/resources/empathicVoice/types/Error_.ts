@@ -5,7 +5,7 @@
 /**
  * When provided, the output is an error message.
  */
-export interface WebSocketError {
+export interface Error_ {
     /** Error code. */
     code: string;
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
@@ -14,6 +14,6 @@ export interface WebSocketError {
     message: string;
     /** Error slug. */
     slug: string;
-    /** The type of message sent through the socket; for a Web Socket Error message, this must be 'error'. */
+    /** The type of message sent through the socket; for a Web Socket Error message, this must be `error`. */
     type: "error";
 }

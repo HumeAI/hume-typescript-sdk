@@ -23,6 +23,13 @@ export interface ReturnConfig {
     prompt?: Hume.empathicVoice.ReturnPrompt;
     voice?: Hume.empathicVoice.ReturnVoice;
     languageModel?: Hume.empathicVoice.ReturnLanguageModel;
-    tools?: Hume.empathicVoice.ReturnUserDefinedTool;
-    builtinTools?: Hume.empathicVoice.ReturnBuiltinTool;
+    ellmModel?: Hume.empathicVoice.ReturnEllmModel;
+    /** List of user-defined tools associated with this config. */
+    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    /** List of built-in tools associated with this config */
+    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
+    /** Map of event messages associated with this config. */
+    eventMessages?: Record<string, Hume.empathicVoice.ReturnEventMessageSpec | undefined>;
+    /** Map of timeouts associated with this config. */
+    timeouts?: Record<string, Hume.empathicVoice.ReturnTimeoutSpec | undefined>;
 }

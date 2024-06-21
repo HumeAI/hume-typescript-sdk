@@ -22,6 +22,6 @@ export interface ToolErrorMessage {
     toolCallId: string;
     /** Type of tool called, either 'builtin' or 'function'. */
     toolType?: Hume.empathicVoice.ToolType;
-    /** The type of message sent through the socket; for a Tool Error message, this must be 'tool_error'. */
-    type?: "tool_error";
+    /** The type of message sent through the socket; for a Tool Error message, this must be `tool_error`. */
+    type: "tool_error";
 }

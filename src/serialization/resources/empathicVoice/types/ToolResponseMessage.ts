@@ -16,7 +16,7 @@ export const ToolResponseMessage: core.serialization.ObjectSchema<
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
     toolName: core.serialization.property("tool_name", core.serialization.string().optional()),
     toolType: core.serialization.property("tool_type", ToolType.optional()),
-    type: core.serialization.stringLiteral("tool_response").optional(),
+    type: core.serialization.stringLiteral("tool_response"),
 });
 
 export declare namespace ToolResponseMessage {
@@ -26,6 +26,6 @@ export declare namespace ToolResponseMessage {
         tool_call_id: string;
         tool_name?: string | null;
         tool_type?: ToolType.Raw | null;
-        type?: "tool_response" | null;
+        type: "tool_response";
     }
 }

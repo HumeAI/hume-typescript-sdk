@@ -31,13 +31,13 @@ export class ChatGroups {
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.chatGroups.listChatGroups()
+     *     await client.empathicVoice.chatGroups.listChatGroups()
      */
     public async listChatGroups(
         request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest = {},
         requestOptions?: ChatGroups.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedChatGroups> {
-        const { pageNumber, pageSize } = request;
+        const { pageNumber, pageSize, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
@@ -45,6 +45,10 @@ export class ChatGroups {
 
         if (pageSize != null) {
             _queryParams["page_size"] = pageSize.toString();
+        }
+
+        if (ascendingOrder != null) {
+            _queryParams["ascending_order"] = ascendingOrder.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -56,7 +60,7 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -105,7 +109,7 @@ export class ChatGroups {
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.chatGroups.listChatGroupEvents("id")
+     *     await client.empathicVoice.chatGroups.listChatGroupEvents("id")
      */
     public async listChatGroupEvents(
         id: string,
@@ -135,7 +139,7 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

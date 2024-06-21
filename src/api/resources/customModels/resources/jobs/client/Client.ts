@@ -33,7 +33,7 @@ export class Jobs {
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.jobs.startTrainingJob({
+     *     await client.customModels.jobs.startTrainingJob({
      *         customModel: {
      *             name: "name"
      *         },
@@ -55,7 +55,7 @@ export class Jobs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -107,7 +107,7 @@ export class Jobs {
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.jobs.startCustomModelsInferenceJob({
+     *     await client.customModels.jobs.startCustomModelsInferenceJob({
      *         customModel: {
      *             id: "id"
      *         }
@@ -126,7 +126,7 @@ export class Jobs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

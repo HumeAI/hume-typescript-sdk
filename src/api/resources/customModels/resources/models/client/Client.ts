@@ -33,7 +33,7 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.listModels()
+     *     await client.customModels.models.listModels()
      */
     public async listModels(
         request: Hume.customModels.ModelsListModelsRequest = {},
@@ -66,7 +66,7 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -116,7 +116,7 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.getModelDetails("id")
+     *     await client.customModels.models.getModelDetails("id")
      */
     public async getModelDetails(
         id: string,
@@ -131,7 +131,7 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -181,7 +181,7 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.updateModelName("id", {
+     *     await client.customModels.models.updateModelName("id", {
      *         name: "name"
      *     })
      */
@@ -202,7 +202,7 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -252,7 +252,7 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.listModelVersions()
+     *     await client.customModels.models.listModelVersions()
      */
     public async listModelVersions(
         request: Hume.customModels.ModelsListModelVersionsRequest = {},
@@ -289,7 +289,7 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -340,7 +340,7 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.getModelVersion("id")
+     *     await client.customModels.models.getModelVersion("id")
      */
     public async getModelVersion(
         id: string,
@@ -362,7 +362,7 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -413,7 +413,7 @@ export class Models {
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.customModels.models.updateModelDescription("id", "string")
+     *     await client.customModels.models.updateModelDescription("id", "string")
      */
     public async updateModelDescription(
         id: string,
@@ -429,7 +429,7 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

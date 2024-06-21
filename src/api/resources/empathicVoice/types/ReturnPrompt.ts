@@ -10,7 +10,7 @@ export interface ReturnPrompt {
     id: string;
     /** Version number for a Prompt. Version numbers should be integers. The combination of configId and version number is unique. */
     version: number;
-    /** Indicates whether this prompt is using a fixed version number or auto-updating to the latest version. Values from the VersionType enum. */
+    /** Indicates whether this tool is using a fixed version number or auto-updating to the latest version. Values from the VersionType enum. */
     versionType: string;
     /** Description that is appended to a specific version of a Prompt. */
     versionDescription?: string;

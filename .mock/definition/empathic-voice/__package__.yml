@@ -55,7 +55,7 @@ types:
       version_type:
         type: string
         docs: >-
-          Indicates whether this prompt is using a fixed version number or
+          Indicates whether this tool is using a fixed version number or
           auto-updating to the latest version. Values from the VersionType enum.
       version_description:
         type: optional<string>
@@ -81,6 +81,26 @@ types:
       fallback_content:
         type: optional<string>
         docs: Text to use if the tool fails to generate content.
+  PostedEllmModel:
+    docs: A eLLM model configuration to be posted to the server
+    properties:
+      allow_short_responses:
+        type: optional<boolean>
+        docs: >-
+          Boolean indicating if the model is allowed to generate short
+          responses.
+  PostedEventMessageSpec:
+    docs: Settings for a specific event_message to be posted to the server
+    properties:
+      enabled:
+        type: boolean
+        docs: Boolean indicating if this event message is enabled.
+      text:
+        type: optional<string>
+        docs: >-
+          Optional text that will be used as a verbatim event message. If the
+          text is null and the event message is enabled, the system will
+          generate a message based using the language model.
   PostedLanguageModelModelProvider:
     enum:
       - OPEN_AI
@@ -112,6 +132,15 @@ types:
         docs: >-
           Version number for a Prompt. Version numbers should be integers. The
           combination of configId and version number is unique.
+  PostedTimeoutSpec:
+    docs: Settings for a specific timeout to be posted to the server
+    properties:
+      enabled:
+        type: boolean
+        docs: Boolean indicating if this event message is enabled.
+      duration_secs:
+        type: optional<integer>
+        docs: Duration in seconds for the timeout.
   PostedUserDefinedToolSpec:
     docs: A specific tool identifier to be posted to the server
     properties:
@@ -127,13 +156,14 @@ types:
     enum:
       - ITO
       - DACHER
+      - KORA
     docs: String with the name of the voice to use.
   PostedVoice:
     docs: A Voice specification posted to the server
     properties:
       provider:
         type: optional<literal<"HUME_AI">>
-        docs: The provider of the voice to use.
+        docs: The provider of the voice to use. Based on the enum VoiceProvider.
       name:
         type: PostedVoiceName
         docs: String with the name of the voice to use.
@@ -175,8 +205,39 @@ types:
       prompt: optional<ReturnPrompt>
       voice: optional<ReturnVoice>
       language_model: optional<ReturnLanguageModel>
-      tools: optional<ReturnUserDefinedTool>
-      builtin_tools: optional<ReturnBuiltinTool>
+      ellm_model: optional<ReturnEllmModel>
+      tools:
+        type: optional<list<optional<ReturnUserDefinedTool>>>
+        docs: List of user-defined tools associated with this config.
+      builtin_tools:
+        type: optional<list<optional<ReturnBuiltinTool>>>
+        docs: List of built-in tools associated with this config
+      event_messages:
+        type: optional<map<string, optional<ReturnEventMessageSpec>>>
+        docs: Map of event messages associated with this config.
+      timeouts:
+        type: optional<map<string, optional<ReturnTimeoutSpec>>>
+        docs: Map of timeouts associated with this config.
+  ReturnEllmModel:
+    docs: A specific eLLM Model configuration
+    properties:
+      allow_short_responses:
+        type: boolean
+        docs: >-
+          Boolean indicating if the model is allowed to generate short
+          responses.
+  ReturnEventMessageSpec:
+    docs: A specific event message configuration to be returned from the server
+    properties:
+      enabled:
+        type: boolean
+        docs: Boolean indicating if this event message is enabled.
+      text:
+        type: optional<string>
+        docs: >-
+          Optional text that will be used as a verbatim event message. If the
+          text is null and the event message is enabled, the system will
+          generate a message based using the language model.
   ReturnLanguageModel:
     docs: A specific LanguageModel
     properties:
@@ -189,6 +250,15 @@ types:
       temperature:
         type: optional<double>
         docs: Model temperature.
+  ReturnTimeoutSpec:
+    docs: A specific timeout configuration to be returned from the server
+    properties:
+      enabled:
+        type: boolean
+        docs: Boolean indicating if this event message is enabled.
+      duration_secs:
+        type: optional<integer>
+        docs: Duration in seconds for the timeout.
   ReturnVoice:
     docs: A specific voice specification
     properties:
@@ -207,6 +277,9 @@ types:
       page_size:
         type: integer
         docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
       tools_page:
         docs: List of tools returned for the specified page number and page size.
         type: list<optional<ReturnUserDefinedTool>>
@@ -219,6 +292,9 @@ types:
       page_size:
         type: integer
         docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
       prompts_page:
         docs: List of prompts returned for the specified page number and page size.
         type: list<optional<ReturnPrompt>>
@@ -231,6 +307,9 @@ types:
       page_size:
         type: optional<integer>
         docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
       configs_page:
         type: optional<list<ReturnConfig>>
         docs: List of prompts returned for the specified page number and page size.
@@ -290,6 +369,12 @@ types:
       page_size:
         type: integer
         docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
+      pagination_direction:
+        type: string
+        docs: The direction of the pagination (ASC or DESC).
       chats_page:
         docs: >-
           List of chats and their metadata returned for the specified page
@@ -361,6 +446,9 @@ types:
         docs: >-
           The timestamp when the chat ended, formatted as a Unix epoch
           milliseconds.
+      pagination_direction:
+        type: string
+        docs: The direction of the pagination (ASC or DESC).
       events_page:
         docs: List of chat events with the specified page number and page size.
         type: list<ReturnChatEvent>
@@ -373,6 +461,9 @@ types:
       page_size:
         type: integer
         docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
       config: optional<ReturnConfigSpec>
   ReturnActiveChatCount:
     docs: A description of current chat chat sessions for a user
@@ -403,65 +494,6 @@ types:
       total_tag_active_chats:
         type: integer
         docs: The total number of active chats for this user with the specified tag.
-  ReturnChatGroupPagedEvents:
-    docs: >-
-      A paginated list of chat events that occurred across chats in this
-      chat_group from the server
-    properties:
-      id:
-        type: string
-        docs: >-
-          Identifier for the chat group. Any chat resumed from this chat will
-          have the same chat_group_id. Formatted as a UUID.
-      page_number:
-        type: integer
-        docs: The page number of the returned results.
-      page_size:
-        type: integer
-        docs: The number of results returned per page.
-      pagination_direction:
-        type: string
-        docs: The direction of the pagination (ASC or DESC).
-      events_page:
-        docs: >-
-          List of chat_events returned for the specified page number and page
-          size.
-        type: list<ReturnChatEvent>
-  ReturnChatGroupPagedChats:
-    docs: >-
-      A description of chat_group and its status with a paginated list of each
-      chat in the chat_group
-    properties:
-      id:
-        type: string
-        docs: >-
-          Identifier for the chat group. Any chat resumed from this chat will
-          have the same chat_group_id. Formatted as a UUID.
-      first_start_timestamp:
-        type: integer
-        docs: >-
-          The timestamp when the first chat in this chat group started,
-          formatted as a Unix epoch milliseconds.
-      most_recent_start_timestamp:
-        type: integer
-        docs: >-
-          The timestamp when the most recent chat in this chat group started,
-          formatted as a Unix epoch milliseconds.
-      num_chats:
-        type: integer
-        docs: The total number of chats in this chat group.
-      page_number:
-        type: integer
-        docs: The page number of the returned results.
-      page_size:
-        type: integer
-        docs: The number of results returned per page.
-      chats_page:
-        docs: >-
-          List of chats and their metadata returned for the specified page
-          number and page size.
-        type: list<ReturnChat>
-      active: optional<boolean>
   ReturnChatGroup:
     docs: A description of chat_group and its status
     properties:
@@ -498,11 +530,85 @@ types:
       page_size:
         type: integer
         docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
+      pagination_direction:
+        type: string
+        docs: The direction of the pagination (ASC or DESC).
       chat_groups_page:
         docs: >-
           List of chat_groups and their metadata returned for the specified page
           number and page size.
         type: list<ReturnChatGroup>
+  ReturnChatGroupPagedChats:
+    docs: >-
+      A description of chat_group and its status with a paginated list of each
+      chat in the chat_group
+    properties:
+      id:
+        type: string
+        docs: >-
+          Identifier for the chat group. Any chat resumed from this chat will
+          have the same chat_group_id. Formatted as a UUID.
+      first_start_timestamp:
+        type: integer
+        docs: >-
+          The timestamp when the first chat in this chat group started,
+          formatted as a Unix epoch milliseconds.
+      most_recent_start_timestamp:
+        type: integer
+        docs: >-
+          The timestamp when the most recent chat in this chat group started,
+          formatted as a Unix epoch milliseconds.
+      num_chats:
+        type: integer
+        docs: The total number of chats in this chat group.
+      page_number:
+        type: integer
+        docs: The page number of the returned results.
+      page_size:
+        type: integer
+        docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
+      pagination_direction:
+        type: string
+        docs: The direction of the pagination (ASC or DESC).
+      chats_page:
+        docs: >-
+          List of chats and their metadata returned for the specified page
+          number and page size.
+        type: list<ReturnChat>
+      active: optional<boolean>
+  ReturnChatGroupPagedEvents:
+    docs: >-
+      A paginated list of chat events that occurred across chats in this
+      chat_group from the server
+    properties:
+      id:
+        type: string
+        docs: >-
+          Identifier for the chat group. Any chat resumed from this chat will
+          have the same chat_group_id. Formatted as a UUID.
+      page_number:
+        type: integer
+        docs: The page number of the returned results.
+      page_size:
+        type: integer
+        docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
+      pagination_direction:
+        type: string
+        docs: The direction of the pagination (ASC or DESC).
+      events_page:
+        docs: >-
+          List of chat_events returned for the specified page number and page
+          size.
+        type: list<ReturnChatEvent>
   AssistantEnd:
     docs: When provided, the output is an assistant end message.
     properties:
@@ -515,7 +621,7 @@ types:
         type: literal<"assistant_end">
         docs: >-
           The type of message sent through the socket; for an Assistant End
-          message, this must be 'assistant_end'.
+          message, this must be `assistant_end`.
   AssistantInput:
     docs: When provided, the input is spoken by EVI.
     properties:
@@ -531,7 +637,7 @@ types:
         type: literal<"assistant_input">
         docs: >-
           The type of message sent through the socket; for an Assistant Input
-          message, this must be 'assistant_input'.
+          message, this must be `assistant_input`.
   AssistantMessage:
     docs: When provided, the output is an assistant message.
     properties:
@@ -556,7 +662,7 @@ types:
         type: literal<"assistant_message">
         docs: >-
           The type of message sent through the socket; for an Assistant Message,
-          this must be 'assistant_message'.
+          this must be `assistant_message`.
   AudioConfiguration:
     properties:
       channels:
@@ -585,7 +691,7 @@ types:
         type: literal<"audio_input">
         docs: >-
           The type of message sent through the socket; for an Audio Input
-          message, this must be 'audio_input'.
+          message, this must be `audio_input`.
   AudioOutput:
     docs: When provided, the output is audio.
     properties:
@@ -606,7 +712,7 @@ types:
         type: literal<"audio_output">
         docs: >-
           The type of message sent through the socket; for an Audio Output
-          message, this must be 'audio_output'.
+          message, this must be `audio_output`.
   BuiltInTool: literal<"web_search">
   BuiltinToolConfig:
     properties:
@@ -650,7 +756,7 @@ types:
         type: literal<"chat_metadata">
         docs: >-
           The type of message sent through the socket; for a Chat Metadata
-          message, this must be 'chat_metadata'.
+          message, this must be `chat_metadata`.
   Context:
     properties:
       text:
@@ -715,7 +821,7 @@ types:
       Tiredness: double
       Triumph: double
   Encoding: literal<"linear16">
-  WebSocketError:
+  Error:
     docs: When provided, the output is an error message.
     properties:
       code:
@@ -736,7 +842,7 @@ types:
         type: literal<"error">
         docs: >-
           The type of message sent through the socket; for a Web Socket Error
-          message, this must be 'error'.
+          message, this must be `error`.
   ErrorLevel: literal<"warn">
   Inference:
     properties:
@@ -762,10 +868,10 @@ types:
           Used to manage conversational state, correlate frontend and backend
           data, and persist conversations across EVI sessions.
       type:
-        type: optional<literal<"pause_assistant_message">>
+        type: literal<"pause_assistant_message">
         docs: >-
           The type of message sent through the socket; for a Pause Assistant
-          message, this must be 'pause_assistant_message'.
+          message, this must be `pause_assistant_message`.
   ProsodyInference:
     properties:
       scores: EmotionScores
@@ -780,10 +886,10 @@ types:
           Used to manage conversational state, correlate frontend and backend
           data, and persist conversations across EVI sessions.
       type:
-        type: optional<literal<"resume_assistant_message">>
+        type: literal<"resume_assistant_message">
         docs: >-
           The type of message sent through the socket; for a Resume Assistant
-          message, this must be 'resume_assistant_message'.
+          message, this must be `resume_assistant_message`.
   Role:
     enum:
       - assistant
@@ -800,6 +906,9 @@ types:
       builtin_tools:
         type: optional<list<BuiltinToolConfig>>
         docs: List of builtin tools to enable.
+      context:
+        type: optional<Context>
+        docs: User context to inject. Set to null to disable context injection.
       custom_session_id:
         type: optional<string>
         docs: >-
@@ -820,7 +929,7 @@ types:
         type: literal<"session_settings">
         docs: >-
           The type of message sent through the socket; for a Session Settings
-          message, this must be 'session_settings'.
+          message, this must be `session_settings`.
   Tool:
     properties:
       description:
@@ -861,13 +970,13 @@ types:
         type: string
         docs: ID of the tool call.
       tool_type:
-        type: ToolType
+        type: optional<ToolType>
         docs: Type of tool called, either 'builtin' or 'function'.
       type:
-        type: optional<literal<"tool_call">>
+        type: literal<"tool_call">
         docs: >-
           The type of message sent through the socket; for a Tool Call message,
-          this must be 'tool_call'.
+          this must be `tool_call`.
   ToolErrorMessage:
     docs: When provided, the output is a function call error.
     properties:
@@ -895,10 +1004,10 @@ types:
         type: optional<ToolType>
         docs: Type of tool called, either 'builtin' or 'function'.
       type:
-        type: optional<literal<"tool_error">>
+        type: literal<"tool_error">
         docs: >-
           The type of message sent through the socket; for a Tool Error message,
-          this must be 'tool_error'.
+          this must be `tool_error`.
   ToolResponseMessage:
     docs: When provided, the output is a function call response.
     properties:
@@ -916,10 +1025,10 @@ types:
       tool_name: optional<string>
       tool_type: optional<ToolType>
       type:
-        type: optional<literal<"tool_response">>
+        type: literal<"tool_response">
         docs: >-
           The type of message sent through the socket; for a Tool Response
-          message, this must be ‘tool_response’.
+          message, this must be `tool_response`.
   ToolType:
     enum:
       - builtin
@@ -939,7 +1048,7 @@ types:
         type: literal<"user_input">
         docs: >-
           The type of message sent through the socket; for a User Input message,
-          this must be ‘user_input’.
+          this must be `user_input`.
   UserInterruption:
     docs: When provided, the output is an interruption.
     properties:
@@ -955,7 +1064,7 @@ types:
         type: literal<"user_interruption">
         docs: >-
           The type of message sent through the socket; for a User Interruption
-          message, this must be 'user_interruption'.
+          message, this must be `user_interruption`.
   UserMessage:
     docs: When provided, the output is a user message.
     properties:
@@ -976,13 +1085,8 @@ types:
       time:
         type: MillisecondInterval
         docs: Start and End time of user message.
-      type: literal<"user_message">
-  TtsInput:
-    properties:
-      type: optional<literal<"tts">>
-  TextInput:
-    properties:
-      type: optional<literal<"text_input">>
-  FunctionCallResponseInput:
-    properties:
-      type: optional<literal<"function_call_response">>
+      type:
+        type: literal<"user_message">
+        docs: >-
+          The type of message sent through the socket; for a User message, this
+          must be `user_message`.

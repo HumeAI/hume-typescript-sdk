@@ -18,10 +18,12 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
     status: core.serialization.string(),
     startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
+    paginationDirection: core.serialization.property("pagination_direction", core.serialization.string()),
     eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
     metadata: core.serialization.string().optional(),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
     config: ReturnConfigSpec.optional(),
 });
 
@@ -33,10 +35,12 @@ export declare namespace ReturnChatPagedEvents {
         status: string;
         start_timestamp: number;
         end_timestamp?: number | null;
+        pagination_direction: string;
         events_page: ReturnChatEvent.Raw[];
         metadata?: string | null;
         page_number: number;
         page_size: number;
+        total_pages: number;
         config?: ReturnConfigSpec.Raw | null;
     }
 }

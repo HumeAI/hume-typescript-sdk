@@ -19,7 +19,7 @@ export const ToolErrorMessage: core.serialization.ObjectSchema<
     level: ErrorLevel.optional(),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
     toolType: core.serialization.property("tool_type", ToolType.optional()),
-    type: core.serialization.stringLiteral("tool_error").optional(),
+    type: core.serialization.stringLiteral("tool_error"),
 });
 
 export declare namespace ToolErrorMessage {
@@ -31,6 +31,6 @@ export declare namespace ToolErrorMessage {
         level?: ErrorLevel.Raw | null;
         tool_call_id: string;
         tool_type?: ToolType.Raw | null;
-        type?: "tool_error" | null;
+        type: "tool_error";
     }
 }

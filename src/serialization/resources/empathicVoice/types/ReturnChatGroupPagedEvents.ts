@@ -14,6 +14,7 @@ export const ReturnChatGroupPagedEvents: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property("pagination_direction", core.serialization.string()),
     eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
 });
@@ -23,6 +24,7 @@ export declare namespace ReturnChatGroupPagedEvents {
         id: string;
         page_number: number;
         page_size: number;
+        total_pages: number;
         pagination_direction: string;
         events_page: ReturnChatEvent.Raw[];
     }

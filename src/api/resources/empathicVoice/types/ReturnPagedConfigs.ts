@@ -12,6 +12,8 @@ export interface ReturnPagedConfigs {
     pageNumber?: number;
     /** The number of results returned per page. */
     pageSize?: number;
+    /** The total number of pages in the collection */
+    totalPages: number;
     /** List of prompts returned for the specified page number and page size. */
     configsPage?: Hume.empathicVoice.ReturnConfig[];
 }

@@ -16,7 +16,7 @@ export interface ChatsListChatsRequest {
      */
     pageSize?: number;
     /**
-     * List chats in ascending order.
+     * Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true.
      */
     ascendingOrder?: boolean;
 }

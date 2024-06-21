@@ -31,7 +31,7 @@ export class Chats {
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.chats.listChats()
+     *     await client.empathicVoice.chats.listChats()
      */
     public async listChats(
         request: Hume.empathicVoice.ChatsListChatsRequest = {},
@@ -60,7 +60,7 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -109,14 +109,14 @@ export class Chats {
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.empathicVoice.chats.listChatEvents("id")
+     *     await client.empathicVoice.chats.listChatEvents("id")
      */
     public async listChatEvents(
         id: string,
         request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
         requestOptions?: Chats.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> {
-        const { pageSize, pageNumber } = request;
+        const { pageSize, pageNumber, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageSize != null) {
             _queryParams["page_size"] = pageSize.toString();
@@ -124,6 +124,10 @@ export class Chats {
 
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
+        }
+
+        if (ascendingOrder != null) {
+            _queryParams["ascending_order"] = ascendingOrder.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -135,7 +139,7 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

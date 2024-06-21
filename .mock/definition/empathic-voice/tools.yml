@@ -32,6 +32,7 @@ service:
             body:
               page_number: 0
               page_size: 2
+              total_pages: 1
               tools_page:
                 - tool_type: FUNCTION
                   id: d20827af-5d8d-4f66-b6b9-ce2e3e1ea2b2
@@ -95,7 +96,7 @@ service:
               type: optional<string>
               docs: Text to use if the tool fails to generate content.
       response:
-        docs: Success
+        docs: Created
         type: optional<root.ReturnUserDefinedTool>
       examples:
         - request:
@@ -164,6 +165,7 @@ service:
             body:
               page_number: 0
               page_size: 10
+              total_pages: 1
               tools_page:
                 - tool_type: FUNCTION
                   id: 00183a3f-79ba-413d-9f3b-609864268bea
@@ -212,7 +214,7 @@ service:
               type: optional<string>
               docs: Text to use if the tool fails to generate content.
       response:
-        docs: Success
+        docs: Created
         type: optional<root.ReturnUserDefinedTool>
       examples:
         - path-parameters:

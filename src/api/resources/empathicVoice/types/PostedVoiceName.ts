@@ -5,9 +5,10 @@
 /**
  * String with the name of the voice to use.
  */
-export type PostedVoiceName = "ITO" | "DACHER";
+export type PostedVoiceName = "ITO" | "DACHER" | "KORA";
 
 export const PostedVoiceName = {
     Ito: "ITO",
     Dacher: "DACHER",
+    Kora: "KORA",
 } as const;

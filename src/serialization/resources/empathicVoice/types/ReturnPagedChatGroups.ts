@@ -13,6 +13,8 @@ export const ReturnPagedChatGroups: core.serialization.ObjectSchema<
 > = core.serialization.object({
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
+    paginationDirection: core.serialization.property("pagination_direction", core.serialization.string()),
     chatGroupsPage: core.serialization.property("chat_groups_page", core.serialization.list(ReturnChatGroup)),
 });
 
@@ -20,6 +22,8 @@ export declare namespace ReturnPagedChatGroups {
     interface Raw {
         page_number: number;
         page_size: number;
+        total_pages: number;
+        pagination_direction: string;
         chat_groups_page: ReturnChatGroup.Raw[];
     }
 }

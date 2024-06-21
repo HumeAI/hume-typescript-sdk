@@ -35,7 +35,7 @@ export class Batch {
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.expressionMeasurement.batch.listJobs()
+     *     await client.expressionMeasurement.batch.listJobs()
      */
     public async listJobs(
         request: Hume.expressionMeasurement.BatchListJobsRequest = {},
@@ -88,7 +88,7 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -138,7 +138,7 @@ export class Batch {
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.expressionMeasurement.batch.startInferenceJob({
+     *     await client.expressionMeasurement.batch.startInferenceJob({
      *         urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
      *         notify: true
      *     })
@@ -156,7 +156,7 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -208,7 +208,7 @@ export class Batch {
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.expressionMeasurement.batch.getJobDetails("job_id")
+     *     await client.expressionMeasurement.batch.getJobDetails("job_id")
      */
     public async getJobDetails(
         id: string,
@@ -223,7 +223,7 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -272,7 +272,7 @@ export class Batch {
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.expressionMeasurement.batch.getJobPredictions("job_id")
+     *     await client.expressionMeasurement.batch.getJobPredictions("job_id")
      */
     public async getJobPredictions(
         id: string,
@@ -287,7 +287,7 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -345,7 +345,7 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -390,7 +390,7 @@ export class Batch {
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await hume.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {})
+     *     await client.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {})
      */
     public async startInferenceJobFromLocalFile(
         file: File[] | fs.ReadStream[],
@@ -416,7 +416,7 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.7.0",
+                "X-Fern-SDK-Version": "0.7.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
