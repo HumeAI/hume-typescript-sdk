@@ -6,18 +6,21 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { PostedVoiceName } from "./PostedVoiceName";
+import { PostedCustomVoice } from "./PostedCustomVoice";
 
 export const PostedVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedVoice.Raw,
     Hume.empathicVoice.PostedVoice
 > = core.serialization.object({
-    provider: core.serialization.stringLiteral("HUME_AI").optional(),
-    name: PostedVoiceName,
+    provider: core.serialization.stringLiteral("HUME_AI"),
+    name: PostedVoiceName.optional(),
+    customVoice: core.serialization.property("custom_voice", PostedCustomVoice.optional()),
 });
 
 export declare namespace PostedVoice {
     interface Raw {
-        provider?: "HUME_AI" | null;
-        name: PostedVoiceName.Raw;
+        provider: "HUME_AI";
+        name?: PostedVoiceName.Raw | null;
+        custom_voice?: PostedCustomVoice.Raw | null;
     }
 }

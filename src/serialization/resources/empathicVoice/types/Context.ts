@@ -11,13 +11,13 @@ export const Context: core.serialization.ObjectSchema<
     serializers.empathicVoice.Context.Raw,
     Hume.empathicVoice.Context
 > = core.serialization.object({
-    text: core.serialization.string(),
     type: ContextType.optional(),
+    text: core.serialization.string(),
 });
 
 export declare namespace Context {
     interface Raw {
-        text: string;
         type?: ContextType.Raw | null;
+        text: string;
     }
 }

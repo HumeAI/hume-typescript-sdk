@@ -3,7 +3,7 @@
  */
 
 /**
- * String with the name of the voice to use.
+ * String with the name of the voice to use. Maximum length of 75 characters. Will be converted to all-uppercase.
  */
 export type PostedVoiceName = "ITO" | "DACHER" | "KORA";
 

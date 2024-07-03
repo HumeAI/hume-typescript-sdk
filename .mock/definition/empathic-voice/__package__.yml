@@ -55,7 +55,7 @@ types:
       version_type:
         type: string
         docs: >-
-          Indicates whether this tool is using a fixed version number or
+          Indicates whether this prompt is using a fixed version number or
           auto-updating to the latest version. Values from the VersionType enum.
       version_description:
         type: optional<string>
@@ -72,6 +72,58 @@ types:
       text:
         type: string
         docs: Text used for this version of the Prompt.
+  PostedCustomVoice:
+    docs: A custom voice specifications posted to the server
+    properties:
+      name:
+        type: string
+        docs: >-
+          String with the name of the voice to use. Maximum length of 75
+          characters. Will be converted to all-uppercase.
+      base_voice:
+        type: string
+        docs: The voice the custom voice is based off of.
+      parameter_model:
+        type: string
+        docs: >-
+          The name of the parameter model used to define which attributes are
+          used by `parameters`.
+      parameters:
+        type: optional<map<string, optional<double>>>
+        docs: Voice specification for a Config.
+  ReturnCustomVoice:
+    docs: A custom voice specification returned from the server
+    properties:
+      id:
+        type: string
+        docs: Identifier for a Custom Voice. Formatted as a UUID.
+      version:
+        type: integer
+        docs: >-
+          Version number for a Custom Voice. Version numbers should be integers.
+          The combination of custom_voice_id and version number is unique.
+      name:
+        type: string
+        docs: >-
+          String with the name of the voice to use. Maximum length of 75
+          characters. Will be converted to all-uppercase.
+      created_on:
+        type: integer
+        docs: The timestamp when the first version of this prompt was created.
+      modified_on:
+        type: integer
+        docs: The timestamp when this version of the prompt was created.
+      base_voice:
+        type: string
+        docs: The voice the custom voice is based off of.
+      parameter_model:
+        type: string
+        docs: >-
+          The name of the parameter model used to define which attributes are
+          used by `parameters`.
+      parameters:
+        docs: Voice specification for a Config.
+        type: map<string, double>
   PostedBuiltinTool:
     docs: A configuration of a built-in tool to be posted to the server
     properties:
@@ -101,6 +153,15 @@ types:
           Optional text that will be used as a verbatim event message. If the
           text is null and the event message is enabled, the system will
           generate a message based using the language model.
+  PostedEventMessageSpecs:
+    docs: Collection of event_message specs to be posted to the server
+    properties:
+      on_new_chat:
+        type: optional<PostedEventMessageSpec>
+        docs: >-
+          Set `enabled` to have the LLM generate an initial message using the
+          system prompt. Set `text` to a string to use verbatim as the initial
+          message.
   PostedLanguageModelModelProvider:
     enum:
       - OPEN_AI
@@ -141,6 +202,11 @@ types:
       duration_secs:
         type: optional<integer>
         docs: Duration in seconds for the timeout.
+  PostedTimeoutSpecs:
+    docs: Collection of timeout specs to be posted to the server
+    properties:
+      inactivity: optional<PostedTimeoutSpec>
+      max_duration: optional<PostedTimeoutSpec>
   PostedUserDefinedToolSpec:
     docs: A specific tool identifier to be posted to the server
     properties:
@@ -157,16 +223,21 @@ types:
       - ITO
       - DACHER
       - KORA
-    docs: String with the name of the voice to use.
+    docs: >-
+      String with the name of the voice to use. Maximum length of 75 characters.
+      Will be converted to all-uppercase.
   PostedVoice:
     docs: A Voice specification posted to the server
     properties:
       provider:
-        type: optional<literal<"HUME_AI">>
+        type: literal<"HUME_AI">
         docs: The provider of the voice to use. Based on the enum VoiceProvider.
       name:
-        type: PostedVoiceName
-        docs: String with the name of the voice to use.
+        type: optional<PostedVoiceName>
+        docs: >-
+          String with the name of the voice to use. Maximum length of 75
+          characters. Will be converted to all-uppercase.
+      custom_voice: optional<PostedCustomVoice>
   ReturnBuiltinTool:
     docs: A specific builtin tool version returned from the server
     properties:
@@ -212,12 +283,7 @@ types:
       builtin_tools:
         type: optional<list<optional<ReturnBuiltinTool>>>
         docs: List of built-in tools associated with this config
-      event_messages:
-        type: optional<map<string, optional<ReturnEventMessageSpec>>>
-        docs: Map of event messages associated with this config.
-      timeouts:
-        type: optional<map<string, optional<ReturnTimeoutSpec>>>
-        docs: Map of timeouts associated with this config.
+      event_messages: optional<ReturnEventMessageSpecs>
   ReturnEllmModel:
     docs: A specific eLLM Model configuration
     properties:
@@ -238,6 +304,15 @@ types:
           Optional text that will be used as a verbatim event message. If the
           text is null and the event message is enabled, the system will
           generate a message based using the language model.
+  ReturnEventMessageSpecs:
+    docs: Collection of event_message specs to be returned from the server
+    properties:
+      on_new_chat:
+        type: optional<ReturnEventMessageSpec>
+        docs: >-
+          `enabled` causes the LLM to generate an initial message using the
+          system prompt. `text` is the string to use verbatim as the initial
+          message.
   ReturnLanguageModel:
     docs: A specific LanguageModel
     properties:
@@ -259,6 +334,11 @@ types:
       duration_secs:
         type: optional<integer>
         docs: Duration in seconds for the timeout.
+  ReturnTimeoutSpecs:
+    docs: Collection of timeout specs to be returned from the server
+    properties:
+      inactivity: ReturnTimeoutSpec
+      max_duration: ReturnTimeoutSpec
   ReturnVoice:
     docs: A specific voice specification
     properties:
@@ -266,8 +346,24 @@ types:
         type: string
         docs: The provider of the voice to use. Based on the enum VoiceProvider.
       name:
+        type: optional<string>
+        docs: >-
+          String with the name of the voice to use. Maximum length of 75
+          characters. Will be converted to all-uppercase.
+      custom_voice: ReturnCustomVoice
+  ReturnPrivacySettings:
+    properties:
+      id: optional<string>
+      do_not_retain_data: optional<boolean>
+      do_not_use_for_training: optional<boolean>
+  PostedCustomVoiceName:
+    docs: A custom voice name change to be posted to the server
+    properties:
+      name:
         type: string
-        docs: String with the name of the voice to use.
+        docs: >-
+          String with the name of the voice to use. Maximum length of 75
+          characters. Will be converted to all-uppercase.
   ReturnPagedUserDefinedTools:
     docs: A paginated list of user defined tool versions returned from the server
     properties:
@@ -298,6 +394,23 @@ types:
       prompts_page:
         docs: List of prompts returned for the specified page number and page size.
         type: list<optional<ReturnPrompt>>
+  ReturnPagedCustomVoices:
+    docs: A paginated list of custom voices returned from the server
+    properties:
+      page_number:
+        type: integer
+        docs: The page number of the returned results.
+      page_size:
+        type: integer
+        docs: The number of results returned per page.
+      total_pages:
+        type: integer
+        docs: The total number of pages in the collection
+      custom_voices_page:
+        docs: >-
+          List of custom voices returned for the specified page number and page
+          size.
+        type: list<ReturnCustomVoice>
   ReturnPagedConfigs:
     docs: A paginated list of config versions returned from the server
     properties:
@@ -609,22 +722,23 @@ types:
           List of chat_events returned for the specified page number and page
           size.
         type: list<ReturnChatEvent>
-  AssistantEnd:
-    docs: When provided, the output is an assistant end message.
+  ReturnPurgeStats:
     properties:
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      type:
-        type: literal<"assistant_end">
-        docs: >-
-          The type of message sent through the socket; for an Assistant End
-          message, this must be `assistant_end`.
+      id: optional<string>
+      num_chats: optional<integer>
+      num_chat_events: optional<integer>
+      num_configs: optional<integer>
+      num_prompts: optional<integer>
+      num_tools: optional<integer>
+      num_voices: optional<integer>
   AssistantInput:
     docs: When provided, the input is spoken by EVI.
     properties:
+      type:
+        type: literal<"assistant_input">
+        docs: >-
+          The type of message sent through the socket; for an Assistant Input
+          message, this must be `assistant_input`.
       custom_session_id:
         type: optional<string>
         docs: >-
@@ -633,50 +747,25 @@ types:
       text:
         type: string
         docs: Text to be synthesized.
-      type:
-        type: literal<"assistant_input">
-        docs: >-
-          The type of message sent through the socket; for an Assistant Input
-          message, this must be `assistant_input`.
-  AssistantMessage:
-    docs: When provided, the output is an assistant message.
-    properties:
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      from_text:
-        type: boolean
-        docs: Indicates if this message was constructed from a text input message.
-      id:
-        type: optional<string>
-        docs: ID of the assistant message.
-      message:
-        type: ChatMessage
-        docs: Transcript of the message.
-      models:
-        type: Inference
-        docs: Inference model results.
-      type:
-        type: literal<"assistant_message">
-        docs: >-
-          The type of message sent through the socket; for an Assistant Message,
-          this must be `assistant_message`.
   AudioConfiguration:
     properties:
-      channels:
-        type: integer
-        docs: Number of channels.
       encoding:
         type: Encoding
         docs: Audio encoding.
+      channels:
+        type: integer
+        docs: Number of channels.
       sample_rate:
         type: integer
         docs: Audio sample rate.
   AudioInput:
     docs: When provided, the input is audio.
     properties:
+      type:
+        type: literal<"audio_input">
+        docs: >-
+          The type of message sent through the socket; for an Audio Input
+          message, this must be `audio_input`.
       custom_session_id:
         type: optional<string>
         docs: >-
@@ -687,37 +776,240 @@ types:
         docs: Base64 encoded audio input.
         validation:
           format: base64
-      type:
-        type: literal<"audio_input">
-        docs: >-
-          The type of message sent through the socket; for an Audio Input
-          message, this must be `audio_input`.
-  AudioOutput:
-    docs: When provided, the output is audio.
+  BuiltInTool: literal<"web_search">
+  BuiltinToolConfig:
     properties:
+      name: BuiltInTool
+      fallback_content: optional<string>
+  Context:
+    properties:
+      type:
+        type: optional<ContextType>
+        docs: The persistence level of the injected context.
+      text:
+        type: string
+        docs: User context to inject.
+  ContextType:
+    enum:
+      - editable
+      - persistent
+      - temporary
+  Encoding: literal<"linear16">
+  ErrorLevel: literal<"warn">
+  PauseAssistantMessage:
+    docs: >-
+      Pause responses from EVI. Chat history is still saved and sent after
+      resuming. 
+    properties:
+      type:
+        type: literal<"pause_assistant_message">
+        docs: >-
+          The type of message sent through the socket; for a Pause Assistant
+          message, this must be `pause_assistant_message`.
       custom_session_id:
         type: optional<string>
         docs: >-
           Used to manage conversational state, correlate frontend and backend
           data, and persist conversations across EVI sessions.
-      data:
+  ResumeAssistantMessage:
+    docs: >-
+      Resume responses from EVI. Chat history sent while paused will now be
+      sent. 
+    properties:
+      type:
+        type: literal<"resume_assistant_message">
+        docs: >-
+          The type of message sent through the socket; for a Resume Assistant
+          message, this must be `resume_assistant_message`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+  SessionSettings:
+    docs: Settings for this chat session.
+    properties:
+      type:
+        type: literal<"session_settings">
+        docs: >-
+          The type of message sent through the socket; for a Session Settings
+          message, this must be `session_settings`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+      system_prompt:
+        type: optional<string>
+        docs: >-
+          Instructions for how the system should respond to the user. Set to
+          null to use the default system prompt.
+      context:
+        type: optional<Context>
+        docs: User context to inject. Set to null to disable context injection.
+      audio:
+        type: optional<AudioConfiguration>
+        docs: Audio configuration.
+      language_model_api_key:
+        type: optional<string>
+        docs: Third party API key for the language model used for non-Hume models.
+      tools:
+        type: optional<list<Tool>>
+        docs: List of tools to enable.
+      builtin_tools:
+        type: optional<list<BuiltinToolConfig>>
+        docs: List of builtin tools to enable.
+      metadata: optional<map<string, unknown>>
+  Tool:
+    properties:
+      type:
+        type: ToolType
+        docs: Type of tool.
+      name:
         type: string
-        docs: Base64 encoded audio output.
-        validation:
-          format: base64
+        docs: Name of the tool.
+      parameters:
+        type: string
+        docs: Parameters of the tool. Is a stringified JSON schema.
+      description:
+        type: optional<string>
+        docs: Description of the function.
+      fallback_content:
+        type: optional<string>
+        docs: >-
+          Fallback content of the tool, passed to the LLM if the function call
+          response fails.
+  ToolErrorMessage:
+    docs: When provided, the output is a function call error.
+    properties:
+      type:
+        type: literal<"tool_error">
+        docs: >-
+          The type of message sent through the socket; for a Tool Error message,
+          this must be `tool_error`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+      tool_type:
+        type: optional<ToolType>
+        docs: Type of tool called, either 'builtin' or 'function'.
+      tool_call_id:
+        type: string
+        docs: ID of the tool call.
+      content:
+        type: optional<string>
+        docs: The content passed to the LLM in place of the tool response.
+      error:
+        type: string
+        docs: Error message from the tool call, not exposed to the LLM or user.
+      code:
+        type: optional<string>
+        docs: Error code.
+      level:
+        type: optional<ErrorLevel>
+        docs: Error level.
+  ToolResponseMessage:
+    docs: When provided, the output is a function call response.
+    properties:
+      type:
+        type: literal<"tool_response">
+        docs: >-
+          The type of message sent through the socket; for a Tool Response
+          message, this must be `tool_response`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+      tool_call_id:
+        type: string
+        docs: ID of the tool call.
+      content:
+        type: string
+        docs: Return value of the tool call.
+      tool_name: optional<string>
+      tool_type: optional<ToolType>
+  ToolType:
+    enum:
+      - builtin
+      - function
+  UserInput:
+    docs: User text to insert into the conversation.
+    properties:
+      type:
+        type: literal<"user_input">
+        docs: >-
+          The type of message sent through the socket; for a User Input message,
+          this must be `user_input`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+      text:
+        type: string
+        docs: User text to insert into the conversation.
+  AssistantEnd:
+    docs: When provided, the output is an assistant end message.
+    properties:
+      type:
+        type: literal<"assistant_message">
+        docs: >-
+          The type of message sent through the socket; for an Assistant End
+          message, this must be `assistant_end`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+  AssistantMessage:
+    docs: When provided, the output is an assistant message.
+    properties:
+      type:
+        type: literal<"assistant_message">
+        docs: >-
+          The type of message sent through the socket; for an Assistant Message,
+          this must be `assistant_message`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
       id:
-        type: string
-        docs: ID of the audio output.
+        type: optional<string>
+        docs: ID of the assistant message.
+      message:
+        type: ChatMessage
+        docs: Transcript of the message.
+      models:
+        type: Inference
+        docs: Inference model results.
+      from_text:
+        type: boolean
+        docs: Indicates if this message was constructed from a text input message.
+  AudioOutput:
+    docs: When provided, the output is audio.
+    properties:
       type:
         type: literal<"audio_output">
         docs: >-
           The type of message sent through the socket; for an Audio Output
           message, this must be `audio_output`.
-  BuiltInTool: literal<"web_search">
-  BuiltinToolConfig:
-    properties:
-      fallback_content: optional<string>
-      name: BuiltInTool
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+      id:
+        type: string
+        docs: ID of the audio output.
+      data:
+        type: string
+        docs: Base64 encoded audio output.
+        validation:
+          format: base64
   ChatMessageToolResult:
     discriminated: false
     docs: Function call response from client.
@@ -726,12 +1018,12 @@ types:
       - ToolErrorMessage
   ChatMessage:
     properties:
-      content:
-        type: optional<string>
-        docs: Transcript of the message.
       role:
         type: Role
         docs: Role of who is providing the message.
+      content:
+        type: optional<string>
+        docs: Transcript of the message.
       tool_call:
         type: optional<ToolCallMessage>
         docs: Function call name and arguments.
@@ -741,35 +1033,25 @@ types:
   ChatMetadata:
     docs: When provided, the output is a chat metadata message.
     properties:
+      type:
+        type: literal<"chat_metadata">
+        docs: >-
+          The type of message sent through the socket; for a Chat Metadata
+          message, this must be `chat_metadata`.
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
       chat_group_id:
         type: string
         docs: ID of the chat group. Used to resume a chat.
       chat_id:
         type: string
         docs: ID of the chat.
-      custom_session_id:
+      request_id:
         type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      type:
-        type: literal<"chat_metadata">
-        docs: >-
-          The type of message sent through the socket; for a Chat Metadata
-          message, this must be `chat_metadata`.
-  Context:
-    properties:
-      text:
-        type: string
-        docs: User context to inject.
-      type:
-        type: optional<ContextType>
-        docs: The persistence level of the injected context.
-  ContextType:
-    enum:
-      - editable
-      - persistent
-      - temporary
+        docs: ID of the initiating request.
   EmotionScores:
     properties:
       Admiration: double
@@ -820,30 +1102,28 @@ types:
       Sympathy: double
       Tiredness: double
       Triumph: double
-  Encoding: literal<"linear16">
-  Error:
+  WebSocketError:
     docs: When provided, the output is an error message.
     properties:
-      code:
-        type: string
-        docs: Error code.
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      message:
-        type: string
-        docs: Error message.
-      slug:
-        type: string
-        docs: Error slug.
       type:
         type: literal<"error">
         docs: >-
           The type of message sent through the socket; for a Web Socket Error
           message, this must be `error`.
-  ErrorLevel: literal<"warn">
+      custom_session_id:
+        type: optional<string>
+        docs: >-
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
+      code:
+        type: string
+        docs: Error code.
+      slug:
+        type: string
+        docs: Error slug.
+      message:
+        type: string
+        docs: Error message.
   Inference:
     properties:
       prosody:
@@ -857,39 +1137,9 @@ types:
       end:
         type: integer
         docs: End time of the interval in milliseconds.
-  PauseAssistantMessage:
-    docs: >-
-      Pause responses from EVI. Chat history is still saved and sent after
-      resuming. 
-    properties:
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      type:
-        type: literal<"pause_assistant_message">
-        docs: >-
-          The type of message sent through the socket; for a Pause Assistant
-          message, this must be `pause_assistant_message`.
   ProsodyInference:
     properties:
       scores: EmotionScores
-  ResumeAssistantMessage:
-    docs: >-
-      Resume responses from EVI. Chat history sent while paused will now be
-      sent. 
-    properties:
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      type:
-        type: literal<"resume_assistant_message">
-        docs: >-
-          The type of message sent through the socket; for a Resume Assistant
-          message, this must be `resume_assistant_message`.
   Role:
     enum:
       - assistant
@@ -897,161 +1147,42 @@ types:
       - user
       - all
       - tool
-  SessionSettings:
-    docs: Settings for this chat session.
-    properties:
-      audio:
-        type: optional<AudioConfiguration>
-        docs: Audio configuration.
-      builtin_tools:
-        type: optional<list<BuiltinToolConfig>>
-        docs: List of builtin tools to enable.
-      context:
-        type: optional<Context>
-        docs: User context to inject. Set to null to disable context injection.
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      language_model_api_key:
-        type: optional<string>
-        docs: Third party API key for the language model used for non-Hume models.
-      system_prompt:
-        type: optional<string>
-        docs: >-
-          Instructions for how the system should respond to the user. Set to
-          null to use the default system prompt.
-      tools:
-        type: optional<list<Tool>>
-        docs: List of tools to enable.
-      type:
-        type: literal<"session_settings">
-        docs: >-
-          The type of message sent through the socket; for a Session Settings
-          message, this must be `session_settings`.
-  Tool:
-    properties:
-      description:
-        type: optional<string>
-        docs: Description of the function.
-      fallback_content:
-        type: optional<string>
-        docs: >-
-          Fallback content of the tool, passed to the LLM if the function call
-          response fails.
-      name:
-        type: string
-        docs: Name of the tool.
-      parameters:
-        type: string
-        docs: Parameters of the tool. Is a stringified JSON schema.
-      type:
-        type: ToolType
-        docs: Type of tool.
   ToolCallMessage:
     docs: When provided, the output is a tool call.
     properties:
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
       name:
         type: string
         docs: Name of the tool called.
       parameters:
         type: string
         docs: Parameters of the tool call. Is a stringified JSON schema.
-      response_required:
-        type: boolean
-        docs: Whether a response is required from the developer.
       tool_call_id:
         type: string
         docs: ID of the tool call.
-      tool_type:
-        type: optional<ToolType>
-        docs: Type of tool called, either 'builtin' or 'function'.
       type:
         type: literal<"tool_call">
         docs: >-
           The type of message sent through the socket; for a Tool Call message,
           this must be `tool_call`.
-  ToolErrorMessage:
-    docs: When provided, the output is a function call error.
-    properties:
-      code:
-        type: optional<string>
-        docs: Error code.
-      content:
-        type: optional<string>
-        docs: The content passed to the LLM in place of the tool response.
       custom_session_id:
         type: optional<string>
         docs: >-
           Used to manage conversational state, correlate frontend and backend
           data, and persist conversations across EVI sessions.
-      error:
-        type: string
-        docs: Error message from the tool call, not exposed to the LLM or user.
-      level:
-        type: optional<ErrorLevel>
-        docs: Error level.
-      tool_call_id:
-        type: string
-        docs: ID of the tool call.
       tool_type:
         type: optional<ToolType>
         docs: Type of tool called, either 'builtin' or 'function'.
-      type:
-        type: literal<"tool_error">
-        docs: >-
-          The type of message sent through the socket; for a Tool Error message,
-          this must be `tool_error`.
-  ToolResponseMessage:
-    docs: When provided, the output is a function call response.
-    properties:
-      content:
-        type: string
-        docs: Return value of the tool call.
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      tool_call_id:
-        type: string
-        docs: ID of the tool call.
-      tool_name: optional<string>
-      tool_type: optional<ToolType>
-      type:
-        type: literal<"tool_response">
-        docs: >-
-          The type of message sent through the socket; for a Tool Response
-          message, this must be `tool_response`.
-  ToolType:
-    enum:
-      - builtin
-      - function
-  UserInput:
-    docs: User text to insert into the conversation.
-    properties:
-      custom_session_id:
-        type: optional<string>
-        docs: >-
-          Used to manage conversational state, correlate frontend and backend
-          data, and persist conversations across EVI sessions.
-      text:
-        type: string
-        docs: User text to insert into the conversation.
-      type:
-        type: literal<"user_input">
-        docs: >-
-          The type of message sent through the socket; for a User Input message,
-          this must be `user_input`.
+      response_required:
+        type: boolean
+        docs: Whether a response is required from the developer.
   UserInterruption:
     docs: When provided, the output is an interruption.
     properties:
+      type:
+        type: literal<"user_interruption">
+        docs: >-
+          The type of message sent through the socket; for a User Interruption
+          message, this must be `user_interruption`.
       custom_session_id:
         type: optional<string>
         docs: >-
@@ -1060,22 +1191,19 @@ types:
       time:
         type: integer
         docs: Unix timestamp of the detected user interruption.
-      type:
-        type: literal<"user_interruption">
-        docs: >-
-          The type of message sent through the socket; for a User Interruption
-          message, this must be `user_interruption`.
   UserMessage:
     docs: When provided, the output is a user message.
     properties:
+      type:
+        type: literal<"user_message">
+        docs: >-
+          The type of message sent through the socket; for a User message, this
+          must be `user_message`.
       custom_session_id:
         type: optional<string>
         docs: >-
           Used to manage conversational state, correlate frontend and backend
           data, and persist conversations across EVI sessions.
-      from_text:
-        type: boolean
-        docs: Indicates if this message was constructed from a text input message.
       message:
         type: ChatMessage
         docs: Transcript of the message.
@@ -1085,8 +1213,107 @@ types:
       time:
         type: MillisecondInterval
         docs: Start and End time of user message.
-      type:
-        type: literal<"user_message">
-        docs: >-
-          The type of message sent through the socket; for a User message, this
-          must be `user_message`.
+      from_text:
+        type: boolean
+        docs: Indicates if this message was constructed from a text input message.
+  TtsInput:
+    properties:
+      type: optional<literal<"tts">>
+  TextInput:
+    properties:
+      type: optional<literal<"text_input">>
+  FunctionCallResponseInput:
+    properties:
+      type: optional<literal<"function_call_response">>
+  ExtendedVoiceArgs:
+    properties:
+      text: string
+      voice_args: VoiceArgs
+  Features:
+    properties:
+      confidence:
+        type: optional<double>
+        docs: Confidence (F->M)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      enthusiasm:
+        type: optional<double>
+        docs: Enthusiasm (M->A)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      affirmative:
+        type: optional<double>
+        docs: Affirmative (F->A/M)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      articulate:
+        type: optional<double>
+        docs: Articulate (A->M)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      maturity:
+        type: optional<double>
+        docs: Maturity (M->F)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      defeated:
+        type: optional<double>
+        docs: Defeated (N->M)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      feminine:
+        type: optional<double>
+        docs: Feminine (M->F)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+      nerdy:
+        type: optional<double>
+        docs: Nerdy (A->A)
+        default: 0
+        validation:
+          min: -20
+          max: 20
+  HTTPValidationError:
+    properties:
+      detail: optional<list<ValidationError>>
+  ValidationErrorLocItem:
+    discriminated: false
+    union:
+      - string
+      - integer
+  ValidationError:
+    properties:
+      loc: list<ValidationErrorLocItem>
+      msg: string
+      type: string
+  VoiceArgs:
+    properties:
+      voice: optional<VoiceNameEnum>
+      features: optional<Features>
+      characters_per_second_ratio:
+        type: optional<double>
+        default: 1
+        validation:
+          min: 0.5
+          max: 2
+      baseline: optional<boolean>
+      reconstruct: optional<boolean>
+  VoiceNameEnum:
+    enum:
+      - ITO
+      - KORA
+      - DACHER

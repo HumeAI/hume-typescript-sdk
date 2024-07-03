@@ -8,16 +8,16 @@ import * as Hume from "../../../index";
  * When provided, the output is an assistant message.
  */
 export interface AssistantMessage {
+    /** The type of message sent through the socket; for an Assistant Message, this must be `assistant_message`. */
+    type: "assistant_message";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
-    /** Indicates if this message was constructed from a text input message. */
-    fromText: boolean;
     /** ID of the assistant message. */
     id?: string;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */
     models: Hume.empathicVoice.Inference;
-    /** The type of message sent through the socket; for an Assistant Message, this must be `assistant_message`. */
-    type: "assistant_message";
+    /** Indicates if this message was constructed from a text input message. */
+    fromText: boolean;
 }

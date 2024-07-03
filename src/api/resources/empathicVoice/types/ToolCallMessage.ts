@@ -8,18 +8,18 @@ import * as Hume from "../../../index";
  * When provided, the output is a tool call.
  */
 export interface ToolCallMessage {
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
     /** Name of the tool called. */
     name: string;
     /** Parameters of the tool call. Is a stringified JSON schema. */
     parameters: string;
-    /** Whether a response is required from the developer. */
-    responseRequired: boolean;
     /** ID of the tool call. */
     toolCallId: string;
-    /** Type of tool called, either 'builtin' or 'function'. */
-    toolType?: Hume.empathicVoice.ToolType;
     /** The type of message sent through the socket; for a Tool Call message, this must be `tool_call`. */
     type: "tool_call";
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+    customSessionId?: string;
+    /** Type of tool called, either 'builtin' or 'function'. */
+    toolType?: Hume.empathicVoice.ToolType;
+    /** Whether a response is required from the developer. */
+    responseRequired: boolean;
 }

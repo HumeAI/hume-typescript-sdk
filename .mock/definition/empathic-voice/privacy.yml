@@ -1,0 +1,27 @@
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    getUserPrivacySettings:
+      path: /v0/evi/privacy/settings
+      method: GET
+      auth: true
+      examples:
+        - {}
+    patchUserPrivacySettings:
+      path: /v0/evi/privacy/settings
+      method: PATCH
+      auth: true
+      request:
+        name: PatchUserPrivacySettingsRequest
+        query-parameters:
+          allowRetention: optional<boolean>
+          allowTraining: optional<boolean>
+      examples:
+        - {}
+    deleteUserData:
+      path: /v0/evi/privacy
+      method: DELETE
+      auth: true
+      examples:
+        - {}

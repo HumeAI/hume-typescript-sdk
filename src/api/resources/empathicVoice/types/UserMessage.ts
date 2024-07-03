@@ -8,16 +8,16 @@ import * as Hume from "../../../index";
  * When provided, the output is a user message.
  */
 export interface UserMessage {
+    /** The type of message sent through the socket; for a User message, this must be `user_message`. */
+    type: "user_message";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
-    /** Indicates if this message was constructed from a text input message. */
-    fromText: boolean;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */
     models: Hume.empathicVoice.Inference;
     /** Start and End time of user message. */
     time: Hume.empathicVoice.MillisecondInterval;
-    /** The type of message sent through the socket; for a User message, this must be `user_message`. */
-    type: "user_message";
+    /** Indicates if this message was constructed from a text input message. */
+    fromText: boolean;
 }

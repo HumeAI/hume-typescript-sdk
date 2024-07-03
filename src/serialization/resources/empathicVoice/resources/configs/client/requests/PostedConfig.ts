@@ -11,8 +11,7 @@ import { PostedLanguageModel } from "../../../../types/PostedLanguageModel";
 import { PostedEllmModel } from "../../../../types/PostedEllmModel";
 import { PostedUserDefinedToolSpec } from "../../../../types/PostedUserDefinedToolSpec";
 import { PostedBuiltinTool } from "../../../../types/PostedBuiltinTool";
-import { PostedEventMessageSpec } from "../../../../types/PostedEventMessageSpec";
-import { PostedTimeoutSpec } from "../../../../types/PostedTimeoutSpec";
+import { PostedEventMessageSpecs } from "../../../../types/PostedEventMessageSpecs";
 
 export const PostedConfig: core.serialization.Schema<
     serializers.empathicVoice.PostedConfig.Raw,
@@ -29,11 +28,7 @@ export const PostedConfig: core.serialization.Schema<
         "builtin_tools",
         core.serialization.list(PostedBuiltinTool.optional()).optional()
     ),
-    eventMessages: core.serialization.property(
-        "event_messages",
-        core.serialization.record(core.serialization.string(), PostedEventMessageSpec.optional()).optional()
-    ),
-    timeouts: core.serialization.record(core.serialization.string(), PostedTimeoutSpec.optional()).optional(),
+    eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
 });
 
 export declare namespace PostedConfig {
@@ -46,7 +41,6 @@ export declare namespace PostedConfig {
         ellm_model?: PostedEllmModel.Raw | null;
         tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
         builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;
-        event_messages?: Record<string, PostedEventMessageSpec.Raw | null | undefined> | null;
-        timeouts?: Record<string, PostedTimeoutSpec.Raw | null | undefined> | null;
+        event_messages?: PostedEventMessageSpecs.Raw | null;
     }
 }

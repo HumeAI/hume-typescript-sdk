@@ -7,6 +7,7 @@ import * as core from "../../../../core";
 import { Tools } from "../resources/tools/client/Client";
 import { Prompts } from "../resources/prompts/client/Client";
 import { Configs } from "../resources/configs/client/Client";
+import { Privacy } from "../resources/privacy/client/Client";
 import { Chats } from "../resources/chats/client/Client";
 import { ChatGroups } from "../resources/chatGroups/client/Client";
 
@@ -43,6 +44,12 @@ export class EmpathicVoice {
 
     public get configs(): Configs {
         return (this._configs ??= new Configs(this._options));
+    }
+
+    protected _privacy: Privacy | undefined;
+
+    public get privacy(): Privacy {
+        return (this._privacy ??= new Privacy(this._options));
     }
 
     protected _chats: Chats | undefined;
