@@ -7,14 +7,14 @@ describe("Empathic Voice Interface", () => {
             secretKey: "<>",
         });
 
-        const socket = await hume.empathicVoice.chat.connect({
-            async onMessage(message): Promise<void> {
-                if (message.type === "audio_output") {
-                    Buffer.from(message.data, "base64");
-                }
-            },
+        const socket = hume.empathicVoice.chat.connect();
+
+        socket.on("message", (message) => {
+            if (message.type === "audio_output") {
+                Buffer.from(message.data, "base64");
+            }
         });
 
-        await socket.sendTextInput("Hello, how are you?");
+        await socket.sendUserInput("Hello, how are you?");
     }, 100000);
 });
