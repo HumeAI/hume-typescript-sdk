@@ -8,19 +8,21 @@ export declare namespace ChatSocket {
         socket: core.ReconnectingWebSocket;
     }
 
+    type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: number };
+
     type EventHandlers = {
         open?: () => void;
-        message?: (message: Hume.empathicVoice.SubscribeEvent) => void;
+        message?: (message: Response) => void;
         close?: (event: core.CloseEvent) => void;
         error?: (error: Error) => void;
     };
 }
 
-export class ChatSocket {
+export class ChatSocket{
     public readonly socket: core.ReconnectingWebSocket;
     public readonly readyState: number;
 
-    private readonly eventHandlers: ChatSocket.EventHandlers = {};
+    protected readonly eventHandlers: ChatSocket.EventHandlers = {};
 
     constructor({ socket }: ChatSocket.Args) {
         this.socket = socket;
@@ -152,21 +154,18 @@ export class ChatSocket {
     };
     
     private handleMessage = (event: { data: any}): void => {
-        const message = JSON.parse(event.data);
+        const data = JSON.parse(event.data);
 
-        const parsedResponse = serializers.empathicVoice.SubscribeEvent.parse(message, {
+        const parsedResponse = serializers.empathicVoice.SubscribeEvent.parse(data, {
             unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,
             breadcrumbsPrefix: ["response"],
         }) as MaybeValid<Hume.empathicVoice.SubscribeEvent>;
-
         if (parsedResponse.ok) {
-            this.eventHandlers.message?.(parsedResponse.value);
-    
-            if (parsedResponse.value.type === "error") {
-                this.eventHandlers.error?.(new Error(parsedResponse.value.message));
-            }
+            this.eventHandlers.message?.({ ...parsedResponse.value, receivedAt: Date.now() });
+        } else {
+            this.eventHandlers.error?.(new Error(`Received unknown message type`));
         }
     };
     

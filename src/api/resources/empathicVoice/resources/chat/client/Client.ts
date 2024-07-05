@@ -26,8 +26,11 @@ export class Chat {
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
 
-        queryParams["accessToken"] = core.Supplier.get(this._options.accessToken);
-        queryParams["apiKey"] = core.Supplier.get(this._options.apiKey);
+        if (this._options.accessToken != null) {
+            queryParams["accessToken"] = core.Supplier.get(this._options.accessToken);
+        } else if (this._options.apiKey != null) {
+            queryParams["apiKey"] = core.Supplier.get(this._options.apiKey);
+        }
         if (args.configId != null) {
             queryParams["config_id"] = args.configId;
         }
