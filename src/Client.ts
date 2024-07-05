@@ -4,7 +4,6 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { CustomModels } from "./api/resources/customModels/client/Client";
 import { EmpathicVoice } from "./api/resources/empathicVoice/client/Client";
 import { ExpressionMeasurement } from "./api/resources/expressionMeasurement/client/Client";
 
@@ -24,12 +23,6 @@ export declare namespace HumeClient {
 
 export class HumeClient {
     constructor(protected readonly _options: HumeClient.Options = {}) {}
-
-    protected _customModels: CustomModels | undefined;
-
-    public get customModels(): CustomModels {
-        return (this._customModels ??= new CustomModels(this._options));
-    }
 
     protected _empathicVoice: EmpathicVoice | undefined;
 

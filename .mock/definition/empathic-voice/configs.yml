@@ -47,7 +47,6 @@ service:
                     text: text
                   voice:
                     provider: provider
-                    name: name
                   ellm_model:
                     allow_short_responses: true
     create-config:
@@ -75,16 +74,7 @@ service:
             builtin_tools:
               type: optional<list<optional<root.PostedBuiltinTool>>>
               docs: Built-in tool specification for a Config.
-            event_messages:
-              type: optional<map<string, optional<root.PostedEventMessageSpec>>>
-              docs: >-
-                Map with event_message types as keys and a nested dict of event
-                message parameters as values.
-            timeouts:
-              type: optional<map<string, optional<root.PostedTimeoutSpec>>>
-              docs: >-
-                Map with timeout types as keys and a nested dict of timeout
-                parameters as values.
+            event_messages: optional<root.PostedEventMessageSpecs>
       response:
         docs: Created
         type: root.ReturnConfig
@@ -134,13 +124,9 @@ service:
                   name: name
                   fallback_content: fallback_content
               event_messages:
-                event_messages:
+                on_new_chat:
                   enabled: true
                   text: text
-              timeouts:
-                timeouts:
-                  enabled: true
-                  duration_secs: 1
     list-config-versions:
       path: /v0/evi/configs/{id}
       method: GET
@@ -190,7 +176,6 @@ service:
                     text: text
                   voice:
                     provider: provider
-                    name: name
                   ellm_model:
                     allow_short_responses: true
     create-config-version:
@@ -219,16 +204,7 @@ service:
             builtin_tools:
               type: optional<list<optional<root.PostedBuiltinTool>>>
               docs: Built-in tool specification for a Config.
-            event_messages:
-              type: optional<map<string, optional<root.PostedEventMessageSpec>>>
-              docs: >-
-                Map with event_message types as keys and a nested dict of event
-                message parameters as values.
-            timeouts:
-              type: optional<map<string, optional<root.PostedTimeoutSpec>>>
-              docs: >-
-                Map with timeout types as keys and a nested dict of timeout
-                parameters as values.
+            event_messages: optional<root.PostedEventMessageSpecs>
       response:
         docs: Created
         type: root.ReturnConfig
@@ -279,13 +255,9 @@ service:
                   name: name
                   fallback_content: fallback_content
               event_messages:
-                event_messages:
+                on_new_chat:
                   enabled: true
                   text: text
-              timeouts:
-                timeouts:
-                  enabled: true
-                  duration_secs: 1
     delete-config:
       path: /v0/evi/configs/{id}
       method: DELETE
@@ -379,13 +351,9 @@ service:
                   name: name
                   fallback_content: fallback_content
               event_messages:
-                event_messages:
+                on_new_chat:
                   enabled: true
                   text: text
-              timeouts:
-                timeouts:
-                  enabled: true
-                  duration_secs: 1
     delete-config-version:
       path: /v0/evi/configs/{id}/version/{version}
       method: DELETE
@@ -472,10 +440,6 @@ service:
                   name: name
                   fallback_content: fallback_content
               event_messages:
-                event_messages:
+                on_new_chat:
                   enabled: true
                   text: text
-              timeouts:
-                timeouts:
-                  enabled: true
-                  duration_secs: 1

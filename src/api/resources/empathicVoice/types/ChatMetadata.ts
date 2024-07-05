@@ -6,12 +6,14 @@
  * When provided, the output is a chat metadata message.
  */
 export interface ChatMetadata {
+    /** The type of message sent through the socket; for a Chat Metadata message, this must be `chat_metadata`. */
+    type: "chat_metadata";
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+    customSessionId?: string;
     /** ID of the chat group. Used to resume a chat. */
     chatGroupId: string;
     /** ID of the chat. */
     chatId: string;
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
-    /** The type of message sent through the socket; for a Chat Metadata message, this must be `chat_metadata`. */
-    type: "chat_metadata";
+    /** ID of the initiating request. */
+    requestId?: string;
 }

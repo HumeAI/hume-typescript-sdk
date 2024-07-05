@@ -5,6 +5,6 @@
 import * as Hume from "../../../index";
 
 export interface BuiltinToolConfig {
-    fallbackContent?: string;
     name: Hume.empathicVoice.BuiltInTool;
+    fallbackContent?: string;
 }

@@ -6,12 +6,12 @@
  * When provided, the output is audio.
  */
 export interface AudioOutput {
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
-    /** Base64 encoded audio output. */
-    data: string;
-    /** ID of the audio output. */
-    id: string;
     /** The type of message sent through the socket; for an Audio Output message, this must be `audio_output`. */
     type: "audio_output";
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+    customSessionId?: string;
+    /** ID of the audio output. */
+    id: string;
+    /** Base64 encoded audio output. */
+    data: string;
 }

@@ -2,11 +2,6 @@ channel:
   path: /v0/evi/chat
   auth: false
   query-parameters:
-    access_token:
-      type: optional<string>
-      docs: >-
-        Access token used for authenticating the client. If not provided, an
-        `api_key` must be provided to authenticate.
     config_id:
       type: optional<string>
       docs: The unique identifier for the EVI configuration to be used.
@@ -16,6 +11,11 @@ channel:
     resumed_chat_group_id:
       type: optional<string>
       docs: The unique identifier for a chat group. Used to resume a previous chat.
+    access_token:
+      type: optional<string>
+      docs: >-
+        Access token used for authenticating the client. If not provided, an
+        `api_key` must be provided to authenticate.
     api_key:
       type: optional<string>
       docs: >-
@@ -32,11 +32,11 @@ channel:
     - messages:
         - type: publish
           body:
-            data: data
             type: audio_input
+            data: data
         - type: subscribe
           body:
-            type: assistant_end
+            type: assistant_message
 imports:
   root: __package__.yml
 types:
@@ -47,7 +47,7 @@ types:
       - root.AssistantMessage
       - root.AudioOutput
       - root.ChatMetadata
-      - root.Error
+      - root.WebSocketError
       - root.UserInterruption
       - root.UserMessage
       - root.ToolCallMessage

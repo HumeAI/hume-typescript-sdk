@@ -5,7 +5,13 @@
 /**
  * The provider of this model. Based on the enum modelProvider.
  */
-export type PostedLanguageModelModelProvider = "OPEN_AI" | "CUSTOM_LANGUAGE_MODEL" | "ANTHROPIC" | "FIREWORKS" | "GROQ";
+export type PostedLanguageModelModelProvider =
+    | "OPEN_AI"
+    | "CUSTOM_LANGUAGE_MODEL"
+    | "ANTHROPIC"
+    | "FIREWORKS"
+    | "GROQ"
+    | "GOOGLE";
 
 export const PostedLanguageModelModelProvider = {
     OpenAi: "OPEN_AI",
@@ -13,4 +19,5 @@ export const PostedLanguageModelModelProvider = {
     Anthropic: "ANTHROPIC",
     Fireworks: "FIREWORKS",
     Groq: "GROQ",
+    Google: "GOOGLE",
 } as const;

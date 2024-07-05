@@ -10,17 +10,19 @@ export const ChatMetadata: core.serialization.ObjectSchema<
     serializers.empathicVoice.ChatMetadata.Raw,
     Hume.empathicVoice.ChatMetadata
 > = core.serialization.object({
+    type: core.serialization.stringLiteral("chat_metadata"),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     chatGroupId: core.serialization.property("chat_group_id", core.serialization.string()),
     chatId: core.serialization.property("chat_id", core.serialization.string()),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    type: core.serialization.stringLiteral("chat_metadata"),
+    requestId: core.serialization.property("request_id", core.serialization.string().optional()),
 });
 
 export declare namespace ChatMetadata {
     interface Raw {
+        type: "chat_metadata";
+        custom_session_id?: string | null;
         chat_group_id: string;
         chat_id: string;
-        custom_session_id?: string | null;
-        type: "chat_metadata";
+        request_id?: string | null;
     }
 }

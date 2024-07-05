@@ -8,14 +8,14 @@ import * as Hume from "../../../index";
  * When provided, the output is a function call response.
  */
 export interface ToolResponseMessage {
-    /** Return value of the tool call. */
-    content: string;
+    /** The type of message sent through the socket; for a Tool Response message, this must be `tool_response`. */
+    type: "tool_response";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** ID of the tool call. */
     toolCallId: string;
+    /** Return value of the tool call. */
+    content: string;
     toolName?: string;
     toolType?: Hume.empathicVoice.ToolType;
-    /** The type of message sent through the socket; for a Tool Response message, this must be `tool_response`. */
-    type: "tool_response";
 }
