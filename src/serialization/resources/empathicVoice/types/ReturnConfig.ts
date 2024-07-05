@@ -11,8 +11,7 @@ import { ReturnLanguageModel } from "./ReturnLanguageModel";
 import { ReturnEllmModel } from "./ReturnEllmModel";
 import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool";
-import { ReturnEventMessageSpec } from "./ReturnEventMessageSpec";
-import { ReturnTimeoutSpec } from "./ReturnTimeoutSpec";
+import { ReturnEventMessageSpecs } from "./ReturnEventMessageSpecs";
 
 export const ReturnConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfig.Raw,
@@ -33,11 +32,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
         "builtin_tools",
         core.serialization.list(ReturnBuiltinTool.optional()).optional()
     ),
-    eventMessages: core.serialization.property(
-        "event_messages",
-        core.serialization.record(core.serialization.string(), ReturnEventMessageSpec.optional()).optional()
-    ),
-    timeouts: core.serialization.record(core.serialization.string(), ReturnTimeoutSpec.optional()).optional(),
+    eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
 });
 
 export declare namespace ReturnConfig {
@@ -54,7 +49,6 @@ export declare namespace ReturnConfig {
         ellm_model?: ReturnEllmModel.Raw | null;
         tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
-        event_messages?: Record<string, ReturnEventMessageSpec.Raw | null | undefined> | null;
-        timeouts?: Record<string, ReturnTimeoutSpec.Raw | null | undefined> | null;
+        event_messages?: ReturnEventMessageSpecs.Raw | null;
     }
 }

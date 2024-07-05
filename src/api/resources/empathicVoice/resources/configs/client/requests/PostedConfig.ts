@@ -23,8 +23,5 @@ export interface PostedConfig {
     tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
     /** Built-in tool specification for a Config. */
     builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
-    /** Map with event_message types as keys and a nested dict of event message parameters as values. */
-    eventMessages?: Record<string, Hume.empathicVoice.PostedEventMessageSpec | undefined>;
-    /** Map with timeout types as keys and a nested dict of timeout parameters as values. */
-    timeouts?: Record<string, Hume.empathicVoice.PostedTimeoutSpec | undefined>;
+    eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
 }

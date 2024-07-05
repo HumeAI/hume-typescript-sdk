@@ -1,1 +1,1 @@
-export { connect } from "./WebSocket";
+export * from "./ws";

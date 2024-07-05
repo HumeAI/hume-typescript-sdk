@@ -11,13 +11,13 @@ export const PostedVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedVoice.Raw,
     Hume.empathicVoice.PostedVoice
 > = core.serialization.object({
-    provider: core.serialization.stringLiteral("HUME_AI").optional(),
-    name: PostedVoiceName,
+    provider: core.serialization.stringLiteral("HUME_AI"),
+    name: PostedVoiceName.optional(),
 });
 
 export declare namespace PostedVoice {
     interface Raw {
-        provider?: "HUME_AI" | null;
-        name: PostedVoiceName.Raw;
+        provider: "HUME_AI";
+        name?: PostedVoiceName.Raw | null;
     }
 }

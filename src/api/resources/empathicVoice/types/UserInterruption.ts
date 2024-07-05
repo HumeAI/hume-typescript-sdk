@@ -6,10 +6,10 @@
  * When provided, the output is an interruption.
  */
 export interface UserInterruption {
+    /** The type of message sent through the socket; for a User Interruption message, this must be `user_interruption`. */
+    type: "user_interruption";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Unix timestamp of the detected user interruption. */
     time: number;
-    /** The type of message sent through the socket; for a User Interruption message, this must be `user_interruption`. */
-    type: "user_interruption";
 }

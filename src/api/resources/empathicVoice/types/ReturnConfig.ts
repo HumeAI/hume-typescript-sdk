@@ -28,8 +28,5 @@ export interface ReturnConfig {
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
     /** List of built-in tools associated with this config */
     builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
-    /** Map of event messages associated with this config. */
-    eventMessages?: Record<string, Hume.empathicVoice.ReturnEventMessageSpec | undefined>;
-    /** Map of timeouts associated with this config. */
-    timeouts?: Record<string, Hume.empathicVoice.ReturnTimeoutSpec | undefined>;
+    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
 }

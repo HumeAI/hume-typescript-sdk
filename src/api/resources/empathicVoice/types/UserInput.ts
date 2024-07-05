@@ -6,10 +6,10 @@
  * User text to insert into the conversation.
  */
 export interface UserInput {
+    /** The type of message sent through the socket; for a User Input message, this must be `user_input`. */
+    type: "user_input";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** User text to insert into the conversation. */
     text: string;
-    /** The type of message sent through the socket; for a User Input message, this must be `user_input`. */
-    type: "user_input";
 }

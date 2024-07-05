@@ -11,12 +11,12 @@ export const ReturnVoice: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnVoice
 > = core.serialization.object({
     provider: core.serialization.string(),
-    name: core.serialization.string(),
+    name: core.serialization.string().optional(),
 });
 
 export declare namespace ReturnVoice {
     interface Raw {
         provider: string;
-        name: string;
+        name?: string | null;
     }
 }

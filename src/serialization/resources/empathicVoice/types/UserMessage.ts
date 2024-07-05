@@ -13,21 +13,21 @@ export const UserMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.UserMessage.Raw,
     Hume.empathicVoice.UserMessage
 > = core.serialization.object({
+    type: core.serialization.stringLiteral("user_message"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    fromText: core.serialization.property("from_text", core.serialization.boolean()),
     message: ChatMessage,
     models: Inference,
     time: MillisecondInterval,
-    type: core.serialization.stringLiteral("user_message"),
+    fromText: core.serialization.property("from_text", core.serialization.boolean()),
 });
 
 export declare namespace UserMessage {
     interface Raw {
+        type: "user_message";
         custom_session_id?: string | null;
-        from_text: boolean;
         message: ChatMessage.Raw;
         models: Inference.Raw;
         time: MillisecondInterval.Raw;
-        type: "user_message";
+        from_text: boolean;
     }
 }

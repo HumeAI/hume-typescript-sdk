@@ -6,10 +6,10 @@
  * When provided, the input is spoken by EVI.
  */
 export interface AssistantInput {
+    /** The type of message sent through the socket; for an Assistant Input message, this must be `assistant_input`. */
+    type: "assistant_input";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Text to be synthesized. */
     text: string;
-    /** The type of message sent through the socket; for an Assistant Input message, this must be `assistant_input`. */
-    type: "assistant_input";
 }
