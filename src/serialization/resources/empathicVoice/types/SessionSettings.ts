@@ -23,6 +23,9 @@ export const SessionSettings: core.serialization.ObjectSchema<
     tools: core.serialization.list(Tool).optional(),
     builtinTools: core.serialization.property("builtin_tools", core.serialization.list(BuiltinToolConfig).optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    variables: core.serialization
+        .record(core.serialization.string(), core.serialization.string().optional())
+        .optional(),
 });
 
 export declare namespace SessionSettings {
@@ -36,5 +39,6 @@ export declare namespace SessionSettings {
         tools?: Tool.Raw[] | null;
         builtin_tools?: BuiltinToolConfig.Raw[] | null;
         metadata?: Record<string, unknown> | null;
+        variables?: Record<string, string | null | undefined> | null;
     }
 }
