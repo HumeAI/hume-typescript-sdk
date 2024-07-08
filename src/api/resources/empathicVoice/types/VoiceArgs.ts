@@ -6,8 +6,6 @@ import * as Hume from "../../../index";
 
 export interface VoiceArgs {
     voice?: Hume.empathicVoice.VoiceNameEnum;
-    features?: Hume.empathicVoice.Features;
-    charactersPerSecondRatio?: number;
     baseline?: boolean;
     reconstruct?: boolean;
 }
