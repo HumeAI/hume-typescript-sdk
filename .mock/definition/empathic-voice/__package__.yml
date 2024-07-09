@@ -865,6 +865,9 @@ types:
         type: optional<list<BuiltinToolConfig>>
         docs: List of builtin tools to enable.
       metadata: optional<map<string, unknown>>
+      variables:
+        type: optional<map<string, string>>
+        docs: Dynamic values that can be used to populate EVI prompts.
   Tool:
     properties:
       type:
@@ -1234,64 +1237,6 @@ types:
     properties:
       text: string
       voice_args: VoiceArgs
-  Features:
-    properties:
-      confidence:
-        type: optional<double>
-        docs: Confidence (F->M)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      enthusiasm:
-        type: optional<double>
-        docs: Enthusiasm (M->A)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      affirmative:
-        type: optional<double>
-        docs: Affirmative (F->A/M)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      articulate:
-        type: optional<double>
-        docs: Articulate (A->M)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      maturity:
-        type: optional<double>
-        docs: Maturity (M->F)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      defeated:
-        type: optional<double>
-        docs: Defeated (N->M)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      feminine:
-        type: optional<double>
-        docs: Feminine (M->F)
-        default: 0
-        validation:
-          min: -20
-          max: 20
-      nerdy:
-        type: optional<double>
-        docs: Nerdy (A->A)
-        default: 0
-        validation:
-          min: -20
-          max: 20
   HTTPValidationError:
     properties:
       detail: optional<list<ValidationError>>
@@ -1308,13 +1253,6 @@ types:
   VoiceArgs:
     properties:
       voice: optional<VoiceNameEnum>
-      features: optional<Features>
-      characters_per_second_ratio:
-        type: optional<double>
-        default: 1
-        validation:
-          min: 0.5
-          max: 2
       baseline: optional<boolean>
       reconstruct: optional<boolean>
   VoiceNameEnum:

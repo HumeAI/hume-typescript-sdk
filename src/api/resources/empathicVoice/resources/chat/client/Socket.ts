@@ -53,8 +53,8 @@ export class ChatSocket{
     /**
      * Send audio input
      */
-    public async sendAudioInput(message: Omit<Hume.empathicVoice.AudioInput, "type">): Promise<void> {
-        await this.sendJson({
+    public sendAudioInput(message: Omit<Hume.empathicVoice.AudioInput, "type">): void {
+        this.sendJson({
             type: "audio_input",
             ...message,
         });
@@ -63,8 +63,8 @@ export class ChatSocket{
     /**
      * Send session settings
      */
-    public async sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type">): Promise<void> {
-        await this.sendJson({
+    public sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type">): void {
+        this.sendJson({
             type: "session_settings",
             ...message,
         });
@@ -73,8 +73,8 @@ export class ChatSocket{
     /**
      * Send assistant input
      */
-    public async sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): Promise<void> {
-        await this.sendJson({
+    public sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): void {
+        this.sendJson({
             type: "assistant_input",
             ...message,
         });
@@ -83,8 +83,8 @@ export class ChatSocket{
     /**
      * Send pause assistant message
      */
-    public async pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type">): Promise<void> {
-        await this.sendJson({
+    public pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type">): void {
+        this.sendJson({
             type: "pause_assistant_message",
             ...message,
         });
@@ -93,8 +93,8 @@ export class ChatSocket{
     /**
      * Send resume assistant message
      */
-    public async resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type">): Promise<void> {
-        await this.sendJson({
+    public resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type">): void {
+        this.sendJson({
             type: "resume_assistant_message",
             ...message,
         });
@@ -103,8 +103,8 @@ export class ChatSocket{
     /**
      * Send tool response message
      */
-    public async sendToolResponseMessage(message: Omit<Hume.empathicVoice.ToolResponseMessage, "type">): Promise<void> {
-        await this.sendJson({
+    public sendToolResponseMessage(message: Omit<Hume.empathicVoice.ToolResponseMessage, "type">): void {
+        this.sendJson({
             type: "tool_response",
             ...message,
         });
@@ -113,8 +113,8 @@ export class ChatSocket{
     /**
      * Send tool error message
      */
-    public async sendToolErrorMessage(message: Omit<Hume.empathicVoice.ToolErrorMessage, "type">): Promise<void> {
-        await this.sendJson({
+    public sendToolErrorMessage(message: Omit<Hume.empathicVoice.ToolErrorMessage, "type">): void {
+        this.sendJson({
             type: "tool_error",
             ...message,
         });
@@ -123,8 +123,8 @@ export class ChatSocket{
     /**
      * Send text input
      */
-    public async sendUserInput(text: string): Promise<void> {
-        await this.sendJson({
+    public sendUserInput(text: string): void {
+        this.sendJson({
             type: "user_input",
             text,
         });
@@ -142,8 +142,8 @@ export class ChatSocket{
         this.socket.removeEventListener('error', this.handleError);
     }
 
-    private async sendJson(payload: Hume.empathicVoice.PublishEvent): Promise<void> {
-        const jsonPayload = await serializers.empathicVoice.PublishEvent.jsonOrThrow(payload, {
+    private sendJson(payload: Hume.empathicVoice.PublishEvent): void {
+        const jsonPayload = serializers.empathicVoice.PublishEvent.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
         this.socket.send(JSON.stringify(jsonPayload));
@@ -152,7 +152,7 @@ export class ChatSocket{
     private handleOpen = () => {
         this.eventHandlers.open?.();
     };
-    
+
     private handleMessage = (event: { data: any}): void => {
         const data = JSON.parse(event.data);
 
@@ -161,18 +161,18 @@ export class ChatSocket{
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,
             breadcrumbsPrefix: ["response"],
-        }) as MaybeValid<Hume.empathicVoice.SubscribeEvent>;
+        });
         if (parsedResponse.ok) {
             this.eventHandlers.message?.({ ...parsedResponse.value, receivedAt: Date.now() });
         } else {
             this.eventHandlers.error?.(new Error(`Received unknown message type`));
         }
     };
-    
+
     private handleClose = (event: core.CloseEvent) => {
         this.eventHandlers.close?.(event);
     };
-    
+
     private handleError = (event: core.ErrorEvent) => {
         const message = event.message ?? 'WebSocket error';
         this.eventHandlers.error?.(new Error(message));
