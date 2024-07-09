@@ -25,4 +25,6 @@ export interface SessionSettings {
     /** List of builtin tools to enable. */
     builtinTools?: Hume.empathicVoice.BuiltinToolConfig[];
     metadata?: Record<string, unknown>;
+    /** Dynamic values that can be used to populate EVI prompts. */
+    variables?: Record<string, string>;
 }

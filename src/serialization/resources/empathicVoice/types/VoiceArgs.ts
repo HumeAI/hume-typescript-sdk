@@ -6,18 +6,12 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { VoiceNameEnum } from "./VoiceNameEnum";
-import { Features } from "./Features";
 
 export const VoiceArgs: core.serialization.ObjectSchema<
     serializers.empathicVoice.VoiceArgs.Raw,
     Hume.empathicVoice.VoiceArgs
 > = core.serialization.object({
     voice: VoiceNameEnum.optional(),
-    features: Features.optional(),
-    charactersPerSecondRatio: core.serialization.property(
-        "characters_per_second_ratio",
-        core.serialization.number().optional()
-    ),
     baseline: core.serialization.boolean().optional(),
     reconstruct: core.serialization.boolean().optional(),
 });
@@ -25,8 +19,6 @@ export const VoiceArgs: core.serialization.ObjectSchema<
 export declare namespace VoiceArgs {
     interface Raw {
         voice?: VoiceNameEnum.Raw | null;
-        features?: Features.Raw | null;
-        characters_per_second_ratio?: number | null;
         baseline?: boolean | null;
         reconstruct?: boolean | null;
     }

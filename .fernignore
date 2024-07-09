@@ -12,8 +12,7 @@ src/wrapper
 src/index.ts
 
 # EVI WebSocket
-src/api/resources/empathicVoice/client/StreamSocket.ts
-src/api/resources/empathicVoice/client/index.ts
+src/api/resources/empathicVoice/resources/chat/client
 src/core/websocket
 src/core/index.ts
 

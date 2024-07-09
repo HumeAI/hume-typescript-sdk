@@ -77,7 +77,6 @@ export * from "./TtsInput";
 export * from "./TextInput";
 export * from "./FunctionCallResponseInput";
 export * from "./ExtendedVoiceArgs";
-export * from "./Features";
 export * from "./HttpValidationError";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";
