@@ -9,7 +9,6 @@ import { Prompts } from "../resources/prompts/client/Client";
 import { Configs } from "../resources/configs/client/Client";
 import { Chats } from "../resources/chats/client/Client";
 import { ChatGroups } from "../resources/chatGroups/client/Client";
-import { Chat } from "../resources/chat/client/Client";
 
 export declare namespace EmpathicVoice {
     interface Options {
@@ -59,11 +58,5 @@ export class EmpathicVoice {
 
     public get chatGroups(): ChatGroups {
         return (this._chatGroups ??= new ChatGroups(this._options));
-    }
-
-    protected _chat: Chat | undefined;
-
-    public get chat(): Chat {
-        return (this._chat ??= new Chat(this._options));
     }
 }
