@@ -7,7 +7,7 @@
  */
 export interface AssistantEnd {
     /** The type of message sent through the socket; for an Assistant End message, this must be `assistant_end`. */
-    type: "assistant_message";
+    type: "assistant_end";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
 }
