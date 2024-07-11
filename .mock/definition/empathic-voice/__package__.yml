@@ -209,11 +209,77 @@ types:
       duration_secs:
         type: optional<integer>
         docs: Duration in seconds for the timeout.
+  PostedTimeoutSpecsInactivity:
+    docs: >-
+      Specifies the duration of user inactivity (in seconds) after which the EVI
+      WebSocket connection will be automatically disconnected. Default is 600
+      seconds (10 minutes).
+
+
+      Accepts a minimum value of 1 second and a maximum value of 1,800 seconds.
+    properties:
+      enabled:
+        type: boolean
+        docs: >-
+          Boolean indicating if this timeout is enabled.
+
+
+          If set to `false`, EVI will not timeout due to a specified duration of
+          user inactivity being reached. However, the conversation will
+          eventually disconnect after 1,800 seconds (30 minutes), which is the
+          maximum WebSocket duration limit for EVI.
+      duration_secs:
+        type: optional<integer>
+        docs: >-
+          Duration in seconds for the timeout (e.g. 600 seconds represents 10
+          minutes).
+  PostedTimeoutSpecsMaxDuration:
+    docs: >-
+      Specifies the maximum allowed duration (in seconds) for an EVI WebSocket
+      connection before it is automatically disconnected. Default is 1,800
+      seconds (30 minutes).
+
+
+      Accepts a minimum value of 1 second and a maximum value of 1,800 seconds.
+    properties:
+      enabled:
+        type: boolean
+        docs: >-
+          Boolean indicating if this timeout is enabled.
+
+
+          If set to `false`, EVI will not timeout due to a specified maximum
+          duration being reached. However, the conversation will eventually
+          disconnect after 1,800 seconds (30 minutes), which is the maximum
+          WebSocket duration limit for EVI.
+      duration_secs:
+        type: optional<integer>
+        docs: >-
+          Duration in seconds for the timeout (e.g. 600 seconds represents 10
+          minutes).
   PostedTimeoutSpecs:
     docs: Collection of timeout specs to be posted to the server
     properties:
-      inactivity: optional<PostedTimeoutSpec>
-      max_duration: optional<PostedTimeoutSpec>
+      inactivity:
+        type: optional<PostedTimeoutSpecsInactivity>
+        docs: >-
+          Specifies the duration of user inactivity (in seconds) after which the
+          EVI WebSocket connection will be automatically disconnected. Default
+          is 600 seconds (10 minutes).
+
+
+          Accepts a minimum value of 1 second and a maximum value of 1,800
+          seconds.
+      max_duration:
+        type: optional<PostedTimeoutSpecsMaxDuration>
+        docs: >-
+          Specifies the maximum allowed duration (in seconds) for an EVI
+          WebSocket connection before it is automatically disconnected. Default
+          is 1,800 seconds (30 minutes).
+
+
+          Accepts a minimum value of 1 second and a maximum value of 1,800
+          seconds.
   PostedUserDefinedToolSpec:
     docs: A specific tool identifier to be posted to the server
     properties:
@@ -290,6 +356,7 @@ types:
         type: optional<list<optional<ReturnBuiltinTool>>>
         docs: List of built-in tools associated with this config
       event_messages: optional<ReturnEventMessageSpecs>
+      timeouts: optional<ReturnTimeoutSpecs>
   ReturnEllmModel:
     docs: A specific eLLM Model configuration
     properties:

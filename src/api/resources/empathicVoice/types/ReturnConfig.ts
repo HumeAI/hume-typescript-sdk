@@ -29,4 +29,5 @@ export interface ReturnConfig {
     /** List of built-in tools associated with this config */
     builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
+    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
 }

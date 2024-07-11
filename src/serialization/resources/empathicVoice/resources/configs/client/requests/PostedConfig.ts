@@ -12,6 +12,7 @@ import { PostedEllmModel } from "../../../../types/PostedEllmModel";
 import { PostedUserDefinedToolSpec } from "../../../../types/PostedUserDefinedToolSpec";
 import { PostedBuiltinTool } from "../../../../types/PostedBuiltinTool";
 import { PostedEventMessageSpecs } from "../../../../types/PostedEventMessageSpecs";
+import { PostedTimeoutSpecs } from "../../../../types/PostedTimeoutSpecs";
 
 export const PostedConfig: core.serialization.Schema<
     serializers.empathicVoice.PostedConfig.Raw,
@@ -29,6 +30,7 @@ export const PostedConfig: core.serialization.Schema<
         core.serialization.list(PostedBuiltinTool.optional()).optional()
     ),
     eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
+    timeouts: PostedTimeoutSpecs.optional(),
 });
 
 export declare namespace PostedConfig {
@@ -42,5 +44,6 @@ export declare namespace PostedConfig {
         tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
         builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;
         event_messages?: PostedEventMessageSpecs.Raw | null;
+        timeouts?: PostedTimeoutSpecs.Raw | null;
     }
 }

@@ -10,6 +10,8 @@ export * from "./PostedLanguageModelModelProvider";
 export * from "./PostedLanguageModel";
 export * from "./PostedPromptSpec";
 export * from "./PostedTimeoutSpec";
+export * from "./PostedTimeoutSpecsInactivity";
+export * from "./PostedTimeoutSpecsMaxDuration";
 export * from "./PostedTimeoutSpecs";
 export * from "./PostedUserDefinedToolSpec";
 export * from "./PostedVoiceName";
