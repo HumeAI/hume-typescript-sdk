@@ -963,7 +963,7 @@ types:
     docs: When provided, the output is an assistant end message.
     properties:
       type:
-        type: literal<"assistant_message">
+        type: literal<"assistant_end">
         docs: >-
           The type of message sent through the socket; for an Assistant End
           message, this must be `assistant_end`.
