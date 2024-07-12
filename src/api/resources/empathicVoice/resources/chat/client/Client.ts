@@ -36,9 +36,9 @@ export class Chat {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
 
         if (this._options.accessToken != null) {
-            queryParams["accessToken"] = core.Supplier.get(this._options.accessToken);
+            queryParams["accessToken"] = this._options.accessToken;
         } else if (this._options.apiKey != null) {
-            queryParams["apiKey"] = core.Supplier.get(this._options.apiKey);
+            queryParams["apiKey"] = this._options.apiKey;
         }
         if (args.configId != null) {
             queryParams["config_id"] = args.configId;
@@ -57,9 +57,8 @@ export class Chat {
         }
 
         const socket = new core.ReconnectingWebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, [], {
-            startClosed: true,
             debug: args.debug ?? false,
-            maxRetries: args.reconnectAttempts, 
+            maxRetries: args.reconnectAttempts ?? 30, 
         });
 
         return new ChatSocket({

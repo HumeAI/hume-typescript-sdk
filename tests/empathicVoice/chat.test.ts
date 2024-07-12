@@ -3,11 +3,15 @@ import { HumeClient } from "../../src/";
 describe("Empathic Voice Interface", () => {
     it.skip("Chat", async () => {
         const hume = new HumeClient({
-            apiKey: "<>",
-            secretKey: "<>",
+            accessToken: '<>'
         });
 
-        const socket = hume.empathicVoice.chat.connect();
+        const socket = hume.empathicVoice.chat.connect({
+            debug: true,
+            reconnectAttempts: 30,
+        });
+
+        await socket.tillSocketOpen();
 
         socket.on("message", (message) => {
             if (message.type === "audio_output") {
@@ -15,6 +19,8 @@ describe("Empathic Voice Interface", () => {
             }
         });
 
-        await socket.sendUserInput("Hello, how are you?");
+        socket.sendUserInput("Hello, how are you?");
+
+
     }, 100000);
 });

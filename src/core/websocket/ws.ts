@@ -1,10 +1,8 @@
 import * as Events from './events';
+import { WebSocket as NodeWebSocket } from 'ws';
 
 const getGlobalWebSocket = (): WebSocket | undefined => {
-    if (typeof WebSocket !== 'undefined') {
-        // @ts-ignore
-        return WebSocket;
-    }
+    return (global as any).WebSocket ??= NodeWebSocket;
 };
 
 /**

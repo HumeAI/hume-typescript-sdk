@@ -141,7 +141,7 @@ export class ChatSocket{
     /**
      * @name connect
      * @description
-     * Connect to the websocket.
+     * Connect to the core.ReconnectingWebSocket.
      */
     public connect(): ChatSocket {
         this.socket.reconnect();
@@ -168,12 +168,27 @@ export class ChatSocket{
         this.socket.removeEventListener('error', this.handleError);
     }
 
+    public async tillSocketOpen(): Promise<core.ReconnectingWebSocket> {
+        if (this.socket.readyState === core.ReconnectingWebSocket.OPEN) {
+            return this.socket;
+        }
+        return new Promise((resolve, reject) => {
+            this.socket.addEventListener("open", () => {
+                resolve(this.socket);
+            });
+
+            this.socket.addEventListener("error", (event: any) => {
+                reject(event);
+            });
+        });
+    }
+
     private assertSocketIsOpen(): void {
         if (!this.socket) {
             throw new errors.HumeError({ message: 'Socket is not connected.'});
         }
       
-        if (this.socket.readyState !== WebSocket.OPEN) {
+        if (this.socket.readyState !== core.ReconnectingWebSocket.OPEN) {
             throw new errors.HumeError({ message: 'Socket is not open.' });
         }
     }
@@ -210,7 +225,7 @@ export class ChatSocket{
     };
 
     private handleError = (event: core.ErrorEvent) => {
-        const message = event.message ?? 'WebSocket error';
+        const message = event.message ?? 'core.ReconnectingWebSocket error';
         this.eventHandlers.error?.(new Error(message));
     };
 }
