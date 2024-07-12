@@ -1,602 +1,3 @@
-## ExpressionMeasurement Batch
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Sort and filter jobs.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.listJobs();
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**request: `Hume.expressionMeasurement.BatchListJobsRequest`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Start a new measurement inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.startInferenceJob({
-    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
-    notify: true,
-});
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**request: `Hume.InferenceBaseRequest`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the request details and state of a given job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobDetails("job_id");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the request details and state of a given job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobDetails("job_id");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the JSON predictions of a completed measurement or custom models inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobPredictions("job_id");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the artifacts ZIP of a completed measurement or custom models inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobArtifacts("string");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Start a new batch inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
-    [fs.createReadStream("/path/to/your/file")],
-    {}
-);
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**file: `File[] | fs.ReadStream[]`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**request: `Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
 ## EmpathicVoice Tools
 
 <details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> Hume.ReturnPagedUserDefinedTools</code> </summary>
@@ -2808,6 +2209,605 @@ await client.empathicVoice.chatGroups.listChatGroupEvents("id");
 <dd>
 
 **requestOptions: `ChatGroups.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+## ExpressionMeasurement Batch
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Sort and filter jobs.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.listJobs();
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**request: `Hume.expressionMeasurement.BatchListJobsRequest`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Start a new measurement inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.startInferenceJob({
+    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
+    notify: true,
+});
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**request: `Hume.InferenceBaseRequest`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the request details and state of a given job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobDetails("job_id");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the request details and state of a given job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobDetails("job_id");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the JSON predictions of a completed measurement or custom models inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobPredictions("job_id");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the artifacts ZIP of a completed measurement or custom models inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobArtifacts("string");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Start a new batch inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
+    [fs.createReadStream("/path/to/your/file")],
+    {}
+);
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**file: `File[] | fs.ReadStream[]`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**request: `Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
 
 </dd>
 

@@ -5,19 +5,20 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { PostedTimeoutSpec } from "./PostedTimeoutSpec";
+import { PostedTimeoutSpecsInactivity } from "./PostedTimeoutSpecsInactivity";
+import { PostedTimeoutSpecsMaxDuration } from "./PostedTimeoutSpecsMaxDuration";
 
 export const PostedTimeoutSpecs: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedTimeoutSpecs.Raw,
     Hume.empathicVoice.PostedTimeoutSpecs
 > = core.serialization.object({
-    inactivity: PostedTimeoutSpec.optional(),
-    maxDuration: core.serialization.property("max_duration", PostedTimeoutSpec.optional()),
+    inactivity: PostedTimeoutSpecsInactivity.optional(),
+    maxDuration: core.serialization.property("max_duration", PostedTimeoutSpecsMaxDuration.optional()),
 });
 
 export declare namespace PostedTimeoutSpecs {
     interface Raw {
-        inactivity?: PostedTimeoutSpec.Raw | null;
-        max_duration?: PostedTimeoutSpec.Raw | null;
+        inactivity?: PostedTimeoutSpecsInactivity.Raw | null;
+        max_duration?: PostedTimeoutSpecsMaxDuration.Raw | null;
     }
 }

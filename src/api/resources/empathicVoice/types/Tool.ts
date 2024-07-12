@@ -5,14 +5,18 @@
 import * as Hume from "../../../index";
 
 export interface Tool {
-    /** Type of tool. */
+    /** Type of tool. Set to `function` for user-defined tools. */
     type: Hume.empathicVoice.ToolType;
-    /** Name of the tool. */
+    /** Name of the user-defined tool to be enabled. */
     name: string;
-    /** Parameters of the tool. Is a stringified JSON schema. */
+    /**
+     * Parameters of the tool. Is a stringified JSON schema.
+     *
+     * These parameters define the inputs needed for the tool’s execution, including the expected data type and description for each input field. Structured as a JSON schema, this format ensures the tool receives data in the expected format.
+     */
     parameters: string;
-    /** Description of the function. */
+    /** An optional description of what the tool does, used by the supplemental LLM to choose when and how to call the function. */
     description?: string;
-    /** Fallback content of the tool, passed to the LLM if the function call response fails. */
+    /** Optional text passed to the supplemental LLM if the tool call fails. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation. */
     fallbackContent?: string;
 }

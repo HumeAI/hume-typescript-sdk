@@ -5,6 +5,10 @@
 import * as Hume from "../../../index";
 
 export interface Inference {
-    /** Prosody model inference results. */
+    /**
+     * Prosody model inference results.
+     *
+     * EVI uses the prosody model to measure 48 expressions related to speech and vocal characteristics. These results contain a detailed emotional and tonal analysis of the audio.
+     */
     prosody?: Hume.empathicVoice.ProsodyInference;
 }
