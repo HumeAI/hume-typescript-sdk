@@ -5,10 +5,10 @@
 import * as Hume from "../../../index";
 
 export interface AudioConfiguration {
-    /** Audio encoding. */
+    /** Encoding format of the audio input, such as `linear16`. */
     encoding: Hume.empathicVoice.Encoding;
-    /** Number of channels. */
+    /** Number of audio channels. */
     channels: number;
-    /** Audio sample rate. */
+    /** Audio sample rate. Number of samples per second in the audio input, measured in Hertz. */
     sampleRate: number;
 }

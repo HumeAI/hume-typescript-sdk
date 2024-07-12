@@ -10,16 +10,28 @@ import * as Hume from "../../../index";
 export interface ToolCallMessage {
     /** Name of the tool called. */
     name: string;
-    /** Parameters of the tool call. Is a stringified JSON schema. */
+    /**
+     * Parameters of the tool.
+     *
+     * These parameters define the inputs needed for the tool’s execution, including the expected data type and description for each input field. Structured as a stringified JSON schema, this format ensures the tool receives data in the expected format.
+     */
     parameters: string;
-    /** ID of the tool call. */
+    /**
+     * The unique identifier for a specific tool call instance.
+     *
+     * This ID is used to track the request and response of a particular tool invocation, ensuring that the correct response is linked to the appropriate request.
+     */
     toolCallId: string;
-    /** The type of message sent through the socket; for a Tool Call message, this must be `tool_call`. */
+    /**
+     * The type of message sent through the socket; for a Tool Call message, this must be `tool_call`.
+     *
+     * This message indicates that the supplemental LLM has detected a need to invoke the specified tool.
+     */
     type: "tool_call";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
-    /** Type of tool called, either 'builtin' or 'function'. */
+    /** Type of tool called. Either `builtin` for natively implemented tools, like web search, or `function` for user-defined tools. */
     toolType?: Hume.empathicVoice.ToolType;
-    /** Whether a response is required from the developer. */
+    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Response%20Message.type) or a [Tool Error message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Error%20Message.type). */
     responseRequired: boolean;
 }

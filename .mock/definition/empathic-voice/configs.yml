@@ -49,6 +49,11 @@ service:
                     provider: provider
                   ellm_model:
                     allow_short_responses: true
+                  timeouts:
+                    inactivity:
+                      enabled: true
+                    max_duration:
+                      enabled: true
     create-config:
       path: /v0/evi/configs
       method: POST
@@ -75,6 +80,7 @@ service:
               type: optional<list<optional<root.PostedBuiltinTool>>>
               docs: Built-in tool specification for a Config.
             event_messages: optional<root.PostedEventMessageSpecs>
+            timeouts: optional<root.PostedTimeoutSpecs>
       response:
         docs: Created
         type: root.ReturnConfig
@@ -127,6 +133,13 @@ service:
                 on_new_chat:
                   enabled: true
                   text: text
+              timeouts:
+                inactivity:
+                  enabled: true
+                  duration_secs: 1
+                max_duration:
+                  enabled: true
+                  duration_secs: 1
     list-config-versions:
       path: /v0/evi/configs/{id}
       method: GET
@@ -178,6 +191,11 @@ service:
                     provider: provider
                   ellm_model:
                     allow_short_responses: true
+                  timeouts:
+                    inactivity:
+                      enabled: true
+                    max_duration:
+                      enabled: true
     create-config-version:
       path: /v0/evi/configs/{id}
       method: POST
@@ -205,6 +223,7 @@ service:
               type: optional<list<optional<root.PostedBuiltinTool>>>
               docs: Built-in tool specification for a Config.
             event_messages: optional<root.PostedEventMessageSpecs>
+            timeouts: optional<root.PostedTimeoutSpecs>
       response:
         docs: Created
         type: root.ReturnConfig
@@ -258,6 +277,13 @@ service:
                 on_new_chat:
                   enabled: true
                   text: text
+              timeouts:
+                inactivity:
+                  enabled: true
+                  duration_secs: 1
+                max_duration:
+                  enabled: true
+                  duration_secs: 1
     delete-config:
       path: /v0/evi/configs/{id}
       method: DELETE
@@ -354,6 +380,13 @@ service:
                 on_new_chat:
                   enabled: true
                   text: text
+              timeouts:
+                inactivity:
+                  enabled: true
+                  duration_secs: 1
+                max_duration:
+                  enabled: true
+                  duration_secs: 1
     delete-config-version:
       path: /v0/evi/configs/{id}/version/{version}
       method: DELETE
@@ -443,3 +476,10 @@ service:
                 on_new_chat:
                   enabled: true
                   text: text
+              timeouts:
+                inactivity:
+                  enabled: true
+                  duration_secs: 1
+                max_duration:
+                  enabled: true
+                  duration_secs: 1
