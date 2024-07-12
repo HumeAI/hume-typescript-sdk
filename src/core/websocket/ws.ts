@@ -1,8 +1,15 @@
+import { RUNTIME } from '../runtime';
 import * as Events from './events';
 import { WebSocket as NodeWebSocket } from 'ws';
 
 const getGlobalWebSocket = (): WebSocket | undefined => {
-    return (global as any).WebSocket ??= NodeWebSocket;
+    if (typeof WebSocket !== 'undefined') {
+        // @ts-ignore
+        return WebSocket;
+    } else if (RUNTIME.type === "node") {
+        return NodeWebSocket as unknown as WebSocket;
+    }
+    return undefined;
 };
 
 /**
