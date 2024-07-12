@@ -5,5 +5,10 @@
 import * as Hume from "../../../index";
 
 export interface ProsodyInference {
+    /**
+     * The confidence levels of 48 expressions in a given audio sample.
+     *
+     * Scores typically range from 0 to 1, with higher values indicating a stronger confidence level in the measured attribute.
+     */
     scores: Hume.empathicVoice.EmotionScores;
 }
