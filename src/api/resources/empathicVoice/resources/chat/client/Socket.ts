@@ -1,7 +1,7 @@
 import * as core from "../../../../../../core";
+import * as errors from "../../../../../../errors";
 import * as Hume from "../../../../../index";
 import * as serializers from "../../../../../../serialization/index";
-import { MaybeValid } from "core/schemas/Schema";
 
 export declare namespace ChatSocket {
     interface Args {
@@ -54,6 +54,7 @@ export class ChatSocket{
      * Send audio input
      */
     public sendAudioInput(message: Omit<Hume.empathicVoice.AudioInput, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "audio_input",
             ...message,
@@ -64,6 +65,7 @@ export class ChatSocket{
      * Send session settings
      */
     public sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "session_settings",
             ...message,
@@ -74,6 +76,7 @@ export class ChatSocket{
      * Send assistant input
      */
     public sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "assistant_input",
             ...message,
@@ -84,6 +87,7 @@ export class ChatSocket{
      * Send pause assistant message
      */
     public pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "pause_assistant_message",
             ...message,
@@ -94,6 +98,7 @@ export class ChatSocket{
      * Send resume assistant message
      */
     public resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "resume_assistant_message",
             ...message,
@@ -104,6 +109,7 @@ export class ChatSocket{
      * Send tool response message
      */
     public sendToolResponseMessage(message: Omit<Hume.empathicVoice.ToolResponseMessage, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "tool_response",
             ...message,
@@ -114,6 +120,7 @@ export class ChatSocket{
      * Send tool error message
      */
     public sendToolErrorMessage(message: Omit<Hume.empathicVoice.ToolErrorMessage, "type">): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "tool_error",
             ...message,
@@ -124,10 +131,27 @@ export class ChatSocket{
      * Send text input
      */
     public sendUserInput(text: string): void {
+        this.assertSocketIsOpen();
         this.sendJson({
             type: "user_input",
             text,
         });
+    }
+
+    /**
+     * @name connect
+     * @description
+     * Connect to the websocket.
+     */
+    public connect(): ChatSocket {
+        this.socket.reconnect();
+
+        this.socket.addEventListener('open', this.handleOpen);
+        this.socket.addEventListener('message', this.handleMessage);
+        this.socket.addEventListener('close', this.handleClose);
+        this.socket.addEventListener('error', this.handleError);
+
+        return this;
     }
 
     /**
@@ -136,10 +160,22 @@ export class ChatSocket{
     public close(): void {
         this.socket.close();
 
+        this.handleClose({ code: 1000 } as CloseEvent);
+
         this.socket.removeEventListener('open', this.handleOpen);
         this.socket.removeEventListener('message', this.handleMessage);
         this.socket.removeEventListener('close', this.handleClose);
         this.socket.removeEventListener('error', this.handleError);
+    }
+
+    private assertSocketIsOpen(): void {
+        if (!this.socket) {
+            throw new errors.HumeError({ message: 'Socket is not connected.'});
+        }
+      
+        if (this.socket.readyState !== WebSocket.OPEN) {
+            throw new errors.HumeError({ message: 'Socket is not open.' });
+        }
     }
 
     private sendJson(payload: Hume.empathicVoice.PublishEvent): void {

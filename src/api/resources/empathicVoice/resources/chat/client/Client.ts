@@ -9,6 +9,12 @@ export declare namespace Chat {
     }
 
     interface ConnectArgs {
+        /** Enable debug mode on the websocket. Defaults to false. */
+        debug?: boolean;
+
+        /** Number of reconnect attempts. Defaults to 30. */
+        reconnectAttempts?: number;
+
         /** The ID of the configuration. */
         configId?: string;
 
@@ -17,6 +23,9 @@ export declare namespace Chat {
 
         /** The ID of a chat group, used to resume a previous chat. */
         resumedChatGroupId?: string;
+
+        /** Extra query parameters sent at WebSocket connection */
+        queryParams?: Record<string, string | string[] | object | object[]>;
     }
 }
 
@@ -41,7 +50,17 @@ export class Chat {
             queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
         }
 
-        const socket = new core.ReconnectingWebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`);
+        if (args.queryParams != null) {
+            for (const [name, value] of Object.entries(args.queryParams)) {
+                queryParams[name] = value;
+            }
+        }
+
+        const socket = new core.ReconnectingWebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, [], {
+            startClosed: true,
+            debug: args.debug ?? false,
+            maxRetries: args.reconnectAttempts, 
+        });
 
         return new ChatSocket({
             socket,
