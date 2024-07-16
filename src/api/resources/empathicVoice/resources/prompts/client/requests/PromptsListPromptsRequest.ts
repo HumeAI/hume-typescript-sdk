@@ -19,4 +19,8 @@ export interface PromptsListPromptsRequest {
      * Only include the most recent version of each prompt in the list.
      */
     restrictToMostRecent?: boolean;
+    /**
+     * Filter to only include prompts with this name.
+     */
+    name?: string;
 }

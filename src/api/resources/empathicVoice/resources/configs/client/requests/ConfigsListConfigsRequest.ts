@@ -19,4 +19,8 @@ export interface ConfigsListConfigsRequest {
      * Only include the most recent version of each config in the list.
      */
     restrictToMostRecent?: boolean;
+    /**
+     * Filter to only include configs with this name.
+     */
+    name?: string;
 }

@@ -40,7 +40,7 @@ export class Configs {
         request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
         requestOptions?: Configs.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedConfigs> {
-        const { pageNumber, pageSize, restrictToMostRecent } = request;
+        const { pageNumber, pageSize, restrictToMostRecent, name } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
@@ -52,6 +52,10 @@ export class Configs {
 
         if (restrictToMostRecent != null) {
             _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
+        }
+
+        if (name != null) {
+            _queryParams["name"] = name;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({

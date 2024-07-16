@@ -22,4 +22,8 @@ export interface ToolsListToolsRequest {
      * Only include the most recent version of each tool in the list.
      */
     restrictToMostRecent?: boolean;
+    /**
+     * Filter to only include tools with this name.
+     */
+    name?: string;
 }

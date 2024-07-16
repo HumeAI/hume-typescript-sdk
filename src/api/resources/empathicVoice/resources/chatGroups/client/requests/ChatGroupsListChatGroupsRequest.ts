@@ -19,4 +19,8 @@ export interface ChatGroupsListChatGroupsRequest {
      * Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true.
      */
     ascendingOrder?: boolean;
+    /**
+     * Filter chatgroups to only include chats that used this config in their most recent chat.
+     */
+    configId?: string;
 }
