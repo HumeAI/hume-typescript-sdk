@@ -24,6 +24,11 @@ service:
               Boolean to indicate if the results should be paginated in
               chronological order or reverse-chronological order. Defaults to
               true.
+          config_id:
+            type: optional<string>
+            docs: >-
+              Filter chatgroups to only include chats that used this config in
+              their most recent chat.
       response:
         docs: Success
         type: root.ReturnPagedChatGroups

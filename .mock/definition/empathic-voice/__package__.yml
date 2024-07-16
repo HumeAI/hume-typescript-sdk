@@ -423,11 +423,6 @@ types:
         docs: >-
           String with the name of the voice to use. Maximum length of 75
           characters. Will be converted to all-uppercase.
-  ReturnPrivacySettings:
-    properties:
-      id: optional<string>
-      do_not_retain_data: optional<boolean>
-      do_not_use_for_training: optional<boolean>
   PostedCustomVoiceName:
     docs: A custom voice name change to be posted to the server
     properties:
@@ -794,15 +789,6 @@ types:
           List of chat_events returned for the specified page number and page
           size.
         type: list<ReturnChatEvent>
-  ReturnPurgeStats:
-    properties:
-      id: optional<string>
-      num_chats: optional<integer>
-      num_chat_events: optional<integer>
-      num_configs: optional<integer>
-      num_prompts: optional<integer>
-      num_tools: optional<integer>
-      num_voices: optional<integer>
   AssistantInput:
     docs: When provided, the input is spoken by EVI.
     properties:

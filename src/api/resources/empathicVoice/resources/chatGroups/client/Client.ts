@@ -40,7 +40,7 @@ export class ChatGroups {
         request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest = {},
         requestOptions?: ChatGroups.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedChatGroups> {
-        const { pageNumber, pageSize, ascendingOrder } = request;
+        const { pageNumber, pageSize, ascendingOrder, configId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
@@ -52,6 +52,10 @@ export class ChatGroups {
 
         if (ascendingOrder != null) {
             _queryParams["ascending_order"] = ascendingOrder.toString();
+        }
+
+        if (configId != null) {
+            _queryParams["config_id"] = configId;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
