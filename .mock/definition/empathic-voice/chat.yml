@@ -23,10 +23,9 @@ channel:
         `config_id`.
 
 
-        Configs, as well as Prompts, Tools, and Language Models, are versioned.
-        This versioning system supports iterative development, allowing you to
-        progressively refine configurations and revert to previous versions if
-        needed.
+        Configs, as well as Prompts and Tools, are versioned. This versioning
+        system supports iterative development, allowing you to progressively
+        refine configurations and revert to previous versions if needed.
 
 
         Include this parameter to apply a specific version of an EVI
