@@ -9,7 +9,7 @@
   <br>
   <div>
     <a href="https://www.npmjs.com/package/hume"><img src="https://img.shields.io/npm/v/hume">
-    <a href="https://buildwithfern.com/"><img src="https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen">     
+    <a href="https://buildwithfern.com/"><img src="https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen">
   </div>
   <br>
 </div>
@@ -41,9 +41,11 @@ const job = await hume.expressionMeasurement.batch.startInferenceJob({
 });
 
 console.log("Running...");
+
 await job.awaitCompletion();
 
 const predictions = await hume.expressionMeasurement.batch.getJobPredictions(job.jobId);
+
 console.log(predictions);
 ```
 
@@ -82,11 +84,13 @@ import { HumeClient } from "hume";
 const hume = new HumeClient({
     apiKey: "YOUR_API_KEY",
 });
+
 const socket = hume.expressionMeasurement.stream.connect({
     config: {
         language: {},
     },
 });
+
 for (const sample of samples) {
     const result = await socket.sendText({ text: sample });
     console.log(result);
@@ -105,16 +109,19 @@ const hume = new HumeClient({
     secretKey: "<>",
 });
 
-const socket = await hume.empathicVoice.chat.connect({
-    async onMessage(message): Promise<void> {
-        if (message.type === "audio_output") {
-            const decoded = Buffer.from(message.data, "base64");
-            // play decoded message
-        }
-    },
-});
+const socket = hume.empathicVoice.chat.connect();
 
-await socket.sendUserInput("Hello, how are you?");
+socket.on('message', (message) => {
+  if (message.type === "audio_output") {
+      const decoded = Buffer.from(message.data, "base64");
+      // play decoded message
+  }
+})
+
+// optional utility to wait for socket to be open
+await socket.tillSocketOpen();
+
+socket.sendUserInput("Hello, how are you?");
 ```
 
 ## Errors
