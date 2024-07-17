@@ -114,7 +114,7 @@ const socket = await hume.empathicVoice.chat.connect({
     },
 });
 
-await socket.sendTextInput("Hello, how are you?");
+await socket.sendUserInput("Hello, how are you?");
 ```
 
 ## Errors
