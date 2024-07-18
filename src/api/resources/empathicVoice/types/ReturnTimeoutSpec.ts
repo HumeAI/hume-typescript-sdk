@@ -6,8 +6,8 @@
  * A specific timeout configuration to be returned from the server
  */
 export interface ReturnTimeoutSpec {
-    /** Boolean indicating if this event message is enabled. */
-    enabled: boolean;
-    /** Duration in seconds for the timeout. */
-    durationSecs?: number;
+  /** Boolean indicating if this event message is enabled. */
+  enabled: boolean;
+  /** Duration in seconds for the timeout. */
+  durationSecs?: number;
 }

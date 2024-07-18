@@ -3,5 +3,5 @@
  */
 
 export interface TextInput {
-    type?: "text_input";
+  type?: 'text_input';
 }

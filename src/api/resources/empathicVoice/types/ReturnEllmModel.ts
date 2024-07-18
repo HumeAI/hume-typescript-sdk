@@ -6,6 +6,6 @@
  * A specific eLLM Model configuration
  */
 export interface ReturnEllmModel {
-    /** Boolean indicating if the model is allowed to generate short responses. */
-    allowShortResponses: boolean;
+  /** Boolean indicating if the model is allowed to generate short responses. */
+  allowShortResponses: boolean;
 }

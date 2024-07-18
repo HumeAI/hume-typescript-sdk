@@ -1,5 +1,5 @@
-import { base64Encode } from "./base64Encode";
-import { z } from "zod";
+import { base64Encode } from './base64Encode';
+import { z } from 'zod';
 
 /**
  * Fetches a new access token from the Hume API using the provided API key and Secret key.
@@ -20,57 +20,57 @@ import { z } from "zod";
  * ```
  */
 export const fetchAccessToken = async ({
-    apiKey,
-    secretKey,
-    host = "api.hume.ai",
+  apiKey,
+  secretKey,
+  host = 'api.hume.ai',
 }: {
-    apiKey: string;
-    secretKey: string;
-    host?: string;
+  apiKey: string;
+  secretKey: string;
+  host?: string;
 }): Promise<string | null> => {
-    const authString = `${apiKey}:${secretKey}`;
-    const encoded = base64Encode(authString);
+  const authString = `${apiKey}:${secretKey}`;
+  const encoded = base64Encode(authString);
 
-    const response = await fetch(`https://${host}/oauth2-cc/token`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Basic ${encoded}`,
-        },
-        body: new URLSearchParams({
-            grant_type: "client_credentials",
-        }).toString(),
-        cache: "no-cache",
+  const response = await fetch(`https://${host}/oauth2-cc/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Basic ${encoded}`,
+    },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+    }).toString(),
+    cache: 'no-cache',
+  })
+    .then((res) => {
+      // if reading response as json fails, return empty object
+      // this can happen when request returns XML due to server error
+      return res
+        .json()
+        .then((d: unknown) => d)
+        .catch(() => ({}));
     })
-        .then((res) => {
-            // if reading response as json fails, return empty object
-            // this can happen when request returns XML due to server error
-            return res
-                .json()
-                .then((d: unknown) => d)
-                .catch(() => ({}));
+    .then((data: unknown) => {
+      // extract access_token value from received object
+      return z
+        .object({
+          access_token: z.string(),
         })
-        .then((data: unknown) => {
-            // extract access_token value from received object
-            return z
-                .object({
-                    access_token: z.string(),
-                })
-                .transform((data) => {
-                    return data.access_token;
-                })
-                .safeParse(data);
+        .transform((data) => {
+          return data.access_token;
         })
-        .catch(
-            () =>
-                ({
-                    success: false,
-                } as const)
-        );
+        .safeParse(data);
+    })
+    .catch(
+      () =>
+        ({
+          success: false,
+        } as const),
+    );
 
-    if (!response.success) {
-        return null;
-    }
+  if (!response.success) {
+    return null;
+  }
 
-    return response.data;
+  return response.data;
 };

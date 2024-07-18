@@ -6,8 +6,8 @@
  * An id/version number for a specific config version
  */
 export interface ReturnConfigSpec {
-    /** Identifier for a Config. Formatted as a UUID. */
-    id: string;
-    /** Version number for a Config. Version numbers should be integers. The combination of configId and version number is unique. */
-    version?: number;
+  /** Identifier for a Config. Formatted as a UUID. */
+  id: string;
+  /** Version number for a Config. Version numbers should be integers. The combination of configId and version number is unique. */
+  version?: number;
 }

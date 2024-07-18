@@ -27,24 +27,26 @@ npm i hume
 ## Usage
 
 ```typescript
-import { HumeClient } from "hume";
+import { HumeClient } from 'hume';
 
 const hume = new HumeClient({
-    apiKey: "YOUR_API_KEY",
+  apiKey: 'YOUR_API_KEY',
 });
 
 const job = await hume.expressionMeasurement.batch.startInferenceJob({
-    models: {
-        face: {},
-    },
-    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
+  models: {
+    face: {},
+  },
+  urls: ['https://hume-tutorials.s3.amazonaws.com/faces.zip'],
 });
 
-console.log("Running...");
+console.log('Running...');
 
 await job.awaitCompletion();
 
-const predictions = await hume.expressionMeasurement.batch.getJobPredictions(job.jobId);
+const predictions = await hume.expressionMeasurement.batch.getJobPredictions(
+  job.jobId,
+);
 
 console.log(predictions);
 ```
@@ -79,21 +81,21 @@ The SDK supports a request-reply pattern for the streaming expression measuremen
 You'll be able to pass an inference request and `await` till the response is received.
 
 ```typescript
-import { HumeClient } from "hume";
+import { HumeClient } from 'hume';
 
 const hume = new HumeClient({
-    apiKey: "YOUR_API_KEY",
+  apiKey: 'YOUR_API_KEY',
 });
 
 const socket = hume.expressionMeasurement.stream.connect({
-    config: {
-        language: {},
-    },
+  config: {
+    language: {},
+  },
 });
 
 for (const sample of samples) {
-    const result = await socket.sendText({ text: sample });
-    console.log(result);
+  const result = await socket.sendText({ text: sample });
+  console.log(result);
 }
 ```
 
@@ -102,26 +104,26 @@ for (const sample of samples) {
 The SDK supports sending and receiving audio from Empathic Voice.
 
 ```typescript
-import { HumeClient } from "hume";
+import { HumeClient } from 'hume';
 
 const hume = new HumeClient({
-    apiKey: "<>",
-    secretKey: "<>",
+  apiKey: '<>',
+  secretKey: '<>',
 });
 
 const socket = hume.empathicVoice.chat.connect();
 
-socket.on("message", (message) => {
-    if (message.type === "audio_output") {
-        const decoded = Buffer.from(message.data, "base64");
-        // play decoded message
-    }
+socket.on('message', (message) => {
+  if (message.type === 'audio_output') {
+    const decoded = Buffer.from(message.data, 'base64');
+    // play decoded message
+  }
 });
 
 // optional utility to wait for socket to be open
 await socket.tillSocketOpen();
 
-socket.sendUserInput("Hello, how are you?");
+socket.sendUserInput('Hello, how are you?');
 ```
 
 ## Errors
@@ -130,19 +132,19 @@ When the API returns a non-success status code (4xx or 5xx response),
 a subclass of [HumeError](./src/errors/HumeError.ts) will be thrown:
 
 ```typescript
-import { HumeError, HumeTimeoutError } from "hume";
+import { HumeError, HumeTimeoutError } from 'hume';
 
 try {
-    await hume.expressionMeasurement.batch.startInferenceJob(/* ... */);
+  await hume.expressionMeasurement.batch.startInferenceJob(/* ... */);
 } catch (err) {
-    if (err instanceof HumeTimeoutError) {
-        console.log("Request timed out", err);
-    } else if (err instanceof HumeError) {
-        // catch all errros
-        console.log(err.statusCode);
-        console.log(err.message);
-        console.log(err.body);
-    }
+  if (err instanceof HumeTimeoutError) {
+    console.log('Request timed out', err);
+  } else if (err instanceof HumeError) {
+    // catch all errros
+    console.log(err.statusCode);
+    console.log(err.message);
+    console.log(err.body);
+  }
 }
 ```
 

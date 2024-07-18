@@ -6,12 +6,12 @@
  * @throws {DOMException} If the user denies access or no audio input devices are found.
  */
 export const getAudioStream = async (): Promise<MediaStream> => {
-    return navigator.mediaDevices.getUserMedia({
-        audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true,
-        },
-        video: false,
-    });
+  return navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true,
+      autoGainControl: true,
+    },
+    video: false,
+  });
 };
