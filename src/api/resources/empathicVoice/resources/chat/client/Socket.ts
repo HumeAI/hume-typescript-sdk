@@ -8,7 +8,7 @@ export declare namespace ChatSocket {
         socket: core.ReconnectingWebSocket;
     }
 
-    type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: number };
+    type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: Date };
 
     type EventHandlers = {
         open?: () => void;
@@ -214,7 +214,7 @@ export class ChatSocket{
             breadcrumbsPrefix: ["response"],
         });
         if (parsedResponse.ok) {
-            this.eventHandlers.message?.({ ...parsedResponse.value, receivedAt: Date.now() });
+            this.eventHandlers.message?.({ ...parsedResponse.value, receivedAt: new Date() });
         } else {
             this.eventHandlers.error?.(new Error(`Received unknown message type`));
         }
