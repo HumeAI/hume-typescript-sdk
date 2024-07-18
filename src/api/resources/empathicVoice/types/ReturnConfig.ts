@@ -10,23 +10,40 @@ import * as Hume from "../../../index";
 export interface ReturnConfig {
     /** Identifier for a Config. Formatted as a UUID. */
     id?: string;
-    /** Version number for a Config. Version numbers should be integers. The combination of configId and version number is unique. */
+    /**
+     * Version number for a Config.
+     *
+     * Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+     *
+     * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     */
     version?: number;
-    /** Description that is appended to a specific version of a Config. */
+    /** An optional description of the Config version. */
     versionDescription?: string;
     /** Name applied to all versions of a particular Config. */
     name?: string;
-    /** The timestamp when the first version of this config was created. */
+    /** Time at which the Config was created. Measured in seconds since the Unix epoch. */
     createdOn?: number;
-    /** The timestamp when this version of the config was created. */
+    /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
     modifiedOn?: number;
     prompt?: Hume.empathicVoice.ReturnPrompt;
+    /** A voice specification associated with this Config. */
     voice?: Hume.empathicVoice.ReturnVoice;
+    /**
+     * The supplemental language model associated with this Config.
+     *
+     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
+     */
     languageModel?: Hume.empathicVoice.ReturnLanguageModel;
+    /**
+     * The eLLM setup associated with this Config.
+     *
+     * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
+     */
     ellmModel?: Hume.empathicVoice.ReturnEllmModel;
-    /** List of user-defined tools associated with this config. */
+    /** List of user-defined tools associated with this Config. */
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
-    /** List of built-in tools associated with this config */
+    /** List of built-in tools associated with this Config. */
     builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
     timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;

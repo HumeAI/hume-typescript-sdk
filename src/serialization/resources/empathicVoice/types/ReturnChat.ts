@@ -5,6 +5,7 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnChatStatus } from "./ReturnChatStatus";
 import { ReturnConfigSpec } from "./ReturnConfigSpec";
 
 export const ReturnChat: core.serialization.ObjectSchema<
@@ -13,8 +14,7 @@ export const ReturnChat: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     chatGroupId: core.serialization.property("chat_group_id", core.serialization.string()),
-    tag: core.serialization.string().optional(),
-    status: core.serialization.string(),
+    status: ReturnChatStatus,
     startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
     eventCount: core.serialization.property("event_count", core.serialization.number().optional()),
@@ -26,8 +26,7 @@ export declare namespace ReturnChat {
     interface Raw {
         id: string;
         chat_group_id: string;
-        tag?: string | null;
-        status: string;
+        status: ReturnChatStatus.Raw;
         start_timestamp: number;
         end_timestamp?: number | null;
         event_count?: number | null;

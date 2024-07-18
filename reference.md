@@ -174,7 +174,7 @@ await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-60986
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -253,7 +253,7 @@ await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-6098
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -326,7 +326,7 @@ await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268be
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -391,7 +391,7 @@ await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-6098642
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -464,7 +464,7 @@ await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-6098642
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -474,7 +474,13 @@ await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-6098642
 
 <dd>
 
-**version: `number`** — Version number for a tool. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Tool.
+
+Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
 
 </dd>
 
@@ -537,7 +543,7 @@ await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-6098
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -547,7 +553,13 @@ await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-6098
 
 <dd>
 
-**version: `number`** — Version number for a tool. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Tool.
+
+Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
 
 </dd>
 
@@ -613,7 +625,7 @@ await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Tool. Formatted as a UUID.
 
 </dd>
 
@@ -623,7 +635,13 @@ await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-
 
 <dd>
 
-**version: `number`** — Version number for a tool. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Tool.
+
+Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
 
 </dd>
 
@@ -827,7 +845,7 @@ await client.empathicVoice.prompts.listPromptVersions("id");
 
 <dd>
 
-**id: `string`** — Identifier for a tool. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -902,7 +920,7 @@ await client.empathicVoice.prompts.createPromptVerison("id", {
 
 <dd>
 
-**id: `string`** — Identifier for a prompt. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -975,7 +993,7 @@ await client.empathicVoice.prompts.deletePrompt("id");
 
 <dd>
 
-**id: `string`** — Identifier for a prompt. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -1040,7 +1058,7 @@ await client.empathicVoice.prompts.updatePromptName("string", {
 
 <dd>
 
-**id: `string`** — Identifier for a prompt. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -1113,7 +1131,7 @@ await client.empathicVoice.prompts.getPromptVersion("id", 1);
 
 <dd>
 
-**id: `string`** — Identifier for a prompt. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -1123,7 +1141,13 @@ await client.empathicVoice.prompts.getPromptVersion("id", 1);
 
 <dd>
 
-**version: `number`** — Version number for a prompt. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Prompt.
+
+Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
 
 </dd>
 
@@ -1186,7 +1210,7 @@ await client.empathicVoice.prompts.deletePromptVersion("id", 1);
 
 <dd>
 
-**id: `string`** — Identifier for a prompt. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -1196,7 +1220,13 @@ await client.empathicVoice.prompts.deletePromptVersion("id", 1);
 
 <dd>
 
-**version: `number`** — Version number for a prompt. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Prompt.
+
+Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
 
 </dd>
 
@@ -1259,7 +1289,7 @@ await client.empathicVoice.prompts.updatePromptDescription("id", 1);
 
 <dd>
 
-**id: `string`** — Identifier for a prompt. Formatted as a UUID.
+**id: `string`** — Identifier for a Prompt. Formatted as a UUID.
 
 </dd>
 
@@ -1269,7 +1299,13 @@ await client.empathicVoice.prompts.updatePromptDescription("id", 1);
 
 <dd>
 
-**version: `number`** — Version number for a prompt. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Prompt.
+
+Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
 
 </dd>
 
@@ -1472,7 +1508,7 @@ await client.empathicVoice.configs.listConfigVersions("id");
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1545,7 +1581,7 @@ await client.empathicVoice.configs.createConfigVersion("id");
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1618,7 +1654,7 @@ await client.empathicVoice.configs.deleteConfig("id");
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1683,7 +1719,7 @@ await client.empathicVoice.configs.updateConfigName("string", {
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1756,7 +1792,7 @@ await client.empathicVoice.configs.getConfigVersion("id", 1);
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1766,7 +1802,13 @@ await client.empathicVoice.configs.getConfigVersion("id", 1);
 
 <dd>
 
-**version: `number`** — Version number for a config. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Config.
+
+Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
 
 </dd>
 
@@ -1829,7 +1871,7 @@ await client.empathicVoice.configs.deleteConfigVersion("id", 1);
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1839,7 +1881,13 @@ await client.empathicVoice.configs.deleteConfigVersion("id", 1);
 
 <dd>
 
-**version: `number`** — Version number for a config. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Config.
+
+Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
 
 </dd>
 
@@ -1902,7 +1950,7 @@ await client.empathicVoice.configs.updateConfigDescription("id", 1);
 
 <dd>
 
-**id: `string`** — Identifier for a config. Formatted as a UUID.
+**id: `string`** — Identifier for a Config. Formatted as a UUID.
 
 </dd>
 
@@ -1912,7 +1960,13 @@ await client.empathicVoice.configs.updateConfigDescription("id", 1);
 
 <dd>
 
-**version: `number`** — Version number for a config. Version numbers should be integers.
+**version: `number`**
+
+Version number for a Config.
+
+Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
 
 </dd>
 
@@ -2050,7 +2104,7 @@ await client.empathicVoice.chats.listChatEvents("id");
 
 <dd>
 
-**id: `string`** — Identifier for a chat. Formatted as a UUID.
+**id: `string`** — Identifier for a Chat. Formatted as a UUID.
 
 </dd>
 
@@ -2188,7 +2242,7 @@ await client.empathicVoice.chatGroups.listChatGroupEvents("id");
 
 <dd>
 
-**id: `string`** — Identifier for a chat. Formatted as a UUID.
+**id: `string`** — Identifier for a Chat Group. Formatted as a UUID.
 
 </dd>
 

@@ -106,7 +106,7 @@ export class Chats {
     }
 
     /**
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * @param {string} id - Identifier for a Chat. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatsListChatEventsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *

@@ -5,15 +5,17 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnUserDefinedToolToolType } from "./ReturnUserDefinedToolToolType";
+import { ReturnUserDefinedToolVersionType } from "./ReturnUserDefinedToolVersionType";
 
 export const ReturnUserDefinedTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnUserDefinedTool.Raw,
     Hume.empathicVoice.ReturnUserDefinedTool
 > = core.serialization.object({
-    toolType: core.serialization.property("tool_type", core.serialization.string()),
+    toolType: core.serialization.property("tool_type", ReturnUserDefinedToolToolType),
     id: core.serialization.string(),
     version: core.serialization.number(),
-    versionType: core.serialization.property("version_type", core.serialization.string()),
+    versionType: core.serialization.property("version_type", ReturnUserDefinedToolVersionType),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     name: core.serialization.string(),
     createdOn: core.serialization.property("created_on", core.serialization.number()),
@@ -25,10 +27,10 @@ export const ReturnUserDefinedTool: core.serialization.ObjectSchema<
 
 export declare namespace ReturnUserDefinedTool {
     interface Raw {
-        tool_type: string;
+        tool_type: ReturnUserDefinedToolToolType.Raw;
         id: string;
         version: number;
-        version_type: string;
+        version_type: ReturnUserDefinedToolVersionType.Raw;
         version_description?: string | null;
         name: string;
         created_on: number;

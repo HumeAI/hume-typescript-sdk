@@ -8,14 +8,26 @@ import * as Hume from "../../../index";
  * A paginated list of chats returned from the server
  */
 export interface ReturnPagedChats {
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
-    /** The number of results returned per page. */
+    /**
+     * The maximum number of items returned per page.
+     *
+     * This value corresponds to the `page_size` parameter specified in the request.
+     */
     pageSize: number;
-    /** The total number of pages in the collection */
+    /** The total number of pages in the collection. */
     totalPages: number;
-    /** The direction of the pagination (ASC or DESC). */
-    paginationDirection: string;
-    /** List of chats and their metadata returned for the specified page number and page size. */
+    /**
+     * Indicates the order in which the paginated results are presented, based on their creation date.
+     *
+     * It shows `ASC` for ascending order (chronological, with the oldest records first) or `DESC` for descending order (reverse-chronological, with the newest records first). This value corresponds to the `ascending_order` query parameter used in the request.
+     */
+    paginationDirection: Hume.empathicVoice.ReturnPagedChatsPaginationDirection;
+    /** List of Chats and their metadata returned for the specified `page_number` and `page_size`. */
     chatsPage: Hume.empathicVoice.ReturnChat[];
 }

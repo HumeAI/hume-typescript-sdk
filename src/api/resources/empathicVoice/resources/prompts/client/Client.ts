@@ -175,7 +175,7 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PromptsListPromptVersionsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -253,7 +253,7 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptVersion} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -321,7 +321,7 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -374,7 +374,7 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptName} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -436,8 +436,12 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a Prompt.
+     *
+     *                           Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -499,8 +503,12 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a Prompt.
+     *
+     *                           Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -557,8 +565,12 @@ export class Prompts {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a Prompt.
+     *
+     *                           Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Hume.empathicVoice.PostedPromptVersionDescription} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *

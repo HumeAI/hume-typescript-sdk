@@ -8,29 +8,53 @@ import * as Hume from "../../../index";
  * A description of chat status with a paginated list of chat events returned from the server
  */
 export interface ReturnChatPagedEvents {
-    /** Identifier for a chat. Formatted as a UUID. */
+    /** Identifier for a Chat. Formatted as a UUID. */
     id: string;
-    /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
+    /** Identifier for the Chat Group. Any chat resumed from this Chat will have the same `chat_group_id`. Formatted as a UUID. */
     chatGroupId: string;
-    /** Optional tag applied to this chat used to group chats by user, application, etc. */
-    tag?: string;
-    /** The status of the chat. Values from the ChatStatus enum. */
-    status: string;
-    /** The timestamp when the chat started, formatted as a Unix epoch milliseconds. */
+    /**
+     * Indicates the current state of the chat. There are six possible statuses:
+     *
+     * - `ACTIVE`: The chat is currently active and ongoing.
+     *
+     * - `USER_ENDED`: The chat was manually ended by the user.
+     *
+     * - `USER_TIMEOUT`: The chat ended due to a user-defined timeout.
+     *
+     * - `MAX_DURATION_TIMEOUT`: The chat ended because it reached the maximum allowed duration.
+     *
+     * - `INACTIVITY_TIMEOUT`: The chat ended due to an inactivity timeout.
+     *
+     * - `ERROR`: The chat ended unexpectedly due to an error.
+     */
+    status: Hume.empathicVoice.ReturnChatPagedEventsStatus;
+    /** Time at which the Chat started. Measured in seconds since the Unix epoch. */
     startTimestamp: number;
-    /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
+    /** Time at which the Chat ended. Measured in seconds since the Unix epoch. */
     endTimestamp?: number;
-    /** The direction of the pagination (ASC or DESC). */
-    paginationDirection: string;
-    /** List of chat events with the specified page number and page size. */
+    /**
+     * Indicates the order in which the paginated results are presented, based on their creation date.
+     *
+     * It shows `ASC` for ascending order (chronological, with the oldest records first) or `DESC` for descending order (reverse-chronological, with the newest records first). This value corresponds to the `ascending_order` query parameter used in the request.
+     */
+    paginationDirection: Hume.empathicVoice.ReturnChatPagedEventsPaginationDirection;
+    /** List of chat events for the specified `page_number` and `page_size`. */
     eventsPage: Hume.empathicVoice.ReturnChatEvent[];
     /** Stringified JSON with additional metadata about the chat. */
     metadata?: string;
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
-    /** The number of results returned per page. */
+    /**
+     * The maximum number of items returned per page.
+     *
+     * This value corresponds to the `page_size` parameter specified in the request.
+     */
     pageSize: number;
-    /** The total number of pages in the collection */
+    /** The total number of pages in the collection. */
     totalPages: number;
     config?: Hume.empathicVoice.ReturnConfigSpec;
 }

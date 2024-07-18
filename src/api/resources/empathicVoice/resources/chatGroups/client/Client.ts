@@ -110,7 +110,7 @@ export class ChatGroups {
     }
 
     /**
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *

@@ -5,19 +5,20 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnBuiltinToolToolType } from "./ReturnBuiltinToolToolType";
 
 export const ReturnBuiltinTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnBuiltinTool.Raw,
     Hume.empathicVoice.ReturnBuiltinTool
 > = core.serialization.object({
-    toolType: core.serialization.property("tool_type", core.serialization.string()),
+    toolType: core.serialization.property("tool_type", ReturnBuiltinToolToolType),
     name: core.serialization.string(),
     fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
 });
 
 export declare namespace ReturnBuiltinTool {
     interface Raw {
-        tool_type: string;
+        tool_type: ReturnBuiltinToolToolType.Raw;
         name: string;
         fallback_content?: string | null;
     }

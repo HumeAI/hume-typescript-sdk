@@ -3,7 +3,7 @@
  */
 
 /**
- * The provider of this model. Based on the enum modelProvider.
+ * The provider of the supplemental language model.
  */
 export type PostedLanguageModelModelProvider =
     | "OPEN_AI"

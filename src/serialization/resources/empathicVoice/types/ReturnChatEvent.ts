@@ -5,6 +5,7 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnChatEventRole } from "./ReturnChatEventRole";
 
 export const ReturnChatEvent: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatEvent.Raw,
@@ -13,7 +14,7 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     chatId: core.serialization.property("chat_id", core.serialization.string()),
     timestamp: core.serialization.number(),
-    role: core.serialization.string(),
+    role: ReturnChatEventRole,
     type: core.serialization.string(),
     messageText: core.serialization.property("message_text", core.serialization.string().optional()),
     emotionFeatures: core.serialization.property("emotion_features", core.serialization.string().optional()),
@@ -25,7 +26,7 @@ export declare namespace ReturnChatEvent {
         id: string;
         chat_id: string;
         timestamp: number;
-        role: string;
+        role: ReturnChatEventRole.Raw;
         type: string;
         message_text?: string | null;
         emotion_features?: string | null;
