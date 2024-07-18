@@ -4,6 +4,13 @@ README.md
 CITATIONS.md
 LICENSE
 
+# Tooling
+eslint.config.mjs
+jest.config.mjs
+justfile
+tsconfig.dev.json
+.nvmrc
+
 # URL Encoded
 src/core/fetcher/Fetcher.ts
 
