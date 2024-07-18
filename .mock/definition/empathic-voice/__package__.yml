@@ -1,48 +1,94 @@
 types:
+  ReturnUserDefinedToolToolType:
+    enum:
+      - BUILTIN
+      - FUNCTION
+    docs: >-
+      Type of Tool. Either `BUILTIN` for natively implemented tools, like web
+      search, or `FUNCTION` for user-defined tools.
+  ReturnUserDefinedToolVersionType:
+    enum:
+      - FIXED
+      - LATEST
+    docs: >-
+      Versioning method for a Tool. Either `FIXED` for using a fixed version
+      number or `LATEST` for auto-updating to the latest version.
   ReturnUserDefinedTool:
     docs: A specific tool version returned from the server
     properties:
       tool_type:
-        type: string
-        docs: Type of Tool. Values from the ToolType enum.
+        type: ReturnUserDefinedToolToolType
+        docs: >-
+          Type of Tool. Either `BUILTIN` for natively implemented tools, like
+          web search, or `FUNCTION` for user-defined tools.
       id:
         type: string
         docs: Identifier for a Tool. Formatted as a UUID.
       version:
         type: integer
         docs: >-
-          Version number for a Tool. Version numbers should be integers. The
-          combination of configId and version number is unique.
+          Version number for a Tool.
+
+
+          Tools, as well as Configs and Prompts, are versioned. This versioning
+          system supports iterative development, allowing you to progressively
+          refine tools and revert to previous versions if needed.
+
+
+          Version numbers are integer values representing different iterations
+          of the Tool. Each update to the Tool increments its version number.
       version_type:
-        type: string
+        type: ReturnUserDefinedToolVersionType
         docs: >-
-          Indicates whether this tool is using a fixed version number or
-          auto-updating to the latest version. Values from the VersionType enum.
+          Versioning method for a Tool. Either `FIXED` for using a fixed version
+          number or `LATEST` for auto-updating to the latest version.
       version_description:
         type: optional<string>
-        docs: Description that is appended to a specific version of a Tool.
+        docs: An optional description of the Tool version.
       name:
         type: string
         docs: Name applied to all versions of a particular Tool.
       created_on:
         type: integer
-        docs: The timestamp when the first version of this tool was created.
+        docs: >-
+          Time at which the Tool was created. Measured in seconds since the Unix
+          epoch.
       modified_on:
         type: integer
-        docs: The timestamp when this version of the tool was created.
+        docs: >-
+          Time at which the Tool was last modified. Measured in seconds since
+          the Unix epoch.
       fallback_content:
         type: optional<string>
-        docs: Text to use if the tool fails to generate content.
+        docs: >-
+          Optional text passed to the supplemental LLM in place of the tool call
+          result. The LLM then uses this text to generate a response back to the
+          user, ensuring continuity in the conversation if the Tool errors.
       description:
         type: optional<string>
-        docs: Text describing what the tool does.
+        docs: >-
+          An optional description of what the Tool does, used by the
+          supplemental LLM to choose when and how to call the function.
       parameters:
         type: string
         docs: >-
           Stringified JSON defining the parameters used by this version of the
           Tool.
+
+
+          These parameters define the inputs needed for the Tool’s execution,
+          including the expected data type and description for each input field.
+          Structured as a stringified JSON schema, this format ensures the tool
+          receives data in the expected format.
+  ReturnPromptVersionType:
+    enum:
+      - FIXED
+      - LATEST
+    docs: >-
+      Versioning method for a Prompt. Either `FIXED` for using a fixed version
+      number or `LATEST` for auto-updating to the latest version.
   ReturnPrompt:
-    docs: A specific prompt version returned from the server
+    docs: A Prompt associated with this Config.
     properties:
       id:
         type: string
@@ -50,28 +96,53 @@ types:
       version:
         type: integer
         docs: >-
-          Version number for a Prompt. Version numbers should be integers. The
-          combination of configId and version number is unique.
+          Version number for a Prompt.
+
+
+          Prompts, as well as Configs and Tools, are versioned. This versioning
+          system supports iterative development, allowing you to progressively
+          refine prompts and revert to previous versions if needed.
+
+
+          Version numbers are integer values representing different iterations
+          of the Prompt. Each update to the Prompt increments its version
+          number.
       version_type:
-        type: string
+        type: ReturnPromptVersionType
         docs: >-
-          Indicates whether this prompt is using a fixed version number or
-          auto-updating to the latest version. Values from the VersionType enum.
+          Versioning method for a Prompt. Either `FIXED` for using a fixed
+          version number or `LATEST` for auto-updating to the latest version.
       version_description:
         type: optional<string>
-        docs: Description that is appended to a specific version of a Prompt.
+        docs: An optional description of the Prompt version.
       name:
         type: string
         docs: Name applied to all versions of a particular Prompt.
       created_on:
         type: integer
-        docs: The timestamp when the first version of this prompt was created.
+        docs: >-
+          Time at which the Prompt was created. Measured in seconds since the
+          Unix epoch.
       modified_on:
         type: integer
-        docs: The timestamp when this version of the prompt was created.
+        docs: >-
+          Time at which the Prompt was last modified. Measured in seconds since
+          the Unix epoch.
       text:
         type: string
-        docs: Text used for this version of the Prompt.
+        docs: >-
+          Instructions used to shape EVI’s behavior, responses, and style.
+
+
+          You can use the Prompt to define a specific goal or role for EVI,
+          specifying how it should act or what it should focus on during the
+          conversation. For example, EVI can be instructed to act as a customer
+          support representative, a fitness coach, or a travel advisor, each
+          with its own set of behaviors and response styles.
+
+
+          For help writing a system prompt, see our [Prompting
+          Guide](/docs/empathic-voice-interface-evi/prompting).
   PostedCustomVoice:
     docs: A custom voice specifications posted to the server
     properties:
@@ -138,15 +209,19 @@ types:
         docs: Name applied to all versions of a particular Tool.
       fallback_content:
         type: optional<string>
-        docs: Text to use if the tool fails to generate content.
+        docs: >-
+          Optional text passed to the supplemental LLM in place of the tool call
+          result. The LLM then uses this text to generate a response back to the
+          user, ensuring continuity in the conversation if the Tool errors.
   PostedEllmModel:
     docs: A eLLM model configuration to be posted to the server
     properties:
       allow_short_responses:
         type: optional<boolean>
-        docs: >-
-          Boolean indicating if the model is allowed to generate short
-          responses.
+        docs: |-
+          Boolean indicating if the eLLM is allowed to generate short responses.
+
+          If omitted, short responses from the eLLM are enabled by default.
   PostedEventMessageSpec:
     docs: Settings for a specific event_message to be posted to the server
     properties:
@@ -156,11 +231,17 @@ types:
       text:
         type: optional<string>
         docs: >-
-          Optional text that will be used as a verbatim event message. If the
-          text is null and the event message is enabled, the system will
-          generate a message based using the language model.
+          Optional text to be used verbatim as the initial message. If not
+          provided and `event_messages` is enabled, the system will generate a
+          greeting from the Prompt using the supplemental language model.
   PostedEventMessageSpecs:
-    docs: Collection of event_message specs to be posted to the server
+    docs: >-
+      Collection of event messages returned by the server.
+
+
+      Event messages are sent by the server when specific events occur during a
+      chat session. These messages are used to configure behaviors for EVI, such
+      as controlling how EVI starts a new conversation.
     properties:
       on_new_chat:
         type: optional<PostedEventMessageSpec>
@@ -176,21 +257,27 @@ types:
       - FIREWORKS
       - GROQ
       - GOOGLE
-    docs: The provider of this model. Based on the enum modelProvider.
+    docs: The provider of the supplemental language model.
   PostedLanguageModel:
     docs: A LanguageModel to be posted to the server
     properties:
       model_provider:
         type: optional<PostedLanguageModelModelProvider>
-        docs: The provider of this model. Based on the enum modelProvider.
+        docs: The provider of the supplemental language model.
       model_resource:
         type: optional<string>
-        docs: String that specifies the model to use with modelProvider.
+        docs: String that specifies the language model to use with `model_provider`.
       temperature:
         type: optional<double>
-        docs: Model temperature.
+        docs: >-
+          The model temperature, with values between 0 to 1 (inclusive).
+
+
+          Controls the randomness of the LLM’s output, with values closer to 0
+          yielding focused, deterministic responses and values closer to 1
+          producing more creative, diverse responses.
   PostedPromptSpec:
-    docs: A specific prompt identifier to be posted to the server
+    docs: A Prompt associated with this Config.
     properties:
       id:
         type: string
@@ -198,8 +285,17 @@ types:
       version:
         type: optional<integer>
         docs: >-
-          Version number for a Prompt. Version numbers should be integers. The
-          combination of configId and version number is unique.
+          Version number for a Prompt.
+
+
+          Prompts, as well as Configs and Tools, are versioned. This versioning
+          system supports iterative development, allowing you to progressively
+          refine prompts and revert to previous versions if needed.
+
+
+          Version numbers are integer values representing different iterations
+          of the Prompt. Each update to the Prompt increments its version
+          number.
   PostedTimeoutSpec:
     docs: Settings for a specific timeout to be posted to the server
     properties:
@@ -224,7 +320,7 @@ types:
           Boolean indicating if this timeout is enabled.
 
 
-          If set to `false`, EVI will not timeout due to a specified duration of
+          If set to false, EVI will not timeout due to a specified duration of
           user inactivity being reached. However, the conversation will
           eventually disconnect after 1,800 seconds (30 minutes), which is the
           maximum WebSocket duration limit for EVI.
@@ -248,7 +344,7 @@ types:
           Boolean indicating if this timeout is enabled.
 
 
-          If set to `false`, EVI will not timeout due to a specified maximum
+          If set to false, EVI will not timeout due to a specified maximum
           duration being reached. However, the conversation will eventually
           disconnect after 1,800 seconds (30 minutes), which is the maximum
           WebSocket duration limit for EVI.
@@ -258,7 +354,14 @@ types:
           Duration in seconds for the timeout (e.g. 600 seconds represents 10
           minutes).
   PostedTimeoutSpecs:
-    docs: Collection of timeout specs to be posted to the server
+    docs: >-
+      Collection of timeout specifications returned by the server.
+
+
+      Timeouts are sent by the server when specific time-based events occur
+      during a chat session. These specifications set the inactivity timeout and
+      the maximum duration an EVI WebSocket connection can stay open before it
+      is automatically disconnected.
     properties:
       inactivity:
         type: optional<PostedTimeoutSpecsInactivity>
@@ -289,8 +392,16 @@ types:
       version:
         type: optional<integer>
         docs: >-
-          Version number for a Tool. Version numbers should be integers. The
-          combination of configId and version number is unique.
+          Version number for a Tool.
+
+
+          Tools, as well as Configs and Prompts, are versioned. This versioning
+          system supports iterative development, allowing you to progressively
+          refine tools and revert to previous versions if needed.
+
+
+          Version numbers are integer values representing different iterations
+          of the Tool. Each update to the Tool increments its version number.
   PostedVoiceName:
     enum:
       - ITO
@@ -304,24 +415,38 @@ types:
     properties:
       provider:
         type: literal<"HUME_AI">
-        docs: The provider of the voice to use. Based on the enum VoiceProvider.
+        docs: >-
+          The provider of the voice to use. Currently, only `HUME_AI` is
+          supported as the voice provider.
       name:
         type: optional<PostedVoiceName>
         docs: >-
           String with the name of the voice to use. Maximum length of 75
           characters. Will be converted to all-uppercase.
+  ReturnBuiltinToolToolType:
+    enum:
+      - BUILTIN
+      - FUNCTION
+    docs: >-
+      Type of Tool. Either `BUILTIN` for natively implemented tools, like web
+      search, or `FUNCTION` for user-defined tools.
   ReturnBuiltinTool:
     docs: A specific builtin tool version returned from the server
     properties:
       tool_type:
-        type: string
-        docs: Type of Tool. Values from the ToolType enum.
+        type: ReturnBuiltinToolToolType
+        docs: >-
+          Type of Tool. Either `BUILTIN` for natively implemented tools, like
+          web search, or `FUNCTION` for user-defined tools.
       name:
         type: string
         docs: Name applied to all versions of a particular Tool.
       fallback_content:
         type: optional<string>
-        docs: Text to use if the tool fails to generate content.
+        docs: >-
+          Optional text passed to the supplemental LLM in place of the tool call
+          result. The LLM then uses this text to generate a response back to the
+          user, ensuring continuity in the conversation if the Tool errors.
   ReturnConfig:
     docs: A specific config version returned from the server
     properties:
@@ -331,30 +456,62 @@ types:
       version:
         type: optional<integer>
         docs: >-
-          Version number for a Config. Version numbers should be integers. The
-          combination of configId and version number is unique.
+          Version number for a Config.
+
+
+          Configs, as well as Prompts and Tools, are versioned. This versioning
+          system supports iterative development, allowing you to progressively
+          refine configurations and revert to previous versions if needed.
+
+
+          Version numbers are integer values representing different iterations
+          of the Config. Each update to the Config increments its version
+          number.
       version_description:
         type: optional<string>
-        docs: Description that is appended to a specific version of a Config.
+        docs: An optional description of the Config version.
       name:
         type: optional<string>
         docs: Name applied to all versions of a particular Config.
       created_on:
         type: optional<integer>
-        docs: The timestamp when the first version of this config was created.
+        docs: >-
+          Time at which the Config was created. Measured in seconds since the
+          Unix epoch.
       modified_on:
         type: optional<integer>
-        docs: The timestamp when this version of the config was created.
+        docs: >-
+          Time at which the Config was last modified. Measured in seconds since
+          the Unix epoch.
       prompt: optional<ReturnPrompt>
-      voice: optional<ReturnVoice>
-      language_model: optional<ReturnLanguageModel>
-      ellm_model: optional<ReturnEllmModel>
+      voice:
+        type: optional<ReturnVoice>
+        docs: A voice specification associated with this Config.
+      language_model:
+        type: optional<ReturnLanguageModel>
+        docs: >-
+          The supplemental language model associated with this Config.
+
+
+          This model is used to generate longer, more detailed responses from
+          EVI. Choosing an appropriate supplemental language model for your use
+          case is crucial for generating fast, high-quality responses from EVI.
+      ellm_model:
+        type: optional<ReturnEllmModel>
+        docs: >-
+          The eLLM setup associated with this Config.
+
+
+          Hume's eLLM (empathic Large Language Model) is a multimodal language
+          model that takes into account both expression measures and language.
+          The eLLM generates short, empathic language responses and guides
+          text-to-speech (TTS) prosody.
       tools:
         type: optional<list<optional<ReturnUserDefinedTool>>>
-        docs: List of user-defined tools associated with this config.
+        docs: List of user-defined tools associated with this Config.
       builtin_tools:
         type: optional<list<optional<ReturnBuiltinTool>>>
-        docs: List of built-in tools associated with this config
+        docs: List of built-in tools associated with this Config.
       event_messages: optional<ReturnEventMessageSpecs>
       timeouts: optional<ReturnTimeoutSpecs>
   ReturnEllmModel:
@@ -362,9 +519,10 @@ types:
     properties:
       allow_short_responses:
         type: boolean
-        docs: >-
-          Boolean indicating if the model is allowed to generate short
-          responses.
+        docs: |-
+          Boolean indicating if the eLLM is allowed to generate short responses.
+
+          If omitted, short responses from the eLLM are enabled by default.
   ReturnEventMessageSpec:
     docs: A specific event message configuration to be returned from the server
     properties:
@@ -374,52 +532,117 @@ types:
       text:
         type: optional<string>
         docs: >-
-          Optional text that will be used as a verbatim event message. If the
-          text is null and the event message is enabled, the system will
-          generate a message based using the language model.
+          Optional text to be used verbatim as the initial message. If not
+          provided and `event_messages` is enabled, the system will generate a
+          greeting from the Prompt using the supplemental language model.
   ReturnEventMessageSpecs:
-    docs: Collection of event_message specs to be returned from the server
+    docs: >-
+      Collection of event messages returned by the server.
+
+
+      Event messages are sent by the server when specific events occur during a
+      chat session. These messages are used to configure behaviors for EVI, such
+      as controlling how EVI starts a new conversation.
     properties:
       on_new_chat:
         type: optional<ReturnEventMessageSpec>
         docs: >-
-          `enabled` causes the LLM to generate an initial message using the
-          system prompt. `text` is the string to use verbatim as the initial
-          message.
+          `enabled` causes the supplemental LLM to generate an initial message
+          using the system prompt. `text` is the string to use verbatim as the
+          initial message.
+  ReturnLanguageModelModelProvider:
+    enum:
+      - OPEN_AI
+      - CUSTOM_LANGUAGE_MODEL
+      - ANTHROPIC
+      - FIREWORKS
+      - GROQ
+      - GOOGLE
+    docs: The provider of the supplemental language model.
   ReturnLanguageModel:
     docs: A specific LanguageModel
     properties:
       model_provider:
-        type: optional<string>
-        docs: The provider of this model. Based on the enum modelProvider.
+        type: optional<ReturnLanguageModelModelProvider>
+        docs: The provider of the supplemental language model.
       model_resource:
         type: optional<string>
-        docs: String that specifies the model to use with modelProvider.
+        docs: String that specifies the language model to use with `model_provider`.
       temperature:
         type: optional<double>
-        docs: Model temperature.
+        docs: >-
+          The model temperature, with values between 0 to 1 (inclusive).
+
+
+          Controls the randomness of the LLM’s output, with values closer to 0
+          yielding focused, deterministic responses and values closer to 1
+          producing more creative, diverse responses.
   ReturnTimeoutSpec:
     docs: A specific timeout configuration to be returned from the server
     properties:
       enabled:
         type: boolean
-        docs: Boolean indicating if this event message is enabled.
+        docs: >-
+          Boolean indicating if this timeout is enabled.
+
+
+          If set to false, EVI will not timeout due to a specified duration
+          being reached. However, the conversation will eventually disconnect
+          after 1,800 seconds (30 minutes), which is the maximum WebSocket
+          duration limit for EVI.
       duration_secs:
         type: optional<integer>
-        docs: Duration in seconds for the timeout.
+        docs: >-
+          Duration in seconds for the timeout (e.g. 600 seconds represents 10
+          minutes).
   ReturnTimeoutSpecs:
-    docs: Collection of timeout specs to be returned from the server
+    docs: >-
+      Collection of timeout specifications returned by the server.
+
+
+      Timeouts are sent by the server when specific time-based events occur
+      during a chat session. These specifications set the inactivity timeout and
+      the maximum duration an EVI WebSocket connection can stay open before it
+      is automatically disconnected.
     properties:
-      inactivity: ReturnTimeoutSpec
-      max_duration: ReturnTimeoutSpec
+      inactivity:
+        type: ReturnTimeoutSpec
+        docs: >-
+          Specifies the duration of user inactivity (in seconds) after which the
+          EVI WebSocket connection will be automatically disconnected. Default
+          is 600 seconds (10 minutes).
+
+
+          Accepts a minimum value of 1 second and a maximum value of 1,800
+          seconds.
+      max_duration:
+        type: ReturnTimeoutSpec
+        docs: >-
+          Specifies the maximum allowed duration (in seconds) for an EVI
+          WebSocket connection before it is automatically disconnected. Default
+          is 1,800 seconds (30 minutes).
+
+
+          Accepts a minimum value of 1 second and a maximum value of 1,800
+          seconds.
+  ReturnVoiceName:
+    enum:
+      - ITO
+      - DACHER
+      - KORA
+    docs: >-
+      String with the name of the voice to use. Maximum length of 75 characters.
+      Will be converted to all-uppercase.
   ReturnVoice:
     docs: A specific voice specification
     properties:
       provider:
-        type: string
-        docs: The provider of the voice to use. Based on the enum VoiceProvider.
+        type: literal<"HUME_AI">
+        docs: >-
+          The provider of the voice to use. Currently, only `HUME_AI` is
+          supported as the voice provider.
       name:
-        type: optional<string>
+        type: optional<ReturnVoiceName>
         docs: >-
           String with the name of the voice to use. Maximum length of 75
           characters. Will be converted to all-uppercase.
@@ -436,30 +659,54 @@ types:
     properties:
       page_number:
         type: integer
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: integer
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       tools_page:
-        docs: List of tools returned for the specified page number and page size.
+        docs: >-
+          List of tools returned for the specified `page_number` and
+          `page_size`.
         type: list<optional<ReturnUserDefinedTool>>
   ReturnPagedPrompts:
     docs: A paginated list of prompt versions returned from the server
     properties:
       page_number:
         type: integer
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: integer
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       prompts_page:
-        docs: List of prompts returned for the specified page number and page size.
+        docs: >-
+          List of prompts returned for the specified `page_number` and
+          `page_size`.
         type: list<optional<ReturnPrompt>>
   ReturnPagedCustomVoices:
     docs: A paginated list of custom voices returned from the server
@@ -483,45 +730,102 @@ types:
     properties:
       page_number:
         type: optional<integer>
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: optional<integer>
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       configs_page:
         type: optional<list<ReturnConfig>>
-        docs: List of prompts returned for the specified page number and page size.
+        docs: >-
+          List of configs returned for the specified `page_number` and
+          `page_size`.
+  ReturnChatStatus:
+    enum:
+      - ACTIVE
+      - USER_ENDED
+      - USER_TIMEOUT
+      - MAX_DURATION_TIMEOUT
+      - INACTIVITY_TIMEOUT
+      - ERROR
+    docs: >-
+      Indicates the current state of the chat. There are six possible statuses:
+
+
+      - `ACTIVE`: The chat is currently active and ongoing.
+
+
+      - `USER_ENDED`: The chat was manually ended by the user.
+
+
+      - `USER_TIMEOUT`: The chat ended due to a user-defined timeout.
+
+
+      - `MAX_DURATION_TIMEOUT`: The chat ended because it reached the maximum
+      allowed duration.
+
+
+      - `INACTIVITY_TIMEOUT`: The chat ended due to an inactivity timeout.
+
+
+      - `ERROR`: The chat ended unexpectedly due to an error.
   ReturnChat:
     docs: A description of chat and its status
     properties:
       id:
         type: string
-        docs: Identifier for a chat. Formatted as a UUID.
+        docs: Identifier for a Chat. Formatted as a UUID.
       chat_group_id:
         type: string
         docs: >-
-          Identifier for the chat group. Any chat resumed from this chat will
-          have the same chat_group_id. Formatted as a UUID.
-      tag:
-        type: optional<string>
-        docs: >-
-          Optional tag applied to this chat used to group chats by user,
-          application, etc.
+          Identifier for the Chat Group. Any chat resumed from this Chat will
+          have the same `chat_group_id`. Formatted as a UUID.
       status:
-        type: string
-        docs: The status of the chat. Values from the ChatStatus enum.
+        type: ReturnChatStatus
+        docs: >-
+          Indicates the current state of the chat. There are six possible
+          statuses:
+
+
+          - `ACTIVE`: The chat is currently active and ongoing.
+
+
+          - `USER_ENDED`: The chat was manually ended by the user.
+
+
+          - `USER_TIMEOUT`: The chat ended due to a user-defined timeout.
+
+
+          - `MAX_DURATION_TIMEOUT`: The chat ended because it reached the
+          maximum allowed duration.
+
+
+          - `INACTIVITY_TIMEOUT`: The chat ended due to an inactivity timeout.
+
+
+          - `ERROR`: The chat ended unexpectedly due to an error.
       start_timestamp:
         type: integer
         docs: >-
-          The timestamp when the chat started, formatted as a Unix epoch
-          milliseconds.
+          Time at which the Chat started. Measured in seconds since the Unix
+          epoch.
       end_timestamp:
         type: optional<integer>
         docs: >-
-          The timestamp when the chat ended, formatted as a Unix epoch
-          milliseconds.
+          Time at which the Chat ended. Measured in seconds since the Unix
+          epoch.
       event_count:
         type: optional<integer>
         docs: The total number of events currently in this chat.
@@ -530,7 +834,7 @@ types:
         docs: Stringified JSON with additional metadata about the chat.
       config: optional<ReturnConfigSpec>
   ReturnConfigSpec:
-    docs: An id/version number for a specific config version
+    docs: The Config associated with this Chat.
     properties:
       id:
         type: string
@@ -538,63 +842,236 @@ types:
       version:
         type: optional<integer>
         docs: >-
-          Version number for a Config. Version numbers should be integers. The
-          combination of configId and version number is unique.
+          Version number for a Config.
+
+
+          Configs, as well as Prompts and Tools, are versioned. This versioning
+          system supports iterative development, allowing you to progressively
+          refine configurations and revert to previous versions if needed.
+
+
+          Version numbers are integer values representing different iterations
+          of the Config. Each update to the Config increments its version
+          number.
+  ReturnPagedChatsPaginationDirection:
+    enum:
+      - ASC
+      - DESC
+    docs: >-
+      Indicates the order in which the paginated results are presented, based on
+      their creation date.
+
+
+      It shows `ASC` for ascending order (chronological, with the oldest records
+      first) or `DESC` for descending order (reverse-chronological, with the
+      newest records first). This value corresponds to the `ascending_order`
+      query parameter used in the request.
   ReturnPagedChats:
     docs: A paginated list of chats returned from the server
     properties:
       page_number:
         type: integer
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: integer
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       pagination_direction:
-        type: string
-        docs: The direction of the pagination (ASC or DESC).
+        type: ReturnPagedChatsPaginationDirection
+        docs: >-
+          Indicates the order in which the paginated results are presented,
+          based on their creation date.
+
+
+          It shows `ASC` for ascending order (chronological, with the oldest
+          records first) or `DESC` for descending order (reverse-chronological,
+          with the newest records first). This value corresponds to the
+          `ascending_order` query parameter used in the request.
       chats_page:
         docs: >-
-          List of chats and their metadata returned for the specified page
-          number and page size.
+          List of Chats and their metadata returned for the specified
+          `page_number` and `page_size`.
         type: list<ReturnChat>
+  ReturnChatEventRole:
+    enum:
+      - USER
+      - AGENT
+      - SYSTEM
+      - TOOL
+    docs: >-
+      The role of the entity which generated the Chat Event. There are four
+      possible values:
+
+
+      - `USER`: The user, capable of sending user messages and interruptions.
+
+
+      - `AGENT`: The assistant, capable of sending agent messages.
+
+
+      - `SYSTEM`: The backend server, capable of transmitting errors.
+
+
+      - `TOOL`: The function calling mechanism.
+  ReturnChatEventType:
+    enum:
+      - SYSTEM_PROMPT
+      - USER_MESSAGE
+      - USER_INTERRUPTION
+      - AGENT_MESSAGE
+      - FUNCTION_CALL
+      - FUNCTION_CALL_RESPONSE
+    docs: >-
+      Type of Chat Event. There are six possible values:
+
+
+      - `SYSTEM_PROMPT`: Contains the system prompt for use in the session.
+
+
+      - `USER_MESSAGE`: Contains the message sent by the user.
+
+
+      - `USER_INTERRUPTION`: Contains an interruption made by the user while the
+      agent is speaking.
+
+
+      - `AGENT_MESSAGE`: Contains the assistant’s message, generated by Hume’s
+      eLLM and supplemental LLM.
+
+
+      - `FUNCTION_CALL`: Contains the invocation of a tool.
+
+
+      - `FUNCTION_CALL_RESPONSE`: Contains the tool response.
   ReturnChatEvent:
     docs: A description of a single event in a chat returned from the server
     properties:
       id:
         type: string
-        docs: Identifier for a chat event. Formatted as a UUID.
+        docs: Identifier for a Chat Event. Formatted as a UUID.
       chat_id:
         type: string
-        docs: Identifier for the chat this event occurred in. Formatted as a UUID.
+        docs: Identifier for the Chat this event occurred in. Formatted as a UUID.
       timestamp:
         type: integer
         docs: >-
-          The timestamp when the chat event occurred, formatted as a Unix epoch
-          milliseconds.
+          Time at which the Chat Event occurred. Measured in seconds since the
+          Unix epoch.
       role:
-        type: string
+        type: ReturnChatEventRole
         docs: >-
-          The role of the user who generated the chat event. Values from the
-          Role enum.
+          The role of the entity which generated the Chat Event. There are four
+          possible values:
+
+
+          - `USER`: The user, capable of sending user messages and
+          interruptions.
+
+
+          - `AGENT`: The assistant, capable of sending agent messages.
+
+
+          - `SYSTEM`: The backend server, capable of transmitting errors.
+
+
+          - `TOOL`: The function calling mechanism.
       type:
-        type: string
-        docs: The type of chat event. Values from the ChatEventType enum.
+        type: ReturnChatEventType
+        docs: >-
+          Type of Chat Event. There are six possible values:
+
+
+          - `SYSTEM_PROMPT`: Contains the system prompt for use in the session.
+
+
+          - `USER_MESSAGE`: Contains the message sent by the user.
+
+
+          - `USER_INTERRUPTION`: Contains an interruption made by the user while
+          the agent is speaking.
+
+
+          - `AGENT_MESSAGE`: Contains the assistant’s message, generated by
+          Hume’s eLLM and supplemental LLM.
+
+
+          - `FUNCTION_CALL`: Contains the invocation of a tool.
+
+
+          - `FUNCTION_CALL_RESPONSE`: Contains the tool response.
       message_text:
         type: optional<string>
         docs: >-
-          The text of the chat message, either transcribed from speaker audio or
-          generated by the agent.
+          The text of the Chat Event. This field contains the message content
+          for each event type listed in the `type` field.
       emotion_features:
         type: optional<string>
         docs: >-
-          Stringified JSON with data about emotional content/prosody of the
-          event.
+          Stringified JSON containing the prosody model inference results.
+
+
+          EVI uses the prosody model to measure 48 expressions related to speech
+          and vocal characteristics. These results contain a detailed emotional
+          and tonal analysis of the audio. Scores typically range from 0 to 1,
+          with higher values indicating a stronger confidence level in the
+          measured attribute.
       metadata:
         type: optional<string>
         docs: Stringified JSON with additional metadata about the chat event.
+  ReturnChatPagedEventsStatus:
+    enum:
+      - ACTIVE
+      - USER_ENDED
+      - USER_TIMEOUT
+      - MAX_DURATION_TIMEOUT
+      - INACTIVITY_TIMEOUT
+      - ERROR
+    docs: >-
+      Indicates the current state of the chat. There are six possible statuses:
+
+
+      - `ACTIVE`: The chat is currently active and ongoing.
+
+
+      - `USER_ENDED`: The chat was manually ended by the user.
+
+
+      - `USER_TIMEOUT`: The chat ended due to a user-defined timeout.
+
+
+      - `MAX_DURATION_TIMEOUT`: The chat ended because it reached the maximum
+      allowed duration.
+
+
+      - `INACTIVITY_TIMEOUT`: The chat ended due to an inactivity timeout.
+
+
+      - `ERROR`: The chat ended unexpectedly due to an error.
+  ReturnChatPagedEventsPaginationDirection:
+    enum:
+      - ASC
+      - DESC
+    docs: >-
+      Indicates the order in which the paginated results are presented, based on
+      their creation date.
+
+
+      It shows `ASC` for ascending order (chronological, with the oldest records
+      first) or `DESC` for descending order (reverse-chronological, with the
+      newest records first). This value corresponds to the `ascending_order`
+      query parameter used in the request.
   ReturnChatPagedEvents:
     docs: >-
       A description of chat status with a paginated list of chat events returned
@@ -602,48 +1079,82 @@ types:
     properties:
       id:
         type: string
-        docs: Identifier for a chat. Formatted as a UUID.
+        docs: Identifier for a Chat. Formatted as a UUID.
       chat_group_id:
         type: string
         docs: >-
-          Identifier for the chat group. Any chat resumed from this chat will
-          have the same chat_group_id. Formatted as a UUID.
-      tag:
-        type: optional<string>
-        docs: >-
-          Optional tag applied to this chat used to group chats by user,
-          application, etc.
+          Identifier for the Chat Group. Any chat resumed from this Chat will
+          have the same `chat_group_id`. Formatted as a UUID.
       status:
-        type: string
-        docs: The status of the chat. Values from the ChatStatus enum.
+        type: ReturnChatPagedEventsStatus
+        docs: >-
+          Indicates the current state of the chat. There are six possible
+          statuses:
+
+
+          - `ACTIVE`: The chat is currently active and ongoing.
+
+
+          - `USER_ENDED`: The chat was manually ended by the user.
+
+
+          - `USER_TIMEOUT`: The chat ended due to a user-defined timeout.
+
+
+          - `MAX_DURATION_TIMEOUT`: The chat ended because it reached the
+          maximum allowed duration.
+
+
+          - `INACTIVITY_TIMEOUT`: The chat ended due to an inactivity timeout.
+
+
+          - `ERROR`: The chat ended unexpectedly due to an error.
       start_timestamp:
         type: integer
         docs: >-
-          The timestamp when the chat started, formatted as a Unix epoch
-          milliseconds.
+          Time at which the Chat started. Measured in seconds since the Unix
+          epoch.
       end_timestamp:
         type: optional<integer>
         docs: >-
-          The timestamp when the chat ended, formatted as a Unix epoch
-          milliseconds.
+          Time at which the Chat ended. Measured in seconds since the Unix
+          epoch.
       pagination_direction:
-        type: string
-        docs: The direction of the pagination (ASC or DESC).
+        type: ReturnChatPagedEventsPaginationDirection
+        docs: >-
+          Indicates the order in which the paginated results are presented,
+          based on their creation date.
+
+
+          It shows `ASC` for ascending order (chronological, with the oldest
+          records first) or `DESC` for descending order (reverse-chronological,
+          with the newest records first). This value corresponds to the
+          `ascending_order` query parameter used in the request.
       events_page:
-        docs: List of chat events with the specified page number and page size.
+        docs: List of Chat Events for the specified `page_number` and `page_size`.
         type: list<ReturnChatEvent>
       metadata:
         type: optional<string>
         docs: Stringified JSON with additional metadata about the chat.
       page_number:
         type: integer
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: integer
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       config: optional<ReturnConfigSpec>
   ReturnActiveChatCount:
     docs: A description of current chat chat sessions for a user
@@ -680,46 +1191,77 @@ types:
       id:
         type: string
         docs: >-
-          Identifier for the chat group. Any chat resumed from this chat will
-          have the same chat_group_id. Formatted as a UUID.
+          Identifier for the Chat Group. Any Chat resumed from this Chat Group
+          will have the same `chat_group_id`. Formatted as a UUID.
       first_start_timestamp:
         type: integer
         docs: >-
-          The timestamp when the first chat in this chat group started,
-          formatted as a Unix epoch milliseconds.
+          Time at which the first Chat in this Chat Group was created. Measured
+          in seconds since the Unix epoch.
       most_recent_start_timestamp:
         type: integer
         docs: >-
-          The timestamp when the most recent chat in this chat group started,
-          formatted as a Unix epoch milliseconds.
+          Time at which the most recent Chat in this Chat Group was created.
+          Measured in seconds since the Unix epoch.
       most_recent_chat_id:
         type: optional<string>
         docs: >-
-          The chat_id of the most recent chat in this chat group. Formatted as a
-          UUID.
+          The `chat_id` of the most recent Chat in this Chat Group. Formatted as
+          a UUID.
       num_chats:
         type: integer
-        docs: The total number of chats in this chat group.
+        docs: The total number of Chats in this Chat Group.
       active: optional<boolean>
+  ReturnPagedChatGroupsPaginationDirection:
+    enum:
+      - ASC
+      - DESC
+    docs: >-
+      Indicates the order in which the paginated results are presented, based on
+      their creation date.
+
+
+      It shows `ASC` for ascending order (chronological, with the oldest records
+      first) or `DESC` for descending order (reverse-chronological, with the
+      newest records first). This value corresponds to the `ascending_order`
+      query parameter used in the request.
   ReturnPagedChatGroups:
     docs: A paginated list of chat_groups returned from the server
     properties:
       page_number:
         type: integer
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: integer
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       pagination_direction:
-        type: string
-        docs: The direction of the pagination (ASC or DESC).
+        type: ReturnPagedChatGroupsPaginationDirection
+        docs: >-
+          Indicates the order in which the paginated results are presented,
+          based on their creation date.
+
+
+          It shows `ASC` for ascending order (chronological, with the oldest
+          records first) or `DESC` for descending order (reverse-chronological,
+          with the newest records first). This value corresponds to the
+          `ascending_order` query parameter used in the request.
       chat_groups_page:
         docs: >-
-          List of chat_groups and their metadata returned for the specified page
-          number and page size.
+          List of Chat Groups and their metadata returned for the specified
+          `page_number` and `page_size`.
         type: list<ReturnChatGroup>
   ReturnChatGroupPagedChats:
     docs: >-
@@ -762,6 +1304,19 @@ types:
           number and page size.
         type: list<ReturnChat>
       active: optional<boolean>
+  ReturnChatGroupPagedEventsPaginationDirection:
+    enum:
+      - ASC
+      - DESC
+    docs: >-
+      Indicates the order in which the paginated results are presented, based on
+      their creation date.
+
+
+      It shows `ASC` for ascending order (chronological, with the oldest records
+      first) or `DESC` for descending order (reverse-chronological, with the
+      newest records first). This value corresponds to the `ascending_order`
+      query parameter used in the request.
   ReturnChatGroupPagedEvents:
     docs: >-
       A paginated list of chat events that occurred across chats in this
@@ -770,24 +1325,40 @@ types:
       id:
         type: string
         docs: >-
-          Identifier for the chat group. Any chat resumed from this chat will
-          have the same chat_group_id. Formatted as a UUID.
+          Identifier for the Chat Group. Any Chat resumed from this Chat Group
+          will have the same `chat_group_id`. Formatted as a UUID.
       page_number:
         type: integer
-        docs: The page number of the returned results.
+        docs: >-
+          The page number of the returned list.
+
+
+          This value corresponds to the `page_number` parameter specified in the
+          request. Pagination uses zero-based indexing.
       page_size:
         type: integer
-        docs: The number of results returned per page.
+        docs: >-
+          The maximum number of items returned per page.
+
+
+          This value corresponds to the `page_size` parameter specified in the
+          request.
       total_pages:
         type: integer
-        docs: The total number of pages in the collection
+        docs: The total number of pages in the collection.
       pagination_direction:
-        type: string
-        docs: The direction of the pagination (ASC or DESC).
-      events_page:
+        type: ReturnChatGroupPagedEventsPaginationDirection
         docs: >-
-          List of chat_events returned for the specified page number and page
-          size.
+          Indicates the order in which the paginated results are presented,
+          based on their creation date.
+
+
+          It shows `ASC` for ascending order (chronological, with the oldest
+          records first) or `DESC` for descending order (reverse-chronological,
+          with the newest records first). This value corresponds to the
+          `ascending_order` query parameter used in the request.
+      events_page:
+        docs: List of Chat Events for the specified `page_number` and `page_size`.
         type: list<ReturnChatEvent>
   AssistantInput:
     docs: When provided, the input is spoken by EVI.
@@ -922,7 +1493,7 @@ types:
   PauseAssistantMessage:
     docs: >-
       Pause responses from EVI. Chat history is still saved and sent after
-      resuming.
+      resuming. 
     properties:
       type:
         type: literal<"pause_assistant_message">
@@ -945,7 +1516,7 @@ types:
   ResumeAssistantMessage:
     docs: >-
       Resume responses from EVI. Chat history sent while paused will now be
-      sent.
+      sent. 
     properties:
       type:
         type: literal<"resume_assistant_message">

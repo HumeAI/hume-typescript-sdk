@@ -6,8 +6,8 @@
  * Settings for a specific event_message to be posted to the server
  */
 export interface PostedEventMessageSpec {
-  /** Boolean indicating if this event message is enabled. */
-  enabled: boolean;
-  /** Optional text that will be used as a verbatim event message. If the text is null and the event message is enabled, the system will generate a message based using the language model. */
-  text?: string;
+    /** Boolean indicating if this event message is enabled. */
+    enabled: boolean;
+    /** Optional text to be used verbatim as the initial message. If not provided and `event_messages` is enabled, the system will generate a greeting from the Prompt using the supplemental language model. */
+    text?: string;
 }
