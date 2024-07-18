@@ -111,12 +111,12 @@ const hume = new HumeClient({
 
 const socket = hume.empathicVoice.chat.connect();
 
-socket.on('message', (message) => {
-  if (message.type === "audio_output") {
-      const decoded = Buffer.from(message.data, "base64");
-      // play decoded message
-  }
-})
+socket.on("message", (message) => {
+    if (message.type === "audio_output") {
+        const decoded = Buffer.from(message.data, "base64");
+        // play decoded message
+    }
+});
 
 // optional utility to wait for socket to be open
 await socket.tillSocketOpen();

@@ -45,14 +45,14 @@ export class StreamSocket {
         }
         let contents = "";
         if (file instanceof fs.ReadStream) {
-            const chunks = [];
+            const chunks: Buffer[] = [];
             for await (const chunk of file) {
                 chunks.push(Buffer.from(chunk));
             }
             contents = Buffer.concat(chunks).toString("base64");
         } else if (file instanceof Blob) {
             const toBase64 = (file: Blob): Promise<string> =>
-                new Promise((res, err) => {
+                new Promise((res) => {
                     const reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = () => res(reader.result as string);
@@ -175,7 +175,7 @@ export class StreamSocket {
         this.websocket.send(JSON.stringify(jsonPayload));
         const response = await new Promise<
             Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError | undefined
-        >((resolve, reject) => {
+        >((resolve) => {
             this.websocket.addEventListener("message", (event) => {
                 const response = parse(event.data);
                 resolve(response);

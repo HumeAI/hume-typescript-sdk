@@ -70,9 +70,9 @@ async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse
     const maybeStringifyBody = (body: any) => {
         if (body instanceof Uint8Array) {
             return body;
-        } else if (args.contentType ===  "application/x-www-form-urlencoded" &&  typeof args.body === "string") {
+        } else if (args.contentType === "application/x-www-form-urlencoded" && typeof args.body === "string") {
             return args.body;
-        }  else {
+        } else {
             return JSON.stringify(body);
         }
     };

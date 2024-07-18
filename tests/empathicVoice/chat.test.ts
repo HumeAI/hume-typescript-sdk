@@ -3,7 +3,7 @@ import { HumeClient } from "../../src/";
 describe("Empathic Voice Interface", () => {
     it.skip("Chat", async () => {
         const hume = new HumeClient({
-            accessToken: '<>'
+            accessToken: "<>",
         });
 
         const socket = hume.empathicVoice.chat.connect({
@@ -20,7 +20,5 @@ describe("Empathic Voice Interface", () => {
         });
 
         socket.sendUserInput("Hello, how are you?");
-
-
     }, 100000);
 });
