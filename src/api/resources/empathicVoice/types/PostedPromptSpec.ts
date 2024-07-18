@@ -6,8 +6,8 @@
  * A specific prompt identifier to be posted to the server
  */
 export interface PostedPromptSpec {
-    /** Identifier for a Prompt. Formatted as a UUID. */
-    id: string;
-    /** Version number for a Prompt. Version numbers should be integers. The combination of configId and version number is unique. */
-    version?: number;
+  /** Identifier for a Prompt. Formatted as a UUID. */
+  id: string;
+  /** Version number for a Prompt. Version numbers should be integers. The combination of configId and version number is unique. */
+  version?: number;
 }

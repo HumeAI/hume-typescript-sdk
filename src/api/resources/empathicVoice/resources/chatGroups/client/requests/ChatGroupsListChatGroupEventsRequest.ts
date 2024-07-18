@@ -7,16 +7,16 @@
  *     {}
  */
 export interface ChatGroupsListChatGroupEventsRequest {
-    /**
-     * The maximum number of results to include per page.
-     */
-    pageSize?: number;
-    /**
-     * The page number of the results to return.
-     */
-    pageNumber?: number;
-    /**
-     * Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true.
-     */
-    ascendingOrder?: boolean;
+  /**
+   * The maximum number of results to include per page.
+   */
+  pageSize?: number;
+  /**
+   * The page number of the results to return.
+   */
+  pageNumber?: number;
+  /**
+   * Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true.
+   */
+  ascendingOrder?: boolean;
 }

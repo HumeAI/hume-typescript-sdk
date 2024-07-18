@@ -6,6 +6,6 @@
  * A eLLM model configuration to be posted to the server
  */
 export interface PostedEllmModel {
-    /** Boolean indicating if the model is allowed to generate short responses. */
-    allowShortResponses?: boolean;
+  /** Boolean indicating if the model is allowed to generate short responses. */
+  allowShortResponses?: boolean;
 }

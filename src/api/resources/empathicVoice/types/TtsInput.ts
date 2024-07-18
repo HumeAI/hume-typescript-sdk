@@ -3,5 +3,5 @@
  */
 
 export interface TtsInput {
-    type?: "tts";
+  type?: 'tts';
 }

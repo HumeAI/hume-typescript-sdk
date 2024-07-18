@@ -7,16 +7,16 @@
  *     {}
  */
 export interface ConfigsListConfigVersionsRequest {
-    /**
-     * The page number of the results to return.
-     */
-    pageNumber?: number;
-    /**
-     * The maximum number of results to include per page.
-     */
-    pageSize?: number;
-    /**
-     * Only include the most recent version of each config in the list.
-     */
-    restrictToMostRecent?: boolean;
+  /**
+   * The page number of the results to return.
+   */
+  pageNumber?: number;
+  /**
+   * The maximum number of results to include per page.
+   */
+  pageSize?: number;
+  /**
+   * Only include the most recent version of each config in the list.
+   */
+  restrictToMostRecent?: boolean;
 }

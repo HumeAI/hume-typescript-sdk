@@ -7,6 +7,6 @@
  *     {}
  */
 export interface PostedConfigVersionDescription {
-    /** Description that is appended to a specific version of a Config. */
-    versionDescription?: string;
+  /** Description that is appended to a specific version of a Config. */
+  versionDescription?: string;
 }

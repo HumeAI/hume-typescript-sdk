@@ -6,18 +6,18 @@
  * When provided, the output is an error message.
  */
 export interface WebSocketError {
-    /**
-     * The type of message sent through the socket; for a Web Socket Error message, this must be `error`.
-     *
-     * This message indicates a disruption in the WebSocket connection, such as an unexpected disconnection, protocol error, or data transmission issue.
-     */
-    type: "error";
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
-    /** Error code. Identifies the type of error encountered. */
-    code: string;
-    /** Short, human-readable identifier and description for the error. See a complete list of error slugs on the [Errors page](/docs/resources/errors). */
-    slug: string;
-    /** Detailed description of the error. */
-    message: string;
+  /**
+   * The type of message sent through the socket; for a Web Socket Error message, this must be `error`.
+   *
+   * This message indicates a disruption in the WebSocket connection, such as an unexpected disconnection, protocol error, or data transmission issue.
+   */
+  type: 'error';
+  /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+  customSessionId?: string;
+  /** Error code. Identifies the type of error encountered. */
+  code: string;
+  /** Short, human-readable identifier and description for the error. See a complete list of error slugs on the [Errors page](/docs/resources/errors). */
+  slug: string;
+  /** Detailed description of the error. */
+  message: string;
 }

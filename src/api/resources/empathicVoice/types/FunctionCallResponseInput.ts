@@ -3,5 +3,5 @@
  */
 
 export interface FunctionCallResponseInput {
-    type?: "function_call_response";
+  type?: 'function_call_response';
 }
