@@ -56,10 +56,14 @@ export class Chat {
             }
         }
 
-        const socket = new core.ReconnectingWebSocket(`wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`, [], {
-            debug: args.debug ?? false,
-            maxRetries: args.reconnectAttempts ?? 30, 
-        });
+        const socket = new core.ReconnectingWebSocket(
+            `wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`,
+            [],
+            {
+                debug: args.debug ?? false,
+                maxRetries: args.reconnectAttempts ?? 30,
+            }
+        );
 
         return new ChatSocket({
             socket,

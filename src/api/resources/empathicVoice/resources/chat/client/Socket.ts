@@ -18,7 +18,7 @@ export declare namespace ChatSocket {
     };
 }
 
-export class ChatSocket{
+export class ChatSocket {
     public readonly socket: core.ReconnectingWebSocket;
     public readonly readyState: number;
 
@@ -28,16 +28,16 @@ export class ChatSocket{
         this.socket = socket;
         this.readyState = socket.readyState;
 
-        this.socket.addEventListener('open', this.handleOpen);
-        this.socket.addEventListener('message', this.handleMessage);
-        this.socket.addEventListener('close', this.handleClose);
-        this.socket.addEventListener('error', this.handleError);
+        this.socket.addEventListener("open", this.handleOpen);
+        this.socket.addEventListener("message", this.handleMessage);
+        this.socket.addEventListener("close", this.handleClose);
+        this.socket.addEventListener("error", this.handleError);
     }
 
     /**
      * @param event - The event to attach to.
      * @param callback - The callback to run when the event is triggered.
-     * 
+     *
      * @example
      * ```ts
      * const socket = hume.empathicVoice.chat.connect({ apiKey: "...." });
@@ -146,10 +146,10 @@ export class ChatSocket{
     public connect(): ChatSocket {
         this.socket.reconnect();
 
-        this.socket.addEventListener('open', this.handleOpen);
-        this.socket.addEventListener('message', this.handleMessage);
-        this.socket.addEventListener('close', this.handleClose);
-        this.socket.addEventListener('error', this.handleError);
+        this.socket.addEventListener("open", this.handleOpen);
+        this.socket.addEventListener("message", this.handleMessage);
+        this.socket.addEventListener("close", this.handleClose);
+        this.socket.addEventListener("error", this.handleError);
 
         return this;
     }
@@ -162,10 +162,10 @@ export class ChatSocket{
 
         this.handleClose({ code: 1000 } as CloseEvent);
 
-        this.socket.removeEventListener('open', this.handleOpen);
-        this.socket.removeEventListener('message', this.handleMessage);
-        this.socket.removeEventListener('close', this.handleClose);
-        this.socket.removeEventListener('error', this.handleError);
+        this.socket.removeEventListener("open", this.handleOpen);
+        this.socket.removeEventListener("message", this.handleMessage);
+        this.socket.removeEventListener("close", this.handleClose);
+        this.socket.removeEventListener("error", this.handleError);
     }
 
     public async tillSocketOpen(): Promise<core.ReconnectingWebSocket> {
@@ -185,11 +185,11 @@ export class ChatSocket{
 
     private assertSocketIsOpen(): void {
         if (!this.socket) {
-            throw new errors.HumeError({ message: 'Socket is not connected.'});
+            throw new errors.HumeError({ message: "Socket is not connected." });
         }
-      
+
         if (this.socket.readyState !== core.ReconnectingWebSocket.OPEN) {
-            throw new errors.HumeError({ message: 'Socket is not open.' });
+            throw new errors.HumeError({ message: "Socket is not open." });
         }
     }
 
@@ -204,7 +204,7 @@ export class ChatSocket{
         this.eventHandlers.open?.();
     };
 
-    private handleMessage = (event: { data: any}): void => {
+    private handleMessage = (event: { data: any }): void => {
         const data = JSON.parse(event.data);
 
         const parsedResponse = serializers.empathicVoice.SubscribeEvent.parse(data, {
@@ -225,7 +225,7 @@ export class ChatSocket{
     };
 
     private handleError = (event: core.ErrorEvent) => {
-        const message = event.message ?? 'core.ReconnectingWebSocket error';
+        const message = event.message ?? "core.ReconnectingWebSocket error";
         this.eventHandlers.error?.(new Error(message));
     };
 }

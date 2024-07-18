@@ -14,7 +14,7 @@ import { z } from "zod";
  *     apiKey: 'test',
  *     secretKey: 'test',
  *   });
- * 
+ *
  *   console.log(accessToken); // Outputs the access token
  * }
  * ```
@@ -60,9 +60,13 @@ export const fetchAccessToken = async ({
                     return data.access_token;
                 })
                 .safeParse(data);
-        }).catch(() => ({
-          success: false
-        } as const));
+        })
+        .catch(
+            () =>
+                ({
+                    success: false,
+                } as const)
+        );
 
     if (!response.success) {
         return null;
