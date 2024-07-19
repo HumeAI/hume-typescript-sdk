@@ -115,8 +115,8 @@ async function fetcherImpl<R = unknown>(
         // https://github.com/node-fetch/node-fetch/issues/450#issuecomment-387045223
         ((await import('node-fetch')).default as any)
       : typeof fetch == 'function'
-      ? fetch
-      : ((await import('node-fetch')).default as any);
+        ? fetch
+        : ((await import('node-fetch')).default as any);
 
   const makeRequest = async (): Promise<Response> => {
     const signals: AbortSignal[] = [];
