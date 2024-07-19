@@ -28,5 +28,5 @@ export type inferParsedDiscriminant<D extends string | Discriminant<any, any>> =
   D extends string
     ? D
     : D extends Discriminant<any, infer Parsed>
-    ? Parsed
-    : never;
+      ? Parsed
+      : never;

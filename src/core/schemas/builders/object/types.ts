@@ -53,19 +53,21 @@ export type PropertySchemas<ParsedKeys extends string | number | symbol> =
 
 export type inferRawPropertySchema<
   P extends Property<any, any, any> | Schema<any, any>,
-> = P extends Property<any, infer Raw, any>
-  ? Raw
-  : P extends Schema<any, any>
-  ? inferRaw<P>
-  : never;
+> =
+  P extends Property<any, infer Raw, any>
+    ? Raw
+    : P extends Schema<any, any>
+      ? inferRaw<P>
+      : never;
 
 export type inferParsedPropertySchema<
   P extends Property<any, any, any> | Schema<any, any>,
-> = P extends Property<any, any, infer Parsed>
-  ? Parsed
-  : P extends Schema<any, any>
-  ? inferParsed<P>
-  : never;
+> =
+  P extends Property<any, any, infer Parsed>
+    ? Parsed
+    : P extends Schema<any, any>
+      ? inferParsed<P>
+      : never;
 
 export type inferRawKey<
   ParsedKey extends string | number | symbol,
