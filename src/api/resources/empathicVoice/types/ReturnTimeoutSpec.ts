@@ -6,8 +6,12 @@
  * A specific timeout configuration to be returned from the server
  */
 export interface ReturnTimeoutSpec {
-  /** Boolean indicating if this event message is enabled. */
-  enabled: boolean;
-  /** Duration in seconds for the timeout. */
-  durationSecs?: number;
+    /**
+     * Boolean indicating if this timeout is enabled.
+     *
+     * If set to false, EVI will not timeout due to a specified duration being reached. However, the conversation will eventually disconnect after 1,800 seconds (30 minutes), which is the maximum WebSocket duration limit for EVI.
+     */
+    enabled: boolean;
+    /** Duration in seconds for the timeout (e.g. 600 seconds represents 10 minutes). */
+    durationSecs?: number;
 }
