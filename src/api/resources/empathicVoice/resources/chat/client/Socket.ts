@@ -239,7 +239,6 @@ export class ChatSocket {
     if (parsedResponse.ok) {
       this.eventHandlers.message?.({
         ...parsedResponse.value,
-        receivedAt: new Date(),
       });
     } else {
       this.eventHandlers.error?.(new Error(`Received unknown message type`));
