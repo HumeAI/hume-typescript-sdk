@@ -3,21 +3,21 @@
  */
 
 /**
- * The provider of this model. Based on the enum modelProvider.
+ * The provider of the supplemental language model.
  */
 export type PostedLanguageModelModelProvider =
-  | 'OPEN_AI'
-  | 'CUSTOM_LANGUAGE_MODEL'
-  | 'ANTHROPIC'
-  | 'FIREWORKS'
-  | 'GROQ'
-  | 'GOOGLE';
+    | "OPEN_AI"
+    | "CUSTOM_LANGUAGE_MODEL"
+    | "ANTHROPIC"
+    | "FIREWORKS"
+    | "GROQ"
+    | "GOOGLE";
 
 export const PostedLanguageModelModelProvider = {
-  OpenAi: 'OPEN_AI',
-  CustomLanguageModel: 'CUSTOM_LANGUAGE_MODEL',
-  Anthropic: 'ANTHROPIC',
-  Fireworks: 'FIREWORKS',
-  Groq: 'GROQ',
-  Google: 'GOOGLE',
+    OpenAi: "OPEN_AI",
+    CustomLanguageModel: "CUSTOM_LANGUAGE_MODEL",
+    Anthropic: "ANTHROPIC",
+    Fireworks: "FIREWORKS",
+    Groq: "GROQ",
+    Google: "GOOGLE",
 } as const;

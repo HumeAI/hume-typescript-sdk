@@ -3,12 +3,12 @@
  */
 
 export interface Failed {
-  /** When this job was created (Unix timestamp in milliseconds). */
-  createdTimestampMs: number;
-  /** When this job started (Unix timestamp in milliseconds). */
-  startedTimestampMs: number;
-  /** When this job ended (Unix timestamp in milliseconds). */
-  endedTimestampMs: number;
-  /** An error message. */
-  message: string;
+    /** When this job was created (Unix timestamp in milliseconds). */
+    createdTimestampMs: number;
+    /** When this job started (Unix timestamp in milliseconds). */
+    startedTimestampMs: number;
+    /** When this job ended (Unix timestamp in milliseconds). */
+    endedTimestampMs: number;
+    /** An error message. */
+    message: string;
 }

@@ -6,8 +6,8 @@
  * Position of a segment of text within a larger document, measured in characters. Uses zero-based indexing. The beginning index is inclusive and the end index is exclusive.
  */
 export interface TextPosition {
-  /** The index of the first character in the text segment, inclusive. */
-  begin?: number;
-  /** The index of the last character in the text segment, exclusive. */
-  end?: number;
+    /** The index of the first character in the text segment, inclusive. */
+    begin?: number;
+    /** The index of the last character in the text segment, exclusive. */
+    end?: number;
 }
