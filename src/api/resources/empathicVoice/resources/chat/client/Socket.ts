@@ -8,7 +8,7 @@ export declare namespace ChatSocket {
     socket: core.ReconnectingWebSocket;
   }
 
-  type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: Date };
+  type Response = Hume.empathicVoice.SubscribeEvent;
 
   type EventHandlers = {
     open?: () => void;
