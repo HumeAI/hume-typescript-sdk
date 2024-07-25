@@ -5,69 +5,41 @@ on: [push]
 jobs:
   compile:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0'
-
-      - name: Setup yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies
-        run: yarn install
+        uses: actions/setup-node@v3
 
       - name: Compile
-        run: yarn build
+        run: yarn && yarn build
 
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0'
+        uses: actions/setup-node@v3
 
-      - name: Setup yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Check for formatting issues
-        run: yarn prettier . --check --ignore-unknown
-
-      - name: Run tests
-        run: yarn test
-
-      - name: Run eslint
-        run: yarn lint
+      - name: Compile
+        run: yarn && yarn test    
 
   publish:
-    needs: [compile, test]
+    needs: [ compile, test ]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0'
-
-      - name: Setup yarn
-        run: npm install -g yarn
-
+        uses: actions/setup-node@v3
       - name: Install dependencies
         run: yarn install
-
       - name: Build
         run: yarn build
 

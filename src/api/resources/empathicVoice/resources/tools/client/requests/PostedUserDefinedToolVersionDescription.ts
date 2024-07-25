@@ -9,6 +9,6 @@
  *     }
  */
 export interface PostedUserDefinedToolVersionDescription {
-  /** Description that is appended to a specific version of a Tool. */
-  versionDescription?: string;
+    /** An optional description of the Tool version. */
+    versionDescription?: string;
 }
