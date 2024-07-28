@@ -10,6 +10,8 @@ jest.config.mjs
 justfile
 tsconfig.dev.json
 .nvmrc
+.prettierrc.yml
+package.json
 
 # URL Encoded
 src/core/fetcher/Fetcher.ts
