@@ -3,6 +3,7 @@
 README.md
 CITATIONS.md
 LICENSE
+CONTRIBUTING.md
 
 # Tooling
 eslint.config.mjs
