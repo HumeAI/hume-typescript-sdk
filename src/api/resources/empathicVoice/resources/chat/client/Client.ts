@@ -1,9 +1,11 @@
+import * as environments from '../../../../../../environments';
 import * as core from '../../../../../../core';
 import qs from 'qs';
 import { ChatSocket } from './Socket';
 
 export declare namespace Chat {
   interface Options {
+    environment?: core.Supplier<environments.HumeEnvironment | string>;
     apiKey?: core.Supplier<string | undefined>;
     accessToken?: core.Supplier<string | undefined>;
   }
@@ -58,7 +60,10 @@ export class Chat {
     }
 
     const socket = new core.ReconnectingWebSocket(
-      `wss://api.hume.ai/v0/evi/chat?${qs.stringify(queryParams)}`,
+      `wss://${(
+        core.Supplier.get(this._options.environment) ??
+        environments.HumeEnvironment.Production
+      ).replace('https://', '')}/v0/evi/chat?${qs.stringify(queryParams)}`,
       [],
       {
         debug: args.debug ?? false,
