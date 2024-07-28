@@ -194,7 +194,7 @@ export class ChatSocket {
         resolve(this.socket);
       });
 
-      this.socket.addEventListener('error', (event: any) => {
+      this.socket.addEventListener('error', (event: unknown) => {
         reject(event);
       });
     });
@@ -224,7 +224,7 @@ export class ChatSocket {
     this.eventHandlers.open?.();
   };
 
-  private handleMessage = (event: { data: any }): void => {
+  private handleMessage = (event: { data: string }): void => {
     const data = JSON.parse(event.data);
 
     const parsedResponse = serializers.empathicVoice.SubscribeEvent.parse(

@@ -65,7 +65,7 @@ export class Chats {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -114,7 +114,7 @@ export class Chats {
   }
 
   /**
-   * @param {string} id - Identifier for a chat. Formatted as a UUID.
+   * @param {string} id - Identifier for a Chat. Formatted as a UUID.
    * @param {Hume.empathicVoice.ChatsListChatEventsRequest} request
    * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -151,7 +151,7 @@ export class Chats {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

@@ -8,12 +8,20 @@ import * as Hume from '../../../index';
  * A paginated list of user defined tool versions returned from the server
  */
 export interface ReturnPagedUserDefinedTools {
-  /** The page number of the returned results. */
+  /**
+   * The page number of the returned list.
+   *
+   * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+   */
   pageNumber: number;
-  /** The number of results returned per page. */
+  /**
+   * The maximum number of items returned per page.
+   *
+   * This value corresponds to the `page_size` parameter specified in the request.
+   */
   pageSize: number;
-  /** The total number of pages in the collection */
+  /** The total number of pages in the collection. */
   totalPages: number;
-  /** List of tools returned for the specified page number and page size. */
+  /** List of tools returned for the specified `page_number` and `page_size`. */
   toolsPage: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
 }

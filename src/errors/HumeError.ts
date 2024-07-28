@@ -36,7 +36,7 @@ function buildMessage({
   statusCode: number | undefined;
   body: unknown | undefined;
 }): string {
-  let lines: string[] = [];
+  const lines: string[] = [];
   if (message != null) {
     lines.push(message);
   }
