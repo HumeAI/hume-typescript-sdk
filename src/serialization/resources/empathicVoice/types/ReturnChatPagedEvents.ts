@@ -5,6 +5,8 @@
 import * as serializers from '../../../index';
 import * as Hume from '../../../../api/index';
 import * as core from '../../../../core';
+import { ReturnChatPagedEventsStatus } from './ReturnChatPagedEventsStatus';
+import { ReturnChatPagedEventsPaginationDirection } from './ReturnChatPagedEventsPaginationDirection';
 import { ReturnChatEvent } from './ReturnChatEvent';
 import { ReturnConfigSpec } from './ReturnConfigSpec';
 
@@ -17,8 +19,7 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
     'chat_group_id',
     core.serialization.string(),
   ),
-  tag: core.serialization.string().optional(),
-  status: core.serialization.string(),
+  status: ReturnChatPagedEventsStatus,
   startTimestamp: core.serialization.property(
     'start_timestamp',
     core.serialization.number(),
@@ -29,7 +30,7 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
   ),
   paginationDirection: core.serialization.property(
     'pagination_direction',
-    core.serialization.string(),
+    ReturnChatPagedEventsPaginationDirection,
   ),
   eventsPage: core.serialization.property(
     'events_page',
@@ -55,11 +56,10 @@ export declare namespace ReturnChatPagedEvents {
   interface Raw {
     id: string;
     chat_group_id: string;
-    tag?: string | null;
-    status: string;
+    status: ReturnChatPagedEventsStatus.Raw;
     start_timestamp: number;
     end_timestamp?: number | null;
-    pagination_direction: string;
+    pagination_direction: ReturnChatPagedEventsPaginationDirection.Raw;
     events_page: ReturnChatEvent.Raw[];
     metadata?: string | null;
     page_number: number;

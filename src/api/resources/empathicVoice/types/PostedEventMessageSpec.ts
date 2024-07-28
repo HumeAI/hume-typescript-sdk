@@ -6,8 +6,12 @@
  * Settings for a specific event_message to be posted to the server
  */
 export interface PostedEventMessageSpec {
-  /** Boolean indicating if this event message is enabled. */
+  /**
+   * Boolean indicating if this event message is enabled.
+   *
+   * If set to `true`, a message will be sent when the circumstances for the specific event are met.
+   */
   enabled: boolean;
-  /** Optional text that will be used as a verbatim event message. If the text is null and the event message is enabled, the system will generate a message based using the language model. */
+  /** Text to use as the event message when the corresponding event occurs. If no text is specified, EVI will generate an appropriate message based on its current context and the system prompt. */
   text?: string;
 }

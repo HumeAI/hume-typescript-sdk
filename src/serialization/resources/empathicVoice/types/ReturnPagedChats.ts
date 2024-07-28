@@ -5,6 +5,7 @@
 import * as serializers from '../../../index';
 import * as Hume from '../../../../api/index';
 import * as core from '../../../../core';
+import { ReturnPagedChatsPaginationDirection } from './ReturnPagedChatsPaginationDirection';
 import { ReturnChat } from './ReturnChat';
 
 export const ReturnPagedChats: core.serialization.ObjectSchema<
@@ -25,7 +26,7 @@ export const ReturnPagedChats: core.serialization.ObjectSchema<
   ),
   paginationDirection: core.serialization.property(
     'pagination_direction',
-    core.serialization.string(),
+    ReturnPagedChatsPaginationDirection,
   ),
   chatsPage: core.serialization.property(
     'chats_page',
@@ -38,7 +39,7 @@ export declare namespace ReturnPagedChats {
     page_number: number;
     page_size: number;
     total_pages: number;
-    pagination_direction: string;
+    pagination_direction: ReturnPagedChatsPaginationDirection.Raw;
     chats_page: ReturnChat.Raw[];
   }
 }

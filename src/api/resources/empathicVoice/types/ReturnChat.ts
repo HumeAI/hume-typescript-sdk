@@ -8,17 +8,29 @@ import * as Hume from '../../../index';
  * A description of chat and its status
  */
 export interface ReturnChat {
-  /** Identifier for a chat. Formatted as a UUID. */
+  /** Identifier for a Chat. Formatted as a UUID. */
   id: string;
-  /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
+  /** Identifier for the Chat Group. Any chat resumed from this Chat will have the same `chat_group_id`. Formatted as a UUID. */
   chatGroupId: string;
-  /** Optional tag applied to this chat used to group chats by user, application, etc. */
-  tag?: string;
-  /** The status of the chat. Values from the ChatStatus enum. */
-  status: string;
-  /** The timestamp when the chat started, formatted as a Unix epoch milliseconds. */
+  /**
+   * Indicates the current state of the chat. There are six possible statuses:
+   *
+   * - `ACTIVE`: The chat is currently active and ongoing.
+   *
+   * - `USER_ENDED`: The chat was manually ended by the user.
+   *
+   * - `USER_TIMEOUT`: The chat ended due to a user-defined timeout.
+   *
+   * - `MAX_DURATION_TIMEOUT`: The chat ended because it reached the maximum allowed duration.
+   *
+   * - `INACTIVITY_TIMEOUT`: The chat ended due to an inactivity timeout.
+   *
+   * - `ERROR`: The chat ended unexpectedly due to an error.
+   */
+  status: Hume.empathicVoice.ReturnChatStatus;
+  /** Time at which the Chat started. Measured in seconds since the Unix epoch. */
   startTimestamp: number;
-  /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
+  /** Time at which the Chat ended. Measured in seconds since the Unix epoch. */
   endTimestamp?: number;
   /** The total number of events currently in this chat. */
   eventCount?: number;

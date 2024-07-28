@@ -9,8 +9,14 @@
  *     }
  */
 export interface PostedPromptVersion {
-  /** Description that is appended to a specific version of a Prompt. */
+  /** An optional description of the Prompt version. */
   versionDescription?: string;
-  /** Text used for this version of the Prompt. */
+  /**
+   * Instructions used to shape EVI’s behavior, responses, and style for this version of the Prompt.
+   *
+   * You can use the Prompt to define a specific goal or role for EVI, specifying how it should act or what it should focus on during the conversation. For example, EVI can be instructed to act as a customer support representative, a fitness coach, or a travel advisor, each with its own set of behaviors and response styles.
+   *
+   * For help writing a system prompt, see our [Prompting Guide](/docs/empathic-voice-interface-evi/prompting).
+   */
   text: string;
 }

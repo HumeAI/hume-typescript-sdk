@@ -5,6 +5,7 @@
 import * as serializers from '../../../index';
 import * as Hume from '../../../../api/index';
 import * as core from '../../../../core';
+import { ReturnPromptVersionType } from './ReturnPromptVersionType';
 
 export const ReturnPrompt: core.serialization.ObjectSchema<
   serializers.empathicVoice.ReturnPrompt.Raw,
@@ -14,7 +15,7 @@ export const ReturnPrompt: core.serialization.ObjectSchema<
   version: core.serialization.number(),
   versionType: core.serialization.property(
     'version_type',
-    core.serialization.string(),
+    ReturnPromptVersionType,
   ),
   versionDescription: core.serialization.property(
     'version_description',
@@ -36,7 +37,7 @@ export declare namespace ReturnPrompt {
   interface Raw {
     id: string;
     version: number;
-    version_type: string;
+    version_type: ReturnPromptVersionType.Raw;
     version_description?: string | null;
     name: string;
     created_on: number;
