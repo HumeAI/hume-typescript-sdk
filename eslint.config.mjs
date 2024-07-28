@@ -27,7 +27,7 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['dist'],
+    ignores: ['dist', 'src/core/**/*.ts', 'jest.config.js'],
   },
   {
     languageOptions: {
