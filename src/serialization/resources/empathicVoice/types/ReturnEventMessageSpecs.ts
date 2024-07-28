@@ -15,10 +15,20 @@ export const ReturnEventMessageSpecs: core.serialization.ObjectSchema<
     'on_new_chat',
     ReturnEventMessageSpec.optional(),
   ),
+  onInactivityTimeout: core.serialization.property(
+    'on_inactivity_timeout',
+    ReturnEventMessageSpec.optional(),
+  ),
+  onMaxDurationTimeout: core.serialization.property(
+    'on_max_duration_timeout',
+    ReturnEventMessageSpec.optional(),
+  ),
 });
 
 export declare namespace ReturnEventMessageSpecs {
   interface Raw {
     on_new_chat?: ReturnEventMessageSpec.Raw | null;
+    on_inactivity_timeout?: ReturnEventMessageSpec.Raw | null;
+    on_max_duration_timeout?: ReturnEventMessageSpec.Raw | null;
   }
 }

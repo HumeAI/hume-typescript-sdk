@@ -69,7 +69,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -140,7 +140,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -191,7 +191,7 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
    * @param {Hume.empathicVoice.ConfigsListConfigVersionsRequest} request
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -228,7 +228,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -277,7 +277,7 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
    * @param {Hume.empathicVoice.PostedConfigVersion} request
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -299,7 +299,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -350,7 +350,7 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -370,7 +370,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -410,7 +410,7 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
    * @param {Hume.empathicVoice.PostedConfigName} request
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -434,7 +434,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -478,8 +478,12 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
-   * @param {number} version - Version number for a config. Version numbers should be integers.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
+   * @param {number} version - Version number for a Config.
+   *
+   *                           Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+   *
+   *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -494,15 +498,13 @@ export class Configs {
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
           environments.HumeEnvironment.Production,
-        `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(
-          version,
-        )}`,
+        `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
       ),
       method: 'GET',
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -550,8 +552,12 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
-   * @param {number} version - Version number for a config. Version numbers should be integers.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
+   * @param {number} version - Version number for a Config.
+   *
+   *                           Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+   *
+   *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -566,15 +572,13 @@ export class Configs {
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
           environments.HumeEnvironment.Production,
-        `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(
-          version,
-        )}`,
+        `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
       ),
       method: 'DELETE',
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -614,8 +618,12 @@ export class Configs {
   }
 
   /**
-   * @param {string} id - Identifier for a config. Formatted as a UUID.
-   * @param {number} version - Version number for a config. Version numbers should be integers.
+   * @param {string} id - Identifier for a Config. Formatted as a UUID.
+   * @param {number} version - Version number for a Config.
+   *
+   *                           Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+   *
+   *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
    * @param {Hume.empathicVoice.PostedConfigVersionDescription} request
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -632,15 +640,13 @@ export class Configs {
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
           environments.HumeEnvironment.Production,
-        `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(
-          version,
-        )}`,
+        `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
       ),
       method: 'PATCH',
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

@@ -72,7 +72,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -147,7 +147,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -201,7 +201,7 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
    * @param {Hume.empathicVoice.ToolsListToolVersionsRequest} request
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -238,7 +238,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -287,7 +287,7 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
    * @param {Hume.empathicVoice.PostedUserDefinedToolVersion} request
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -314,7 +314,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -368,7 +368,7 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -388,7 +388,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -428,7 +428,7 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
    * @param {Hume.empathicVoice.PostedUserDefinedToolName} request
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -452,7 +452,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -499,8 +499,12 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
-   * @param {number} version - Version number for a tool. Version numbers should be integers.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+   * @param {number} version - Version number for a Tool.
+   *
+   *                           Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+   *
+   *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -515,15 +519,13 @@ export class Tools {
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
           environments.HumeEnvironment.Production,
-        `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(
-          version,
-        )}`,
+        `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
       ),
       method: 'GET',
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -571,8 +573,12 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
-   * @param {number} version - Version number for a tool. Version numbers should be integers.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+   * @param {number} version - Version number for a Tool.
+   *
+   *                           Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+   *
+   *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -587,15 +593,13 @@ export class Tools {
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
           environments.HumeEnvironment.Production,
-        `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(
-          version,
-        )}`,
+        `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
       ),
       method: 'DELETE',
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -635,8 +639,12 @@ export class Tools {
   }
 
   /**
-   * @param {string} id - Identifier for a tool. Formatted as a UUID.
-   * @param {number} version - Version number for a tool. Version numbers should be integers.
+   * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+   * @param {number} version - Version number for a Tool.
+   *
+   *                           Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+   *
+   *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
    * @param {Hume.empathicVoice.PostedUserDefinedToolVersionDescription} request
    * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
    *
@@ -655,15 +663,13 @@ export class Tools {
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
           environments.HumeEnvironment.Production,
-        `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(
-          version,
-        )}`,
+        `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
       ),
       method: 'PATCH',
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.2',
+        'X-Fern-SDK-Version': '0.8.5',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
