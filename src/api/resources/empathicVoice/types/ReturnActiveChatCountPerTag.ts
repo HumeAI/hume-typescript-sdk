@@ -6,8 +6,8 @@
  * A description of current chat chat sessions per tag
  */
 export interface ReturnActiveChatCountPerTag {
-  /** User tag applied to a chat. */
-  tag: string;
-  /** The total number of active chats for this user with the specified tag. */
-  totalTagActiveChats: number;
+    /** User tag applied to a chat. */
+    tag: string;
+    /** The total number of active chats for this user with the specified tag. */
+    totalTagActiveChats: number;
 }

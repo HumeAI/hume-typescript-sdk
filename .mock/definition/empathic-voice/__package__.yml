@@ -1555,7 +1555,7 @@ types:
   PauseAssistantMessage:
     docs: >-
       Pause responses from EVI. Chat history is still saved and sent after
-      resuming.
+      resuming. 
     properties:
       type:
         type: literal<"pause_assistant_message">
@@ -1578,7 +1578,7 @@ types:
   ResumeAssistantMessage:
     docs: >-
       Resume responses from EVI. Chat history sent while paused will now be
-      sent.
+      sent. 
     properties:
       type:
         type: literal<"resume_assistant_message">
