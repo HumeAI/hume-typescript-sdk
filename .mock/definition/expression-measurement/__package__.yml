@@ -448,7 +448,7 @@ types:
       error:
         type: optional<string>
         docs: An error message.
-  JobEmbeddingGeneration:
+  EmbeddingGenerationJob:
     properties:
       job_id:
         type: string
@@ -1000,22 +1000,22 @@ types:
     base-properties: {}
     union:
       EMBEDDING_GENERATION: UnionJobJobEmbeddingGeneration
-      INFERENCE: UnionJobJobInference
-      TL_INFERENCE: UnionJobJobTlInference
-      TRAINING: UnionJobJobTraining
+      INFERENCE: InferenceJob
+      TL_INFERENCE: CustomModelsInferenceJob
+      TRAINING: CustomModelsTrainingJob
   UnionJobJobEmbeddingGeneration:
     properties: {}
     extends:
-      - JobEmbeddingGeneration
-  UnionJobJobInference:
+      - EmbeddingGenerationJob
+  InferenceJob:
     properties: {}
     extends:
       - JobInference
-  UnionJobJobTlInference:
+  CustomModelsInferenceJob:
     properties: {}
     extends:
       - JobTlInference
-  UnionJobJobTraining:
+  CustomModelsTrainingJob:
     properties: {}
     extends:
       - JobTraining
