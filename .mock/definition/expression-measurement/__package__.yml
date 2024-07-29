@@ -999,23 +999,23 @@ types:
     discriminant: type
     base-properties: {}
     union:
-      EMBEDDING_GENERATION: UnionJobJobEmbeddingGeneration
-      INFERENCE: UnionJobJobInference
-      TL_INFERENCE: UnionJobJobTlInference
-      TRAINING: UnionJobJobTraining
-  UnionJobJobEmbeddingGeneration:
+      EMBEDDING_GENERATION: EmbeddingGenerationJob
+      INFERENCE: InferenceJob
+      TL_INFERENCE: CustomModelsInferenceJob
+      TRAINING: CustomModelsTrainingJob
+  EmbeddingGenerationJob:
     properties: {}
     extends:
       - JobEmbeddingGeneration
-  UnionJobJobInference:
+  InferenceJob:
     properties: {}
     extends:
       - JobInference
-  UnionJobJobTlInference:
+  CustomModelsInferenceJob:
     properties: {}
     extends:
       - JobTlInference
-  UnionJobJobTraining:
+  CustomModelsTrainingJob:
     properties: {}
     extends:
       - JobTraining

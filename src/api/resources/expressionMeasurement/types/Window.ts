@@ -3,8 +3,8 @@
  */
 
 export interface Window {
-  /** The length of the sliding window. */
-  length?: number;
-  /** The step size of the sliding window. */
-  step?: number;
+    /** The length of the sliding window. */
+    length?: number;
+    /** The step size of the sliding window. */
+    step?: number;
 }

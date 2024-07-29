@@ -6,10 +6,10 @@
  * Configuration for the language emotion model.
  */
 export interface StreamDataModelsLanguage {
-  /** Configuration for sentiment predictions. If missing or null, no sentiment predictions will be generated. */
-  sentiment?: Record<string, unknown>;
-  /** Configuration for toxicity predictions. If missing or null, no toxicity predictions will be generated. */
-  toxicity?: Record<string, unknown>;
-  /** The granularity at which to generate predictions. Values are `word`, `sentence`, `utterance`, or `passage`. To get a single prediction for the entire text of your streaming payload use `passage`. Default value is `word`. */
-  granularity?: string;
+    /** Configuration for sentiment predictions. If missing or null, no sentiment predictions will be generated. */
+    sentiment?: Record<string, unknown>;
+    /** Configuration for toxicity predictions. If missing or null, no toxicity predictions will be generated. */
+    toxicity?: Record<string, unknown>;
+    /** The granularity at which to generate predictions. Values are `word`, `sentence`, `utterance`, or `passage`. To get a single prediction for the entire text of your streaming payload use `passage`. Default value is `word`. */
+    granularity?: string;
 }
