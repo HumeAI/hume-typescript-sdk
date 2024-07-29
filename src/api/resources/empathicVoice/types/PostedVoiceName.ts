@@ -5,10 +5,10 @@
 /**
  * String with the name of the voice to use. Maximum length of 75 characters. Will be converted to all-uppercase.
  */
-export type PostedVoiceName = 'ITO' | 'DACHER' | 'KORA';
+export type PostedVoiceName = "ITO" | "DACHER" | "KORA";
 
 export const PostedVoiceName = {
-  Ito: 'ITO',
-  Dacher: 'DACHER',
-  Kora: 'KORA',
+    Ito: "ITO",
+    Dacher: "DACHER",
+    Kora: "KORA",
 } as const;
