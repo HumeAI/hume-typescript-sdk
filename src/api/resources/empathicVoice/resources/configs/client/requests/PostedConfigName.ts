@@ -9,6 +9,6 @@
  *     }
  */
 export interface PostedConfigName {
-  /** Name applied to all versions of a particular Config. */
-  name: string;
+    /** Name applied to all versions of a particular Config. */
+    name: string;
 }
