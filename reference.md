@@ -18,8 +18,8 @@
 
 ```ts
 await client.empathicVoice.tools.listTools({
-  pageNumber: 0,
-  pageSize: 2,
+    pageNumber: 0,
+    pageSize: 2,
 });
 ```
 
@@ -84,13 +84,12 @@ await client.empathicVoice.tools.listTools({
 
 ```ts
 await client.empathicVoice.tools.createTool({
-  name: 'get_current_weather',
-  parameters:
-    '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
-  versionDescription:
-    'Fetches current weather and uses celsius or fahrenheit based on location of user.',
-  description: 'This tool is for getting the current weather.',
-  fallbackContent: 'Unable to fetch current weather.',
+    name: "get_current_weather",
+    parameters:
+        '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
+    versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
+    description: "This tool is for getting the current weather.",
+    fallbackContent: "Unable to fetch current weather.",
 });
 ```
 
@@ -154,9 +153,7 @@ await client.empathicVoice.tools.createTool({
 <dd>
 
 ```ts
-await client.empathicVoice.tools.listToolVersions(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-);
+await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
 ```
 
 </dd>
@@ -229,17 +226,13 @@ await client.empathicVoice.tools.listToolVersions(
 <dd>
 
 ```ts
-await client.empathicVoice.tools.createToolVersion(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-  {
+await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
     parameters:
-      '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
-    versionDescription:
-      'Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.',
-    fallbackContent: 'Unable to fetch current weather.',
-    description: 'This tool is for getting the current weather.',
-  },
-);
+        '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
+    versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
+    fallbackContent: "Unable to fetch current weather.",
+    description: "This tool is for getting the current weather.",
+});
 ```
 
 </dd>
@@ -312,9 +305,7 @@ await client.empathicVoice.tools.createToolVersion(
 <dd>
 
 ```ts
-await client.empathicVoice.tools.deleteTool(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-);
+await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
 ```
 
 </dd>
@@ -377,12 +368,9 @@ await client.empathicVoice.tools.deleteTool(
 <dd>
 
 ```ts
-await client.empathicVoice.tools.updateToolName(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-  {
-    name: 'get_current_temperature',
-  },
-);
+await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+    name: "get_current_temperature",
+});
 ```
 
 </dd>
@@ -455,10 +443,7 @@ await client.empathicVoice.tools.updateToolName(
 <dd>
 
 ```ts
-await client.empathicVoice.tools.getToolVersion(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-  1,
-);
+await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
 ```
 
 </dd>
@@ -537,10 +522,7 @@ Version numbers are integer values representing different iterations of the Tool
 <dd>
 
 ```ts
-await client.empathicVoice.tools.deleteToolVersion(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-  1,
-);
+await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
 ```
 
 </dd>
@@ -619,14 +601,10 @@ Version numbers are integer values representing different iterations of the Tool
 <dd>
 
 ```ts
-await client.empathicVoice.tools.updateToolDescription(
-  '00183a3f-79ba-413d-9f3b-609864268bea',
-  1,
-  {
+await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
     versionDescription:
-      "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
-  },
-);
+        "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
+});
 ```
 
 </dd>
@@ -781,8 +759,8 @@ await client.empathicVoice.prompts.listPrompts();
 
 ```ts
 await client.empathicVoice.prompts.createPrompt({
-  name: 'name',
-  text: 'text',
+    name: "name",
+    text: "text",
 });
 ```
 
@@ -846,7 +824,7 @@ await client.empathicVoice.prompts.createPrompt({
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.listPromptVersions('id');
+await client.empathicVoice.prompts.listPromptVersions("id");
 ```
 
 </dd>
@@ -919,8 +897,8 @@ await client.empathicVoice.prompts.listPromptVersions('id');
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.createPromptVerison('id', {
-  text: 'text',
+await client.empathicVoice.prompts.createPromptVerison("id", {
+    text: "text",
 });
 ```
 
@@ -994,7 +972,7 @@ await client.empathicVoice.prompts.createPromptVerison('id', {
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.deletePrompt('id');
+await client.empathicVoice.prompts.deletePrompt("id");
 ```
 
 </dd>
@@ -1057,8 +1035,8 @@ await client.empathicVoice.prompts.deletePrompt('id');
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.updatePromptName('string', {
-  name: 'string',
+await client.empathicVoice.prompts.updatePromptName("string", {
+    name: "string",
 });
 ```
 
@@ -1132,7 +1110,7 @@ await client.empathicVoice.prompts.updatePromptName('string', {
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.getPromptVersion('id', 1);
+await client.empathicVoice.prompts.getPromptVersion("id", 1);
 ```
 
 </dd>
@@ -1211,7 +1189,7 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.deletePromptVersion('id', 1);
+await client.empathicVoice.prompts.deletePromptVersion("id", 1);
 ```
 
 </dd>
@@ -1290,7 +1268,7 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.updatePromptDescription('id', 1);
+await client.empathicVoice.prompts.updatePromptDescription("id", 1);
 ```
 
 </dd>
@@ -1445,7 +1423,7 @@ await client.empathicVoice.configs.listConfigs();
 
 ```ts
 await client.empathicVoice.configs.createConfig({
-  name: 'name',
+    name: "name",
 });
 ```
 
@@ -1509,7 +1487,7 @@ await client.empathicVoice.configs.createConfig({
 <dd>
 
 ```ts
-await client.empathicVoice.configs.listConfigVersions('id');
+await client.empathicVoice.configs.listConfigVersions("id");
 ```
 
 </dd>
@@ -1582,7 +1560,7 @@ await client.empathicVoice.configs.listConfigVersions('id');
 <dd>
 
 ```ts
-await client.empathicVoice.configs.createConfigVersion('id');
+await client.empathicVoice.configs.createConfigVersion("id");
 ```
 
 </dd>
@@ -1655,7 +1633,7 @@ await client.empathicVoice.configs.createConfigVersion('id');
 <dd>
 
 ```ts
-await client.empathicVoice.configs.deleteConfig('id');
+await client.empathicVoice.configs.deleteConfig("id");
 ```
 
 </dd>
@@ -1718,8 +1696,8 @@ await client.empathicVoice.configs.deleteConfig('id');
 <dd>
 
 ```ts
-await client.empathicVoice.configs.updateConfigName('string', {
-  name: 'string',
+await client.empathicVoice.configs.updateConfigName("string", {
+    name: "string",
 });
 ```
 
@@ -1793,7 +1771,7 @@ await client.empathicVoice.configs.updateConfigName('string', {
 <dd>
 
 ```ts
-await client.empathicVoice.configs.getConfigVersion('id', 1);
+await client.empathicVoice.configs.getConfigVersion("id", 1);
 ```
 
 </dd>
@@ -1872,7 +1850,7 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.configs.deleteConfigVersion('id', 1);
+await client.empathicVoice.configs.deleteConfigVersion("id", 1);
 ```
 
 </dd>
@@ -1951,7 +1929,7 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.configs.updateConfigDescription('id', 1);
+await client.empathicVoice.configs.updateConfigDescription("id", 1);
 ```
 
 </dd>
@@ -2105,7 +2083,7 @@ await client.empathicVoice.chats.listChats();
 <dd>
 
 ```ts
-await client.empathicVoice.chats.listChatEvents('id');
+await client.empathicVoice.chats.listChatEvents("id");
 ```
 
 </dd>
@@ -2243,7 +2221,7 @@ await client.empathicVoice.chatGroups.listChatGroups();
 <dd>
 
 ```ts
-await client.empathicVoice.chatGroups.listChatGroupEvents('id');
+await client.empathicVoice.chatGroups.listChatGroupEvents("id");
 ```
 
 </dd>
@@ -2422,8 +2400,8 @@ Start a new measurement inference job.
 
 ```ts
 await client.expressionMeasurement.batch.startInferenceJob({
-  urls: ['https://hume-tutorials.s3.amazonaws.com/faces.zip'],
-  notify: true,
+    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
+    notify: true,
 });
 ```
 
@@ -2507,7 +2485,7 @@ Get the request details and state of a given job.
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobDetails('job_id');
+await client.expressionMeasurement.batch.getJobDetails("job_id");
 ```
 
 </dd>
@@ -2590,7 +2568,7 @@ Get the request details and state of a given job.
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobDetails('job_id');
+await client.expressionMeasurement.batch.getJobDetails("job_id");
 ```
 
 </dd>
@@ -2673,7 +2651,7 @@ Get the JSON predictions of a completed measurement or custom models inference j
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobPredictions('job_id');
+await client.expressionMeasurement.batch.getJobPredictions("job_id");
 ```
 
 </dd>
@@ -2756,7 +2734,7 @@ Get the artifacts ZIP of a completed measurement or custom models inference job.
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobArtifacts('string');
+await client.expressionMeasurement.batch.getJobArtifacts("string");
 ```
 
 </dd>
@@ -2840,8 +2818,8 @@ Start a new batch inference job.
 
 ```ts
 await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
-  [fs.createReadStream('/path/to/your/file')],
-  {},
+    [fs.createReadStream("/path/to/your/file")],
+    {}
 );
 ```
 

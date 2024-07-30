@@ -6,8 +6,8 @@
  * A configuration of a built-in tool to be posted to the server
  */
 export interface PostedBuiltinTool {
-  /** Name applied to all versions of a particular Tool. */
-  name: string;
-  /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
-  fallbackContent?: string;
+    /** Name applied to all versions of a particular Tool. */
+    name: string;
+    /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
+    fallbackContent?: string;
 }

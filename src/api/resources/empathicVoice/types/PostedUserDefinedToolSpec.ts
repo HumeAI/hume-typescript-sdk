@@ -6,14 +6,14 @@
  * A specific tool identifier to be posted to the server
  */
 export interface PostedUserDefinedToolSpec {
-  /** Identifier for a Tool. Formatted as a UUID. */
-  id: string;
-  /**
-   * Version number for a Tool.
-   *
-   * Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-   *
-   * Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
-   */
-  version?: number;
+    /** Identifier for a Tool. Formatted as a UUID. */
+    id: string;
+    /**
+     * Version number for a Tool.
+     *
+     * Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *
+     * Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+     */
+    version?: number;
 }

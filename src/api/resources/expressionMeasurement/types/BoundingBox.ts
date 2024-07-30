@@ -6,12 +6,12 @@
  * A bounding box around a face.
  */
 export interface BoundingBox {
-  /** x-coordinate of bounding box top left corner. */
-  x?: number;
-  /** y-coordinate of bounding box top left corner. */
-  y?: number;
-  /** Bounding box width. */
-  w?: number;
-  /** Bounding box height. */
-  h?: number;
+    /** x-coordinate of bounding box top left corner. */
+    x?: number;
+    /** y-coordinate of bounding box top left corner. */
+    y?: number;
+    /** Bounding box width. */
+    w?: number;
+    /** Bounding box height. */
+    h?: number;
 }
