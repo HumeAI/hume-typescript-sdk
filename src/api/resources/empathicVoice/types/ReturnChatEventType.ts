@@ -18,18 +18,18 @@
  * - `FUNCTION_CALL_RESPONSE`: Contains the tool response.
  */
 export type ReturnChatEventType =
-  | 'SYSTEM_PROMPT'
-  | 'USER_MESSAGE'
-  | 'USER_INTERRUPTION'
-  | 'AGENT_MESSAGE'
-  | 'FUNCTION_CALL'
-  | 'FUNCTION_CALL_RESPONSE';
+    | "SYSTEM_PROMPT"
+    | "USER_MESSAGE"
+    | "USER_INTERRUPTION"
+    | "AGENT_MESSAGE"
+    | "FUNCTION_CALL"
+    | "FUNCTION_CALL_RESPONSE";
 
 export const ReturnChatEventType = {
-  SystemPrompt: 'SYSTEM_PROMPT',
-  UserMessage: 'USER_MESSAGE',
-  UserInterruption: 'USER_INTERRUPTION',
-  AgentMessage: 'AGENT_MESSAGE',
-  FunctionCall: 'FUNCTION_CALL',
-  FunctionCallResponse: 'FUNCTION_CALL_RESPONSE',
+    SystemPrompt: "SYSTEM_PROMPT",
+    UserMessage: "USER_MESSAGE",
+    UserInterruption: "USER_INTERRUPTION",
+    AgentMessage: "AGENT_MESSAGE",
+    FunctionCall: "FUNCTION_CALL",
+    FunctionCallResponse: "FUNCTION_CALL_RESPONSE",
 } as const;
