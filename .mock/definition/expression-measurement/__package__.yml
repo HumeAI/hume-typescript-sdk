@@ -995,35 +995,28 @@ types:
       To include predictions for this model type, set this field to `{}`. It is
       currently not configurable further.
     type: map<string, unknown>
-  UnionJob:
-    discriminant: type
-    base-properties: {}
-    union:
-      EMBEDDING_GENERATION: UnionJobJobEmbeddingGeneration
-      INFERENCE: UnionJobJobInference
-      TL_INFERENCE: UnionJobJobTlInference
-      TRAINING: UnionJobJobTraining
-  UnionJobJobEmbeddingGeneration:
-    properties: {}
+  UnionJob: InferenceJob
+  EmbeddingGenerationJob:
+    properties:
+      type: string
     extends:
       - JobEmbeddingGeneration
-  UnionJobJobInference:
-    properties: {}
+  InferenceJob:
+    properties:
+      type: string
     extends:
       - JobInference
-  UnionJobJobTlInference:
-    properties: {}
+  CustomModelsInferenceJob:
+    properties:
+      type: string
     extends:
       - JobTlInference
-  UnionJobJobTraining:
-    properties: {}
+  CustomModelsTrainingJob:
+    properties:
+      type: string
     extends:
       - JobTraining
-  UnionPredictResult:
-    discriminated: false
-    union:
-      - InferenceSourcePredictResult
-      - TlInferenceSourcePredictResult
+  UnionPredictResult: InferenceSourcePredictResult
   ValidationArgs:
     properties:
       positive_label: optional<Target>
