@@ -6,6 +6,6 @@
  * A custom voice name change to be posted to the server
  */
 export interface PostedCustomVoiceName {
-  /** String with the name of the voice to use. Maximum length of 75 characters. Will be converted to all-uppercase. */
-  name: string;
+    /** String with the name of the voice to use. Maximum length of 75 characters. Will be converted to all-uppercase. */
+    name: string;
 }
