@@ -3,6 +3,6 @@
  */
 
 export interface TrainingCustomModel {
-  id: string;
-  versionId?: string;
+    id: string;
+    versionId?: string;
 }

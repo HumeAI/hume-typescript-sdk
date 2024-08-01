@@ -3,5 +3,5 @@
  */
 
 export interface CustomModelVersionId {
-  versionId: string;
+    versionId: string;
 }
