@@ -6,15 +6,15 @@
  * A description of chat_group and its status
  */
 export interface ReturnChatGroup {
-    /** Identifier for the Chat Group. Any Chat resumed from this Chat Group will have the same `chat_group_id`. Formatted as a UUID. */
-    id: string;
-    /** Time at which the first Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
-    firstStartTimestamp: number;
-    /** Time at which the most recent Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
-    mostRecentStartTimestamp: number;
-    /** The `chat_id` of the most recent Chat in this Chat Group. Formatted as a UUID. */
-    mostRecentChatId?: string;
-    /** The total number of Chats in this Chat Group. */
-    numChats: number;
-    active?: boolean;
+  /** Identifier for the Chat Group. Any Chat resumed from this Chat Group will have the same `chat_group_id`. Formatted as a UUID. */
+  id: string;
+  /** Time at which the first Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
+  firstStartTimestamp: number;
+  /** Time at which the most recent Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
+  mostRecentStartTimestamp: number;
+  /** The `chat_id` of the most recent Chat in this Chat Group. Formatted as a UUID. */
+  mostRecentChatId?: string;
+  /** The total number of Chats in this Chat Group. */
+  numChats: number;
+  active?: boolean;
 }

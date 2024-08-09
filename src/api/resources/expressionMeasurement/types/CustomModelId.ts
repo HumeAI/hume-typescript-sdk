@@ -3,5 +3,5 @@
  */
 
 export interface CustomModelId {
-    id: string;
+  id: string;
 }

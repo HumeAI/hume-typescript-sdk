@@ -13,11 +13,11 @@
  *
  * - `TOOL`: The function calling mechanism.
  */
-export type ReturnChatEventRole = "USER" | "AGENT" | "SYSTEM" | "TOOL";
+export type ReturnChatEventRole = 'USER' | 'AGENT' | 'SYSTEM' | 'TOOL';
 
 export const ReturnChatEventRole = {
-    User: "USER",
-    Agent: "AGENT",
-    System: "SYSTEM",
-    Tool: "TOOL",
+  User: 'USER',
+  Agent: 'AGENT',
+  System: 'SYSTEM',
+  Tool: 'TOOL',
 } as const;

@@ -13,11 +13,15 @@
  *
  * - `conversational_turn`: Conversational turn-level granularity provides a distinct output for each change in speaker. It captures the full sequence of words and sentences spoken uninterrupted by each person. This approach provides a higher-level view of the emotional dynamics in a multi-participant dialogue. For text inputs, specifying conversational turn-level granularity for our Emotional Language model will produce results for the entire passage.
  */
-export type Granularity = "word" | "sentence" | "utterance" | "conversational_turn";
+export type Granularity =
+  | 'word'
+  | 'sentence'
+  | 'utterance'
+  | 'conversational_turn';
 
 export const Granularity = {
-    Word: "word",
-    Sentence: "sentence",
-    Utterance: "utterance",
-    ConversationalTurn: "conversational_turn",
+  Word: 'word',
+  Sentence: 'sentence',
+  Utterance: 'utterance',
+  ConversationalTurn: 'conversational_turn',
 } as const;

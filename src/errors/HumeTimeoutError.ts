@@ -3,8 +3,8 @@
  */
 
 export class HumeTimeoutError extends Error {
-    constructor() {
-        super("Timeout");
-        Object.setPrototypeOf(this, HumeTimeoutError.prototype);
-    }
+  constructor() {
+    super('Timeout');
+    Object.setPrototypeOf(this, HumeTimeoutError.prototype);
+  }
 }

@@ -121,8 +121,8 @@ Start a new measurement inference job.
 
 ```ts
 await client.expressionMeasurement.batch.startInferenceJob({
-    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
-    notify: true,
+  urls: ['https://hume-tutorials.s3.amazonaws.com/faces.zip'],
+  notify: true,
 });
 ```
 
@@ -206,7 +206,7 @@ Get the request details and state of a given job.
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobDetails("job_id");
+await client.expressionMeasurement.batch.getJobDetails('job_id');
 ```
 
 </dd>
@@ -289,7 +289,7 @@ Get the JSON predictions of a completed inference job.
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobPredictions("job_id");
+await client.expressionMeasurement.batch.getJobPredictions('job_id');
 ```
 
 </dd>
@@ -372,7 +372,7 @@ Get the artifacts ZIP of a completed inference job.
 <dd>
 
 ```ts
-await client.expressionMeasurement.batch.getJobArtifacts("string");
+await client.expressionMeasurement.batch.getJobArtifacts('string');
 ```
 
 </dd>
@@ -456,8 +456,8 @@ Start a new batch inference job.
 
 ```ts
 await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
-    [fs.createReadStream("/path/to/your/file")],
-    {}
+  [fs.createReadStream('/path/to/your/file')],
+  {},
 );
 ```
 
@@ -534,8 +534,8 @@ await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
 
 ```ts
 await client.empathicVoice.tools.listTools({
-    pageNumber: 0,
-    pageSize: 2,
+  pageNumber: 0,
+  pageSize: 2,
 });
 ```
 
@@ -600,12 +600,13 @@ await client.empathicVoice.tools.listTools({
 
 ```ts
 await client.empathicVoice.tools.createTool({
-    name: "get_current_weather",
-    parameters:
-        '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
-    versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
-    description: "This tool is for getting the current weather.",
-    fallbackContent: "Unable to fetch current weather.",
+  name: 'get_current_weather',
+  parameters:
+    '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
+  versionDescription:
+    'Fetches current weather and uses celsius or fahrenheit based on location of user.',
+  description: 'This tool is for getting the current weather.',
+  fallbackContent: 'Unable to fetch current weather.',
 });
 ```
 
@@ -669,7 +670,9 @@ await client.empathicVoice.tools.createTool({
 <dd>
 
 ```ts
-await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+await client.empathicVoice.tools.listToolVersions(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+);
 ```
 
 </dd>
@@ -742,13 +745,17 @@ await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-60986
 <dd>
 
 ```ts
-await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+await client.empathicVoice.tools.createToolVersion(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+  {
     parameters:
-        '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
-    versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
-    fallbackContent: "Unable to fetch current weather.",
-    description: "This tool is for getting the current weather.",
-});
+      '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
+    versionDescription:
+      'Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.',
+    fallbackContent: 'Unable to fetch current weather.',
+    description: 'This tool is for getting the current weather.',
+  },
+);
 ```
 
 </dd>
@@ -821,7 +828,9 @@ await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-6098
 <dd>
 
 ```ts
-await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
+await client.empathicVoice.tools.deleteTool(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+);
 ```
 
 </dd>
@@ -884,9 +893,12 @@ await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268be
 <dd>
 
 ```ts
-await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
-    name: "get_current_temperature",
-});
+await client.empathicVoice.tools.updateToolName(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+  {
+    name: 'get_current_temperature',
+  },
+);
 ```
 
 </dd>
@@ -959,7 +971,10 @@ await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-6098642
 <dd>
 
 ```ts
-await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+await client.empathicVoice.tools.getToolVersion(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+  1,
+);
 ```
 
 </dd>
@@ -1038,7 +1053,10 @@ Version numbers are integer values representing different iterations of the Tool
 <dd>
 
 ```ts
-await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+await client.empathicVoice.tools.deleteToolVersion(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+  1,
+);
 ```
 
 </dd>
@@ -1117,10 +1135,14 @@ Version numbers are integer values representing different iterations of the Tool
 <dd>
 
 ```ts
-await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+await client.empathicVoice.tools.updateToolDescription(
+  '00183a3f-79ba-413d-9f3b-609864268bea',
+  1,
+  {
     versionDescription:
-        "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
-});
+      "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
+  },
+);
 ```
 
 </dd>
@@ -1212,8 +1234,8 @@ Version numbers are integer values representing different iterations of the Tool
 
 ```ts
 await client.empathicVoice.prompts.listPrompts({
-    pageNumber: 0,
-    pageSize: 2,
+  pageNumber: 0,
+  pageSize: 2,
 });
 ```
 
@@ -1278,8 +1300,8 @@ await client.empathicVoice.prompts.listPrompts({
 
 ```ts
 await client.empathicVoice.prompts.createPrompt({
-    name: "Weather Assistant Prompt",
-    text: "<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
+  name: 'Weather Assistant Prompt',
+  text: '<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>',
 });
 ```
 
@@ -1343,7 +1365,9 @@ await client.empathicVoice.prompts.createPrompt({
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5");
+await client.empathicVoice.prompts.listPromptVersions(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+);
 ```
 
 </dd>
@@ -1416,10 +1440,14 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-af9e5da3bac5", {
-    text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
-    versionDescription: "This is an updated version of the Weather Assistant Prompt.",
-});
+await client.empathicVoice.prompts.createPromptVerison(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  {
+    text: '<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>',
+    versionDescription:
+      'This is an updated version of the Weather Assistant Prompt.',
+  },
+);
 ```
 
 </dd>
@@ -1492,7 +1520,9 @@ await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5");
+await client.empathicVoice.prompts.deletePrompt(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+);
 ```
 
 </dd>
@@ -1555,9 +1585,12 @@ await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
-    name: "Updated Weather Assistant Prompt Name",
-});
+await client.empathicVoice.prompts.updatePromptName(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  {
+    name: 'Updated Weather Assistant Prompt Name',
+  },
+);
 ```
 
 </dd>
@@ -1630,7 +1663,10 @@ await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0);
+await client.empathicVoice.prompts.getPromptVersion(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  0,
+);
 ```
 
 </dd>
@@ -1709,7 +1745,10 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1);
+await client.empathicVoice.prompts.deletePromptVersion(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  1,
+);
 ```
 
 </dd>
@@ -1788,9 +1827,13 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
-    versionDescription: "This is an updated version_description.",
-});
+await client.empathicVoice.prompts.updatePromptDescription(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  1,
+  {
+    versionDescription: 'This is an updated version_description.',
+  },
+);
 ```
 
 </dd>
@@ -1882,8 +1925,8 @@ Version numbers are integer values representing different iterations of the Prom
 
 ```ts
 await client.empathicVoice.configs.listConfigs({
-    pageNumber: 0,
-    pageSize: 1,
+  pageNumber: 0,
+  pageSize: 1,
 });
 ```
 
@@ -1948,34 +1991,34 @@ await client.empathicVoice.configs.listConfigs({
 
 ```ts
 await client.empathicVoice.configs.createConfig({
-    name: "Weather Assistant Config",
-    prompt: {
-        id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
-        version: 0,
+  name: 'Weather Assistant Config',
+  prompt: {
+    id: 'af699d45-2985-42cc-91b9-af9e5da3bac5',
+    version: 0,
+  },
+  voice: {
+    provider: 'HUME_AI',
+    name: Hume.PostedVoiceName.Kora,
+  },
+  languageModel: {
+    modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
+    modelResource: 'claude-3-5-sonnet-20240620',
+    temperature: 1,
+  },
+  eventMessages: {
+    onNewChat: {
+      enabled: false,
+      text: '',
     },
-    voice: {
-        provider: "HUME_AI",
-        name: Hume.PostedVoiceName.Kora,
+    onInactivityTimeout: {
+      enabled: false,
+      text: '',
     },
-    languageModel: {
-        modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: "claude-3-5-sonnet-20240620",
-        temperature: 1,
+    onMaxDurationTimeout: {
+      enabled: false,
+      text: '',
     },
-    eventMessages: {
-        onNewChat: {
-            enabled: false,
-            text: "",
-        },
-        onInactivityTimeout: {
-            enabled: false,
-            text: "",
-        },
-        onMaxDurationTimeout: {
-            enabled: false,
-            text: "",
-        },
-    },
+  },
 });
 ```
 
@@ -2039,7 +2082,9 @@ await client.empathicVoice.configs.createConfig({
 <dd>
 
 ```ts
-await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+await client.empathicVoice.configs.listConfigVersions(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+);
 ```
 
 </dd>
@@ -2112,39 +2157,43 @@ await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-1
 <dd>
 
 ```ts
-await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
-    versionDescription: "This is an updated version of the Weather Assistant Config.",
+await client.empathicVoice.configs.createConfigVersion(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  {
+    versionDescription:
+      'This is an updated version of the Weather Assistant Config.',
     prompt: {
-        id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
-        version: 0,
+      id: 'af699d45-2985-42cc-91b9-af9e5da3bac5',
+      version: 0,
     },
     voice: {
-        provider: "HUME_AI",
-        name: Hume.PostedVoiceName.Ito,
+      provider: 'HUME_AI',
+      name: Hume.PostedVoiceName.Ito,
     },
     languageModel: {
-        modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: "claude-3-5-sonnet-20240620",
-        temperature: 1,
+      modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
+      modelResource: 'claude-3-5-sonnet-20240620',
+      temperature: 1,
     },
     ellmModel: {
-        allowShortResponses: true,
+      allowShortResponses: true,
     },
     eventMessages: {
-        onNewChat: {
-            enabled: false,
-            text: "",
-        },
-        onInactivityTimeout: {
-            enabled: false,
-            text: "",
-        },
-        onMaxDurationTimeout: {
-            enabled: false,
-            text: "",
-        },
+      onNewChat: {
+        enabled: false,
+        text: '',
+      },
+      onInactivityTimeout: {
+        enabled: false,
+        text: '',
+      },
+      onMaxDurationTimeout: {
+        enabled: false,
+        text: '',
+      },
     },
-});
+  },
+);
 ```
 
 </dd>
@@ -2217,7 +2266,9 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
 <dd>
 
 ```ts
-await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+await client.empathicVoice.configs.deleteConfig(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+);
 ```
 
 </dd>
@@ -2280,9 +2331,12 @@ await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354
 <dd>
 
 ```ts
-await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
-    name: "Updated Weather Assistant Config Name",
-});
+await client.empathicVoice.configs.updateConfigName(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  {
+    name: 'Updated Weather Assistant Config Name',
+  },
+);
 ```
 
 </dd>
@@ -2355,7 +2409,10 @@ await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189
 <dd>
 
 ```ts
-await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1);
+await client.empathicVoice.configs.getConfigVersion(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  1,
+);
 ```
 
 </dd>
@@ -2434,7 +2491,10 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1);
+await client.empathicVoice.configs.deleteConfigVersion(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  1,
+);
 ```
 
 </dd>
@@ -2513,9 +2573,13 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1, {
-    versionDescription: "This is an updated version_description.",
-});
+await client.empathicVoice.configs.updateConfigDescription(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  1,
+  {
+    versionDescription: 'This is an updated version_description.',
+  },
+);
 ```
 
 </dd>
@@ -2607,9 +2671,9 @@ Version numbers are integer values representing different iterations of the Conf
 
 ```ts
 await client.empathicVoice.chats.listChats({
-    pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true,
+  pageNumber: 0,
+  pageSize: 1,
+  ascendingOrder: true,
 });
 ```
 
@@ -2673,11 +2737,14 @@ await client.empathicVoice.chats.listChats({
 <dd>
 
 ```ts
-await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+await client.empathicVoice.chats.listChatEvents(
+  '470a49f6-1dec-4afe-8b61-035d3b2d63b0',
+  {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true,
-});
+  },
+);
 ```
 
 </dd>
@@ -2753,10 +2820,10 @@ await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2
 
 ```ts
 await client.empathicVoice.chatGroups.listChatGroups({
-    pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true,
-    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+  pageNumber: 0,
+  pageSize: 1,
+  ascendingOrder: true,
+  configId: '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
 });
 ```
 
@@ -2820,11 +2887,14 @@ await client.empathicVoice.chatGroups.listChatGroups({
 <dd>
 
 ```ts
-await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+await client.empathicVoice.chatGroups.listChatGroupEvents(
+  '697056f0-6c7e-487d-9bd8-9c19df79f05f',
+  {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true,
-});
+  },
+);
 ```
 
 </dd>

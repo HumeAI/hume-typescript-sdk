@@ -6,14 +6,14 @@
  * A Prompt associated with this Config.
  */
 export interface PostedPromptSpec {
-    /** Identifier for a Prompt. Formatted as a UUID. */
-    id: string;
-    /**
-     * Version number for a Prompt.
-     *
-     * Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-     *
-     * Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
-     */
-    version?: number;
+  /** Identifier for a Prompt. Formatted as a UUID. */
+  id: string;
+  /**
+   * Version number for a Prompt.
+   *
+   * Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+   *
+   * Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+   */
+  version?: number;
 }

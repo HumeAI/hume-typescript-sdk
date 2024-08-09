@@ -18,18 +18,18 @@
  * - `ERROR`: The chat ended unexpectedly due to an error.
  */
 export type ReturnChatStatus =
-    | "ACTIVE"
-    | "USER_ENDED"
-    | "USER_TIMEOUT"
-    | "MAX_DURATION_TIMEOUT"
-    | "INACTIVITY_TIMEOUT"
-    | "ERROR";
+  | 'ACTIVE'
+  | 'USER_ENDED'
+  | 'USER_TIMEOUT'
+  | 'MAX_DURATION_TIMEOUT'
+  | 'INACTIVITY_TIMEOUT'
+  | 'ERROR';
 
 export const ReturnChatStatus = {
-    Active: "ACTIVE",
-    UserEnded: "USER_ENDED",
-    UserTimeout: "USER_TIMEOUT",
-    MaxDurationTimeout: "MAX_DURATION_TIMEOUT",
-    InactivityTimeout: "INACTIVITY_TIMEOUT",
-    Error: "ERROR",
+  Active: 'ACTIVE',
+  UserEnded: 'USER_ENDED',
+  UserTimeout: 'USER_TIMEOUT',
+  MaxDurationTimeout: 'MAX_DURATION_TIMEOUT',
+  InactivityTimeout: 'INACTIVITY_TIMEOUT',
+  Error: 'ERROR',
 } as const;
