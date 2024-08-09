@@ -4,7 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         pageNumber: 0,
+ *         pageSize: 1,
+ *         ascendingOrder: true
+ *     }
  */
 export interface ChatsListChatsRequest {
   /**
@@ -14,9 +18,9 @@ export interface ChatsListChatsRequest {
    */
   pageNumber?: number;
   /**
-   * Specifies the maximum number of results to include per page, enabling pagination.
+   * Specifies the maximum number of results to include per page, enabling pagination. The value must be between 1 and 100, inclusive.
    *
-   * The value must be greater than or equal to 1. For example, if `page_size` is set to 10, each page will include up to 10 items. Defaults to 10.
+   * For example, if `page_size` is set to 10, each page will include up to 10 items. Defaults to 10.
    */
   pageSize?: number;
   /**

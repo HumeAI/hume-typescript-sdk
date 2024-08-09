@@ -9,5 +9,6 @@ import * as Hume from '../../../../../../index';
  *     {}
  */
 export interface BatchStartInferenceJobFromLocalFileRequest {
+  /** Stringified JSON object containing the inference job configuration. */
   json?: Hume.expressionMeasurement.InferenceBaseRequest;
 }

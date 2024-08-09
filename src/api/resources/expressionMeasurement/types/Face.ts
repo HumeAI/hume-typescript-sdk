@@ -4,6 +4,11 @@
 
 import * as Hume from '../../../index';
 
+/**
+ * The Facial Emotional Expression model analyzes human facial expressions in images and videos. Results will be provided per frame for video files.
+ *
+ * Recommended input file types: `.png`, `.jpeg`, `.mp4`
+ */
 export interface Face {
   /** Number of frames per second to process. Other frames will be omitted from the response. Set to `0` to process every frame. */
   fpsPred?: number;

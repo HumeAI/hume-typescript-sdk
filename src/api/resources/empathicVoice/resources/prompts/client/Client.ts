@@ -34,87 +34,107 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.listPrompts()
+   *     await client.empathicVoice.prompts.listPrompts({
+   *         pageNumber: 0,
+   *         pageSize: 2
+   *     })
    */
   public async listPrompts(
     request: Hume.empathicVoice.PromptsListPromptsRequest = {},
     requestOptions?: Prompts.RequestOptions,
-  ): Promise<Hume.empathicVoice.ReturnPagedPrompts> {
-    const { pageNumber, pageSize, restrictToMostRecent, name } = request;
-    const _queryParams: Record<string, string | string[] | object | object[]> =
-      {};
-    if (pageNumber != null) {
-      _queryParams['page_number'] = pageNumber.toString();
-    }
-
-    if (pageSize != null) {
-      _queryParams['page_size'] = pageSize.toString();
-    }
-
-    if (restrictToMostRecent != null) {
-      _queryParams['restrict_to_most_recent'] = restrictToMostRecent.toString();
-    }
-
-    if (name != null) {
-      _queryParams['name'] = name;
-    }
-
-    const _response = await (this._options.fetcher ?? core.fetcher)({
-      url: urlJoin(
-        (await core.Supplier.get(this._options.environment)) ??
-          environments.HumeEnvironment.Production,
-        'v0/evi/prompts',
-      ),
-      method: 'GET',
-      headers: {
-        'X-Fern-Language': 'JavaScript',
-        'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
-        'X-Fern-Runtime': core.RUNTIME.type,
-        'X-Fern-Runtime-Version': core.RUNTIME.version,
-        ...(await this._getCustomAuthorizationHeaders()),
-      },
-      contentType: 'application/json',
-      queryParameters: _queryParams,
-      timeoutMs:
-        requestOptions?.timeoutInSeconds != null
-          ? requestOptions.timeoutInSeconds * 1000
-          : 60000,
-      maxRetries: requestOptions?.maxRetries,
-      abortSignal: requestOptions?.abortSignal,
-    });
-    if (_response.ok) {
-      return serializers.empathicVoice.ReturnPagedPrompts.parseOrThrow(
-        _response.body,
-        {
-          unrecognizedObjectKeys: 'passthrough',
-          allowUnrecognizedUnionMembers: true,
-          allowUnrecognizedEnumValues: true,
-          breadcrumbsPrefix: ['response'],
+  ): Promise<core.Page<Hume.empathicVoice.ReturnPrompt | undefined>> {
+    const list = async (
+      request: Hume.empathicVoice.PromptsListPromptsRequest,
+    ): Promise<Hume.empathicVoice.ReturnPagedPrompts> => {
+      const { pageNumber, pageSize, restrictToMostRecent, name } = request;
+      const _queryParams: Record<
+        string,
+        string | string[] | object | object[]
+      > = {};
+      if (pageNumber != null) {
+        _queryParams['page_number'] = pageNumber.toString();
+      }
+      if (pageSize != null) {
+        _queryParams['page_size'] = pageSize.toString();
+      }
+      if (restrictToMostRecent != null) {
+        _queryParams['restrict_to_most_recent'] =
+          restrictToMostRecent.toString();
+      }
+      if (name != null) {
+        _queryParams['name'] = name;
+      }
+      const _response = await (this._options.fetcher ?? core.fetcher)({
+        url: urlJoin(
+          (await core.Supplier.get(this._options.environment)) ??
+            environments.HumeEnvironment.Production,
+          'v0/evi/prompts',
+        ),
+        method: 'GET',
+        headers: {
+          'X-Fern-Language': 'JavaScript',
+          'X-Fern-SDK-Name': 'hume',
+          'X-Fern-SDK-Version': '0.8.6',
+          'X-Fern-Runtime': core.RUNTIME.type,
+          'X-Fern-Runtime-Version': core.RUNTIME.version,
+          ...(await this._getCustomAuthorizationHeaders()),
         },
-      );
-    }
-
-    if (_response.error.reason === 'status-code') {
-      throw new errors.HumeError({
-        statusCode: _response.error.statusCode,
-        body: _response.error.body,
+        contentType: 'application/json',
+        queryParameters: _queryParams,
+        timeoutMs:
+          requestOptions?.timeoutInSeconds != null
+            ? requestOptions.timeoutInSeconds * 1000
+            : 60000,
+        maxRetries: requestOptions?.maxRetries,
+        abortSignal: requestOptions?.abortSignal,
       });
-    }
-
-    switch (_response.error.reason) {
-      case 'non-json':
+      if (_response.ok) {
+        return serializers.empathicVoice.ReturnPagedPrompts.parseOrThrow(
+          _response.body,
+          {
+            unrecognizedObjectKeys: 'passthrough',
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            breadcrumbsPrefix: ['response'],
+          },
+        );
+      }
+      if (_response.error.reason === 'status-code') {
         throw new errors.HumeError({
           statusCode: _response.error.statusCode,
-          body: _response.error.rawBody,
+          body: _response.error.body,
         });
-      case 'timeout':
-        throw new errors.HumeTimeoutError();
-      case 'unknown':
-        throw new errors.HumeError({
-          message: _response.error.errorMessage,
+      }
+      switch (_response.error.reason) {
+        case 'non-json':
+          throw new errors.HumeError({
+            statusCode: _response.error.statusCode,
+            body: _response.error.rawBody,
+          });
+        case 'timeout':
+          throw new errors.HumeTimeoutError();
+        case 'unknown':
+          throw new errors.HumeError({
+            message: _response.error.errorMessage,
+          });
+      }
+    };
+    let _offset = request.pageNumber != null ? request.pageNumber : 1;
+    return new core.Pageable<
+      Hume.empathicVoice.ReturnPagedPrompts,
+      Hume.empathicVoice.ReturnPrompt | undefined
+    >({
+      response: await list(request),
+      hasNextPage: (response) => (response?.promptsPage ?? []).length > 0,
+      getItems: (response) => response?.promptsPage ?? [],
+      loadPage: (_response) => {
+        _offset += 1;
+        return list({
+          ...request,
+          pageNumber: _offset,
         });
-    }
+      },
+    });
   }
 
   /**
@@ -123,8 +143,8 @@ export class Prompts {
    *
    * @example
    *     await client.empathicVoice.prompts.createPrompt({
-   *         name: "name",
-   *         text: "text"
+   *         name: "Weather Assistant Prompt",
+   *         text: "<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>"
    *     })
    */
   public async createPrompt(
@@ -141,7 +161,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -197,7 +217,7 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.listPromptVersions("id")
+   *     await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5")
    */
   public async listPromptVersions(
     id: string,
@@ -229,7 +249,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -283,8 +303,9 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.createPromptVerison("id", {
-   *         text: "text"
+   *     await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+   *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
+   *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
    *     })
    */
   public async createPromptVerison(
@@ -302,7 +323,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -357,7 +378,7 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.deletePrompt("id")
+   *     await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5")
    */
   public async deletePrompt(
     id: string,
@@ -373,7 +394,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -418,8 +439,8 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.updatePromptName("string", {
-   *         name: "string"
+   *     await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+   *         name: "Updated Weather Assistant Prompt Name"
    *     })
    */
   public async updatePromptName(
@@ -437,7 +458,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -490,7 +511,7 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.getPromptVersion("id", 1)
+   *     await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0)
    */
   public async getPromptVersion(
     id: string,
@@ -507,7 +528,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -564,7 +585,7 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.deletePromptVersion("id", 1)
+   *     await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1)
    */
   public async deletePromptVersion(
     id: string,
@@ -581,7 +602,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -631,7 +652,9 @@ export class Prompts {
    * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.prompts.updatePromptDescription("id", 1)
+   *     await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
+   *         versionDescription: "This is an updated version_description."
+   *     })
    */
   public async updatePromptDescription(
     id: string,
@@ -649,7 +672,7 @@ export class Prompts {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

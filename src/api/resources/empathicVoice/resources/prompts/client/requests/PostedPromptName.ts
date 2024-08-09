@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         name: "string"
+ *         name: "Updated Weather Assistant Prompt Name"
  *     }
  */
 export interface PostedPromptName {

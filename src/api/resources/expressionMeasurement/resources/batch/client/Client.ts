@@ -44,15 +44,7 @@ export class Batch {
     request: Hume.expressionMeasurement.BatchListJobsRequest = {},
     requestOptions?: Batch.RequestOptions,
   ): Promise<Hume.expressionMeasurement.UnionJob[]> {
-    const {
-      limit,
-      status,
-      when,
-      timestampMs,
-      sortBy,
-      direction,
-      type: type_,
-    } = request;
+    const { limit, status, when, timestampMs, sortBy, direction } = request;
     const _queryParams: Record<string, string | string[] | object | object[]> =
       {};
     if (limit != null) {
@@ -83,14 +75,6 @@ export class Batch {
       _queryParams['direction'] = direction;
     }
 
-    if (type_ != null) {
-      if (Array.isArray(type_)) {
-        _queryParams['type'] = type_.map((item) => item);
-      } else {
-        _queryParams['type'] = type_;
-      }
-    }
-
     const _response = await (this._options.fetcher ?? core.fetcher)({
       url: urlJoin(
         (await core.Supplier.get(this._options.environment)) ??
@@ -101,7 +85,7 @@ export class Batch {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -175,7 +159,7 @@ export class Batch {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -231,7 +215,7 @@ export class Batch {
   /**
    * Get the request details and state of a given job.
    *
-   * @param {string} id
+   * @param {string} id - The unique identifier for the job.
    * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -251,7 +235,7 @@ export class Batch {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -299,9 +283,9 @@ export class Batch {
   }
 
   /**
-   * Get the JSON predictions of a completed measurement or custom models inference job.
+   * Get the JSON predictions of a completed inference job.
    *
-   * @param {string} id
+   * @param {string} id - The unique identifier for the job.
    * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
@@ -321,7 +305,7 @@ export class Batch {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -369,7 +353,7 @@ export class Batch {
   }
 
   /**
-   * Get the artifacts ZIP of a completed measurement or custom models inference job.
+   * Get the artifacts ZIP of a completed inference job.
    */
   public async getJobArtifacts(
     id: string,
@@ -387,7 +371,7 @@ export class Batch {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -462,7 +446,7 @@ export class Batch {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

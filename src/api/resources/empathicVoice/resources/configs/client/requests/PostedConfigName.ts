@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         name: "string"
+ *         name: "Updated Weather Assistant Config Name"
  *     }
  */
 export interface PostedConfigName {

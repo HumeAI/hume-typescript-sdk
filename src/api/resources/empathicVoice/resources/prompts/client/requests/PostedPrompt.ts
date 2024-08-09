@@ -5,8 +5,8 @@
 /**
  * @example
  *     {
- *         name: "name",
- *         text: "text"
+ *         name: "Weather Assistant Prompt",
+ *         text: "<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>"
  *     }
  */
 export interface PostedPrompt {

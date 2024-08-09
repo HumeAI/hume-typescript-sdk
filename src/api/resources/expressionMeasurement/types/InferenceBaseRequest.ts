@@ -5,6 +5,11 @@
 import * as Hume from '../../../index';
 
 export interface InferenceBaseRequest {
+  /**
+   * Specify the models to use for inference.
+   *
+   * If this field is not explicitly set, then all models will run by default.
+   */
   models?: Hume.expressionMeasurement.Models;
   transcription?: Hume.expressionMeasurement.Transcription;
   /**
@@ -15,7 +20,7 @@ export interface InferenceBaseRequest {
   urls?: string[];
   /** List of File IDs corresponding to the files in the asset registry. */
   registryFiles?: string[];
-  /** Text to supply directly to our language and NER models. */
+  /** Text supplied directly to our Emotional Language and NER models for analysis. */
   text?: string[];
   /** If provided, a `POST` request will be made to the URL with the generated predictions on completion or the error message on failure. */
   callbackUrl?: string;

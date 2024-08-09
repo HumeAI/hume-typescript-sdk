@@ -6,18 +6,12 @@ import * as serializers from '../../../index';
 import * as Hume from '../../../../api/index';
 import * as core from '../../../../core';
 import { InferenceSourcePredictResult } from './InferenceSourcePredictResult';
-import { TlInferenceSourcePredictResult } from './TlInferenceSourcePredictResult';
 
-export const UnionPredictResult: core.serialization.Schema<
+export const UnionPredictResult: core.serialization.ObjectSchema<
   serializers.expressionMeasurement.UnionPredictResult.Raw,
   Hume.expressionMeasurement.UnionPredictResult
-> = core.serialization.undiscriminatedUnion([
-  InferenceSourcePredictResult,
-  TlInferenceSourcePredictResult,
-]);
+> = InferenceSourcePredictResult;
 
 export declare namespace UnionPredictResult {
-  type Raw =
-    | InferenceSourcePredictResult.Raw
-    | TlInferenceSourcePredictResult.Raw;
+  type Raw = InferenceSourcePredictResult.Raw;
 }

@@ -6,7 +6,39 @@ import * as Hume from '../../../../../../index';
 
 /**
  * @example
- *     {}
+ *     {
+ *         versionDescription: "This is an updated version of the Weather Assistant Config.",
+ *         prompt: {
+ *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+ *             version: 0
+ *         },
+ *         voice: {
+ *             provider: "HUME_AI",
+ *             name: Hume.empathicVoice.PostedVoiceName.Ito
+ *         },
+ *         languageModel: {
+ *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
+ *             modelResource: "claude-3-5-sonnet-20240620",
+ *             temperature: 1
+ *         },
+ *         ellmModel: {
+ *             allowShortResponses: true
+ *         },
+ *         eventMessages: {
+ *             onNewChat: {
+ *                 enabled: false,
+ *                 text: ""
+ *             },
+ *             onInactivityTimeout: {
+ *                 enabled: false,
+ *                 text: ""
+ *             },
+ *             onMaxDurationTimeout: {
+ *                 enabled: false,
+ *                 text: ""
+ *             }
+ *         }
+ *     }
  */
 export interface PostedConfigVersion {
   /** An optional description of the Config version. */

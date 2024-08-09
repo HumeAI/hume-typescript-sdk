@@ -5,5 +5,4 @@
 import * as Hume from '../../../index';
 
 export type UnionPredictResult =
-  | Hume.expressionMeasurement.InferenceSourcePredictResult
-  | Hume.expressionMeasurement.TlInferenceSourcePredictResult;
+  Hume.expressionMeasurement.InferenceSourcePredictResult;

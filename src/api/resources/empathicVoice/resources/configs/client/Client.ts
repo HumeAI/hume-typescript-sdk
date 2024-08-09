@@ -34,7 +34,10 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.listConfigs()
+   *     await client.empathicVoice.configs.listConfigs({
+   *         pageNumber: 0,
+   *         pageSize: 1
+   *     })
    */
   public async listConfigs(
     request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
@@ -69,7 +72,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -123,7 +126,34 @@ export class Configs {
    *
    * @example
    *     await client.empathicVoice.configs.createConfig({
-   *         name: "name"
+   *         name: "Weather Assistant Config",
+   *         prompt: {
+   *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+   *             version: 0
+   *         },
+   *         voice: {
+   *             provider: "HUME_AI",
+   *             name: Hume.empathicVoice.PostedVoiceName.Kora
+   *         },
+   *         languageModel: {
+   *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
+   *             modelResource: "claude-3-5-sonnet-20240620",
+   *             temperature: 1
+   *         },
+   *         eventMessages: {
+   *             onNewChat: {
+   *                 enabled: false,
+   *                 text: ""
+   *             },
+   *             onInactivityTimeout: {
+   *                 enabled: false,
+   *                 text: ""
+   *             },
+   *             onMaxDurationTimeout: {
+   *                 enabled: false,
+   *                 text: ""
+   *             }
+   *         }
    *     })
    */
   public async createConfig(
@@ -140,7 +170,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -196,7 +226,7 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.listConfigVersions("id")
+   *     await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
    */
   public async listConfigVersions(
     id: string,
@@ -228,7 +258,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -282,7 +312,39 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.createConfigVersion("id")
+   *     await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+   *         versionDescription: "This is an updated version of the Weather Assistant Config.",
+   *         prompt: {
+   *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+   *             version: 0
+   *         },
+   *         voice: {
+   *             provider: "HUME_AI",
+   *             name: Hume.empathicVoice.PostedVoiceName.Ito
+   *         },
+   *         languageModel: {
+   *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
+   *             modelResource: "claude-3-5-sonnet-20240620",
+   *             temperature: 1
+   *         },
+   *         ellmModel: {
+   *             allowShortResponses: true
+   *         },
+   *         eventMessages: {
+   *             onNewChat: {
+   *                 enabled: false,
+   *                 text: ""
+   *             },
+   *             onInactivityTimeout: {
+   *                 enabled: false,
+   *                 text: ""
+   *             },
+   *             onMaxDurationTimeout: {
+   *                 enabled: false,
+   *                 text: ""
+   *             }
+   *         }
+   *     })
    */
   public async createConfigVersion(
     id: string,
@@ -299,7 +361,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -354,7 +416,7 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.deleteConfig("id")
+   *     await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
    */
   public async deleteConfig(
     id: string,
@@ -370,7 +432,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -415,8 +477,8 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.updateConfigName("string", {
-   *         name: "string"
+   *     await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+   *         name: "Updated Weather Assistant Config Name"
    *     })
    */
   public async updateConfigName(
@@ -434,7 +496,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -487,7 +549,7 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.getConfigVersion("id", 1)
+   *     await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
    */
   public async getConfigVersion(
     id: string,
@@ -504,7 +566,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -561,7 +623,7 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.deleteConfigVersion("id", 1)
+   *     await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
    */
   public async deleteConfigVersion(
     id: string,
@@ -578,7 +640,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -628,7 +690,9 @@ export class Configs {
    * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.configs.updateConfigDescription("id", 1)
+   *     await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1, {
+   *         versionDescription: "This is an updated version_description."
+   *     })
    */
   public async updateConfigDescription(
     id: string,
@@ -646,7 +710,7 @@ export class Configs {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

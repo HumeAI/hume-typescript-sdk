@@ -5,46 +5,13 @@
 import * as serializers from '../../../index';
 import * as Hume from '../../../../api/index';
 import * as core from '../../../../core';
-import { UnionJobJobEmbeddingGeneration } from './UnionJobJobEmbeddingGeneration';
-import { UnionJobJobInference } from './UnionJobJobInference';
-import { UnionJobJobTlInference } from './UnionJobJobTlInference';
-import { UnionJobJobTraining } from './UnionJobJobTraining';
+import { InferenceJob } from './InferenceJob';
 
-export const UnionJob: core.serialization.Schema<
+export const UnionJob: core.serialization.ObjectSchema<
   serializers.expressionMeasurement.UnionJob.Raw,
   Hume.expressionMeasurement.UnionJob
-> = core.serialization
-  .union('type', {
-    EMBEDDING_GENERATION: UnionJobJobEmbeddingGeneration,
-    INFERENCE: UnionJobJobInference,
-    TL_INFERENCE: UnionJobJobTlInference,
-    TRAINING: UnionJobJobTraining,
-  })
-  .transform<Hume.expressionMeasurement.UnionJob>({
-    transform: (value) => value,
-    untransform: (value) => value,
-  });
+> = InferenceJob;
 
 export declare namespace UnionJob {
-  type Raw =
-    | UnionJob.EmbeddingGeneration
-    | UnionJob.Inference
-    | UnionJob.TlInference
-    | UnionJob.Training;
-
-  interface EmbeddingGeneration extends UnionJobJobEmbeddingGeneration.Raw {
-    type: 'EMBEDDING_GENERATION';
-  }
-
-  interface Inference extends UnionJobJobInference.Raw {
-    type: 'INFERENCE';
-  }
-
-  interface TlInference extends UnionJobJobTlInference.Raw {
-    type: 'TL_INFERENCE';
-  }
-
-  interface Training extends UnionJobJobTraining.Raw {
-    type: 'TRAINING';
-  }
+  type Raw = InferenceJob.Raw;
 }

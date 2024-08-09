@@ -34,7 +34,12 @@ export class ChatGroups {
    * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.chatGroups.listChatGroups()
+   *     await client.empathicVoice.chatGroups.listChatGroups({
+   *         pageNumber: 0,
+   *         pageSize: 1,
+   *         ascendingOrder: true,
+   *         configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+   *     })
    */
   public async listChatGroups(
     request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest = {},
@@ -69,7 +74,7 @@ export class ChatGroups {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -123,7 +128,11 @@ export class ChatGroups {
    * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
    *
    * @example
-   *     await client.empathicVoice.chatGroups.listChatGroupEvents("id")
+   *     await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+   *         pageNumber: 0,
+   *         pageSize: 3,
+   *         ascendingOrder: true
+   *     })
    */
   public async listChatGroupEvents(
     id: string,
@@ -155,7 +164,7 @@ export class ChatGroups {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

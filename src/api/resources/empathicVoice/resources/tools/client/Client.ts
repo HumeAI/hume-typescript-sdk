@@ -42,82 +42,99 @@ export class Tools {
   public async listTools(
     request: Hume.empathicVoice.ToolsListToolsRequest = {},
     requestOptions?: Tools.RequestOptions,
-  ): Promise<Hume.empathicVoice.ReturnPagedUserDefinedTools> {
-    const { pageNumber, pageSize, restrictToMostRecent, name } = request;
-    const _queryParams: Record<string, string | string[] | object | object[]> =
-      {};
-    if (pageNumber != null) {
-      _queryParams['page_number'] = pageNumber.toString();
-    }
-
-    if (pageSize != null) {
-      _queryParams['page_size'] = pageSize.toString();
-    }
-
-    if (restrictToMostRecent != null) {
-      _queryParams['restrict_to_most_recent'] = restrictToMostRecent.toString();
-    }
-
-    if (name != null) {
-      _queryParams['name'] = name;
-    }
-
-    const _response = await (this._options.fetcher ?? core.fetcher)({
-      url: urlJoin(
-        (await core.Supplier.get(this._options.environment)) ??
-          environments.HumeEnvironment.Production,
-        'v0/evi/tools',
-      ),
-      method: 'GET',
-      headers: {
-        'X-Fern-Language': 'JavaScript',
-        'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
-        'X-Fern-Runtime': core.RUNTIME.type,
-        'X-Fern-Runtime-Version': core.RUNTIME.version,
-        ...(await this._getCustomAuthorizationHeaders()),
-      },
-      contentType: 'application/json',
-      queryParameters: _queryParams,
-      timeoutMs:
-        requestOptions?.timeoutInSeconds != null
-          ? requestOptions.timeoutInSeconds * 1000
-          : 60000,
-      maxRetries: requestOptions?.maxRetries,
-      abortSignal: requestOptions?.abortSignal,
-    });
-    if (_response.ok) {
-      return serializers.empathicVoice.ReturnPagedUserDefinedTools.parseOrThrow(
-        _response.body,
-        {
-          unrecognizedObjectKeys: 'passthrough',
-          allowUnrecognizedUnionMembers: true,
-          allowUnrecognizedEnumValues: true,
-          breadcrumbsPrefix: ['response'],
+  ): Promise<core.Page<Hume.empathicVoice.ReturnUserDefinedTool | undefined>> {
+    const list = async (
+      request: Hume.empathicVoice.ToolsListToolsRequest,
+    ): Promise<Hume.empathicVoice.ReturnPagedUserDefinedTools> => {
+      const { pageNumber, pageSize, restrictToMostRecent, name } = request;
+      const _queryParams: Record<
+        string,
+        string | string[] | object | object[]
+      > = {};
+      if (pageNumber != null) {
+        _queryParams['page_number'] = pageNumber.toString();
+      }
+      if (pageSize != null) {
+        _queryParams['page_size'] = pageSize.toString();
+      }
+      if (restrictToMostRecent != null) {
+        _queryParams['restrict_to_most_recent'] =
+          restrictToMostRecent.toString();
+      }
+      if (name != null) {
+        _queryParams['name'] = name;
+      }
+      const _response = await (this._options.fetcher ?? core.fetcher)({
+        url: urlJoin(
+          (await core.Supplier.get(this._options.environment)) ??
+            environments.HumeEnvironment.Production,
+          'v0/evi/tools',
+        ),
+        method: 'GET',
+        headers: {
+          'X-Fern-Language': 'JavaScript',
+          'X-Fern-SDK-Name': 'hume',
+          'X-Fern-SDK-Version': '0.8.6',
+          'X-Fern-Runtime': core.RUNTIME.type,
+          'X-Fern-Runtime-Version': core.RUNTIME.version,
+          ...(await this._getCustomAuthorizationHeaders()),
         },
-      );
-    }
-
-    if (_response.error.reason === 'status-code') {
-      throw new errors.HumeError({
-        statusCode: _response.error.statusCode,
-        body: _response.error.body,
+        contentType: 'application/json',
+        queryParameters: _queryParams,
+        timeoutMs:
+          requestOptions?.timeoutInSeconds != null
+            ? requestOptions.timeoutInSeconds * 1000
+            : 60000,
+        maxRetries: requestOptions?.maxRetries,
+        abortSignal: requestOptions?.abortSignal,
       });
-    }
-
-    switch (_response.error.reason) {
-      case 'non-json':
+      if (_response.ok) {
+        return serializers.empathicVoice.ReturnPagedUserDefinedTools.parseOrThrow(
+          _response.body,
+          {
+            unrecognizedObjectKeys: 'passthrough',
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            breadcrumbsPrefix: ['response'],
+          },
+        );
+      }
+      if (_response.error.reason === 'status-code') {
         throw new errors.HumeError({
           statusCode: _response.error.statusCode,
-          body: _response.error.rawBody,
+          body: _response.error.body,
         });
-      case 'timeout':
-        throw new errors.HumeTimeoutError();
-      case 'unknown':
-        throw new errors.HumeError({
-          message: _response.error.errorMessage,
+      }
+      switch (_response.error.reason) {
+        case 'non-json':
+          throw new errors.HumeError({
+            statusCode: _response.error.statusCode,
+            body: _response.error.rawBody,
+          });
+        case 'timeout':
+          throw new errors.HumeTimeoutError();
+        case 'unknown':
+          throw new errors.HumeError({
+            message: _response.error.errorMessage,
+          });
+      }
+    };
+    let _offset = request.pageNumber != null ? request.pageNumber : 1;
+    return new core.Pageable<
+      Hume.empathicVoice.ReturnPagedUserDefinedTools,
+      Hume.empathicVoice.ReturnUserDefinedTool | undefined
+    >({
+      response: await list(request),
+      hasNextPage: (response) => (response?.toolsPage ?? []).length > 0,
+      getItems: (response) => response?.toolsPage ?? [],
+      loadPage: (_response) => {
+        _offset += 1;
+        return list({
+          ...request,
+          pageNumber: _offset,
         });
-    }
+      },
+    });
   }
 
   /**
@@ -147,7 +164,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -238,7 +255,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -314,7 +331,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -388,7 +405,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -452,7 +469,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -525,7 +542,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -599,7 +616,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),
@@ -669,7 +686,7 @@ export class Tools {
       headers: {
         'X-Fern-Language': 'JavaScript',
         'X-Fern-SDK-Name': 'hume',
-        'X-Fern-SDK-Version': '0.8.5',
+        'X-Fern-SDK-Version': '0.8.6',
         'X-Fern-Runtime': core.RUNTIME.type,
         'X-Fern-Runtime-Version': core.RUNTIME.version,
         ...(await this._getCustomAuthorizationHeaders()),

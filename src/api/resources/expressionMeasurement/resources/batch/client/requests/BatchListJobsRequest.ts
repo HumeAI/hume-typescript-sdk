@@ -14,29 +14,45 @@ export interface BatchListJobsRequest {
    */
   limit?: number;
   /**
-   * Include only jobs with these statuses.
+   * Include only jobs of this status in the response. There are four possible statuses:
+   *
+   * - `QUEUED`: The job has been received and is waiting to be processed.
+   *
+   * - `IN_PROGRESS`: The job is currently being processed.
+   *
+   * - `COMPLETED`: The job has finished processing.
+   *
+   * - `FAILED`: The job encountered an error and could not be completed successfully.
    */
   status?:
     | Hume.expressionMeasurement.Status
     | Hume.expressionMeasurement.Status[];
   /**
-   * Include only jobs that were created before or after `timestamp_ms`.
+   * Specify whether to include jobs created before or after a given `timestamp_ms`.
    */
   when?: Hume.expressionMeasurement.When;
   /**
-   * Defaults to the current date and time. See `when`.
+   * Provide a timestamp in milliseconds to filter jobs.
+   *
+   * When combined with the `when` parameter, you can filter jobs before or after the given timestamp. Defaults to the current Unix timestamp if one is not provided.
    */
   timestampMs?: number;
   /**
-   * The job timestamp to sort by.
+   * Specify which timestamp to sort the jobs by.
+   *
+   * - `created`: Sort jobs by the time of creation, indicated by `created_timestamp_ms`.
+   *
+   * - `started`: Sort jobs by the time processing started, indicated by `started_timestamp_ms`.
+   *
+   * - `ended`: Sort jobs by the time processing ended, indicated by `ended_timestamp_ms`.
    */
   sortBy?: Hume.expressionMeasurement.SortBy;
   /**
-   * The sort direction.
+   * Specify the order in which to sort the jobs. Defaults to descending order.
+   *
+   * - `asc`: Sort in ascending order (chronological, with the oldest records first).
+   *
+   * - `desc`: Sort in descending order (reverse-chronological, with the newest records first).
    */
   direction?: Hume.expressionMeasurement.Direction;
-  /**
-   * Include only jobs of these types.
-   */
-  type?: Hume.expressionMeasurement.Type | Hume.expressionMeasurement.Type[];
 }

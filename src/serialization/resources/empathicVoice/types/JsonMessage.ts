@@ -5,6 +5,7 @@
 import * as serializers from '../../../index';
 import * as Hume from '../../../../api/index';
 import * as core from '../../../../core';
+import { AssistantEnd } from './AssistantEnd';
 import { AssistantMessage } from './AssistantMessage';
 import { ChatMetadata } from './ChatMetadata';
 import { WebSocketError } from './WebSocketError';
@@ -18,6 +19,7 @@ export const JsonMessage: core.serialization.Schema<
   serializers.empathicVoice.JsonMessage.Raw,
   Hume.empathicVoice.JsonMessage
 > = core.serialization.undiscriminatedUnion([
+  AssistantEnd,
   AssistantMessage,
   ChatMetadata,
   WebSocketError,
@@ -30,6 +32,7 @@ export const JsonMessage: core.serialization.Schema<
 
 export declare namespace JsonMessage {
   type Raw =
+    | AssistantEnd.Raw
     | AssistantMessage.Raw
     | ChatMetadata.Raw
     | WebSocketError.Raw

@@ -5,6 +5,7 @@
 import * as Hume from '../../../index';
 
 export type JsonMessage =
+  | Hume.empathicVoice.AssistantEnd
   | Hume.empathicVoice.AssistantMessage
   | Hume.empathicVoice.ChatMetadata
   | Hume.empathicVoice.WebSocketError

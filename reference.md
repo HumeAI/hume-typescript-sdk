@@ -1,6 +1,522 @@
+## ExpressionMeasurement Batch
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Sort and filter jobs.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.listJobs();
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**request: `Hume.expressionMeasurement.BatchListJobsRequest`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Start a new measurement inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.startInferenceJob({
+  urls: ['https://hume-tutorials.s3.amazonaws.com/faces.zip'],
+  notify: true,
+});
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**request: `Hume.InferenceBaseRequest`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the request details and state of a given job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobDetails('job_id');
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`** — The unique identifier for the job.
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the JSON predictions of a completed inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobPredictions('job_id');
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`** — The unique identifier for the job.
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get the artifacts ZIP of a completed inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.getJobArtifacts('string');
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**id: `string`** — The unique identifier for the job.
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
+<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Start a new batch inference job.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
+  [fs.createReadStream('/path/to/your/file')],
+  {},
+);
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+**file: `File[] | fs.ReadStream[]`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**request: `Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest`**
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+**requestOptions: `Batch.RequestOptions`**
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+</details>
+
 ## EmpathicVoice Tools
 
-<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> Hume.ReturnPagedUserDefinedTools</code> </summary>
+<details><summary> <code>client.empathicVoice.tools.<a href="./src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<Hume.ReturnUserDefinedTool | undefined></code> </summary>
 
 <dl>
 
@@ -700,7 +1216,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 ## EmpathicVoice Prompts
 
-<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> Hume.ReturnPagedPrompts</code> </summary>
+<details><summary> <code>client.empathicVoice.prompts.<a href="./src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> core.Page<Hume.ReturnPrompt | undefined></code> </summary>
 
 <dl>
 
@@ -717,7 +1233,10 @@ Version numbers are integer values representing different iterations of the Tool
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.listPrompts();
+await client.empathicVoice.prompts.listPrompts({
+  pageNumber: 0,
+  pageSize: 2,
+});
 ```
 
 </dd>
@@ -781,8 +1300,8 @@ await client.empathicVoice.prompts.listPrompts();
 
 ```ts
 await client.empathicVoice.prompts.createPrompt({
-  name: 'name',
-  text: 'text',
+  name: 'Weather Assistant Prompt',
+  text: '<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>',
 });
 ```
 
@@ -846,7 +1365,9 @@ await client.empathicVoice.prompts.createPrompt({
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.listPromptVersions('id');
+await client.empathicVoice.prompts.listPromptVersions(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+);
 ```
 
 </dd>
@@ -919,9 +1440,14 @@ await client.empathicVoice.prompts.listPromptVersions('id');
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.createPromptVerison('id', {
-  text: 'text',
-});
+await client.empathicVoice.prompts.createPromptVerison(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  {
+    text: '<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>',
+    versionDescription:
+      'This is an updated version of the Weather Assistant Prompt.',
+  },
+);
 ```
 
 </dd>
@@ -994,7 +1520,9 @@ await client.empathicVoice.prompts.createPromptVerison('id', {
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.deletePrompt('id');
+await client.empathicVoice.prompts.deletePrompt(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+);
 ```
 
 </dd>
@@ -1057,9 +1585,12 @@ await client.empathicVoice.prompts.deletePrompt('id');
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.updatePromptName('string', {
-  name: 'string',
-});
+await client.empathicVoice.prompts.updatePromptName(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  {
+    name: 'Updated Weather Assistant Prompt Name',
+  },
+);
 ```
 
 </dd>
@@ -1132,7 +1663,10 @@ await client.empathicVoice.prompts.updatePromptName('string', {
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.getPromptVersion('id', 1);
+await client.empathicVoice.prompts.getPromptVersion(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  0,
+);
 ```
 
 </dd>
@@ -1211,7 +1745,10 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.deletePromptVersion('id', 1);
+await client.empathicVoice.prompts.deletePromptVersion(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  1,
+);
 ```
 
 </dd>
@@ -1290,7 +1827,13 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.prompts.updatePromptDescription('id', 1);
+await client.empathicVoice.prompts.updatePromptDescription(
+  'af699d45-2985-42cc-91b9-af9e5da3bac5',
+  1,
+  {
+    versionDescription: 'This is an updated version_description.',
+  },
+);
 ```
 
 </dd>
@@ -1381,7 +1924,10 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 ```ts
-await client.empathicVoice.configs.listConfigs();
+await client.empathicVoice.configs.listConfigs({
+  pageNumber: 0,
+  pageSize: 1,
+});
 ```
 
 </dd>
@@ -1445,7 +1991,34 @@ await client.empathicVoice.configs.listConfigs();
 
 ```ts
 await client.empathicVoice.configs.createConfig({
-  name: 'name',
+  name: 'Weather Assistant Config',
+  prompt: {
+    id: 'af699d45-2985-42cc-91b9-af9e5da3bac5',
+    version: 0,
+  },
+  voice: {
+    provider: 'HUME_AI',
+    name: Hume.PostedVoiceName.Kora,
+  },
+  languageModel: {
+    modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
+    modelResource: 'claude-3-5-sonnet-20240620',
+    temperature: 1,
+  },
+  eventMessages: {
+    onNewChat: {
+      enabled: false,
+      text: '',
+    },
+    onInactivityTimeout: {
+      enabled: false,
+      text: '',
+    },
+    onMaxDurationTimeout: {
+      enabled: false,
+      text: '',
+    },
+  },
 });
 ```
 
@@ -1509,7 +2082,9 @@ await client.empathicVoice.configs.createConfig({
 <dd>
 
 ```ts
-await client.empathicVoice.configs.listConfigVersions('id');
+await client.empathicVoice.configs.listConfigVersions(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+);
 ```
 
 </dd>
@@ -1582,7 +2157,43 @@ await client.empathicVoice.configs.listConfigVersions('id');
 <dd>
 
 ```ts
-await client.empathicVoice.configs.createConfigVersion('id');
+await client.empathicVoice.configs.createConfigVersion(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  {
+    versionDescription:
+      'This is an updated version of the Weather Assistant Config.',
+    prompt: {
+      id: 'af699d45-2985-42cc-91b9-af9e5da3bac5',
+      version: 0,
+    },
+    voice: {
+      provider: 'HUME_AI',
+      name: Hume.PostedVoiceName.Ito,
+    },
+    languageModel: {
+      modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
+      modelResource: 'claude-3-5-sonnet-20240620',
+      temperature: 1,
+    },
+    ellmModel: {
+      allowShortResponses: true,
+    },
+    eventMessages: {
+      onNewChat: {
+        enabled: false,
+        text: '',
+      },
+      onInactivityTimeout: {
+        enabled: false,
+        text: '',
+      },
+      onMaxDurationTimeout: {
+        enabled: false,
+        text: '',
+      },
+    },
+  },
+);
 ```
 
 </dd>
@@ -1655,7 +2266,9 @@ await client.empathicVoice.configs.createConfigVersion('id');
 <dd>
 
 ```ts
-await client.empathicVoice.configs.deleteConfig('id');
+await client.empathicVoice.configs.deleteConfig(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+);
 ```
 
 </dd>
@@ -1718,9 +2331,12 @@ await client.empathicVoice.configs.deleteConfig('id');
 <dd>
 
 ```ts
-await client.empathicVoice.configs.updateConfigName('string', {
-  name: 'string',
-});
+await client.empathicVoice.configs.updateConfigName(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  {
+    name: 'Updated Weather Assistant Config Name',
+  },
+);
 ```
 
 </dd>
@@ -1793,7 +2409,10 @@ await client.empathicVoice.configs.updateConfigName('string', {
 <dd>
 
 ```ts
-await client.empathicVoice.configs.getConfigVersion('id', 1);
+await client.empathicVoice.configs.getConfigVersion(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  1,
+);
 ```
 
 </dd>
@@ -1872,7 +2491,10 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.configs.deleteConfigVersion('id', 1);
+await client.empathicVoice.configs.deleteConfigVersion(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  1,
+);
 ```
 
 </dd>
@@ -1951,7 +2573,13 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.configs.updateConfigDescription('id', 1);
+await client.empathicVoice.configs.updateConfigDescription(
+  '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+  1,
+  {
+    versionDescription: 'This is an updated version_description.',
+  },
+);
 ```
 
 </dd>
@@ -2025,7 +2653,7 @@ Version numbers are integer values representing different iterations of the Conf
 
 ## EmpathicVoice Chats
 
-<details><summary> <code>client.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> Hume.ReturnPagedChats</code> </summary>
+<details><summary> <code>client.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> core.Page<Hume.ReturnChat></code> </summary>
 
 <dl>
 
@@ -2042,7 +2670,11 @@ Version numbers are integer values representing different iterations of the Conf
 <dd>
 
 ```ts
-await client.empathicVoice.chats.listChats();
+await client.empathicVoice.chats.listChats({
+  pageNumber: 0,
+  pageSize: 1,
+  ascendingOrder: true,
+});
 ```
 
 </dd>
@@ -2088,7 +2720,7 @@ await client.empathicVoice.chats.listChats();
 </dl>
 </details>
 
-<details><summary> <code>client.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> Hume.ReturnChatPagedEvents</code> </summary>
+<details><summary> <code>client.empathicVoice.chats.<a href="./src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent></code> </summary>
 
 <dl>
 
@@ -2105,7 +2737,14 @@ await client.empathicVoice.chats.listChats();
 <dd>
 
 ```ts
-await client.empathicVoice.chats.listChatEvents('id');
+await client.empathicVoice.chats.listChatEvents(
+  '470a49f6-1dec-4afe-8b61-035d3b2d63b0',
+  {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true,
+  },
+);
 ```
 
 </dd>
@@ -2180,7 +2819,12 @@ await client.empathicVoice.chats.listChatEvents('id');
 <dd>
 
 ```ts
-await client.empathicVoice.chatGroups.listChatGroups();
+await client.empathicVoice.chatGroups.listChatGroups({
+  pageNumber: 0,
+  pageSize: 1,
+  ascendingOrder: true,
+  configId: '1b60e1a0-cc59-424a-8d2c-189d354db3f3',
+});
 ```
 
 </dd>
@@ -2243,7 +2887,14 @@ await client.empathicVoice.chatGroups.listChatGroups();
 <dd>
 
 ```ts
-await client.empathicVoice.chatGroups.listChatGroupEvents('id');
+await client.empathicVoice.chatGroups.listChatGroupEvents(
+  '697056f0-6c7e-487d-9bd8-9c19df79f05f',
+  {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true,
+  },
+);
 ```
 
 </dd>
@@ -2285,605 +2936,6 @@ await client.empathicVoice.chatGroups.listChatGroupEvents('id');
 <dd>
 
 **requestOptions: `ChatGroups.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-## ExpressionMeasurement Batch
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Sort and filter jobs.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.listJobs();
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**request: `Hume.expressionMeasurement.BatchListJobsRequest`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Start a new measurement inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.startInferenceJob({
-  urls: ['https://hume-tutorials.s3.amazonaws.com/faces.zip'],
-  notify: true,
-});
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**request: `Hume.InferenceBaseRequest`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the request details and state of a given job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobDetails('job_id');
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the request details and state of a given job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobDetails('job_id');
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the JSON predictions of a completed measurement or custom models inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobPredictions('job_id');
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get the artifacts ZIP of a completed measurement or custom models inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.getJobArtifacts('string');
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**id: `string`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-</details>
-
-<details><summary> <code>client.expressionMeasurement.batch.<a href="./src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Start a new batch inference job.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
-  [fs.createReadStream('/path/to/your/file')],
-  {},
-);
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-**file: `File[] | fs.ReadStream[]`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**request: `Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest`**
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-**requestOptions: `Batch.RequestOptions`**
 
 </dd>
 

@@ -5,7 +5,8 @@
 /**
  * @example
  *     {
- *         text: "text"
+ *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
+ *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
  *     }
  */
 export interface PostedPromptVersion {

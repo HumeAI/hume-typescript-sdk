@@ -4,6 +4,9 @@
 
 import * as Hume from '../../../index';
 
+/**
+ * The models used for inference.
+ */
 export interface Models {
   face?: Hume.expressionMeasurement.Face;
   burst?: Hume.expressionMeasurement.Unconfigurable;

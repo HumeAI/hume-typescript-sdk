@@ -4,28 +4,4 @@
 
 import * as Hume from '../../../index';
 
-export type UnionJob =
-  | Hume.expressionMeasurement.UnionJob.EmbeddingGeneration
-  | Hume.expressionMeasurement.UnionJob.Inference
-  | Hume.expressionMeasurement.UnionJob.TlInference
-  | Hume.expressionMeasurement.UnionJob.Training;
-
-export declare namespace UnionJob {
-  interface EmbeddingGeneration
-    extends Hume.expressionMeasurement.UnionJobJobEmbeddingGeneration {
-    type: 'EMBEDDING_GENERATION';
-  }
-
-  interface Inference extends Hume.expressionMeasurement.UnionJobJobInference {
-    type: 'INFERENCE';
-  }
-
-  interface TlInference
-    extends Hume.expressionMeasurement.UnionJobJobTlInference {
-    type: 'TL_INFERENCE';
-  }
-
-  interface Training extends Hume.expressionMeasurement.UnionJobJobTraining {
-    type: 'TRAINING';
-  }
-}
+export type UnionJob = Hume.expressionMeasurement.InferenceJob;
