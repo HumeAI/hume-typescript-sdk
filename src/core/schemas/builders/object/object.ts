@@ -174,9 +174,7 @@ function validateAndTransformObject<Transformed>({
 }: {
   value: unknown;
   requiredKeys: string[];
-  getProperty: (
-    preTransformedKey: string,
-  ) =>
+  getProperty: (preTransformedKey: string) =>
     | {
         transformedKey: string;
         transform: (propertyValue: unknown) => MaybeValid<any>;
