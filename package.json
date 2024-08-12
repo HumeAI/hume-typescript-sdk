@@ -17,7 +17,7 @@
     "form-data-encoder": "^4.0.2",
     "formdata-node": "^6.0.3",
     "node-fetch": "2.7.0",
-    "qs": "6.12.3",
+    "qs": "6.13.0",
     "url-join": "4.0.1",
     "uuid": "10.0.0",
     "ws": "^8.14.2",
