@@ -8,6 +8,6 @@
  * Recommended input filetypes: `.txt`, `.mp3`, `.wav`, `.mp4`
  */
 export interface Ner {
-  /** Whether to return identifiers for speakers over time. If `true`, unique identifiers will be assigned to spoken words to differentiate different speakers. If `false`, all speakers will be tagged with an `unknown` ID. */
-  identifySpeakers?: boolean;
+    /** Whether to return identifiers for speakers over time. If `true`, unique identifiers will be assigned to spoken words to differentiate different speakers. If `false`, all speakers will be tagged with an `unknown` ID. */
+    identifySpeakers?: boolean;
 }
