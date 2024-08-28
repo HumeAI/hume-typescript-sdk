@@ -64,7 +64,7 @@ export class ChatSocket {
     /**
      * Send session settings
      */
-    public sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type">): void {
+    public sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type"> = {}): void {
         this.assertSocketIsOpen();
         this.sendJson({
             type: "session_settings",
@@ -86,7 +86,7 @@ export class ChatSocket {
     /**
      * Send pause assistant message
      */
-    public pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type">): void {
+    public pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type"> = {}): void {
         this.assertSocketIsOpen();
         this.sendJson({
             type: "pause_assistant_message",
@@ -97,7 +97,7 @@ export class ChatSocket {
     /**
      * Send resume assistant message
      */
-    public resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type">): void {
+    public resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type"> = {}): void {
         this.assertSocketIsOpen();
         this.sendJson({
             type: "resume_assistant_message",
