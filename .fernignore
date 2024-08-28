@@ -13,9 +13,6 @@ tsconfig.dev.json
 .nvmrc
 .github
 
-# URL Encoded
-src/core/fetcher/Fetcher.ts
-
 # Wrapper client
 src/wrapper
 src/index.ts
