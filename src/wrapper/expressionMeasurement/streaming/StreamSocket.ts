@@ -172,7 +172,7 @@ export class StreamSocket {
     }
 
     private async send(
-        payload: Hume.expressionMeasurement.stream.StreamModelsEndpointPayload,
+        payload: Hume.expressionMeasurement.stream.StreamModelsEndpointPayload
     ): Promise<Hume.expressionMeasurement.SubscribeEvent | void> {
         await this.tillSocketOpen();
         const jsonPayload = serializers.expressionMeasurement.StreamModelsEndpointPayload.jsonOrThrow(payload, {
@@ -212,7 +212,7 @@ export class StreamSocket {
 }
 
 function isError(
-    response: Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.StreamErrorMessage,
+    response: Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.StreamErrorMessage
 ): response is Hume.expressionMeasurement.StreamErrorMessage {
     return (response as Hume.expressionMeasurement.StreamErrorMessage).error != null;
 }
