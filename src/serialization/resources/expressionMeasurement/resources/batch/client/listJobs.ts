@@ -5,7 +5,7 @@
 import * as serializers from "../../../../../index";
 import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { UnionJob } from "../../../types/UnionJob";
+import { UnionJob } from "../types/UnionJob";
 
 export const Response: core.serialization.Schema<
     serializers.expressionMeasurement.batch.listJobs.Response.Raw,

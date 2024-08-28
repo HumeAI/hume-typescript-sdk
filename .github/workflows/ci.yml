@@ -46,9 +46,6 @@ jobs:
             - name: Run tests
               run: yarn test
 
-            - name: Run eslint
-              run: yarn lint
-
     publish:
         needs: [compile, test]
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')

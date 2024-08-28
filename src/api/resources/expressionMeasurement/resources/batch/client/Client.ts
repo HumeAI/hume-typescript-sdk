@@ -10,6 +10,7 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 import * as stream from "stream";
 import * as fs from "fs";
+import { Blob } from "buffer";
 
 export declare namespace Batch {
     interface Options {
@@ -42,7 +43,7 @@ export class Batch {
      */
     public async listJobs(
         request: Hume.expressionMeasurement.BatchListJobsRequest = {},
-        requestOptions?: Batch.RequestOptions,
+        requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.UnionJob[]> {
         const { limit, status, when, timestampMs, sortBy, direction } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -77,19 +78,21 @@ export class Batch {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/batch/jobs",
+                "v0/batch/jobs"
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -139,23 +142,25 @@ export class Batch {
      */
     public async startInferenceJob(
         request: Hume.expressionMeasurement.InferenceBaseRequest,
-        requestOptions?: Batch.RequestOptions,
+        requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.JobId> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/batch/jobs",
+                "v0/batch/jobs"
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.expressionMeasurement.InferenceBaseRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
@@ -205,23 +210,25 @@ export class Batch {
      */
     public async getJobDetails(
         id: string,
-        requestOptions?: Batch.RequestOptions,
+        requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.UnionJob> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/batch/jobs/${encodeURIComponent(id)}`,
+                `v0/batch/jobs/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -268,23 +275,25 @@ export class Batch {
      */
     public async getJobPredictions(
         id: string,
-        requestOptions?: Batch.RequestOptions,
+        requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.UnionPredictResult[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/batch/jobs/${encodeURIComponent(id)}/predictions`,
+                `v0/batch/jobs/${encodeURIComponent(id)}/predictions`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -327,18 +336,20 @@ export class Batch {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/batch/jobs/${encodeURIComponent(id)}/artifacts`,
+                `v0/batch/jobs/${encodeURIComponent(id)}/artifacts`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             responseType: "streaming",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -373,7 +384,7 @@ export class Batch {
     /**
      * Start a new batch inference job.
      *
-     * @param {File[] | fs.ReadStream[]} file
+     * @param {File[] | fs.ReadStream[] | Blob[]} file
      * @param {Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -381,11 +392,11 @@ export class Batch {
      *     await client.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {})
      */
     public async startInferenceJobFromLocalFile(
-        file: File[] | fs.ReadStream[],
+        file: File[] | fs.ReadStream[] | Blob[],
         request: Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest,
-        requestOptions?: Batch.RequestOptions,
+        requestOptions?: Batch.RequestOptions
     ): Promise<Hume.expressionMeasurement.JobId> {
-        const _request = new core.FormDataWrapper();
+        const _request = await core.newFormData();
         if (request.json != null) {
             await _request.append("json", JSON.stringify(request.json));
         }
@@ -394,23 +405,26 @@ export class Batch {
             await _request.append("file", _file);
         }
 
-        const _maybeEncodedRequest = _request.getRequest();
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/batch/jobs",
+                "v0/batch/jobs"
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
-                ...(await _maybeEncodedRequest.getHeaders()),
+                ..._maybeEncodedRequest.headers,
             },
-            body: await _maybeEncodedRequest.getBody(),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

@@ -11,14 +11,14 @@ export declare namespace StreamClient {
 
     interface ConnectArgs {
         /* Job config */
-        config: Hume.expressionMeasurement.StreamDataModels;
+        config: Hume.expressionMeasurement.stream.Config;
         /* Length of the sliding window in milliseconds to use when 
             aggregating media across streaming payloads within one WebSocket connection. */
         streamWindowMs?: number;
 
         onOpen?: (event: WebSocket.Event) => void;
-        onMessage?: (message: Hume.expressionMeasurement.stream.StreamBurst) => void;
-        onError?: (error: Hume.expressionMeasurement.stream.StreamError) => void;
+        onMessage?: (message: Hume.expressionMeasurement.Config) => void;
+        onError?: (error: Hume.expressionMeasurement.stream.StreamErrorMessage) => void;
         onClose?: (event: WebSocket.Event) => void;
     }
 }
@@ -64,16 +64,16 @@ export class StreamClient {
     }
 }
 
-export async function parse(
+export function parse(
     data: WebSocket.Data,
     args: {
-        onMessage?: (message: Hume.expressionMeasurement.stream.StreamBurst) => void;
-        onError?: (error: Hume.expressionMeasurement.stream.StreamError) => void;
-    } = {},
-): Promise<Hume.expressionMeasurement.stream.StreamBurst | Hume.expressionMeasurement.stream.StreamError | undefined> {
+        onMessage?: (message: Hume.expressionMeasurement.stream.Config) => void;
+        onError?: (error: Hume.expressionMeasurement.stream.StreamErrorMessage) => void;
+    } = {}
+): Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage | undefined {
     const message = JSON.parse(data as string);
 
-    const parsedResponse = await serializers.expressionMeasurement.stream.StreamBurst.parse(message, {
+    const parsedResponse = serializers.expressionMeasurement.stream.Config.parse(message, {
         unrecognizedObjectKeys: "passthrough",
         allowUnrecognizedUnionMembers: true,
         allowUnrecognizedEnumValues: true,
@@ -84,7 +84,7 @@ export async function parse(
         return parsedResponse.value;
     }
 
-    const parsedError = await serializers.expressionMeasurement.stream.StreamError.parse(message, {
+    const parsedError = serializers.expressionMeasurement.stream.StreamErrorMessage.parse(message, {
         unrecognizedObjectKeys: "passthrough",
         allowUnrecognizedUnionMembers: true,
         allowUnrecognizedEnumValues: true,

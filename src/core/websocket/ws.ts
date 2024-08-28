@@ -263,7 +263,7 @@ export class ReconnectingWebSocket {
      */
     public addEventListener<T extends keyof Events.WebSocketEventListenerMap>(
         type: T,
-        listener: Events.WebSocketEventListenerMap[T],
+        listener: Events.WebSocketEventListenerMap[T]
     ): void {
         if (this._listeners[type]) {
             // @ts-ignore
@@ -286,13 +286,13 @@ export class ReconnectingWebSocket {
      */
     public removeEventListener<T extends keyof Events.WebSocketEventListenerMap>(
         type: T,
-        listener: Events.WebSocketEventListenerMap[T],
+        listener: Events.WebSocketEventListenerMap[T]
     ): void {
         if (this._listeners[type]) {
             // @ts-ignore
             this._listeners[type] = this._listeners[type].filter(
                 // @ts-ignore
-                (l) => l !== listener,
+                (l) => l !== listener
             );
         }
     }
@@ -412,7 +412,7 @@ export class ReconnectingWebSocket {
 
     private _callEventListener<T extends keyof Events.WebSocketEventListenerMap>(
         event: Events.WebSocketEventMap[T],
-        listener: Events.WebSocketEventListenerMap[T],
+        listener: Events.WebSocketEventListenerMap[T]
     ) {
         if ("handleEvent" in listener) {
             // @ts-ignore

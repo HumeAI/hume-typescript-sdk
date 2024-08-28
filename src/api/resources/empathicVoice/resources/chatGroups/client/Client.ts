@@ -43,7 +43,7 @@ export class ChatGroups {
      */
     public async listChatGroups(
         request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest = {},
-        requestOptions?: ChatGroups.RequestOptions,
+        requestOptions?: ChatGroups.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedChatGroups> {
         const { pageNumber, pageSize, ascendingOrder, configId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -66,19 +66,21 @@ export class ChatGroups {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/chat_groups",
+                "v0/evi/chat_groups"
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -129,7 +131,7 @@ export class ChatGroups {
     public async listChatGroupEvents(
         id: string,
         request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest = {},
-        requestOptions?: ChatGroups.RequestOptions,
+        requestOptions?: ChatGroups.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnChatGroupPagedEvents> {
         const { pageSize, pageNumber, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -148,19 +150,21 @@ export class ChatGroups {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/chat_groups/${encodeURIComponent(id)}/events`,
+                `v0/evi/chat_groups/${encodeURIComponent(id)}/events`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
