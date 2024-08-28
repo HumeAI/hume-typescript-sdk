@@ -1,2 +1,2 @@
-export { ChatSocket } from './Socket';
-export { Chat } from './Client';
+export { ChatSocket } from "./Socket";
+export { Chat } from "./Client";

@@ -1,2 +1,2 @@
-export { type ChatGroupsListChatGroupsRequest } from './ChatGroupsListChatGroupsRequest';
-export { type ChatGroupsListChatGroupEventsRequest } from './ChatGroupsListChatGroupEventsRequest';
+export { type ChatGroupsListChatGroupsRequest } from "./ChatGroupsListChatGroupsRequest";
+export { type ChatGroupsListChatGroupEventsRequest } from "./ChatGroupsListChatGroupEventsRequest";

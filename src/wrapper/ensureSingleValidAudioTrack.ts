@@ -9,13 +9,13 @@
  * @throws {Error} "No audio track" if the sole audio track is falsy.
  */
 export const ensureSingleValidAudioTrack = (stream: MediaStream): void => {
-  const tracks = stream.getAudioTracks();
+    const tracks = stream.getAudioTracks();
 
-  if (tracks.length === 0) {
-    throw new Error('No audio tracks available');
-  } else if (tracks.length > 1) {
-    throw new Error('Multiple audio tracks found');
-  } else if (!tracks[0]) {
-    throw new Error('The audio track is invalid');
-  }
+    if (tracks.length === 0) {
+        throw new Error("No audio tracks available");
+    } else if (tracks.length > 1) {
+        throw new Error("Multiple audio tracks found");
+    } else if (!tracks[0]) {
+        throw new Error("The audio track is invalid");
+    }
 };

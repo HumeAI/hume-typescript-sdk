@@ -11,8 +11,6 @@ jest.config.mjs
 justfile
 tsconfig.dev.json
 .nvmrc
-.prettierrc.yml
-package.json
 .github
 
 # URL Encoded
