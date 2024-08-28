@@ -26,7 +26,7 @@ interface ObjectPropertyWithRawKey {
 }
 
 export function object<ParsedKeys extends string, T extends PropertySchemas<ParsedKeys>>(
-    schemas: T,
+    schemas: T
 ): inferObjectSchemaFromPropertySchemas<T> {
     const baseSchema: BaseObjectSchema<
         inferRawObjectFromPropertySchemas<T>,
@@ -34,7 +34,7 @@ export function object<ParsedKeys extends string, T extends PropertySchemas<Pars
     > = {
         _getRawProperties: () =>
             Object.entries(schemas).map(([parsedKey, propertySchema]) =>
-                isProperty(propertySchema) ? propertySchema.rawKey : parsedKey,
+                isProperty(propertySchema) ? propertySchema.rawKey : parsedKey
             ) as unknown as (keyof inferRawObjectFromPropertySchemas<T>)[],
         _getParsedProperties: () => keys(schemas) as unknown as (keyof inferParsedObjectFromPropertySchemas<T>)[],
 
@@ -81,6 +81,7 @@ export function object<ParsedKeys extends string, T extends PropertySchemas<Pars
                 unrecognizedObjectKeys: opts?.unrecognizedObjectKeys,
                 skipValidation: opts?.skipValidation,
                 breadcrumbsPrefix: opts?.breadcrumbsPrefix,
+                omitUndefined: opts?.omitUndefined,
             });
         },
 
@@ -101,13 +102,8 @@ export function object<ParsedKeys extends string, T extends PropertySchemas<Pars
                 value: parsed,
                 requiredKeys,
                 getProperty: (
-                    parsedKey,
-                ):
-                    | {
-                          transformedKey: string;
-                          transform: (propertyValue: unknown) => MaybeValid<any>;
-                      }
-                    | undefined => {
+                    parsedKey
+                ): { transformedKey: string; transform: (propertyValue: unknown) => MaybeValid<any> } | undefined => {
                     const property = schemas[parsedKey as keyof T];
 
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -138,6 +134,7 @@ export function object<ParsedKeys extends string, T extends PropertySchemas<Pars
                 unrecognizedObjectKeys: opts?.unrecognizedObjectKeys,
                 skipValidation: opts?.skipValidation,
                 breadcrumbsPrefix: opts?.breadcrumbsPrefix,
+                omitUndefined: opts?.omitUndefined,
             });
         },
 
@@ -162,15 +159,13 @@ function validateAndTransformObject<Transformed>({
 }: {
     value: unknown;
     requiredKeys: string[];
-    getProperty: (preTransformedKey: string) =>
-        | {
-              transformedKey: string;
-              transform: (propertyValue: unknown) => MaybeValid<any>;
-          }
-        | undefined;
+    getProperty: (
+        preTransformedKey: string
+    ) => { transformedKey: string; transform: (propertyValue: unknown) => MaybeValid<any> } | undefined;
     unrecognizedObjectKeys: "fail" | "passthrough" | "strip" | undefined;
     skipValidation: boolean | undefined;
     breadcrumbsPrefix: string[] | undefined;
+    omitUndefined: boolean | undefined;
 }): MaybeValid<Transformed> {
     if (!isPlainObject(value)) {
         return {
@@ -224,7 +219,7 @@ function validateAndTransformObject<Transformed>({
             .map((key) => ({
                 path: breadcrumbsPrefix,
                 message: `Missing required key "${key}"`,
-            })),
+            }))
     );
 
     if (errors.length === 0 || skipValidation) {
@@ -288,7 +283,7 @@ function validateAndTransformExtendedObject<PreTransformedExtension, Transformed
 }): MaybeValid<TransformedBase & TransformedExtension> {
     const extensionPropertiesSet = new Set(extensionKeys);
     const [extensionProperties, baseProperties] = partition(keys(value), (key) =>
-        extensionPropertiesSet.has(key as keyof PreTransformedExtension),
+        extensionPropertiesSet.has(key as keyof PreTransformedExtension)
     );
 
     const transformedBase = transformBase(filterObject(value, baseProperties));

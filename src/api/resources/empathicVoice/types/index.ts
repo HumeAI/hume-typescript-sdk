@@ -5,6 +5,7 @@ export * from "./ReturnPromptVersionType";
 export * from "./ReturnPrompt";
 export * from "./PostedCustomVoice";
 export * from "./ReturnCustomVoice";
+export * from "./PostedBuiltinToolName";
 export * from "./PostedBuiltinTool";
 export * from "./PostedEllmModel";
 export * from "./PostedEventMessageSpec";

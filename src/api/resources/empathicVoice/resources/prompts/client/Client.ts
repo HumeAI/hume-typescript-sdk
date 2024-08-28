@@ -41,10 +41,10 @@ export class Prompts {
      */
     public async listPrompts(
         request: Hume.empathicVoice.PromptsListPromptsRequest = {},
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<core.Page<Hume.empathicVoice.ReturnPrompt | undefined>> {
         const list = async (
-            request: Hume.empathicVoice.PromptsListPromptsRequest,
+            request: Hume.empathicVoice.PromptsListPromptsRequest
         ): Promise<Hume.empathicVoice.ReturnPagedPrompts> => {
             const { pageNumber, pageSize, restrictToMostRecent, name } = request;
             const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -63,19 +63,21 @@ export class Prompts {
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
                     (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                    "v0/evi/prompts",
+                    "v0/evi/prompts"
                 ),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.6",
+                    "X-Fern-SDK-Version": "0.8.7",
+                    "User-Agent": "hume/0.8.7",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
                 },
                 contentType: "application/json",
                 queryParameters: _queryParams,
+                requestType: "json",
                 timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions?.maxRetries,
                 abortSignal: requestOptions?.abortSignal,
@@ -108,17 +110,14 @@ export class Prompts {
                     });
             }
         };
-        let _offset = request.pageNumber != null ? request.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
         return new core.Pageable<Hume.empathicVoice.ReturnPagedPrompts, Hume.empathicVoice.ReturnPrompt | undefined>({
             response: await list(request),
             hasNextPage: (response) => (response?.promptsPage ?? []).length > 0,
             getItems: (response) => response?.promptsPage ?? [],
             loadPage: (_response) => {
                 _offset += 1;
-                return list({
-                    ...request,
-                    pageNumber: _offset,
-                });
+                return list(core.setObjectProperty(request, "pageNumber", _offset));
             },
         });
     }
@@ -135,26 +134,26 @@ export class Prompts {
      */
     public async createPrompt(
         request: Hume.empathicVoice.PostedPrompt,
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/prompts",
+                "v0/evi/prompts"
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: serializers.empathicVoice.PostedPrompt.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            requestType: "json",
+            body: serializers.empathicVoice.PostedPrompt.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -201,7 +200,7 @@ export class Prompts {
     public async listPromptVersions(
         id: string,
         request: Hume.empathicVoice.PromptsListPromptVersionsRequest = {},
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedPrompts> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -220,19 +219,21 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -282,23 +283,25 @@ export class Prompts {
     public async createPromptVerison(
         id: string,
         request: Hume.empathicVoice.PostedPromptVersion,
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.empathicVoice.PostedPromptVersion.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
@@ -348,18 +351,20 @@ export class Prompts {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}`
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -403,26 +408,26 @@ export class Prompts {
     public async updatePromptName(
         id: string,
         request: Hume.empathicVoice.PostedPromptName,
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}`
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: serializers.empathicVoice.PostedPromptName.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            requestType: "json",
+            body: serializers.empathicVoice.PostedPromptName.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             responseType: "text",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -469,23 +474,25 @@ export class Prompts {
     public async getPromptVersion(
         id: string,
         version: number,
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -536,23 +543,25 @@ export class Prompts {
     public async deletePromptVersion(
         id: string,
         version: number,
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -602,23 +611,25 @@ export class Prompts {
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedPromptVersionDescription = {},
-        requestOptions?: Prompts.RequestOptions,
+        requestOptions?: Prompts.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
+                `v0/evi/prompts/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.empathicVoice.PostedPromptVersionDescription.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),

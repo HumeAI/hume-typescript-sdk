@@ -42,10 +42,10 @@ export class Chats {
      */
     public async listChats(
         request: Hume.empathicVoice.ChatsListChatsRequest = {},
-        requestOptions?: Chats.RequestOptions,
+        requestOptions?: Chats.RequestOptions
     ): Promise<core.Page<Hume.empathicVoice.ReturnChat>> {
         const list = async (
-            request: Hume.empathicVoice.ChatsListChatsRequest,
+            request: Hume.empathicVoice.ChatsListChatsRequest
         ): Promise<Hume.empathicVoice.ReturnPagedChats> => {
             const { pageNumber, pageSize, ascendingOrder } = request;
             const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -61,19 +61,21 @@ export class Chats {
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
                     (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                    "v0/evi/chats",
+                    "v0/evi/chats"
                 ),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.6",
+                    "X-Fern-SDK-Version": "0.8.7",
+                    "User-Agent": "hume/0.8.7",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
                 },
                 contentType: "application/json",
                 queryParameters: _queryParams,
+                requestType: "json",
                 timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions?.maxRetries,
                 abortSignal: requestOptions?.abortSignal,
@@ -106,17 +108,14 @@ export class Chats {
                     });
             }
         };
-        let _offset = request.pageNumber != null ? request.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
         return new core.Pageable<Hume.empathicVoice.ReturnPagedChats, Hume.empathicVoice.ReturnChat>({
             response: await list(request),
             hasNextPage: (response) => (response?.chatsPage ?? []).length > 0,
             getItems: (response) => response?.chatsPage ?? [],
             loadPage: (_response) => {
                 _offset += 1;
-                return list({
-                    ...request,
-                    pageNumber: _offset,
-                });
+                return list(core.setObjectProperty(request, "pageNumber", _offset));
             },
         });
     }
@@ -136,10 +135,10 @@ export class Chats {
     public async listChatEvents(
         id: string,
         request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
-        requestOptions?: Chats.RequestOptions,
+        requestOptions?: Chats.RequestOptions
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatEvent>> {
         const list = async (
-            request: Hume.empathicVoice.ChatsListChatEventsRequest,
+            request: Hume.empathicVoice.ChatsListChatEventsRequest
         ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> => {
             const { pageSize, pageNumber, ascendingOrder } = request;
             const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -155,19 +154,21 @@ export class Chats {
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
                     (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                    `v0/evi/chats/${encodeURIComponent(id)}`,
+                    `v0/evi/chats/${encodeURIComponent(id)}`
                 ),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.6",
+                    "X-Fern-SDK-Version": "0.8.7",
+                    "User-Agent": "hume/0.8.7",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
                 },
                 contentType: "application/json",
                 queryParameters: _queryParams,
+                requestType: "json",
                 timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions?.maxRetries,
                 abortSignal: requestOptions?.abortSignal,
@@ -200,17 +201,14 @@ export class Chats {
                     });
             }
         };
-        let _offset = request.pageNumber != null ? request.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
         return new core.Pageable<Hume.empathicVoice.ReturnChatPagedEvents, Hume.empathicVoice.ReturnChatEvent>({
             response: await list(request),
             hasNextPage: (response) => (response?.eventsPage ?? []).length > 0,
             getItems: (response) => response?.eventsPage ?? [],
             loadPage: (_response) => {
                 _offset += 1;
-                return list({
-                    ...request,
-                    pageNumber: _offset,
-                });
+                return list(core.setObjectProperty(request, "pageNumber", _offset));
             },
         });
     }
