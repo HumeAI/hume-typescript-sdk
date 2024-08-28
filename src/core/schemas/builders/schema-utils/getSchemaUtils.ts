@@ -40,7 +40,7 @@ export function getSchemaUtils<Raw, Parsed>(schema: BaseSchema<Raw, Parsed>): Sc
  */
 
 export function optional<Raw, Parsed>(
-    schema: BaseSchema<Raw, Parsed>,
+    schema: BaseSchema<Raw, Parsed>
 ): Schema<Raw | null | undefined, Parsed | undefined> {
     const baseSchema: BaseSchema<Raw | null | undefined, Parsed | undefined> = {
         parse: (raw, opts) => {
@@ -53,6 +53,12 @@ export function optional<Raw, Parsed>(
             return schema.parse(raw, opts);
         },
         json: (parsed, opts) => {
+            if (opts?.omitUndefined && parsed === undefined) {
+                return {
+                    ok: true,
+                    value: undefined,
+                };
+            }
             if (parsed == null) {
                 return {
                     ok: true,
@@ -72,7 +78,7 @@ export function optional<Raw, Parsed>(
 
 export function transform<Raw, Parsed, Transformed>(
     schema: BaseSchema<Raw, Parsed>,
-    transformer: SchemaTransformer<Parsed, Transformed>,
+    transformer: SchemaTransformer<Parsed, Transformed>
 ): Schema<Raw, Transformed> {
     const baseSchema: BaseSchema<Raw, Transformed> = {
         parse: (raw, opts) => {

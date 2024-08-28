@@ -5,6 +5,12 @@
 import * as Hume from "../../../../../index";
 
 export type SubscribeEvent =
-    | Hume.expressionMeasurement.StreamBurst
-    | Hume.expressionMeasurement.StreamError
-    | Hume.expressionMeasurement.StreamJobDetails;
+    /**
+     * Model predictions */
+    | Hume.expressionMeasurement.Config
+    /**
+     * Error message */
+    | Hume.expressionMeasurement.StreamErrorMessage
+    /**
+     * Warning message */
+    | Hume.expressionMeasurement.StreamWarningMessage;

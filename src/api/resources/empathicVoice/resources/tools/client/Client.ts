@@ -41,10 +41,10 @@ export class Tools {
      */
     public async listTools(
         request: Hume.empathicVoice.ToolsListToolsRequest = {},
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<core.Page<Hume.empathicVoice.ReturnUserDefinedTool | undefined>> {
         const list = async (
-            request: Hume.empathicVoice.ToolsListToolsRequest,
+            request: Hume.empathicVoice.ToolsListToolsRequest
         ): Promise<Hume.empathicVoice.ReturnPagedUserDefinedTools> => {
             const { pageNumber, pageSize, restrictToMostRecent, name } = request;
             const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -63,19 +63,21 @@ export class Tools {
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
                     (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                    "v0/evi/tools",
+                    "v0/evi/tools"
                 ),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.6",
+                    "X-Fern-SDK-Version": "0.8.7",
+                    "User-Agent": "hume/0.8.7",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
                 },
                 contentType: "application/json",
                 queryParameters: _queryParams,
+                requestType: "json",
                 timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions?.maxRetries,
                 abortSignal: requestOptions?.abortSignal,
@@ -108,7 +110,7 @@ export class Tools {
                     });
             }
         };
-        let _offset = request.pageNumber != null ? request.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
         return new core.Pageable<
             Hume.empathicVoice.ReturnPagedUserDefinedTools,
             Hume.empathicVoice.ReturnUserDefinedTool | undefined
@@ -118,10 +120,7 @@ export class Tools {
             getItems: (response) => response?.toolsPage ?? [],
             loadPage: (_response) => {
                 _offset += 1;
-                return list({
-                    ...request,
-                    pageNumber: _offset,
-                });
+                return list(core.setObjectProperty(request, "pageNumber", _offset));
             },
         });
     }
@@ -141,23 +140,25 @@ export class Tools {
      */
     public async createTool(
         request: Hume.empathicVoice.PostedUserDefinedTool,
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/tools",
+                "v0/evi/tools"
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedTool.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
@@ -207,7 +208,7 @@ export class Tools {
     public async listToolVersions(
         id: string,
         request: Hume.empathicVoice.ToolsListToolVersionsRequest = {},
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnPagedUserDefinedTools> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -226,19 +227,21 @@ export class Tools {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -290,23 +293,25 @@ export class Tools {
     public async createToolVersion(
         id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolVersion,
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedToolVersion.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
@@ -356,18 +361,20 @@ export class Tools {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}`
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -411,23 +418,25 @@ export class Tools {
     public async updateToolName(
         id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolName,
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}`
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedToolName.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
@@ -477,23 +486,25 @@ export class Tools {
     public async getToolVersion(
         id: string,
         version: number,
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -545,18 +556,20 @@ export class Tools {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -606,23 +619,25 @@ export class Tools {
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedUserDefinedToolVersionDescription = {},
-        requestOptions?: Tools.RequestOptions,
+        requestOptions?: Tools.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
+                `v0/evi/tools/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.6",
+                "X-Fern-SDK-Version": "0.8.7",
+                "User-Agent": "hume/0.8.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedToolVersionDescription.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),

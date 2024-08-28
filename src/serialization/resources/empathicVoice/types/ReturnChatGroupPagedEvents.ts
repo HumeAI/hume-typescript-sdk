@@ -18,7 +18,7 @@ export const ReturnChatGroupPagedEvents: core.serialization.ObjectSchema<
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property(
         "pagination_direction",
-        ReturnChatGroupPagedEventsPaginationDirection,
+        ReturnChatGroupPagedEventsPaginationDirection
     ),
     eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
 });

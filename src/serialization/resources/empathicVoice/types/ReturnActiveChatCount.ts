@@ -15,12 +15,12 @@ export const ReturnActiveChatCount: core.serialization.ObjectSchema<
     totalUserActiveChats: core.serialization.property("total_user_active_chats", core.serialization.number()),
     maxAllowedActiveChats: core.serialization.property(
         "max_allowed_active_chats",
-        core.serialization.number().optional(),
+        core.serialization.number().optional()
     ),
     moreActiveChatsAllowed: core.serialization.property("more_active_chats_allowed", core.serialization.boolean()),
     perTag: core.serialization.property(
         "per_tag",
-        core.serialization.list(ReturnActiveChatCountPerTag.optional()).optional(),
+        core.serialization.list(ReturnActiveChatCountPerTag.optional()).optional()
     ),
 });
 
