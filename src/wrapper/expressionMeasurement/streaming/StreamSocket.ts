@@ -10,7 +10,7 @@ import * as fs from "fs";
 export declare namespace StreamSocket {
     interface Args {
         websocket: WebSocket;
-        config: Hume.expressionMeasurement.StreamDataModels;
+        config: Hume.expressionMeasurement.stream.Config;
         streamWindowMs?: number;
     }
 }
@@ -18,7 +18,7 @@ export declare namespace StreamSocket {
 export class StreamSocket {
     readonly websocket: WebSocket;
     private readonly streamWindowMs?: number;
-    private config: Hume.expressionMeasurement.StreamDataModels;
+    private config: Hume.expressionMeasurement.stream.Config;
 
     constructor({ websocket, config, streamWindowMs }: StreamSocket.Args) {
         this.websocket = websocket;
@@ -38,8 +38,8 @@ export class StreamSocket {
         config,
     }: {
         file: fs.ReadStream | Blob;
-        config?: Hume.expressionMeasurement.StreamDataModels;
-    }): Promise<Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError> {
+        config?: Hume.expressionMeasurement.stream.Config;
+    }): Promise<Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage> {
         if (config != null) {
             this.config = config;
         }
@@ -63,7 +63,7 @@ export class StreamSocket {
                 message: `file must be one of ReadStream or Blob.`,
             });
         }
-        const request: Hume.expressionMeasurement.stream.StreamData = {
+        const request: Hume.expressionMeasurement.stream.StreamModelsEndpointPayload = {
             payloadId: uuid(),
             data: contents,
             models: this.config,
@@ -93,12 +93,12 @@ export class StreamSocket {
         config,
     }: {
         text: string;
-        config?: Hume.expressionMeasurement.StreamDataModels;
-    }): Promise<Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError> {
+        config?: Hume.expressionMeasurement.stream.Config;
+    }): Promise<Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage> {
         if (config != null) {
             this.config = config;
         }
-        const request: Hume.expressionMeasurement.StreamData = {
+        const request: Hume.expressionMeasurement.stream.StreamModelsEndpointPayload = {
             payloadId: uuid(),
             data: text,
             rawText: true,
@@ -131,8 +131,8 @@ export class StreamSocket {
         config,
     }: {
         landmarks: number[][][];
-        config?: Hume.expressionMeasurement.StreamDataModels;
-    }): Promise<Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError> {
+        config?: Hume.expressionMeasurement.stream.Config;
+    }): Promise<Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage> {
         const response = this.sendText({
             text: base64Encode(JSON.stringify(landmarks)),
             config,
@@ -172,15 +172,15 @@ export class StreamSocket {
     }
 
     private async send(
-        payload: Hume.expressionMeasurement.StreamData,
+        payload: Hume.expressionMeasurement.stream.StreamModelsEndpointPayload,
     ): Promise<Hume.expressionMeasurement.SubscribeEvent | void> {
         await this.tillSocketOpen();
-        const jsonPayload = await serializers.expressionMeasurement.StreamData.jsonOrThrow(payload, {
+        const jsonPayload = serializers.expressionMeasurement.StreamModelsEndpointPayload.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
         const response = await new Promise<
-            Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError | undefined
+            Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.StreamErrorMessage | undefined
         >((resolve) => {
             this.websocket.addEventListener("message", (event) => {
                 const response = parse(event.data);
@@ -212,7 +212,7 @@ export class StreamSocket {
 }
 
 function isError(
-    response: Hume.expressionMeasurement.StreamBurst | Hume.expressionMeasurement.StreamError,
-): response is Hume.expressionMeasurement.StreamError {
-    return (response as Hume.expressionMeasurement.StreamError).error != null;
+    response: Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.StreamErrorMessage,
+): response is Hume.expressionMeasurement.StreamErrorMessage {
+    return (response as Hume.expressionMeasurement.StreamErrorMessage).error != null;
 }
