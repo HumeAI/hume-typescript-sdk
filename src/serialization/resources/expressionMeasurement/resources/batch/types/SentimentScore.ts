@@ -11,12 +11,12 @@ export const SentimentScore: core.serialization.ObjectSchema<
     Hume.expressionMeasurement.SentimentScore
 > = core.serialization.object({
     name: core.serialization.string(),
-    score: core.serialization.string(),
+    score: core.serialization.number(),
 });
 
 export declare namespace SentimentScore {
     interface Raw {
         name: string;
-        score: string;
+        score: number;
     }
 }

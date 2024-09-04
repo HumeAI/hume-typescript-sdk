@@ -7,11 +7,11 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { CompletedInference } from "./CompletedInference";
 
-export const StateInferenceCompletedInference: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateInferenceCompletedInference.Raw,
-    Hume.expressionMeasurement.StateInferenceCompletedInference
+export const CompletedState: core.serialization.ObjectSchema<
+    serializers.expressionMeasurement.CompletedState.Raw,
+    Hume.expressionMeasurement.CompletedState
 > = core.serialization.object({}).extend(CompletedInference);
 
-export declare namespace StateInferenceCompletedInference {
+export declare namespace CompletedState {
     interface Raw extends CompletedInference.Raw {}
 }

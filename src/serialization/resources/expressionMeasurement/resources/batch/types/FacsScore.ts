@@ -11,12 +11,12 @@ export const FacsScore: core.serialization.ObjectSchema<
     Hume.expressionMeasurement.FacsScore
 > = core.serialization.object({
     name: core.serialization.string(),
-    score: core.serialization.string(),
+    score: core.serialization.number(),
 });
 
 export declare namespace FacsScore {
     interface Raw {
         name: string;
-        score: string;
+        score: number;
     }
 }
