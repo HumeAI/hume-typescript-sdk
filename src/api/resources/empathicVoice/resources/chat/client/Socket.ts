@@ -214,6 +214,9 @@ export class ChatSocket {
             breadcrumbsPrefix: ["response"],
         });
         if (parsedResponse.ok) {
+            if (parsedResponse.value.type === "tool_call" && parsedResponse.value.name === "hang_up") {
+                this.close();
+            }
             this.eventHandlers.message?.({
                 ...parsedResponse.value,
                 receivedAt: new Date(),
