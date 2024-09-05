@@ -11,19 +11,19 @@ export type StateInference =
     | Hume.expressionMeasurement.StateInference.Failed;
 
 export declare namespace StateInference {
-    interface Queued extends Hume.expressionMeasurement.StateInferenceQueued {
+    interface Queued extends Hume.expressionMeasurement.QueuedState {
         status: "QUEUED";
     }
 
-    interface InProgress extends Hume.expressionMeasurement.StateInferenceInProgress {
+    interface InProgress extends Hume.expressionMeasurement.InProgressState {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends Hume.expressionMeasurement.StateInferenceCompletedInference {
+    interface Completed extends Hume.expressionMeasurement.CompletedState {
         status: "COMPLETED";
     }
 
-    interface Failed extends Hume.expressionMeasurement.StateInferenceFailed {
+    interface Failed extends Hume.expressionMeasurement.FailedState {
         status: "FAILED";
     }
 }

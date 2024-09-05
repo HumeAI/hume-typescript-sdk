@@ -11,12 +11,12 @@ export const ToxicityScore: core.serialization.ObjectSchema<
     Hume.expressionMeasurement.ToxicityScore
 > = core.serialization.object({
     name: core.serialization.string(),
-    score: core.serialization.string(),
+    score: core.serialization.number(),
 });
 
 export declare namespace ToxicityScore {
     interface Raw {
         name: string;
-        score: string;
+        score: number;
     }
 }
