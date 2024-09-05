@@ -5,20 +5,20 @@
 import * as serializers from "../../../../../index";
 import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { StateInferenceQueued } from "./StateInferenceQueued";
-import { StateInferenceInProgress } from "./StateInferenceInProgress";
-import { StateInferenceCompletedInference } from "./StateInferenceCompletedInference";
-import { StateInferenceFailed } from "./StateInferenceFailed";
+import { QueuedState } from "./QueuedState";
+import { InProgressState } from "./InProgressState";
+import { CompletedState } from "./CompletedState";
+import { FailedState } from "./FailedState";
 
 export const StateInference: core.serialization.Schema<
     serializers.expressionMeasurement.StateInference.Raw,
     Hume.expressionMeasurement.StateInference
 > = core.serialization
     .union("status", {
-        QUEUED: StateInferenceQueued,
-        IN_PROGRESS: StateInferenceInProgress,
-        COMPLETED: StateInferenceCompletedInference,
-        FAILED: StateInferenceFailed,
+        QUEUED: QueuedState,
+        IN_PROGRESS: InProgressState,
+        COMPLETED: CompletedState,
+        FAILED: FailedState,
     })
     .transform<Hume.expressionMeasurement.StateInference>({
         transform: (value) => value,
@@ -28,19 +28,19 @@ export const StateInference: core.serialization.Schema<
 export declare namespace StateInference {
     type Raw = StateInference.Queued | StateInference.InProgress | StateInference.Completed | StateInference.Failed;
 
-    interface Queued extends StateInferenceQueued.Raw {
+    interface Queued extends QueuedState.Raw {
         status: "QUEUED";
     }
 
-    interface InProgress extends StateInferenceInProgress.Raw {
+    interface InProgress extends InProgressState.Raw {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends StateInferenceCompletedInference.Raw {
+    interface Completed extends CompletedState.Raw {
         status: "COMPLETED";
     }
 
-    interface Failed extends StateInferenceFailed.Raw {
+    interface Failed extends FailedState.Raw {
         status: "FAILED";
     }
 }

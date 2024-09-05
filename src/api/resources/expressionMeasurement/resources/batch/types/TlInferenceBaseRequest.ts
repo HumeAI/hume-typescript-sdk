@@ -12,8 +12,6 @@ export interface TlInferenceBaseRequest {
      * If you wish to supply more than 100 URLs, consider providing them as an archive (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar.xz`).
      */
     urls?: string[];
-    /** List of File IDs corresponding to the files in the asset registry. */
-    registryFiles?: string[];
     /** If provided, a `POST` request will be made to the URL with the generated predictions on completion or the error message on failure. */
     callbackUrl?: string;
     /** Whether to send an email notification to the user upon job completion/failure. */

@@ -7,11 +7,11 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { Queued } from "./Queued";
 
-export const StateInferenceQueued: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateInferenceQueued.Raw,
-    Hume.expressionMeasurement.StateInferenceQueued
+export const QueuedState: core.serialization.ObjectSchema<
+    serializers.expressionMeasurement.QueuedState.Raw,
+    Hume.expressionMeasurement.QueuedState
 > = core.serialization.object({}).extend(Queued);
 
-export declare namespace StateInferenceQueued {
+export declare namespace QueuedState {
     interface Raw extends Queued.Raw {}
 }
