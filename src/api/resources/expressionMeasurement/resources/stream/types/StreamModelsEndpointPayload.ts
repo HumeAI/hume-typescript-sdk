@@ -50,4 +50,6 @@ export interface StreamModelsEndpointPayload {
      * This can be useful if you have multiple requests running asynchronously and want to disambiguate responses as they are received.
      */
     payloadId?: string;
+    face?: unknown;
+    language?: unknown;
 }

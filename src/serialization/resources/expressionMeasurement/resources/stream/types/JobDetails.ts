@@ -6,14 +6,14 @@ import * as serializers from "../../../../../index";
 import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
-export const StreamErrorMessageJobDetails: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamErrorMessageJobDetails.Raw,
-    Hume.expressionMeasurement.StreamErrorMessageJobDetails
+export const JobDetails: core.serialization.ObjectSchema<
+    serializers.expressionMeasurement.JobDetails.Raw,
+    Hume.expressionMeasurement.JobDetails
 > = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string().optional()),
 });
 
-export declare namespace StreamErrorMessageJobDetails {
+export declare namespace JobDetails {
     interface Raw {
         job_id?: string | null;
     }

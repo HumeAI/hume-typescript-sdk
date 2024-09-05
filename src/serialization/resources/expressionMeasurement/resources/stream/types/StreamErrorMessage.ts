@@ -5,7 +5,7 @@
 import * as serializers from "../../../../../index";
 import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { StreamErrorMessageJobDetails } from "./StreamErrorMessageJobDetails";
+import { JobDetails } from "./JobDetails";
 
 export const StreamErrorMessage: core.serialization.ObjectSchema<
     serializers.expressionMeasurement.StreamErrorMessage.Raw,
@@ -14,7 +14,7 @@ export const StreamErrorMessage: core.serialization.ObjectSchema<
     error: core.serialization.string().optional(),
     code: core.serialization.string().optional(),
     payloadId: core.serialization.property("payload_id", core.serialization.string().optional()),
-    jobDetails: core.serialization.property("job_details", StreamErrorMessageJobDetails.optional()),
+    jobDetails: core.serialization.property("job_details", JobDetails.optional()),
 });
 
 export declare namespace StreamErrorMessage {
@@ -22,6 +22,6 @@ export declare namespace StreamErrorMessage {
         error?: string | null;
         code?: string | null;
         payload_id?: string | null;
-        job_details?: StreamErrorMessageJobDetails.Raw | null;
+        job_details?: JobDetails.Raw | null;
     }
 }
