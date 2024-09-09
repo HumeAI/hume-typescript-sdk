@@ -2,6 +2,7 @@ import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import qs from "qs";
 import { ChatSocket } from "./Socket";
+import { SDK_VERSION } from "../../../../../../version";
 
 export declare namespace Chat {
     interface Options {
@@ -36,6 +37,9 @@ export class Chat {
 
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
+
+        queryParams["fernSdkLanguage"] = "JavaScript";
+        queryParams["fernSdkVersion"] = SDK_VERSION;
 
         if (this._options.accessToken != null) {
             queryParams["accessToken"] = this._options.accessToken;
