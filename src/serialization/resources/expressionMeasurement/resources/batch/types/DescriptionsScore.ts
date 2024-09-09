@@ -11,12 +11,12 @@ export const DescriptionsScore: core.serialization.ObjectSchema<
     Hume.expressionMeasurement.DescriptionsScore
 > = core.serialization.object({
     name: core.serialization.string(),
-    score: core.serialization.string(),
+    score: core.serialization.number(),
 });
 
 export declare namespace DescriptionsScore {
     interface Raw {
         name: string;
-        score: string;
+        score: number;
     }
 }

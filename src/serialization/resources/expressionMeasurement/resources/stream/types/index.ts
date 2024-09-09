@@ -10,7 +10,7 @@ export * from "./StreamModelPredictionsLanguage";
 export * from "./StreamModelPredictionsProsodyPredictionsItem";
 export * from "./StreamModelPredictionsProsody";
 export * from "./Config";
-export * from "./StreamErrorMessageJobDetails";
+export * from "./JobDetails";
 export * from "./StreamErrorMessage";
 export * from "./StreamWarningMessageJobDetails";
 export * from "./StreamWarningMessage";

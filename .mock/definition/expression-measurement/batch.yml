@@ -104,7 +104,6 @@ service:
                                         granularity: utterance
                                         identify_speakers: false
                                 notify: true
-                                registry_files: []
                                 text: []
                                 urls:
                                     - https://hume-tutorials.s3.amazonaws.com/faces.zip
@@ -127,6 +126,7 @@ service:
             response:
                 docs: ""
                 type: JobId
+                property: job_id
             examples:
                 - request:
                       urls:
@@ -176,7 +176,6 @@ service:
                                       granularity: utterance
                                       identify_speakers: false
                               notify: true
-                              registry_files: []
                               text: []
                               urls:
                                   - https://hume-tutorials.s3.amazonaws.com/faces.zip
@@ -545,7 +544,7 @@ types:
                 type: string
                 docs: Name of the descriptive feature being expressed.
             score:
-                type: string
+                type: float
                 docs: Embedding value for the descriptive feature being expressed.
         source:
             openapi: ../expression-measurement/batch-openapi.json
@@ -568,7 +567,7 @@ types:
                 type: string
                 docs: Name of the emotion being expressed.
             score:
-                type: double
+                type: float
                 docs: Embedding value for the emotion being expressed.
         source:
             openapi: ../expression-measurement/batch-openapi.json
@@ -671,7 +670,7 @@ types:
                 type: string
                 docs: Name of the FACS 2.0 feature being expressed.
             score:
-                type: string
+                type: float
                 docs: Embedding value for the FACS 2.0 feature being expressed.
         source:
             openapi: ../expression-measurement/batch-openapi.json
@@ -880,9 +879,6 @@ types:
 
                     If you wish to supply more than 100 URLs, consider providing them as
                     an archive (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar.xz`).
-            registry_files:
-                type: optional<list<string>>
-                docs: List of File IDs corresponding to the files in the asset registry.
             text:
                 type: optional<list<string>>
                 docs: Text to supply directly to our language and NER models.
@@ -1243,7 +1239,7 @@ types:
                 type: string
                 docs: Level of sentiment, ranging from `1` (negative) to `9` (positive)
             score:
-                type: string
+                type: float
                 docs: Prediction for this level of sentiment
         source:
             openapi: ../expression-measurement/batch-openapi.json
@@ -1255,169 +1251,176 @@ types:
         source:
             openapi: ../expression-measurement/batch-openapi.json
     Source:
-        discriminant: type
-        base-properties: {}
+        discriminated: false
         union:
-            url: SourceUrl
-            file: SourceFile
-            text: SourceTextSource
+            - SourceUrl
+            - SourceFile
+            - SourceTextSource
         source:
             openapi: ../expression-measurement/batch-openapi.json
     SourceFile:
-        properties: {}
+        properties:
+            type: literal<"file">
         extends:
             - File
         source:
             openapi: ../expression-measurement/batch-openapi.json
     SourceTextSource:
-        properties: {}
+        properties:
+            type: literal<"text">
         source:
             openapi: ../expression-measurement/batch-openapi.json
     SourceUrl:
-        properties: {}
+        properties:
+            type: literal<"url">
         extends:
             - Url
         source:
             openapi: ../expression-measurement/batch-openapi.json
-    Url:
-        properties:
-            url:
-                type: string
-                docs: The URL of the source media file.
-        source:
-            openapi: ../expression-measurement/batch-openapi.json
     StateEmbeddingGeneration:
-        discriminant: status
-        base-properties: {}
+        discriminated: false
         union:
-            QUEUED: StateEmbeddingGenerationQueued
-            IN_PROGRESS: StateEmbeddingGenerationInProgress
-            COMPLETED: StateEmbeddingGenerationCompletedEmbeddingGeneration
-            FAILED: StateEmbeddingGenerationFailed
+            - StateEmbeddingGenerationQueued
+            - StateEmbeddingGenerationInProgress
+            - StateEmbeddingGenerationCompletedEmbeddingGeneration
+            - StateEmbeddingGenerationFailed
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateEmbeddingGenerationCompletedEmbeddingGeneration:
-        properties: {}
+        properties:
+            status: literal<"COMPLETED">
         extends:
             - CompletedEmbeddingGeneration
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateEmbeddingGenerationFailed:
-        properties: {}
+        properties:
+            status: literal<"FAILED">
         extends:
             - Failed
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateEmbeddingGenerationInProgress:
-        properties: {}
+        properties:
+            status: literal<"IN_PROGRESS">
         extends:
             - InProgress
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateEmbeddingGenerationQueued:
-        properties: {}
+        properties:
+            status: literal<"QUEUED">
         extends:
             - Queued
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateInference:
-        discriminant: status
-        base-properties: {}
+        discriminated: false
         union:
-            QUEUED: StateInferenceQueued
-            IN_PROGRESS: StateInferenceInProgress
-            COMPLETED: StateInferenceCompletedInference
-            FAILED: StateInferenceFailed
+            - QueuedState
+            - InProgressState
+            - CompletedState
+            - FailedState
         source:
             openapi: ../expression-measurement/batch-openapi.json
-    StateInferenceCompletedInference:
-        properties: {}
+    CompletedState:
+        properties:
+            status: literal<"COMPLETED">
         extends:
             - CompletedInference
         source:
             openapi: ../expression-measurement/batch-openapi.json
-    StateInferenceFailed:
-        properties: {}
+    FailedState:
+        properties:
+            status: literal<"FAILED">
         extends:
             - Failed
         source:
             openapi: ../expression-measurement/batch-openapi.json
-    StateInferenceInProgress:
-        properties: {}
+    InProgressState:
+        properties:
+            status: literal<"IN_PROGRESS">
         extends:
             - InProgress
         source:
             openapi: ../expression-measurement/batch-openapi.json
-    StateInferenceQueued:
-        properties: {}
+    QueuedState:
+        properties:
+            status: literal<"QUEUED">
         extends:
             - Queued
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTlInference:
-        discriminant: status
-        base-properties: {}
+        discriminated: false
         union:
-            QUEUED: StateTlInferenceQueued
-            IN_PROGRESS: StateTlInferenceInProgress
-            COMPLETED: StateTlInferenceCompletedTlInference
-            FAILED: StateTlInferenceFailed
+            - StateTlInferenceQueued
+            - StateTlInferenceInProgress
+            - StateTlInferenceCompletedTlInference
+            - StateTlInferenceFailed
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTlInferenceCompletedTlInference:
-        properties: {}
+        properties:
+            status: literal<"COMPLETED">
         extends:
             - CompletedTlInference
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTlInferenceFailed:
-        properties: {}
+        properties:
+            status: literal<"FAILED">
         extends:
             - Failed
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTlInferenceInProgress:
-        properties: {}
+        properties:
+            status: literal<"IN_PROGRESS">
         extends:
             - InProgress
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTlInferenceQueued:
-        properties: {}
+        properties:
+            status: literal<"QUEUED">
         extends:
             - Queued
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTraining:
-        discriminant: status
-        base-properties: {}
+        discriminated: false
         union:
-            QUEUED: StateTrainingQueued
-            IN_PROGRESS: StateTrainingInProgress
-            COMPLETED: StateTrainingCompletedTraining
-            FAILED: StateTrainingFailed
+            - StateTrainingQueued
+            - StateTrainingInProgress
+            - StateTrainingCompletedTraining
+            - StateTrainingFailed
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTrainingCompletedTraining:
-        properties: {}
+        properties:
+            status: literal<"COMPLETED">
         extends:
             - CompletedTraining
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTrainingFailed:
-        properties: {}
+        properties:
+            status: literal<"FAILED">
         extends:
             - Failed
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTrainingInProgress:
-        properties: {}
+        properties:
+            status: literal<"IN_PROGRESS">
         extends:
             - InProgress
         source:
             openapi: ../expression-measurement/batch-openapi.json
     StateTrainingQueued:
-        properties: {}
+        properties:
+            status: literal<"QUEUED">
         extends:
             - Queued
         source:
@@ -1469,19 +1472,20 @@ types:
         source:
             openapi: ../expression-measurement/batch-openapi.json
     Task:
-        discriminant: type
-        base-properties: {}
+        discriminated: false
         union:
-            classification: TaskClassification
-            regression: TaskRegression
+            - TaskClassification
+            - TaskRegression
         source:
             openapi: ../expression-measurement/batch-openapi.json
     TaskClassification:
-        properties: {}
+        properties:
+            type: literal<"classification">
         source:
             openapi: ../expression-measurement/batch-openapi.json
     TaskRegression:
-        properties: {}
+        properties:
+            type: literal<"regression">
         source:
             openapi: ../expression-measurement/batch-openapi.json
     TextSource: map<string, unknown>
@@ -1509,9 +1513,6 @@ types:
 
                     If you wish to supply more than 100 URLs, consider providing them as
                     an archive (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar.xz`).
-            registry_files:
-                type: optional<list<string>>
-                docs: List of File IDs corresponding to the files in the asset registry.
             callback_url:
                 type: optional<string>
                 docs: >-
@@ -1548,7 +1549,7 @@ types:
                 type: string
                 docs: Category of toxicity.
             score:
-                type: string
+                type: float
                 docs: Prediction for this category of toxicity
         source:
             openapi: ../expression-measurement/batch-openapi.json
@@ -1729,6 +1730,13 @@ types:
         source:
             openapi: ../expression-measurement/batch-openapi.json
     UnionPredictResult: InferenceSourcePredictResult
+    Url:
+        properties:
+            url:
+                type: string
+                docs: The URL of the source media file.
+        source:
+            openapi: ../expression-measurement/batch-openapi.json
     ValidationArgs:
         properties:
             positive_label: optional<Target>
