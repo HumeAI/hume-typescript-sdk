@@ -468,6 +468,10 @@ export class ReconnectingWebSocket {
         this._debug("close event");
         this._clearTimeouts();
 
+        if (event.code === 1000) {
+            this._shouldReconnect = false;
+        }
+
         if (this._shouldReconnect) {
             this._connect();
         }
