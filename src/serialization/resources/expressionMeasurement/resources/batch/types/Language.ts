@@ -9,8 +9,8 @@ import { Granularity } from "./Granularity";
 import { Unconfigurable } from "./Unconfigurable";
 
 export const Language: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Language.Raw,
-    Hume.expressionMeasurement.Language
+    serializers.expressionMeasurement.batch.Language.Raw,
+    Hume.expressionMeasurement.batch.Language
 > = core.serialization.object({
     granularity: Granularity.optional(),
     sentiment: Unconfigurable.optional(),

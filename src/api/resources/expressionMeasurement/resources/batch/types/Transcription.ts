@@ -45,7 +45,7 @@ export interface Transcription {
      * - Turkish: `tr`
      * - Ukrainian: `uk`
      */
-    language?: Hume.expressionMeasurement.Bcp47Tag;
+    language?: Hume.expressionMeasurement.batch.Bcp47Tag;
     /** Whether to return identifiers for speakers over time. If `true`, unique identifiers will be assigned to spoken words to differentiate different speakers. If `false`, all speakers will be tagged with an `unknown` ID. */
     identifySpeakers?: boolean;
     /** Transcript confidence threshold. Transcripts generated with a confidence less than this threshold will be considered invalid and not used as an input for model inference. */

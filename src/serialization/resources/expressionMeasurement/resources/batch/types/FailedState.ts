@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Failed } from "./Failed";
 
 export const FailedState: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.FailedState.Raw,
-    Hume.expressionMeasurement.FailedState
+    serializers.expressionMeasurement.batch.FailedState.Raw,
+    Hume.expressionMeasurement.batch.FailedState
 > = core.serialization.object({}).extend(Failed);
 
 export declare namespace FailedState {

@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { JobInference } from "./JobInference";
 
 export const InferenceJob: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.InferenceJob.Raw,
-    Hume.expressionMeasurement.InferenceJob
+    serializers.expressionMeasurement.batch.InferenceJob.Raw,
+    Hume.expressionMeasurement.batch.InferenceJob
 > = core.serialization
     .object({
         type: core.serialization.string(),

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const StreamModelPredictionsJobDetails: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelPredictionsJobDetails.Raw,
-    Hume.expressionMeasurement.StreamModelPredictionsJobDetails
+    serializers.expressionMeasurement.stream.StreamModelPredictionsJobDetails.Raw,
+    Hume.expressionMeasurement.stream.StreamModelPredictionsJobDetails
 > = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string().optional()),
 });

@@ -9,8 +9,8 @@ import { TrainingBaseRequest } from "./TrainingBaseRequest";
 import { StateTraining } from "./StateTraining";
 
 export const JobTraining: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.JobTraining.Raw,
-    Hume.expressionMeasurement.JobTraining
+    serializers.expressionMeasurement.batch.JobTraining.Raw,
+    Hume.expressionMeasurement.batch.JobTraining
 > = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string()),
     userId: core.serialization.property("user_id", core.serialization.string()),

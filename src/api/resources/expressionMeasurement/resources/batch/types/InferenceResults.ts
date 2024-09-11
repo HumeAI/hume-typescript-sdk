@@ -5,6 +5,6 @@
 import * as Hume from "../../../../../index";
 
 export interface InferenceResults {
-    predictions: Hume.expressionMeasurement.InferencePrediction[];
-    errors: Hume.expressionMeasurement.Error_[];
+    predictions: Hume.expressionMeasurement.batch.InferencePrediction[];
+    errors: Hume.expressionMeasurement.batch.Error_[];
 }

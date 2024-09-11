@@ -9,7 +9,7 @@ import { UnionJob } from "../types/UnionJob";
 
 export const Response: core.serialization.Schema<
     serializers.expressionMeasurement.batch.listJobs.Response.Raw,
-    Hume.expressionMeasurement.UnionJob[]
+    Hume.expressionMeasurement.batch.UnionJob[]
 > = core.serialization.list(UnionJob);
 
 export declare namespace Response {

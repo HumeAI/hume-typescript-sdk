@@ -9,8 +9,8 @@ import { InferencePrediction } from "./InferencePrediction";
 import { Error_ } from "./Error_";
 
 export const InferenceResults: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.InferenceResults.Raw,
-    Hume.expressionMeasurement.InferenceResults
+    serializers.expressionMeasurement.batch.InferenceResults.Raw,
+    Hume.expressionMeasurement.batch.InferenceResults
 > = core.serialization.object({
     predictions: core.serialization.list(InferencePrediction),
     errors: core.serialization.list(Error_),

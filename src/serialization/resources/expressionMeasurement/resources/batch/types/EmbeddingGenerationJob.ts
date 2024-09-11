@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { JobEmbeddingGeneration } from "./JobEmbeddingGeneration";
 
 export const EmbeddingGenerationJob: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.EmbeddingGenerationJob.Raw,
-    Hume.expressionMeasurement.EmbeddingGenerationJob
+    serializers.expressionMeasurement.batch.EmbeddingGenerationJob.Raw,
+    Hume.expressionMeasurement.batch.EmbeddingGenerationJob
 > = core.serialization
     .object({
         type: core.serialization.string(),

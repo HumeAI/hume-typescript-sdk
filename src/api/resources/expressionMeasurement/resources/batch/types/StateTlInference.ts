@@ -5,25 +5,25 @@
 import * as Hume from "../../../../../index";
 
 export type StateTlInference =
-    | Hume.expressionMeasurement.StateTlInference.Queued
-    | Hume.expressionMeasurement.StateTlInference.InProgress
-    | Hume.expressionMeasurement.StateTlInference.Completed
-    | Hume.expressionMeasurement.StateTlInference.Failed;
+    | Hume.expressionMeasurement.batch.StateTlInference.Queued
+    | Hume.expressionMeasurement.batch.StateTlInference.InProgress
+    | Hume.expressionMeasurement.batch.StateTlInference.Completed
+    | Hume.expressionMeasurement.batch.StateTlInference.Failed;
 
 export declare namespace StateTlInference {
-    interface Queued extends Hume.expressionMeasurement.StateTlInferenceQueued {
+    interface Queued extends Hume.expressionMeasurement.batch.StateTlInferenceQueued {
         status: "QUEUED";
     }
 
-    interface InProgress extends Hume.expressionMeasurement.StateTlInferenceInProgress {
+    interface InProgress extends Hume.expressionMeasurement.batch.StateTlInferenceInProgress {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends Hume.expressionMeasurement.StateTlInferenceCompletedTlInference {
+    interface Completed extends Hume.expressionMeasurement.batch.StateTlInferenceCompletedTlInference {
         status: "COMPLETED";
     }
 
-    interface Failed extends Hume.expressionMeasurement.StateTlInferenceFailed {
+    interface Failed extends Hume.expressionMeasurement.batch.StateTlInferenceFailed {
         status: "FAILED";
     }
 }

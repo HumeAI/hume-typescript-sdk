@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Type: core.serialization.Schema<
-    serializers.expressionMeasurement.Type.Raw,
-    Hume.expressionMeasurement.Type
+    serializers.expressionMeasurement.batch.Type.Raw,
+    Hume.expressionMeasurement.batch.Type
 > = core.serialization.enum_(["EMBEDDING_GENERATION", "INFERENCE", "TL_INFERENCE", "TRAINING"]);
 
 export declare namespace Type {

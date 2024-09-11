@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const TimeInterval: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TimeInterval.Raw,
-    Hume.expressionMeasurement.TimeInterval
+    serializers.expressionMeasurement.batch.TimeInterval.Raw,
+    Hume.expressionMeasurement.batch.TimeInterval
 > = core.serialization.object({
     begin: core.serialization.number(),
     end: core.serialization.number(),

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const TextPosition: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TextPosition.Raw,
-    Hume.expressionMeasurement.TextPosition
+    serializers.expressionMeasurement.stream.TextPosition.Raw,
+    Hume.expressionMeasurement.stream.TextPosition
 > = core.serialization.object({
     begin: core.serialization.number().optional(),
     end: core.serialization.number().optional(),

@@ -8,10 +8,10 @@ import * as Hume from "../../../../../index";
  * The models used for inference.
  */
 export interface Models {
-    face?: Hume.expressionMeasurement.Face;
-    burst?: Hume.expressionMeasurement.Unconfigurable;
-    prosody?: Hume.expressionMeasurement.Prosody;
-    language?: Hume.expressionMeasurement.Language;
-    ner?: Hume.expressionMeasurement.Ner;
-    facemesh?: Hume.expressionMeasurement.Unconfigurable;
+    face?: Hume.expressionMeasurement.batch.Face;
+    burst?: Hume.expressionMeasurement.batch.Unconfigurable;
+    prosody?: Hume.expressionMeasurement.batch.Prosody;
+    language?: Hume.expressionMeasurement.batch.Language;
+    ner?: Hume.expressionMeasurement.batch.Ner;
+    facemesh?: Hume.expressionMeasurement.batch.Unconfigurable;
 }

@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { CompletedEmbeddingGeneration } from "./CompletedEmbeddingGeneration";
 
 export const StateEmbeddingGenerationCompletedEmbeddingGeneration: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateEmbeddingGenerationCompletedEmbeddingGeneration.Raw,
-    Hume.expressionMeasurement.StateEmbeddingGenerationCompletedEmbeddingGeneration
+    serializers.expressionMeasurement.batch.StateEmbeddingGenerationCompletedEmbeddingGeneration.Raw,
+    Hume.expressionMeasurement.batch.StateEmbeddingGenerationCompletedEmbeddingGeneration
 > = core.serialization.object({}).extend(CompletedEmbeddingGeneration);
 
 export declare namespace StateEmbeddingGenerationCompletedEmbeddingGeneration {
