@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { CompletedInference } from "./CompletedInference";
 
 export const CompletedState: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CompletedState.Raw,
-    Hume.expressionMeasurement.CompletedState
+    serializers.expressionMeasurement.batch.CompletedState.Raw,
+    Hume.expressionMeasurement.batch.CompletedState
 > = core.serialization.object({}).extend(CompletedInference);
 
 export declare namespace CompletedState {

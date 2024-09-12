@@ -5,10 +5,10 @@
 import * as Hume from "../../../../../index";
 
 export interface ModelsPredictions {
-    face?: Hume.expressionMeasurement.PredictionsOptionalNullFacePrediction;
-    burst?: Hume.expressionMeasurement.PredictionsOptionalNullBurstPrediction;
-    prosody?: Hume.expressionMeasurement.PredictionsOptionalTranscriptionMetadataProsodyPrediction;
-    language?: Hume.expressionMeasurement.PredictionsOptionalTranscriptionMetadataLanguagePrediction;
-    ner?: Hume.expressionMeasurement.PredictionsOptionalTranscriptionMetadataNerPrediction;
-    facemesh?: Hume.expressionMeasurement.PredictionsOptionalNullFacemeshPrediction;
+    face?: Hume.expressionMeasurement.batch.PredictionsOptionalNullFacePrediction;
+    burst?: Hume.expressionMeasurement.batch.PredictionsOptionalNullBurstPrediction;
+    prosody?: Hume.expressionMeasurement.batch.PredictionsOptionalTranscriptionMetadataProsodyPrediction;
+    language?: Hume.expressionMeasurement.batch.PredictionsOptionalTranscriptionMetadataLanguagePrediction;
+    ner?: Hume.expressionMeasurement.batch.PredictionsOptionalTranscriptionMetadataNerPrediction;
+    facemesh?: Hume.expressionMeasurement.batch.PredictionsOptionalNullFacemeshPrediction;
 }

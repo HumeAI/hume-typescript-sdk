@@ -10,8 +10,8 @@ import { TimeInterval } from "./TimeInterval";
 import { EmotionScore } from "./EmotionScore";
 
 export const NerPrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.NerPrediction.Raw,
-    Hume.expressionMeasurement.NerPrediction
+    serializers.expressionMeasurement.batch.NerPrediction.Raw,
+    Hume.expressionMeasurement.batch.NerPrediction
 > = core.serialization.object({
     entity: core.serialization.string(),
     position: PositionInterval,

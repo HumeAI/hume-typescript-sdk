@@ -9,14 +9,14 @@ import { TaskClassification } from "./TaskClassification";
 import { TaskRegression } from "./TaskRegression";
 
 export const Task: core.serialization.Schema<
-    serializers.expressionMeasurement.Task.Raw,
-    Hume.expressionMeasurement.Task
+    serializers.expressionMeasurement.batch.Task.Raw,
+    Hume.expressionMeasurement.batch.Task
 > = core.serialization
     .union("type", {
         classification: TaskClassification,
         regression: TaskRegression,
     })
-    .transform<Hume.expressionMeasurement.Task>({
+    .transform<Hume.expressionMeasurement.batch.Task>({
         transform: (value) => value,
         untransform: (value) => value,
     });

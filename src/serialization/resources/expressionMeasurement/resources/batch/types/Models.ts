@@ -12,8 +12,8 @@ import { Language } from "./Language";
 import { Ner } from "./Ner";
 
 export const Models: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Models.Raw,
-    Hume.expressionMeasurement.Models
+    serializers.expressionMeasurement.batch.Models.Raw,
+    Hume.expressionMeasurement.batch.Models
 > = core.serialization.object({
     face: Face.optional(),
     burst: Unconfigurable.optional(),

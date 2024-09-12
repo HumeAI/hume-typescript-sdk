@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Unconfigurable: core.serialization.Schema<
-    serializers.expressionMeasurement.Unconfigurable.Raw,
-    Hume.expressionMeasurement.Unconfigurable
+    serializers.expressionMeasurement.batch.Unconfigurable.Raw,
+    Hume.expressionMeasurement.batch.Unconfigurable
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 
 export declare namespace Unconfigurable {

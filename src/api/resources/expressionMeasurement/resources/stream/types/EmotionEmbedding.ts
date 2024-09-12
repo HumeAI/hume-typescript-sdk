@@ -7,4 +7,4 @@ import * as Hume from "../../../../../index";
 /**
  * A high-dimensional embedding in emotion space.
  */
-export type EmotionEmbedding = Hume.expressionMeasurement.EmotionEmbeddingItem[];
+export type EmotionEmbedding = Hume.expressionMeasurement.stream.EmotionEmbeddingItem[];

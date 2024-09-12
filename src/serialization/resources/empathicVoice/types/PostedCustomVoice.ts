@@ -5,26 +5,27 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { PostedCustomVoiceBaseVoice } from "./PostedCustomVoiceBaseVoice";
+import { PostedCustomVoiceParameters } from "./PostedCustomVoiceParameters";
 
 export const PostedCustomVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedCustomVoice.Raw,
     Hume.empathicVoice.PostedCustomVoice
 > = core.serialization.object({
     name: core.serialization.string(),
-    baseVoice: core.serialization.property("base_voice", core.serialization.string()),
-    speechRateMultiplier: core.serialization.property("speech_rate_multiplier", core.serialization.number().optional()),
-    parameterModel: core.serialization.property("parameter_model", core.serialization.string()),
-    parameters: core.serialization
-        .record(core.serialization.string(), core.serialization.number().optional())
-        .optional(),
+    baseVoice: core.serialization.property("base_voice", PostedCustomVoiceBaseVoice),
+    parameterModel: core.serialization.property(
+        "parameter_model",
+        core.serialization.stringLiteral("20240715-4parameter")
+    ),
+    parameters: PostedCustomVoiceParameters.optional(),
 });
 
 export declare namespace PostedCustomVoice {
     interface Raw {
         name: string;
-        base_voice: string;
-        speech_rate_multiplier?: number | null;
-        parameter_model: string;
-        parameters?: Record<string, number | null | undefined> | null;
+        base_voice: PostedCustomVoiceBaseVoice.Raw;
+        parameter_model: "20240715-4parameter";
+        parameters?: PostedCustomVoiceParameters.Raw | null;
     }
 }

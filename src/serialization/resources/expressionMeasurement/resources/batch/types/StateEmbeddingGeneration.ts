@@ -11,8 +11,8 @@ import { StateEmbeddingGenerationCompletedEmbeddingGeneration } from "./StateEmb
 import { StateEmbeddingGenerationFailed } from "./StateEmbeddingGenerationFailed";
 
 export const StateEmbeddingGeneration: core.serialization.Schema<
-    serializers.expressionMeasurement.StateEmbeddingGeneration.Raw,
-    Hume.expressionMeasurement.StateEmbeddingGeneration
+    serializers.expressionMeasurement.batch.StateEmbeddingGeneration.Raw,
+    Hume.expressionMeasurement.batch.StateEmbeddingGeneration
 > = core.serialization
     .union("status", {
         QUEUED: StateEmbeddingGenerationQueued,
@@ -20,7 +20,7 @@ export const StateEmbeddingGeneration: core.serialization.Schema<
         COMPLETED: StateEmbeddingGenerationCompletedEmbeddingGeneration,
         FAILED: StateEmbeddingGenerationFailed,
     })
-    .transform<Hume.expressionMeasurement.StateEmbeddingGeneration>({
+    .transform<Hume.expressionMeasurement.batch.StateEmbeddingGeneration>({
         transform: (value) => value,
         untransform: (value) => value,
     });

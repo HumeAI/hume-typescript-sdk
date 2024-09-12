@@ -9,8 +9,8 @@ import { InferenceRequest } from "./InferenceRequest";
 import { StateInference } from "./StateInference";
 
 export const JobInference: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.JobInference.Raw,
-    Hume.expressionMeasurement.JobInference
+    serializers.expressionMeasurement.batch.JobInference.Raw,
+    Hume.expressionMeasurement.batch.JobInference
 > = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string()),
     request: InferenceRequest,

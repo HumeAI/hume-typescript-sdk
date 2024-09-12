@@ -5,9 +5,9 @@
 import * as Hume from "../../../../../index";
 
 export interface BurstPrediction {
-    time: Hume.expressionMeasurement.TimeInterval;
+    time: Hume.expressionMeasurement.batch.TimeInterval;
     /** A high-dimensional embedding in emotion space. */
-    emotions: Hume.expressionMeasurement.EmotionScore[];
+    emotions: Hume.expressionMeasurement.batch.EmotionScore[];
     /** Modality-specific descriptive features and their scores. */
-    descriptions: Hume.expressionMeasurement.DescriptionsScore[];
+    descriptions: Hume.expressionMeasurement.batch.DescriptionsScore[];
 }
