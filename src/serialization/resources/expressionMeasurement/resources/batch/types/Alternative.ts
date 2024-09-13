@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Alternative: core.serialization.Schema<
-    serializers.expressionMeasurement.Alternative.Raw,
-    Hume.expressionMeasurement.Alternative
+    serializers.expressionMeasurement.batch.Alternative.Raw,
+    Hume.expressionMeasurement.batch.Alternative
 > = core.serialization.stringLiteral("language_only");
 
 export declare namespace Alternative {

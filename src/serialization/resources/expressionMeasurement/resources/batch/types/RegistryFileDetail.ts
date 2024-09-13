@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const RegistryFileDetail: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.RegistryFileDetail.Raw,
-    Hume.expressionMeasurement.RegistryFileDetail
+    serializers.expressionMeasurement.batch.RegistryFileDetail.Raw,
+    Hume.expressionMeasurement.batch.RegistryFileDetail
 > = core.serialization.object({
     fileId: core.serialization.property("file_id", core.serialization.string()),
     fileUrl: core.serialization.property("file_url", core.serialization.string()),

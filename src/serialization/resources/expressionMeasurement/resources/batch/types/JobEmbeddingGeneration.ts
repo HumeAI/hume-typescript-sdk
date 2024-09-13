@@ -9,8 +9,8 @@ import { EmbeddingGenerationBaseRequest } from "./EmbeddingGenerationBaseRequest
 import { StateEmbeddingGeneration } from "./StateEmbeddingGeneration";
 
 export const JobEmbeddingGeneration: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.JobEmbeddingGeneration.Raw,
-    Hume.expressionMeasurement.JobEmbeddingGeneration
+    serializers.expressionMeasurement.batch.JobEmbeddingGeneration.Raw,
+    Hume.expressionMeasurement.batch.JobEmbeddingGeneration
 > = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string()),
     userId: core.serialization.property("user_id", core.serialization.string()),

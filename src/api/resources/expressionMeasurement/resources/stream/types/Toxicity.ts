@@ -7,4 +7,4 @@ import * as Hume from "../../../../../index";
 /**
  * Toxicity predictions returned as probabilities that the text can be classified into the following categories: toxic, severe_toxic, obscene, threat, insult, and identity_hate.
  */
-export type Toxicity = Hume.expressionMeasurement.ToxicityItem[];
+export type Toxicity = Hume.expressionMeasurement.stream.ToxicityItem[];

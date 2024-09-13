@@ -12,8 +12,8 @@ import { SentimentScore } from "./SentimentScore";
 import { ToxicityScore } from "./ToxicityScore";
 
 export const LanguagePrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.LanguagePrediction.Raw,
-    Hume.expressionMeasurement.LanguagePrediction
+    serializers.expressionMeasurement.batch.LanguagePrediction.Raw,
+    Hume.expressionMeasurement.batch.LanguagePrediction
 > = core.serialization.object({
     text: core.serialization.string(),
     position: PositionInterval,

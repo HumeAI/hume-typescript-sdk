@@ -10,8 +10,8 @@ import { StreamErrorMessage } from "./StreamErrorMessage";
 import { StreamWarningMessage } from "./StreamWarningMessage";
 
 export const SubscribeEvent: core.serialization.Schema<
-    serializers.expressionMeasurement.SubscribeEvent.Raw,
-    Hume.expressionMeasurement.SubscribeEvent
+    serializers.expressionMeasurement.stream.SubscribeEvent.Raw,
+    Hume.expressionMeasurement.stream.SubscribeEvent
 > = core.serialization.undiscriminatedUnion([Config, StreamErrorMessage, StreamWarningMessage]);
 
 export declare namespace SubscribeEvent {

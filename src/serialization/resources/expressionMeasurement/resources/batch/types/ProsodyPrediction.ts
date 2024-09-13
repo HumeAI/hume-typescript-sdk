@@ -9,8 +9,8 @@ import { TimeInterval } from "./TimeInterval";
 import { EmotionScore } from "./EmotionScore";
 
 export const ProsodyPrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.ProsodyPrediction.Raw,
-    Hume.expressionMeasurement.ProsodyPrediction
+    serializers.expressionMeasurement.batch.ProsodyPrediction.Raw,
+    Hume.expressionMeasurement.batch.ProsodyPrediction
 > = core.serialization.object({
     text: core.serialization.string().optional(),
     time: TimeInterval,

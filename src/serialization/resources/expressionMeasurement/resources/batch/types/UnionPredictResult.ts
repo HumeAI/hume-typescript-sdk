@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { InferenceSourcePredictResult } from "./InferenceSourcePredictResult";
 
 export const UnionPredictResult: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.UnionPredictResult.Raw,
-    Hume.expressionMeasurement.UnionPredictResult
+    serializers.expressionMeasurement.batch.UnionPredictResult.Raw,
+    Hume.expressionMeasurement.batch.UnionPredictResult
 > = InferenceSourcePredictResult;
 
 export declare namespace UnionPredictResult {

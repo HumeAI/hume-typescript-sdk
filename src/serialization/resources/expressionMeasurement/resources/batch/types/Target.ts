@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Target: core.serialization.Schema<
-    serializers.expressionMeasurement.Target.Raw,
-    Hume.expressionMeasurement.Target
+    serializers.expressionMeasurement.batch.Target.Raw,
+    Hume.expressionMeasurement.batch.Target
 > = core.serialization.undiscriminatedUnion([
     core.serialization.number(),
     core.serialization.number(),

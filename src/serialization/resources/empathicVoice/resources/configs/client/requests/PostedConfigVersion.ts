@@ -5,7 +5,7 @@
 import * as serializers from "../../../../../../index";
 import * as Hume from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
-import { PostedPromptSpec } from "../../../../types/PostedPromptSpec";
+import { PostedConfigPromptSpec } from "../../../../types/PostedConfigPromptSpec";
 import { PostedVoice } from "../../../../types/PostedVoice";
 import { PostedLanguageModel } from "../../../../types/PostedLanguageModel";
 import { PostedEllmModel } from "../../../../types/PostedEllmModel";
@@ -18,8 +18,9 @@ export const PostedConfigVersion: core.serialization.Schema<
     serializers.empathicVoice.PostedConfigVersion.Raw,
     Hume.empathicVoice.PostedConfigVersion
 > = core.serialization.object({
+    eviVersion: core.serialization.property("evi_version", core.serialization.string()),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    prompt: PostedPromptSpec.optional(),
+    prompt: PostedConfigPromptSpec.optional(),
     voice: PostedVoice.optional(),
     languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
     ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
@@ -34,8 +35,9 @@ export const PostedConfigVersion: core.serialization.Schema<
 
 export declare namespace PostedConfigVersion {
     interface Raw {
+        evi_version: string;
         version_description?: string | null;
-        prompt?: PostedPromptSpec.Raw | null;
+        prompt?: PostedConfigPromptSpec.Raw | null;
         voice?: PostedVoice.Raw | null;
         language_model?: PostedLanguageModel.Raw | null;
         ellm_model?: PostedEllmModel.Raw | null;

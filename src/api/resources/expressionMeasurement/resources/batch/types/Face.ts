@@ -18,8 +18,8 @@ export interface Face {
     identifyFaces?: boolean;
     /** Minimum bounding box side length in pixels to treat as a face. Faces detected with a bounding box side length in pixels less than this threshold will be omitted from the response. */
     minFaceSize?: number;
-    facs?: Hume.expressionMeasurement.Unconfigurable;
-    descriptions?: Hume.expressionMeasurement.Unconfigurable;
+    facs?: Hume.expressionMeasurement.batch.Unconfigurable;
+    descriptions?: Hume.expressionMeasurement.batch.Unconfigurable;
     /** Whether to extract and save the detected faces in the artifacts zip created by each job. */
     saveFaces?: boolean;
 }

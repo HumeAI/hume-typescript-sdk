@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export type Dataset = Hume.expressionMeasurement.DatasetId | Hume.expressionMeasurement.DatasetVersionId;
+export type Dataset = Hume.expressionMeasurement.batch.DatasetId | Hume.expressionMeasurement.batch.DatasetVersionId;

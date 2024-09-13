@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { CustomModelPrediction } from "./CustomModelPrediction";
 
 export const TlInferencePrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TlInferencePrediction.Raw,
-    Hume.expressionMeasurement.TlInferencePrediction
+    serializers.expressionMeasurement.batch.TlInferencePrediction.Raw,
+    Hume.expressionMeasurement.batch.TlInferencePrediction
 > = core.serialization.object({
     file: core.serialization.string(),
     fileType: core.serialization.property("file_type", core.serialization.string()),

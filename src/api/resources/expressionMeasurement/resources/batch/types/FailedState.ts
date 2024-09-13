@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export interface FailedState extends Hume.expressionMeasurement.Failed {}
+export interface FailedState extends Hume.expressionMeasurement.batch.Failed {}

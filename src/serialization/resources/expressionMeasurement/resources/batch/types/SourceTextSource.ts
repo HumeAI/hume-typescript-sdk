@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const SourceTextSource: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.SourceTextSource.Raw,
-    Hume.expressionMeasurement.SourceTextSource
+    serializers.expressionMeasurement.batch.SourceTextSource.Raw,
+    Hume.expressionMeasurement.batch.SourceTextSource
 > = core.serialization.object({});
 
 export declare namespace SourceTextSource {

@@ -33,6 +33,8 @@ export class Chats {
      * @param {Hume.empathicVoice.ChatsListChatsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.chats.listChats({
      *         pageNumber: 0,
@@ -67,8 +69,8 @@ export class Chats {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.9",
-                    "User-Agent": "hume/0.8.9",
+                    "X-Fern-SDK-Version": "0.8.11",
+                    "User-Agent": "hume/0.8.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -89,10 +91,22 @@ export class Chats {
                 });
             }
             if (_response.error.reason === "status-code") {
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
-                });
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new Hume.empathicVoice.BadRequestError(
+                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    default:
+                        throw new errors.HumeError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
             }
             switch (_response.error.reason) {
                 case "non-json":
@@ -124,6 +138,8 @@ export class Chats {
      * @param {string} id - Identifier for a Chat. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatsListChatEventsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
@@ -160,8 +176,8 @@ export class Chats {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.9",
-                    "User-Agent": "hume/0.8.9",
+                    "X-Fern-SDK-Version": "0.8.11",
+                    "User-Agent": "hume/0.8.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -182,10 +198,22 @@ export class Chats {
                 });
             }
             if (_response.error.reason === "status-code") {
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
-                });
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new Hume.empathicVoice.BadRequestError(
+                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    default:
+                        throw new errors.HumeError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
             }
             switch (_response.error.reason) {
                 case "non-json":

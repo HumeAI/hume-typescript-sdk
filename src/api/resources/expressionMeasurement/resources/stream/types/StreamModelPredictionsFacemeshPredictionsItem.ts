@@ -5,5 +5,5 @@
 import * as Hume from "../../../../../index";
 
 export interface StreamModelPredictionsFacemeshPredictionsItem {
-    emotions?: Hume.expressionMeasurement.EmotionEmbedding;
+    emotions?: Hume.expressionMeasurement.stream.EmotionEmbedding;
 }

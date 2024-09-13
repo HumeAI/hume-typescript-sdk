@@ -33,6 +33,8 @@ export class Prompts {
      * @param {Hume.empathicVoice.PromptsListPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.prompts.listPrompts({
      *         pageNumber: 0,
@@ -69,8 +71,8 @@ export class Prompts {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.9",
-                    "User-Agent": "hume/0.8.9",
+                    "X-Fern-SDK-Version": "0.8.11",
+                    "User-Agent": "hume/0.8.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -91,10 +93,22 @@ export class Prompts {
                 });
             }
             if (_response.error.reason === "status-code") {
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
-                });
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new Hume.empathicVoice.BadRequestError(
+                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    default:
+                        throw new errors.HumeError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
             }
             switch (_response.error.reason) {
                 case "non-json":
@@ -126,6 +140,8 @@ export class Prompts {
      * @param {Hume.empathicVoice.PostedPrompt} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.prompts.createPrompt({
      *         name: "Weather Assistant Prompt",
@@ -145,8 +161,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -168,10 +184,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -193,6 +221,8 @@ export class Prompts {
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PromptsListPromptVersionsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5")
@@ -225,8 +255,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -248,10 +278,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -274,6 +316,8 @@ export class Prompts {
      * @param {Hume.empathicVoice.PostedPromptVersion} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-af9e5da3bac5", {
      *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
@@ -294,8 +338,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -319,10 +363,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -344,6 +400,8 @@ export class Prompts {
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5")
      */
@@ -357,8 +415,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -374,10 +432,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -400,6 +470,8 @@ export class Prompts {
      * @param {Hume.empathicVoice.PostedPromptName} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
      *         name: "Updated Weather Assistant Prompt Name"
@@ -419,8 +491,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -438,10 +510,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -463,10 +547,12 @@ export class Prompts {
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {number} version - Version number for a Prompt.
      *
-     *                           Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0)
@@ -485,8 +571,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -507,10 +593,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -532,10 +630,12 @@ export class Prompts {
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {number} version - Version number for a Prompt.
      *
-     *                           Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1)
@@ -554,8 +654,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -571,10 +671,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -596,11 +708,13 @@ export class Prompts {
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {number} version - Version number for a Prompt.
      *
-     *                           Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Hume.empathicVoice.PostedPromptVersionDescription} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
@@ -622,8 +736,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -647,10 +761,22 @@ export class Prompts {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

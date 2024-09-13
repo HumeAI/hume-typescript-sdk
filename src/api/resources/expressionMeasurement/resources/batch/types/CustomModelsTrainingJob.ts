@@ -4,6 +4,6 @@
 
 import * as Hume from "../../../../../index";
 
-export interface CustomModelsTrainingJob extends Hume.expressionMeasurement.JobTraining {
+export interface CustomModelsTrainingJob extends Hume.expressionMeasurement.batch.JobTraining {
     type: string;
 }

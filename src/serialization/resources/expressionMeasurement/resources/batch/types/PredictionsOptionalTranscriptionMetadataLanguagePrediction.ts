@@ -9,8 +9,8 @@ import { TranscriptionMetadata } from "./TranscriptionMetadata";
 import { GroupedPredictionsLanguagePrediction } from "./GroupedPredictionsLanguagePrediction";
 
 export const PredictionsOptionalTranscriptionMetadataLanguagePrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.PredictionsOptionalTranscriptionMetadataLanguagePrediction.Raw,
-    Hume.expressionMeasurement.PredictionsOptionalTranscriptionMetadataLanguagePrediction
+    serializers.expressionMeasurement.batch.PredictionsOptionalTranscriptionMetadataLanguagePrediction.Raw,
+    Hume.expressionMeasurement.batch.PredictionsOptionalTranscriptionMetadataLanguagePrediction
 > = core.serialization.object({
     metadata: TranscriptionMetadata.optional(),
     groupedPredictions: core.serialization.property(

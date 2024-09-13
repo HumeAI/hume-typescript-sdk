@@ -5,8 +5,8 @@
 import * as Hume from "../../../../../index";
 
 export interface TlInferenceSourcePredictResult {
-    source: Hume.expressionMeasurement.Source;
-    results?: Hume.expressionMeasurement.TlInferenceResults;
+    source: Hume.expressionMeasurement.batch.Source;
+    results?: Hume.expressionMeasurement.batch.TlInferenceResults;
     /** An error message. */
     error?: string;
 }
