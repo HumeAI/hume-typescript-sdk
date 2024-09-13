@@ -10,8 +10,8 @@ import * as Hume from "../../../../../index";
  * Recommended input file types: `.wav`, `.mp3`, `.mp4`
  */
 export interface Prosody {
-    granularity?: Hume.expressionMeasurement.Granularity;
-    window?: Hume.expressionMeasurement.Window;
+    granularity?: Hume.expressionMeasurement.batch.Granularity;
+    window?: Hume.expressionMeasurement.batch.Window;
     /** Whether to return identifiers for speakers over time. If `true`, unique identifiers will be assigned to spoken words to differentiate different speakers. If `false`, all speakers will be tagged with an `unknown` ID. */
     identifySpeakers?: boolean;
 }

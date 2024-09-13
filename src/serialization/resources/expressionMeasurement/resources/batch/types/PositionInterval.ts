@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const PositionInterval: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.PositionInterval.Raw,
-    Hume.expressionMeasurement.PositionInterval
+    serializers.expressionMeasurement.batch.PositionInterval.Raw,
+    Hume.expressionMeasurement.batch.PositionInterval
 > = core.serialization.object({
     begin: core.serialization.number(),
     end: core.serialization.number(),

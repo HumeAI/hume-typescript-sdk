@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Null: core.serialization.Schema<
-    serializers.expressionMeasurement.Null.Raw,
-    Hume.expressionMeasurement.Null
+    serializers.expressionMeasurement.batch.Null.Raw,
+    Hume.expressionMeasurement.batch.Null
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 
 export declare namespace Null {

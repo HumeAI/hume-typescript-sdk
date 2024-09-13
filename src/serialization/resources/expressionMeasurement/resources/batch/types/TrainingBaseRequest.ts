@@ -12,8 +12,8 @@ import { EvaluationArgs } from "./EvaluationArgs";
 import { Alternative } from "./Alternative";
 
 export const TrainingBaseRequest: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TrainingBaseRequest.Raw,
-    Hume.expressionMeasurement.TrainingBaseRequest
+    serializers.expressionMeasurement.batch.TrainingBaseRequest.Raw,
+    Hume.expressionMeasurement.batch.TrainingBaseRequest
 > = core.serialization.object({
     customModel: core.serialization.property("custom_model", CustomModelRequest),
     dataset: Dataset,

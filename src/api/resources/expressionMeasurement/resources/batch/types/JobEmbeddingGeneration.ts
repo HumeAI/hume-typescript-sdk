@@ -8,6 +8,6 @@ export interface JobEmbeddingGeneration {
     /** The ID associated with this job. */
     jobId: string;
     userId: string;
-    request: Hume.expressionMeasurement.EmbeddingGenerationBaseRequest;
-    state: Hume.expressionMeasurement.StateEmbeddingGeneration;
+    request: Hume.expressionMeasurement.batch.EmbeddingGenerationBaseRequest;
+    state: Hume.expressionMeasurement.batch.StateEmbeddingGeneration;
 }

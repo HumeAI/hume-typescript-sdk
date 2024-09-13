@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const StreamModelsEndpointPayloadModelsFace: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelsEndpointPayloadModelsFace.Raw,
-    Hume.expressionMeasurement.StreamModelsEndpointPayloadModelsFace
+    serializers.expressionMeasurement.stream.StreamModelsEndpointPayloadModelsFace.Raw,
+    Hume.expressionMeasurement.stream.StreamModelsEndpointPayloadModelsFace
 > = core.serialization.object({
     facs: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     descriptions: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),

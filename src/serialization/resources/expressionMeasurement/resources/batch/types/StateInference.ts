@@ -11,8 +11,8 @@ import { CompletedState } from "./CompletedState";
 import { FailedState } from "./FailedState";
 
 export const StateInference: core.serialization.Schema<
-    serializers.expressionMeasurement.StateInference.Raw,
-    Hume.expressionMeasurement.StateInference
+    serializers.expressionMeasurement.batch.StateInference.Raw,
+    Hume.expressionMeasurement.batch.StateInference
 > = core.serialization
     .union("status", {
         QUEUED: QueuedState,
@@ -20,7 +20,7 @@ export const StateInference: core.serialization.Schema<
         COMPLETED: CompletedState,
         FAILED: FailedState,
     })
-    .transform<Hume.expressionMeasurement.StateInference>({
+    .transform<Hume.expressionMeasurement.batch.StateInference>({
         transform: (value) => value,
         untransform: (value) => value,
     });

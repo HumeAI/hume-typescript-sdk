@@ -9,7 +9,7 @@ import { UnionPredictResult } from "../types/UnionPredictResult";
 
 export const Response: core.serialization.Schema<
     serializers.expressionMeasurement.batch.getJobPredictions.Response.Raw,
-    Hume.expressionMeasurement.UnionPredictResult[]
+    Hume.expressionMeasurement.batch.UnionPredictResult[]
 > = core.serialization.list(UnionPredictResult);
 
 export declare namespace Response {

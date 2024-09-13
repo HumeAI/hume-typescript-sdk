@@ -5,12 +5,12 @@
 import * as Hume from "../../../../../index";
 
 export interface TrainingBaseRequest {
-    customModel: Hume.expressionMeasurement.CustomModelRequest;
-    dataset: Hume.expressionMeasurement.Dataset;
+    customModel: Hume.expressionMeasurement.batch.CustomModelRequest;
+    dataset: Hume.expressionMeasurement.batch.Dataset;
     targetFeature?: string;
-    task?: Hume.expressionMeasurement.Task;
-    evaluation?: Hume.expressionMeasurement.EvaluationArgs;
-    alternatives?: Hume.expressionMeasurement.Alternative[];
+    task?: Hume.expressionMeasurement.batch.Task;
+    evaluation?: Hume.expressionMeasurement.batch.EvaluationArgs;
+    alternatives?: Hume.expressionMeasurement.batch.Alternative[];
     callbackUrl?: string;
     notify?: boolean;
 }

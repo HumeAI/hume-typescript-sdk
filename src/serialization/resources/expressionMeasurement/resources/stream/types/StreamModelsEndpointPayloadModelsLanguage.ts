@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const StreamModelsEndpointPayloadModelsLanguage: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelsEndpointPayloadModelsLanguage.Raw,
-    Hume.expressionMeasurement.StreamModelsEndpointPayloadModelsLanguage
+    serializers.expressionMeasurement.stream.StreamModelsEndpointPayloadModelsLanguage.Raw,
+    Hume.expressionMeasurement.stream.StreamModelsEndpointPayloadModelsLanguage
 > = core.serialization.object({
     sentiment: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     toxicity: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),

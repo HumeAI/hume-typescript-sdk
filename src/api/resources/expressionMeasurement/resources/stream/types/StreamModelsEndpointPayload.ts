@@ -10,7 +10,7 @@ import * as Hume from "../../../../../index";
 export interface StreamModelsEndpointPayload {
     data?: string;
     /** Configuration used to specify which models should be used and with what settings. */
-    models?: Hume.expressionMeasurement.Config;
+    models?: Hume.expressionMeasurement.stream.Config;
     /**
      * Length in milliseconds of streaming sliding window.
      *

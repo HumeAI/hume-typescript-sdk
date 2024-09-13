@@ -4,6 +4,6 @@
 
 import * as Hume from "../../../../../index";
 
-export interface EmbeddingGenerationJob extends Hume.expressionMeasurement.JobEmbeddingGeneration {
+export interface EmbeddingGenerationJob extends Hume.expressionMeasurement.batch.JobEmbeddingGeneration {
     type: string;
 }

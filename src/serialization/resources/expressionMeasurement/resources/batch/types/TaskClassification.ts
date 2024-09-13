@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const TaskClassification: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TaskClassification.Raw,
-    Hume.expressionMeasurement.TaskClassification
+    serializers.expressionMeasurement.batch.TaskClassification.Raw,
+    Hume.expressionMeasurement.batch.TaskClassification
 > = core.serialization.object({});
 
 export declare namespace TaskClassification {

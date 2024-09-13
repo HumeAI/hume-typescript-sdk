@@ -24,11 +24,11 @@ export interface BatchListJobsRequest {
      *
      * - `FAILED`: The job encountered an error and could not be completed successfully.
      */
-    status?: Hume.expressionMeasurement.Status | Hume.expressionMeasurement.Status[];
+    status?: Hume.expressionMeasurement.batch.Status | Hume.expressionMeasurement.batch.Status[];
     /**
      * Specify whether to include jobs created before or after a given `timestamp_ms`.
      */
-    when?: Hume.expressionMeasurement.When;
+    when?: Hume.expressionMeasurement.batch.When;
     /**
      * Provide a timestamp in milliseconds to filter jobs.
      *
@@ -44,7 +44,7 @@ export interface BatchListJobsRequest {
      *
      * - `ended`: Sort jobs by the time processing ended, indicated by `ended_timestamp_ms`.
      */
-    sortBy?: Hume.expressionMeasurement.SortBy;
+    sortBy?: Hume.expressionMeasurement.batch.SortBy;
     /**
      * Specify the order in which to sort the jobs. Defaults to descending order.
      *
@@ -52,5 +52,5 @@ export interface BatchListJobsRequest {
      *
      * - `desc`: Sort in descending order (reverse-chronological, with the newest records first).
      */
-    direction?: Hume.expressionMeasurement.Direction;
+    direction?: Hume.expressionMeasurement.batch.Direction;
 }
