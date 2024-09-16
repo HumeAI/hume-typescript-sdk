@@ -21,7 +21,7 @@ export interface Config {
      *
      * Note: Using the `reset_stream` parameter does not have any effect on face identification. A single face identifier cache is maintained over a full session whether `reset_stream` is used or not.
      */
-    face?: Hume.expressionMeasurement.StreamModelsEndpointPayloadModelsFace;
+    face?: Hume.expressionMeasurement.stream.StreamModelsEndpointPayloadModelsFace;
     /**
      * Configuration for the facemesh emotion model.
      *
@@ -31,7 +31,7 @@ export interface Config {
      */
     facemesh?: Record<string, unknown>;
     /** Configuration for the language emotion model. */
-    language?: Hume.expressionMeasurement.StreamModelsEndpointPayloadModelsLanguage;
+    language?: Hume.expressionMeasurement.stream.StreamModelsEndpointPayloadModelsLanguage;
     /**
      * Configuration for the speech prosody emotion model.
      *

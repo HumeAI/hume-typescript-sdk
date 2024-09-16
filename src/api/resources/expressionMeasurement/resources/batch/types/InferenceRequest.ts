@@ -5,8 +5,8 @@
 import * as Hume from "../../../../../index";
 
 export interface InferenceRequest {
-    models?: Hume.expressionMeasurement.Models;
-    transcription?: Hume.expressionMeasurement.Transcription;
+    models?: Hume.expressionMeasurement.batch.Models;
+    transcription?: Hume.expressionMeasurement.batch.Transcription;
     /**
      * URLs to the media files to be processed. Each must be a valid public URL to a media file (see recommended input filetypes) or an archive (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar.xz`) of media files.
      *
@@ -19,5 +19,5 @@ export interface InferenceRequest {
     callbackUrl?: string;
     /** Whether to send an email notification to the user upon job completion/failure. */
     notify?: boolean;
-    files: Hume.expressionMeasurement.File_[];
+    files: Hume.expressionMeasurement.batch.File_[];
 }

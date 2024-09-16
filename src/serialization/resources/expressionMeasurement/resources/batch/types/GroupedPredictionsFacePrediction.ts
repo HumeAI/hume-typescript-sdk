@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { FacePrediction } from "./FacePrediction";
 
 export const GroupedPredictionsFacePrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.GroupedPredictionsFacePrediction.Raw,
-    Hume.expressionMeasurement.GroupedPredictionsFacePrediction
+    serializers.expressionMeasurement.batch.GroupedPredictionsFacePrediction.Raw,
+    Hume.expressionMeasurement.batch.GroupedPredictionsFacePrediction
 > = core.serialization.object({
     id: core.serialization.string(),
     predictions: core.serialization.list(FacePrediction),

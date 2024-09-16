@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export interface SourceFile extends Hume.expressionMeasurement.File_ {}
+export interface SourceFile extends Hume.expressionMeasurement.batch.File_ {}

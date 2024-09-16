@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const SortBy: core.serialization.Schema<
-    serializers.expressionMeasurement.SortBy.Raw,
-    Hume.expressionMeasurement.SortBy
+    serializers.expressionMeasurement.batch.SortBy.Raw,
+    Hume.expressionMeasurement.batch.SortBy
 > = core.serialization.enum_(["created", "started", "ended"]);
 
 export declare namespace SortBy {

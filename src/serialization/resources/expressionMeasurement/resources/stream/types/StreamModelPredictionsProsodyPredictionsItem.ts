@@ -10,8 +10,8 @@ import { EmotionEmbedding } from "./EmotionEmbedding";
 import { EmotionEmbeddingItem } from "./EmotionEmbeddingItem";
 
 export const StreamModelPredictionsProsodyPredictionsItem: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelPredictionsProsodyPredictionsItem.Raw,
-    Hume.expressionMeasurement.StreamModelPredictionsProsodyPredictionsItem
+    serializers.expressionMeasurement.stream.StreamModelPredictionsProsodyPredictionsItem.Raw,
+    Hume.expressionMeasurement.stream.StreamModelPredictionsProsodyPredictionsItem
 > = core.serialization.object({
     time: TimeRange.optional(),
     emotions: EmotionEmbedding.optional(),

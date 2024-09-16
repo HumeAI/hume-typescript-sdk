@@ -5,6 +5,6 @@
 import * as Hume from "../../../../../index";
 
 export interface StreamModelPredictionsBurstPredictionsItem {
-    time?: Hume.expressionMeasurement.TimeRange;
-    emotions?: Hume.expressionMeasurement.EmotionEmbedding;
+    time?: Hume.expressionMeasurement.stream.TimeRange;
+    emotions?: Hume.expressionMeasurement.stream.EmotionEmbedding;
 }

@@ -5,6 +5,6 @@
 import * as Hume from "../../../../../index";
 
 export interface TlInferenceResults {
-    predictions: Hume.expressionMeasurement.TlInferencePrediction[];
-    errors: Hume.expressionMeasurement.Error_[];
+    predictions: Hume.expressionMeasurement.batch.TlInferencePrediction[];
+    errors: Hume.expressionMeasurement.batch.Error_[];
 }

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Status: core.serialization.Schema<
-    serializers.expressionMeasurement.Status.Raw,
-    Hume.expressionMeasurement.Status
+    serializers.expressionMeasurement.batch.Status.Raw,
+    Hume.expressionMeasurement.batch.Status
 > = core.serialization.enum_(["QUEUED", "IN_PROGRESS", "COMPLETED", "FAILED"]);
 
 export declare namespace Status {

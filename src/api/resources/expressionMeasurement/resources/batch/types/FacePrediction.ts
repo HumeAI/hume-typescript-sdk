@@ -11,11 +11,11 @@ export interface FacePrediction {
     time: number;
     /** The predicted probability that a detected face was actually a face. */
     prob: number;
-    box: Hume.expressionMeasurement.BoundingBox;
+    box: Hume.expressionMeasurement.batch.BoundingBox;
     /** A high-dimensional embedding in emotion space. */
-    emotions: Hume.expressionMeasurement.EmotionScore[];
+    emotions: Hume.expressionMeasurement.batch.EmotionScore[];
     /** FACS 2.0 features and their scores. */
-    facs?: Hume.expressionMeasurement.FacsScore[];
+    facs?: Hume.expressionMeasurement.batch.FacsScore[];
     /** Modality-specific descriptive features and their scores. */
-    descriptions?: Hume.expressionMeasurement.DescriptionsScore[];
+    descriptions?: Hume.expressionMeasurement.batch.DescriptionsScore[];
 }

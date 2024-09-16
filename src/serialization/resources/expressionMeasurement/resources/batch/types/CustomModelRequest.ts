@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Tag } from "./Tag";
 
 export const CustomModelRequest: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CustomModelRequest.Raw,
-    Hume.expressionMeasurement.CustomModelRequest
+    serializers.expressionMeasurement.batch.CustomModelRequest.Raw,
+    Hume.expressionMeasurement.batch.CustomModelRequest
 > = core.serialization.object({
     name: core.serialization.string(),
     description: core.serialization.string().optional(),

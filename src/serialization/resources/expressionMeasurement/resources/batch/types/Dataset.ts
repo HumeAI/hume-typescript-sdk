@@ -9,8 +9,8 @@ import { DatasetId } from "./DatasetId";
 import { DatasetVersionId } from "./DatasetVersionId";
 
 export const Dataset: core.serialization.Schema<
-    serializers.expressionMeasurement.Dataset.Raw,
-    Hume.expressionMeasurement.Dataset
+    serializers.expressionMeasurement.batch.Dataset.Raw,
+    Hume.expressionMeasurement.batch.Dataset
 > = core.serialization.undiscriminatedUnion([DatasetId, DatasetVersionId]);
 
 export declare namespace Dataset {

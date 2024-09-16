@@ -8,5 +8,5 @@ import * as Hume from "../../../../../index";
  * Response for the language emotion model.
  */
 export interface StreamModelPredictionsLanguage {
-    predictions?: Hume.expressionMeasurement.StreamModelPredictionsLanguagePredictionsItem[];
+    predictions?: Hume.expressionMeasurement.stream.StreamModelPredictionsLanguagePredictionsItem[];
 }

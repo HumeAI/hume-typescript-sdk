@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export type UnionJob = Hume.expressionMeasurement.InferenceJob;
+export type UnionJob = Hume.expressionMeasurement.batch.InferenceJob;

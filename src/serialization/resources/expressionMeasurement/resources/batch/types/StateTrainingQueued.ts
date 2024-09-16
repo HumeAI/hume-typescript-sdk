@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Queued } from "./Queued";
 
 export const StateTrainingQueued: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateTrainingQueued.Raw,
-    Hume.expressionMeasurement.StateTrainingQueued
+    serializers.expressionMeasurement.batch.StateTrainingQueued.Raw,
+    Hume.expressionMeasurement.batch.StateTrainingQueued
 > = core.serialization.object({}).extend(Queued);
 
 export declare namespace StateTrainingQueued {
