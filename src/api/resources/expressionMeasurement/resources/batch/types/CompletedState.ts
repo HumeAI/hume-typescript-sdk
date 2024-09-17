@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export interface CompletedState extends Hume.expressionMeasurement.CompletedInference {}
+export interface CompletedState extends Hume.expressionMeasurement.batch.CompletedInference {}

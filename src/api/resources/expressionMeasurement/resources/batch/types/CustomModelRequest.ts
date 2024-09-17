@@ -7,5 +7,5 @@ import * as Hume from "../../../../../index";
 export interface CustomModelRequest {
     name: string;
     description?: string;
-    tags?: Hume.expressionMeasurement.Tag[];
+    tags?: Hume.expressionMeasurement.batch.Tag[];
 }

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const FacsScore: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.FacsScore.Raw,
-    Hume.expressionMeasurement.FacsScore
+    serializers.expressionMeasurement.batch.FacsScore.Raw,
+    Hume.expressionMeasurement.batch.FacsScore
 > = core.serialization.object({
     name: core.serialization.string(),
     score: core.serialization.number(),

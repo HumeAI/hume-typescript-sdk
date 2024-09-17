@@ -7,10 +7,10 @@ import * as Hume from "../../../../../index";
 export type SubscribeEvent =
     /**
      * Model predictions */
-    | Hume.expressionMeasurement.Config
+    | Hume.expressionMeasurement.stream.StreamModelPredictions
     /**
      * Error message */
-    | Hume.expressionMeasurement.StreamErrorMessage
+    | Hume.expressionMeasurement.stream.StreamErrorMessage
     /**
      * Warning message */
-    | Hume.expressionMeasurement.StreamWarningMessage;
+    | Hume.expressionMeasurement.stream.StreamWarningMessage;

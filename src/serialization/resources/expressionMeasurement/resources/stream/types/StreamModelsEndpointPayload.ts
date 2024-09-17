@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Config } from "./Config";
 
 export const StreamModelsEndpointPayload: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelsEndpointPayload.Raw,
-    Hume.expressionMeasurement.StreamModelsEndpointPayload
+    serializers.expressionMeasurement.stream.StreamModelsEndpointPayload.Raw,
+    Hume.expressionMeasurement.stream.StreamModelsEndpointPayload
 > = core.serialization.object({
     data: core.serialization.string().optional(),
     models: Config.optional(),

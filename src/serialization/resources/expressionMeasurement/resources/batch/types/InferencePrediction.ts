@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { ModelsPredictions } from "./ModelsPredictions";
 
 export const InferencePrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.InferencePrediction.Raw,
-    Hume.expressionMeasurement.InferencePrediction
+    serializers.expressionMeasurement.batch.InferencePrediction.Raw,
+    Hume.expressionMeasurement.batch.InferencePrediction
 > = core.serialization.object({
     file: core.serialization.string(),
     models: ModelsPredictions,

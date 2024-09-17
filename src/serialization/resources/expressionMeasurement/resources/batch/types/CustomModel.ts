@@ -9,8 +9,8 @@ import { CustomModelId } from "./CustomModelId";
 import { CustomModelVersionId } from "./CustomModelVersionId";
 
 export const CustomModel: core.serialization.Schema<
-    serializers.expressionMeasurement.CustomModel.Raw,
-    Hume.expressionMeasurement.CustomModel
+    serializers.expressionMeasurement.batch.CustomModel.Raw,
+    Hume.expressionMeasurement.batch.CustomModel
 > = core.serialization.undiscriminatedUnion([CustomModelId, CustomModelVersionId]);
 
 export declare namespace CustomModel {

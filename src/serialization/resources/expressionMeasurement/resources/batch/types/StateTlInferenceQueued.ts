@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Queued } from "./Queued";
 
 export const StateTlInferenceQueued: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateTlInferenceQueued.Raw,
-    Hume.expressionMeasurement.StateTlInferenceQueued
+    serializers.expressionMeasurement.batch.StateTlInferenceQueued.Raw,
+    Hume.expressionMeasurement.batch.StateTlInferenceQueued
 > = core.serialization.object({}).extend(Queued);
 
 export declare namespace StateTlInferenceQueued {

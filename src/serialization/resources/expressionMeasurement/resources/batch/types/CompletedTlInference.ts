@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const CompletedTlInference: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CompletedTlInference.Raw,
-    Hume.expressionMeasurement.CompletedTlInference
+    serializers.expressionMeasurement.batch.CompletedTlInference.Raw,
+    Hume.expressionMeasurement.batch.CompletedTlInference
 > = core.serialization.object({
     createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
     startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),

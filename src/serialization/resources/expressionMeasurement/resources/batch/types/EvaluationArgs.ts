@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { ValidationArgs } from "./ValidationArgs";
 
 export const EvaluationArgs: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.EvaluationArgs.Raw,
-    Hume.expressionMeasurement.EvaluationArgs
+    serializers.expressionMeasurement.batch.EvaluationArgs.Raw,
+    Hume.expressionMeasurement.batch.EvaluationArgs
 > = core.serialization.object({
     validation: ValidationArgs.optional(),
 });

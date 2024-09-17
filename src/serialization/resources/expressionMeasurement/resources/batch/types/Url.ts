@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Url: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Url.Raw,
-    Hume.expressionMeasurement.Url
+    serializers.expressionMeasurement.batch.Url.Raw,
+    Hume.expressionMeasurement.batch.Url
 > = core.serialization.object({
     url: core.serialization.string(),
 });

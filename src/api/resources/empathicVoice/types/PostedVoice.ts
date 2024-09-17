@@ -10,6 +10,13 @@ import * as Hume from "../../../index";
 export interface PostedVoice {
     /** The provider of the voice to use. Currently, only `HUME_AI` is supported as the voice provider. */
     provider: "HUME_AI";
-    /** String with the name of the voice to use. Maximum length of 75 characters. Will be converted to all-uppercase. */
-    name?: Hume.empathicVoice.PostedVoiceName;
+    /**
+     * Specifies the name of the voice to use.
+     *
+     * This can be either the name of a previously created Custom Voice or one of our 7 base voices: `ITO`, `KORA`, `DACHER`, `AURA`, `FINN`, `WHIMSY`, or `STELLA`.
+     *
+     * The name will be automatically converted to uppercase (e.g., "Ito" becomes "ITO"). If a name is not specified, then a [Custom Voice](/reference/empathic-voice-interface-evi/configs/create-config#request.body.voice.custom_voice) specification must be provided.
+     */
+    name?: string;
+    customVoice?: Hume.empathicVoice.PostedCustomVoice;
 }

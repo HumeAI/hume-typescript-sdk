@@ -373,7 +373,7 @@ await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-6098642
 
 Version number for a Tool.
 
-Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
 
@@ -435,7 +435,7 @@ await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-6098
 
 Version number for a Tool.
 
-Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
 
@@ -500,7 +500,7 @@ await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-
 
 Version number for a Tool.
 
-Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
 
@@ -895,7 +895,7 @@ await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9
 
 Version number for a Prompt.
 
-Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
 
@@ -957,7 +957,7 @@ await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-
 
 Version number for a Prompt.
 
-Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
 
@@ -1021,7 +1021,7 @@ await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-9
 
 Version number for a Prompt.
 
-Prompts, as well as Configs and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
 
@@ -1040,6 +1040,322 @@ Version numbers are integer values representing different iterations of the Prom
 <dd>
 
 **requestOptions:** `Prompts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## EmpathicVoice CustomVoices
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">getReturnCustomVoicesForUser</a>({ ...params }) -> Hume.ReturnPagedCustomVoices</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.getReturnCustomVoicesForUser();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.GetReturnCustomVoicesForUserRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">createNewCustomVoice</a>({ ...params }) -> Hume.ReturnCustomVoice</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.createNewCustomVoice({
+    name: "name",
+    baseVoice: Hume.PostedCustomVoiceBaseVoice.Ito,
+    parameterModel: "20240715-4parameter",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedCustomVoice`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">getReturnCustomVoiceByCustomVoiceId</a>(id) -> Hume.ReturnCustomVoice</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.getReturnCustomVoiceByCustomVoiceId("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">addNewCustomVoiceVersion</a>(id, { ...params }) -> Hume.ReturnCustomVoice</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.addNewCustomVoiceVersion("id", {
+    name: "name",
+    baseVoice: Hume.PostedCustomVoiceBaseVoice.Ito,
+    parameterModel: "20240715-4parameter",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedCustomVoice`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">deleteCustomVoice</a>(id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.deleteCustomVoice("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">updateCustomVoiceName</a>(id, { ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.updateCustomVoiceName("string", {
+    name: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedCustomVoiceName`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
 
 </dd>
 </dl>
@@ -1122,9 +1438,10 @@ await client.empathicVoice.configs.createConfig({
         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
         version: 0,
     },
+    eviVersion: "2",
     voice: {
         provider: "HUME_AI",
-        name: Hume.PostedVoiceName.Kora,
+        name: "SAMPLE VOICE",
     },
     languageModel: {
         modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
@@ -1251,13 +1568,14 @@ await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-1
 ```typescript
 await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
     versionDescription: "This is an updated version of the Weather Assistant Config.",
+    eviVersion: "2",
     prompt: {
         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
         version: 0,
     },
     voice: {
         provider: "HUME_AI",
-        name: Hume.PostedVoiceName.Ito,
+        name: "ITO",
     },
     languageModel: {
         modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
@@ -1471,7 +1789,7 @@ await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189
 
 Version number for a Config.
 
-Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
 
@@ -1533,7 +1851,7 @@ await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-
 
 Version number for a Config.
 
-Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
 
@@ -1597,7 +1915,7 @@ await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8
 
 Version number for a Config.
 
-Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
 
 Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
 
@@ -1901,7 +2219,7 @@ await client.expressionMeasurement.batch.listJobs();
 <dl>
 <dd>
 
-**request:** `Hume.expressionMeasurement.BatchListJobsRequest`
+**request:** `Hume.expressionMeasurement.batch.BatchListJobsRequest`
 
 </dd>
 </dl>
@@ -2230,7 +2548,7 @@ await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
 <dl>
 <dd>
 
-**request:** `Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest`
+**request:** `Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest`
 
 </dd>
 </dl>

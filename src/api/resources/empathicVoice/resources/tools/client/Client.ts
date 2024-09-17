@@ -33,6 +33,8 @@ export class Tools {
      * @param {Hume.empathicVoice.ToolsListToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.tools.listTools({
      *         pageNumber: 0,
@@ -69,8 +71,8 @@ export class Tools {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.8.9",
-                    "User-Agent": "hume/0.8.9",
+                    "X-Fern-SDK-Version": "0.8.11",
+                    "User-Agent": "hume/0.8.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -91,10 +93,22 @@ export class Tools {
                 });
             }
             if (_response.error.reason === "status-code") {
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
-                });
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new Hume.empathicVoice.BadRequestError(
+                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    default:
+                        throw new errors.HumeError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
             }
             switch (_response.error.reason) {
                 case "non-json":
@@ -129,6 +143,8 @@ export class Tools {
      * @param {Hume.empathicVoice.PostedUserDefinedTool} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.tools.createTool({
      *         name: "get_current_weather",
@@ -151,8 +167,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -176,10 +192,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -201,6 +229,8 @@ export class Tools {
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.ToolsListToolVersionsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea")
@@ -233,8 +263,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -256,10 +286,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -281,6 +323,8 @@ export class Tools {
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersion} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
@@ -304,8 +348,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -329,10 +373,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -354,6 +410,8 @@ export class Tools {
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea")
      */
@@ -367,8 +425,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -384,10 +442,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -410,6 +480,8 @@ export class Tools {
      * @param {Hume.empathicVoice.PostedUserDefinedToolName} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
      *         name: "get_current_temperature"
@@ -429,8 +501,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -450,10 +522,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -475,10 +559,12 @@ export class Tools {
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {number} version - Version number for a Tool.
      *
-     *                           Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
@@ -497,8 +583,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -519,10 +605,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -544,10 +642,12 @@ export class Tools {
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {number} version - Version number for a Tool.
      *
-     *                           Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
@@ -562,8 +662,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -579,10 +679,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -604,11 +716,13 @@ export class Tools {
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {number} version - Version number for a Tool.
      *
-     *                           Tools, as well as Configs and Prompts, are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersionDescription} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
@@ -630,8 +744,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -655,10 +769,22 @@ export class Tools {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
