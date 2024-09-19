@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export interface QueuedState extends Hume.expressionMeasurement.Queued {}
+export interface QueuedState extends Hume.expressionMeasurement.batch.Queued {}

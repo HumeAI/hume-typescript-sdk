@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { JobTraining } from "./JobTraining";
 
 export const CustomModelsTrainingJob: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CustomModelsTrainingJob.Raw,
-    Hume.expressionMeasurement.CustomModelsTrainingJob
+    serializers.expressionMeasurement.batch.CustomModelsTrainingJob.Raw,
+    Hume.expressionMeasurement.batch.CustomModelsTrainingJob
 > = core.serialization
     .object({
         type: core.serialization.string(),

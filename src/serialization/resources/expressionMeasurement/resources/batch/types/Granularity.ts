@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Granularity: core.serialization.Schema<
-    serializers.expressionMeasurement.Granularity.Raw,
-    Hume.expressionMeasurement.Granularity
+    serializers.expressionMeasurement.batch.Granularity.Raw,
+    Hume.expressionMeasurement.batch.Granularity
 > = core.serialization.enum_(["word", "sentence", "utterance", "conversational_turn"]);
 
 export declare namespace Granularity {

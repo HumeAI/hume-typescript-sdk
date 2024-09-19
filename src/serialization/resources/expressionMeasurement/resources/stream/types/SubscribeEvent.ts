@@ -5,15 +5,15 @@
 import * as serializers from "../../../../../index";
 import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { Config } from "./Config";
+import { StreamModelPredictions } from "./StreamModelPredictions";
 import { StreamErrorMessage } from "./StreamErrorMessage";
 import { StreamWarningMessage } from "./StreamWarningMessage";
 
 export const SubscribeEvent: core.serialization.Schema<
-    serializers.expressionMeasurement.SubscribeEvent.Raw,
-    Hume.expressionMeasurement.SubscribeEvent
-> = core.serialization.undiscriminatedUnion([Config, StreamErrorMessage, StreamWarningMessage]);
+    serializers.expressionMeasurement.stream.SubscribeEvent.Raw,
+    Hume.expressionMeasurement.stream.SubscribeEvent
+> = core.serialization.undiscriminatedUnion([StreamModelPredictions, StreamErrorMessage, StreamWarningMessage]);
 
 export declare namespace SubscribeEvent {
-    type Raw = Config.Raw | StreamErrorMessage.Raw | StreamWarningMessage.Raw;
+    type Raw = StreamModelPredictions.Raw | StreamErrorMessage.Raw | StreamWarningMessage.Raw;
 }

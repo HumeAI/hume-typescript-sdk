@@ -11,6 +11,6 @@ export interface CompletedTraining {
     startedTimestampMs: number;
     /** When this job ended (Unix timestamp in milliseconds). */
     endedTimestampMs: number;
-    customModel: Hume.expressionMeasurement.TrainingCustomModel;
-    alternatives?: Record<string, Hume.expressionMeasurement.TrainingCustomModel>;
+    customModel: Hume.expressionMeasurement.batch.TrainingCustomModel;
+    alternatives?: Record<string, Hume.expressionMeasurement.batch.TrainingCustomModel>;
 }

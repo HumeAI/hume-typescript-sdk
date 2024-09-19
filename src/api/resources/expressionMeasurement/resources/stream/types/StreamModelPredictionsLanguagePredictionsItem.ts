@@ -7,8 +7,8 @@ import * as Hume from "../../../../../index";
 export interface StreamModelPredictionsLanguagePredictionsItem {
     /** A segment of text (like a word or a sentence). */
     text?: string;
-    position?: Hume.expressionMeasurement.TextPosition;
-    emotions?: Hume.expressionMeasurement.EmotionEmbedding;
-    sentiment?: Hume.expressionMeasurement.Sentiment;
-    toxicity?: Hume.expressionMeasurement.Toxicity;
+    position?: Hume.expressionMeasurement.stream.TextPosition;
+    emotions?: Hume.expressionMeasurement.stream.EmotionEmbedding;
+    sentiment?: Hume.expressionMeasurement.stream.Sentiment;
+    toxicity?: Hume.expressionMeasurement.stream.Toxicity;
 }

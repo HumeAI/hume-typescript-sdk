@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Ner: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Ner.Raw,
-    Hume.expressionMeasurement.Ner
+    serializers.expressionMeasurement.batch.Ner.Raw,
+    Hume.expressionMeasurement.batch.Ner
 > = core.serialization.object({
     identifySpeakers: core.serialization.property("identify_speakers", core.serialization.boolean().optional()),
 });

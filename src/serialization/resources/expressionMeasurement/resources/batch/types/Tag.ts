@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Tag: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Tag.Raw,
-    Hume.expressionMeasurement.Tag
+    serializers.expressionMeasurement.batch.Tag.Raw,
+    Hume.expressionMeasurement.batch.Tag
 > = core.serialization.object({
     key: core.serialization.string(),
     value: core.serialization.string(),

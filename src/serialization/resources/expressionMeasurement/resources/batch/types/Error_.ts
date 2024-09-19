@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Error_: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Error_.Raw,
-    Hume.expressionMeasurement.Error_
+    serializers.expressionMeasurement.batch.Error_.Raw,
+    Hume.expressionMeasurement.batch.Error_
 > = core.serialization.object({
     message: core.serialization.string(),
     file: core.serialization.string(),

@@ -14,8 +14,8 @@ import { SentimentItem } from "./SentimentItem";
 import { ToxicityItem } from "./ToxicityItem";
 
 export const StreamModelPredictionsLanguagePredictionsItem: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelPredictionsLanguagePredictionsItem.Raw,
-    Hume.expressionMeasurement.StreamModelPredictionsLanguagePredictionsItem
+    serializers.expressionMeasurement.stream.StreamModelPredictionsLanguagePredictionsItem.Raw,
+    Hume.expressionMeasurement.stream.StreamModelPredictionsLanguagePredictionsItem
 > = core.serialization.object({
     text: core.serialization.string().optional(),
     position: TextPosition.optional(),

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const TaskRegression: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TaskRegression.Raw,
-    Hume.expressionMeasurement.TaskRegression
+    serializers.expressionMeasurement.batch.TaskRegression.Raw,
+    Hume.expressionMeasurement.batch.TaskRegression
 > = core.serialization.object({});
 
 export declare namespace TaskRegression {

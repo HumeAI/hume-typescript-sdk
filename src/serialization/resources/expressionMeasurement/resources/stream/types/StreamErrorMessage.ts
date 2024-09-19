@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { JobDetails } from "./JobDetails";
 
 export const StreamErrorMessage: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamErrorMessage.Raw,
-    Hume.expressionMeasurement.StreamErrorMessage
+    serializers.expressionMeasurement.stream.StreamErrorMessage.Raw,
+    Hume.expressionMeasurement.stream.StreamErrorMessage
 > = core.serialization.object({
     error: core.serialization.string().optional(),
     code: core.serialization.string().optional(),

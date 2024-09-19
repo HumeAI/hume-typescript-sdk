@@ -13,11 +13,13 @@ export interface ReturnConfig {
     /**
      * Version number for a Config.
      *
-     * Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+     * Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
      *
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
     version?: number;
+    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/empathic-voice-interface-evi/evi-2). */
+    eviVersion?: string;
     /** An optional description of the Config version. */
     versionDescription?: string;
     /** Name applied to all versions of a particular Config. */

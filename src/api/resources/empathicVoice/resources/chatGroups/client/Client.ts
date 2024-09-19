@@ -30,8 +30,12 @@ export class ChatGroups {
     constructor(protected readonly _options: ChatGroups.Options = {}) {}
 
     /**
+     * Fetches a paginated list of **Chat Groups**.
+     *
      * @param {Hume.empathicVoice.ChatGroupsListChatGroupsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.chatGroups.listChatGroups({
@@ -72,8 +76,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -95,10 +99,22 @@ export class ChatGroups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -117,9 +133,13 @@ export class ChatGroups {
     }
 
     /**
+     * Fetches a paginated list of **Chat** events associated with a **Chat Group**.
+     *
      * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
@@ -156,8 +176,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -179,10 +199,22 @@ export class ChatGroups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

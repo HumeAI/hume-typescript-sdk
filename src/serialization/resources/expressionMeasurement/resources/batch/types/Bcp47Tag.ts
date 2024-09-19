@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Bcp47Tag: core.serialization.Schema<
-    serializers.expressionMeasurement.Bcp47Tag.Raw,
-    Hume.expressionMeasurement.Bcp47Tag
+    serializers.expressionMeasurement.batch.Bcp47Tag.Raw,
+    Hume.expressionMeasurement.batch.Bcp47Tag
 > = core.serialization.enum_([
     "zh",
     "da",

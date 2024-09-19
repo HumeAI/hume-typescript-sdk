@@ -9,8 +9,8 @@ import { Source } from "./Source";
 import { InferenceResults } from "./InferenceResults";
 
 export const InferenceSourcePredictResult: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.InferenceSourcePredictResult.Raw,
-    Hume.expressionMeasurement.InferenceSourcePredictResult
+    serializers.expressionMeasurement.batch.InferenceSourcePredictResult.Raw,
+    Hume.expressionMeasurement.batch.InferenceSourcePredictResult
 > = core.serialization.object({
     source: Source,
     results: InferenceResults.optional(),

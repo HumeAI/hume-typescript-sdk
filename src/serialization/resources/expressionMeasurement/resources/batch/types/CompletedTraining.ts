@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { TrainingCustomModel } from "./TrainingCustomModel";
 
 export const CompletedTraining: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CompletedTraining.Raw,
-    Hume.expressionMeasurement.CompletedTraining
+    serializers.expressionMeasurement.batch.CompletedTraining.Raw,
+    Hume.expressionMeasurement.batch.CompletedTraining
 > = core.serialization.object({
     createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
     startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),

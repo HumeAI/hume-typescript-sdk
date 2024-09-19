@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Direction: core.serialization.Schema<
-    serializers.expressionMeasurement.Direction.Raw,
-    Hume.expressionMeasurement.Direction
+    serializers.expressionMeasurement.batch.Direction.Raw,
+    Hume.expressionMeasurement.batch.Direction
 > = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace Direction {

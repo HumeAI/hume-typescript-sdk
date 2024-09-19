@@ -4,14 +4,16 @@
 
 import * as Hume from "../../../../../index";
 
-export type Task = Hume.expressionMeasurement.Task.Classification | Hume.expressionMeasurement.Task.Regression;
+export type Task =
+    | Hume.expressionMeasurement.batch.Task.Classification
+    | Hume.expressionMeasurement.batch.Task.Regression;
 
 export declare namespace Task {
-    interface Classification extends Hume.expressionMeasurement.TaskClassification {
+    interface Classification extends Hume.expressionMeasurement.batch.TaskClassification {
         type: "classification";
     }
 
-    interface Regression extends Hume.expressionMeasurement.TaskRegression {
+    interface Regression extends Hume.expressionMeasurement.batch.TaskRegression {
         type: "regression";
     }
 }

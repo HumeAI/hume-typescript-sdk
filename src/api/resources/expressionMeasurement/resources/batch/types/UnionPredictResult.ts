@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export type UnionPredictResult = Hume.expressionMeasurement.InferenceSourcePredictResult;
+export type UnionPredictResult = Hume.expressionMeasurement.batch.InferenceSourcePredictResult;

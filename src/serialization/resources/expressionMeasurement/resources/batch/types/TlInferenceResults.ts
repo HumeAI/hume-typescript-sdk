@@ -9,8 +9,8 @@ import { TlInferencePrediction } from "./TlInferencePrediction";
 import { Error_ } from "./Error_";
 
 export const TlInferenceResults: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TlInferenceResults.Raw,
-    Hume.expressionMeasurement.TlInferenceResults
+    serializers.expressionMeasurement.batch.TlInferenceResults.Raw,
+    Hume.expressionMeasurement.batch.TlInferenceResults
 > = core.serialization.object({
     predictions: core.serialization.list(TlInferencePrediction),
     errors: core.serialization.list(Error_),
