@@ -4,7 +4,7 @@
 
 import * as Hume from "../../../../../index";
 
-export interface InferenceJob extends Hume.expressionMeasurement.JobInference {
+export interface InferenceJob extends Hume.expressionMeasurement.batch.JobInference {
     /**
      * Denotes the job type.
      *

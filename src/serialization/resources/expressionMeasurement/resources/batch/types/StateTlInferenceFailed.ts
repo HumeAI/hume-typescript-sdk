@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Failed } from "./Failed";
 
 export const StateTlInferenceFailed: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateTlInferenceFailed.Raw,
-    Hume.expressionMeasurement.StateTlInferenceFailed
+    serializers.expressionMeasurement.batch.StateTlInferenceFailed.Raw,
+    Hume.expressionMeasurement.batch.StateTlInferenceFailed
 > = core.serialization.object({}).extend(Failed);
 
 export declare namespace StateTlInferenceFailed {

@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Url } from "./Url";
 
 export const SourceUrl: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.SourceUrl.Raw,
-    Hume.expressionMeasurement.SourceUrl
+    serializers.expressionMeasurement.batch.SourceUrl.Raw,
+    Hume.expressionMeasurement.batch.SourceUrl
 > = core.serialization.object({}).extend(Url);
 
 export declare namespace SourceUrl {

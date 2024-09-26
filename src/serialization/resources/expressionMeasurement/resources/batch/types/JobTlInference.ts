@@ -9,8 +9,8 @@ import { TlInferenceBaseRequest } from "./TlInferenceBaseRequest";
 import { StateTlInference } from "./StateTlInference";
 
 export const JobTlInference: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.JobTlInference.Raw,
-    Hume.expressionMeasurement.JobTlInference
+    serializers.expressionMeasurement.batch.JobTlInference.Raw,
+    Hume.expressionMeasurement.batch.JobTlInference
 > = core.serialization.object({
     jobId: core.serialization.property("job_id", core.serialization.string()),
     userId: core.serialization.property("user_id", core.serialization.string()),

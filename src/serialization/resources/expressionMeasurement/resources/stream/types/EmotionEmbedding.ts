@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { EmotionEmbeddingItem } from "./EmotionEmbeddingItem";
 
 export const EmotionEmbedding: core.serialization.Schema<
-    serializers.expressionMeasurement.EmotionEmbedding.Raw,
-    Hume.expressionMeasurement.EmotionEmbedding
+    serializers.expressionMeasurement.stream.EmotionEmbedding.Raw,
+    Hume.expressionMeasurement.stream.EmotionEmbedding
 > = core.serialization.list(EmotionEmbeddingItem);
 
 export declare namespace EmotionEmbedding {

@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { StreamWarningMessageJobDetails } from "./StreamWarningMessageJobDetails";
 
 export const StreamWarningMessage: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamWarningMessage.Raw,
-    Hume.expressionMeasurement.StreamWarningMessage
+    serializers.expressionMeasurement.stream.StreamWarningMessage.Raw,
+    Hume.expressionMeasurement.stream.StreamWarningMessage
 > = core.serialization.object({
     warning: core.serialization.string().optional(),
     code: core.serialization.string().optional(),

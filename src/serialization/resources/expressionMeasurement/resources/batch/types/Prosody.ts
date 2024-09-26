@@ -9,8 +9,8 @@ import { Granularity } from "./Granularity";
 import { Window } from "./Window";
 
 export const Prosody: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Prosody.Raw,
-    Hume.expressionMeasurement.Prosody
+    serializers.expressionMeasurement.batch.Prosody.Raw,
+    Hume.expressionMeasurement.batch.Prosody
 > = core.serialization.object({
     granularity: Granularity.optional(),
     window: Window.optional(),

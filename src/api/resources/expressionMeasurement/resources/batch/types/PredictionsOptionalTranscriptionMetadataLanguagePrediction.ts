@@ -5,6 +5,6 @@
 import * as Hume from "../../../../../index";
 
 export interface PredictionsOptionalTranscriptionMetadataLanguagePrediction {
-    metadata?: Hume.expressionMeasurement.TranscriptionMetadata;
-    groupedPredictions: Hume.expressionMeasurement.GroupedPredictionsLanguagePrediction[];
+    metadata?: Hume.expressionMeasurement.batch.TranscriptionMetadata;
+    groupedPredictions: Hume.expressionMeasurement.batch.GroupedPredictionsLanguagePrediction[];
 }

@@ -8,13 +8,14 @@ import * as Hume from "../../../../../../index";
  * @example
  *     {
  *         versionDescription: "This is an updated version of the Weather Assistant Config.",
+ *         eviVersion: "2",
  *         prompt: {
  *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
  *             version: 0
  *         },
  *         voice: {
  *             provider: "HUME_AI",
- *             name: Hume.empathicVoice.PostedVoiceName.Ito
+ *             name: "ITO"
  *         },
  *         languageModel: {
  *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
@@ -41,9 +42,11 @@ import * as Hume from "../../../../../../index";
  *     }
  */
 export interface PostedConfigVersion {
+    /** The version of the EVI used with this config. */
+    eviVersion: string;
     /** An optional description of the Config version. */
     versionDescription?: string;
-    prompt?: Hume.empathicVoice.PostedPromptSpec;
+    prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
     /** A voice specification associated with this Config version. */
     voice?: Hume.empathicVoice.PostedVoice;
     /**

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const TimeRange: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TimeRange.Raw,
-    Hume.expressionMeasurement.TimeRange
+    serializers.expressionMeasurement.stream.TimeRange.Raw,
+    Hume.expressionMeasurement.stream.TimeRange
 > = core.serialization.object({
     begin: core.serialization.number().optional(),
     end: core.serialization.number().optional(),

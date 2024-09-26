@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { InferenceJob } from "./InferenceJob";
 
 export const UnionJob: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.UnionJob.Raw,
-    Hume.expressionMeasurement.UnionJob
+    serializers.expressionMeasurement.batch.UnionJob.Raw,
+    Hume.expressionMeasurement.batch.UnionJob
 > = InferenceJob;
 
 export declare namespace UnionJob {

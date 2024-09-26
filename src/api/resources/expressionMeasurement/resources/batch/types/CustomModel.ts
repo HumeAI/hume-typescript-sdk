@@ -4,4 +4,6 @@
 
 import * as Hume from "../../../../../index";
 
-export type CustomModel = Hume.expressionMeasurement.CustomModelId | Hume.expressionMeasurement.CustomModelVersionId;
+export type CustomModel =
+    | Hume.expressionMeasurement.batch.CustomModelId
+    | Hume.expressionMeasurement.batch.CustomModelVersionId;

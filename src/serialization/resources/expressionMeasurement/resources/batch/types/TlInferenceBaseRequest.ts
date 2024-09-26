@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { CustomModel } from "./CustomModel";
 
 export const TlInferenceBaseRequest: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TlInferenceBaseRequest.Raw,
-    Hume.expressionMeasurement.TlInferenceBaseRequest
+    serializers.expressionMeasurement.batch.TlInferenceBaseRequest.Raw,
+    Hume.expressionMeasurement.batch.TlInferenceBaseRequest
 > = core.serialization.object({
     customModel: core.serialization.property("custom_model", CustomModel),
     urls: core.serialization.list(core.serialization.string()).optional(),
