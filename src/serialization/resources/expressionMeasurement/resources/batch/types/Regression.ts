@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Regression: core.serialization.Schema<
-    serializers.expressionMeasurement.Regression.Raw,
-    Hume.expressionMeasurement.Regression
+    serializers.expressionMeasurement.batch.Regression.Raw,
+    Hume.expressionMeasurement.batch.Regression
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 
 export declare namespace Regression {

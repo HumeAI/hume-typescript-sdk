@@ -5,6 +5,6 @@
 import * as Hume from "../../../../../index";
 
 export interface PredictionsOptionalNullFacePrediction {
-    metadata?: Hume.expressionMeasurement.Null;
-    groupedPredictions: Hume.expressionMeasurement.GroupedPredictionsFacePrediction[];
+    metadata?: Hume.expressionMeasurement.batch.Null;
+    groupedPredictions: Hume.expressionMeasurement.batch.GroupedPredictionsFacePrediction[];
 }

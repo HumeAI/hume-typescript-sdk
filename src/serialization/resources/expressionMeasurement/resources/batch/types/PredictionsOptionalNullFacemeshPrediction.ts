@@ -9,8 +9,8 @@ import { Null } from "./Null";
 import { GroupedPredictionsFacemeshPrediction } from "./GroupedPredictionsFacemeshPrediction";
 
 export const PredictionsOptionalNullFacemeshPrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.PredictionsOptionalNullFacemeshPrediction.Raw,
-    Hume.expressionMeasurement.PredictionsOptionalNullFacemeshPrediction
+    serializers.expressionMeasurement.batch.PredictionsOptionalNullFacemeshPrediction.Raw,
+    Hume.expressionMeasurement.batch.PredictionsOptionalNullFacemeshPrediction
 > = core.serialization.object({
     metadata: Null.optional(),
     groupedPredictions: core.serialization.property(

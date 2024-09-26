@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const When: core.serialization.Schema<
-    serializers.expressionMeasurement.When.Raw,
-    Hume.expressionMeasurement.When
+    serializers.expressionMeasurement.batch.When.Raw,
+    Hume.expressionMeasurement.batch.When
 > = core.serialization.enum_(["created_before", "created_after"]);
 
 export declare namespace When {

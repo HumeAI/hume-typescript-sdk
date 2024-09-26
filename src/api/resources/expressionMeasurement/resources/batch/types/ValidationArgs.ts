@@ -5,5 +5,5 @@
 import * as Hume from "../../../../../index";
 
 export interface ValidationArgs {
-    positiveLabel?: Hume.expressionMeasurement.Target;
+    positiveLabel?: Hume.expressionMeasurement.batch.Target;
 }

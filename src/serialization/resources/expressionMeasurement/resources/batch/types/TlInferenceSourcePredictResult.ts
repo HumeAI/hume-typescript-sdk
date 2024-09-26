@@ -9,8 +9,8 @@ import { Source } from "./Source";
 import { TlInferenceResults } from "./TlInferenceResults";
 
 export const TlInferenceSourcePredictResult: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TlInferenceSourcePredictResult.Raw,
-    Hume.expressionMeasurement.TlInferenceSourcePredictResult
+    serializers.expressionMeasurement.batch.TlInferenceSourcePredictResult.Raw,
+    Hume.expressionMeasurement.batch.TlInferenceSourcePredictResult
 > = core.serialization.object({
     source: Source,
     results: TlInferenceResults.optional(),

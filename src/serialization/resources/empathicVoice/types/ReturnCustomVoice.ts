@@ -5,6 +5,8 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnCustomVoiceBaseVoice } from "./ReturnCustomVoiceBaseVoice";
+import { ReturnCustomVoiceParameters } from "./ReturnCustomVoiceParameters";
 
 export const ReturnCustomVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnCustomVoice.Raw,
@@ -15,10 +17,12 @@ export const ReturnCustomVoice: core.serialization.ObjectSchema<
     name: core.serialization.string(),
     createdOn: core.serialization.property("created_on", core.serialization.number()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
-    baseVoice: core.serialization.property("base_voice", core.serialization.string()),
-    speechRateMultiplier: core.serialization.property("speech_rate_multiplier", core.serialization.number().optional()),
-    parameterModel: core.serialization.property("parameter_model", core.serialization.string()),
-    parameters: core.serialization.record(core.serialization.string(), core.serialization.number()),
+    baseVoice: core.serialization.property("base_voice", ReturnCustomVoiceBaseVoice),
+    parameterModel: core.serialization.property(
+        "parameter_model",
+        core.serialization.stringLiteral("20240715-4parameter")
+    ),
+    parameters: ReturnCustomVoiceParameters,
 });
 
 export declare namespace ReturnCustomVoice {
@@ -28,9 +32,8 @@ export declare namespace ReturnCustomVoice {
         name: string;
         created_on: number;
         modified_on: number;
-        base_voice: string;
-        speech_rate_multiplier?: number | null;
-        parameter_model: string;
-        parameters: Record<string, number>;
+        base_voice: ReturnCustomVoiceBaseVoice.Raw;
+        parameter_model: "20240715-4parameter";
+        parameters: ReturnCustomVoiceParameters.Raw;
     }
 }

@@ -10,15 +10,15 @@ import { SourceFile } from "./SourceFile";
 import { SourceTextSource } from "./SourceTextSource";
 
 export const Source: core.serialization.Schema<
-    serializers.expressionMeasurement.Source.Raw,
-    Hume.expressionMeasurement.Source
+    serializers.expressionMeasurement.batch.Source.Raw,
+    Hume.expressionMeasurement.batch.Source
 > = core.serialization
     .union("type", {
         url: SourceUrl,
         file: SourceFile,
         text: SourceTextSource,
     })
-    .transform<Hume.expressionMeasurement.Source>({
+    .transform<Hume.expressionMeasurement.batch.Source>({
         transform: (value) => value,
         untransform: (value) => value,
     });

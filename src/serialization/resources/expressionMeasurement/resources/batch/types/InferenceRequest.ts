@@ -10,8 +10,8 @@ import { Transcription } from "./Transcription";
 import { File_ } from "./File_";
 
 export const InferenceRequest: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.InferenceRequest.Raw,
-    Hume.expressionMeasurement.InferenceRequest
+    serializers.expressionMeasurement.batch.InferenceRequest.Raw,
+    Hume.expressionMeasurement.batch.InferenceRequest
 > = core.serialization.object({
     models: Models.optional(),
     transcription: Transcription.optional(),

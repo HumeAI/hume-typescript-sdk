@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const ToxicityItem: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.ToxicityItem.Raw,
-    Hume.expressionMeasurement.ToxicityItem
+    serializers.expressionMeasurement.stream.ToxicityItem.Raw,
+    Hume.expressionMeasurement.stream.ToxicityItem
 > = core.serialization.object({
     name: core.serialization.string().optional(),
     score: core.serialization.number().optional(),

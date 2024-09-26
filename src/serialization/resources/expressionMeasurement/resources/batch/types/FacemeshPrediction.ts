@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { EmotionScore } from "./EmotionScore";
 
 export const FacemeshPrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.FacemeshPrediction.Raw,
-    Hume.expressionMeasurement.FacemeshPrediction
+    serializers.expressionMeasurement.batch.FacemeshPrediction.Raw,
+    Hume.expressionMeasurement.batch.FacemeshPrediction
 > = core.serialization.object({
     emotions: core.serialization.list(EmotionScore),
 });

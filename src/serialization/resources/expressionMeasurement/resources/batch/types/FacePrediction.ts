@@ -11,8 +11,8 @@ import { FacsScore } from "./FacsScore";
 import { DescriptionsScore } from "./DescriptionsScore";
 
 export const FacePrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.FacePrediction.Raw,
-    Hume.expressionMeasurement.FacePrediction
+    serializers.expressionMeasurement.batch.FacePrediction.Raw,
+    Hume.expressionMeasurement.batch.FacePrediction
 > = core.serialization.object({
     frame: core.serialization.number(),
     time: core.serialization.number(),

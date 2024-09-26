@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Unconfigurable } from "./Unconfigurable";
 
 export const Face: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Face.Raw,
-    Hume.expressionMeasurement.Face
+    serializers.expressionMeasurement.batch.Face.Raw,
+    Hume.expressionMeasurement.batch.Face
 > = core.serialization.object({
     fpsPred: core.serialization.property("fps_pred", core.serialization.number().optional()),
     probThreshold: core.serialization.property("prob_threshold", core.serialization.number().optional()),

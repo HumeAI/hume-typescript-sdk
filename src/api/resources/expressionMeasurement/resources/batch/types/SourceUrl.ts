@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export interface SourceUrl extends Hume.expressionMeasurement.Url {}
+export interface SourceUrl extends Hume.expressionMeasurement.batch.Url {}

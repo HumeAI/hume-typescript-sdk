@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Bcp47Tag } from "./Bcp47Tag";
 
 export const Transcription: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Transcription.Raw,
-    Hume.expressionMeasurement.Transcription
+    serializers.expressionMeasurement.batch.Transcription.Raw,
+    Hume.expressionMeasurement.batch.Transcription
 > = core.serialization.object({
     language: Bcp47Tag.optional(),
     identifySpeakers: core.serialization.property("identify_speakers", core.serialization.boolean().optional()),

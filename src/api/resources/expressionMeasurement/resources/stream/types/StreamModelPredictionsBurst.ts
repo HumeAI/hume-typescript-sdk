@@ -8,5 +8,5 @@ import * as Hume from "../../../../../index";
  * Response for the vocal burst emotion model.
  */
 export interface StreamModelPredictionsBurst {
-    predictions?: Hume.expressionMeasurement.StreamModelPredictionsBurstPredictionsItem[];
+    predictions?: Hume.expressionMeasurement.stream.StreamModelPredictionsBurstPredictionsItem[];
 }

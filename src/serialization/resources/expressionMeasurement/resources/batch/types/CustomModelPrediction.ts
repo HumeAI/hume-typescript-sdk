@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const CustomModelPrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CustomModelPrediction.Raw,
-    Hume.expressionMeasurement.CustomModelPrediction
+    serializers.expressionMeasurement.batch.CustomModelPrediction.Raw,
+    Hume.expressionMeasurement.batch.CustomModelPrediction
 > = core.serialization.object({
     output: core.serialization.record(core.serialization.string(), core.serialization.number()),
     error: core.serialization.string(),

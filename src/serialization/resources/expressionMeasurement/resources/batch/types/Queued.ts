@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Queued: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Queued.Raw,
-    Hume.expressionMeasurement.Queued
+    serializers.expressionMeasurement.batch.Queued.Raw,
+    Hume.expressionMeasurement.batch.Queued
 > = core.serialization.object({
     createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
 });

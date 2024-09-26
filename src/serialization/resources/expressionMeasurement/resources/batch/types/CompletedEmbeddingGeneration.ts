@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const CompletedEmbeddingGeneration: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.CompletedEmbeddingGeneration.Raw,
-    Hume.expressionMeasurement.CompletedEmbeddingGeneration
+    serializers.expressionMeasurement.batch.CompletedEmbeddingGeneration.Raw,
+    Hume.expressionMeasurement.batch.CompletedEmbeddingGeneration
 > = core.serialization.object({
     createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
     startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),

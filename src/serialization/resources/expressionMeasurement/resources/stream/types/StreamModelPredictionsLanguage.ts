@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { StreamModelPredictionsLanguagePredictionsItem } from "./StreamModelPredictionsLanguagePredictionsItem";
 
 export const StreamModelPredictionsLanguage: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelPredictionsLanguage.Raw,
-    Hume.expressionMeasurement.StreamModelPredictionsLanguage
+    serializers.expressionMeasurement.stream.StreamModelPredictionsLanguage.Raw,
+    Hume.expressionMeasurement.stream.StreamModelPredictionsLanguage
 > = core.serialization.object({
     predictions: core.serialization.list(StreamModelPredictionsLanguagePredictionsItem).optional(),
 });
