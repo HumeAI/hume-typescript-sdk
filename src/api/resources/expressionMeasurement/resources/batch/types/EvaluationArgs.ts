@@ -5,5 +5,5 @@
 import * as Hume from "../../../../../index";
 
 export interface EvaluationArgs {
-    validation?: Hume.expressionMeasurement.ValidationArgs;
+    validation?: Hume.expressionMeasurement.batch.ValidationArgs;
 }

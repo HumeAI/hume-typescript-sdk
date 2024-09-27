@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const File_: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.File_.Raw,
-    Hume.expressionMeasurement.File_
+    serializers.expressionMeasurement.batch.File_.Raw,
+    Hume.expressionMeasurement.batch.File_
 > = core.serialization.object({
     filename: core.serialization.string().optional(),
     contentType: core.serialization.property("content_type", core.serialization.string().optional()),

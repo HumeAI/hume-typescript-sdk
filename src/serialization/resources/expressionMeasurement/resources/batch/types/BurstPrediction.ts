@@ -10,8 +10,8 @@ import { EmotionScore } from "./EmotionScore";
 import { DescriptionsScore } from "./DescriptionsScore";
 
 export const BurstPrediction: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.BurstPrediction.Raw,
-    Hume.expressionMeasurement.BurstPrediction
+    serializers.expressionMeasurement.batch.BurstPrediction.Raw,
+    Hume.expressionMeasurement.batch.BurstPrediction
 > = core.serialization.object({
     time: TimeInterval,
     emotions: core.serialization.list(EmotionScore),

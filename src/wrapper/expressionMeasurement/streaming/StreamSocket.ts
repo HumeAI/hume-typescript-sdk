@@ -173,14 +173,14 @@ export class StreamSocket {
 
     private async send(
         payload: Hume.expressionMeasurement.stream.StreamModelsEndpointPayload
-    ): Promise<Hume.expressionMeasurement.SubscribeEvent | void> {
+    ): Promise<Hume.expressionMeasurement.stream.Config | void> {
         await this.tillSocketOpen();
-        const jsonPayload = serializers.expressionMeasurement.StreamModelsEndpointPayload.jsonOrThrow(payload, {
+        const jsonPayload = serializers.expressionMeasurement.stream.StreamModelsEndpointPayload.jsonOrThrow(payload, {
             unrecognizedObjectKeys: "strip",
         });
         this.websocket.send(JSON.stringify(jsonPayload));
         const response = await new Promise<
-            Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.StreamErrorMessage | undefined
+            Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage | undefined
         >((resolve) => {
             this.websocket.addEventListener("message", (event) => {
                 const response = parse(event.data);
@@ -212,7 +212,7 @@ export class StreamSocket {
 }
 
 function isError(
-    response: Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.StreamErrorMessage
-): response is Hume.expressionMeasurement.StreamErrorMessage {
-    return (response as Hume.expressionMeasurement.StreamErrorMessage).error != null;
+    response: Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage
+): response is Hume.expressionMeasurement.stream.StreamErrorMessage {
+    return (response as Hume.expressionMeasurement.stream.StreamErrorMessage).error != null;
 }

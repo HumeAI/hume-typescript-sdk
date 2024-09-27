@@ -10,8 +10,8 @@ export interface InferenceBaseRequest {
      *
      * If this field is not explicitly set, then all models will run by default.
      */
-    models?: Hume.expressionMeasurement.Models;
-    transcription?: Hume.expressionMeasurement.Transcription;
+    models?: Hume.expressionMeasurement.batch.Models;
+    transcription?: Hume.expressionMeasurement.batch.Transcription;
     /**
      * URLs to the media files to be processed. Each must be a valid public URL to a media file (see recommended input filetypes) or an archive (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar.xz`) of media files.
      *

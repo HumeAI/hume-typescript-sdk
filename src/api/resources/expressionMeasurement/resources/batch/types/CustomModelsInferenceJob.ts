@@ -4,6 +4,6 @@
 
 import * as Hume from "../../../../../index";
 
-export interface CustomModelsInferenceJob extends Hume.expressionMeasurement.JobTlInference {
+export interface CustomModelsInferenceJob extends Hume.expressionMeasurement.batch.JobTlInference {
     type: string;
 }

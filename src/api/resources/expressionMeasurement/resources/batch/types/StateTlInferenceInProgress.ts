@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../../../index";
 
-export interface StateTlInferenceInProgress extends Hume.expressionMeasurement.InProgress {}
+export interface StateTlInferenceInProgress extends Hume.expressionMeasurement.batch.InProgress {}

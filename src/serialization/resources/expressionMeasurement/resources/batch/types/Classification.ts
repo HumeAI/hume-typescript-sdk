@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Classification: core.serialization.Schema<
-    serializers.expressionMeasurement.Classification.Raw,
-    Hume.expressionMeasurement.Classification
+    serializers.expressionMeasurement.batch.Classification.Raw,
+    Hume.expressionMeasurement.batch.Classification
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 
 export declare namespace Classification {

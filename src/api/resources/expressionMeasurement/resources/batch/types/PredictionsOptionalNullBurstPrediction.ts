@@ -5,6 +5,6 @@
 import * as Hume from "../../../../../index";
 
 export interface PredictionsOptionalNullBurstPrediction {
-    metadata?: Hume.expressionMeasurement.Null;
-    groupedPredictions: Hume.expressionMeasurement.GroupedPredictionsBurstPrediction[];
+    metadata?: Hume.expressionMeasurement.batch.Null;
+    groupedPredictions: Hume.expressionMeasurement.batch.GroupedPredictionsBurstPrediction[];
 }

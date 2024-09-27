@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { SentimentItem } from "./SentimentItem";
 
 export const Sentiment: core.serialization.Schema<
-    serializers.expressionMeasurement.Sentiment.Raw,
-    Hume.expressionMeasurement.Sentiment
+    serializers.expressionMeasurement.stream.Sentiment.Raw,
+    Hume.expressionMeasurement.stream.Sentiment
 > = core.serialization.list(SentimentItem);
 
 export declare namespace Sentiment {

@@ -5,4 +5,4 @@
 import * as Hume from "../../../../../index";
 
 export interface StateEmbeddingGenerationCompletedEmbeddingGeneration
-    extends Hume.expressionMeasurement.CompletedEmbeddingGeneration {}
+    extends Hume.expressionMeasurement.batch.CompletedEmbeddingGeneration {}

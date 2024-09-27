@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { CompletedTlInference } from "./CompletedTlInference";
 
 export const StateTlInferenceCompletedTlInference: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateTlInferenceCompletedTlInference.Raw,
-    Hume.expressionMeasurement.StateTlInferenceCompletedTlInference
+    serializers.expressionMeasurement.batch.StateTlInferenceCompletedTlInference.Raw,
+    Hume.expressionMeasurement.batch.StateTlInferenceCompletedTlInference
 > = core.serialization.object({}).extend(CompletedTlInference);
 
 export declare namespace StateTlInferenceCompletedTlInference {

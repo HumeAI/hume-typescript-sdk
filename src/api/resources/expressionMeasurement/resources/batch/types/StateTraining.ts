@@ -5,25 +5,25 @@
 import * as Hume from "../../../../../index";
 
 export type StateTraining =
-    | Hume.expressionMeasurement.StateTraining.Queued
-    | Hume.expressionMeasurement.StateTraining.InProgress
-    | Hume.expressionMeasurement.StateTraining.Completed
-    | Hume.expressionMeasurement.StateTraining.Failed;
+    | Hume.expressionMeasurement.batch.StateTraining.Queued
+    | Hume.expressionMeasurement.batch.StateTraining.InProgress
+    | Hume.expressionMeasurement.batch.StateTraining.Completed
+    | Hume.expressionMeasurement.batch.StateTraining.Failed;
 
 export declare namespace StateTraining {
-    interface Queued extends Hume.expressionMeasurement.StateTrainingQueued {
+    interface Queued extends Hume.expressionMeasurement.batch.StateTrainingQueued {
         status: "QUEUED";
     }
 
-    interface InProgress extends Hume.expressionMeasurement.StateTrainingInProgress {
+    interface InProgress extends Hume.expressionMeasurement.batch.StateTrainingInProgress {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends Hume.expressionMeasurement.StateTrainingCompletedTraining {
+    interface Completed extends Hume.expressionMeasurement.batch.StateTrainingCompletedTraining {
         status: "COMPLETED";
     }
 
-    interface Failed extends Hume.expressionMeasurement.StateTrainingFailed {
+    interface Failed extends Hume.expressionMeasurement.batch.StateTrainingFailed {
         status: "FAILED";
     }
 }

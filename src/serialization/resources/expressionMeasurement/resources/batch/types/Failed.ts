@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Failed: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Failed.Raw,
-    Hume.expressionMeasurement.Failed
+    serializers.expressionMeasurement.batch.Failed.Raw,
+    Hume.expressionMeasurement.batch.Failed
 > = core.serialization.object({
     createdTimestampMs: core.serialization.property("created_timestamp_ms", core.serialization.number()),
     startedTimestampMs: core.serialization.property("started_timestamp_ms", core.serialization.number()),

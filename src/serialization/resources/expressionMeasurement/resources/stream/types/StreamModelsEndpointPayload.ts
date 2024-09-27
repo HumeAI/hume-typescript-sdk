@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Config } from "./Config";
 
 export const StreamModelsEndpointPayload: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelsEndpointPayload.Raw,
-    Hume.expressionMeasurement.StreamModelsEndpointPayload
+    serializers.expressionMeasurement.stream.StreamModelsEndpointPayload.Raw,
+    Hume.expressionMeasurement.stream.StreamModelsEndpointPayload
 > = core.serialization.object({
     data: core.serialization.string().optional(),
     models: Config.optional(),
@@ -18,8 +18,6 @@ export const StreamModelsEndpointPayload: core.serialization.ObjectSchema<
     rawText: core.serialization.property("raw_text", core.serialization.boolean().optional()),
     jobDetails: core.serialization.property("job_details", core.serialization.boolean().optional()),
     payloadId: core.serialization.property("payload_id", core.serialization.string().optional()),
-    face: core.serialization.unknown().optional(),
-    language: core.serialization.unknown().optional(),
 });
 
 export declare namespace StreamModelsEndpointPayload {
@@ -31,7 +29,5 @@ export declare namespace StreamModelsEndpointPayload {
         raw_text?: boolean | null;
         job_details?: boolean | null;
         payload_id?: string | null;
-        face?: unknown | null;
-        language?: unknown | null;
     }
 }

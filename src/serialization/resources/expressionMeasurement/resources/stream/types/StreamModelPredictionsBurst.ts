@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { StreamModelPredictionsBurstPredictionsItem } from "./StreamModelPredictionsBurstPredictionsItem";
 
 export const StreamModelPredictionsBurst: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamModelPredictionsBurst.Raw,
-    Hume.expressionMeasurement.StreamModelPredictionsBurst
+    serializers.expressionMeasurement.stream.StreamModelPredictionsBurst.Raw,
+    Hume.expressionMeasurement.stream.StreamModelPredictionsBurst
 > = core.serialization.object({
     predictions: core.serialization.list(StreamModelPredictionsBurstPredictionsItem).optional(),
 });

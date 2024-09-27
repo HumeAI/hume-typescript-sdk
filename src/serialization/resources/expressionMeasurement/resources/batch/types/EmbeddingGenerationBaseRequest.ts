@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { RegistryFileDetail } from "./RegistryFileDetail";
 
 export const EmbeddingGenerationBaseRequest: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.EmbeddingGenerationBaseRequest.Raw,
-    Hume.expressionMeasurement.EmbeddingGenerationBaseRequest
+    serializers.expressionMeasurement.batch.EmbeddingGenerationBaseRequest.Raw,
+    Hume.expressionMeasurement.batch.EmbeddingGenerationBaseRequest
 > = core.serialization.object({
     registryFileDetails: core.serialization.property(
         "registry_file_details",

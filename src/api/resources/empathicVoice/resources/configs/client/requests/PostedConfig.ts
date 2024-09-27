@@ -12,9 +12,10 @@ import * as Hume from "../../../../../../index";
  *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
  *             version: 0
  *         },
+ *         eviVersion: "2",
  *         voice: {
  *             provider: "HUME_AI",
- *             name: Hume.empathicVoice.PostedVoiceName.Kora
+ *             name: "SAMPLE VOICE"
  *         },
  *         languageModel: {
  *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
@@ -38,11 +39,13 @@ import * as Hume from "../../../../../../index";
  *     }
  */
 export interface PostedConfig {
+    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/empathic-voice-interface-evi/evi-2). */
+    eviVersion: string;
     /** Name applied to all versions of a particular Config. */
     name: string;
     /** An optional description of the Config version. */
     versionDescription?: string;
-    prompt?: Hume.empathicVoice.PostedPromptSpec;
+    prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
     /** A voice specification associated with this Config. */
     voice?: Hume.empathicVoice.PostedVoice;
     /**

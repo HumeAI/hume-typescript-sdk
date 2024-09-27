@@ -7,11 +7,11 @@ import * as Hume from "../../../../../index";
 export interface ProsodyPrediction {
     /** A segment of text (like a word or a sentence). */
     text?: string;
-    time: Hume.expressionMeasurement.TimeInterval;
+    time: Hume.expressionMeasurement.batch.TimeInterval;
     /** Value between `0.0` and `1.0` that indicates our transcription model's relative confidence in this text. */
     confidence?: number;
     /** Value between `0.0` and `1.0` that indicates our transcription model's relative confidence that this text was spoken by this speaker. */
     speakerConfidence?: number;
     /** A high-dimensional embedding in emotion space. */
-    emotions: Hume.expressionMeasurement.EmotionScore[];
+    emotions: Hume.expressionMeasurement.batch.EmotionScore[];
 }
