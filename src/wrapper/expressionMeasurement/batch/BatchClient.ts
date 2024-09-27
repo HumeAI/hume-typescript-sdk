@@ -4,7 +4,7 @@ import { Job } from "./Job";
 
 export class BatchClient extends FernClient {
     public async startInferenceJob(
-        request: Hume.expressionMeasurement.InferenceBaseRequest = {},
+        request: Hume.expressionMeasurement.batch.InferenceBaseRequest = {},
         requestOptions?: FernClient.RequestOptions
     ): Promise<Job> {
         const { jobId } = await super.startInferenceJob(request, requestOptions);

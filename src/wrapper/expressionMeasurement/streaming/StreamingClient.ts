@@ -17,7 +17,7 @@ export declare namespace StreamClient {
         streamWindowMs?: number;
 
         onOpen?: (event: WebSocket.Event) => void;
-        onMessage?: (message: Hume.expressionMeasurement.Config) => void;
+        onMessage?: (message: Hume.expressionMeasurement.stream.Config) => void;
         onError?: (error: Hume.expressionMeasurement.stream.StreamErrorMessage) => void;
         onClose?: (event: WebSocket.Event) => void;
     }

@@ -2,7 +2,7 @@ import * as Hume from "../../../api";
 import * as errors from "../../../errors";
 import { BatchClient } from "./BatchClient";
 
-export class Job implements Hume.expressionMeasurement.JobId {
+export class Job implements Hume.expressionMeasurement.batch.JobId {
     constructor(public readonly jobId: string, private readonly client: BatchClient) {}
 
     public async awaitCompletion(timeoutInSeconds = 300): Promise<void> {
