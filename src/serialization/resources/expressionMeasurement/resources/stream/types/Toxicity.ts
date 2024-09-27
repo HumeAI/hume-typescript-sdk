@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { ToxicityItem } from "./ToxicityItem";
 
 export const Toxicity: core.serialization.Schema<
-    serializers.expressionMeasurement.Toxicity.Raw,
-    Hume.expressionMeasurement.Toxicity
+    serializers.expressionMeasurement.stream.Toxicity.Raw,
+    Hume.expressionMeasurement.stream.Toxicity
 > = core.serialization.list(ToxicityItem);
 
 export declare namespace Toxicity {

@@ -30,8 +30,14 @@ export class Configs {
     constructor(protected readonly _options: Configs.Options = {}) {}
 
     /**
+     * Fetches a paginated list of **Configs**.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {Hume.empathicVoice.ConfigsListConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.listConfigs({
@@ -70,8 +76,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -93,10 +99,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -115,8 +133,14 @@ export class Configs {
     }
 
     /**
+     * Creates a **Config** which can be applied to EVI.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {Hume.empathicVoice.PostedConfig} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.createConfig({
@@ -125,9 +149,10 @@ export class Configs {
      *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *             version: 0
      *         },
+     *         eviVersion: "2",
      *         voice: {
      *             provider: "HUME_AI",
-     *             name: Hume.empathicVoice.PostedVoiceName.Kora
+     *             name: "SAMPLE VOICE"
      *         },
      *         languageModel: {
      *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
@@ -163,8 +188,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -186,10 +211,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -208,9 +245,15 @@ export class Configs {
     }
 
     /**
+     * Fetches a list of a **Config's** versions.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.ConfigsListConfigVersionsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
@@ -243,8 +286,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -266,10 +309,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -288,20 +343,27 @@ export class Configs {
     }
 
     /**
+     * Updates a **Config** by creating a new version of the **Config**.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigVersion} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
      * @example
      *     await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
      *         versionDescription: "This is an updated version of the Weather Assistant Config.",
+     *         eviVersion: "2",
      *         prompt: {
      *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *             version: 0
      *         },
      *         voice: {
      *             provider: "HUME_AI",
-     *             name: Hume.empathicVoice.PostedVoiceName.Ito
+     *             name: "ITO"
      *         },
      *         languageModel: {
      *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
@@ -329,7 +391,7 @@ export class Configs {
      */
     public async createConfigVersion(
         id: string,
-        request: Hume.empathicVoice.PostedConfigVersion = {},
+        request: Hume.empathicVoice.PostedConfigVersion,
         requestOptions?: Configs.RequestOptions
     ): Promise<Hume.empathicVoice.ReturnConfig> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -341,8 +403,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -366,10 +428,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -388,8 +462,14 @@ export class Configs {
     }
 
     /**
+     * Deletes a **Config** and its versions.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
@@ -404,8 +484,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -421,10 +501,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -443,9 +535,15 @@ export class Configs {
     }
 
     /**
+     * Updates the name of a **Config**.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigName} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
@@ -466,8 +564,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -485,10 +583,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -507,13 +617,19 @@ export class Configs {
     }
 
     /**
+     * Fetches a specified version of a **Config**.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {number} version - Version number for a Config.
      *
-     *                           Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
@@ -532,8 +648,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -554,10 +670,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -576,13 +704,19 @@ export class Configs {
     }
 
     /**
+     * Deletes a specified version of a **Config**.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {number} version - Version number for a Config.
      *
-     *                           Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
@@ -601,8 +735,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -618,10 +752,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -640,14 +786,20 @@ export class Configs {
     }
 
     /**
+     * Updates the description of a **Config**.
+     *
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {number} version - Version number for a Config.
      *
-     *                           Configs, as well as Prompts and Tools, are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
      *
      *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      * @param {Hume.empathicVoice.PostedConfigVersionDescription} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
      *     await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1, {
@@ -669,8 +821,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -694,10 +846,22 @@ export class Configs {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.HumeError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

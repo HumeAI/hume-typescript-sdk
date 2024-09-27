@@ -35,16 +35,16 @@ export class Batch {
     /**
      * Sort and filter jobs.
      *
-     * @param {Hume.expressionMeasurement.BatchListJobsRequest} request
+     * @param {Hume.expressionMeasurement.batch.BatchListJobsRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await client.expressionMeasurement.batch.listJobs()
      */
     public async listJobs(
-        request: Hume.expressionMeasurement.BatchListJobsRequest = {},
+        request: Hume.expressionMeasurement.batch.BatchListJobsRequest = {},
         requestOptions?: Batch.RequestOptions
-    ): Promise<Hume.expressionMeasurement.UnionJob[]> {
+    ): Promise<Hume.expressionMeasurement.batch.UnionJob[]> {
         const { limit, status, when, timestampMs, sortBy, direction } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -84,8 +84,8 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -131,7 +131,7 @@ export class Batch {
     /**
      * Start a new measurement inference job.
      *
-     * @param {Hume.expressionMeasurement.InferenceBaseRequest} request
+     * @param {Hume.expressionMeasurement.batch.InferenceBaseRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -141,9 +141,9 @@ export class Batch {
      *     })
      */
     public async startInferenceJob(
-        request: Hume.expressionMeasurement.InferenceBaseRequest,
+        request: Hume.expressionMeasurement.batch.InferenceBaseRequest,
         requestOptions?: Batch.RequestOptions
-    ): Promise<Hume.expressionMeasurement.JobId> {
+    ): Promise<Hume.expressionMeasurement.batch.JobId> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -153,15 +153,15 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.expressionMeasurement.InferenceBaseRequest.jsonOrThrow(request, {
+            body: serializers.expressionMeasurement.batch.InferenceBaseRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -169,7 +169,7 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.JobId.parseOrThrow(_response.body, {
+            return serializers.expressionMeasurement.batch.JobId.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -211,7 +211,7 @@ export class Batch {
     public async getJobDetails(
         id: string,
         requestOptions?: Batch.RequestOptions
-    ): Promise<Hume.expressionMeasurement.UnionJob> {
+    ): Promise<Hume.expressionMeasurement.batch.UnionJob> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -221,8 +221,8 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,7 +234,7 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.UnionJob.parseOrThrow(_response.body, {
+            return serializers.expressionMeasurement.batch.UnionJob.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -276,7 +276,7 @@ export class Batch {
     public async getJobPredictions(
         id: string,
         requestOptions?: Batch.RequestOptions
-    ): Promise<Hume.expressionMeasurement.UnionPredictResult[]> {
+    ): Promise<Hume.expressionMeasurement.batch.UnionPredictResult[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -286,8 +286,8 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -342,8 +342,8 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -385,7 +385,7 @@ export class Batch {
      * Start a new batch inference job.
      *
      * @param {File[] | fs.ReadStream[] | Blob[]} file
-     * @param {Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest} request
+     * @param {Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -393,9 +393,9 @@ export class Batch {
      */
     public async startInferenceJobFromLocalFile(
         file: File[] | fs.ReadStream[] | Blob[],
-        request: Hume.expressionMeasurement.BatchStartInferenceJobFromLocalFileRequest,
+        request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
         requestOptions?: Batch.RequestOptions
-    ): Promise<Hume.expressionMeasurement.JobId> {
+    ): Promise<Hume.expressionMeasurement.batch.JobId> {
         const _request = await core.newFormData();
         if (request.json != null) {
             await _request.append("json", JSON.stringify(request.json));
@@ -415,8 +415,8 @@ export class Batch {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.8.9",
-                "User-Agent": "hume/0.8.9",
+                "X-Fern-SDK-Version": "0.8.11",
+                "User-Agent": "hume/0.8.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -430,7 +430,7 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.JobId.parseOrThrow(_response.body, {
+            return serializers.expressionMeasurement.batch.JobId.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

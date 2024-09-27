@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { Target } from "./Target";
 
 export const ValidationArgs: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.ValidationArgs.Raw,
-    Hume.expressionMeasurement.ValidationArgs
+    serializers.expressionMeasurement.batch.ValidationArgs.Raw,
+    Hume.expressionMeasurement.batch.ValidationArgs
 > = core.serialization.object({
     positiveLabel: core.serialization.property("positive_label", Target.optional()),
 });

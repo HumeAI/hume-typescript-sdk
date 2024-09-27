@@ -11,8 +11,8 @@ import { StateTrainingCompletedTraining } from "./StateTrainingCompletedTraining
 import { StateTrainingFailed } from "./StateTrainingFailed";
 
 export const StateTraining: core.serialization.Schema<
-    serializers.expressionMeasurement.StateTraining.Raw,
-    Hume.expressionMeasurement.StateTraining
+    serializers.expressionMeasurement.batch.StateTraining.Raw,
+    Hume.expressionMeasurement.batch.StateTraining
 > = core.serialization
     .union("status", {
         QUEUED: StateTrainingQueued,
@@ -20,7 +20,7 @@ export const StateTraining: core.serialization.Schema<
         COMPLETED: StateTrainingCompletedTraining,
         FAILED: StateTrainingFailed,
     })
-    .transform<Hume.expressionMeasurement.StateTraining>({
+    .transform<Hume.expressionMeasurement.batch.StateTraining>({
         transform: (value) => value,
         untransform: (value) => value,
     });

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const EmotionScore: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.EmotionScore.Raw,
-    Hume.expressionMeasurement.EmotionScore
+    serializers.expressionMeasurement.batch.EmotionScore.Raw,
+    Hume.expressionMeasurement.batch.EmotionScore
 > = core.serialization.object({
     name: core.serialization.string(),
     score: core.serialization.number(),

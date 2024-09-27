@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const StreamBoundingBox: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StreamBoundingBox.Raw,
-    Hume.expressionMeasurement.StreamBoundingBox
+    serializers.expressionMeasurement.stream.StreamBoundingBox.Raw,
+    Hume.expressionMeasurement.stream.StreamBoundingBox
 > = core.serialization.object({
     x: core.serialization.number().optional(),
     y: core.serialization.number().optional(),

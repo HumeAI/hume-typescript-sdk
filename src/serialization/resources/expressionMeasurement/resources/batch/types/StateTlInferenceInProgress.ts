@@ -8,8 +8,8 @@ import * as core from "../../../../../../core";
 import { InProgress } from "./InProgress";
 
 export const StateTlInferenceInProgress: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.StateTlInferenceInProgress.Raw,
-    Hume.expressionMeasurement.StateTlInferenceInProgress
+    serializers.expressionMeasurement.batch.StateTlInferenceInProgress.Raw,
+    Hume.expressionMeasurement.batch.StateTlInferenceInProgress
 > = core.serialization.object({}).extend(InProgress);
 
 export declare namespace StateTlInferenceInProgress {

@@ -8,5 +8,5 @@ import * as Hume from "../../../../../index";
  * Response for the facemesh emotion model.
  */
 export interface StreamModelPredictionsFacemesh {
-    predictions?: Hume.expressionMeasurement.StreamModelPredictionsFacemeshPredictionsItem[];
+    predictions?: Hume.expressionMeasurement.stream.StreamModelPredictionsFacemeshPredictionsItem[];
 }

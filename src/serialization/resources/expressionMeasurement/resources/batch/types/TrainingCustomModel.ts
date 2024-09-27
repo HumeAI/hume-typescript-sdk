@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const TrainingCustomModel: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.TrainingCustomModel.Raw,
-    Hume.expressionMeasurement.TrainingCustomModel
+    serializers.expressionMeasurement.batch.TrainingCustomModel.Raw,
+    Hume.expressionMeasurement.batch.TrainingCustomModel
 > = core.serialization.object({
     id: core.serialization.string(),
     versionId: core.serialization.property("version_id", core.serialization.string().optional()),

@@ -13,8 +13,8 @@ import { PredictionsOptionalTranscriptionMetadataNerPrediction } from "./Predict
 import { PredictionsOptionalNullFacemeshPrediction } from "./PredictionsOptionalNullFacemeshPrediction";
 
 export const ModelsPredictions: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.ModelsPredictions.Raw,
-    Hume.expressionMeasurement.ModelsPredictions
+    serializers.expressionMeasurement.batch.ModelsPredictions.Raw,
+    Hume.expressionMeasurement.batch.ModelsPredictions
 > = core.serialization.object({
     face: PredictionsOptionalNullFacePrediction.optional(),
     burst: PredictionsOptionalNullBurstPrediction.optional(),

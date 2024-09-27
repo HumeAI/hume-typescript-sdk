@@ -10,7 +10,7 @@ import * as Hume from "../../../../../index";
 export interface StreamModelsEndpointPayload {
     data?: string;
     /** Configuration used to specify which models should be used and with what settings. */
-    models?: Hume.expressionMeasurement.Config;
+    models?: Hume.expressionMeasurement.stream.Config;
     /**
      * Length in milliseconds of streaming sliding window.
      *
@@ -50,6 +50,4 @@ export interface StreamModelsEndpointPayload {
      * This can be useful if you have multiple requests running asynchronously and want to disambiguate responses as they are received.
      */
     payloadId?: string;
-    face?: unknown;
-    language?: unknown;
 }

@@ -6,5 +6,5 @@ import * as Hume from "../../../../../index";
 
 export interface FacemeshPrediction {
     /** A high-dimensional embedding in emotion space. */
-    emotions: Hume.expressionMeasurement.EmotionScore[];
+    emotions: Hume.expressionMeasurement.batch.EmotionScore[];
 }

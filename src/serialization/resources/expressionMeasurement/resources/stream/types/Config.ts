@@ -5,26 +5,26 @@
 import * as serializers from "../../../../../index";
 import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { StreamModelsEndpointPayloadModelsFace } from "./StreamModelsEndpointPayloadModelsFace";
-import { StreamModelsEndpointPayloadModelsLanguage } from "./StreamModelsEndpointPayloadModelsLanguage";
+import { StreamFace } from "./StreamFace";
+import { StreamLanguage } from "./StreamLanguage";
 
 export const Config: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Config.Raw,
-    Hume.expressionMeasurement.Config
+    serializers.expressionMeasurement.stream.Config.Raw,
+    Hume.expressionMeasurement.stream.Config
 > = core.serialization.object({
     burst: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    face: StreamModelsEndpointPayloadModelsFace.optional(),
+    face: StreamFace.optional(),
     facemesh: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    language: StreamModelsEndpointPayloadModelsLanguage.optional(),
+    language: StreamLanguage.optional(),
     prosody: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
 });
 
 export declare namespace Config {
     interface Raw {
         burst?: Record<string, unknown> | null;
-        face?: StreamModelsEndpointPayloadModelsFace.Raw | null;
+        face?: StreamFace.Raw | null;
         facemesh?: Record<string, unknown> | null;
-        language?: StreamModelsEndpointPayloadModelsLanguage.Raw | null;
+        language?: StreamLanguage.Raw | null;
         prosody?: Record<string, unknown> | null;
     }
 }

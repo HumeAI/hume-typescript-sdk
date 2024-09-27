@@ -8,6 +8,6 @@ export interface JobTraining {
     /** The ID associated with this job. */
     jobId: string;
     userId: string;
-    request: Hume.expressionMeasurement.TrainingBaseRequest;
-    state: Hume.expressionMeasurement.StateTraining;
+    request: Hume.expressionMeasurement.batch.TrainingBaseRequest;
+    state: Hume.expressionMeasurement.batch.StateTraining;
 }

@@ -16,5 +16,6 @@ export interface ReturnChatGroup {
     mostRecentChatId?: string;
     /** The total number of Chats in this Chat Group. */
     numChats: number;
+    /** Denotes whether there is an active Chat associated with this Chat Group. */
     active?: boolean;
 }

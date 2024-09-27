@@ -5,25 +5,25 @@
 import * as Hume from "../../../../../index";
 
 export type StateEmbeddingGeneration =
-    | Hume.expressionMeasurement.StateEmbeddingGeneration.Queued
-    | Hume.expressionMeasurement.StateEmbeddingGeneration.InProgress
-    | Hume.expressionMeasurement.StateEmbeddingGeneration.Completed
-    | Hume.expressionMeasurement.StateEmbeddingGeneration.Failed;
+    | Hume.expressionMeasurement.batch.StateEmbeddingGeneration.Queued
+    | Hume.expressionMeasurement.batch.StateEmbeddingGeneration.InProgress
+    | Hume.expressionMeasurement.batch.StateEmbeddingGeneration.Completed
+    | Hume.expressionMeasurement.batch.StateEmbeddingGeneration.Failed;
 
 export declare namespace StateEmbeddingGeneration {
-    interface Queued extends Hume.expressionMeasurement.StateEmbeddingGenerationQueued {
+    interface Queued extends Hume.expressionMeasurement.batch.StateEmbeddingGenerationQueued {
         status: "QUEUED";
     }
 
-    interface InProgress extends Hume.expressionMeasurement.StateEmbeddingGenerationInProgress {
+    interface InProgress extends Hume.expressionMeasurement.batch.StateEmbeddingGenerationInProgress {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends Hume.expressionMeasurement.StateEmbeddingGenerationCompletedEmbeddingGeneration {
+    interface Completed extends Hume.expressionMeasurement.batch.StateEmbeddingGenerationCompletedEmbeddingGeneration {
         status: "COMPLETED";
     }
 
-    interface Failed extends Hume.expressionMeasurement.StateEmbeddingGenerationFailed {
+    interface Failed extends Hume.expressionMeasurement.batch.StateEmbeddingGenerationFailed {
         status: "FAILED";
     }
 }

@@ -9,8 +9,8 @@ import { Models } from "./Models";
 import { Transcription } from "./Transcription";
 
 export const InferenceBaseRequest: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.InferenceBaseRequest.Raw,
-    Hume.expressionMeasurement.InferenceBaseRequest
+    serializers.expressionMeasurement.batch.InferenceBaseRequest.Raw,
+    Hume.expressionMeasurement.batch.InferenceBaseRequest
 > = core.serialization.object({
     models: Models.optional(),
     transcription: Transcription.optional(),

@@ -7,8 +7,8 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Window: core.serialization.ObjectSchema<
-    serializers.expressionMeasurement.Window.Raw,
-    Hume.expressionMeasurement.Window
+    serializers.expressionMeasurement.batch.Window.Raw,
+    Hume.expressionMeasurement.batch.Window
 > = core.serialization.object({
     length: core.serialization.number().optional(),
     step: core.serialization.number().optional(),

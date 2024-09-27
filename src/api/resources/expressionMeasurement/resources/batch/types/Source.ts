@@ -5,20 +5,20 @@
 import * as Hume from "../../../../../index";
 
 export type Source =
-    | Hume.expressionMeasurement.Source.Url
-    | Hume.expressionMeasurement.Source.File_
-    | Hume.expressionMeasurement.Source.Text;
+    | Hume.expressionMeasurement.batch.Source.Url
+    | Hume.expressionMeasurement.batch.Source.File_
+    | Hume.expressionMeasurement.batch.Source.Text;
 
 export declare namespace Source {
-    interface Url extends Hume.expressionMeasurement.SourceUrl {
+    interface Url extends Hume.expressionMeasurement.batch.SourceUrl {
         type: "url";
     }
 
-    interface File_ extends Hume.expressionMeasurement.SourceFile {
+    interface File_ extends Hume.expressionMeasurement.batch.SourceFile {
         type: "file";
     }
 
-    interface Text extends Hume.expressionMeasurement.SourceTextSource {
+    interface Text extends Hume.expressionMeasurement.batch.SourceTextSource {
         type: "text";
     }
 }
