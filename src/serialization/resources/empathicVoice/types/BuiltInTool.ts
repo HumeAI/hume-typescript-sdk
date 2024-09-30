@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const BuiltInTool: core.serialization.Schema<
     serializers.empathicVoice.BuiltInTool.Raw,
     Hume.empathicVoice.BuiltInTool
-> = core.serialization.stringLiteral("web_search");
+> = core.serialization.enum_(["web_search", "hang_up"]);
 
 export declare namespace BuiltInTool {
-    type Raw = "web_search";
+    type Raw = "web_search" | "hang_up";
 }

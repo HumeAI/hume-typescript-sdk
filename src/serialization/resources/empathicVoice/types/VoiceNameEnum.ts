@@ -9,8 +9,35 @@ import * as core from "../../../../core";
 export const VoiceNameEnum: core.serialization.Schema<
     serializers.empathicVoice.VoiceNameEnum.Raw,
     Hume.empathicVoice.VoiceNameEnum
-> = core.serialization.enum_(["ITO", "KORA", "DACHER"]);
+> = core.serialization.enum_([
+    "ITO",
+    "KORA",
+    "DACHER",
+    "AURA",
+    "FINN",
+    "SIENNA",
+    "WILLOW",
+    "SCOUT",
+    "WHIMSY",
+    "ACE",
+    "JUNO",
+    "STELLA",
+    "HIRO",
+]);
 
 export declare namespace VoiceNameEnum {
-    type Raw = "ITO" | "KORA" | "DACHER";
+    type Raw =
+        | "ITO"
+        | "KORA"
+        | "DACHER"
+        | "AURA"
+        | "FINN"
+        | "SIENNA"
+        | "WILLOW"
+        | "SCOUT"
+        | "WHIMSY"
+        | "ACE"
+        | "JUNO"
+        | "STELLA"
+        | "HIRO";
 }
