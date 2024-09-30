@@ -13,6 +13,7 @@ export const AudioOutput: core.serialization.ObjectSchema<
     type: core.serialization.stringLiteral("audio_output"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     id: core.serialization.string(),
+    index: core.serialization.number(),
     data: core.serialization.string(),
 });
 
@@ -21,6 +22,7 @@ export declare namespace AudioOutput {
         type: "audio_output";
         custom_session_id?: string | null;
         id: string;
+        index: number;
         data: string;
     }
 }
