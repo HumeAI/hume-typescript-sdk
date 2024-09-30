@@ -6,11 +6,11 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const BuiltInTool: core.serialization.Schema<
-    serializers.empathicVoice.BuiltInTool.Raw,
-    Hume.empathicVoice.BuiltInTool
+export const BuiltinToolType: core.serialization.Schema<
+    serializers.empathicVoice.BuiltinToolType.Raw,
+    Hume.empathicVoice.BuiltinToolType
 > = core.serialization.enum_(["web_search", "hang_up"]);
 
-export declare namespace BuiltInTool {
+export declare namespace BuiltinToolType {
     type Raw = "web_search" | "hang_up";
 }

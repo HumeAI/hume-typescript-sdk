@@ -12,14 +12,22 @@ export const VoiceArgs: core.serialization.ObjectSchema<
     Hume.empathicVoice.VoiceArgs
 > = core.serialization.object({
     voice: VoiceNameEnum.optional(),
+    speechRateMultiplier: core.serialization.property("speech_rate_multiplier", core.serialization.number().optional()),
     baseline: core.serialization.boolean().optional(),
     reconstruct: core.serialization.boolean().optional(),
+    additive: core.serialization.boolean().optional(),
+    drift: core.serialization.boolean().optional(),
+    useV2: core.serialization.property("use_v2", core.serialization.boolean().optional()),
 });
 
 export declare namespace VoiceArgs {
     interface Raw {
         voice?: VoiceNameEnum.Raw | null;
+        speech_rate_multiplier?: number | null;
         baseline?: boolean | null;
         reconstruct?: boolean | null;
+        additive?: boolean | null;
+        drift?: boolean | null;
+        use_v2?: boolean | null;
     }
 }

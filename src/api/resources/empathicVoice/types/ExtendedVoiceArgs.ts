@@ -6,5 +6,6 @@ import * as Hume from "../../../index";
 
 export interface ExtendedVoiceArgs {
     text: string;
+    useS2A?: boolean;
     voiceArgs: Hume.empathicVoice.VoiceArgs;
 }
