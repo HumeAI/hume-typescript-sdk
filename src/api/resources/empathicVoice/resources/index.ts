@@ -6,6 +6,7 @@ export * as customVoices from "./customVoices";
 export * as configs from "./configs";
 export * as chats from "./chats";
 export * as chatGroups from "./chatGroups";
+export * as chatAudioReconstructions from "./chatAudioReconstructions";
 export * from "./tools/client/requests";
 export * from "./prompts/client/requests";
 export * from "./customVoices/client/requests";

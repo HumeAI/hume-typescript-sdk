@@ -12,12 +12,14 @@ export const ExtendedVoiceArgs: core.serialization.ObjectSchema<
     Hume.empathicVoice.ExtendedVoiceArgs
 > = core.serialization.object({
     text: core.serialization.string(),
+    useS2A: core.serialization.property("use_s2a", core.serialization.boolean().optional()),
     voiceArgs: core.serialization.property("voice_args", VoiceArgs),
 });
 
 export declare namespace ExtendedVoiceArgs {
     interface Raw {
         text: string;
+        use_s2a?: boolean | null;
         voice_args: VoiceArgs.Raw;
     }
 }
