@@ -16,5 +16,5 @@ export interface ReturnVoice {
      * This will either be the name of a previously created Custom Voice or one of our 7 base voices: `ITO`, `KORA`, `DACHER`, `AURA`, `FINN`, `WHIMSY`, or `STELLA`.
      */
     name?: string;
-    customVoice: Hume.empathicVoice.ReturnCustomVoice;
+    customVoice?: Hume.empathicVoice.ReturnCustomVoice;
 }

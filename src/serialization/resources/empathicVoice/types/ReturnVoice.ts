@@ -13,13 +13,13 @@ export const ReturnVoice: core.serialization.ObjectSchema<
 > = core.serialization.object({
     provider: core.serialization.stringLiteral("HUME_AI"),
     name: core.serialization.string().optional(),
-    customVoice: core.serialization.property("custom_voice", ReturnCustomVoice),
+    customVoice: core.serialization.property("custom_voice", ReturnCustomVoice.optional()),
 });
 
 export declare namespace ReturnVoice {
     interface Raw {
         provider: "HUME_AI";
         name?: string | null;
-        custom_voice: ReturnCustomVoice.Raw;
+        custom_voice?: ReturnCustomVoice.Raw | null;
     }
 }
