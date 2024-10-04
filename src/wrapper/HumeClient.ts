@@ -10,6 +10,6 @@ export declare namespace HumeClient {
 
 export class HumeClient extends FernClient {
     constructor(protected readonly _options: HumeClient.Options) {
-        super(_options);
+        super(_options || {});
     }
 }
