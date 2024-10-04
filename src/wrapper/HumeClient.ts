@@ -13,6 +13,8 @@ export class HumeClient extends FernClient {
         super(_options || {});
     }
 
+    // We need to override this from FernClient to use the extended
+    // `ExpressionMeasurement` from `wrapper` and not `api/resources/`
     protected _expressionMeasurement: ExpressionMeasurement | undefined;
 
     public get expressionMeasurement(): ExpressionMeasurement {
