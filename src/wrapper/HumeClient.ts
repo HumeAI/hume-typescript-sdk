@@ -3,8 +3,8 @@ import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasure
 
 export declare namespace HumeClient {
     type Options = FernClient.Options & { secretKey?: string } & (
-            | { accessToken: FernClient.Options["accessToken"] }
-            | { apiKey: FernClient.Options["apiKey"] }
+            | { accessToken: NonNullable<FernClient.Options["accessToken"]> }
+            | { apiKey: NonNullable<FernClient.Options["apiKey"]> }
         );
 }
 
