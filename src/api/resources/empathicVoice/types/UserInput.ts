@@ -3,7 +3,9 @@
  */
 
 /**
- * User text to insert into the conversation.
+ * User text to insert into the conversation. Text sent through a User Input message is treated as the user’s speech to EVI. EVI processes this input and provides a corresponding response.
+ *
+ * Expression measurement results are not available for User Input messages, as the prosody model relies on audio input and cannot process text alone.
  */
 export interface UserInput {
     /** The type of message sent through the socket; must be `user_input` for our server to correctly identify and process it as a User Input message. */
