@@ -3,7 +3,7 @@
  */
 
 /**
- * When provided, the output is audio.
+ * The type of message sent through the socket; for an Audio Output message, this must be `audio_output`.
  */
 export interface AudioOutput {
     /** The type of message sent through the socket; for an Audio Output message, this must be `audio_output`. */
