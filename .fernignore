@@ -12,6 +12,7 @@ justfile
 tsconfig.dev.json
 .nvmrc
 .github
+.prettierignore
 
 # Wrapper client
 src/wrapper
