@@ -20,7 +20,7 @@ export const ReturnCustomVoice: core.serialization.ObjectSchema<
     baseVoice: core.serialization.property("base_voice", ReturnCustomVoiceBaseVoice),
     parameterModel: core.serialization.property(
         "parameter_model",
-        core.serialization.stringLiteral("20240715-4parameter")
+        core.serialization.stringLiteral("20241004-11parameter")
     ),
     parameters: ReturnCustomVoiceParameters,
 });
@@ -33,7 +33,7 @@ export declare namespace ReturnCustomVoice {
         created_on: number;
         modified_on: number;
         base_voice: ReturnCustomVoiceBaseVoice.Raw;
-        parameter_model: "20240715-4parameter";
+        parameter_model: "20241004-11parameter";
         parameters: ReturnCustomVoiceParameters.Raw;
     }
 }
