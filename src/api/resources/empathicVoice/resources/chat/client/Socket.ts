@@ -20,18 +20,23 @@ export declare namespace ChatSocket {
 
 export class ChatSocket {
     public readonly socket: core.ReconnectingWebSocket;
-    public readonly readyState: number;
 
     protected readonly eventHandlers: ChatSocket.EventHandlers = {};
 
     constructor({ socket }: ChatSocket.Args) {
         this.socket = socket;
-        this.readyState = socket.readyState;
 
         this.socket.addEventListener("open", this.handleOpen);
         this.socket.addEventListener("message", this.handleMessage);
         this.socket.addEventListener("close", this.handleClose);
         this.socket.addEventListener("error", this.handleError);
+    }
+
+    /**
+     * The current state of the connection; this is one of the Ready state constants
+     */
+    get readyState(): number {
+        return this.socket.readyState;
     }
 
     /**
