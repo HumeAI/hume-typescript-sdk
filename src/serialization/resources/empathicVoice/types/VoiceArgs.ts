@@ -6,6 +6,7 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { VoiceNameEnum } from "./VoiceNameEnum";
+import { Model } from "./Model";
 
 export const VoiceArgs: core.serialization.ObjectSchema<
     serializers.empathicVoice.VoiceArgs.Raw,
@@ -17,7 +18,7 @@ export const VoiceArgs: core.serialization.ObjectSchema<
     reconstruct: core.serialization.boolean().optional(),
     additive: core.serialization.boolean().optional(),
     drift: core.serialization.boolean().optional(),
-    useV2: core.serialization.property("use_v2", core.serialization.boolean().optional()),
+    model: Model.optional(),
 });
 
 export declare namespace VoiceArgs {
@@ -28,6 +29,6 @@ export declare namespace VoiceArgs {
         reconstruct?: boolean | null;
         additive?: boolean | null;
         drift?: boolean | null;
-        use_v2?: boolean | null;
+        model?: Model.Raw | null;
     }
 }

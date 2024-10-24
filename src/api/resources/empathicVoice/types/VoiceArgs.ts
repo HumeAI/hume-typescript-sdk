@@ -11,5 +11,5 @@ export interface VoiceArgs {
     reconstruct?: boolean;
     additive?: boolean;
     drift?: boolean;
-    useV2?: boolean;
+    model?: Hume.empathicVoice.Model;
 }
