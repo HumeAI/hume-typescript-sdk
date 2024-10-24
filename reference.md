@@ -257,69 +257,6 @@ await client.expressionMeasurement.batch.getJobPredictions("job_id");
 </dl>
 </details>
 
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobArtifacts</a>(id) -> stream.Readable</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the artifacts ZIP of a completed inference job.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.expressionMeasurement.batch.getJobArtifacts("string");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — The unique identifier for the job.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Batch.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code></summary>
 <dl>
 <dd>
@@ -1850,7 +1787,7 @@ Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for detai
 await client.empathicVoice.customVoices.createCustomVoice({
     name: "name",
     baseVoice: Hume.PostedCustomVoiceBaseVoice.Ito,
-    parameterModel: "20240715-4parameter",
+    parameterModel: "20241004-11parameter",
 });
 ```
 
@@ -1984,7 +1921,7 @@ Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for detai
 await client.empathicVoice.customVoices.createCustomVoiceVersion("id", {
     name: "name",
     baseVoice: Hume.PostedCustomVoiceBaseVoice.Ito,
-    parameterModel: "20240715-4parameter",
+    parameterModel: "20241004-11parameter",
 });
 ```
 
@@ -2075,81 +2012,6 @@ await client.empathicVoice.customVoices.deleteCustomVoice("id");
 <dd>
 
 **id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">updateCustomVoiceName</a>(id, { ...params }) -> string</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Custom Voice**.
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customVoices.updateCustomVoiceName("string", {
-    name: "string",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedCustomVoiceName`
 
 </dd>
 </dl>
@@ -3043,6 +2905,54 @@ await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2
 </dl>
 </details>
 
+<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">getAudio</a>(id) -> Hume.ReturnChatPagedEvents</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.chats.getAudio("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Chats.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## EmpathicVoice ChatGroups
 
 <details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> Hume.ReturnPagedChatGroups</code></summary>
@@ -3245,6 +3155,62 @@ await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9b
 <dd>
 
 **request:** `Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ChatGroups.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">getAudio</a>(id, { ...params }) -> Hume.ReturnChatPagedEvents</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.chatGroups.getAudio("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.ChatGroupsGetAudioRequest`
 
 </dd>
 </dl>

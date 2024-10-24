@@ -23,6 +23,7 @@ export const VoiceNameEnum: core.serialization.Schema<
     "JUNO",
     "STELLA",
     "HIRO",
+    "SUNNY",
 ]);
 
 export declare namespace VoiceNameEnum {
@@ -39,5 +40,6 @@ export declare namespace VoiceNameEnum {
         | "ACE"
         | "JUNO"
         | "STELLA"
-        | "HIRO";
+        | "HIRO"
+        | "SUNNY";
 }
