@@ -23,11 +23,11 @@ export interface PromptsListPromptsRequest {
      */
     pageSize?: number;
     /**
-     * By default, `restrict_to_most_recent` is set to true, returning only the latest version of each prompt. To include all versions of each prompt in the list, set `restrict_to_most_recent` to false.
+     * Only include the most recent version of each prompt in the list.
      */
     restrictToMostRecent?: boolean;
     /**
-     * Filter to only include prompts with this name.
+     * Filter to only include prompts with name.
      */
     name?: string;
 }

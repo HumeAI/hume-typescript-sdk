@@ -15,7 +15,8 @@ export type VoiceNameEnum =
     | "ACE"
     | "JUNO"
     | "STELLA"
-    | "HIRO";
+    | "HIRO"
+    | "SUNNY";
 
 export const VoiceNameEnum = {
     Ito: "ITO",
@@ -31,4 +32,5 @@ export const VoiceNameEnum = {
     Juno: "JUNO",
     Stella: "STELLA",
     Hiro: "HIRO",
+    Sunny: "SUNNY",
 } as const;

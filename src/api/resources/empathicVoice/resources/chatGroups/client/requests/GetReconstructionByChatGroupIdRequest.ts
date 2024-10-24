@@ -4,12 +4,9 @@
 
 /**
  * @example
- *     {
- *         pageNumber: 0,
- *         pageSize: 2
- *     }
+ *     {}
  */
-export interface ToolsListToolsRequest {
+export interface GetReconstructionByChatGroupIdRequest {
     /**
      * Specifies the page number to retrieve, enabling pagination.
      *
@@ -23,11 +20,7 @@ export interface ToolsListToolsRequest {
      */
     pageSize?: number;
     /**
-     * By default, `restrict_to_most_recent` is set to true, returning only the latest version of each tool. To include all versions of each tool in the list, set `restrict_to_most_recent` to false.
+     * Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true.
      */
-    restrictToMostRecent?: boolean;
-    /**
-     * Filter to only include tools with name.
-     */
-    name?: string;
+    ascendingOrder?: boolean;
 }
