@@ -11,16 +11,30 @@ export const ReturnCustomVoiceParameters: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnCustomVoiceParameters
 > = core.serialization.object({
     gender: core.serialization.number().optional(),
-    huskiness: core.serialization.number().optional(),
+    articulation: core.serialization.number().optional(),
+    assertiveness: core.serialization.number().optional(),
+    buoyancy: core.serialization.number().optional(),
+    confidence: core.serialization.number().optional(),
+    enthusiasm: core.serialization.number().optional(),
     nasality: core.serialization.number().optional(),
-    pitch: core.serialization.number().optional(),
+    relaxedness: core.serialization.number().optional(),
+    smoothness: core.serialization.number().optional(),
+    tepidity: core.serialization.number().optional(),
+    tightness: core.serialization.number().optional(),
 });
 
 export declare namespace ReturnCustomVoiceParameters {
     interface Raw {
         gender?: number | null;
-        huskiness?: number | null;
+        articulation?: number | null;
+        assertiveness?: number | null;
+        buoyancy?: number | null;
+        confidence?: number | null;
+        enthusiasm?: number | null;
         nasality?: number | null;
-        pitch?: number | null;
+        relaxedness?: number | null;
+        smoothness?: number | null;
+        tepidity?: number | null;
+        tightness?: number | null;
     }
 }
