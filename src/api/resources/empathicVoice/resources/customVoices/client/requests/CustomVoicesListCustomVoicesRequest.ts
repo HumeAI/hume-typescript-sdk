@@ -20,7 +20,7 @@ export interface CustomVoicesListCustomVoicesRequest {
      */
     pageSize?: number;
     /**
-     * Filter to only include custom voices with this name.
+     * Filter to only include custom voices with name.
      */
     name?: string;
 }

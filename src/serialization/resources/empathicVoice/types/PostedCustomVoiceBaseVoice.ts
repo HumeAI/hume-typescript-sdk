@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const PostedCustomVoiceBaseVoice: core.serialization.Schema<
     serializers.empathicVoice.PostedCustomVoiceBaseVoice.Raw,
     Hume.empathicVoice.PostedCustomVoiceBaseVoice
-> = core.serialization.enum_(["ITO", "KORA", "DACHER", "AURA", "FINN", "STELLA", "WHIMSY"]);
+> = core.serialization.enum_(["ITO", "KORA", "DACHER", "AURA", "FINN", "WHIMSY", "STELLA", "SUNNY"]);
 
 export declare namespace PostedCustomVoiceBaseVoice {
-    type Raw = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "STELLA" | "WHIMSY";
+    type Raw = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "WHIMSY" | "STELLA" | "SUNNY";
 }

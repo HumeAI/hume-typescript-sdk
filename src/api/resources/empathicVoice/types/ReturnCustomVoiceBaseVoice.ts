@@ -5,7 +5,7 @@
 /**
  * The base voice used to create the Custom Voice.
  */
-export type ReturnCustomVoiceBaseVoice = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "STELLA" | "WHIMSY";
+export type ReturnCustomVoiceBaseVoice = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "WHIMSY" | "STELLA" | "SUNNY";
 
 export const ReturnCustomVoiceBaseVoice = {
     Ito: "ITO",
@@ -13,6 +13,7 @@ export const ReturnCustomVoiceBaseVoice = {
     Dacher: "DACHER",
     Aura: "AURA",
     Finn: "FINN",
-    Stella: "STELLA",
     Whimsy: "WHIMSY",
+    Stella: "STELLA",
+    Sunny: "SUNNY",
 } as const;

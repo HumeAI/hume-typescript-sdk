@@ -16,8 +16,8 @@ export interface PostedCustomVoice {
     name: string;
     /** Specifies the base voice used to create the Custom Voice. */
     baseVoice: Hume.empathicVoice.PostedCustomVoiceBaseVoice;
-    /** The name of the parameter model used to define which attributes are used by the `parameters` field. Currently, only `20240715-4parameter` is supported as the parameter model. */
-    parameterModel: "20240715-4parameter";
+    /** The name of the parameter model used to define which attributes are used by the `parameters` field. Currently, only `20241004-11parameter` is supported as the parameter model. */
+    parameterModel: "20241004-11parameter";
     /**
      * The specified attributes of a Custom Voice.
      *
