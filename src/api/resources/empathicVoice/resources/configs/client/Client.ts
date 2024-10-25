@@ -76,8 +76,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -151,12 +151,12 @@ export class Configs {
      *         },
      *         eviVersion: "2",
      *         voice: {
-     *             provider: "HUME_AI",
+     *             provider: Hume.empathicVoice.PostedVoiceProvider.HumeAi,
      *             name: "SAMPLE VOICE"
      *         },
      *         languageModel: {
      *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
-     *             modelResource: "claude-3-5-sonnet-20240620",
+     *             modelResource: Hume.empathicVoice.PostedLanguageModelModelResource.Claude35Sonnet20240620,
      *             temperature: 1
      *         },
      *         eventMessages: {
@@ -188,8 +188,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -286,8 +286,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -362,12 +362,12 @@ export class Configs {
      *             version: 0
      *         },
      *         voice: {
-     *             provider: "HUME_AI",
+     *             provider: Hume.empathicVoice.PostedVoiceProvider.HumeAi,
      *             name: "ITO"
      *         },
      *         languageModel: {
      *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
-     *             modelResource: "claude-3-5-sonnet-20240620",
+     *             modelResource: Hume.empathicVoice.PostedLanguageModelModelResource.Claude35Sonnet20240620,
      *             temperature: 1
      *         },
      *         ellmModel: {
@@ -403,8 +403,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -484,8 +484,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -564,8 +564,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -648,8 +648,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -735,8 +735,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -821,8 +821,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

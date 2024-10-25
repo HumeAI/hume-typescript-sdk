@@ -1807,12 +1807,12 @@ await client.empathicVoice.configs.createConfig({
     },
     eviVersion: "2",
     voice: {
-        provider: "HUME_AI",
+        provider: Hume.PostedVoiceProvider.HumeAi,
         name: "SAMPLE VOICE",
     },
     languageModel: {
         modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: "claude-3-5-sonnet-20240620",
+        modelResource: Hume.PostedLanguageModelModelResource.Claude35Sonnet20240620,
         temperature: 1,
     },
     eventMessages: {
@@ -1975,12 +1975,12 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
         version: 0,
     },
     voice: {
-        provider: "HUME_AI",
+        provider: Hume.PostedVoiceProvider.HumeAi,
         name: "ITO",
     },
     languageModel: {
         modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: "claude-3-5-sonnet-20240620",
+        modelResource: Hume.PostedLanguageModelModelResource.Claude35Sonnet20240620,
         temperature: 1,
     },
     ellmModel: {
