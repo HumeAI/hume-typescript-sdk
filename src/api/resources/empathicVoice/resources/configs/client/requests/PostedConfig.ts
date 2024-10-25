@@ -14,7 +14,7 @@ import * as Hume from "../../../../../../index";
  *         },
  *         eviVersion: "2",
  *         voice: {
- *             provider: "HUME_AI",
+ *             provider: Hume.empathicVoice.PostedVoiceProvider.HumeAi,
  *             name: "SAMPLE VOICE"
  *         },
  *         languageModel: {
