@@ -1807,12 +1807,12 @@ await client.empathicVoice.configs.createConfig({
     },
     eviVersion: "2",
     voice: {
-        provider: "HUME_AI",
+        provider: Hume.PostedVoiceProvider.HumeAi,
         name: "SAMPLE VOICE",
     },
     languageModel: {
         modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: "claude-3-5-sonnet-20240620",
+        modelResource: Hume.PostedLanguageModelModelResource.Claude35Sonnet20240620,
         temperature: 1,
     },
     eventMessages: {
@@ -1975,12 +1975,12 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
         version: 0,
     },
     voice: {
-        provider: "HUME_AI",
+        provider: Hume.PostedVoiceProvider.HumeAi,
         name: "ITO",
     },
     languageModel: {
         modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: "claude-3-5-sonnet-20240620",
+        modelResource: Hume.PostedLanguageModelModelResource.Claude35Sonnet20240620,
         temperature: 1,
     },
     ellmModel: {
@@ -2574,54 +2574,6 @@ await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">getAudio</a>(id) -> Hume.ReturnChatPagedEvents</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.chats.getAudio("id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a chat. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Chats.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## EmpathicVoice ChatGroups
 
 <details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> Hume.ReturnPagedChatGroups</code></summary>
@@ -2824,62 +2776,6 @@ await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9b
 <dd>
 
 **request:** `Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ChatGroups.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">getAudio</a>(id, { ...params }) -> Hume.ReturnChatPagedEvents</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.chatGroups.getAudio("id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a chat. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.ChatGroupsGetAudioRequest`
 
 </dd>
 </dl>

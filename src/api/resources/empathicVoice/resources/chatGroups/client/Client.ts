@@ -76,8 +76,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -176,8 +176,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -276,8 +276,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -291,100 +291,6 @@ export class ChatGroups {
         });
         if (_response.ok) {
             return serializers.empathicVoice.ReturnChatGroupPagedEvents.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Hume.empathicVoice.BadRequestError(
-                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError();
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ChatGroupsGetAudioRequest} request
-     * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Hume.empathicVoice.BadRequestError}
-     *
-     * @example
-     *     await client.empathicVoice.chatGroups.getAudio("id")
-     */
-    public async getAudio(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
-        requestOptions?: ChatGroups.RequestOptions
-    ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> {
-        const { pageNumber, pageSize, ascendingOrder } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (pageNumber != null) {
-            _queryParams["page_number"] = pageNumber.toString();
-        }
-
-        if (pageSize != null) {
-            _queryParams["page_size"] = pageSize.toString();
-        }
-
-        if (ascendingOrder != null) {
-            _queryParams["ascending_order"] = ascendingOrder.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/chat_groups/${encodeURIComponent(id)}/audio`
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.empathicVoice.ReturnChatPagedEvents.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

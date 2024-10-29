@@ -11,7 +11,7 @@ export interface PostedLanguageModel {
     /** The provider of the supplemental language model. */
     modelProvider?: Hume.empathicVoice.PostedLanguageModelModelProvider;
     /** String that specifies the language model to use with `model_provider`. */
-    modelResource?: string;
+    modelResource?: Hume.empathicVoice.PostedLanguageModelModelResource;
     /**
      * The model temperature, with values between 0 to 1 (inclusive).
      *
