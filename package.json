@@ -20,7 +20,7 @@
         "readable-stream": "^4.5.2",
         "form-data-encoder": "^4.0.2",
         "ws": "^8.14.2",
-        "uuid": "9.0.1",
+        "uuid": "11.0.2",
         "zod": "^3.23.8"
     },
     "devDependencies": {
