@@ -71,8 +71,8 @@ export class Chats {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.3",
-                    "User-Agent": "hume/0.9.3",
+                    "X-Fern-SDK-Version": "0.9.4",
+                    "User-Agent": "hume/0.9.4",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -180,8 +180,8 @@ export class Chats {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.3",
-                    "User-Agent": "hume/0.9.3",
+                    "X-Fern-SDK-Version": "0.9.4",
+                    "User-Agent": "hume/0.9.4",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -252,12 +252,12 @@ export class Chats {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chats.getAudio("id")
+     *     await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0")
      */
     public async getAudio(
         id: string,
         requestOptions?: Chats.RequestOptions
-    ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> {
+    ): Promise<Hume.empathicVoice.ReturnChatAudioReconstruction> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -267,8 +267,8 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.3",
-                "User-Agent": "hume/0.9.3",
+                "X-Fern-SDK-Version": "0.9.4",
+                "User-Agent": "hume/0.9.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -280,7 +280,7 @@ export class Chats {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnChatPagedEvents.parseOrThrow(_response.body, {
+            return serializers.empathicVoice.ReturnChatAudioReconstruction.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -8,8 +8,8 @@ import * as Hume from "../../../index";
  * A Voice specification posted to the server
  */
 export interface PostedVoice {
-    /** The provider of the voice to use. Currently, only `HUME_AI` is supported as the voice provider. */
-    provider: "HUME_AI";
+    /** The provider of the voice to use. Supported values are `HUME_AI` and `CUSTOM_VOICE`. */
+    provider: Hume.empathicVoice.PostedVoiceProvider;
     /**
      * Specifies the name of the voice to use.
      *
