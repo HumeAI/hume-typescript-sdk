@@ -4,7 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         pageNumber: 0,
+ *         pageSize: 10,
+ *         ascendingOrder: true
+ *     }
  */
 export interface ChatGroupsGetAudioRequest {
     /**

@@ -5,7 +5,7 @@
 /**
  * Specifies the duration of user inactivity (in seconds) after which the EVI WebSocket connection will be automatically disconnected. Default is 600 seconds (10 minutes).
  *
- * Accepts a minimum value of 1 second and a maximum value of 1,800 seconds.
+ * Accepts a minimum value of 30 seconds and a maximum value of 1,800 seconds.
  */
 export interface PostedTimeoutSpecsInactivity {
     /**
