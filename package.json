@@ -27,7 +27,7 @@
         "@types/url-join": "4.0.1",
         "@types/qs": "6.9.8",
         "@types/node-fetch": "2.6.9",
-        "@types/readable-stream": "^4.0.15",
+        "@types/readable-stream": "^4.0.18",
         "fetch-mock-jest": "^1.5.1",
         "webpack": "^5.94.0",
         "ts-loader": "^9.3.1",

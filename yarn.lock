@@ -663,10 +663,10 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.8.tgz#f2a7de3c107b89b441e071d5472e6b726b4adf45"
   integrity sha512-u95svzDlTysU5xecFNTgfFG5RUWu1A9P0VzgpcIiGZA9iraHOdSzcxMxQ55DyeRaGCSxQi7LxXDI4rzq/MYfdg==
 
-"@types/readable-stream@^4.0.15":
-  version "4.0.17"
-  resolved "https://registry.yarnpkg.com/@types/readable-stream/-/readable-stream-4.0.17.tgz#c15657ec872c9c91bc07eb5081d61d1a553cc9c2"
-  integrity sha512-DGO8oyn6p2NyVGktEhwYLMUaXrspgOHJ5zhTr+bleM73sHZ5EciaF/kffisEGYlbaKvUiUxFM93aQHnTNqgw+w==
+"@types/readable-stream@^4.0.18":
+  version "4.0.18"
+  resolved "https://registry.yarnpkg.com/@types/readable-stream/-/readable-stream-4.0.18.tgz#5d8d15d26c776500ce573cae580787d149823bfc"
+  integrity sha512-21jK/1j+Wg+7jVw1xnSwy/2Q1VgVjWuFssbYGTREPUBeZ+rqVFl2udq0IkxzPC0ZhOzVceUbyIACFZKLqKEBlA==
   dependencies:
     "@types/node" "*"
     safe-buffer "~5.1.1"
