@@ -7,7 +7,9 @@
  */
 export type ReturnLanguageModelModelResource =
     | "claude-3-5-sonnet-latest"
+    | "claude-3-5-haiku-latest"
     | "claude-3-5-sonnet-20240620"
+    | "claude-3-5-haiku-20241022"
     | "claude-3-opus-20240229"
     | "claude-3-sonnet-20240229"
     | "claude-3-haiku-20240307"
@@ -35,7 +37,9 @@ export type ReturnLanguageModelModelResource =
 
 export const ReturnLanguageModelModelResource = {
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
+    Claude35HaikuLatest: "claude-3-5-haiku-latest",
     Claude35Sonnet20240620: "claude-3-5-sonnet-20240620",
+    Claude35Haiku20241022: "claude-3-5-haiku-20241022",
     Claude3Opus20240229: "claude-3-opus-20240229",
     Claude3Sonnet20240229: "claude-3-sonnet-20240229",
     Claude3Haiku20240307: "claude-3-haiku-20240307",

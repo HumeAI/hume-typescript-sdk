@@ -19,6 +19,7 @@ export const UserMessage: core.serialization.ObjectSchema<
     models: Inference,
     time: MillisecondInterval,
     fromText: core.serialization.property("from_text", core.serialization.boolean()),
+    interim: core.serialization.boolean(),
 });
 
 export declare namespace UserMessage {
@@ -29,5 +30,6 @@ export declare namespace UserMessage {
         models: Inference.Raw;
         time: MillisecondInterval.Raw;
         from_text: boolean;
+        interim: boolean;
     }
 }
