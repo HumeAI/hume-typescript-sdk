@@ -27,6 +27,9 @@ export declare namespace Chat {
         /** The ID of a chat group, used to resume a previous chat. */
         resumedChatGroupId?: string;
 
+        /** A flag to enable verbose transcription. Set this query parameter to `true` to have unfinalized user transcripts be sent to the client as interim UserMessage messages. The [interim](/reference/empathic-voice-interface-evi/chat/chat#receive.User%20Message.interim) field on a [UserMessage](/reference/empathic-voice-interface-evi/chat/chat#receive.User%20Message.type) denotes whether the message is "interim" or "final." */
+        verboseTranscription?: boolean
+
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
     }
@@ -54,6 +57,10 @@ export class Chat {
         }
         if (args.resumedChatGroupId != null) {
             queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
+        }
+
+        if (args.verboseTranscription != null) {
+            queryParams["verbose_transcription"] = args.verboseTranscription ? 'true' : 'false';
         }
 
         if (args.queryParams != null) {
