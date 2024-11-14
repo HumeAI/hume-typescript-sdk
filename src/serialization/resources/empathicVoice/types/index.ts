@@ -79,6 +79,7 @@ export * from "./Encoding";
 export * from "./ErrorLevel";
 export * from "./PauseAssistantMessage";
 export * from "./ResumeAssistantMessage";
+export * from "./SessionSettingsVariablesValue";
 export * from "./SessionSettings";
 export * from "./Tool";
 export * from "./ToolErrorMessage";
