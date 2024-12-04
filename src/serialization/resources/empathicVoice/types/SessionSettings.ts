@@ -9,6 +9,7 @@ import { Context } from "./Context";
 import { AudioConfiguration } from "./AudioConfiguration";
 import { Tool } from "./Tool";
 import { BuiltinToolConfig } from "./BuiltinToolConfig";
+import { SessionSettingsVariablesValue } from "./SessionSettingsVariablesValue";
 
 export const SessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.SessionSettings.Raw,
@@ -23,7 +24,7 @@ export const SessionSettings: core.serialization.ObjectSchema<
     tools: core.serialization.list(Tool).optional(),
     builtinTools: core.serialization.property("builtin_tools", core.serialization.list(BuiltinToolConfig).optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    variables: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
+    variables: core.serialization.record(core.serialization.string(), SessionSettingsVariablesValue).optional(),
 });
 
 export declare namespace SessionSettings {
@@ -37,6 +38,6 @@ export declare namespace SessionSettings {
         tools?: Tool.Raw[] | null;
         builtin_tools?: BuiltinToolConfig.Raw[] | null;
         metadata?: Record<string, unknown> | null;
-        variables?: Record<string, string> | null;
+        variables?: Record<string, SessionSettingsVariablesValue.Raw> | null;
     }
 }
