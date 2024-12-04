@@ -11,7 +11,6 @@ export const PostedCustomVoiceParameters: core.serialization.ObjectSchema<
     Hume.empathicVoice.PostedCustomVoiceParameters
 > = core.serialization.object({
     gender: core.serialization.number().optional(),
-    articulation: core.serialization.number().optional(),
     assertiveness: core.serialization.number().optional(),
     buoyancy: core.serialization.number().optional(),
     confidence: core.serialization.number().optional(),
@@ -26,7 +25,6 @@ export const PostedCustomVoiceParameters: core.serialization.ObjectSchema<
 export declare namespace PostedCustomVoiceParameters {
     interface Raw {
         gender?: number | null;
-        articulation?: number | null;
         assertiveness?: number | null;
         buoyancy?: number | null;
         confidence?: number | null;
