@@ -49,21 +49,28 @@ export class Chat {
         } else if (this._options.apiKey != null) {
             queryParams["apiKey"] = this._options.apiKey;
         }
-        if (args.configId != null) {
+
+        if (args.configId !== null && args.configId !== undefined && args.configId !== "") {
             queryParams["config_id"] = args.configId;
         }
-        if (args.configVersion != null) {
+
+        if (args.configVersion !== null && args.configVersion !== undefined && args.configVersion !== "") {
             queryParams["config_version"] = args.configVersion;
         }
-        if (args.resumedChatGroupId != null) {
+
+        if (
+            args.resumedChatGroupId !== null &&
+            args.resumedChatGroupId !== undefined &&
+            args.resumedChatGroupId !== ""
+        ) {
             queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
         }
 
-        if (args.verboseTranscription != null) {
+        if (args.verboseTranscription !== null) {
             queryParams["verbose_transcription"] = args.verboseTranscription ? "true" : "false";
         }
 
-        if (args.queryParams != null) {
+        if (args.queryParams !== null && args.queryParams !== undefined) {
             for (const [name, value] of Object.entries(args.queryParams)) {
                 queryParams[name] = value;
             }
