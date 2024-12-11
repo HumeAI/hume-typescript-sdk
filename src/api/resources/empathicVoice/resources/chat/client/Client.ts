@@ -58,7 +58,11 @@ export class Chat {
             queryParams["config_version"] = args.configVersion;
         }
 
-        if (args.resumedChatGroupId !== null && args.resumedChatGroupId !== undefined && args.resumedChatGroupId !== "") {
+        if (
+            args.resumedChatGroupId !== null &&
+            args.resumedChatGroupId !== undefined &&
+            args.resumedChatGroupId !== ""
+        ) {
             queryParams["resumed_chat_group_id"] = args.resumedChatGroupId;
         }
 
