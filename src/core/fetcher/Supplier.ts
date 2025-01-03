@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 export type Supplier<T> = T | (() => T);
 
 export const Supplier = {

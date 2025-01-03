@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 export class Event {
     public target: any;
     public type: string;

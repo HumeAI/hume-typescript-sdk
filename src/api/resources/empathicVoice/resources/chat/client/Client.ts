@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import qs from "qs";
