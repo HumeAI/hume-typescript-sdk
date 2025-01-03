@@ -6,6 +6,7 @@ import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import { Tools } from "../resources/tools/client/Client";
 import { Prompts } from "../resources/prompts/client/Client";
+import { CustomVoices } from "../resources/customVoices/client/Client";
 import { Configs } from "../resources/configs/client/Client";
 import { Chats } from "../resources/chats/client/Client";
 import { ChatGroups } from "../resources/chatGroups/client/Client";
@@ -42,6 +43,12 @@ export class EmpathicVoice {
 
     public get prompts(): Prompts {
         return (this._prompts ??= new Prompts(this._options));
+    }
+
+    protected _customVoices: CustomVoices | undefined;
+
+    public get customVoices(): CustomVoices {
+        return (this._customVoices ??= new CustomVoices(this._options));
     }
 
     protected _configs: Configs | undefined;
