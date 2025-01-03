@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 import { HumeClient } from "../../src/";
 
 describe("Streaming Expression Measurement", () => {
