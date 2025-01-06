@@ -5,7 +5,7 @@
  * @param {string} contentType - The MIME type to assign to the resulting `Blob`.
  * @returns {Blob} A `Blob` object containing the binary data from the base64 string.
  */
-export function convertBase64ToBlob(base64: string, contentType: string): Blob {
+export function convertBase64ToBlob(base64: string, contentType?: string): Blob {
     // Decode base64 string to a binary string
     const binaryString = window.atob(base64);
 
