@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 export * from "./fetcher";
 export * from "./runtime";
 export * from "./form-data-utils";

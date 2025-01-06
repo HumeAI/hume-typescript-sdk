@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 import { RUNTIME } from "../runtime";
 import * as Events from "./events";
 import { WebSocket as NodeWebSocket } from "ws";
