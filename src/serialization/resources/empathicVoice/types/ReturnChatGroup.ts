@@ -5,6 +5,7 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnConfigSpec } from "./ReturnConfigSpec";
 
 export const ReturnChatGroup: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatGroup.Raw,
@@ -14,6 +15,7 @@ export const ReturnChatGroup: core.serialization.ObjectSchema<
     firstStartTimestamp: core.serialization.property("first_start_timestamp", core.serialization.number()),
     mostRecentStartTimestamp: core.serialization.property("most_recent_start_timestamp", core.serialization.number()),
     mostRecentChatId: core.serialization.property("most_recent_chat_id", core.serialization.string().optional()),
+    mostRecentConfig: core.serialization.property("most_recent_config", ReturnConfigSpec.optional()),
     numChats: core.serialization.property("num_chats", core.serialization.number()),
     active: core.serialization.boolean().optional(),
 });
@@ -24,6 +26,7 @@ export declare namespace ReturnChatGroup {
         first_start_timestamp: number;
         most_recent_start_timestamp: number;
         most_recent_chat_id?: string | null;
+        most_recent_config?: ReturnConfigSpec.Raw | null;
         num_chats: number;
         active?: boolean | null;
     }

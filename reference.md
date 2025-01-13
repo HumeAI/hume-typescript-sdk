@@ -2905,7 +2905,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a chat. Formatted as a UUID.
+**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
 
 </dd>
 </dl>
