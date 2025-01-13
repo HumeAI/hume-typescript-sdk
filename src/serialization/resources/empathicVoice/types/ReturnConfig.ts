@@ -13,6 +13,7 @@ import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool";
 import { ReturnEventMessageSpecs } from "./ReturnEventMessageSpecs";
 import { ReturnTimeoutSpecs } from "./ReturnTimeoutSpecs";
+import { ReturnedWebhookSpec } from "./ReturnedWebhookSpec";
 
 export const ReturnConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfig.Raw,
@@ -36,6 +37,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     ),
     eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
     timeouts: ReturnTimeoutSpecs.optional(),
+    webhooks: core.serialization.list(ReturnedWebhookSpec.optional()).optional(),
 });
 
 export declare namespace ReturnConfig {
@@ -55,5 +57,6 @@ export declare namespace ReturnConfig {
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
         event_messages?: ReturnEventMessageSpecs.Raw | null;
         timeouts?: ReturnTimeoutSpecs.Raw | null;
+        webhooks?: (ReturnedWebhookSpec.Raw | null | undefined)[] | null;
     }
 }

@@ -66,4 +66,6 @@ export interface PostedConfig {
     builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
     timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
+    /** Webhook config specifications for each subscriber. */
+    webhooks?: (Hume.empathicVoice.PostedWebhookSpec | undefined)[];
 }
