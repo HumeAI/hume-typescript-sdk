@@ -2030,6 +2030,81 @@ await client.empathicVoice.customVoices.deleteCustomVoice("id");
 </dl>
 </details>
 
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">updateCustomVoiceName</a>(id, { ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the name of a **Custom Voice**.
+
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
+    name: "name",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedCustomVoiceName`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## EmpathicVoice Configs
 
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> Hume.ReturnPagedConfigs</code></summary>
