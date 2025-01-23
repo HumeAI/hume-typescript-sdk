@@ -69,8 +69,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -155,8 +155,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -237,8 +237,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -324,8 +324,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -403,8 +403,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -463,6 +463,11 @@ export class CustomVoices {
      * @param {CustomVoices.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
+     * @example
+     *     await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
+     *         name: "name"
+     *     })
      */
     public async updateCustomVoiceName(
         id: string,
@@ -478,8 +483,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
