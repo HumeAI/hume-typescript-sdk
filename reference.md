@@ -1224,7 +1224,7 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVerison</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVersion</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
 <dl>
 <dd>
 
@@ -1254,7 +1254,7 @@ See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for 
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
     text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
     versionDescription: "This is an updated version of the Weather Assistant Prompt.",
 });
@@ -2012,6 +2012,81 @@ await client.empathicVoice.customVoices.deleteCustomVoice("id");
 <dd>
 
 **id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">updateCustomVoiceName</a>(id, { ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the name of a **Custom Voice**.
+
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
+    name: "name",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedCustomVoiceName`
 
 </dd>
 </dl>

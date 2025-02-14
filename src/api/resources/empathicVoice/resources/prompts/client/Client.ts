@@ -75,8 +75,8 @@ export class Prompts {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.10",
-                    "User-Agent": "hume/0.9.10",
+                    "X-Fern-SDK-Version": "0.9.11",
+                    "User-Agent": "hume/0.9.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -169,8 +169,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -267,8 +267,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -335,12 +335,12 @@ export class Prompts {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+     *     await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
      *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
      *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
      *     })
      */
-    public async createPromptVerison(
+    public async createPromptVersion(
         id: string,
         request: Hume.empathicVoice.PostedPromptVersion,
         requestOptions?: Prompts.RequestOptions
@@ -354,8 +354,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -370,7 +370,7 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.prompts.createPromptVerison.Response.parseOrThrow(_response.body, {
+            return serializers.empathicVoice.prompts.createPromptVersion.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -435,8 +435,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -515,8 +515,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -599,8 +599,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -686,8 +686,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -772,8 +772,8 @@ export class Prompts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
