@@ -4,6 +4,7 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { ExpressionMeasurement } from "./api/resources/expressionMeasurement/client/Client";
 import { EmpathicVoice } from "./api/resources/empathicVoice/client/Client";
+import { Tts } from "./api/resources/tts/client/Client";
 
 export declare namespace HumeClient {
     interface Options {
@@ -36,5 +37,11 @@ export class HumeClient {
 
     public get empathicVoice(): EmpathicVoice {
         return (this._empathicVoice ??= new EmpathicVoice(this._options));
+    }
+
+    protected _tts: Tts | undefined;
+
+    public get tts(): Tts {
+        return (this._tts ??= new Tts(this._options));
     }
 }

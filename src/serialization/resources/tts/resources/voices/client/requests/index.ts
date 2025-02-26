@@ -1,0 +1,1 @@
+export { PostedVoice } from "./PostedVoice";

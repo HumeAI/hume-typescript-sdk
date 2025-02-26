@@ -8,7 +8,7 @@ import * as core from "../../../../../../core";
 import { ReturnPrompt } from "../../../types/ReturnPrompt";
 
 export const Response: core.serialization.Schema<
-    serializers.empathicVoice.prompts.createPromptVerison.Response.Raw,
+    serializers.empathicVoice.prompts.createPromptVersion.Response.Raw,
     Hume.empathicVoice.ReturnPrompt | undefined
 > = ReturnPrompt.optional();
 

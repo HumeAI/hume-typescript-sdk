@@ -1,8 +1,8 @@
 # Reference
 
-## ExpressionMeasurement Batch
+## Tts
 
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code></summary>
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJson</a>({ ...params }) -> Hume.ReturnTts</code></summary>
 <dl>
 <dd>
 
@@ -14,7 +14,9 @@
 <dl>
 <dd>
 
-Sort and filter jobs.
+Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response includes the base64-encoded audio and metadata in JSON format.
 
 </dd>
 </dl>
@@ -30,72 +32,27 @@ Sort and filter jobs.
 <dd>
 
 ```typescript
-await client.expressionMeasurement.batch.listJobs();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.expressionMeasurement.batch.BatchListJobsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Batch.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Start a new measurement inference job.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.expressionMeasurement.batch.startInferenceJob({
-    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
-    notify: true,
+await client.tts.synthesizeJson({
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm,  steady tone with an articulate, academic quality.",
+        },
+    ],
+    context: {
+        utterances: [
+            {
+                text: "How can people see beauty so differently?",
+                description:
+                    "A curious student with a clear and respectful tone, seeking clarification on Hume's  ideas with a straightforward question.",
+            },
+        ],
+    },
+    format: {
+        type: "mp3",
+    },
+    numGenerations: 1,
 });
 ```
 
@@ -112,7 +69,7 @@ await client.expressionMeasurement.batch.startInferenceJob({
 <dl>
 <dd>
 
-**request:** `Hume.InferenceBaseRequest`
+**request:** `Hume.PostedTts`
 
 </dd>
 </dl>
@@ -120,7 +77,7 @@ await client.expressionMeasurement.batch.startInferenceJob({
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `Tts.RequestOptions`
 
 </dd>
 </dl>
@@ -131,7 +88,7 @@ await client.expressionMeasurement.batch.startInferenceJob({
 </dl>
 </details>
 
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code></summary>
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFile</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -143,7 +100,9 @@ await client.expressionMeasurement.batch.startInferenceJob({
 <dl>
 <dd>
 
-Get the request details and state of a given job.
+Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response contains the generated audio file in the requested format.
 
 </dd>
 </dl>
@@ -159,7 +118,22 @@ Get the request details and state of a given job.
 <dd>
 
 ```typescript
-await client.expressionMeasurement.batch.getJobDetails("job_id");
+await client.tts.synthesizeFile({
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm,  steady tone with an articulate, academic quality.",
+        },
+    ],
+    context: {
+        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2",
+    },
+    format: {
+        type: "mp3",
+    },
+    numGenerations: 1,
+});
 ```
 
 </dd>
@@ -175,7 +149,7 @@ await client.expressionMeasurement.batch.getJobDetails("job_id");
 <dl>
 <dd>
 
-**id:** `string` — The unique identifier for the job.
+**request:** `Hume.PostedTts`
 
 </dd>
 </dl>
@@ -183,7 +157,7 @@ await client.expressionMeasurement.batch.getJobDetails("job_id");
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `Tts.RequestOptions`
 
 </dd>
 </dl>
@@ -194,7 +168,9 @@ await client.expressionMeasurement.batch.getJobDetails("job_id");
 </dl>
 </details>
 
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code></summary>
+## Tts Voices
+
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
 <dl>
 <dd>
 
@@ -206,7 +182,7 @@ await client.expressionMeasurement.batch.getJobDetails("job_id");
 <dl>
 <dd>
 
-Get the JSON predictions of a completed inference job.
+Creates a new voice from a specified TTS generation ID and saves it to your **Voice Library**. This allows for consistent speech style and prosody across multiple requests.
 
 </dd>
 </dl>
@@ -222,7 +198,10 @@ Get the JSON predictions of a completed inference job.
 <dd>
 
 ```typescript
-await client.expressionMeasurement.batch.getJobPredictions("job_id");
+await client.tts.voices.create({
+    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
+    name: "David Hume",
+});
 ```
 
 </dd>
@@ -238,7 +217,7 @@ await client.expressionMeasurement.batch.getJobPredictions("job_id");
 <dl>
 <dd>
 
-**id:** `string` — The unique identifier for the job.
+**request:** `Hume.tts.PostedVoice`
 
 </dd>
 </dl>
@@ -246,81 +225,7 @@ await client.expressionMeasurement.batch.getJobPredictions("job_id");
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Start a new batch inference job.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
-    [fs.createReadStream("/path/to/your/file")],
-    {}
-);
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**file:** `File[] | fs.ReadStream[] | Blob[]`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `Voices.RequestOptions`
 
 </dd>
 </dl>
@@ -347,7 +252,7 @@ await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
 
 Fetches a paginated list of **Tools**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -415,7 +320,7 @@ await client.empathicVoice.tools.listTools({
 
 Creates a **Tool** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -487,7 +392,7 @@ await client.empathicVoice.tools.createTool({
 
 Fetches a list of a **Tool's** versions.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -560,7 +465,7 @@ await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-60986
 
 Updates a **Tool** by creating a new version of the **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -639,7 +544,7 @@ await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-6098
 
 Deletes a **Tool** and its versions.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -704,7 +609,7 @@ await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268be
 
 Updates the name of a **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -779,7 +684,7 @@ await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-6098642
 
 Fetches a specified version of a **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -858,7 +763,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 Deletes a specified version of a **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -937,7 +842,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 Updates the description of a specified **Tool** version.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -1029,7 +934,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 Fetches a paginated list of **Prompts**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1097,7 +1002,7 @@ await client.empathicVoice.prompts.listPrompts({
 
 Creates a **Prompt** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1165,7 +1070,7 @@ await client.empathicVoice.prompts.createPrompt({
 
 Fetches a list of a **Prompt's** versions.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1224,7 +1129,7 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVerison</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVersion</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
 <dl>
 <dd>
 
@@ -1238,7 +1143,7 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 
 Updates a **Prompt** by creating a new version of the **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1254,7 +1159,7 @@ See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for 
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
     text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
     versionDescription: "This is an updated version of the Weather Assistant Prompt.",
 });
@@ -1314,7 +1219,7 @@ await client.empathicVoice.prompts.createPromptVerison("af699d45-2985-42cc-91b9-
 
 Deletes a **Prompt** and its versions.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1379,7 +1284,7 @@ await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da
 
 Updates the name of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1454,7 +1359,7 @@ await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9
 
 Fetches a specified version of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1533,7 +1438,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 Deletes a specified version of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1612,7 +1517,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 Updates the description of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1703,7 +1608,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 Fetches a paginated list of **Custom Voices**.
 
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
 
 </dd>
 </dl>
@@ -1768,7 +1673,7 @@ await client.empathicVoice.customVoices.listCustomVoices();
 
 Creates a **Custom Voice** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
 
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
 
 </dd>
 </dl>
@@ -1837,7 +1742,7 @@ await client.empathicVoice.customVoices.createCustomVoice({
 
 Fetches a specific **Custom Voice** by ID.
 
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
 
 </dd>
 </dl>
@@ -1902,7 +1807,7 @@ await client.empathicVoice.customVoices.getCustomVoice("id");
 
 Updates a **Custom Voice** by creating a new version of the **Custom Voice**.
 
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
 
 </dd>
 </dl>
@@ -1979,7 +1884,7 @@ await client.empathicVoice.customVoices.createCustomVoiceVersion("id", {
 
 Deletes a **Custom Voice** and its versions.
 
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
 
 </dd>
 </dl>
@@ -2012,6 +1917,81 @@ await client.empathicVoice.customVoices.deleteCustomVoice("id");
 <dd>
 
 **id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomVoices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">updateCustomVoiceName</a>(id, { ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the name of a **Custom Voice**.
+
+Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
+    name: "name",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedCustomVoiceName`
 
 </dd>
 </dl>
@@ -3253,6 +3233,337 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dd>
 
 **requestOptions:** `ChatGroups.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## ExpressionMeasurement Batch
+
+<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">listJobs</a>({ ...params }) -> Hume.UnionJob[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sort and filter jobs.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.expressionMeasurement.batch.listJobs();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.expressionMeasurement.batch.BatchListJobsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batch.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJob</a>({ ...params }) -> Hume.JobId</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start a new measurement inference job.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.expressionMeasurement.batch.startInferenceJob({
+    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
+    notify: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.InferenceBaseRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batch.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobDetails</a>(id) -> Hume.UnionJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the request details and state of a given job.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.expressionMeasurement.batch.getJobDetails("job_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The unique identifier for the job.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batch.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">getJobPredictions</a>(id) -> Hume.UnionPredictResult[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the JSON predictions of a completed inference job.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.expressionMeasurement.batch.getJobPredictions("job_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The unique identifier for the job.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batch.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start a new batch inference job.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
+    [fs.createReadStream("/path/to/your/file")],
+    {}
+);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**file:** `File[] | fs.ReadStream[] | Blob[]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batch.RequestOptions`
 
 </dd>
 </dl>
