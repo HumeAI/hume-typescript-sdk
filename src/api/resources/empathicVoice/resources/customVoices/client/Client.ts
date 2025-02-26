@@ -32,7 +32,7 @@ export class CustomVoices {
     /**
      * Fetches a paginated list of **Custom Voices**.
      *
-     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
      *
      * @param {Hume.empathicVoice.CustomVoicesListCustomVoicesRequest} request
      * @param {CustomVoices.RequestOptions} requestOptions - Request-specific configuration.
@@ -69,8 +69,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -128,7 +128,7 @@ export class CustomVoices {
     /**
      * Creates a **Custom Voice** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
      *
-     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
      *
      * @param {Hume.empathicVoice.PostedCustomVoice} request
      * @param {CustomVoices.RequestOptions} requestOptions - Request-specific configuration.
@@ -155,8 +155,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -214,7 +214,7 @@ export class CustomVoices {
     /**
      * Fetches a specific **Custom Voice** by ID.
      *
-     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
      *
      * @param {string} id - Identifier for a Custom Voice. Formatted as a UUID.
      * @param {CustomVoices.RequestOptions} requestOptions - Request-specific configuration.
@@ -237,8 +237,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -295,7 +295,7 @@ export class CustomVoices {
     /**
      * Updates a **Custom Voice** by creating a new version of the **Custom Voice**.
      *
-     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
      *
      * @param {string} id - Identifier for a Custom Voice. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedCustomVoice} request
@@ -324,8 +324,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -383,7 +383,7 @@ export class CustomVoices {
     /**
      * Deletes a **Custom Voice** and its versions.
      *
-     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
      *
      * @param {string} id - Identifier for a Custom Voice. Formatted as a UUID.
      * @param {CustomVoices.RequestOptions} requestOptions - Request-specific configuration.
@@ -403,8 +403,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -456,13 +456,18 @@ export class CustomVoices {
     /**
      * Updates the name of a **Custom Voice**.
      *
-     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/voices) for details on creating a custom voice.
+     * Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
      *
      * @param {string} id - Identifier for a Custom Voice. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedCustomVoiceName} request
      * @param {CustomVoices.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
+     * @example
+     *     await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
+     *         name: "name"
+     *     })
      */
     public async updateCustomVoiceName(
         id: string,
@@ -478,8 +483,8 @@ export class CustomVoices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.10",
-                "User-Agent": "hume/0.9.10",
+                "X-Fern-SDK-Version": "0.9.11",
+                "User-Agent": "hume/0.9.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
