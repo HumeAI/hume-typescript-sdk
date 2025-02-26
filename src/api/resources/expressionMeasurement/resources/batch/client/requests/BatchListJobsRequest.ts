@@ -32,7 +32,7 @@ export interface BatchListJobsRequest {
     /**
      * Provide a timestamp in milliseconds to filter jobs.
      *
-     * When combined with the `when` parameter, you can filter jobs before or after the given timestamp. Defaults to the current Unix timestamp if one is not provided.
+     *  When combined with the `when` parameter, you can filter jobs before or after the given timestamp. Defaults to the current Unix timestamp if one is not provided.
      */
     timestampMs?: number;
     /**
