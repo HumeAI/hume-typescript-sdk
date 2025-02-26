@@ -74,8 +74,8 @@ export class Chats {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.11",
-                    "User-Agent": "hume/0.9.11",
+                    "X-Fern-SDK-Version": "0.9.12",
+                    "User-Agent": "hume/0.9.12",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -183,8 +183,8 @@ export class Chats {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.11",
-                    "User-Agent": "hume/0.9.11",
+                    "X-Fern-SDK-Version": "0.9.12",
+                    "User-Agent": "hume/0.9.12",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -272,8 +272,8 @@ export class Chats {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.11",
-                "User-Agent": "hume/0.9.11",
+                "X-Fern-SDK-Version": "0.9.12",
+                "User-Agent": "hume/0.9.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
