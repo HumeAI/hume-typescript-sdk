@@ -168,6 +168,77 @@ await client.tts.synthesizeFile({
 </dl>
 </details>
 
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">streamJson</a>({ ...params }) -> core.Stream<Hume.ReturnGenerationChunk></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response is streamed as Server-Sent Events (SSE) with JSON data containing the audio encoded in base64.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.streamJson({
+    utterances: [
+        {
+            text: "text",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Tts Voices
 
 <details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
