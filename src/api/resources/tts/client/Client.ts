@@ -72,8 +72,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.12",
-                "User-Agent": "hume/0.9.12",
+                "X-Fern-SDK-Version": "0.9.13",
+                "User-Agent": "hume/0.9.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,8 +147,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.12",
-                "User-Agent": "hume/0.9.12",
+                "X-Fern-SDK-Version": "0.9.13",
+                "User-Agent": "hume/0.9.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -163,6 +163,177 @@ export class Tts {
         });
         if (_response.ok) {
             return _response.body;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {Hume.tts.StreamFileV0TtsStreamFilePostRequest} request
+     * @param {Tts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.tts.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.tts.streamFileV0TtsStreamFilePost({
+     *         body: {
+     *             utterances: [{
+     *                     text: "text"
+     *                 }]
+     *         }
+     *     })
+     */
+    public async streamFileV0TtsStreamFilePost(
+        request: Hume.tts.StreamFileV0TtsStreamFilePostRequest,
+        requestOptions?: Tts.RequestOptions
+    ): Promise<unknown> {
+        const { accessToken, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (accessToken != null) {
+            _queryParams["access_token"] = accessToken;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
+                "v0/tts/stream/file"
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.9.13",
+                "User-Agent": "hume/0.9.13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            body: serializers.tts.PostedTts.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return _response.body;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Streams synthesized speech using the specified voice. If no voice is provided,  a novel voice will be generated dynamically. Optionally, additional context can be included to influence the  speech's style and prosody.
+     *
+     * The response is streamed as Server-Sent Events (SSE) with JSON data containing the audio encoded in base64.
+     */
+    public async streamJson(
+        request: Hume.tts.PostedTts,
+        requestOptions?: Tts.RequestOptions
+    ): Promise<core.Stream<Hume.tts.ReturnGenerationChunk>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
+                "v0/tts/stream/json"
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.9.13",
+                "User-Agent": "hume/0.9.13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            responseType: "sse",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return new core.Stream({
+                stream: _response.body,
+                parse: async (data) => {
+                    return serializers.tts.ReturnGenerationChunk.parseOrThrow(data, {
+                        unrecognizedObjectKeys: "passthrough",
+                        allowUnrecognizedUnionMembers: true,
+                        allowUnrecognizedEnumValues: true,
+                        breadcrumbsPrefix: ["response"],
+                    });
+                },
+                signal: requestOptions?.abortSignal,
+                eventShape: {
+                    type: "sse",
+                    streamTerminator: "[DONE]",
+                },
+            });
         }
 
         if (_response.error.reason === "status-code") {

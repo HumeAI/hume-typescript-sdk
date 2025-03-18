@@ -4,9 +4,6 @@
 
 import * as Hume from "../../../index";
 
-/**
- * Specifies the output audio file format.
- */
 export type Format = Hume.tts.Format.Mp3 | Hume.tts.Format.Pcm | Hume.tts.Format.Wav;
 
 export declare namespace Format {

@@ -168,6 +168,147 @@ await client.tts.synthesizeFile({
 </dl>
 </details>
 
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">streamFileV0TtsStreamFilePost</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.streamFileV0TtsStreamFilePost({
+    body: {
+        utterances: [
+            {
+                text: "text",
+            },
+        ],
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.StreamFileV0TtsStreamFilePostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">streamJson</a>({ ...params }) -> core.Stream<Hume.ReturnGenerationChunk></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response is streamed as Server-Sent Events (SSE) with JSON data containing the audio encoded in base64.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.streamJson({
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm,  steady tone with an articulate, academic quality.",
+        },
+    ],
+    context: {
+        utterances: [
+            {
+                text: "How can people see beauty so differently?",
+                description:
+                    "A curious student with a clear and respectful tone, seeking clarification on Hume's  ideas with a straightforward question.",
+            },
+        ],
+    },
+    format: {
+        type: "mp3",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Tts Voices
 
 <details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
