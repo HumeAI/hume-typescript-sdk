@@ -9,14 +9,20 @@ import * as core from "../../../../core";
 export const Snippet: core.serialization.ObjectSchema<serializers.tts.Snippet.Raw, Hume.tts.Snippet> =
     core.serialization.object({
         audio: core.serialization.string(),
+        audioFormat: core.serialization.property("audio_format", core.serialization.string()),
+        generationId: core.serialization.property("generation_id", core.serialization.string()),
         id: core.serialization.string(),
         text: core.serialization.string(),
+        utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
     });
 
 export declare namespace Snippet {
     interface Raw {
         audio: string;
+        audio_format: string;
+        generation_id: string;
         id: string;
         text: string;
+        utterance_index?: number | null;
     }
 }

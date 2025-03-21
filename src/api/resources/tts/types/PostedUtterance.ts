@@ -13,8 +13,12 @@ export interface PostedUtterance {
      *  See our  [prompting guide](/docs/text-to-speech-tts/prompting) for tips on crafting your descriptions.
      */
     description?: string;
+    /** Speed multiplier for the synthesized speech. */
+    speed?: number;
     /** The input text to be synthesized into speech. */
     text: string;
+    /** Duration of trailing silence (in seconds) to add to this utterance */
+    trailingSilence?: number;
     /**
      * The `name` or `id` associated with a **Voice** from the **Voice Library** to be used as the  speaker for this and all subsequent `utterances`, until the `voice` field is updated again.
      *

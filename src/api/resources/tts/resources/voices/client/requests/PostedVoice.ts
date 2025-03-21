@@ -10,7 +10,7 @@
  *     }
  */
 export interface PostedVoice {
-    /** Id of the TTS generation (as returned by the [/v0/tts endpoint](/reference/text-to-speech-evi/synthesize-json#response.body.generations.generation_id)) that should be saved as a voice. */
+    /** A unique ID associated with this TTS generation that can be used as context for generating consistent speech style and prosody across multiple requests. */
     generationId: string;
     /** Name of the voice in the `Voice Library`. */
     name: string;

@@ -12,14 +12,18 @@ export const PostedUtterance: core.serialization.ObjectSchema<
     Hume.tts.PostedUtterance
 > = core.serialization.object({
     description: core.serialization.string().optional(),
+    speed: core.serialization.number().optional(),
     text: core.serialization.string(),
+    trailingSilence: core.serialization.property("trailing_silence", core.serialization.number().optional()),
     voice: PostedUtteranceVoice.optional(),
 });
 
 export declare namespace PostedUtterance {
     interface Raw {
         description?: string | null;
+        speed?: number | null;
         text: string;
+        trailing_silence?: number | null;
         voice?: PostedUtteranceVoice.Raw | null;
     }
 }
