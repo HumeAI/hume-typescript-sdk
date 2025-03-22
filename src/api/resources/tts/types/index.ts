@@ -11,7 +11,6 @@ export * from "./PostedTts";
 export * from "./ReturnTts";
 export * from "./ReturnVoice";
 export * from "./FormatPcm";
-export * from "./PostedTtsRecord";
 export * from "./Snippet";
 export * from "./PostedUtterance";
 export * from "./ValidationErrorLocItem";
