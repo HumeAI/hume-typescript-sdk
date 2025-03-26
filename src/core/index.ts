@@ -1,5 +1,5 @@
 /** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-export * from './streaming-fetcher';
+export * from "./streaming-fetcher";
 export * from "./fetcher";
 export * from "./runtime";
 export * from "./form-data-utils";
