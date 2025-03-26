@@ -5,8 +5,6 @@
 export interface Snippet {
     /** The segmented audio output in the requested format, encoded as a base64 string. */
     audio: string;
-    /** The generated audio output format. */
-    audioFormat: string;
     /** The generation ID this snippet corresponds to. */
     generationId: string;
     /** A unique ID associated with this **Snippet**. */
