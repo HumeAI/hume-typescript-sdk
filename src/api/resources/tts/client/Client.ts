@@ -72,8 +72,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.16",
-                "User-Agent": "hume/0.9.16",
+                "X-Fern-SDK-Version": "0.9.17",
+                "User-Agent": "hume/0.9.17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,8 +147,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.16",
-                "User-Agent": "hume/0.9.16",
+                "X-Fern-SDK-Version": "0.9.17",
+                "User-Agent": "hume/0.9.17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -216,8 +216,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.16",
-                "User-Agent": "hume/0.9.16",
+                "X-Fern-SDK-Version": "0.9.17",
+                "User-Agent": "hume/0.9.17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -276,7 +276,7 @@ export class Tts {
     public async synthesizeJsonStreaming(
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions
-    ): Promise<core.Stream<Hume.tts.Snippet>> {
+    ): Promise<core.Stream<Hume.tts.SnippetAudioChunk>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
@@ -286,8 +286,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.16",
-                "User-Agent": "hume/0.9.16",
+                "X-Fern-SDK-Version": "0.9.17",
+                "User-Agent": "hume/0.9.17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -304,7 +304,7 @@ export class Tts {
             return new core.Stream({
                 stream: _response.body,
                 parse: async (data) => {
-                    return serializers.tts.Snippet.parseOrThrow(data, {
+                    return serializers.tts.SnippetAudioChunk.parseOrThrow(data, {
                         unrecognizedObjectKeys: "passthrough",
                         allowUnrecognizedUnionMembers: true,
                         allowUnrecognizedEnumValues: true,
