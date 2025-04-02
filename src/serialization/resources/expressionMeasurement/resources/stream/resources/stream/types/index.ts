@@ -1,7 +1,3 @@
-export * from "./StreamFace";
-export * from "./StreamLanguage";
-export * from "./Config";
-export * from "./StreamModelsEndpointPayload";
 export * from "./StreamModelPredictionsJobDetails";
 export * from "./StreamModelPredictionsBurstPredictionsItem";
 export * from "./StreamModelPredictionsBurst";
@@ -19,3 +15,7 @@ export * from "./StreamErrorMessage";
 export * from "./StreamWarningMessageJobDetails";
 export * from "./StreamWarningMessage";
 export * from "./SubscribeEvent";
+export * from "./StreamFace";
+export * from "./StreamLanguage";
+export * from "./Config";
+export * from "./StreamModelsEndpointPayload";
