@@ -12,11 +12,13 @@ export const ErrorResponse: core.serialization.ObjectSchema<
 > = core.serialization.object({
     error: core.serialization.string().optional(),
     message: core.serialization.string().optional(),
+    code: core.serialization.string().optional(),
 });
 
 export declare namespace ErrorResponse {
     interface Raw {
         error?: string | null;
         message?: string | null;
+        code?: string | null;
     }
 }

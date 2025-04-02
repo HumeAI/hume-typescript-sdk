@@ -5,16 +5,16 @@
 import * as Hume from "../../../index";
 
 export interface WebhookEventChatEnded extends Hume.empathicVoice.WebhookEventBase {
-    /** Always `chat_ended`. */
-    eventName?: "chat_ended";
-    /** Unix timestamp (in milliseconds) indicating when the session ended. */
-    endTime: number;
+    /** Phone number of the caller in E.164 format (e.g., `+12223333333`). This field is included only if the Chat was created via the [Twilio phone calling](/docs/empathic-voice-interface-evi/phone-calling) integration. */
+    callerNumber?: string;
+    /** User-defined session ID. Relevant only when employing a [custom language model](/docs/empathic-voice-interface-evi/custom-language-model) in the EVI Config. */
+    customSessionId?: string;
     /** Total duration of the session in seconds. */
     durationSeconds: number;
     /** Reason for the session's termination. */
     endReason: Hume.empathicVoice.WebhookEventChatStatus;
-    /** Phone number of the caller in E.164 format (e.g., `+12223333333`). This field is included only if the Chat was created via the [Twilio phone calling](/docs/empathic-voice-interface-evi/guides/phone-calling) integration. */
-    callerNumber?: string;
-    /** User-defined session ID. Relevant only when employing a [custom language model](/docs/empathic-voice-interface-evi/guides/custom-language-model) in the EVI Config. */
-    customSessionId?: string;
+    /** Unix timestamp (in milliseconds) indicating when the session ended. */
+    endTime: number;
+    /** Always `chat_ended`. */
+    eventName?: "chat_ended";
 }

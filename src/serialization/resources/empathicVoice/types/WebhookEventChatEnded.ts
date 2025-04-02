@@ -13,22 +13,22 @@ export const WebhookEventChatEnded: core.serialization.ObjectSchema<
     Hume.empathicVoice.WebhookEventChatEnded
 > = core.serialization
     .object({
-        eventName: core.serialization.property("event_name", core.serialization.stringLiteral("chat_ended").optional()),
-        endTime: core.serialization.property("end_time", core.serialization.number()),
-        durationSeconds: core.serialization.property("duration_seconds", core.serialization.number()),
-        endReason: core.serialization.property("end_reason", WebhookEventChatStatus),
         callerNumber: core.serialization.property("caller_number", core.serialization.string().optional()),
         customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+        durationSeconds: core.serialization.property("duration_seconds", core.serialization.number()),
+        endReason: core.serialization.property("end_reason", WebhookEventChatStatus),
+        endTime: core.serialization.property("end_time", core.serialization.number()),
+        eventName: core.serialization.property("event_name", core.serialization.stringLiteral("chat_ended").optional()),
     })
     .extend(WebhookEventBase);
 
 export declare namespace WebhookEventChatEnded {
     interface Raw extends WebhookEventBase.Raw {
-        event_name?: "chat_ended" | null;
-        end_time: number;
-        duration_seconds: number;
-        end_reason: WebhookEventChatStatus.Raw;
         caller_number?: string | null;
         custom_session_id?: string | null;
+        duration_seconds: number;
+        end_reason: WebhookEventChatStatus.Raw;
+        end_time: number;
+        event_name?: "chat_ended" | null;
     }
 }

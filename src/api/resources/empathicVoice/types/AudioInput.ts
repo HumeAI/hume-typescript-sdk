@@ -6,12 +6,6 @@
  * When provided, the input is audio.
  */
 export interface AudioInput {
-    /**
-     * The type of message sent through the socket; must be `audio_input` for our server to correctly identify and process it as an Audio Input message.
-     *
-     * This message is used for sending audio input data to EVI for processing and expression measurement. Audio data should be sent as a continuous stream, encoded in Base64.
-     */
-    type: "audio_input";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /**
@@ -24,4 +18,10 @@ export interface AudioInput {
      * Hume recommends streaming audio with a buffer window of 20 milliseconds (ms), or 100 milliseconds (ms) for web applications.
      */
     data: string;
+    /**
+     * The type of message sent through the socket; must be `audio_input` for our server to correctly identify and process it as an Audio Input message.
+     *
+     * This message is used for sending audio input data to EVI for processing and expression measurement. Audio data should be sent as a continuous stream, encoded in Base64.
+     */
+    type: "audio_input";
 }

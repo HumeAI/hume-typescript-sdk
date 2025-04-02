@@ -10,15 +10,15 @@ export const UserInput: core.serialization.ObjectSchema<
     serializers.empathicVoice.UserInput.Raw,
     Hume.empathicVoice.UserInput
 > = core.serialization.object({
-    type: core.serialization.stringLiteral("user_input"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     text: core.serialization.string(),
+    type: core.serialization.stringLiteral("user_input"),
 });
 
 export declare namespace UserInput {
     interface Raw {
-        type: "user_input";
         custom_session_id?: string | null;
         text: string;
+        type: "user_input";
     }
 }
