@@ -20,3 +20,5 @@ export * from "./PostedUtteranceVoiceWithName";
 export * from "./VoiceProvider";
 export * from "./PostedUtteranceVoice";
 export * from "./FormatWav";
+export * from "./ErrorResponse";
+export * from "./ReturnPagedVoices";

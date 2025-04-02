@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Hume from "../../../../../index";
-import * as serializers from "../../../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Voices {
@@ -28,6 +28,103 @@ export declare namespace Voices {
 
 export class Voices {
     constructor(protected readonly _options: Voices.Options = {}) {}
+
+    /**
+     * Lists voices in your **Voice Library**. Set provider to `HUME_AI` to list Hume's preset voices, or to `CUSTOM_VOICE` to a custom voice created in your account.
+     *
+     * @param {Hume.tts.VoicesListRequest} request
+     * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.tts.BadRequestError}
+     *
+     * @example
+     *     await client.tts.voices.list({
+     *         provider: Hume.tts.VoicesListRequestProvider.CustomVoice
+     *     })
+     */
+    public async list(
+        request: Hume.tts.VoicesListRequest,
+        requestOptions?: Voices.RequestOptions
+    ): Promise<Hume.tts.ReturnPagedVoices> {
+        const { provider, pageNumber, pageSize, ascendingOrder } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["provider"] = provider;
+        if (pageNumber != null) {
+            _queryParams["page_number"] = pageNumber.toString();
+        }
+
+        if (pageSize != null) {
+            _queryParams["page_size"] = pageSize.toString();
+        }
+
+        if (ascendingOrder != null) {
+            _queryParams["ascending_order"] = ascendingOrder.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
+                "v0/tts/voices"
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.9.16",
+                "User-Agent": "hume/0.9.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.tts.ReturnPagedVoices.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.tts.BadRequestError(
+                        serializers.tts.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
 
     /**
      * Creates a new voice from a specified TTS generation ID and saves it to your **Voice Library**. This allows for consistent speech style and prosody across multiple requests.
@@ -56,8 +153,8 @@ export class Voices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.15",
-                "User-Agent": "hume/0.9.15",
+                "X-Fern-SDK-Version": "0.9.16",
+                "User-Agent": "hume/0.9.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -83,6 +180,83 @@ export class Voices {
                 case 422:
                     throw new Hume.tts.UnprocessableEntityError(
                         serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError();
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Removes a custom voice from your **Voice Library**.
+     *
+     * @param {Hume.tts.VoicesDeleteRequest} request
+     * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.tts.BadRequestError}
+     *
+     * @example
+     *     await client.tts.voices.delete({
+     *         name: "David Hume"
+     *     })
+     */
+    public async delete(request: Hume.tts.VoicesDeleteRequest, requestOptions?: Voices.RequestOptions): Promise<void> {
+        const { name } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["name"] = name;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
+                "v0/tts/voices"
+            ),
+            method: "DELETE",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "hume",
+                "X-Fern-SDK-Version": "0.9.16",
+                "User-Agent": "hume/0.9.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.tts.BadRequestError(
+                        serializers.tts.ErrorResponse.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,

@@ -5,32 +5,32 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { ToolType } from "./ToolType";
 import { ErrorLevel } from "./ErrorLevel";
+import { ToolType } from "./ToolType";
 
 export const ToolErrorMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ToolErrorMessage.Raw,
     Hume.empathicVoice.ToolErrorMessage
 > = core.serialization.object({
-    type: core.serialization.stringLiteral("tool_error"),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    toolType: core.serialization.property("tool_type", ToolType.optional()),
-    toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
-    content: core.serialization.string().optional(),
-    error: core.serialization.string(),
     code: core.serialization.string().optional(),
+    content: core.serialization.string().optional(),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    error: core.serialization.string(),
     level: ErrorLevel.optional(),
+    toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
+    toolType: core.serialization.property("tool_type", ToolType.optional()),
+    type: core.serialization.stringLiteral("tool_error"),
 });
 
 export declare namespace ToolErrorMessage {
     interface Raw {
-        type: "tool_error";
-        custom_session_id?: string | null;
-        tool_type?: ToolType.Raw | null;
-        tool_call_id: string;
-        content?: string | null;
-        error: string;
         code?: string | null;
+        content?: string | null;
+        custom_session_id?: string | null;
+        error: string;
         level?: ErrorLevel.Raw | null;
+        tool_call_id: string;
+        tool_type?: ToolType.Raw | null;
+        type: "tool_error";
     }
 }

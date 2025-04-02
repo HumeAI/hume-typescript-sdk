@@ -10,15 +10,15 @@ export const AssistantInput: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantInput.Raw,
     Hume.empathicVoice.AssistantInput
 > = core.serialization.object({
-    type: core.serialization.stringLiteral("assistant_input"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     text: core.serialization.string(),
+    type: core.serialization.stringLiteral("assistant_input"),
 });
 
 export declare namespace AssistantInput {
     interface Raw {
-        type: "assistant_input";
         custom_session_id?: string | null;
         text: string;
+        type: "assistant_input";
     }
 }

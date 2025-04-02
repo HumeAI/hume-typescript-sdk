@@ -5,16 +5,19 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { VoiceProvider } from "./VoiceProvider";
 
 export const ReturnVoice: core.serialization.ObjectSchema<serializers.tts.ReturnVoice.Raw, Hume.tts.ReturnVoice> =
     core.serialization.object({
         id: core.serialization.string().optional(),
-        name: core.serialization.string(),
+        name: core.serialization.string().optional(),
+        provider: VoiceProvider.optional(),
     });
 
 export declare namespace ReturnVoice {
     interface Raw {
         id?: string | null;
-        name: string;
+        name?: string | null;
+        provider?: VoiceProvider.Raw | null;
     }
 }
