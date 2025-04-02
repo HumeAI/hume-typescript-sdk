@@ -39,7 +39,7 @@ export class Voices {
      *
      * @example
      *     await client.tts.voices.list({
-     *         provider: Hume.tts.VoicesListRequestProvider.CustomVoice
+     *         provider: Hume.tts.VoiceProvider.CustomVoice
      *     })
      */
     public async list(
