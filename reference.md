@@ -362,7 +362,7 @@ Lists voices in your **Voice Library**. Set provider to `HUME_AI` to list Hume's
 
 ```typescript
 await client.tts.voices.list({
-    provider: Hume.VoicesListRequestProvider.CustomVoice,
+    provider: Hume.VoiceProvider.CustomVoice,
 });
 ```
 

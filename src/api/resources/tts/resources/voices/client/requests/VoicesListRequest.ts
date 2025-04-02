@@ -7,14 +7,14 @@ import * as Hume from "../../../../../../index";
 /**
  * @example
  *     {
- *         provider: Hume.tts.VoicesListRequestProvider.CustomVoice
+ *         provider: Hume.tts.VoiceProvider.CustomVoice
  *     }
  */
 export interface VoicesListRequest {
     /**
      * Specifies whether to return custom voices created in your account or shared voices provided by Hume
      */
-    provider: Hume.tts.VoicesListRequestProvider;
+    provider: Hume.tts.VoiceProvider;
     /**
      * Specifies the page number to retrieve, enabling pagination.
      *

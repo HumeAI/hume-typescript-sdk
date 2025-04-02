@@ -12,6 +12,7 @@ export * from "./ReturnTts";
 export * from "./ReturnVoice";
 export * from "./FormatPcm";
 export * from "./Snippet";
+export * from "./SnippetAudioChunk";
 export * from "./PostedUtterance";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";
