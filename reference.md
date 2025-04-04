@@ -333,7 +333,7 @@ await client.tts.synthesizeJsonStreaming({
 
 ## Tts Voices
 
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> Hume.ReturnPagedVoices</code></summary>
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice></code></summary>
 <dl>
 <dd>
 
@@ -1887,7 +1887,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 ## EmpathicVoice CustomVoices
 
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">listCustomVoices</a>({ ...params }) -> Hume.ReturnPagedCustomVoices</code></summary>
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">listCustomVoices</a>({ ...params }) -> core.Page<Hume.ReturnCustomVoice></code></summary>
 <dl>
 <dd>
 
@@ -2305,7 +2305,7 @@ await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
 
 ## EmpathicVoice Configs
 
-<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> Hume.ReturnPagedConfigs</code></summary>
+<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> core.Page<Hume.ReturnConfig></code></summary>
 <dl>
 <dd>
 
@@ -2468,7 +2468,7 @@ await client.empathicVoice.configs.createConfig({
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> Hume.ReturnPagedConfigs</code></summary>
+<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> core.Page<Hume.ReturnConfig></code></summary>
 <dl>
 <dd>
 
