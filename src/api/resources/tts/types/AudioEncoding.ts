@@ -4,9 +4,12 @@
 
 import * as Hume from "../../../index";
 
+/**
+ * Encoding information about the generated audio, including the `format` and `sample_rate`.
+ */
 export interface AudioEncoding {
     /** Format for the output audio. */
     format: Hume.tts.AudioFormatType;
-    /** Sample rate of the generated audio. */
+    /** The sample rate (`Hz`) of the generated audio. The default sample rate is `48000 Hz`. */
     sampleRate: number;
 }

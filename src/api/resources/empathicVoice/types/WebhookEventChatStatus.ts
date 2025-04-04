@@ -9,7 +9,6 @@ export type WebhookEventChatStatus =
     | "INACTIVITY_TIMEOUT"
     | "MAX_DURATION_TIMEOUT"
     | "ERROR";
-
 export const WebhookEventChatStatus = {
     Active: "ACTIVE",
     UserEnded: "USER_ENDED",

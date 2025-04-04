@@ -14,7 +14,7 @@ export const CustomModelVersionId: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomModelVersionId {
-    interface Raw {
+    export interface Raw {
         version_id: string;
     }
 }

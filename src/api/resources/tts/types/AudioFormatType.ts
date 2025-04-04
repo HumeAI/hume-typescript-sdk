@@ -3,7 +3,6 @@
  */
 
 export type AudioFormatType = "mp3" | "pcm" | "wav";
-
 export const AudioFormatType = {
     Mp3: "mp3",
     Pcm: "pcm",

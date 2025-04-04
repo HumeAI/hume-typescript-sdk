@@ -13,5 +13,5 @@ export const InProgressState: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(InProgress);
 
 export declare namespace InProgressState {
-    interface Raw extends InProgress.Raw {}
+    export interface Raw extends InProgress.Raw {}
 }

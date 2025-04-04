@@ -12,5 +12,5 @@ export const ReturnChatGroupPagedEventsPaginationDirection: core.serialization.S
 > = core.serialization.enum_(["ASC", "DESC"]);
 
 export declare namespace ReturnChatGroupPagedEventsPaginationDirection {
-    type Raw = "ASC" | "DESC";
+    export type Raw = "ASC" | "DESC";
 }

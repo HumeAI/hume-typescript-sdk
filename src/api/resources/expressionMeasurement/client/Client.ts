@@ -7,26 +7,19 @@ import * as core from "../../../../core";
 import { Batch } from "../resources/batch/client/Client";
 
 export declare namespace ExpressionMeasurement {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
-    }
-
-    interface RequestOptions {
-        /** The maximum time to wait for a response in seconds. */
-        timeoutInSeconds?: number;
-        /** The number of times to retry the request. Defaults to 2. */
-        maxRetries?: number;
-        /** A hook to abort the request. */
-        abortSignal?: AbortSignal;
     }
 }
 
 export class ExpressionMeasurement {
-    constructor(protected readonly _options: ExpressionMeasurement.Options = {}) {}
-
     protected _batch: Batch | undefined;
+
+    constructor(protected readonly _options: ExpressionMeasurement.Options = {}) {}
 
     public get batch(): Batch {
         return (this._batch ??= new Batch(this._options));

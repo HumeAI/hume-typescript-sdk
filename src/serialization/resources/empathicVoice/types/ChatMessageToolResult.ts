@@ -14,5 +14,5 @@ export const ChatMessageToolResult: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([ToolResponseMessage, ToolErrorMessage]);
 
 export declare namespace ChatMessageToolResult {
-    type Raw = ToolResponseMessage.Raw | ToolErrorMessage.Raw;
+    export type Raw = ToolResponseMessage.Raw | ToolErrorMessage.Raw;
 }

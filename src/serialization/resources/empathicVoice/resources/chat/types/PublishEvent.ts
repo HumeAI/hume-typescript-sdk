@@ -29,7 +29,7 @@ export const PublishEvent: core.serialization.Schema<
 ]);
 
 export declare namespace PublishEvent {
-    type Raw =
+    export type Raw =
         | AudioInput.Raw
         | SessionSettings.Raw
         | UserInput.Raw

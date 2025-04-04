@@ -15,12 +15,12 @@ export const PredictionsOptionalNullFacePrediction: core.serialization.ObjectSch
     metadata: Null.optional(),
     groupedPredictions: core.serialization.property(
         "grouped_predictions",
-        core.serialization.list(GroupedPredictionsFacePrediction)
+        core.serialization.list(GroupedPredictionsFacePrediction),
     ),
 });
 
 export declare namespace PredictionsOptionalNullFacePrediction {
-    interface Raw {
+    export interface Raw {
         metadata?: Null.Raw | null;
         grouped_predictions: GroupedPredictionsFacePrediction.Raw[];
     }

@@ -12,5 +12,5 @@ export const Type: core.serialization.Schema<
 > = core.serialization.enum_(["EMBEDDING_GENERATION", "INFERENCE", "TL_INFERENCE", "TRAINING"]);
 
 export declare namespace Type {
-    type Raw = "EMBEDDING_GENERATION" | "INFERENCE" | "TL_INFERENCE" | "TRAINING";
+    export type Raw = "EMBEDDING_GENERATION" | "INFERENCE" | "TL_INFERENCE" | "TRAINING";
 }

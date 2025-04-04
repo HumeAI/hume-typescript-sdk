@@ -15,7 +15,7 @@ export const PostedEventMessageSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedEventMessageSpec {
-    interface Raw {
+    export interface Raw {
         enabled: boolean;
         text?: string | null;
     }

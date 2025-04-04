@@ -34,7 +34,6 @@ export type ReturnLanguageModelModelResource =
     | "accounts/fireworks/models/llama-v3p1-70b-instruct"
     | "accounts/fireworks/models/llama-v3p1-8b-instruct"
     | "ellm";
-
 export const ReturnLanguageModelModelResource = {
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
     Claude35HaikuLatest: "claude-3-5-haiku-latest",

@@ -14,7 +14,7 @@ export const StreamWarningMessageJobDetails: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamWarningMessageJobDetails {
-    interface Raw {
+    export interface Raw {
         job_id?: string | null;
     }
 }

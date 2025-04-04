@@ -8,7 +8,6 @@
  * It shows `ASC` for ascending order (chronological, with the oldest records first) or `DESC` for descending order (reverse-chronological, with the newest records first). This value corresponds to the `ascending_order` query parameter used in the request.
  */
 export type ReturnPagedChatsPaginationDirection = "ASC" | "DESC";
-
 export const ReturnPagedChatsPaginationDirection = {
     Asc: "ASC",
     Desc: "DESC",

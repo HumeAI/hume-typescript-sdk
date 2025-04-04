@@ -23,7 +23,7 @@ export const UserMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserMessage {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         from_text: boolean;
         interim: boolean;

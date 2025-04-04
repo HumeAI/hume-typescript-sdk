@@ -16,7 +16,7 @@ export const AssistantInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace AssistantInput {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         text: string;
         type: "assistant_input";

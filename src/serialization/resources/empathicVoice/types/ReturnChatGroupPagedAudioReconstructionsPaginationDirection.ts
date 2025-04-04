@@ -12,5 +12,5 @@ export const ReturnChatGroupPagedAudioReconstructionsPaginationDirection: core.s
 > = core.serialization.enum_(["ASC", "DESC"]);
 
 export declare namespace ReturnChatGroupPagedAudioReconstructionsPaginationDirection {
-    type Raw = "ASC" | "DESC";
+    export type Raw = "ASC" | "DESC";
 }

@@ -15,7 +15,7 @@ export const ToxicityScore: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToxicityScore {
-    interface Raw {
+    export interface Raw {
         name: string;
         score: number;
     }

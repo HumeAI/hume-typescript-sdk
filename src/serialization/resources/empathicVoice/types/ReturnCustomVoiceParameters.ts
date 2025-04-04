@@ -23,7 +23,7 @@ export const ReturnCustomVoiceParameters: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnCustomVoiceParameters {
-    interface Raw {
+    export interface Raw {
         gender?: number | null;
         assertiveness?: number | null;
         buoyancy?: number | null;

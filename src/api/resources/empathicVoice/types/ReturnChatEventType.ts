@@ -24,7 +24,6 @@ export type ReturnChatEventType =
     | "AGENT_MESSAGE"
     | "FUNCTION_CALL"
     | "FUNCTION_CALL_RESPONSE";
-
 export const ReturnChatEventType = {
     SystemPrompt: "SYSTEM_PROMPT",
     UserMessage: "USER_MESSAGE",

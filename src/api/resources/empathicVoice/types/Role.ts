@@ -3,7 +3,6 @@
  */
 
 export type Role = "assistant" | "system" | "user" | "all" | "tool";
-
 export const Role = {
     Assistant: "assistant",
     System: "system",

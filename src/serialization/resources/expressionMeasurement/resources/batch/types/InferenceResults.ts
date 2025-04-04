@@ -17,7 +17,7 @@ export const InferenceResults: core.serialization.ObjectSchema<
 });
 
 export declare namespace InferenceResults {
-    interface Raw {
+    export interface Raw {
         predictions: InferencePrediction.Raw[];
         errors: Error_.Raw[];
     }

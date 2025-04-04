@@ -23,7 +23,7 @@ export const ReturnChat: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnChat {
-    interface Raw {
+    export interface Raw {
         id: string;
         chat_group_id: string;
         status: ReturnChatStatus.Raw;

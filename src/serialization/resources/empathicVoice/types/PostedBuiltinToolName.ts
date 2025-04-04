@@ -12,5 +12,5 @@ export const PostedBuiltinToolName: core.serialization.Schema<
 > = core.serialization.enum_(["web_search", "hang_up"]);
 
 export declare namespace PostedBuiltinToolName {
-    type Raw = "web_search" | "hang_up";
+    export type Raw = "web_search" | "hang_up";
 }

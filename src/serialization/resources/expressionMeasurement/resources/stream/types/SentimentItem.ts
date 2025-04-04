@@ -15,7 +15,7 @@ export const SentimentItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace SentimentItem {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         score?: number | null;
     }

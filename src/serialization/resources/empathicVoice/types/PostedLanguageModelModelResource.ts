@@ -39,7 +39,7 @@ export const PostedLanguageModelModelResource: core.serialization.Schema<
 ]);
 
 export declare namespace PostedLanguageModelModelResource {
-    type Raw =
+    export type Raw =
         | "claude-3-5-sonnet-latest"
         | "claude-3-5-sonnet-20240620"
         | "claude-3-opus-20240229"

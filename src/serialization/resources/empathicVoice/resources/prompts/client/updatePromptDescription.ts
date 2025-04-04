@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = ReturnPrompt.optional();
 
 export declare namespace Response {
-    type Raw = ReturnPrompt.Raw | null | undefined;
+    export type Raw = ReturnPrompt.Raw | null | undefined;
 }

@@ -13,5 +13,5 @@ export const StateEmbeddingGenerationInProgress: core.serialization.ObjectSchema
 > = core.serialization.object({}).extend(InProgress);
 
 export declare namespace StateEmbeddingGenerationInProgress {
-    interface Raw extends InProgress.Raw {}
+    export interface Raw extends InProgress.Raw {}
 }

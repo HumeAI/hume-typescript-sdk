@@ -19,7 +19,7 @@ export const BurstPrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace BurstPrediction {
-    interface Raw {
+    export interface Raw {
         time: TimeInterval.Raw;
         emotions: EmotionScore.Raw[];
         descriptions: DescriptionsScore.Raw[];

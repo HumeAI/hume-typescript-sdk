@@ -6,7 +6,6 @@
  * Events this URL is subscribed to
  */
 export type PostedWebhookEventType = "chat_started" | "chat_ended";
-
 export const PostedWebhookEventType = {
     ChatStarted: "chat_started",
     ChatEnded: "chat_ended",

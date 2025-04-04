@@ -24,7 +24,6 @@ export type ReturnChatStatus =
     | "MAX_DURATION_TIMEOUT"
     | "INACTIVITY_TIMEOUT"
     | "ERROR";
-
 export const ReturnChatStatus = {
     Active: "ACTIVE",
     UserEnded: "USER_ENDED",

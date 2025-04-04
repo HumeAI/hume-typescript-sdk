@@ -15,7 +15,7 @@ export const ValidationArgs: core.serialization.ObjectSchema<
 });
 
 export declare namespace ValidationArgs {
-    interface Raw {
+    export interface Raw {
         positive_label?: Target.Raw | null;
     }
 }

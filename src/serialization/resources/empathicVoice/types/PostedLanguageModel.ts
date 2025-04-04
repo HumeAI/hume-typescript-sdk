@@ -18,7 +18,7 @@ export const PostedLanguageModel: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedLanguageModel {
-    interface Raw {
+    export interface Raw {
         model_provider?: PostedLanguageModelModelProvider.Raw | null;
         model_resource?: PostedLanguageModelModelResource.Raw | null;
         temperature?: number | null;

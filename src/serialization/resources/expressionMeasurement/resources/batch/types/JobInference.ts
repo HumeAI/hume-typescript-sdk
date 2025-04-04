@@ -18,7 +18,7 @@ export const JobInference: core.serialization.ObjectSchema<
 });
 
 export declare namespace JobInference {
-    interface Raw {
+    export interface Raw {
         job_id: string;
         request: InferenceRequest.Raw;
         state: StateInference.Raw;

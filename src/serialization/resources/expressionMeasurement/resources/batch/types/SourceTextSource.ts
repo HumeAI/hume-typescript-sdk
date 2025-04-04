@@ -12,5 +12,5 @@ export const SourceTextSource: core.serialization.ObjectSchema<
 > = core.serialization.object({});
 
 export declare namespace SourceTextSource {
-    interface Raw {}
+    export interface Raw {}
 }

@@ -12,5 +12,5 @@ export const ReturnUserDefinedToolVersionType: core.serialization.Schema<
 > = core.serialization.enum_(["FIXED", "LATEST"]);
 
 export declare namespace ReturnUserDefinedToolVersionType {
-    type Raw = "FIXED" | "LATEST";
+    export type Raw = "FIXED" | "LATEST";
 }

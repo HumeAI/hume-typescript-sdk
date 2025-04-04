@@ -21,7 +21,7 @@ export const StreamModelsEndpointPayload: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamModelsEndpointPayload {
-    interface Raw {
+    export interface Raw {
         data?: string | null;
         models?: Config.Raw | null;
         stream_window_ms?: number | null;
