@@ -14,7 +14,7 @@ export const PostedConfigName: core.serialization.Schema<
 });
 
 export declare namespace PostedConfigName {
-    interface Raw {
+    export interface Raw {
         name: string;
     }
 }

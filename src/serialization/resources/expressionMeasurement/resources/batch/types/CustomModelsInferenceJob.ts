@@ -17,7 +17,7 @@ export const CustomModelsInferenceJob: core.serialization.ObjectSchema<
     .extend(JobTlInference);
 
 export declare namespace CustomModelsInferenceJob {
-    interface Raw extends JobTlInference.Raw {
+    export interface Raw extends JobTlInference.Raw {
         type: string;
     }
 }

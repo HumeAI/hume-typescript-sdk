@@ -17,7 +17,7 @@ export const Tool: core.serialization.ObjectSchema<serializers.empathicVoice.Too
     });
 
 export declare namespace Tool {
-    interface Raw {
+    export interface Raw {
         description?: string | null;
         fallback_content?: string | null;
         name: string;

@@ -5,24 +5,28 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Hume from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Voices {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -39,16 +43,18 @@ export class Voices {
      *
      * @example
      *     await client.tts.voices.list({
-     *         provider: Hume.tts.VoiceProvider.CustomVoice
+     *         provider: "CUSTOM_VOICE"
      *     })
      */
     public async list(
         request: Hume.tts.VoicesListRequest,
-        requestOptions?: Voices.RequestOptions
+        requestOptions?: Voices.RequestOptions,
     ): Promise<Hume.tts.ReturnPagedVoices> {
         const { provider, pageNumber, pageSize, ascendingOrder } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["provider"] = provider;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["provider"] = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
+            unrecognizedObjectKeys: "strip",
+        });
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
         }
@@ -63,18 +69,21 @@ export class Voices {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts/voices"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/voices",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -101,7 +110,7 @@ export class Voices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -118,7 +127,7 @@ export class Voices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/tts/voices.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -142,22 +151,25 @@ export class Voices {
      */
     public async create(
         request: Hume.tts.PostedVoice,
-        requestOptions?: Voices.RequestOptions
+        requestOptions?: Voices.RequestOptions,
     ): Promise<Hume.tts.ReturnVoice> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts/voices"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/voices",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -184,7 +196,7 @@ export class Voices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -201,7 +213,7 @@ export class Voices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/voices.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -224,22 +236,25 @@ export class Voices {
      */
     public async delete(request: Hume.tts.VoicesDeleteRequest, requestOptions?: Voices.RequestOptions): Promise<void> {
         const { name } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["name"] = name;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts/voices"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/voices",
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -261,7 +276,7 @@ export class Voices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -278,7 +293,7 @@ export class Voices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling DELETE /v0/tts/voices.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,

@@ -33,7 +33,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
     builtinTools: core.serialization.property(
         "builtin_tools",
-        core.serialization.list(ReturnBuiltinTool.optional()).optional()
+        core.serialization.list(ReturnBuiltinTool.optional()).optional(),
     ),
     eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
     timeouts: ReturnTimeoutSpecs.optional(),
@@ -41,7 +41,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnConfig {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         version?: number | null;
         evi_version?: string | null;

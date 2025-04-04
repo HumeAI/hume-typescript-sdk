@@ -19,7 +19,7 @@ export const StreamFace: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamFace {
-    interface Raw {
+    export interface Raw {
         facs?: Record<string, unknown> | null;
         descriptions?: Record<string, unknown> | null;
         identify_faces?: boolean | null;

@@ -19,12 +19,12 @@ export const ReturnChatAudioReconstruction: core.serialization.ObjectSchema<
     signedAudioUrl: core.serialization.property("signed_audio_url", core.serialization.string().optional()),
     signedUrlExpirationTimestampMillis: core.serialization.property(
         "signed_url_expiration_timestamp_millis",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
 });
 
 export declare namespace ReturnChatAudioReconstruction {
-    interface Raw {
+    export interface Raw {
         id: string;
         user_id: string;
         status: ReturnChatAudioReconstructionStatus.Raw;

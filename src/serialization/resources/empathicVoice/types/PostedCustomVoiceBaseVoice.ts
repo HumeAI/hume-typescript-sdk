@@ -12,5 +12,5 @@ export const PostedCustomVoiceBaseVoice: core.serialization.Schema<
 > = core.serialization.enum_(["ITO", "KORA", "DACHER", "AURA", "FINN", "WHIMSY", "STELLA", "SUNNY"]);
 
 export declare namespace PostedCustomVoiceBaseVoice {
-    type Raw = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "WHIMSY" | "STELLA" | "SUNNY";
+    export type Raw = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "WHIMSY" | "STELLA" | "SUNNY";
 }

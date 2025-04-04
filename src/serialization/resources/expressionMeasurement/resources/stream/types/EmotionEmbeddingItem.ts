@@ -15,7 +15,7 @@ export const EmotionEmbeddingItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace EmotionEmbeddingItem {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         score?: number | null;
     }

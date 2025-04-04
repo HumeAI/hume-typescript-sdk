@@ -12,5 +12,5 @@ export const WebhookEventChatStartType: core.serialization.Schema<
 > = core.serialization.enum_(["new_chat_group", "resumed_chat_group"]);
 
 export declare namespace WebhookEventChatStartType {
-    type Raw = "new_chat_group" | "resumed_chat_group";
+    export type Raw = "new_chat_group" | "resumed_chat_group";
 }

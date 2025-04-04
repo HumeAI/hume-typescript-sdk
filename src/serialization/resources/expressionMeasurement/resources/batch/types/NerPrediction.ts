@@ -26,7 +26,7 @@ export const NerPrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace NerPrediction {
-    interface Raw {
+    export interface Raw {
         entity: string;
         position: PositionInterval.Raw;
         entity_confidence: number;

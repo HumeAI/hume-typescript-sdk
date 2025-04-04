@@ -20,7 +20,7 @@ export const ToolResponseMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToolResponseMessage {
-    interface Raw {
+    export interface Raw {
         content: string;
         custom_session_id?: string | null;
         tool_call_id: string;

@@ -16,7 +16,7 @@ export const AudioInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace AudioInput {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         data: string;
         type: "audio_input";

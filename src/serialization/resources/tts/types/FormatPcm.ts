@@ -10,5 +10,5 @@ export const FormatPcm: core.serialization.ObjectSchema<serializers.tts.FormatPc
     core.serialization.object({});
 
 export declare namespace FormatPcm {
-    interface Raw {}
+    export interface Raw {}
 }

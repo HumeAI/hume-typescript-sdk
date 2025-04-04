@@ -12,24 +12,34 @@ import * as stream from "stream";
 import { Voices } from "../resources/voices/client/Client";
 
 export declare namespace Tts {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
 export class Tts {
+    protected _voices: Voices | undefined;
+
     constructor(protected readonly _options: Tts.Options = {}) {}
+
+    public get voices(): Voices {
+        return (this._voices ??= new Voices(this._options));
+    }
 
     /**
      * Synthesizes one or more input texts into speech using the specified voice. If no voice is provided,  a novel voice will be generated dynamically. Optionally, additional context can be included to influence the  speech's style and prosody.
@@ -61,22 +71,25 @@ export class Tts {
      */
     public async synthesizeJson(
         request: Hume.tts.PostedTts,
-        requestOptions?: Tts.RequestOptions
+        requestOptions?: Tts.RequestOptions,
     ): Promise<Hume.tts.ReturnTts> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -103,7 +116,7 @@ export class Tts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -120,7 +133,7 @@ export class Tts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -136,22 +149,25 @@ export class Tts {
      */
     public async synthesizeFile(
         request: Hume.tts.PostedTts,
-        requestOptions?: Tts.RequestOptions
+        requestOptions?: Tts.RequestOptions,
     ): Promise<stream.Readable> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts/file"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/file",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -174,7 +190,7 @@ export class Tts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -191,7 +207,7 @@ export class Tts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/file.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -205,22 +221,25 @@ export class Tts {
      */
     public async synthesizeFileStreaming(
         request: Hume.tts.PostedTts,
-        requestOptions?: Tts.RequestOptions
+        requestOptions?: Tts.RequestOptions,
     ): Promise<stream.Readable> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts/stream/file"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/stream/file",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -243,7 +262,7 @@ export class Tts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -260,7 +279,7 @@ export class Tts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/file.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -275,22 +294,25 @@ export class Tts {
      */
     public async synthesizeJsonStreaming(
         request: Hume.tts.PostedTts,
-        requestOptions?: Tts.RequestOptions
+        requestOptions?: Tts.RequestOptions,
     ): Promise<core.Stream<Hume.tts.SnippetAudioChunk>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/tts/stream/json"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/stream/json",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -328,7 +350,7 @@ export class Tts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -345,18 +367,12 @@ export class Tts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/json.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
                 });
         }
-    }
-
-    protected _voices: Voices | undefined;
-
-    public get voices(): Voices {
-        return (this._voices ??= new Voices(this._options));
     }
 
     protected async _getCustomAuthorizationHeaders() {

@@ -15,7 +15,7 @@ export const TimeInterval: core.serialization.ObjectSchema<
 });
 
 export declare namespace TimeInterval {
-    interface Raw {
+    export interface Raw {
         begin: number;
         end: number;
     }

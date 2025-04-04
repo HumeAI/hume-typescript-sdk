@@ -26,25 +26,25 @@ export const StateTlInference: core.serialization.Schema<
     });
 
 export declare namespace StateTlInference {
-    type Raw =
+    export type Raw =
         | StateTlInference.Queued
         | StateTlInference.InProgress
         | StateTlInference.Completed
         | StateTlInference.Failed;
 
-    interface Queued extends StateTlInferenceQueued.Raw {
+    export interface Queued extends StateTlInferenceQueued.Raw {
         status: "QUEUED";
     }
 
-    interface InProgress extends StateTlInferenceInProgress.Raw {
+    export interface InProgress extends StateTlInferenceInProgress.Raw {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends StateTlInferenceCompletedTlInference.Raw {
+    export interface Completed extends StateTlInferenceCompletedTlInference.Raw {
         status: "COMPLETED";
     }
 
-    interface Failed extends StateTlInferenceFailed.Raw {
+    export interface Failed extends StateTlInferenceFailed.Raw {
         status: "FAILED";
     }
 }

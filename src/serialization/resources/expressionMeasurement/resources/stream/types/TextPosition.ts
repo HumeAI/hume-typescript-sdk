@@ -15,7 +15,7 @@ export const TextPosition: core.serialization.ObjectSchema<
 });
 
 export declare namespace TextPosition {
-    interface Raw {
+    export interface Raw {
         begin?: number | null;
         end?: number | null;
     }

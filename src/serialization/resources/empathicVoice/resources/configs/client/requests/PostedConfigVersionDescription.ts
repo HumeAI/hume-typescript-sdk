@@ -14,7 +14,7 @@ export const PostedConfigVersionDescription: core.serialization.Schema<
 });
 
 export declare namespace PostedConfigVersionDescription {
-    interface Raw {
+    export interface Raw {
         version_description?: string | null;
     }
 }

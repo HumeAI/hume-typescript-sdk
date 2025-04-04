@@ -41,7 +41,7 @@ export const ReturnLanguageModelModelResource: core.serialization.Schema<
 ]);
 
 export declare namespace ReturnLanguageModelModelResource {
-    type Raw =
+    export type Raw =
         | "claude-3-5-sonnet-latest"
         | "claude-3-5-haiku-latest"
         | "claude-3-5-sonnet-20240620"

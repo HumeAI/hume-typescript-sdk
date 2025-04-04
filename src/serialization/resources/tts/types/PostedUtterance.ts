@@ -19,7 +19,7 @@ export const PostedUtterance: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedUtterance {
-    interface Raw {
+    export interface Raw {
         description?: string | null;
         speed?: number | null;
         text: string;

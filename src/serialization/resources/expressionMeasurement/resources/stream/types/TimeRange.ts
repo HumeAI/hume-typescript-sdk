@@ -15,7 +15,7 @@ export const TimeRange: core.serialization.ObjectSchema<
 });
 
 export declare namespace TimeRange {
-    interface Raw {
+    export interface Raw {
         begin?: number | null;
         end?: number | null;
     }

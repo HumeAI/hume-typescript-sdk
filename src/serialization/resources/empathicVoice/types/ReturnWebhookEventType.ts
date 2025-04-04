@@ -12,5 +12,5 @@ export const ReturnWebhookEventType: core.serialization.Schema<
 > = core.serialization.enum_(["chat_started", "chat_ended"]);
 
 export declare namespace ReturnWebhookEventType {
-    type Raw = "chat_started" | "chat_ended";
+    export type Raw = "chat_started" | "chat_ended";
 }

@@ -6,7 +6,6 @@
  * Specifies the base voice used to create the Custom Voice.
  */
 export type PostedCustomVoiceBaseVoice = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "WHIMSY" | "STELLA" | "SUNNY";
-
 export const PostedCustomVoiceBaseVoice = {
     Ito: "ITO",
     Kora: "KORA",

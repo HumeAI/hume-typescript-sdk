@@ -16,7 +16,7 @@ export const Context: core.serialization.ObjectSchema<
 });
 
 export declare namespace Context {
-    interface Raw {
+    export interface Raw {
         text: string;
         type?: ContextType.Raw | null;
     }

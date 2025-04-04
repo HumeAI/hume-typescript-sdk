@@ -24,17 +24,17 @@ export const Source: core.serialization.Schema<
     });
 
 export declare namespace Source {
-    type Raw = Source.Url | Source.File | Source.Text;
+    export type Raw = Source.Url | Source.File | Source.Text;
 
-    interface Url extends SourceUrl.Raw {
+    export interface Url extends SourceUrl.Raw {
         type: "url";
     }
 
-    interface File extends SourceFile.Raw {
+    export interface File extends SourceFile.Raw {
         type: "file";
     }
 
-    interface Text extends SourceTextSource.Raw {
+    export interface Text extends SourceTextSource.Raw {
         type: "text";
     }
 }

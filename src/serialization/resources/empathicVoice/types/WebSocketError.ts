@@ -19,7 +19,7 @@ export const WebSocketError: core.serialization.ObjectSchema<
 });
 
 export declare namespace WebSocketError {
-    interface Raw {
+    export interface Raw {
         code: string;
         custom_session_id?: string | null;
         message: string;

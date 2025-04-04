@@ -12,5 +12,5 @@ export const ReturnChatEventRole: core.serialization.Schema<
 > = core.serialization.enum_(["USER", "AGENT", "SYSTEM", "TOOL"]);
 
 export declare namespace ReturnChatEventRole {
-    type Raw = "USER" | "AGENT" | "SYSTEM" | "TOOL";
+    export type Raw = "USER" | "AGENT" | "SYSTEM" | "TOOL";
 }

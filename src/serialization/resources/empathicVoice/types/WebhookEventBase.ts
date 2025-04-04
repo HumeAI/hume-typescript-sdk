@@ -16,7 +16,7 @@ export const WebhookEventBase: core.serialization.ObjectSchema<
 });
 
 export declare namespace WebhookEventBase {
-    interface Raw {
+    export interface Raw {
         chat_group_id: string;
         chat_id: string;
         config_id?: string | null;

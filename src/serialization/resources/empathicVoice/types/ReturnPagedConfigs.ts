@@ -18,7 +18,7 @@ export const ReturnPagedConfigs: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnPagedConfigs {
-    interface Raw {
+    export interface Raw {
         page_number?: number | null;
         page_size?: number | null;
         total_pages: number;

@@ -18,7 +18,7 @@ export const ReturnLanguageModel: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnLanguageModel {
-    interface Raw {
+    export interface Raw {
         model_provider?: ReturnLanguageModelModelProvider.Raw | null;
         model_resource?: ReturnLanguageModelModelResource.Raw | null;
         temperature?: number | null;

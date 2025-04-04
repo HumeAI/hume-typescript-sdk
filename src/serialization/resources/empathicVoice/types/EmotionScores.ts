@@ -61,7 +61,7 @@ export const EmotionScores: core.serialization.ObjectSchema<
 });
 
 export declare namespace EmotionScores {
-    interface Raw {
+    export interface Raw {
         Admiration: number;
         Adoration: number;
         "Aesthetic Appreciation": number;

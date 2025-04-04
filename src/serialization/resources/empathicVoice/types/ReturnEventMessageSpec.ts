@@ -15,7 +15,7 @@ export const ReturnEventMessageSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnEventMessageSpec {
-    interface Raw {
+    export interface Raw {
         enabled: boolean;
         text?: string | null;
     }
