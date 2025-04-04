@@ -7,10 +7,8 @@ import * as Hume from "../../../index";
 export interface PostedUtterance {
     /**
      * Natural language instructions describing how the synthesized speech should sound, including  but not limited to tone, intonation, pacing, and accent (e.g., 'a soft, gentle voice with a strong British  accent').
-     * - If a Voice is specified in the request, this description serves as acting instructions.
-     * - If  no Voice is specified, a new voice is generated based on this description.
-     *
-     *  See our  [prompting guide](/docs/text-to-speech-tts/prompting) for tips on crafting your descriptions.
+     * - If a Voice is specified in the request, this description serves as acting instructions. For  tips on how to effectively guide speech delivery, see our guide on [Acting instructions](/docs/text-to-speech-tts/acting-instructions).
+     *  - If no Voice is specified, a new voice is generated based on this description. See our [prompting guide](/docs/text-to-speech-tts/prompting)  for tips on designing a voice.
      */
     description?: string;
     /** Speed multiplier for the synthesized speech. */
