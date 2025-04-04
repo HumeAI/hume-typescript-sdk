@@ -16,7 +16,7 @@ export const GroupedPredictionsLanguagePrediction: core.serialization.ObjectSche
 });
 
 export declare namespace GroupedPredictionsLanguagePrediction {
-    interface Raw {
+    export interface Raw {
         id: string;
         predictions: LanguagePrediction.Raw[];
     }

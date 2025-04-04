@@ -12,5 +12,5 @@ export const ValidationErrorLocItem: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([core.serialization.string(), core.serialization.number()]);
 
 export declare namespace ValidationErrorLocItem {
-    type Raw = string | number;
+    export type Raw = string | number;
 }

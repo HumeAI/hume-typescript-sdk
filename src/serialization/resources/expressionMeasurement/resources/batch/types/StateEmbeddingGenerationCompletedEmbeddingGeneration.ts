@@ -13,5 +13,5 @@ export const StateEmbeddingGenerationCompletedEmbeddingGeneration: core.serializ
 > = core.serialization.object({}).extend(CompletedEmbeddingGeneration);
 
 export declare namespace StateEmbeddingGenerationCompletedEmbeddingGeneration {
-    interface Raw extends CompletedEmbeddingGeneration.Raw {}
+    export interface Raw extends CompletedEmbeddingGeneration.Raw {}
 }

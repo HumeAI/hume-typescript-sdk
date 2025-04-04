@@ -15,12 +15,12 @@ export const PredictionsOptionalTranscriptionMetadataProsodyPrediction: core.ser
     metadata: TranscriptionMetadata.optional(),
     groupedPredictions: core.serialization.property(
         "grouped_predictions",
-        core.serialization.list(GroupedPredictionsProsodyPrediction)
+        core.serialization.list(GroupedPredictionsProsodyPrediction),
     ),
 });
 
 export declare namespace PredictionsOptionalTranscriptionMetadataProsodyPrediction {
-    interface Raw {
+    export interface Raw {
         metadata?: TranscriptionMetadata.Raw | null;
         grouped_predictions: GroupedPredictionsProsodyPrediction.Raw[];
     }

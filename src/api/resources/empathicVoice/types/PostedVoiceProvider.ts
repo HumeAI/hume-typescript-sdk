@@ -6,7 +6,6 @@
  * The provider of the voice to use. Supported values are `HUME_AI` and `CUSTOM_VOICE`.
  */
 export type PostedVoiceProvider = "HUME_AI" | "CUSTOM_VOICE";
-
 export const PostedVoiceProvider = {
     HumeAi: "HUME_AI",
     CustomVoice: "CUSTOM_VOICE",

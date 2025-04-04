@@ -14,7 +14,7 @@ export const JobId: core.serialization.ObjectSchema<
 });
 
 export declare namespace JobId {
-    interface Raw {
+    export interface Raw {
         job_id: string;
     }
 }

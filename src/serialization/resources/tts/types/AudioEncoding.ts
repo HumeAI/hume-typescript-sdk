@@ -14,7 +14,7 @@ export const AudioEncoding: core.serialization.ObjectSchema<serializers.tts.Audi
     });
 
 export declare namespace AudioEncoding {
-    interface Raw {
+    export interface Raw {
         format: AudioFormatType.Raw;
         sample_rate: number;
     }

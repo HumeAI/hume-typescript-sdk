@@ -12,5 +12,5 @@ export const ReturnPromptVersionType: core.serialization.Schema<
 > = core.serialization.enum_(["FIXED", "LATEST"]);
 
 export declare namespace ReturnPromptVersionType {
-    type Raw = "FIXED" | "LATEST";
+    export type Raw = "FIXED" | "LATEST";
 }

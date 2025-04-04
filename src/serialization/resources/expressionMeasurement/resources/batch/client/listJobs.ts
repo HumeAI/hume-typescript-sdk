@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = core.serialization.list(UnionJob);
 
 export declare namespace Response {
-    type Raw = UnionJob.Raw[];
+    export type Raw = UnionJob.Raw[];
 }

@@ -12,5 +12,5 @@ export const Alternative: core.serialization.Schema<
 > = core.serialization.stringLiteral("language_only");
 
 export declare namespace Alternative {
-    type Raw = "language_only";
+    export type Raw = "language_only";
 }

@@ -16,7 +16,6 @@
  * - `CANCELED`: The reconstruction job has been canceled.
  */
 export type ReturnChatAudioReconstructionStatus = "QUEUED" | "IN_PROGRESS" | "COMPLETE" | "ERROR" | "CANCELLED";
-
 export const ReturnChatAudioReconstructionStatus = {
     Queued: "QUEUED",
     InProgress: "IN_PROGRESS",

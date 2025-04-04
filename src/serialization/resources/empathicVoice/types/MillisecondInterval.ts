@@ -15,7 +15,7 @@ export const MillisecondInterval: core.serialization.ObjectSchema<
 });
 
 export declare namespace MillisecondInterval {
-    interface Raw {
+    export interface Raw {
         begin: number;
         end: number;
     }

@@ -20,16 +20,16 @@ export const ReturnChatGroupPagedAudioReconstructions: core.serialization.Object
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property(
         "pagination_direction",
-        ReturnChatGroupPagedAudioReconstructionsPaginationDirection
+        ReturnChatGroupPagedAudioReconstructionsPaginationDirection,
     ),
     audioReconstructionsPage: core.serialization.property(
         "audio_reconstructions_page",
-        core.serialization.list(ReturnChatAudioReconstruction)
+        core.serialization.list(ReturnChatAudioReconstruction),
     ),
 });
 
 export declare namespace ReturnChatGroupPagedAudioReconstructions {
-    interface Raw {
+    export interface Raw {
         id: string;
         user_id: string;
         num_chats: number;

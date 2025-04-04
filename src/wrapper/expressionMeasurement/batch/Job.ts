@@ -11,7 +11,7 @@ export class Job implements Hume.expressionMeasurement.batch.JobId {
             poller.start(resolve);
             setTimeout(() => {
                 poller.stop();
-                reject(new errors.HumeTimeoutError());
+                reject(new errors.HumeTimeoutError("Timeout exceeded when polling for job completion"));
             }, timeoutInSeconds * 1_000);
         });
     }

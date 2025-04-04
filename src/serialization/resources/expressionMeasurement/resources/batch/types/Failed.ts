@@ -17,7 +17,7 @@ export const Failed: core.serialization.ObjectSchema<
 });
 
 export declare namespace Failed {
-    interface Raw {
+    export interface Raw {
         created_timestamp_ms: number;
         started_timestamp_ms: number;
         ended_timestamp_ms: number;

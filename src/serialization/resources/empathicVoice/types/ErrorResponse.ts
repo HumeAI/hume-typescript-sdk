@@ -16,7 +16,7 @@ export const ErrorResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace ErrorResponse {
-    interface Raw {
+    export interface Raw {
         error?: string | null;
         message?: string | null;
         code?: string | null;

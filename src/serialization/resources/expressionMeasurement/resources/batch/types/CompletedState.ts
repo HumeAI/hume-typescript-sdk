@@ -13,5 +13,5 @@ export const CompletedState: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(CompletedInference);
 
 export declare namespace CompletedState {
-    interface Raw extends CompletedInference.Raw {}
+    export interface Raw extends CompletedInference.Raw {}
 }

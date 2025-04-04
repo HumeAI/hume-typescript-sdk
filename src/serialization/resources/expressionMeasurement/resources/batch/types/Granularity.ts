@@ -12,5 +12,5 @@ export const Granularity: core.serialization.Schema<
 > = core.serialization.enum_(["word", "sentence", "utterance", "conversational_turn"]);
 
 export declare namespace Granularity {
-    type Raw = "word" | "sentence" | "utterance" | "conversational_turn";
+    export type Raw = "word" | "sentence" | "utterance" | "conversational_turn";
 }

@@ -6,7 +6,6 @@
  * Versioning method for a Prompt. Either `FIXED` for using a fixed version number or `LATEST` for auto-updating to the latest version.
  */
 export type ReturnPromptVersionType = "FIXED" | "LATEST";
-
 export const ReturnPromptVersionType = {
     Fixed: "FIXED",
     Latest: "LATEST",

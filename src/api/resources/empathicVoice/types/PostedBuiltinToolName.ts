@@ -11,7 +11,6 @@
  * For more information, see our guide on [using built-in tools](/docs/empathic-voice-interface-evi/features/tool-use#using-built-in-tools).
  */
 export type PostedBuiltinToolName = "web_search" | "hang_up";
-
 export const PostedBuiltinToolName = {
     WebSearch: "web_search",
     HangUp: "hang_up",

@@ -14,12 +14,12 @@ import * as Hume from "../../../../../../index";
  *         },
  *         eviVersion: "2",
  *         voice: {
- *             provider: Hume.empathicVoice.PostedVoiceProvider.HumeAi,
+ *             provider: "HUME_AI",
  *             name: "SAMPLE VOICE"
  *         },
  *         languageModel: {
- *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
- *             modelResource: Hume.empathicVoice.PostedLanguageModelModelResource.Claude35Sonnet20240620,
+ *             modelProvider: "ANTHROPIC",
+ *             modelResource: "claude-3-5-sonnet-20240620",
  *             temperature: 1
  *         },
  *         eventMessages: {

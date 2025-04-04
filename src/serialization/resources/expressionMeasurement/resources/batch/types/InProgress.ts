@@ -15,7 +15,7 @@ export const InProgress: core.serialization.ObjectSchema<
 });
 
 export declare namespace InProgress {
-    interface Raw {
+    export interface Raw {
         created_timestamp_ms: number;
         started_timestamp_ms: number;
     }

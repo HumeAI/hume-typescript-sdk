@@ -20,7 +20,7 @@ export const ChatMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ChatMessage {
-    interface Raw {
+    export interface Raw {
         content?: string | null;
         role: Role.Raw;
         tool_call?: ToolCallMessage.Raw | null;

@@ -18,7 +18,7 @@ export const CompletedTlInference: core.serialization.ObjectSchema<
 });
 
 export declare namespace CompletedTlInference {
-    interface Raw {
+    export interface Raw {
         created_timestamp_ms: number;
         started_timestamp_ms: number;
         ended_timestamp_ms: number;

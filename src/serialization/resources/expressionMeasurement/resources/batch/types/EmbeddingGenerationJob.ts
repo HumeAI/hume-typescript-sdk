@@ -17,7 +17,7 @@ export const EmbeddingGenerationJob: core.serialization.ObjectSchema<
     .extend(JobEmbeddingGeneration);
 
 export declare namespace EmbeddingGenerationJob {
-    interface Raw extends JobEmbeddingGeneration.Raw {
+    export interface Raw extends JobEmbeddingGeneration.Raw {
         type: string;
     }
 }

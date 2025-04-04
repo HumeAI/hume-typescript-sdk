@@ -24,7 +24,6 @@ export type ReturnChatPagedEventsStatus =
     | "MAX_DURATION_TIMEOUT"
     | "INACTIVITY_TIMEOUT"
     | "ERROR";
-
 export const ReturnChatPagedEventsStatus = {
     Active: "ACTIVE",
     UserEnded: "USER_ENDED",

@@ -15,7 +15,7 @@ export const AssistantEnd: core.serialization.ObjectSchema<
 });
 
 export declare namespace AssistantEnd {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         type: "assistant_end";
     }

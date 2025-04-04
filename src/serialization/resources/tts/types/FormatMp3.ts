@@ -10,5 +10,5 @@ export const FormatMp3: core.serialization.ObjectSchema<serializers.tts.FormatMp
     core.serialization.object({});
 
 export declare namespace FormatMp3 {
-    interface Raw {}
+    export interface Raw {}
 }

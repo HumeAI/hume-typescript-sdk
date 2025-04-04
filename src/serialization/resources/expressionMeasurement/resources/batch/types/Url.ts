@@ -14,7 +14,7 @@ export const Url: core.serialization.ObjectSchema<
 });
 
 export declare namespace Url {
-    interface Raw {
+    export interface Raw {
         url: string;
     }
 }

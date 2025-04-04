@@ -14,7 +14,7 @@ export const TtsInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace TtsInput {
-    interface Raw {
+    export interface Raw {
         type?: "tts" | null;
     }
 }

@@ -12,7 +12,6 @@ export type PostedLanguageModelModelProvider =
     | "FIREWORKS"
     | "GROQ"
     | "GOOGLE";
-
 export const PostedLanguageModelModelProvider = {
     OpenAi: "OPEN_AI",
     CustomLanguageModel: "CUSTOM_LANGUAGE_MODEL",

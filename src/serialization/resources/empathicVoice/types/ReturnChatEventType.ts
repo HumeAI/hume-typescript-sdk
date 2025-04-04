@@ -19,7 +19,7 @@ export const ReturnChatEventType: core.serialization.Schema<
 ]);
 
 export declare namespace ReturnChatEventType {
-    type Raw =
+    export type Raw =
         | "SYSTEM_PROMPT"
         | "USER_MESSAGE"
         | "USER_INTERRUPTION"

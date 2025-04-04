@@ -14,7 +14,7 @@ export const Queued: core.serialization.ObjectSchema<
 });
 
 export declare namespace Queued {
-    interface Raw {
+    export interface Raw {
         created_timestamp_ms: number;
     }
 }

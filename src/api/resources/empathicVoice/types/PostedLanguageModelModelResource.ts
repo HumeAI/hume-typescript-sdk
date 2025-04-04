@@ -32,7 +32,6 @@ export type PostedLanguageModelModelResource =
     | "accounts/fireworks/models/llama-v3p1-70b-instruct"
     | "accounts/fireworks/models/llama-v3p1-8b-instruct"
     | "ellm";
-
 export const PostedLanguageModelModelResource = {
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
     Claude35Sonnet20240620: "claude-3-5-sonnet-20240620",

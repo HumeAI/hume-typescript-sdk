@@ -19,5 +19,11 @@ export const ReturnChatPagedEventsStatus: core.serialization.Schema<
 ]);
 
 export declare namespace ReturnChatPagedEventsStatus {
-    type Raw = "ACTIVE" | "USER_ENDED" | "USER_TIMEOUT" | "MAX_DURATION_TIMEOUT" | "INACTIVITY_TIMEOUT" | "ERROR";
+    export type Raw =
+        | "ACTIVE"
+        | "USER_ENDED"
+        | "USER_TIMEOUT"
+        | "MAX_DURATION_TIMEOUT"
+        | "INACTIVITY_TIMEOUT"
+        | "ERROR";
 }

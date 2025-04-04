@@ -24,7 +24,7 @@ export const Models: core.serialization.ObjectSchema<
 });
 
 export declare namespace Models {
-    interface Raw {
+    export interface Raw {
         face?: Face.Raw | null;
         burst?: Unconfigurable.Raw | null;
         prosody?: Prosody.Raw | null;

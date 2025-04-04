@@ -10,5 +10,5 @@ export const Encoding: core.serialization.Schema<serializers.empathicVoice.Encod
     core.serialization.stringLiteral("linear16");
 
 export declare namespace Encoding {
-    type Raw = "linear16";
+    export type Raw = "linear16";
 }

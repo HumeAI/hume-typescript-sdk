@@ -13,5 +13,5 @@ export const UnionPredictResult: core.serialization.ObjectSchema<
 > = InferenceSourcePredictResult;
 
 export declare namespace UnionPredictResult {
-    type Raw = InferenceSourcePredictResult.Raw;
+    export type Raw = InferenceSourcePredictResult.Raw;
 }

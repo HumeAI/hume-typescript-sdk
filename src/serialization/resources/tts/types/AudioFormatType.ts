@@ -10,5 +10,5 @@ export const AudioFormatType: core.serialization.Schema<serializers.tts.AudioFor
     core.serialization.enum_(["mp3", "pcm", "wav"]);
 
 export declare namespace AudioFormatType {
-    type Raw = "mp3" | "pcm" | "wav";
+    export type Raw = "mp3" | "pcm" | "wav";
 }

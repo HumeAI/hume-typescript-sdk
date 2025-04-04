@@ -15,7 +15,7 @@ export const EvaluationArgs: core.serialization.ObjectSchema<
 });
 
 export declare namespace EvaluationArgs {
-    interface Raw {
+    export interface Raw {
         validation?: ValidationArgs.Raw | null;
     }
 }

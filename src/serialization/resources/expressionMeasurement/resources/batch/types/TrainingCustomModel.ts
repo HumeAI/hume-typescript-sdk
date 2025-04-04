@@ -15,7 +15,7 @@ export const TrainingCustomModel: core.serialization.ObjectSchema<
 });
 
 export declare namespace TrainingCustomModel {
-    interface Raw {
+    export interface Raw {
         id: string;
         version_id?: string | null;
     }

@@ -14,7 +14,7 @@ export const PostedEllmModel: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedEllmModel {
-    interface Raw {
+    export interface Raw {
         allow_short_responses?: boolean | null;
     }
 }

@@ -13,5 +13,5 @@ export const StateTrainingFailed: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(Failed);
 
 export declare namespace StateTrainingFailed {
-    interface Raw extends Failed.Raw {}
+    export interface Raw extends Failed.Raw {}
 }

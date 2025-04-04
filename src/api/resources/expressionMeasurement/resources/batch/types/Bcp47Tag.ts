@@ -32,7 +32,6 @@ export type Bcp47Tag =
     | "ta"
     | "tr"
     | "uk";
-
 export const Bcp47Tag = {
     Zh: "zh",
     Da: "da",

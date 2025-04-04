@@ -16,7 +16,7 @@ export const GroupedPredictionsFacemeshPrediction: core.serialization.ObjectSche
 });
 
 export declare namespace GroupedPredictionsFacemeshPrediction {
-    interface Raw {
+    export interface Raw {
         id: string;
         predictions: FacemeshPrediction.Raw[];
     }

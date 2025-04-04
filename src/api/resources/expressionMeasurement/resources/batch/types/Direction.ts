@@ -3,7 +3,6 @@
  */
 
 export type Direction = "asc" | "desc";
-
 export const Direction = {
     Asc: "asc",
     Desc: "desc",

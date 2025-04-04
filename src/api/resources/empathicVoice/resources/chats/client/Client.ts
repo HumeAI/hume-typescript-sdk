@@ -10,19 +10,23 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Chats {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -46,13 +50,13 @@ export class Chats {
      */
     public async listChats(
         request: Hume.empathicVoice.ChatsListChatsRequest = {},
-        requestOptions?: Chats.RequestOptions
+        requestOptions?: Chats.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChat>> {
         const list = async (
-            request: Hume.empathicVoice.ChatsListChatsRequest
+            request: Hume.empathicVoice.ChatsListChatsRequest,
         ): Promise<Hume.empathicVoice.ReturnPagedChats> => {
             const { pageNumber, pageSize, ascendingOrder, configId } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (pageNumber != null) {
                 _queryParams["page_number"] = pageNumber.toString();
             }
@@ -67,18 +71,21 @@ export class Chats {
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                    "v0/evi/chats"
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
+                        environments.HumeEnvironment.Production,
+                    "v0/evi/chats",
                 ),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.17",
-                    "User-Agent": "hume/0.9.17",
+                    "X-Fern-SDK-Version": "0.9.18",
+                    "User-Agent": "hume/0.9.18",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
+                    ...requestOptions?.headers,
                 },
                 contentType: "application/json",
                 queryParameters: _queryParams,
@@ -104,7 +111,7 @@ export class Chats {
                                 allowUnrecognizedUnionMembers: true,
                                 allowUnrecognizedEnumValues: true,
                                 breadcrumbsPrefix: ["response"],
-                            })
+                            }),
                         );
                     default:
                         throw new errors.HumeError({
@@ -120,7 +127,7 @@ export class Chats {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.HumeTimeoutError();
+                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats.");
                 case "unknown":
                     throw new errors.HumeError({
                         message: _response.error.errorMessage,
@@ -158,13 +165,13 @@ export class Chats {
     public async listChatEvents(
         id: string,
         request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
-        requestOptions?: Chats.RequestOptions
+        requestOptions?: Chats.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatEvent>> {
         const list = async (
-            request: Hume.empathicVoice.ChatsListChatEventsRequest
+            request: Hume.empathicVoice.ChatsListChatEventsRequest,
         ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> => {
             const { pageSize, pageNumber, ascendingOrder } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (pageSize != null) {
                 _queryParams["page_size"] = pageSize.toString();
             }
@@ -176,18 +183,21 @@ export class Chats {
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                    `v0/evi/chats/${encodeURIComponent(id)}`
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
+                        environments.HumeEnvironment.Production,
+                    `v0/evi/chats/${encodeURIComponent(id)}`,
                 ),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.9.17",
-                    "User-Agent": "hume/0.9.17",
+                    "X-Fern-SDK-Version": "0.9.18",
+                    "User-Agent": "hume/0.9.18",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
+                    ...requestOptions?.headers,
                 },
                 contentType: "application/json",
                 queryParameters: _queryParams,
@@ -213,7 +223,7 @@ export class Chats {
                                 allowUnrecognizedUnionMembers: true,
                                 allowUnrecognizedEnumValues: true,
                                 breadcrumbsPrefix: ["response"],
-                            })
+                            }),
                         );
                     default:
                         throw new errors.HumeError({
@@ -229,7 +239,7 @@ export class Chats {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.HumeTimeoutError();
+                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats/{id}.");
                 case "unknown":
                     throw new errors.HumeError({
                         message: _response.error.errorMessage,
@@ -261,22 +271,25 @@ export class Chats {
      */
     public async getAudio(
         id: string,
-        requestOptions?: Chats.RequestOptions
+        requestOptions?: Chats.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnChatAudioReconstruction> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/chats/${encodeURIComponent(id)}/audio`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/chats/${encodeURIComponent(id)}/audio`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -302,7 +315,7 @@ export class Chats {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -319,7 +332,7 @@ export class Chats {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats/{id}/audio.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,

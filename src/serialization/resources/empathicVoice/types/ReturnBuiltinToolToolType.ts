@@ -12,5 +12,5 @@ export const ReturnBuiltinToolToolType: core.serialization.Schema<
 > = core.serialization.enum_(["BUILTIN", "FUNCTION"]);
 
 export declare namespace ReturnBuiltinToolToolType {
-    type Raw = "BUILTIN" | "FUNCTION";
+    export type Raw = "BUILTIN" | "FUNCTION";
 }

@@ -12,5 +12,5 @@ export const Direction: core.serialization.Schema<
 > = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace Direction {
-    type Raw = "asc" | "desc";
+    export type Raw = "asc" | "desc";
 }
