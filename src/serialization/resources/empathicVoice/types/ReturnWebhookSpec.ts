@@ -16,7 +16,7 @@ export const ReturnWebhookSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnWebhookSpec {
-    interface Raw {
+    export interface Raw {
         url: string;
         events: ReturnWebhookEventType.Raw[];
     }

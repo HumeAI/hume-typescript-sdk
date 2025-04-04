@@ -276,7 +276,7 @@ The response is a stream of JSON objects including audio encoded in base64.
 <dd>
 
 ```typescript
-await client.tts.synthesizeJsonStreaming({
+const response = await client.tts.synthesizeJsonStreaming({
     utterances: [
         {
             text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
@@ -297,6 +297,9 @@ await client.tts.synthesizeJsonStreaming({
         type: "mp3",
     },
 });
+for await (const item of response) {
+    console.log(item);
+}
 ```
 
 </dd>
@@ -362,7 +365,7 @@ Lists voices in your **Voice Library**. Set provider to `HUME_AI` to list Hume's
 
 ```typescript
 await client.tts.voices.list({
-    provider: Hume.VoiceProvider.CustomVoice,
+    provider: "CUSTOM_VOICE",
 });
 ```
 
@@ -561,10 +564,22 @@ Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#fun
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.listTools({
+const response = await client.empathicVoice.tools.listTools({
     pageNumber: 0,
     pageSize: 2,
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.tools.listTools({
+    pageNumber: 0,
+    pageSize: 2,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -1243,10 +1258,22 @@ See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-callin
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.listPrompts({
+const response = await client.empathicVoice.prompts.listPrompts({
     pageNumber: 0,
     pageSize: 2,
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.prompts.listPrompts({
+    pageNumber: 0,
+    pageSize: 2,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -1984,7 +2011,7 @@ Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voi
 ```typescript
 await client.empathicVoice.customVoices.createCustomVoice({
     name: "name",
-    baseVoice: Hume.PostedCustomVoiceBaseVoice.Ito,
+    baseVoice: "ITO",
     parameterModel: "20241004-11parameter",
 });
 ```
@@ -2118,7 +2145,7 @@ Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voi
 ```typescript
 await client.empathicVoice.customVoices.createCustomVoiceVersion("id", {
     name: "name",
-    baseVoice: Hume.PostedCustomVoiceBaseVoice.Ito,
+    baseVoice: "ITO",
     parameterModel: "20241004-11parameter",
 });
 ```
@@ -2411,12 +2438,12 @@ await client.empathicVoice.configs.createConfig({
     },
     eviVersion: "2",
     voice: {
-        provider: Hume.PostedVoiceProvider.HumeAi,
+        provider: "HUME_AI",
         name: "SAMPLE VOICE",
     },
     languageModel: {
-        modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: Hume.PostedLanguageModelModelResource.Claude35Sonnet20240620,
+        modelProvider: "ANTHROPIC",
+        modelResource: "claude-3-5-sonnet-20240620",
         temperature: 1,
     },
     eventMessages: {
@@ -2579,12 +2606,12 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
         version: 0,
     },
     voice: {
-        provider: Hume.PostedVoiceProvider.HumeAi,
+        provider: "HUME_AI",
         name: "ITO",
     },
     languageModel: {
-        modelProvider: Hume.PostedLanguageModelModelProvider.Anthropic,
-        modelResource: Hume.PostedLanguageModelModelResource.Claude35Sonnet20240620,
+        modelProvider: "ANTHROPIC",
+        modelResource: "claude-3-5-sonnet-20240620",
         temperature: 1,
     },
     ellmModel: {
@@ -3064,11 +3091,24 @@ Fetches a paginated list of **Chats**.
 <dd>
 
 ```typescript
-await client.empathicVoice.chats.listChats({
+const response = await client.empathicVoice.chats.listChats({
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true,
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.chats.listChats({
+    pageNumber: 0,
+    pageSize: 1,
+    ascendingOrder: true,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -3131,11 +3171,24 @@ Fetches a paginated list of **Chat** events.
 <dd>
 
 ```typescript
-await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+const response = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true,
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -3823,7 +3876,7 @@ Start a new batch inference job.
 ```typescript
 await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
     [fs.createReadStream("/path/to/your/file")],
-    {}
+    {},
 );
 ```
 

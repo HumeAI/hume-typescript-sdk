@@ -19,7 +19,7 @@ export const Language: core.serialization.ObjectSchema<
 });
 
 export declare namespace Language {
-    interface Raw {
+    export interface Raw {
         granularity?: Granularity.Raw | null;
         sentiment?: Unconfigurable.Raw | null;
         toxicity?: Unconfigurable.Raw | null;

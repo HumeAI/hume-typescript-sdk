@@ -3,7 +3,6 @@
  */
 
 export type Status = "QUEUED" | "IN_PROGRESS" | "COMPLETED" | "FAILED";
-
 export const Status = {
     Queued: "QUEUED",
     InProgress: "IN_PROGRESS",

@@ -14,7 +14,7 @@ export const PostedPromptName: core.serialization.Schema<
 });
 
 export declare namespace PostedPromptName {
-    interface Raw {
+    export interface Raw {
         name: string;
     }
 }

@@ -21,7 +21,7 @@ export const ReturnChatGroup: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnChatGroup {
-    interface Raw {
+    export interface Raw {
         id: string;
         first_start_timestamp: number;
         most_recent_start_timestamp: number;

@@ -18,7 +18,7 @@ export const ReturnVoice: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnVoice {
-    interface Raw {
+    export interface Raw {
         provider: ReturnVoiceProvider.Raw;
         name?: string | null;
         custom_voice?: ReturnCustomVoice.Raw | null;

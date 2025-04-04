@@ -15,7 +15,7 @@ export const Error_: core.serialization.ObjectSchema<
 });
 
 export declare namespace Error_ {
-    interface Raw {
+    export interface Raw {
         message: string;
         file: string;
     }

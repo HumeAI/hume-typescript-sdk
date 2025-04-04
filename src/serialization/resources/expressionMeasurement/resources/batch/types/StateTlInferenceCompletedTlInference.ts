@@ -13,5 +13,5 @@ export const StateTlInferenceCompletedTlInference: core.serialization.ObjectSche
 > = core.serialization.object({}).extend(CompletedTlInference);
 
 export declare namespace StateTlInferenceCompletedTlInference {
-    interface Raw extends CompletedTlInference.Raw {}
+    export interface Raw extends CompletedTlInference.Raw {}
 }

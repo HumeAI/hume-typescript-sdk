@@ -12,5 +12,5 @@ export const Status: core.serialization.Schema<
 > = core.serialization.enum_(["QUEUED", "IN_PROGRESS", "COMPLETED", "FAILED"]);
 
 export declare namespace Status {
-    type Raw = "QUEUED" | "IN_PROGRESS" | "COMPLETED" | "FAILED";
+    export type Raw = "QUEUED" | "IN_PROGRESS" | "COMPLETED" | "FAILED";
 }

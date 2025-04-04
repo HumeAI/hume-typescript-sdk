@@ -10,5 +10,5 @@ export const ToolType: core.serialization.Schema<serializers.empathicVoice.ToolT
     core.serialization.enum_(["builtin", "function"]);
 
 export declare namespace ToolType {
-    type Raw = "builtin" | "function";
+    export type Raw = "builtin" | "function";
 }

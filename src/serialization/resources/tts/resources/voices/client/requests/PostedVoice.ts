@@ -13,7 +13,7 @@ export const PostedVoice: core.serialization.Schema<serializers.tts.PostedVoice.
     });
 
 export declare namespace PostedVoice {
-    interface Raw {
+    export interface Raw {
         generation_id: string;
         name: string;
     }

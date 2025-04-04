@@ -15,7 +15,7 @@ export const RegistryFileDetail: core.serialization.ObjectSchema<
 });
 
 export declare namespace RegistryFileDetail {
-    interface Raw {
+    export interface Raw {
         file_id: string;
         file_url: string;
     }

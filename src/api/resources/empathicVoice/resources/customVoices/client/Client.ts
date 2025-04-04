@@ -10,19 +10,23 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace CustomVoices {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -44,10 +48,10 @@ export class CustomVoices {
      */
     public async listCustomVoices(
         request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest = {},
-        requestOptions?: CustomVoices.RequestOptions
+        requestOptions?: CustomVoices.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnPagedCustomVoices> {
         const { pageNumber, pageSize, name } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
         }
@@ -62,18 +66,21 @@ export class CustomVoices {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/custom_voices"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/evi/custom_voices",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -100,7 +107,7 @@ export class CustomVoices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -117,7 +124,7 @@ export class CustomVoices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -138,28 +145,31 @@ export class CustomVoices {
      * @example
      *     await client.empathicVoice.customVoices.createCustomVoice({
      *         name: "name",
-     *         baseVoice: Hume.empathicVoice.PostedCustomVoiceBaseVoice.Ito,
+     *         baseVoice: "ITO",
      *         parameterModel: "20241004-11parameter"
      *     })
      */
     public async createCustomVoice(
         request: Hume.empathicVoice.PostedCustomVoice,
-        requestOptions?: CustomVoices.RequestOptions
+        requestOptions?: CustomVoices.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnCustomVoice> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/custom_voices"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/evi/custom_voices",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -186,7 +196,7 @@ export class CustomVoices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -203,7 +213,7 @@ export class CustomVoices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/custom_voices.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -226,22 +236,25 @@ export class CustomVoices {
      */
     public async getCustomVoice(
         id: string,
-        requestOptions?: CustomVoices.RequestOptions
+        requestOptions?: CustomVoices.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnCustomVoice> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/custom_voices/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/custom_voices/${encodeURIComponent(id)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -267,7 +280,7 @@ export class CustomVoices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -284,7 +297,7 @@ export class CustomVoices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -306,29 +319,32 @@ export class CustomVoices {
      * @example
      *     await client.empathicVoice.customVoices.createCustomVoiceVersion("id", {
      *         name: "name",
-     *         baseVoice: Hume.empathicVoice.PostedCustomVoiceBaseVoice.Ito,
+     *         baseVoice: "ITO",
      *         parameterModel: "20241004-11parameter"
      *     })
      */
     public async createCustomVoiceVersion(
         id: string,
         request: Hume.empathicVoice.PostedCustomVoice,
-        requestOptions?: CustomVoices.RequestOptions
+        requestOptions?: CustomVoices.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnCustomVoice> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/custom_voices/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/custom_voices/${encodeURIComponent(id)}`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -355,7 +371,7 @@ export class CustomVoices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -372,7 +388,7 @@ export class CustomVoices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -396,18 +412,21 @@ export class CustomVoices {
     public async deleteCustomVoice(id: string, requestOptions?: CustomVoices.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/custom_voices/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/custom_voices/${encodeURIComponent(id)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -428,7 +447,7 @@ export class CustomVoices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -445,7 +464,7 @@ export class CustomVoices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling DELETE /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -472,22 +491,25 @@ export class CustomVoices {
     public async updateCustomVoiceName(
         id: string,
         request: Hume.empathicVoice.PostedCustomVoiceName,
-        requestOptions?: CustomVoices.RequestOptions
+        requestOptions?: CustomVoices.RequestOptions,
     ): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/custom_voices/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/custom_voices/${encodeURIComponent(id)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -512,7 +534,7 @@ export class CustomVoices {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -529,7 +551,7 @@ export class CustomVoices {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling PATCH /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,

@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = ReturnUserDefinedTool.optional();
 
 export declare namespace Response {
-    type Raw = ReturnUserDefinedTool.Raw | null | undefined;
+    export type Raw = ReturnUserDefinedTool.Raw | null | undefined;
 }

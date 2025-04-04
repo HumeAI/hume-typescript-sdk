@@ -15,7 +15,7 @@ export const Tag: core.serialization.ObjectSchema<
 });
 
 export declare namespace Tag {
-    interface Raw {
+    export interface Raw {
         key: string;
         value: string;
     }

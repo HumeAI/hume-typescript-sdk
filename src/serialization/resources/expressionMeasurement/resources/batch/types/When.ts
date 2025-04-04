@@ -12,5 +12,5 @@ export const When: core.serialization.Schema<
 > = core.serialization.enum_(["created_before", "created_after"]);
 
 export declare namespace When {
-    type Raw = "created_before" | "created_after";
+    export type Raw = "created_before" | "created_after";
 }

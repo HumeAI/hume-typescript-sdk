@@ -13,5 +13,5 @@ export const Toxicity: core.serialization.Schema<
 > = core.serialization.list(ToxicityItem);
 
 export declare namespace Toxicity {
-    type Raw = ToxicityItem.Raw[];
+    export type Raw = ToxicityItem.Raw[];
 }

@@ -22,13 +22,13 @@ export const Task: core.serialization.Schema<
     });
 
 export declare namespace Task {
-    type Raw = Task.Classification | Task.Regression;
+    export type Raw = Task.Classification | Task.Regression;
 
-    interface Classification extends TaskClassification.Raw {
+    export interface Classification extends TaskClassification.Raw {
         type: "classification";
     }
 
-    interface Regression extends TaskRegression.Raw {
+    export interface Regression extends TaskRegression.Raw {
         type: "regression";
     }
 }

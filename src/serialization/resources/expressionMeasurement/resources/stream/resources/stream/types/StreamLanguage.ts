@@ -16,7 +16,7 @@ export const StreamLanguage: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamLanguage {
-    interface Raw {
+    export interface Raw {
         sentiment?: Record<string, unknown> | null;
         toxicity?: Record<string, unknown> | null;
         granularity?: string | null;

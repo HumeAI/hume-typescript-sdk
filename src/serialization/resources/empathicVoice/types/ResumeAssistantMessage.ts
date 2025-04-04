@@ -15,7 +15,7 @@ export const ResumeAssistantMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ResumeAssistantMessage {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         type: "resume_assistant_message";
     }

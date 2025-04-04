@@ -24,7 +24,7 @@ export const FacePrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace FacePrediction {
-    interface Raw {
+    export interface Raw {
         frame: number;
         time: number;
         prob: number;

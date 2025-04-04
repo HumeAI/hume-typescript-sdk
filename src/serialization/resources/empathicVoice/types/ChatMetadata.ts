@@ -18,7 +18,7 @@ export const ChatMetadata: core.serialization.ObjectSchema<
 });
 
 export declare namespace ChatMetadata {
-    interface Raw {
+    export interface Raw {
         chat_group_id: string;
         chat_id: string;
         custom_session_id?: string | null;

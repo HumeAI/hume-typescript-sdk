@@ -16,7 +16,7 @@ export const CustomModelPrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomModelPrediction {
-    interface Raw {
+    export interface Raw {
         output: Record<string, number>;
         error: string;
         task_type: string;

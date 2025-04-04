@@ -18,7 +18,7 @@ export const PostedVoice: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedVoice {
-    interface Raw {
+    export interface Raw {
         provider: PostedVoiceProvider.Raw;
         name?: string | null;
         custom_voice?: PostedCustomVoice.Raw | null;

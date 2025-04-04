@@ -15,7 +15,7 @@ export const DescriptionsScore: core.serialization.ObjectSchema<
 });
 
 export declare namespace DescriptionsScore {
-    interface Raw {
+    export interface Raw {
         name: string;
         score: number;
     }

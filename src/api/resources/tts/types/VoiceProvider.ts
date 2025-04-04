@@ -3,7 +3,6 @@
  */
 
 export type VoiceProvider = "HUME_AI" | "CUSTOM_VOICE";
-
 export const VoiceProvider = {
     HumeAi: "HUME_AI",
     CustomVoice: "CUSTOM_VOICE",

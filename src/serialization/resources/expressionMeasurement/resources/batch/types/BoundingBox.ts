@@ -17,7 +17,7 @@ export const BoundingBox: core.serialization.ObjectSchema<
 });
 
 export declare namespace BoundingBox {
-    interface Raw {
+    export interface Raw {
         x: number;
         y: number;
         w: number;

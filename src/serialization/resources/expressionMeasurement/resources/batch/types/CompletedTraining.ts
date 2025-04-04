@@ -19,7 +19,7 @@ export const CompletedTraining: core.serialization.ObjectSchema<
 });
 
 export declare namespace CompletedTraining {
-    interface Raw {
+    export interface Raw {
         created_timestamp_ms: number;
         started_timestamp_ms: number;
         ended_timestamp_ms: number;

@@ -26,7 +26,7 @@ export const ReturnUserDefinedTool: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnUserDefinedTool {
-    interface Raw {
+    export interface Raw {
         tool_type: ReturnUserDefinedToolToolType.Raw;
         id: string;
         version: number;

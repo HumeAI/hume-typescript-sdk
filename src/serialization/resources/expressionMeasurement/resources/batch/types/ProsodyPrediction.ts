@@ -20,7 +20,7 @@ export const ProsodyPrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace ProsodyPrediction {
-    interface Raw {
+    export interface Raw {
         text?: string | null;
         time: TimeInterval.Raw;
         confidence?: number | null;

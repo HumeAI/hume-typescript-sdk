@@ -12,5 +12,5 @@ export const ReturnChatAudioReconstructionStatus: core.serialization.Schema<
 > = core.serialization.enum_(["QUEUED", "IN_PROGRESS", "COMPLETE", "ERROR", "CANCELLED"]);
 
 export declare namespace ReturnChatAudioReconstructionStatus {
-    type Raw = "QUEUED" | "IN_PROGRESS" | "COMPLETE" | "ERROR" | "CANCELLED";
+    export type Raw = "QUEUED" | "IN_PROGRESS" | "COMPLETE" | "ERROR" | "CANCELLED";
 }

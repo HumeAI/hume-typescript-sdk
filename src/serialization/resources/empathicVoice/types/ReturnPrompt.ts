@@ -22,7 +22,7 @@ export const ReturnPrompt: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnPrompt {
-    interface Raw {
+    export interface Raw {
         id: string;
         version: number;
         version_type: ReturnPromptVersionType.Raw;

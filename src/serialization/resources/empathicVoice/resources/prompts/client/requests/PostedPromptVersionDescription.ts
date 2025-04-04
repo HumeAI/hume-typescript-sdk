@@ -14,7 +14,7 @@ export const PostedPromptVersionDescription: core.serialization.Schema<
 });
 
 export declare namespace PostedPromptVersionDescription {
-    interface Raw {
+    export interface Raw {
         version_description?: string | null;
     }
 }

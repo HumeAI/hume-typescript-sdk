@@ -15,7 +15,7 @@ export const Inference: core.serialization.ObjectSchema<
 });
 
 export declare namespace Inference {
-    interface Raw {
+    export interface Raw {
         prosody?: ProsodyInference.Raw | null;
     }
 }

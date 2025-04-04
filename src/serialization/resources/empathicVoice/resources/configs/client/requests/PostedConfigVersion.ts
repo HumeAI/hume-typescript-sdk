@@ -28,7 +28,7 @@ export const PostedConfigVersion: core.serialization.Schema<
     tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
     builtinTools: core.serialization.property(
         "builtin_tools",
-        core.serialization.list(PostedBuiltinTool.optional()).optional()
+        core.serialization.list(PostedBuiltinTool.optional()).optional(),
     ),
     eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
     timeouts: PostedTimeoutSpecs.optional(),
@@ -36,7 +36,7 @@ export const PostedConfigVersion: core.serialization.Schema<
 });
 
 export declare namespace PostedConfigVersion {
-    interface Raw {
+    export interface Raw {
         evi_version: string;
         version_description?: string | null;
         prompt?: PostedConfigPromptSpec.Raw | null;

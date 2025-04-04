@@ -10,19 +10,23 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Configs {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -47,10 +51,10 @@ export class Configs {
      */
     public async listConfigs(
         request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnPagedConfigs> {
         const { pageNumber, pageSize, restrictToMostRecent, name } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
         }
@@ -69,18 +73,21 @@ export class Configs {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/configs"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/evi/configs",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -107,7 +114,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -124,7 +131,7 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/configs.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -151,12 +158,12 @@ export class Configs {
      *         },
      *         eviVersion: "2",
      *         voice: {
-     *             provider: Hume.empathicVoice.PostedVoiceProvider.HumeAi,
+     *             provider: "HUME_AI",
      *             name: "SAMPLE VOICE"
      *         },
      *         languageModel: {
-     *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
-     *             modelResource: Hume.empathicVoice.PostedLanguageModelModelResource.Claude35Sonnet20240620,
+     *             modelProvider: "ANTHROPIC",
+     *             modelResource: "claude-3-5-sonnet-20240620",
      *             temperature: 1
      *         },
      *         eventMessages: {
@@ -177,22 +184,25 @@ export class Configs {
      */
     public async createConfig(
         request: Hume.empathicVoice.PostedConfig,
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnConfig> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                "v0/evi/configs"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/evi/configs",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -219,7 +229,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -236,7 +246,7 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/configs.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -261,10 +271,10 @@ export class Configs {
     public async listConfigVersions(
         id: string,
         request: Hume.empathicVoice.ConfigsListConfigVersionsRequest = {},
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnPagedConfigs> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams["page_number"] = pageNumber.toString();
         }
@@ -279,18 +289,21 @@ export class Configs {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -317,7 +330,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -334,7 +347,7 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -362,12 +375,12 @@ export class Configs {
      *             version: 0
      *         },
      *         voice: {
-     *             provider: Hume.empathicVoice.PostedVoiceProvider.HumeAi,
+     *             provider: "HUME_AI",
      *             name: "ITO"
      *         },
      *         languageModel: {
-     *             modelProvider: Hume.empathicVoice.PostedLanguageModelModelProvider.Anthropic,
-     *             modelResource: Hume.empathicVoice.PostedLanguageModelModelResource.Claude35Sonnet20240620,
+     *             modelProvider: "ANTHROPIC",
+     *             modelResource: "claude-3-5-sonnet-20240620",
      *             temperature: 1
      *         },
      *         ellmModel: {
@@ -392,22 +405,25 @@ export class Configs {
     public async createConfigVersion(
         id: string,
         request: Hume.empathicVoice.PostedConfigVersion,
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnConfig> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -436,7 +452,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -453,7 +469,7 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -477,18 +493,21 @@ export class Configs {
     public async deleteConfig(id: string, requestOptions?: Configs.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -509,7 +528,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -526,7 +545,7 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling DELETE /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -553,22 +572,25 @@ export class Configs {
     public async updateConfigName(
         id: string,
         request: Hume.empathicVoice.PostedConfigName,
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -591,7 +613,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -608,7 +630,7 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling PATCH /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -637,22 +659,25 @@ export class Configs {
     public async getConfigVersion(
         id: string,
         version: number,
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnConfig> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -678,7 +703,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -695,7 +720,9 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError(
+                    "Timeout exceeded when calling GET /v0/evi/configs/{id}/version/{version}.",
+                );
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -724,22 +751,25 @@ export class Configs {
     public async deleteConfigVersion(
         id: string,
         version: number,
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -760,7 +790,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -777,7 +807,9 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError(
+                    "Timeout exceeded when calling DELETE /v0/evi/configs/{id}/version/{version}.",
+                );
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
@@ -810,22 +842,25 @@ export class Configs {
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedConfigVersionDescription = {},
-        requestOptions?: Configs.RequestOptions
+        requestOptions?: Configs.RequestOptions,
     ): Promise<Hume.empathicVoice.ReturnConfig> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Production,
-                `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                `v0/evi/configs/${encodeURIComponent(id)}/version/${encodeURIComponent(version)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.17",
-                "User-Agent": "hume/0.9.17",
+                "X-Fern-SDK-Version": "0.9.18",
+                "User-Agent": "hume/0.9.18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -854,7 +889,7 @@ export class Configs {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.HumeError({
@@ -871,7 +906,9 @@ export class Configs {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.HumeTimeoutError();
+                throw new errors.HumeTimeoutError(
+                    "Timeout exceeded when calling PATCH /v0/evi/configs/{id}/version/{version}.",
+                );
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,

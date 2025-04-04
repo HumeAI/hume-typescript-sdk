@@ -21,7 +21,7 @@ export const InferenceBaseRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace InferenceBaseRequest {
-    interface Raw {
+    export interface Raw {
         models?: Models.Raw | null;
         transcription?: Transcription.Raw | null;
         urls?: string[] | null;

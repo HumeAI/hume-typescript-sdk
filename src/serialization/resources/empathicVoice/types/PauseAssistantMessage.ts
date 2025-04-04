@@ -15,7 +15,7 @@ export const PauseAssistantMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace PauseAssistantMessage {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         type: "pause_assistant_message";
     }

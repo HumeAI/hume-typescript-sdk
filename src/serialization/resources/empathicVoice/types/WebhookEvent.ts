@@ -14,5 +14,5 @@ export const WebhookEvent: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([WebhookEventChatStarted, WebhookEventChatEnded]);
 
 export declare namespace WebhookEvent {
-    type Raw = WebhookEventChatStarted.Raw | WebhookEventChatEnded.Raw;
+    export type Raw = WebhookEventChatStarted.Raw | WebhookEventChatEnded.Raw;
 }

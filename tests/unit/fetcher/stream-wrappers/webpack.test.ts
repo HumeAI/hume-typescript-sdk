@@ -17,19 +17,26 @@ describe("test env compatibility", () => {
                         ],
                     },
                     resolve: {
-                        extensions: [".tsx", ".ts", ".js"],
+                        extensions: [".tsx", ".ts", ".jsx", ".js"],
+                        extensionAlias: {
+                            ".js": [".ts", ".js"],
+                            ".jsx": [".tsx", ".jsx"],
+                        },
                     },
                 },
                 (err, stats) => {
                     try {
                         expect(err).toBe(null);
+                        if (stats?.hasErrors()) {
+                            console.log(stats?.toString());
+                        }
                         expect(stats?.hasErrors()).toBe(false);
                         resolve();
                     } catch (error) {
                         reject(error);
                     }
-                }
+                },
             );
         });
-    }, 60_000);
+    }, 180_000);
 });

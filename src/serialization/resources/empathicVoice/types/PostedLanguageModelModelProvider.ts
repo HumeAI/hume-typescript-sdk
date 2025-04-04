@@ -12,5 +12,5 @@ export const PostedLanguageModelModelProvider: core.serialization.Schema<
 > = core.serialization.enum_(["OPEN_AI", "CUSTOM_LANGUAGE_MODEL", "ANTHROPIC", "FIREWORKS", "GROQ", "GOOGLE"]);
 
 export declare namespace PostedLanguageModelModelProvider {
-    type Raw = "OPEN_AI" | "CUSTOM_LANGUAGE_MODEL" | "ANTHROPIC" | "FIREWORKS" | "GROQ" | "GOOGLE";
+    export type Raw = "OPEN_AI" | "CUSTOM_LANGUAGE_MODEL" | "ANTHROPIC" | "FIREWORKS" | "GROQ" | "GOOGLE";
 }

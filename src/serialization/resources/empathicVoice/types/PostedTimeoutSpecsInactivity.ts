@@ -15,7 +15,7 @@ export const PostedTimeoutSpecsInactivity: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedTimeoutSpecsInactivity {
-    interface Raw {
+    export interface Raw {
         enabled: boolean;
         duration_secs?: number | null;
     }

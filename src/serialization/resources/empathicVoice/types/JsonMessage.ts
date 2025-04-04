@@ -31,7 +31,7 @@ export const JsonMessage: core.serialization.Schema<
 ]);
 
 export declare namespace JsonMessage {
-    type Raw =
+    export type Raw =
         | AssistantEnd.Raw
         | AssistantMessage.Raw
         | ChatMetadata.Raw

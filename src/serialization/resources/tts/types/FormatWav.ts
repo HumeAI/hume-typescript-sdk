@@ -10,5 +10,5 @@ export const FormatWav: core.serialization.ObjectSchema<serializers.tts.FormatWa
     core.serialization.object({});
 
 export declare namespace FormatWav {
-    interface Raw {}
+    export interface Raw {}
 }

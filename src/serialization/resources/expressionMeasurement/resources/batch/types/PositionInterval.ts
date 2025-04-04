@@ -15,7 +15,7 @@ export const PositionInterval: core.serialization.ObjectSchema<
 });
 
 export declare namespace PositionInterval {
-    interface Raw {
+    export interface Raw {
         begin: number;
         end: number;
     }

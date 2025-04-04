@@ -16,7 +16,7 @@ export const PostedPrompt: core.serialization.Schema<
 });
 
 export declare namespace PostedPrompt {
-    interface Raw {
+    export interface Raw {
         name: string;
         version_description?: string | null;
         text: string;
