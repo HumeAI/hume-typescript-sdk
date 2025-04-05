@@ -6,10 +6,7 @@ LICENSE
 CONTRIBUTING.md
 
 # Tooling
-eslint.config.mjs
-jest.config.mjs
 justfile
-tsconfig.dev.json
 .nvmrc
 .github
 .prettierignore
