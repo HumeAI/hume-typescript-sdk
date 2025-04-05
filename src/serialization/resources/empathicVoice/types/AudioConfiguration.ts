@@ -17,7 +17,7 @@ export const AudioConfiguration: core.serialization.ObjectSchema<
 });
 
 export declare namespace AudioConfiguration {
-    interface Raw {
+    export interface Raw {
         channels: number;
         encoding: Encoding.Raw;
         sample_rate: number;

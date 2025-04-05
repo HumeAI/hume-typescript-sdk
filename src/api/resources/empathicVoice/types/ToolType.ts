@@ -3,7 +3,6 @@
  */
 
 export type ToolType = "builtin" | "function";
-
 export const ToolType = {
     Builtin: "builtin",
     Function: "function",

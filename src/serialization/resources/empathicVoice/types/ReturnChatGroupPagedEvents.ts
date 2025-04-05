@@ -18,13 +18,13 @@ export const ReturnChatGroupPagedEvents: core.serialization.ObjectSchema<
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property(
         "pagination_direction",
-        ReturnChatGroupPagedEventsPaginationDirection
+        ReturnChatGroupPagedEventsPaginationDirection,
     ),
     eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
 });
 
 export declare namespace ReturnChatGroupPagedEvents {
-    interface Raw {
+    export interface Raw {
         id: string;
         page_number: number;
         page_size: number;

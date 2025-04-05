@@ -15,7 +15,7 @@ export const StreamModelPredictionsFace: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamModelPredictionsFace {
-    interface Raw {
+    export interface Raw {
         predictions?: StreamModelPredictionsFacePredictionsItem.Raw[] | null;
     }
 }

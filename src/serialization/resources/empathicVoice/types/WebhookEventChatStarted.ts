@@ -18,14 +18,14 @@ export const WebhookEventChatStarted: core.serialization.ObjectSchema<
         customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
         eventName: core.serialization.property(
             "event_name",
-            core.serialization.stringLiteral("chat_started").optional()
+            core.serialization.stringLiteral("chat_started").optional(),
         ),
         startTime: core.serialization.property("start_time", core.serialization.number()),
     })
     .extend(WebhookEventBase);
 
 export declare namespace WebhookEventChatStarted {
-    interface Raw extends WebhookEventBase.Raw {
+    export interface Raw extends WebhookEventBase.Raw {
         caller_number?: string | null;
         chat_start_type: WebhookEventChatStartType.Raw;
         custom_session_id?: string | null;

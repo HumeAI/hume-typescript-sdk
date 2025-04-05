@@ -15,12 +15,12 @@ export const PredictionsOptionalNullBurstPrediction: core.serialization.ObjectSc
     metadata: Null.optional(),
     groupedPredictions: core.serialization.property(
         "grouped_predictions",
-        core.serialization.list(GroupedPredictionsBurstPrediction)
+        core.serialization.list(GroupedPredictionsBurstPrediction),
     ),
 });
 
 export declare namespace PredictionsOptionalNullBurstPrediction {
-    interface Raw {
+    export interface Raw {
         metadata?: Null.Raw | null;
         grouped_predictions: GroupedPredictionsBurstPrediction.Raw[];
     }

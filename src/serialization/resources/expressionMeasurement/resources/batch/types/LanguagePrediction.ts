@@ -26,7 +26,7 @@ export const LanguagePrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace LanguagePrediction {
-    interface Raw {
+    export interface Raw {
         text: string;
         position: PositionInterval.Raw;
         time?: TimeInterval.Raw | null;

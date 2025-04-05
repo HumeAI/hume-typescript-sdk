@@ -14,7 +14,7 @@ export const PostedPromptSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedPromptSpec {
-    interface Raw {
+    export interface Raw {
         version?: unknown | null;
     }
 }

@@ -10,60 +10,58 @@ export const PostedLanguageModelModelResource: core.serialization.Schema<
     serializers.empathicVoice.PostedLanguageModelModelResource.Raw,
     Hume.empathicVoice.PostedLanguageModelModelResource
 > = core.serialization.enum_([
+    "claude-3-7-sonnet",
     "claude-3-5-sonnet-latest",
-    "claude-3-5-sonnet-20240620",
-    "claude-3-opus-20240229",
-    "claude-3-sonnet-20240229",
+    "claude-3-5-haiku-20241022-v1",
+    "gemini-2.0-flash",
     "claude-3-haiku-20240307",
-    "claude-2.1",
-    "claude-instant-1.2",
     "gemini-1.5-pro",
-    "gemini-1.5-flash",
-    "gemini-1.5-pro-002",
-    "gemini-1.5-flash-002",
-    "gpt-4-turbo-preview",
-    "gpt-3.5-turbo-0125",
-    "gpt-3.5-turbo",
+    "claude-3-5-sonnet-20240620",
     "gpt-4o",
     "gpt-4o-mini",
-    "gemma-7b-it",
+    "gemini-1.5-flash",
+    "claude-3-5-haiku-latest",
+    "llama-v3p1-70b-instruct",
+    "llama-3.3-70b-versatile",
+    "llama-v3p1-405b-instruct",
+    "llama-v3p1-8b-instruct",
+    "llama-3.1-8b-instant",
+    "mixtral-8x7b-instruct",
     "llama3-8b-8192",
     "llama3-70b-8192",
-    "llama-3.1-70b-versatile",
-    "llama-3.1-8b-instant",
-    "accounts/fireworks/models/mixtral-8x7b-instruct",
-    "accounts/fireworks/models/llama-v3p1-405b-instruct",
-    "accounts/fireworks/models/llama-v3p1-70b-instruct",
-    "accounts/fireworks/models/llama-v3p1-8b-instruct",
+    "claude-3-opus-20240229",
+    "gpt-4-turbo",
+    "claude-3-sonnet-20240229",
+    "claude-3-5-sonnet-20240620-v1",
+    "claude-3-haiku-20240307-v1",
     "ellm",
 ]);
 
 export declare namespace PostedLanguageModelModelResource {
-    type Raw =
+    export type Raw =
+        | "claude-3-7-sonnet"
         | "claude-3-5-sonnet-latest"
-        | "claude-3-5-sonnet-20240620"
-        | "claude-3-opus-20240229"
-        | "claude-3-sonnet-20240229"
+        | "claude-3-5-haiku-20241022-v1"
+        | "gemini-2.0-flash"
         | "claude-3-haiku-20240307"
-        | "claude-2.1"
-        | "claude-instant-1.2"
         | "gemini-1.5-pro"
-        | "gemini-1.5-flash"
-        | "gemini-1.5-pro-002"
-        | "gemini-1.5-flash-002"
-        | "gpt-4-turbo-preview"
-        | "gpt-3.5-turbo-0125"
-        | "gpt-3.5-turbo"
+        | "claude-3-5-sonnet-20240620"
         | "gpt-4o"
         | "gpt-4o-mini"
-        | "gemma-7b-it"
+        | "gemini-1.5-flash"
+        | "claude-3-5-haiku-latest"
+        | "llama-v3p1-70b-instruct"
+        | "llama-3.3-70b-versatile"
+        | "llama-v3p1-405b-instruct"
+        | "llama-v3p1-8b-instruct"
+        | "llama-3.1-8b-instant"
+        | "mixtral-8x7b-instruct"
         | "llama3-8b-8192"
         | "llama3-70b-8192"
-        | "llama-3.1-70b-versatile"
-        | "llama-3.1-8b-instant"
-        | "accounts/fireworks/models/mixtral-8x7b-instruct"
-        | "accounts/fireworks/models/llama-v3p1-405b-instruct"
-        | "accounts/fireworks/models/llama-v3p1-70b-instruct"
-        | "accounts/fireworks/models/llama-v3p1-8b-instruct"
+        | "claude-3-opus-20240229"
+        | "gpt-4-turbo"
+        | "claude-3-sonnet-20240229"
+        | "claude-3-5-sonnet-20240620-v1"
+        | "claude-3-haiku-20240307-v1"
         | "ellm";
 }

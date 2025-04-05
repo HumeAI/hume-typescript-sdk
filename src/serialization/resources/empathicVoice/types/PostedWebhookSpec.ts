@@ -16,7 +16,7 @@ export const PostedWebhookSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedWebhookSpec {
-    interface Raw {
+    export interface Raw {
         url: string;
         events: PostedWebhookEventType.Raw[];
     }

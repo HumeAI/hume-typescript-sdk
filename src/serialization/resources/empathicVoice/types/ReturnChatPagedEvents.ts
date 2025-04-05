@@ -29,7 +29,7 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnChatPagedEvents {
-    interface Raw {
+    export interface Raw {
         id: string;
         chat_group_id: string;
         status: ReturnChatPagedEventsStatus.Raw;

@@ -16,7 +16,7 @@ export const PostedBuiltinTool: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedBuiltinTool {
-    interface Raw {
+    export interface Raw {
         name: PostedBuiltinToolName.Raw;
         fallback_content?: string | null;
     }

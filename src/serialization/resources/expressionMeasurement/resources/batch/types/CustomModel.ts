@@ -14,5 +14,5 @@ export const CustomModel: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([CustomModelId, CustomModelVersionId]);
 
 export declare namespace CustomModel {
-    type Raw = CustomModelId.Raw | CustomModelVersionId.Raw;
+    export type Raw = CustomModelId.Raw | CustomModelVersionId.Raw;
 }

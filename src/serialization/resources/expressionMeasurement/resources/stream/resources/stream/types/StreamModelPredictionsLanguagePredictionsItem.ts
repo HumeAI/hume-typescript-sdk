@@ -25,7 +25,7 @@ export const StreamModelPredictionsLanguagePredictionsItem: core.serialization.O
 });
 
 export declare namespace StreamModelPredictionsLanguagePredictionsItem {
-    interface Raw {
+    export interface Raw {
         text?: string | null;
         position?: TextPosition.Raw | null;
         emotions?: EmotionEmbedding.Raw | null;

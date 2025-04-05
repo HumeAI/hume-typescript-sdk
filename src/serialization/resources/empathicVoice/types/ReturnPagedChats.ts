@@ -20,7 +20,7 @@ export const ReturnPagedChats: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnPagedChats {
-    interface Raw {
+    export interface Raw {
         page_number: number;
         page_size: number;
         total_pages: number;

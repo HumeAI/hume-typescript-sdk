@@ -12,5 +12,5 @@ export const TaskRegression: core.serialization.ObjectSchema<
 > = core.serialization.object({});
 
 export declare namespace TaskRegression {
-    interface Raw {}
+    export interface Raw {}
 }

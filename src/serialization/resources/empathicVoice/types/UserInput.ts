@@ -16,7 +16,7 @@ export const UserInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserInput {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         text: string;
         type: "user_input";

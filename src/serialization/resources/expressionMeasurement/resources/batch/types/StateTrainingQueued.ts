@@ -13,5 +13,5 @@ export const StateTrainingQueued: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(Queued);
 
 export declare namespace StateTrainingQueued {
-    interface Raw extends Queued.Raw {}
+    export interface Raw extends Queued.Raw {}
 }

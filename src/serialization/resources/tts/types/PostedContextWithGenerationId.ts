@@ -14,7 +14,7 @@ export const PostedContextWithGenerationId: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedContextWithGenerationId {
-    interface Raw {
+    export interface Raw {
         generation_id: string;
     }
 }

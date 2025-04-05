@@ -16,7 +16,7 @@ export const StreamModelPredictionsFacemeshPredictionsItem: core.serialization.O
 });
 
 export declare namespace StreamModelPredictionsFacemeshPredictionsItem {
-    interface Raw {
+    export interface Raw {
         emotions?: EmotionEmbedding.Raw | null;
     }
 }

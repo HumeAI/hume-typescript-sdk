@@ -9,16 +9,16 @@ import * as Hume from "../../../index";
  */
 export type Format = Hume.tts.Format.Mp3 | Hume.tts.Format.Pcm | Hume.tts.Format.Wav;
 
-export declare namespace Format {
-    interface Mp3 extends Hume.tts.FormatMp3 {
+export namespace Format {
+    export interface Mp3 extends Hume.tts.FormatMp3 {
         type: "mp3";
     }
 
-    interface Pcm extends Hume.tts.FormatPcm {
+    export interface Pcm extends Hume.tts.FormatPcm {
         type: "pcm";
     }
 
-    interface Wav extends Hume.tts.FormatWav {
+    export interface Wav extends Hume.tts.FormatWav {
         type: "wav";
     }
 }

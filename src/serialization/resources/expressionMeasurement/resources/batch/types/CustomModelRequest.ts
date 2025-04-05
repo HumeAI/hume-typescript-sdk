@@ -17,7 +17,7 @@ export const CustomModelRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomModelRequest {
-    interface Raw {
+    export interface Raw {
         name: string;
         description?: string | null;
         tags?: Tag.Raw[] | null;

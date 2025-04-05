@@ -18,7 +18,7 @@ export const StreamModelPredictionsProsodyPredictionsItem: core.serialization.Ob
 });
 
 export declare namespace StreamModelPredictionsProsodyPredictionsItem {
-    interface Raw {
+    export interface Raw {
         time?: TimeRange.Raw | null;
         emotions?: EmotionEmbedding.Raw | null;
     }

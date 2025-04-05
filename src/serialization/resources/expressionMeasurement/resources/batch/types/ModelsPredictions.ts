@@ -25,7 +25,7 @@ export const ModelsPredictions: core.serialization.ObjectSchema<
 });
 
 export declare namespace ModelsPredictions {
-    interface Raw {
+    export interface Raw {
         face?: PredictionsOptionalNullFacePrediction.Raw | null;
         burst?: PredictionsOptionalNullBurstPrediction.Raw | null;
         prosody?: PredictionsOptionalTranscriptionMetadataProsodyPrediction.Raw | null;

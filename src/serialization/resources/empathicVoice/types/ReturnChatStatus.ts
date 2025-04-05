@@ -19,5 +19,11 @@ export const ReturnChatStatus: core.serialization.Schema<
 ]);
 
 export declare namespace ReturnChatStatus {
-    type Raw = "ACTIVE" | "USER_ENDED" | "USER_TIMEOUT" | "MAX_DURATION_TIMEOUT" | "INACTIVITY_TIMEOUT" | "ERROR";
+    export type Raw =
+        | "ACTIVE"
+        | "USER_ENDED"
+        | "USER_TIMEOUT"
+        | "MAX_DURATION_TIMEOUT"
+        | "INACTIVITY_TIMEOUT"
+        | "ERROR";
 }

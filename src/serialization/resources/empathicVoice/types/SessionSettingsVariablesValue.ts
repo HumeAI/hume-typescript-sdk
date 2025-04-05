@@ -16,5 +16,5 @@ export const SessionSettingsVariablesValue: core.serialization.Schema<
 ]);
 
 export declare namespace SessionSettingsVariablesValue {
-    type Raw = string | number | boolean;
+    export type Raw = string | number | boolean;
 }

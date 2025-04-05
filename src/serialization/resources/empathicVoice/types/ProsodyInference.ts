@@ -15,7 +15,7 @@ export const ProsodyInference: core.serialization.ObjectSchema<
 });
 
 export declare namespace ProsodyInference {
-    interface Raw {
+    export interface Raw {
         scores: EmotionScores.Raw;
     }
 }

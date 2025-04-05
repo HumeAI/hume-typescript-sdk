@@ -13,5 +13,5 @@ export const SourceUrl: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(Url);
 
 export declare namespace SourceUrl {
-    interface Raw extends Url.Raw {}
+    export interface Raw extends Url.Raw {}
 }

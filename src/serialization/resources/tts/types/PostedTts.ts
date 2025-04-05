@@ -19,7 +19,7 @@ export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTt
     });
 
 export declare namespace PostedTts {
-    interface Raw {
+    export interface Raw {
         context?: PostedContext.Raw | null;
         format?: Format.Raw | null;
         num_generations?: number | null;

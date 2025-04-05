@@ -80,13 +80,13 @@ export class Chat {
         const socket = new core.ReconnectingWebSocket(
             `wss://${(core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production).replace(
                 "https://",
-                ""
+                "",
             )}/v0/evi/chat?${qs.stringify(queryParams)}`,
             [],
             {
                 debug: args.debug ?? false,
                 maxRetries: args.reconnectAttempts ?? 30,
-            }
+            },
         );
 
         return new ChatSocket({

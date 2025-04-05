@@ -13,12 +13,12 @@ export const EmbeddingGenerationBaseRequest: core.serialization.ObjectSchema<
 > = core.serialization.object({
     registryFileDetails: core.serialization.property(
         "registry_file_details",
-        core.serialization.list(RegistryFileDetail).optional()
+        core.serialization.list(RegistryFileDetail).optional(),
     ),
 });
 
 export declare namespace EmbeddingGenerationBaseRequest {
-    interface Raw {
+    export interface Raw {
         registry_file_details?: RegistryFileDetail.Raw[] | null;
     }
 }

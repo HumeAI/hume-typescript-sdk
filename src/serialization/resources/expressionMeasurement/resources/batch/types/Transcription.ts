@@ -17,7 +17,7 @@ export const Transcription: core.serialization.ObjectSchema<
 });
 
 export declare namespace Transcription {
-    interface Raw {
+    export interface Raw {
         language?: Bcp47Tag.Raw | null;
         identify_speakers?: boolean | null;
         confidence_threshold?: number | null;

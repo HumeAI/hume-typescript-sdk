@@ -13,5 +13,5 @@ export const UnionJob: core.serialization.ObjectSchema<
 > = InferenceJob;
 
 export declare namespace UnionJob {
-    type Raw = InferenceJob.Raw;
+    export type Raw = InferenceJob.Raw;
 }

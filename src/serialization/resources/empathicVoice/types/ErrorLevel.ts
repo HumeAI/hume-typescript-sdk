@@ -12,5 +12,5 @@ export const ErrorLevel: core.serialization.Schema<
 > = core.serialization.stringLiteral("warn");
 
 export declare namespace ErrorLevel {
-    type Raw = "warn";
+    export type Raw = "warn";
 }

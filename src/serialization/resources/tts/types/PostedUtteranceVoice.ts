@@ -14,5 +14,5 @@ export const PostedUtteranceVoice: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([PostedUtteranceVoiceWithId, PostedUtteranceVoiceWithName]);
 
 export declare namespace PostedUtteranceVoice {
-    type Raw = PostedUtteranceVoiceWithId.Raw | PostedUtteranceVoiceWithName.Raw;
+    export type Raw = PostedUtteranceVoiceWithId.Raw | PostedUtteranceVoiceWithName.Raw;
 }

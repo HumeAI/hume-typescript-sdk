@@ -19,5 +19,11 @@ export const WebhookEventChatStatus: core.serialization.Schema<
 ]);
 
 export declare namespace WebhookEventChatStatus {
-    type Raw = "ACTIVE" | "USER_ENDED" | "USER_TIMEOUT" | "INACTIVITY_TIMEOUT" | "MAX_DURATION_TIMEOUT" | "ERROR";
+    export type Raw =
+        | "ACTIVE"
+        | "USER_ENDED"
+        | "USER_TIMEOUT"
+        | "INACTIVITY_TIMEOUT"
+        | "MAX_DURATION_TIMEOUT"
+        | "ERROR";
 }

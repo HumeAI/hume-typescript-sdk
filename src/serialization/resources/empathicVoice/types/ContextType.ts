@@ -12,5 +12,5 @@ export const ContextType: core.serialization.Schema<
 > = core.serialization.enum_(["editable", "persistent", "temporary"]);
 
 export declare namespace ContextType {
-    type Raw = "editable" | "persistent" | "temporary";
+    export type Raw = "editable" | "persistent" | "temporary";
 }

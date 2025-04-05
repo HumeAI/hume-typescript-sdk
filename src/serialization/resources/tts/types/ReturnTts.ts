@@ -14,7 +14,7 @@ export const ReturnTts: core.serialization.ObjectSchema<serializers.tts.ReturnTt
     });
 
 export declare namespace ReturnTts {
-    interface Raw {
+    export interface Raw {
         generations: ReturnGeneration.Raw[];
         request_id?: string | null;
     }

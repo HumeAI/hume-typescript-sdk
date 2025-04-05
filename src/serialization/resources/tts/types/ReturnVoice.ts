@@ -15,7 +15,7 @@ export const ReturnVoice: core.serialization.ObjectSchema<serializers.tts.Return
     });
 
 export declare namespace ReturnVoice {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         name?: string | null;
         provider?: VoiceProvider.Raw | null;

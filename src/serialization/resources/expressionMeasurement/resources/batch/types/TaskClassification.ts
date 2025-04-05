@@ -12,5 +12,5 @@ export const TaskClassification: core.serialization.ObjectSchema<
 > = core.serialization.object({});
 
 export declare namespace TaskClassification {
-    interface Raw {}
+    export interface Raw {}
 }

@@ -13,5 +13,5 @@ export const StateTlInferenceQueued: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(Queued);
 
 export declare namespace StateTlInferenceQueued {
-    interface Raw extends Queued.Raw {}
+    export interface Raw extends Queued.Raw {}
 }

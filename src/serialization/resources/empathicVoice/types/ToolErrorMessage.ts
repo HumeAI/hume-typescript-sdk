@@ -23,7 +23,7 @@ export const ToolErrorMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToolErrorMessage {
-    interface Raw {
+    export interface Raw {
         code?: string | null;
         content?: string | null;
         custom_session_id?: string | null;

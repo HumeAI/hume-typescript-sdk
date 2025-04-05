@@ -17,7 +17,7 @@ export const PostedTimeoutSpecs: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedTimeoutSpecs {
-    interface Raw {
+    export interface Raw {
         inactivity?: PostedTimeoutSpecsInactivity.Raw | null;
         max_duration?: PostedTimeoutSpecsMaxDuration.Raw | null;
     }

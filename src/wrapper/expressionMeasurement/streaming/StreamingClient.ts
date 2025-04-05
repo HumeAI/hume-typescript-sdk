@@ -69,7 +69,7 @@ export function parse(
     args: {
         onMessage?: (message: Hume.expressionMeasurement.stream.Config) => void;
         onError?: (error: Hume.expressionMeasurement.stream.StreamErrorMessage) => void;
-    } = {}
+    } = {},
 ): Hume.expressionMeasurement.stream.Config | Hume.expressionMeasurement.stream.StreamErrorMessage | undefined {
     const message = JSON.parse(data as string);
 

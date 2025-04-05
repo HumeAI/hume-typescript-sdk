@@ -13,5 +13,5 @@ export const SourceFile: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(File_);
 
 export declare namespace SourceFile {
-    interface Raw extends File_.Raw {}
+    export interface Raw extends File_.Raw {}
 }

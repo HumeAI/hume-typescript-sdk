@@ -13,5 +13,5 @@ export const Sentiment: core.serialization.Schema<
 > = core.serialization.list(SentimentItem);
 
 export declare namespace Sentiment {
-    type Raw = SentimentItem.Raw[];
+    export type Raw = SentimentItem.Raw[];
 }

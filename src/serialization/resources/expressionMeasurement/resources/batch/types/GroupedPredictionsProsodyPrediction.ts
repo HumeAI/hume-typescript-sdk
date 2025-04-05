@@ -16,7 +16,7 @@ export const GroupedPredictionsProsodyPrediction: core.serialization.ObjectSchem
 });
 
 export declare namespace GroupedPredictionsProsodyPrediction {
-    interface Raw {
+    export interface Raw {
         id: string;
         predictions: ProsodyPrediction.Raw[];
     }

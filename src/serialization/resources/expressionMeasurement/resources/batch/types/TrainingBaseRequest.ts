@@ -26,7 +26,7 @@ export const TrainingBaseRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace TrainingBaseRequest {
-    interface Raw {
+    export interface Raw {
         custom_model: CustomModelRequest.Raw;
         dataset: Dataset.Raw;
         target_feature?: string | null;

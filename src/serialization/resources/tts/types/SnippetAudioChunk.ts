@@ -18,7 +18,7 @@ export const SnippetAudioChunk: core.serialization.ObjectSchema<
 });
 
 export declare namespace SnippetAudioChunk {
-    interface Raw {
+    export interface Raw {
         audio: string;
         chunk_index: number;
         generation_id: string;

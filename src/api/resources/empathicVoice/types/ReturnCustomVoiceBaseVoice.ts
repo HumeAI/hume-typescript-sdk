@@ -6,7 +6,6 @@
  * The base voice used to create the Custom Voice.
  */
 export type ReturnCustomVoiceBaseVoice = "ITO" | "KORA" | "DACHER" | "AURA" | "FINN" | "WHIMSY" | "STELLA" | "SUNNY";
-
 export const ReturnCustomVoiceBaseVoice = {
     Ito: "ITO",
     Kora: "KORA",

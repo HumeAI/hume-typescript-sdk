@@ -15,7 +15,7 @@ export const EmotionScore: core.serialization.ObjectSchema<
 });
 
 export declare namespace EmotionScore {
-    interface Raw {
+    export interface Raw {
         name: string;
         score: number;
     }

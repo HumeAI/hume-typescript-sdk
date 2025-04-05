@@ -15,7 +15,7 @@ export const FacemeshPrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace FacemeshPrediction {
-    interface Raw {
+    export interface Raw {
         emotions: EmotionScore.Raw[];
     }
 }

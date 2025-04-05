@@ -16,7 +16,7 @@ export const TranscriptionMetadata: core.serialization.ObjectSchema<
 });
 
 export declare namespace TranscriptionMetadata {
-    interface Raw {
+    export interface Raw {
         confidence: number;
         detected_language?: Bcp47Tag.Raw | null;
     }

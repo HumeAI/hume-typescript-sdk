@@ -17,7 +17,7 @@ export const StreamBoundingBox: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamBoundingBox {
-    interface Raw {
+    export interface Raw {
         x?: number | null;
         y?: number | null;
         w?: number | null;

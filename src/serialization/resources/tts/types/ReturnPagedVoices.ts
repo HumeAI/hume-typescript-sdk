@@ -18,7 +18,7 @@ export const ReturnPagedVoices: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnPagedVoices {
-    interface Raw {
+    export interface Raw {
         page_number?: number | null;
         page_size?: number | null;
         total_pages?: number | null;
