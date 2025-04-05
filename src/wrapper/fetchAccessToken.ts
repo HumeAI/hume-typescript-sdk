@@ -65,7 +65,7 @@ export const fetchAccessToken = async ({
             () =>
                 ({
                     success: false,
-                } as const)
+                }) as const,
         );
 
     if (!response.success) {
