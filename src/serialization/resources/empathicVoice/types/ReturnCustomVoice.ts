@@ -20,13 +20,13 @@ export const ReturnCustomVoice: core.serialization.ObjectSchema<
     baseVoice: core.serialization.property("base_voice", ReturnCustomVoiceBaseVoice),
     parameterModel: core.serialization.property(
         "parameter_model",
-        core.serialization.stringLiteral("20241004-11parameter")
+        core.serialization.stringLiteral("20241004-11parameter"),
     ),
     parameters: ReturnCustomVoiceParameters,
 });
 
 export declare namespace ReturnCustomVoice {
-    interface Raw {
+    export interface Raw {
         id: string;
         version: number;
         name: string;

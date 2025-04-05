@@ -21,7 +21,7 @@ export const AssistantMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace AssistantMessage {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         from_text: boolean;
         id?: string | null;

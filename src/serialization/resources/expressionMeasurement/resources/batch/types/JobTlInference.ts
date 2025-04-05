@@ -19,7 +19,7 @@ export const JobTlInference: core.serialization.ObjectSchema<
 });
 
 export declare namespace JobTlInference {
-    interface Raw {
+    export interface Raw {
         job_id: string;
         user_id: string;
         request: TlInferenceBaseRequest.Raw;

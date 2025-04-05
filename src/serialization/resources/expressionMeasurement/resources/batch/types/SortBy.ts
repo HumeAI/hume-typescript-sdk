@@ -12,5 +12,5 @@ export const SortBy: core.serialization.Schema<
 > = core.serialization.enum_(["created", "started", "ended"]);
 
 export declare namespace SortBy {
-    type Raw = "created" | "started" | "ended";
+    export type Raw = "created" | "started" | "ended";
 }

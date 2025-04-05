@@ -21,7 +21,7 @@ export const Face: core.serialization.ObjectSchema<
 });
 
 export declare namespace Face {
-    interface Raw {
+    export interface Raw {
         fps_pred?: number | null;
         prob_threshold?: number | null;
         identify_faces?: boolean | null;

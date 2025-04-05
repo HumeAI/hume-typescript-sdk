@@ -17,7 +17,7 @@ export const TlInferenceResults: core.serialization.ObjectSchema<
 });
 
 export declare namespace TlInferenceResults {
-    interface Raw {
+    export interface Raw {
         predictions: TlInferencePrediction.Raw[];
         errors: Error_.Raw[];
     }

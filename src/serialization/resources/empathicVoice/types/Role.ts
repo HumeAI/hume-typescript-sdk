@@ -10,5 +10,5 @@ export const Role: core.serialization.Schema<serializers.empathicVoice.Role.Raw,
     core.serialization.enum_(["assistant", "system", "user", "all", "tool"]);
 
 export declare namespace Role {
-    type Raw = "assistant" | "system" | "user" | "all" | "tool";
+    export type Raw = "assistant" | "system" | "user" | "all" | "tool";
 }

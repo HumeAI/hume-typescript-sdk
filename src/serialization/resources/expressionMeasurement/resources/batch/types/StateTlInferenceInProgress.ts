@@ -13,5 +13,5 @@ export const StateTlInferenceInProgress: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(InProgress);
 
 export declare namespace StateTlInferenceInProgress {
-    interface Raw extends InProgress.Raw {}
+    export interface Raw extends InProgress.Raw {}
 }

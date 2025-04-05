@@ -17,7 +17,7 @@ export const CustomModelsTrainingJob: core.serialization.ObjectSchema<
     .extend(JobTraining);
 
 export declare namespace CustomModelsTrainingJob {
-    interface Raw extends JobTraining.Raw {
+    export interface Raw extends JobTraining.Raw {
         type: string;
     }
 }

@@ -23,7 +23,7 @@ export const PostedCustomVoiceParameters: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedCustomVoiceParameters {
-    interface Raw {
+    export interface Raw {
         gender?: number | null;
         assertiveness?: number | null;
         buoyancy?: number | null;

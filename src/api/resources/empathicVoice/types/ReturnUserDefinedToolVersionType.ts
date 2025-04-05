@@ -6,7 +6,6 @@
  * Versioning method for a Tool. Either `FIXED` for using a fixed version number or `LATEST` for auto-updating to the latest version.
  */
 export type ReturnUserDefinedToolVersionType = "FIXED" | "LATEST";
-
 export const ReturnUserDefinedToolVersionType = {
     Fixed: "FIXED",
     Latest: "LATEST",

@@ -12,5 +12,5 @@ export const PostedContext: core.serialization.Schema<serializers.tts.PostedCont
     core.serialization.undiscriminatedUnion([PostedContextWithGenerationId, PostedContextWithUtterances]);
 
 export declare namespace PostedContext {
-    type Raw = PostedContextWithGenerationId.Raw | PostedContextWithUtterances.Raw;
+    export type Raw = PostedContextWithGenerationId.Raw | PostedContextWithUtterances.Raw;
 }

@@ -18,7 +18,7 @@ export const Prosody: core.serialization.ObjectSchema<
 });
 
 export declare namespace Prosody {
-    interface Raw {
+    export interface Raw {
         granularity?: Granularity.Raw | null;
         window?: Window.Raw | null;
         identify_speakers?: boolean | null;

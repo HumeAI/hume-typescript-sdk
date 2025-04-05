@@ -16,7 +16,7 @@ export const UserInterruption: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserInterruption {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         time: number;
         type: "user_interruption";

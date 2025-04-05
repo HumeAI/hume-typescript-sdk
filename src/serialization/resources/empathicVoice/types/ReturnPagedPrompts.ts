@@ -18,7 +18,7 @@ export const ReturnPagedPrompts: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnPagedPrompts {
-    interface Raw {
+    export interface Raw {
         page_number: number;
         page_size: number;
         total_pages: number;

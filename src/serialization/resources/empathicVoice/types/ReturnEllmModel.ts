@@ -14,7 +14,7 @@ export const ReturnEllmModel: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnEllmModel {
-    interface Raw {
+    export interface Raw {
         allow_short_responses: boolean;
     }
 }

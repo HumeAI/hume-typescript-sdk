@@ -16,7 +16,7 @@ export const File_: core.serialization.ObjectSchema<
 });
 
 export declare namespace File_ {
-    interface Raw {
+    export interface Raw {
         filename?: string | null;
         content_type?: string | null;
         md5sum: string;

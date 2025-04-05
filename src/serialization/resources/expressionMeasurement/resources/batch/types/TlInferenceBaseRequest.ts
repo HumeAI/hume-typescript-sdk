@@ -18,7 +18,7 @@ export const TlInferenceBaseRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace TlInferenceBaseRequest {
-    interface Raw {
+    export interface Raw {
         custom_model: CustomModel.Raw;
         urls?: string[] | null;
         callback_url?: string | null;

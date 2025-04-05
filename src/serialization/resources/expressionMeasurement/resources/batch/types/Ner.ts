@@ -14,7 +14,7 @@ export const Ner: core.serialization.ObjectSchema<
 });
 
 export declare namespace Ner {
-    interface Raw {
+    export interface Raw {
         identify_speakers?: boolean | null;
     }
 }

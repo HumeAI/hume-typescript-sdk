@@ -33,7 +33,7 @@ export const SubscribeEvent: core.serialization.Schema<
 ]);
 
 export declare namespace SubscribeEvent {
-    type Raw =
+    export type Raw =
         | AssistantEnd.Raw
         | AssistantMessage.Raw
         | AudioOutput.Raw

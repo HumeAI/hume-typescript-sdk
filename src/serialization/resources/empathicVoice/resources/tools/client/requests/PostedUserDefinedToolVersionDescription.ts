@@ -14,7 +14,7 @@ export const PostedUserDefinedToolVersionDescription: core.serialization.Schema<
 });
 
 export declare namespace PostedUserDefinedToolVersionDescription {
-    interface Raw {
+    export interface Raw {
         version_description?: string | null;
     }
 }

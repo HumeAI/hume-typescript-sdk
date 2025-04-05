@@ -15,12 +15,12 @@ export const TlInferencePrediction: core.serialization.ObjectSchema<
     fileType: core.serialization.property("file_type", core.serialization.string()),
     customModels: core.serialization.property(
         "custom_models",
-        core.serialization.record(core.serialization.string(), CustomModelPrediction)
+        core.serialization.record(core.serialization.string(), CustomModelPrediction),
     ),
 });
 
 export declare namespace TlInferencePrediction {
-    interface Raw {
+    export interface Raw {
         file: string;
         file_type: string;
         custom_models: Record<string, CustomModelPrediction.Raw>;

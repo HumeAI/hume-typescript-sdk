@@ -12,5 +12,5 @@ export const Null: core.serialization.Schema<
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 
 export declare namespace Null {
-    type Raw = Record<string, unknown>;
+    export type Raw = Record<string, unknown>;
 }

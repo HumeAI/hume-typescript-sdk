@@ -26,25 +26,25 @@ export const StateEmbeddingGeneration: core.serialization.Schema<
     });
 
 export declare namespace StateEmbeddingGeneration {
-    type Raw =
+    export type Raw =
         | StateEmbeddingGeneration.Queued
         | StateEmbeddingGeneration.InProgress
         | StateEmbeddingGeneration.Completed
         | StateEmbeddingGeneration.Failed;
 
-    interface Queued extends StateEmbeddingGenerationQueued.Raw {
+    export interface Queued extends StateEmbeddingGenerationQueued.Raw {
         status: "QUEUED";
     }
 
-    interface InProgress extends StateEmbeddingGenerationInProgress.Raw {
+    export interface InProgress extends StateEmbeddingGenerationInProgress.Raw {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends StateEmbeddingGenerationCompletedEmbeddingGeneration.Raw {
+    export interface Completed extends StateEmbeddingGenerationCompletedEmbeddingGeneration.Raw {
         status: "COMPLETED";
     }
 
-    interface Failed extends StateEmbeddingGenerationFailed.Raw {
+    export interface Failed extends StateEmbeddingGenerationFailed.Raw {
         status: "FAILED";
     }
 }

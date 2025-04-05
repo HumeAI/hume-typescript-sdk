@@ -20,7 +20,7 @@ export const Config: core.serialization.ObjectSchema<
 });
 
 export declare namespace Config {
-    interface Raw {
+    export interface Raw {
         burst?: Record<string, unknown> | null;
         face?: StreamFace.Raw | null;
         facemesh?: Record<string, unknown> | null;

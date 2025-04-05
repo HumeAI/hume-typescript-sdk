@@ -28,7 +28,7 @@ export const SessionSettings: core.serialization.ObjectSchema<
 });
 
 export declare namespace SessionSettings {
-    interface Raw {
+    export interface Raw {
         audio?: AudioConfiguration.Raw | null;
         builtin_tools?: BuiltinToolConfig.Raw[] | null;
         context?: Context.Raw | null;

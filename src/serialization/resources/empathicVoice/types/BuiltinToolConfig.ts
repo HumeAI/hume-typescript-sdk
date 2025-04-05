@@ -16,7 +16,7 @@ export const BuiltinToolConfig: core.serialization.ObjectSchema<
 });
 
 export declare namespace BuiltinToolConfig {
-    interface Raw {
+    export interface Raw {
         fallback_content?: string | null;
         name: BuiltInTool.Raw;
     }

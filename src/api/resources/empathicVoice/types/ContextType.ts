@@ -3,7 +3,6 @@
  */
 
 export type ContextType = "editable" | "persistent" | "temporary";
-
 export const ContextType = {
     Editable: "editable",
     Persistent: "persistent",

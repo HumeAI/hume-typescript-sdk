@@ -6,18 +6,21 @@
  * The provider of the supplemental language model.
  */
 export type ReturnLanguageModelModelProvider =
-    | "OPEN_AI"
-    | "CUSTOM_LANGUAGE_MODEL"
-    | "ANTHROPIC"
-    | "FIREWORKS"
     | "GROQ"
-    | "GOOGLE";
-
+    | "OPEN_AI"
+    | "FIREWORKS"
+    | "ANTHROPIC"
+    | "CUSTOM_LANGUAGE_MODEL"
+    | "GOOGLE"
+    | "HUME_AI"
+    | "AMAZON_BEDROCK";
 export const ReturnLanguageModelModelProvider = {
-    OpenAi: "OPEN_AI",
-    CustomLanguageModel: "CUSTOM_LANGUAGE_MODEL",
-    Anthropic: "ANTHROPIC",
-    Fireworks: "FIREWORKS",
     Groq: "GROQ",
+    OpenAi: "OPEN_AI",
+    Fireworks: "FIREWORKS",
+    Anthropic: "ANTHROPIC",
+    CustomLanguageModel: "CUSTOM_LANGUAGE_MODEL",
     Google: "GOOGLE",
+    HumeAi: "HUME_AI",
+    AmazonBedrock: "AMAZON_BEDROCK",
 } as const;

@@ -7,7 +7,7 @@ import * as Hume from "../../../../../../index";
 /**
  * @example
  *     {
- *         provider: Hume.tts.VoiceProvider.CustomVoice
+ *         provider: "CUSTOM_VOICE"
  *     }
  */
 export interface VoicesListRequest {

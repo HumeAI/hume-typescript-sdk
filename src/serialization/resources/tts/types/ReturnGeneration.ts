@@ -21,7 +21,7 @@ export const ReturnGeneration: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnGeneration {
-    interface Raw {
+    export interface Raw {
         audio: string;
         duration: number;
         encoding: AudioEncoding.Raw;

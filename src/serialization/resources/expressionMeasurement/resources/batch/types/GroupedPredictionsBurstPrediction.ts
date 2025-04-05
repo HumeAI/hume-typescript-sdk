@@ -16,7 +16,7 @@ export const GroupedPredictionsBurstPrediction: core.serialization.ObjectSchema<
 });
 
 export declare namespace GroupedPredictionsBurstPrediction {
-    interface Raw {
+    export interface Raw {
         id: string;
         predictions: BurstPrediction.Raw[];
     }

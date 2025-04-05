@@ -21,7 +21,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToolCallMessage {
-    interface Raw {
+    export interface Raw {
         custom_session_id?: string | null;
         name: string;
         parameters: string;

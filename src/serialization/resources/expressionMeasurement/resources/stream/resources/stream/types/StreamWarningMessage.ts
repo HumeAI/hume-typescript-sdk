@@ -18,7 +18,7 @@ export const StreamWarningMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamWarningMessage {
-    interface Raw {
+    export interface Raw {
         warning?: string | null;
         code?: string | null;
         payload_id?: string | null;

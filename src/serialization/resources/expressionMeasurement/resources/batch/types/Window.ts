@@ -15,7 +15,7 @@ export const Window: core.serialization.ObjectSchema<
 });
 
 export declare namespace Window {
-    interface Raw {
+    export interface Raw {
         length?: number | null;
         step?: number | null;
     }

@@ -23,7 +23,7 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnChatEvent {
-    interface Raw {
+    export interface Raw {
         id: string;
         chat_id: string;
         timestamp: number;

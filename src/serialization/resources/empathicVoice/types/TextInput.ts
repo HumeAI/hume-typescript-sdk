@@ -14,7 +14,7 @@ export const TextInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace TextInput {
-    interface Raw {
+    export interface Raw {
         type?: "text_input" | null;
     }
 }

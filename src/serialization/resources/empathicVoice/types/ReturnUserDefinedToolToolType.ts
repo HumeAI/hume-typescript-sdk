@@ -12,5 +12,5 @@ export const ReturnUserDefinedToolToolType: core.serialization.Schema<
 > = core.serialization.enum_(["BUILTIN", "FUNCTION"]);
 
 export declare namespace ReturnUserDefinedToolToolType {
-    type Raw = "BUILTIN" | "FUNCTION";
+    export type Raw = "BUILTIN" | "FUNCTION";
 }

@@ -15,7 +15,7 @@ export const StreamModelPredictionsProsody: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamModelPredictionsProsody {
-    interface Raw {
+    export interface Raw {
         predictions?: StreamModelPredictionsProsodyPredictionsItem.Raw[] | null;
     }
 }

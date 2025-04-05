@@ -24,7 +24,7 @@ export const StreamModelPredictionsFacePredictionsItem: core.serialization.Objec
 });
 
 export declare namespace StreamModelPredictionsFacePredictionsItem {
-    interface Raw {
+    export interface Raw {
         frame?: number | null;
         time?: number | null;
         bbox?: StreamBoundingBox.Raw | null;
