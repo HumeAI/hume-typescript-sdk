@@ -336,7 +336,7 @@ for await (const item of response) {
 
 ## Tts Voices
 
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> Hume.ReturnPagedVoices</code></summary>
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice></code></summary>
 <dl>
 <dd>
 
@@ -364,9 +364,20 @@ Lists voices in your **Voice Library**. Set provider to `HUME_AI` to list Hume's
 <dd>
 
 ```typescript
-await client.tts.voices.list({
+const response = await client.tts.voices.list({
     provider: "CUSTOM_VOICE",
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.tts.voices.list({
+    provider: "CUSTOM_VOICE",
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -686,7 +697,7 @@ await client.empathicVoice.tools.createTool({
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> Hume.ReturnPagedUserDefinedTools</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> core.Page<Hume.ReturnUserDefinedTool | undefined></code></summary>
 <dl>
 <dd>
 
@@ -716,7 +727,16 @@ Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#fun
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+const response = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -1914,7 +1934,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 ## EmpathicVoice CustomVoices
 
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">listCustomVoices</a>({ ...params }) -> Hume.ReturnPagedCustomVoices</code></summary>
+<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">listCustomVoices</a>({ ...params }) -> core.Page<Hume.ReturnCustomVoice></code></summary>
 <dl>
 <dd>
 
@@ -1944,7 +1964,16 @@ Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voi
 <dd>
 
 ```typescript
-await client.empathicVoice.customVoices.listCustomVoices();
+const response = await client.empathicVoice.customVoices.listCustomVoices();
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.customVoices.listCustomVoices();
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -2332,7 +2361,7 @@ await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
 
 ## EmpathicVoice Configs
 
-<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> Hume.ReturnPagedConfigs</code></summary>
+<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> core.Page<Hume.ReturnConfig></code></summary>
 <dl>
 <dd>
 
@@ -2362,10 +2391,22 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.listConfigs({
+const response = await client.empathicVoice.configs.listConfigs({
     pageNumber: 0,
     pageSize: 1,
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.configs.listConfigs({
+    pageNumber: 0,
+    pageSize: 1,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -2495,7 +2536,7 @@ await client.empathicVoice.configs.createConfig({
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> Hume.ReturnPagedConfigs</code></summary>
+<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> core.Page<Hume.ReturnConfig></code></summary>
 <dl>
 <dd>
 
@@ -2525,7 +2566,16 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+const response = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -3296,7 +3346,7 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 
 ## EmpathicVoice ChatGroups
 
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> Hume.ReturnPagedChatGroups</code></summary>
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> core.Page<Hume.ReturnChatGroup></code></summary>
 <dl>
 <dd>
 
@@ -3324,12 +3374,26 @@ Fetches a paginated list of **Chat Groups**.
 <dd>
 
 ```typescript
-await client.empathicVoice.chatGroups.listChatGroups({
+const response = await client.empathicVoice.chatGroups.listChatGroups({
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true,
     configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.chatGroups.listChatGroups({
+    pageNumber: 0,
+    pageSize: 1,
+    ascendingOrder: true,
+    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>
@@ -3439,7 +3503,7 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedEvents</code></summary>
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent></code></summary>
 <dl>
 <dd>
 
@@ -3467,11 +3531,24 @@ Fetches a paginated list of **Chat** events associated with a **Chat Group**.
 <dd>
 
 ```typescript
-await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+const response = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true,
 });
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 ```
 
 </dd>

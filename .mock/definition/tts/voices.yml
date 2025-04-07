@@ -12,6 +12,9 @@ service:
         Lists voices in your **Voice Library**. Set provider to `HUME_AI` to
         list Hume's preset voices, or to `CUSTOM_VOICE` to a custom voice
         created in your account.
+      pagination:
+        offset: $request.page_number
+        results: $response.voices_page
       source:
         openapi: tts-openapi.yml
       display-name: List voices
@@ -44,8 +47,7 @@ service:
 
               For example, if `page_size` is set to 10, each page will include
               up to 10 items. Defaults to 10.
-          ascending_order:
-            type: optional<boolean>
+          ascending_order: optional<boolean>
       response:
         docs: Success
         type: root.ReturnPagedVoices
