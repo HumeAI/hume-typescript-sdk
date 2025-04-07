@@ -1128,9 +1128,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001688:
-  version "1.0.30001710"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001710.tgz#2cda0c6071ddd43c01151c7f704a0e510a86612f"
-  integrity sha512-B5C0I0UmaGqHgo5FuqJ7hBd4L57A4dDD+Xi+XX1nXOoxGeDdY4Ko38qJYOyqznBVJEqON5p8P1x5zRR3+rsnxA==
+  version "1.0.30001712"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001712.tgz#41ee150f12de11b5f57c5889d4f30deb451deedf"
+  integrity sha512-MBqPpGYYdQ7/hfKiet9SCI+nmN5/hp4ZzveOJubl5DTAMa5oggjAuoi0Z4onBpKPFI2ePGnQuQIzF3VxDjDJig==
 
 chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0:
   version "4.1.2"
@@ -1322,9 +1322,9 @@ ejs@^3.1.10:
     jake "^10.8.5"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.132"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.132.tgz#081b8086d7cecc58732f7cc1f1c19306c5510c5f"
-  integrity sha512-QgX9EBvWGmvSRa74zqfnG7+Eno0Ak0vftBll0Pt2/z5b3bEGYL6OUXLgKPtvx73dn3dvwrlyVkjPKRRlhLYTEg==
+  version "1.5.133"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.133.tgz#1e0aba775a9ae51a42d70a2c5e562fab515105f4"
+  integrity sha512-mrR+g6Y1at0GKDlPlMMwLAkI6c47q3d7U/vKS3rGTa3V4xStu18oT4UCPg5ErcAhUqk7swSjXSPUGstOYd2qBw==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -3095,9 +3095,9 @@ webpack-sources@^3.2.3:
   integrity sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==
 
 webpack@^5.97.1:
-  version "5.98.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.98.0.tgz#44ae19a8f2ba97537978246072fb89d10d1fbd17"
-  integrity sha512-UFynvx+gM44Gv9qFgj0acCQK2VE1CtdfwFdimkapco3hlPCJ/zeq73n2yVKimVbtm+TnApIugGhLJnkU6gjYXA==
+  version "5.99.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.99.0.tgz#6ee6499227653538e6c5b7e0bbd021f12d1c8481"
+  integrity sha512-//MpHjkKV7dhKheJ1lJuHkR6tv8ycfYy7YVzVhhIpwKuKCu5/Zty/vGpFi0fV2RRAWTYDuj6oKn4vYyLzRh55g==
   dependencies:
     "@types/eslint-scope" "^3.7.7"
     "@types/estree" "^1.0.6"

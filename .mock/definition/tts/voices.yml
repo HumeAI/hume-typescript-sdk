@@ -12,6 +12,9 @@ service:
         Lists voices in your **Voice Library**. Set provider to `HUME_AI` to
         list Hume's preset voices, or to `CUSTOM_VOICE` to a custom voice
         created in your account.
+      pagination:
+        offset: $request.page_number
+        results: $response.voices_page
       source:
         openapi: tts-openapi.yml
       display-name: List voices
