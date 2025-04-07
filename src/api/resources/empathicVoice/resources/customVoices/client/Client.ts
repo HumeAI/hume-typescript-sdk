@@ -49,87 +49,95 @@ export class CustomVoices {
     public async listCustomVoices(
         request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest = {},
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnPagedCustomVoices> {
-        const { pageNumber, pageSize, name } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (pageNumber != null) {
-            _queryParams["page_number"] = pageNumber.toString();
-        }
-
-        if (pageSize != null) {
-            _queryParams["page_size"] = pageSize.toString();
-        }
-
-        if (name != null) {
-            _queryParams["name"] = name;
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.HumeEnvironment.Production,
-                "v0/evi/custom_voices",
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.18",
-                "User-Agent": "hume/0.9.18",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.empathicVoice.ReturnPagedCustomVoices.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
+    ): Promise<core.Page<Hume.empathicVoice.ReturnCustomVoice>> {
+        const list = async (
+            request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest,
+        ): Promise<Hume.empathicVoice.ReturnPagedCustomVoices> => {
+            const { pageNumber, pageSize, name } = request;
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+            if (pageNumber != null) {
+                _queryParams["page_number"] = pageNumber.toString();
+            }
+            if (pageSize != null) {
+                _queryParams["page_size"] = pageSize.toString();
+            }
+            if (name != null) {
+                _queryParams["name"] = name;
+            }
+            const _response = await (this._options.fetcher ?? core.fetcher)({
+                url: urlJoin(
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
+                        environments.HumeEnvironment.Production,
+                    "v0/evi/custom_voices",
+                ),
+                method: "GET",
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-SDK-Name": "",
+                    "X-Fern-SDK-Version": "0.0.552",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                    ...(await this._getCustomAuthorizationHeaders()),
+                    ...requestOptions?.headers,
+                },
+                contentType: "application/json",
+                queryParameters: _queryParams,
+                requestType: "json",
+                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions?.maxRetries,
+                abortSignal: requestOptions?.abortSignal,
             });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Hume.empathicVoice.BadRequestError(
-                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
+            if (_response.ok) {
+                return serializers.empathicVoice.ReturnPagedCustomVoices.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new Hume.empathicVoice.BadRequestError(
+                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                breadcrumbsPrefix: ["response"],
+                            }),
+                        );
+                    default:
+                        throw new errors.HumeError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
-                        body: _response.error.body,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices.");
+                case "unknown":
+                    throw new errors.HumeError({
+                        message: _response.error.errorMessage,
                     });
             }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices.");
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                });
-        }
+        };
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
+        return new core.Pageable<Hume.empathicVoice.ReturnPagedCustomVoices, Hume.empathicVoice.ReturnCustomVoice>({
+            response: await list(request),
+            hasNextPage: (response) => (response?.customVoicesPage ?? []).length > 0,
+            getItems: (response) => response?.customVoicesPage ?? [],
+            loadPage: (_response) => {
+                _offset += 1;
+                return list(core.setObjectProperty(request, "pageNumber", _offset));
+            },
+        });
     }
 
     /**
@@ -163,9 +171,8 @@ export class CustomVoices {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.18",
-                "User-Agent": "hume/0.9.18",
+                "X-Fern-SDK-Name": "",
+                "X-Fern-SDK-Version": "0.0.552",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -248,9 +255,8 @@ export class CustomVoices {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.18",
-                "User-Agent": "hume/0.9.18",
+                "X-Fern-SDK-Name": "",
+                "X-Fern-SDK-Version": "0.0.552",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -338,9 +344,8 @@ export class CustomVoices {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.18",
-                "User-Agent": "hume/0.9.18",
+                "X-Fern-SDK-Name": "",
+                "X-Fern-SDK-Version": "0.0.552",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -420,9 +425,8 @@ export class CustomVoices {
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.18",
-                "User-Agent": "hume/0.9.18",
+                "X-Fern-SDK-Name": "",
+                "X-Fern-SDK-Version": "0.0.552",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -503,9 +507,8 @@ export class CustomVoices {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.9.18",
-                "User-Agent": "hume/0.9.18",
+                "X-Fern-SDK-Name": "",
+                "X-Fern-SDK-Version": "0.0.552",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
