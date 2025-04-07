@@ -23,7 +23,7 @@ export const WebhookEventChatEnded: core.serialization.ObjectSchema<
     .extend(WebhookEventBase);
 
 export declare namespace WebhookEventChatEnded {
-    interface Raw extends WebhookEventBase.Raw {
+    export interface Raw extends WebhookEventBase.Raw {
         caller_number?: string | null;
         custom_session_id?: string | null;
         duration_seconds: number;

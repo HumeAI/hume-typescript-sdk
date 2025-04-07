@@ -6,7 +6,6 @@
  * Type of Tool. Either `BUILTIN` for natively implemented tools, like web search, or `FUNCTION` for user-defined tools.
  */
 export type ReturnBuiltinToolToolType = "BUILTIN" | "FUNCTION";
-
 export const ReturnBuiltinToolToolType = {
     Builtin: "BUILTIN",
     Function: "FUNCTION",

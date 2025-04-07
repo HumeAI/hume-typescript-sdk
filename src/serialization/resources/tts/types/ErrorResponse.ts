@@ -14,7 +14,7 @@ export const ErrorResponse: core.serialization.ObjectSchema<serializers.tts.Erro
     });
 
 export declare namespace ErrorResponse {
-    interface Raw {
+    export interface Raw {
         error?: string | null;
         message?: string | null;
         code?: string | null;

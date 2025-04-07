@@ -15,7 +15,7 @@ export const PostedUserDefinedToolSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedUserDefinedToolSpec {
-    interface Raw {
+    export interface Raw {
         id: string;
         version?: number | null;
     }

@@ -12,5 +12,5 @@ export const ReturnVoiceProvider: core.serialization.Schema<
 > = core.serialization.enum_(["HUME_AI", "CUSTOM_VOICE"]);
 
 export declare namespace ReturnVoiceProvider {
-    type Raw = "HUME_AI" | "CUSTOM_VOICE";
+    export type Raw = "HUME_AI" | "CUSTOM_VOICE";
 }

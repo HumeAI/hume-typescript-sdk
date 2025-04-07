@@ -21,17 +21,17 @@ export const Format: core.serialization.Schema<serializers.tts.Format.Raw, Hume.
     });
 
 export declare namespace Format {
-    type Raw = Format.Mp3 | Format.Pcm | Format.Wav;
+    export type Raw = Format.Mp3 | Format.Pcm | Format.Wav;
 
-    interface Mp3 extends FormatMp3.Raw {
+    export interface Mp3 extends FormatMp3.Raw {
         type: "mp3";
     }
 
-    interface Pcm extends FormatPcm.Raw {
+    export interface Pcm extends FormatPcm.Raw {
         type: "pcm";
     }
 
-    interface Wav extends FormatWav.Raw {
+    export interface Wav extends FormatWav.Raw {
         type: "wav";
     }
 }

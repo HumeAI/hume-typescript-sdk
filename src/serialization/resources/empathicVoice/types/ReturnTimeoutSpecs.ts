@@ -16,7 +16,7 @@ export const ReturnTimeoutSpecs: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnTimeoutSpecs {
-    interface Raw {
+    export interface Raw {
         inactivity: ReturnTimeoutSpec.Raw;
         max_duration: ReturnTimeoutSpec.Raw;
     }

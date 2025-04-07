@@ -14,7 +14,7 @@ export const DatasetVersionId: core.serialization.ObjectSchema<
 });
 
 export declare namespace DatasetVersionId {
-    interface Raw {
+    export interface Raw {
         version_id: string;
     }
 }

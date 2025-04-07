@@ -15,5 +15,5 @@ export const SubscribeEvent: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([StreamModelPredictions, StreamErrorMessage, StreamWarningMessage]);
 
 export declare namespace SubscribeEvent {
-    type Raw = StreamModelPredictions.Raw | StreamErrorMessage.Raw | StreamWarningMessage.Raw;
+    export type Raw = StreamModelPredictions.Raw | StreamErrorMessage.Raw | StreamWarningMessage.Raw;
 }

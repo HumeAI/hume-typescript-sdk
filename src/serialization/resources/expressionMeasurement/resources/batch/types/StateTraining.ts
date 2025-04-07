@@ -26,21 +26,21 @@ export const StateTraining: core.serialization.Schema<
     });
 
 export declare namespace StateTraining {
-    type Raw = StateTraining.Queued | StateTraining.InProgress | StateTraining.Completed | StateTraining.Failed;
+    export type Raw = StateTraining.Queued | StateTraining.InProgress | StateTraining.Completed | StateTraining.Failed;
 
-    interface Queued extends StateTrainingQueued.Raw {
+    export interface Queued extends StateTrainingQueued.Raw {
         status: "QUEUED";
     }
 
-    interface InProgress extends StateTrainingInProgress.Raw {
+    export interface InProgress extends StateTrainingInProgress.Raw {
         status: "IN_PROGRESS";
     }
 
-    interface Completed extends StateTrainingCompletedTraining.Raw {
+    export interface Completed extends StateTrainingCompletedTraining.Raw {
         status: "COMPLETED";
     }
 
-    interface Failed extends StateTrainingFailed.Raw {
+    export interface Failed extends StateTrainingFailed.Raw {
         status: "FAILED";
     }
 }

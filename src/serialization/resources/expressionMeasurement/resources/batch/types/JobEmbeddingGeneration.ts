@@ -19,7 +19,7 @@ export const JobEmbeddingGeneration: core.serialization.ObjectSchema<
 });
 
 export declare namespace JobEmbeddingGeneration {
-    interface Raw {
+    export interface Raw {
         job_id: string;
         user_id: string;
         request: EmbeddingGenerationBaseRequest.Raw;

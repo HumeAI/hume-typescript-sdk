@@ -14,5 +14,5 @@ export const Dataset: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([DatasetId, DatasetVersionId]);
 
 export declare namespace Dataset {
-    type Raw = DatasetId.Raw | DatasetVersionId.Raw;
+    export type Raw = DatasetId.Raw | DatasetVersionId.Raw;
 }

@@ -3,7 +3,6 @@
  */
 
 export type SortBy = "created" | "started" | "ended";
-
 export const SortBy = {
     Created: "created",
     Started: "started",

@@ -15,7 +15,7 @@ export const PostedContextWithUtterances: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedContextWithUtterances {
-    interface Raw {
+    export interface Raw {
         utterances: PostedUtterance.Raw[];
     }
 }

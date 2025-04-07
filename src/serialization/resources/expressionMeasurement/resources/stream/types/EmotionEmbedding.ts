@@ -13,5 +13,5 @@ export const EmotionEmbedding: core.serialization.Schema<
 > = core.serialization.list(EmotionEmbeddingItem);
 
 export declare namespace EmotionEmbedding {
-    type Raw = EmotionEmbeddingItem.Raw[];
+    export type Raw = EmotionEmbeddingItem.Raw[];
 }

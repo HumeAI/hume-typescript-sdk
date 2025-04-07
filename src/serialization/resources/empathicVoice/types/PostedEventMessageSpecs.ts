@@ -17,7 +17,7 @@ export const PostedEventMessageSpecs: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedEventMessageSpecs {
-    interface Raw {
+    export interface Raw {
         on_new_chat?: PostedEventMessageSpec.Raw | null;
         on_inactivity_timeout?: PostedEventMessageSpec.Raw | null;
         on_max_duration_timeout?: PostedEventMessageSpec.Raw | null;

@@ -15,7 +15,7 @@ export const FacsScore: core.serialization.ObjectSchema<
 });
 
 export declare namespace FacsScore {
-    interface Raw {
+    export interface Raw {
         name: string;
         score: number;
     }

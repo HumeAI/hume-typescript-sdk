@@ -18,7 +18,7 @@ export const StreamErrorMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace StreamErrorMessage {
-    interface Raw {
+    export interface Raw {
         error?: string | null;
         code?: string | null;
         payload_id?: string | null;

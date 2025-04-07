@@ -16,7 +16,7 @@ export const Snippet: core.serialization.ObjectSchema<serializers.tts.Snippet.Ra
     });
 
 export declare namespace Snippet {
-    interface Raw {
+    export interface Raw {
         audio: string;
         generation_id: string;
         id: string;

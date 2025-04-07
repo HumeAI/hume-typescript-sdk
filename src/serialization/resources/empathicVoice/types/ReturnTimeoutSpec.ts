@@ -15,7 +15,7 @@ export const ReturnTimeoutSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnTimeoutSpec {
-    interface Raw {
+    export interface Raw {
         enabled: boolean;
         duration_secs?: number | null;
     }

@@ -15,7 +15,7 @@ export const ReturnConfigSpec: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnConfigSpec {
-    interface Raw {
+    export interface Raw {
         id: string;
         version?: number | null;
     }

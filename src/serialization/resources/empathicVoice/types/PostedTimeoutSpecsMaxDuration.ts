@@ -15,7 +15,7 @@ export const PostedTimeoutSpecsMaxDuration: core.serialization.ObjectSchema<
 });
 
 export declare namespace PostedTimeoutSpecsMaxDuration {
-    interface Raw {
+    export interface Raw {
         enabled: boolean;
         duration_secs?: number | null;
     }

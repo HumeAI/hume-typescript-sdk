@@ -21,14 +21,14 @@ export const ReturnChatGroupPagedChats: core.serialization.ObjectSchema<
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property(
         "pagination_direction",
-        ReturnChatGroupPagedChatsPaginationDirection
+        ReturnChatGroupPagedChatsPaginationDirection,
     ),
     chatsPage: core.serialization.property("chats_page", core.serialization.list(ReturnChat)),
     active: core.serialization.boolean().optional(),
 });
 
 export declare namespace ReturnChatGroupPagedChats {
-    interface Raw {
+    export interface Raw {
         id: string;
         first_start_timestamp: number;
         most_recent_start_timestamp: number;

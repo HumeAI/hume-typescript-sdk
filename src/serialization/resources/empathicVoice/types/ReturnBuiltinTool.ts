@@ -17,7 +17,7 @@ export const ReturnBuiltinTool: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnBuiltinTool {
-    interface Raw {
+    export interface Raw {
         tool_type: ReturnBuiltinToolToolType.Raw;
         name: string;
         fallback_content?: string | null;

@@ -13,5 +13,5 @@ export const StateEmbeddingGenerationFailed: core.serialization.ObjectSchema<
 > = core.serialization.object({}).extend(Failed);
 
 export declare namespace StateEmbeddingGenerationFailed {
-    interface Raw extends Failed.Raw {}
+    export interface Raw extends Failed.Raw {}
 }

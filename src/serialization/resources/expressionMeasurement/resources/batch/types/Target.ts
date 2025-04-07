@@ -16,5 +16,5 @@ export const Target: core.serialization.Schema<
 ]);
 
 export declare namespace Target {
-    type Raw = number | number | string;
+    export type Raw = number | number | string;
 }

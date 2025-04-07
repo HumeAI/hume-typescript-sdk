@@ -42,7 +42,7 @@ export const Bcp47Tag: core.serialization.Schema<
 ]);
 
 export declare namespace Bcp47Tag {
-    type Raw =
+    export type Raw =
         | "zh"
         | "da"
         | "nl"

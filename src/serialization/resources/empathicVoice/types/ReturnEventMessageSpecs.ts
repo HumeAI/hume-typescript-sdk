@@ -17,7 +17,7 @@ export const ReturnEventMessageSpecs: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReturnEventMessageSpecs {
-    interface Raw {
+    export interface Raw {
         on_new_chat?: ReturnEventMessageSpec.Raw | null;
         on_inactivity_timeout?: ReturnEventMessageSpec.Raw | null;
         on_max_duration_timeout?: ReturnEventMessageSpec.Raw | null;
