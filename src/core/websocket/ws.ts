@@ -33,6 +33,7 @@ export type Options = {
     maxEnqueuedMessages?: number;
     startClosed?: boolean;
     debug?: boolean;
+    shouldAttemptReconnectHook?: (event: CloseEvent) => boolean;
 };
 
 const DEFAULT = {
@@ -74,8 +75,8 @@ export class ReconnectingWebSocket {
     private _binaryType: BinaryType = "blob";
     private _closeCalled = false;
     private _messageQueue: Message[] = [];
+    private _url: UrlProvider;
 
-    private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
     private readonly _options: Options;
 
@@ -298,6 +299,11 @@ export class ReconnectingWebSocket {
         }
     }
 
+    public updateUrlProvider(newUrlProvider: UrlProvider): void {
+        this._debug("Updating URL provider.");
+        this._url = newUrlProvider;
+    }
+
     private _debug(...args: any[]) {
         if (this._options.debug) {
             // not using spread because compiled version uses Symbols
@@ -469,9 +475,24 @@ export class ReconnectingWebSocket {
         this._debug("close event");
         this._clearTimeouts();
 
+        let finalShouldReconnect = this._shouldReconnect;
+
         if (event.code === 1000) {
-            this._shouldReconnect = false;
+            finalShouldReconnect = false;
         }
+
+        if (finalShouldReconnect && this._options.shouldAttemptReconnectHook) {
+            try {
+                if (!this._options.shouldAttemptReconnectHook(event)) {
+                    finalShouldReconnect = false;
+                }
+            } catch (e) {
+                console.error("Error executing shouldAttemptReconnectHook:", e);
+                finalShouldReconnect = false;
+            }
+        }
+
+        this._shouldReconnect = finalShouldReconnect;
 
         if (this._shouldReconnect) {
             this._connect();
