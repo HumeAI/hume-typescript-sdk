@@ -225,8 +225,8 @@ export class ChatSocket {
         });
         if (parsedResponse.ok) {
             const message = parsedResponse.value;
-            if (message.type === 'chat_metadata' && this._shouldResumeChat) {
-                this.socket.setQueryParamOverride('resumed_chat_group_id', message.chatGroupId);
+            if (message.type === "chat_metadata" && this._shouldResumeChat) {
+                this.socket.setQueryParamOverride("resumed_chat_group_id", message.chatGroupId);
             }
             this.eventHandlers.message?.({ ...message, receivedAt: new Date() });
         } else {

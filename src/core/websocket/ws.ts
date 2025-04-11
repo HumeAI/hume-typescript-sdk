@@ -76,7 +76,7 @@ export class ReconnectingWebSocket {
     private _closeCalled = false;
     private _messageQueue: Message[] = [];
     private _queryParamOverrides = new Map<string, string>();
-    
+
     private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
     private readonly _options: Options;

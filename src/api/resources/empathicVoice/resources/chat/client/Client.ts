@@ -102,8 +102,8 @@ export class Chat {
         if (!shouldResume) return true;
         // Allow attempt
         const resumableCloseCodes: Set<number> = new Set([1006, 1011, 1012, 1013, 1014]);
-        if (resumableCloseCodes.has(event.code)) return true; 
+        if (resumableCloseCodes.has(event.code)) return true;
         // Prevent attempt
-        return false; 
+        return false;
     }
 }
