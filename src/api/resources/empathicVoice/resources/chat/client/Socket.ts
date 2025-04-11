@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import * as core from "../../../../../../core";
 import * as errors from "../../../../../../errors";
 import * as Hume from "../../../../../index";
