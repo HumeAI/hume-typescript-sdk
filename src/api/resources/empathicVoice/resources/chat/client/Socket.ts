@@ -7,6 +7,7 @@ import * as serializers from "../../../../../../serialization/index";
 export declare namespace ChatSocket {
     interface Args {
         socket: core.ReconnectingWebSocket;
+        shouldResumeChat?: boolean;
     }
 
     type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: Date };
@@ -24,8 +25,13 @@ export class ChatSocket {
 
     protected readonly eventHandlers: ChatSocket.EventHandlers = {};
 
-    constructor({ socket }: ChatSocket.Args) {
+    private _chatGroupId: string | null = null;
+
+    private readonly _shouldResumeChat: boolean;
+
+    constructor({ socket, shouldResumeChat }: ChatSocket.Args) {
         this.socket = socket;
+        this._shouldResumeChat = shouldResumeChat ?? true;
 
         this.socket.addEventListener("open", this.handleOpen);
         this.socket.addEventListener("message", this.handleMessage);
@@ -220,10 +226,19 @@ export class ChatSocket {
             breadcrumbsPrefix: ["response"],
         });
         if (parsedResponse.ok) {
-            this.eventHandlers.message?.({
-                ...parsedResponse.value,
-                receivedAt: new Date(),
-            });
+            const message = parsedResponse.value;
+            if (message.type === 'chat_metadata' && this._shouldResumeChat) {
+                const { chatGroupId } = message;
+                this._chatGroupId = chatGroupId;
+
+                const urlToModify = new URL(this.socket.url);
+                urlToModify.searchParams.set('resumed_chat_group_id', this._chatGroupId);
+                const newUrlString = urlToModify.toString();
+
+                this.socket.updateUrlProvider(newUrlString);
+            }
+
+            this.eventHandlers.message?.({ ...message, receivedAt: new Date() });
         } else {
             this.eventHandlers.error?.(new Error(`Received unknown message type`));
         }
