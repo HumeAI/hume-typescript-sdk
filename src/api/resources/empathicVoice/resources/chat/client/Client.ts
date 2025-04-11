@@ -34,8 +34,19 @@ export declare namespace Chat {
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
 
-        /** Enable resuming the Chat on specific disconnects. If `true`, the SDK will attempt to reconnect using the `chat_group_id` if a disconnect occurs with [close codes](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code#value): `1006`, `1011`, `1012`, `1013`, or `1014`. Defaults to `true`. */
-        shouldResumeChat?: boolean;
+        /** 
+         * Determines whether to resume the previous Chat context when reconnecting after specific types of disconnections. When `true`, upon reconnection 
+         * after the WebSocket disconnects with one of the following [close codes](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code#value): 
+         *  - `1006` (Abnormal Closure)
+         *  - `1011` (Internal Error)
+         *  - `1012` (Service Restart)
+         *  - `1013` (Try Again Later)
+         *  - `1014` (Bad Gateway)
+         * 
+         * The SDK will use the `chat_group_id` from the disconnected session to restore the conversation history and context. This preserves the continuity
+         * of the conversation across connections. Defaults to `false`.
+         */
+        shouldResumeChatOnReconnect?: boolean;
     }
 }
 
@@ -80,7 +91,7 @@ export class Chat {
             }
         }
 
-        const shouldResumeChat = args.shouldResumeChat ?? true;
+        const shouldResumeChatOnReconnect = args.shouldResumeChatOnReconnect ?? false;
         const socket = new core.ReconnectingWebSocket(
             `wss://${(core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production).replace(
                 "https://",
@@ -90,11 +101,11 @@ export class Chat {
             {
                 debug: args.debug ?? false,
                 maxRetries: args.reconnectAttempts ?? 30,
-                shouldAttemptReconnectHook: (event) => Chat._staticShouldAttemptReconnectEvi(event, shouldResumeChat),
+                shouldAttemptReconnectHook: (event) => Chat._staticShouldAttemptReconnectEvi(event, shouldResumeChatOnReconnect),
             },
         );
 
-        return new ChatSocket({ socket, shouldResumeChat });
+        return new ChatSocket({ socket, shouldResumeChatOnReconnect });
     }
 
     private static _staticShouldAttemptReconnectEvi(event: core.CloseEvent, shouldResume: boolean): boolean {
