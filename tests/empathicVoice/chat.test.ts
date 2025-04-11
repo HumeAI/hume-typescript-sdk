@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import { HumeClient } from "../../src/";
 
 describe("Empathic Voice Interface", () => {

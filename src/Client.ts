@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 
 import * as environments from "./environments";
 import * as core from "./core";

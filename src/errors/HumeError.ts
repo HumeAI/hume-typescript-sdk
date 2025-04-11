@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 export class HumeError extends Error {
     readonly statusCode?: number;
     readonly body?: unknown;

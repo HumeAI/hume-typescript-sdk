@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import qs from "qs";
@@ -33,6 +33,20 @@ export declare namespace Chat {
 
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
+
+        /** 
+         * Determines whether to resume the previous Chat context when reconnecting after specific types of disconnections. When `true`, upon reconnection 
+         * after the WebSocket disconnects with one of the following [close codes](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code#value): 
+         *  - `1006` (Abnormal Closure)
+         *  - `1011` (Internal Error)
+         *  - `1012` (Service Restart)
+         *  - `1013` (Try Again Later)
+         *  - `1014` (Bad Gateway)
+         * 
+         * The SDK will use the `chat_group_id` from the disconnected session to restore the conversation history and context. This preserves the continuity
+         * of the conversation across connections. Defaults to `false`.
+         */
+        shouldResumeChatOnReconnect?: boolean;
     }
 }
 
@@ -77,6 +91,7 @@ export class Chat {
             }
         }
 
+        const shouldResumeChatOnReconnect = args.shouldResumeChatOnReconnect ?? false;
         const socket = new core.ReconnectingWebSocket(
             `wss://${(core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production).replace(
                 "https://",
@@ -86,11 +101,20 @@ export class Chat {
             {
                 debug: args.debug ?? false,
                 maxRetries: args.reconnectAttempts ?? 30,
+                shouldAttemptReconnectHook: (event) => Chat._staticShouldAttemptReconnectEvi(event, shouldResumeChatOnReconnect),
             },
         );
 
-        return new ChatSocket({
-            socket,
-        });
+        return new ChatSocket({ socket, shouldResumeChatOnReconnect });
+    }
+
+    private static _staticShouldAttemptReconnectEvi(event: core.CloseEvent, shouldResume: boolean): boolean {
+        // Defer to default logic
+        if (!shouldResume) return true;
+        // Allow attempt
+        const resumableCloseCodes: Set<number> = new Set([1006, 1011, 1012, 1013, 1014]);
+        if (resumableCloseCodes.has(event.code)) return true;
+        // Prevent attempt
+        return false;
     }
 }
