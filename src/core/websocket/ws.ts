@@ -75,9 +75,9 @@ export class ReconnectingWebSocket {
     private _binaryType: BinaryType = "blob";
     private _closeCalled = false;
     private _messageQueue: Message[] = [];
-    private _url: UrlProvider;
     private _queryParamOverrides = new Map<string, string>();
-
+    
+    private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
     private readonly _options: Options;
 
