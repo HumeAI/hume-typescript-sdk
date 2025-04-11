@@ -25,8 +25,6 @@ export class ChatSocket {
 
     protected readonly eventHandlers: ChatSocket.EventHandlers = {};
 
-    private _chatGroupId: string | null = null;
-
     private readonly _shouldResumeChat: boolean;
 
     constructor({ socket, shouldResumeChat }: ChatSocket.Args) {
@@ -228,16 +226,8 @@ export class ChatSocket {
         if (parsedResponse.ok) {
             const message = parsedResponse.value;
             if (message.type === 'chat_metadata' && this._shouldResumeChat) {
-                const { chatGroupId } = message;
-                this._chatGroupId = chatGroupId;
-
-                const urlToModify = new URL(this.socket.url);
-                urlToModify.searchParams.set('resumed_chat_group_id', this._chatGroupId);
-                const newUrlString = urlToModify.toString();
-
-                this.socket.updateUrlProvider(newUrlString);
+                this.socket.setQueryParamOverride('resumed_chat_group_id', message.chatGroupId);
             }
-
             this.eventHandlers.message?.({ ...message, receivedAt: new Date() });
         } else {
             this.eventHandlers.error?.(new Error(`Received unknown message type`));

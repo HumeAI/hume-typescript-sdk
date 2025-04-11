@@ -76,6 +76,7 @@ export class ReconnectingWebSocket {
     private _closeCalled = false;
     private _messageQueue: Message[] = [];
     private _url: UrlProvider;
+    private _queryParamOverrides = new Map<string, string>();
 
     private readonly _protocols?: string | string[];
     private readonly _options: Options;
@@ -299,9 +300,34 @@ export class ReconnectingWebSocket {
         }
     }
 
-    public updateUrlProvider(newUrlProvider: UrlProvider): void {
-        this._debug("Updating URL provider.");
-        this._url = newUrlProvider;
+    /**
+     * Sets or removes a query parameter to be automatically applied to the URL just before connection attempts.
+     * Setting a parameter here overrides any parameter with the same key that might be present in the original URL provider.
+     *
+     * @param key The query parameter key.
+     * @param value The value to set. If null, the override for this key is removed.
+     */
+    public setQueryParamOverride(key: string, value: string | null): void {
+        if (value === null) {
+            if (this._queryParamOverrides.delete(key)) {
+                this._debug(`Removed query parameter override for "${key}"`);
+            }
+        } else {
+            this._debug(`Setting query parameter override: ${key}=${value}`);
+            this._queryParamOverrides.set(key, value);
+        }
+    }
+
+    private _applyQueryParamOverrides(url: string) {
+        let finalUrlString = url;
+        if (this._queryParamOverrides.size > 0) {
+            const finalUrl = new URL(url);
+            for (const [key, value] of this._queryParamOverrides.entries()) {
+                finalUrl.searchParams.set(key, value);
+            }
+            finalUrlString = finalUrl.toString();
+        }
+        return finalUrlString;
     }
 
     private _debug(...args: any[]) {
@@ -378,6 +404,7 @@ export class ReconnectingWebSocket {
         }
         this._wait()
             .then(() => this._getNextUrl(this._url))
+            .then((url) => this._applyQueryParamOverrides(url))
             .then((url) => {
                 // close could be called before creating the ws
                 if (this._closeCalled) {
