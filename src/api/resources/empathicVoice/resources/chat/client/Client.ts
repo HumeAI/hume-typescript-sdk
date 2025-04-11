@@ -33,6 +33,9 @@ export declare namespace Chat {
 
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
+
+        /** Enable resuming the Chat on specific disconnects. If `true`, the SDK will attempt to reconnect using the `chat_group_id` if a disconnect occurs with [close codes](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code#value): `1006`, `1011`, `1012`, `1013`, or `1014`. Defaults to `true`. */
+        shouldResumeChat?: boolean;
     }
 }
 
@@ -77,6 +80,7 @@ export class Chat {
             }
         }
 
+        const shouldResumeChat = args.shouldResumeChat ?? true;
         const socket = new core.ReconnectingWebSocket(
             `wss://${(core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production).replace(
                 "https://",
@@ -86,11 +90,20 @@ export class Chat {
             {
                 debug: args.debug ?? false,
                 maxRetries: args.reconnectAttempts ?? 30,
+                shouldAttemptReconnectHook: (event) => Chat._staticShouldAttemptReconnectEvi(event, shouldResumeChat),
             },
         );
 
-        return new ChatSocket({
-            socket,
-        });
+        return new ChatSocket({ socket, shouldResumeChat });
+    }
+
+    private static _staticShouldAttemptReconnectEvi(event: core.CloseEvent, shouldResume: boolean): boolean {
+        // Defer to default logic
+        if (!shouldResume) return true;
+        // Allow attempt
+        const resumableCloseCodes: Set<number> = new Set([1006, 1011, 1012, 1013, 1014]);
+        if (resumableCloseCodes.has(event.code)) return true; 
+        // Prevent attempt
+        return false; 
     }
 }
