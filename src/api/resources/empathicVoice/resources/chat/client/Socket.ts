@@ -226,9 +226,9 @@ export class ChatSocket {
         if (parsedResponse.ok) {
             const message = parsedResponse.value;
             /**
-             * When shouldResumeChat is true, extract the chatGroupId from the chat_metadata message received at 
-             * the start of the Chat session and add the "resumed_chat_group_id" query param to the url query param 
-             * overrides to support resuming the Chat (preserving context from the disconnected chat) when 
+             * When shouldResumeChat is true, extract the chatGroupId from the chat_metadata message received at
+             * the start of the Chat session and add the "resumed_chat_group_id" query param to the url query param
+             * overrides to support resuming the Chat (preserving context from the disconnected chat) when
              * reconnecting after an unexpected disconnect.
              */
             if (message.type === "chat_metadata" && this._shouldResumeChatOnReconnect) {
