@@ -6,7 +6,7 @@
  * String that specifies the language model to use with `model_provider`.
  */
 export type PostedLanguageModelModelResource =
-    | "claude-3-7-sonnet"
+    | "claude-3-7-sonnet-latest"
     | "claude-3-5-sonnet-latest"
     | "claude-3-5-haiku-20241022-v1"
     | "gemini-2.0-flash"
@@ -32,7 +32,7 @@ export type PostedLanguageModelModelResource =
     | "claude-3-haiku-20240307-v1"
     | "ellm";
 export const PostedLanguageModelModelResource = {
-    Claude37Sonnet: "claude-3-7-sonnet",
+    Claude37SonnetLatest: "claude-3-7-sonnet-latest",
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
     Claude35Haiku20241022V1: "claude-3-5-haiku-20241022-v1",
     Gemini20Flash: "gemini-2.0-flash",

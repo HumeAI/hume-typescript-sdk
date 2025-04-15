@@ -10,7 +10,7 @@ export const ReturnLanguageModelModelResource: core.serialization.Schema<
     serializers.empathicVoice.ReturnLanguageModelModelResource.Raw,
     Hume.empathicVoice.ReturnLanguageModelModelResource
 > = core.serialization.enum_([
-    "claude-3-7-sonnet",
+    "claude-3-7-sonnet-latest",
     "claude-3-5-sonnet-latest",
     "claude-3-5-haiku-latest",
     "claude-3-5-sonnet-20240620",
@@ -47,7 +47,7 @@ export const ReturnLanguageModelModelResource: core.serialization.Schema<
 
 export declare namespace ReturnLanguageModelModelResource {
     export type Raw =
-        | "claude-3-7-sonnet"
+        | "claude-3-7-sonnet-latest"
         | "claude-3-5-sonnet-latest"
         | "claude-3-5-haiku-latest"
         | "claude-3-5-sonnet-20240620"
