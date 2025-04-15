@@ -6,7 +6,7 @@
  * String that specifies the language model to use with `model_provider`.
  */
 export type ReturnLanguageModelModelResource =
-    | "claude-3-7-sonnet"
+    | "claude-3-7-sonnet-latest"
     | "claude-3-5-sonnet-latest"
     | "claude-3-5-haiku-latest"
     | "claude-3-5-sonnet-20240620"
@@ -40,7 +40,7 @@ export type ReturnLanguageModelModelResource =
     | "ellm"
     | "custom-language-model";
 export const ReturnLanguageModelModelResource = {
-    Claude37Sonnet: "claude-3-7-sonnet",
+    Claude37SonnetLatest: "claude-3-7-sonnet-latest",
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
     Claude35HaikuLatest: "claude-3-5-haiku-latest",
     Claude35Sonnet20240620: "claude-3-5-sonnet-20240620",

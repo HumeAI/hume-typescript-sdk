@@ -2484,7 +2484,7 @@ await client.empathicVoice.configs.createConfig({
     },
     languageModel: {
         modelProvider: "ANTHROPIC",
-        modelResource: "claude-3-7-sonnet",
+        modelResource: "claude-3-7-sonnet-latest",
         temperature: 1,
     },
     eventMessages: {
@@ -2661,7 +2661,7 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
     },
     languageModel: {
         modelProvider: "ANTHROPIC",
-        modelResource: "claude-3-7-sonnet",
+        modelResource: "claude-3-7-sonnet-latest",
         temperature: 1,
     },
     ellmModel: {

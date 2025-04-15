@@ -81,8 +81,8 @@ export class Configs {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.0",
-                    "User-Agent": "hume/0.10.0",
+                    "X-Fern-SDK-Version": "0.10.1",
+                    "User-Agent": "hume/0.10.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -171,7 +171,7 @@ export class Configs {
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
-     *             modelResource: "claude-3-7-sonnet",
+     *             modelResource: "claude-3-7-sonnet-latest",
      *             temperature: 1
      *         },
      *         eventMessages: {
@@ -205,8 +205,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -306,8 +306,8 @@ export class Configs {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.0",
-                    "User-Agent": "hume/0.10.0",
+                    "X-Fern-SDK-Version": "0.10.1",
+                    "User-Agent": "hume/0.10.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -397,7 +397,7 @@ export class Configs {
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
-     *             modelResource: "claude-3-7-sonnet",
+     *             modelResource: "claude-3-7-sonnet-latest",
      *             temperature: 1
      *         },
      *         ellmModel: {
@@ -435,8 +435,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -519,8 +519,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -602,8 +602,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -689,8 +689,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -781,8 +781,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -872,8 +872,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.0",
-                "User-Agent": "hume/0.10.0",
+                "X-Fern-SDK-Version": "0.10.1",
+                "User-Agent": "hume/0.10.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
