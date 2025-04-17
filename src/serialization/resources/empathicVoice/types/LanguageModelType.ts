@@ -6,11 +6,11 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const ReturnLanguageModelModelResource: core.serialization.Schema<
-    serializers.empathicVoice.ReturnLanguageModelModelResource.Raw,
-    Hume.empathicVoice.ReturnLanguageModelModelResource
+export const LanguageModelType: core.serialization.Schema<
+    serializers.empathicVoice.LanguageModelType.Raw,
+    Hume.empathicVoice.LanguageModelType
 > = core.serialization.enum_([
-    "claude-3-7-sonnet",
+    "claude-3-7-sonnet-latest",
     "claude-3-5-sonnet-latest",
     "claude-3-5-haiku-latest",
     "claude-3-5-sonnet-20240620",
@@ -45,9 +45,9 @@ export const ReturnLanguageModelModelResource: core.serialization.Schema<
     "custom-language-model",
 ]);
 
-export declare namespace ReturnLanguageModelModelResource {
+export declare namespace LanguageModelType {
     export type Raw =
-        | "claude-3-7-sonnet"
+        | "claude-3-7-sonnet-latest"
         | "claude-3-5-sonnet-latest"
         | "claude-3-5-haiku-latest"
         | "claude-3-5-sonnet-20240620"

@@ -19,7 +19,7 @@ import * as Hume from "../../../../../../index";
  *         },
  *         languageModel: {
  *             modelProvider: "ANTHROPIC",
- *             modelResource: "claude-3-7-sonnet",
+ *             modelResource: "claude-3-7-sonnet-latest",
  *             temperature: 1
  *         },
  *         eventMessages: {
