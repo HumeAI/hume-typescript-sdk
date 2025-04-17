@@ -8,15 +8,14 @@
 export const getAudioStream = async (
     echoCancellation: boolean = true,
     noiseSuppression: boolean = true,
-    autoGainControl: boolean = true
-  ): Promise<MediaStream> => {
+    autoGainControl: boolean = true,
+): Promise<MediaStream> => {
     return navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation,
-        noiseSuppression,
-        autoGainControl,
-      },
-      video: false,
+        audio: {
+            echoCancellation,
+            noiseSuppression,
+            autoGainControl,
+        },
+        video: false,
     });
-  };
-  
+};
