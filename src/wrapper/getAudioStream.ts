@@ -5,12 +5,16 @@
  * @returns {Promise<MediaStream>} A promise that resolves to a `MediaStream` containing audio data only.
  * @throws {DOMException} If the user denies access or no audio input devices are found.
  */
-export const getAudioStream = async (): Promise<MediaStream> => {
+export const getAudioStream = async (
+    echoCancellation: boolean = true,
+    noiseSuppression: boolean = true,
+    autoGainControl: boolean = true,
+): Promise<MediaStream> => {
     return navigator.mediaDevices.getUserMedia({
         audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true,
+            echoCancellation,
+            noiseSuppression,
+            autoGainControl,
         },
         video: false,
     });
