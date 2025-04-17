@@ -9,9 +9,9 @@ import * as Hume from "../../../index";
  */
 export interface PostedLanguageModel {
     /** The provider of the supplemental language model. */
-    modelProvider?: Hume.empathicVoice.PostedLanguageModelModelProvider;
+    modelProvider?: Hume.empathicVoice.ModelProviderEnum;
     /** String that specifies the language model to use with `model_provider`. */
-    modelResource?: Hume.empathicVoice.PostedLanguageModelModelResource;
+    modelResource?: Hume.empathicVoice.LanguageModelType;
     /**
      * The model temperature, with values between 0 to 1 (inclusive).
      *

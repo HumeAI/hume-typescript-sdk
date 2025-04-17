@@ -5,22 +5,22 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { ReturnLanguageModelModelProvider } from "./ReturnLanguageModelModelProvider";
-import { ReturnLanguageModelModelResource } from "./ReturnLanguageModelModelResource";
+import { ModelProviderEnum } from "./ModelProviderEnum";
+import { LanguageModelType } from "./LanguageModelType";
 
 export const ReturnLanguageModel: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnLanguageModel.Raw,
     Hume.empathicVoice.ReturnLanguageModel
 > = core.serialization.object({
-    modelProvider: core.serialization.property("model_provider", ReturnLanguageModelModelProvider.optional()),
-    modelResource: core.serialization.property("model_resource", ReturnLanguageModelModelResource.optional()),
+    modelProvider: core.serialization.property("model_provider", ModelProviderEnum.optional()),
+    modelResource: core.serialization.property("model_resource", LanguageModelType.optional()),
     temperature: core.serialization.number().optional(),
 });
 
 export declare namespace ReturnLanguageModel {
     export interface Raw {
-        model_provider?: ReturnLanguageModelModelProvider.Raw | null;
-        model_resource?: ReturnLanguageModelModelResource.Raw | null;
+        model_provider?: ModelProviderEnum.Raw | null;
+        model_resource?: LanguageModelType.Raw | null;
         temperature?: number | null;
     }
 }

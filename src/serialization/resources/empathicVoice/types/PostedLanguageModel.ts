@@ -5,22 +5,22 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { PostedLanguageModelModelProvider } from "./PostedLanguageModelModelProvider";
-import { PostedLanguageModelModelResource } from "./PostedLanguageModelModelResource";
+import { ModelProviderEnum } from "./ModelProviderEnum";
+import { LanguageModelType } from "./LanguageModelType";
 
 export const PostedLanguageModel: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedLanguageModel.Raw,
     Hume.empathicVoice.PostedLanguageModel
 > = core.serialization.object({
-    modelProvider: core.serialization.property("model_provider", PostedLanguageModelModelProvider.optional()),
-    modelResource: core.serialization.property("model_resource", PostedLanguageModelModelResource.optional()),
+    modelProvider: core.serialization.property("model_provider", ModelProviderEnum.optional()),
+    modelResource: core.serialization.property("model_resource", LanguageModelType.optional()),
     temperature: core.serialization.number().optional(),
 });
 
 export declare namespace PostedLanguageModel {
     export interface Raw {
-        model_provider?: PostedLanguageModelModelProvider.Raw | null;
-        model_resource?: PostedLanguageModelModelResource.Raw | null;
+        model_provider?: ModelProviderEnum.Raw | null;
+        model_resource?: LanguageModelType.Raw | null;
         temperature?: number | null;
     }
 }

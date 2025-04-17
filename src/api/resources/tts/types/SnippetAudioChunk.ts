@@ -7,10 +7,14 @@ export interface SnippetAudioChunk {
     audio: string;
     /** The index of the audio chunk in the snippet. */
     chunkIndex: number;
-    /** The generation ID the parent snippet that this chunk corresponds to. */
+    /** The generation ID of the parent snippet that this chunk corresponds to. */
     generationId: string;
     /** Whether or not this is the last chunk streamed back from the decoder for one input snippet. */
     isLastChunk: boolean;
-    /** The index of the utterance in the request the parent snippet of this chunk corresponds to. */
+    /** The ID of the parent snippet that this chunk corresponds to. */
+    snippetId: string;
+    /** The text of the parent snippet that this chunk corresponds to. */
+    text: string;
+    /** The index of the utterance in the request that the parent snippet of this chunk corresponds to. */
     utteranceIndex?: number;
 }

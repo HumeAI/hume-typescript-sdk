@@ -6,9 +6,9 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const PostedLanguageModelModelProvider: core.serialization.Schema<
-    serializers.empathicVoice.PostedLanguageModelModelProvider.Raw,
-    Hume.empathicVoice.PostedLanguageModelModelProvider
+export const ModelProviderEnum: core.serialization.Schema<
+    serializers.empathicVoice.ModelProviderEnum.Raw,
+    Hume.empathicVoice.ModelProviderEnum
 > = core.serialization.enum_([
     "GROQ",
     "OPEN_AI",
@@ -20,7 +20,7 @@ export const PostedLanguageModelModelProvider: core.serialization.Schema<
     "AMAZON_BEDROCK",
 ]);
 
-export declare namespace PostedLanguageModelModelProvider {
+export declare namespace ModelProviderEnum {
     export type Raw =
         | "GROQ"
         | "OPEN_AI"
