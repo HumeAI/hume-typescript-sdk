@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import { RUNTIME } from "../runtime";
 import * as Events from "./events";
 import { WebSocket as NodeWebSocket } from "ws";
@@ -33,6 +33,7 @@ export type Options = {
     maxEnqueuedMessages?: number;
     startClosed?: boolean;
     debug?: boolean;
+    shouldAttemptReconnectHook?: (event: CloseEvent) => boolean;
 };
 
 const DEFAULT = {
@@ -74,6 +75,7 @@ export class ReconnectingWebSocket {
     private _binaryType: BinaryType = "blob";
     private _closeCalled = false;
     private _messageQueue: Message[] = [];
+    private _queryParamOverrides = new Map<string, string>();
 
     private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
@@ -298,6 +300,36 @@ export class ReconnectingWebSocket {
         }
     }
 
+    /**
+     * Sets or removes a query parameter to be automatically applied to the URL just before connection attempts.
+     * Setting a parameter here overrides any parameter with the same key that might be present in the original URL provider.
+     *
+     * @param key The query parameter key.
+     * @param value The value to set. If null, the override for this key is removed.
+     */
+    public setQueryParamOverride(key: string, value: string | null): void {
+        if (value === null) {
+            if (this._queryParamOverrides.delete(key)) {
+                this._debug(`Removed query parameter override for "${key}"`);
+            }
+        } else {
+            this._debug(`Setting query parameter override: ${key}=${value}`);
+            this._queryParamOverrides.set(key, value);
+        }
+    }
+
+    private _applyQueryParamOverrides(url: string) {
+        let finalUrlString = url;
+        if (this._queryParamOverrides.size > 0) {
+            const finalUrl = new URL(url);
+            for (const [key, value] of this._queryParamOverrides.entries()) {
+                finalUrl.searchParams.set(key, value);
+            }
+            finalUrlString = finalUrl.toString();
+        }
+        return finalUrlString;
+    }
+
     private _debug(...args: any[]) {
         if (this._options.debug) {
             // not using spread because compiled version uses Symbols
@@ -372,6 +404,7 @@ export class ReconnectingWebSocket {
         }
         this._wait()
             .then(() => this._getNextUrl(this._url))
+            .then((url) => this._applyQueryParamOverrides(url))
             .then((url) => {
                 // close could be called before creating the ws
                 if (this._closeCalled) {
@@ -469,9 +502,24 @@ export class ReconnectingWebSocket {
         this._debug("close event");
         this._clearTimeouts();
 
+        let finalShouldReconnect = this._shouldReconnect;
+
         if (event.code === 1000) {
-            this._shouldReconnect = false;
+            finalShouldReconnect = false;
         }
+
+        if (finalShouldReconnect && this._options.shouldAttemptReconnectHook) {
+            try {
+                if (!this._options.shouldAttemptReconnectHook(event)) {
+                    finalShouldReconnect = false;
+                }
+            } catch (e) {
+                console.error("Error executing shouldAttemptReconnectHook:", e);
+                finalShouldReconnect = false;
+            }
+        }
+
+        this._shouldReconnect = finalShouldReconnect;
 
         if (this._shouldReconnect) {
             this._connect();

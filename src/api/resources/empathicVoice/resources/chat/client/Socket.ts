@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import * as core from "../../../../../../core";
 import * as errors from "../../../../../../errors";
 import * as Hume from "../../../../../index";
@@ -7,6 +7,7 @@ import * as serializers from "../../../../../../serialization/index";
 export declare namespace ChatSocket {
     interface Args {
         socket: core.ReconnectingWebSocket;
+        shouldResumeChatOnReconnect?: boolean;
     }
 
     type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: Date };
@@ -24,8 +25,11 @@ export class ChatSocket {
 
     protected readonly eventHandlers: ChatSocket.EventHandlers = {};
 
-    constructor({ socket }: ChatSocket.Args) {
+    private readonly _shouldResumeChatOnReconnect: boolean;
+
+    constructor({ socket, shouldResumeChatOnReconnect }: ChatSocket.Args) {
         this.socket = socket;
+        this._shouldResumeChatOnReconnect = shouldResumeChatOnReconnect ?? false;
 
         this.socket.addEventListener("open", this.handleOpen);
         this.socket.addEventListener("message", this.handleMessage);
@@ -220,10 +224,17 @@ export class ChatSocket {
             breadcrumbsPrefix: ["response"],
         });
         if (parsedResponse.ok) {
-            this.eventHandlers.message?.({
-                ...parsedResponse.value,
-                receivedAt: new Date(),
-            });
+            const message = parsedResponse.value;
+            /**
+             * When shouldResumeChat is true, extract the chatGroupId from the chat_metadata message received at
+             * the start of the Chat session and add the "resumed_chat_group_id" query param to the url query param
+             * overrides to support resuming the Chat (preserving context from the disconnected chat) when
+             * reconnecting after an unexpected disconnect.
+             */
+            if (message.type === "chat_metadata" && this._shouldResumeChatOnReconnect) {
+                this.socket.setQueryParamOverride("resumed_chat_group_id", message.chatGroupId);
+            }
+            this.eventHandlers.message?.({ ...message, receivedAt: new Date() });
         } else {
             this.eventHandlers.error?.(new Error(`Received unknown message type`));
         }

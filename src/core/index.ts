@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 export * from "./streaming-fetcher";
 export * from "./fetcher";
 export * from "./runtime";
