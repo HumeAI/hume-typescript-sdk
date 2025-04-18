@@ -84,8 +84,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.2",
-                "User-Agent": "hume/0.10.2",
+                "X-Fern-SDK-Version": "0.10.3",
+                "User-Agent": "hume/0.10.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -162,8 +162,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.2",
-                "User-Agent": "hume/0.10.2",
+                "X-Fern-SDK-Version": "0.10.3",
+                "User-Agent": "hume/0.10.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,8 +234,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.2",
-                "User-Agent": "hume/0.10.2",
+                "X-Fern-SDK-Version": "0.10.3",
+                "User-Agent": "hume/0.10.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -307,8 +307,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.2",
-                "User-Agent": "hume/0.10.2",
+                "X-Fern-SDK-Version": "0.10.3",
+                "User-Agent": "hume/0.10.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

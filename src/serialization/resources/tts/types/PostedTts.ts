@@ -15,6 +15,7 @@ export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTt
         format: Format.optional(),
         numGenerations: core.serialization.property("num_generations", core.serialization.number().optional()),
         splitUtterances: core.serialization.property("split_utterances", core.serialization.boolean().optional()),
+        stripHeaders: core.serialization.property("strip_headers", core.serialization.boolean().optional()),
         utterances: core.serialization.list(PostedUtterance),
         instantMode: core.serialization.property("instant_mode", core.serialization.boolean().optional()),
     });
@@ -25,6 +26,7 @@ export declare namespace PostedTts {
         format?: Format.Raw | null;
         num_generations?: number | null;
         split_utterances?: boolean | null;
+        strip_headers?: boolean | null;
         utterances: PostedUtterance.Raw[];
         instant_mode?: boolean | null;
     }
