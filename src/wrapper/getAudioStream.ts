@@ -12,7 +12,7 @@ export type AudioStreamOptions = {
  * @throws {DOMException} If the user denies access or no audio input devices are found.
  */
 export const getAudioStream = async (audioStreamOptions: AudioStreamOptions = {}): Promise<MediaStream> => {
-    const { echoCancellation = true, noiseSuppression = true, autoGainControl = true } = audioStreamOptions;
+    const { echoCancellation = true, noiseSuppression = false, autoGainControl = true } = audioStreamOptions;
     return navigator.mediaDevices.getUserMedia({
         audio: {
             echoCancellation,
