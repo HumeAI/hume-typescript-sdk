@@ -8,3 +8,4 @@ export { fetchAccessToken } from "./fetchAccessToken";
 export { getAudioStream } from "./getAudioStream";
 export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType";
 export { HumeClient } from "./HumeClient";
+export { HumeWebAudioPlayer } from "./HumeWebAudioPlayer";
