@@ -484,7 +484,7 @@ export class HumeWebAudioPlayer extends EventTarget {
         if (this.isProcessing || this.queue.length === 0) return;
         this.isProcessing = true;
         while (this.queue.length > 0) {
-            const { id, audioBuffer } = this.queue[0];
+            const { id, audioBuffer } = this.queue[0]!;
             // Emit "play" before kicking off playback
             this.emit("play", id);
 
