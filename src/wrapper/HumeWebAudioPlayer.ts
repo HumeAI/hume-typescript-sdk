@@ -1,4 +1,3 @@
-import { EventEmitter } from "events";
 import { convertBase64ToBlob } from "./convertBase64ToBlob";
 import type { AudioOutput } from "api/resources/empathicVoice";
 
@@ -111,7 +110,7 @@ type InternalOptions = Required<Pick<HumeWebAudioPlayerOptions, "workletModuleUr
  *  - `queueMetrics(metrics)`: emitted after enqueue/dequeue to report queue length and mode.
  *  - `decodeMetrics(metrics)`: emitted after decoding each chunk to report latency.
  */
-export class HumeWebAudioPlayer extends EventEmitter {
+export class HumeWebAudioPlayer extends EventTarget {
     // --- Typed event handlers ---
     public on(event: "initialized", listener: () => void): this;
     public on(event: "play", listener: (id: string) => void): this;
@@ -121,21 +120,22 @@ export class HumeWebAudioPlayer extends EventEmitter {
     public on(event: "warning", listener: (msg: string) => void): this;
     public on(event: "queueMetrics", listener: (m: QueueMetrics) => void): this;
     public on(event: "decodeMetrics", listener: (m: DecodeMetrics) => void): this;
-    public on(event: string, listener: (...args: any[]) => void): this {
-        return super.on(event, listener);
+    public on(event: string, listener: (detail?: any) => void): this {
+        this.addEventListener(event, (evt: Event) => listener((evt as CustomEvent).detail));
+        return this;
     }
 
     // --- Typed emit overloads ---
-    public emit(event: "initialized"): boolean;
-    public emit(event: "play", id: string): boolean;
-    public emit(event: "ended", id: string): boolean;
-    public emit(event: "error", err: PlayerError): boolean;
-    public emit(event: "fft", data: { timestamp: number; values: Uint8Array }): boolean;
-    public emit(event: "warning", msg: string): boolean;
-    public emit(event: "queueMetrics", m: QueueMetrics): boolean;
-    public emit(event: "decodeMetrics", m: DecodeMetrics): boolean;
-    public emit(event: string, ...args: any[]): boolean {
-        return super.emit(event, ...args);
+    private emit(event: "initialized"): boolean;
+    private emit(event: "play", id: string): boolean;
+    private emit(event: "ended", id: string): boolean;
+    private emit(event: "error", err: PlayerError): boolean;
+    private emit(event: "fft", data: { timestamp: number; values: Uint8Array }): boolean;
+    private emit(event: "warning", msg: string): boolean;
+    private emit(event: "queueMetrics", m: QueueMetrics): boolean;
+    private emit(event: "decodeMetrics", m: DecodeMetrics): boolean;
+    private emit(type: string, detail?: any): boolean {
+        return this.dispatchEvent(new CustomEvent(type, { detail }));
     }
 
     private context: AudioContext;
@@ -375,7 +375,9 @@ export class HumeWebAudioPlayer extends EventEmitter {
             this.fftTimerId = null;
         }
         // Close the AudioContext and wait for it to finish
-        await this.context.close();
+        if (this.context.state !== "closed") {
+            await this.context.close();
+        }
         // Reset initialization flag so a new context would be rebuilt if init() is called
         this.isInitialized = false;
     }
@@ -470,6 +472,15 @@ export class HumeWebAudioPlayer extends EventEmitter {
 
     /** Pump through the queue, playing each AudioBuffer in turn. Exits early if already processing or queue is empty. */
     private async processQueue(): Promise<void> {
+        // If the context is still suspended, try to resume
+        if (this.context.state === "suspended") {
+            try {
+                await this.context.resume();
+            } catch (err) {
+                // Swallow or emit an error – we’re outside a gesture now
+                this.debugLog("Failed to resume AudioContext: " + err);
+            }
+        }
         if (this.isProcessing || this.queue.length === 0) return;
         this.isProcessing = true;
         while (this.queue.length > 0) {
