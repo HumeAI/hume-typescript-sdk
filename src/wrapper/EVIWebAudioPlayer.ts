@@ -17,11 +17,9 @@ export interface EVIWebAudioPlayerOptions {
  * Configuration for the optional spectrum analyser.
  */
 export interface EVIWebAudioPlayerFFTOptions {
-    /** Enable the analyser pipeline. */
-    enabled: true;
     /** FFT size (power‑of‑two). Default = 2048 (1024 frequency bins). */
     size?: number;
-    /** Interval between analyser reads in milliseconds. Default = 5 ms. */
+    /** Interval between analyser reads in milliseconds. Default = 16 ms (~60 Hz). */
     interval?: number;
     /**
      * Custom post‑processing for raw magnitude data.
@@ -50,14 +48,24 @@ type PlayerEventMap = {
  * • Optional FFT data is published via the `"fft"` event when enabled.
  *
  * The instance can be re‑used: `dispose()` sets the object back to an
- * un‑initialised state, allowing a subsequent `init()` call.
+ * un‑initialized state, allowing a subsequent `init()` call.
  */
 export class EVIWebAudioPlayer extends EventTarget {
+    /**
+     * Default URL of the `audio-worklet.js` processor module, fetched from Hume AI’s CDN.
+     * Override via the {@link EVIWebAudioPlayerOptions.workletUrl} option to self-host or use a custom worklet.
+     */
+    static #DEFAULT_WORKLET_URL = "https://storage.googleapis.com/evi-react-sdk-assets/audio-worklet.js";
+    /** Default FFT size (power-of-two). */
+    static #DEFAULT_FFT_SIZE = 2048;
+    /** Default analyser poll interval (ms). ~60 FPS. */
+    static #DEFAULT_FFT_INTERVAL = 16;
     /** Bark‑scale centre frequencies used by the default transform. */
     static #BARK_CENTRES = [
         50, 150, 250, 350, 450, 570, 700, 840, 1000, 1170, 1370, 1600, 1850, 2150, 2500, 2900, 3400, 4000, 4800, 5800,
         7000, 8500, 10500, 13500,
     ] as const;
+    /** Max byte magnitude (255) returned by `AnalyserNode.getByteFrequencyData`. */
     static #BYTE_MAX = 255;
 
     /** `true` while any clip is currently audible. */
@@ -86,7 +94,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     #playing = false;
     #muted = false;
     #volume: number;
-    #fft: number[] | Float32Array = Array(EVIWebAudioPlayer.#BARK_CENTRES.length).fill(0);
+    #fft: number[] | Float32Array = EVIWebAudioPlayer.#emptyFft();
 
     #fftTimer: number | null = null;
 
@@ -97,6 +105,10 @@ export class EVIWebAudioPlayer extends EventTarget {
     constructor(private readonly opts: EVIWebAudioPlayerOptions = {}) {
         super();
         this.#volume = opts.volume ?? 1.0;
+    }
+
+    static #emptyFft(): number[] {
+        return Array(EVIWebAudioPlayer.#BARK_CENTRES.length).fill(0);
     }
 
     /** Map linear‑Hz byte magnitudes to 24 Bark‑band floats in [0, 2]. */
@@ -122,43 +134,66 @@ export class EVIWebAudioPlayer extends EventTarget {
     }
 
     /**
-     * Initialize Web Audio internals.
+     * Initialize Web Audio internals.
      *
-     * **Must be awaited in a user‑gesture callback** (Chrome/Safari autoplay).
-     * Safe to call multiple times – subsequent calls are no‑ops.
+     * **Must be awaited in a user-gesture callback** (Chrome/Safari autoplay).
+     * Safe to call multiple times – subsequent calls are no-ops.
+     *
+     * @throws Error if `AudioWorklet` is not supported in this browser.
      */
     async init(): Promise<this> {
         if (this.#initialized) return this;
 
-        try {
-            this.#ctx = new AudioContext();
-            await this.#ctx.resume().catch(() => void 0);
+        // Create & unlock the AudioContext
+        this.#ctx = new AudioContext();
+        await this.#ctx.resume().catch((err) => console.warn("AudioContext resume failed", err));
 
+        // Fail fast if AudioWorklet isn’t supported
+        if (!this.#ctx.audioWorklet) {
+            const msg = "AudioWorklet is not supported in this browser";
+            this.#emitError(msg);
+            throw new Error(msg);
+        }
+
+        try {
+            // Build GainNode (volume/mute control)
             this.#gain = this.#ctx.createGain();
             this.#gain.gain.value = this.#volume;
-            this.#gain.connect(this.#ctx.destination);
 
-            if (this.opts.fft?.enabled) {
+            // Optionally create the AnalyserNode
+            const { fft } = this.opts;
+            if (fft) {
                 this.#analyser = this.#ctx.createAnalyser();
-                this.#analyser.fftSize = this.opts.fft.size ?? 2048;
-                this.#analyser.connect(this.#gain);
+                this.#analyser.fftSize = fft.size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
+            }
 
-                const transform = this.opts.fft.transform ?? EVIWebAudioPlayer.#linearHzToBark;
-                const ivl = this.opts.fft.interval ?? 5;
+            // Connect Gain → (Analyser?) → Destination
+            const destination = this.#analyser ?? this.#ctx.destination;
+            this.#gain.connect(destination);
+
+            // If analyser is enabled, hook it up and start polling
+            if (fft) {
+                this.#analyser!.connect(this.#ctx.destination);
+
+                const transform = fft.transform ?? EVIWebAudioPlayer.#linearHzToBark;
+                const interval = fft.interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL;
 
                 this.#fftTimer = window.setInterval(() => {
                     const bins = new Uint8Array(this.#analyser!.frequencyBinCount);
                     this.#analyser!.getByteFrequencyData(bins);
                     this.#fft = transform(bins, this.#ctx!.sampleRate);
                     this.dispatchEvent(new CustomEvent("fft", { detail: { fft: this.#fft } }));
-                }, ivl);
+                }, interval);
             }
 
-            const url = this.opts.workletUrl ?? "https://storage.googleapis.com/evi-react-sdk-assets/audio-worklet.js";
+            // Load & connect the AudioWorklet processor
+            const workletUrl = this.opts.workletUrl?.toString() ?? EVIWebAudioPlayer.#DEFAULT_WORKLET_URL;
+            await this.#ctx.audioWorklet.addModule(workletUrl);
 
-            await this.#ctx.audioWorklet.addModule(url);
             this.#worklet = new AudioWorkletNode(this.#ctx, "audio-processor");
-            this.#worklet.connect(this.#analyser ?? this.#gain);
+            this.#worklet.connect(this.#gain);
+
+            this.#initialized = true;
 
             this.#worklet.port.onmessage = (e: MessageEvent) => {
                 if ((e.data as { type?: string }).type === "ended") {
@@ -166,18 +201,29 @@ export class EVIWebAudioPlayer extends EventTarget {
                     this.dispatchEvent(new CustomEvent("stop", { detail: { id: "stream" } }));
                 }
             };
-
-            this.#initialized = true;
         } catch (err) {
-            this.#emitError(
-                `Failed to initialize audio player${err instanceof Error && err.message ? `: ${err.message}` : ""}`,
-            );
+            const suffix = err instanceof Error ? `: ${err.message}` : "";
+            this.#emitError(`Failed to initialize audio player${suffix}`);
+            throw err;
         }
+
         return this;
     }
 
     /**
-     * Queue one `AudioOutput` message for playback.
+     * Queue one {@link AudioOutput} message for playback.
+     *
+     * Decodes the base64-encoded PCM data from the WebSocket message, posts the
+     * mono channel (channel 0) to the AudioWorklet for smooth, in-order playback,
+     * and dispatches a `"play"` event if this is the first chunk in a new stream.
+     *
+     * @param message
+     *   The {@link AudioOutput} object received from EVI’s WebSocket. Contains
+     *   `data` as base64-encoded PCM. **Assumed mono PCM** – only channel 0 is used.
+     * @returns
+     *   The `EVIWebAudioPlayer` instance, for method chaining.
+     *
+     * @see {@link https://dev.hume.ai/reference/empathic-voice-interface-evi/chat/chat#receive.Audio-Output.type API Reference - AudioOutput}
      */
     async enqueue(message: AudioOutput): Promise<this> {
         if (!this.#initialized || !this.#ctx) {
@@ -186,9 +232,10 @@ export class EVIWebAudioPlayer extends EventTarget {
         }
 
         try {
-            const blob = convertBase64ToBlob(message.data);
-            const buf = await blob.arrayBuffer();
-            const audio = await this.#ctx.decodeAudioData(buf);
+            const { data, id } = message;
+            const blob = convertBase64ToBlob(data);
+            const buffer = await blob.arrayBuffer();
+            const audio = await this.#ctx.decodeAudioData(buffer);
 
             this.#worklet!.port.postMessage({
                 type: "audio",
@@ -197,7 +244,7 @@ export class EVIWebAudioPlayer extends EventTarget {
 
             if (!this.#playing) {
                 this.#playing = true;
-                this.dispatchEvent(new CustomEvent("play", { detail: { id: message.id } }));
+                this.dispatchEvent(new CustomEvent("play", { detail: { id } }));
             }
         } catch (err) {
             const msg = err instanceof Error ? err.message : "Unknown error";
@@ -209,8 +256,12 @@ export class EVIWebAudioPlayer extends EventTarget {
     /** Flush the queue and output silence. */
     stop(): this {
         this.#worklet?.port.postMessage({ type: "clear" });
+        if (this.#fftTimer) {
+            clearInterval(this.#fftTimer);
+            this.#fftTimer = null;
+        }
         this.#playing = false;
-        this.#fft = Array(EVIWebAudioPlayer.#BARK_CENTRES.length).fill(0);
+        this.#fft = EVIWebAudioPlayer.#emptyFft();
         this.dispatchEvent(new CustomEvent("stop", { detail: { id: "manual" } }));
         return this;
     }
@@ -243,10 +294,7 @@ export class EVIWebAudioPlayer extends EventTarget {
         return this;
     }
 
-    /**
-     * Release all Web Audio resources.
-     * The object may be re‑initialized with {@link init}.
-     */
+    /** Release all Web Audio resources. The object may be re‑initialized with {@link init}. */
     dispose(): void {
         if (this.#fftTimer) clearInterval(this.#fftTimer);
         this.#worklet?.port.postMessage({ type: "end" });
@@ -258,7 +306,7 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         this.#initialized = false;
         this.#playing = false;
-        this.#fft = Array(EVIWebAudioPlayer.#BARK_CENTRES.length).fill(0);
+        this.#fft = EVIWebAudioPlayer.#emptyFft();
     }
 
     /** Emit an `error` event with the given message. */
