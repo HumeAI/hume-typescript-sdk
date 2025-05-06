@@ -9,7 +9,10 @@ export interface EVIWebAudioPlayerOptions {
     workletUrl?: string | URL;
     /** Initial output gain (0‑‑1). Default = 1 (no attenuation). */
     volume?: number;
-    /** Spectrum‑analyser settings; omit to disable. */
+    /**
+     * FFT (Fast Fourier Transform) spectrum‑analyser settings.
+     * Omit the entire block —or set `enabled:false`—to disable analysis.
+     */
     fft?: EVIWebAudioPlayerFFTOptions;
 }
 
@@ -17,6 +20,8 @@ export interface EVIWebAudioPlayerOptions {
  * Configuration for the optional spectrum analyser.
  */
 export interface EVIWebAudioPlayerFFTOptions {
+    /** Turn the analyser ON (`true`) or OFF (`false`). */
+    enabled: boolean;
     /** FFT size (power‑of‑two). Default = 2048 (1024 frequency bins). */
     size?: number;
     /** Interval between analyser reads in milliseconds. Default = 16 ms (~60 Hz). */
@@ -27,15 +32,17 @@ export interface EVIWebAudioPlayerFFTOptions {
      * @param sampleRate Audio‑context sample rate in Hz.
      * @returns          Data structure emitted with the `"fft"` event.
      */
-    transform?: (bins: Uint8Array, sampleRate: number) => number[] | Float32Array;
+    transform?: (bins: Uint8Array, sampleRate: number) => number[];
 }
 
 type PlayerEventMap = {
     play: CustomEvent<{ id: string }>;
     stop: CustomEvent<{ id: string }>;
-    fft: CustomEvent<{ fft: number[] | Float32Array }>;
+    fft: CustomEvent<{ fft: number[] }>;
     error: CustomEvent<{ message: string }>;
 };
+
+type ResolvedFftOptions = Required<Omit<EVIWebAudioPlayerFFTOptions, "enabled">>;
 
 /**
  * Audio‑first wrapper around Web Audio for playing `AudioOutput`
@@ -81,7 +88,7 @@ export class EVIWebAudioPlayer extends EventTarget {
         return this.#volume;
     }
     /** Most recent FFT frame (empty when analyser disabled). */
-    get fft(): number[] | Float32Array {
+    get fft(): number[] {
         return this.#fft;
     }
 
@@ -94,9 +101,10 @@ export class EVIWebAudioPlayer extends EventTarget {
     #playing = false;
     #muted = false;
     #volume: number;
-    #fft: number[] | Float32Array = EVIWebAudioPlayer.#emptyFft();
+    #fft: number[] = EVIWebAudioPlayer.emptyFft();
 
     #fftTimer: number | null = null;
+    #resolvedFftOptions: ResolvedFftOptions | null = null;
 
     /**
      * Creates a player; no web‑audio resources are allocated until
@@ -107,7 +115,7 @@ export class EVIWebAudioPlayer extends EventTarget {
         this.#volume = opts.volume ?? 1.0;
     }
 
-    static #emptyFft(): number[] {
+    static emptyFft(): number[] {
         return Array(EVIWebAudioPlayer.#BARK_CENTRES.length).fill(0);
     }
 
@@ -162,9 +170,18 @@ export class EVIWebAudioPlayer extends EventTarget {
 
             // Optionally create the AnalyserNode
             const { fft } = this.opts;
-            if (fft) {
+            const fftEnabled = fft?.enabled === true;
+
+            if (fftEnabled) {
                 this.#analyser = this.#ctx.createAnalyser();
                 this.#analyser.fftSize = fft.size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
+
+                // Cache fully‑resolved FFT options for reuse
+                this.#resolvedFftOptions = {
+                    size: this.#analyser.fftSize,
+                    interval: fft.interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL,
+                    transform: fft.transform ?? EVIWebAudioPlayer.#linearHzToBark,
+                };
             }
 
             // Connect Gain → (Analyser?) → Destination
@@ -172,18 +189,9 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#gain.connect(destination);
 
             // If analyser is enabled, hook it up and start polling
-            if (fft) {
+            if (fftEnabled) {
                 this.#analyser!.connect(this.#ctx.destination);
-
-                const transform = fft.transform ?? EVIWebAudioPlayer.#linearHzToBark;
-                const interval = fft.interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL;
-
-                this.#fftTimer = window.setInterval(() => {
-                    const bins = new Uint8Array(this.#analyser!.frequencyBinCount);
-                    this.#analyser!.getByteFrequencyData(bins);
-                    this.#fft = transform(bins, this.#ctx!.sampleRate);
-                    this.dispatchEvent(new CustomEvent("fft", { detail: { fft: this.#fft } }));
-                }, interval);
+                this.#startFftTimer();
             }
 
             // Load & connect the AudioWorklet processor
@@ -255,13 +263,10 @@ export class EVIWebAudioPlayer extends EventTarget {
 
     /** Flush the queue and output silence. */
     stop(): this {
-        this.#worklet?.port.postMessage({ type: "clear" });
-        if (this.#fftTimer) {
-            clearInterval(this.#fftTimer);
-            this.#fftTimer = null;
-        }
+        this.#clearWorkletQueue();
+        this.#clearFftTimer();
         this.#playing = false;
-        this.#fft = EVIWebAudioPlayer.#emptyFft();
+        this.#restoreOrResetFft();
         this.dispatchEvent(new CustomEvent("stop", { detail: { id: "manual" } }));
         return this;
     }
@@ -306,7 +311,44 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         this.#initialized = false;
         this.#playing = false;
-        this.#fft = EVIWebAudioPlayer.#emptyFft();
+        this.#fft = EVIWebAudioPlayer.emptyFft();
+    }
+
+    /** Abandon all buffered audio in the worklet. */
+    #clearWorkletQueue(): void {
+        this.#worklet?.port.postMessage({ type: "clear" });
+    }
+
+    /** Stop the existing FFT polling timer, if any. */
+    #clearFftTimer(): void {
+        if (this.#fftTimer != null) {
+            clearInterval(this.#fftTimer);
+            this.#fftTimer = null;
+        }
+    }
+
+    /** Either restart polling (if FFT is enabled) or zero out the data. */
+    #restoreOrResetFft(): void {
+        if (this.#resolvedFftOptions) {
+            this.#startFftTimer();
+        } else {
+            this.#fft = EVIWebAudioPlayer.emptyFft();
+        }
+    }
+
+    /** (Re)start analyser polling using the cached, resolved FFT options. */
+    #startFftTimer(): void {
+        if (!this.#resolvedFftOptions || !this.#analyser) return;
+        if (this.#fftTimer) clearInterval(this.#fftTimer);
+
+        const { interval, transform } = this.#resolvedFftOptions;
+
+        this.#fftTimer = window.setInterval(() => {
+            const bins = new Uint8Array(this.#analyser!.frequencyBinCount);
+            this.#analyser!.getByteFrequencyData(bins);
+            this.#fft = transform(bins, this.#ctx!.sampleRate);
+            this.dispatchEvent(new CustomEvent("fft", { detail: { fft: this.#fft } }));
+        }, interval);
     }
 
     /** Emit an `error` event with the given message. */
