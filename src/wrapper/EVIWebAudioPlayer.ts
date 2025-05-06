@@ -45,17 +45,14 @@ type PlayerEventMap = {
 type ResolvedFftOptions = Required<Omit<EVIWebAudioPlayerFFTOptions, "enabled">>;
 
 /**
- * Audio‑first wrapper around Web Audio for playing `AudioOutput`
- * chunks produced by the EVI WebSocket API.
+ * Sequential Web Audio player for EVI `AudioOutput` messages.
  *
- * • Queue clips with {@link enqueue}.
- * • Call {@link init} once after the first user gesture.
- * • Use {@link stop} to flush the queue or {@link dispose} to release all
- *   resources.
- * • Optional FFT data is published via the `"fft"` event when enabled.
- *
- * The instance can be re‑used: `dispose()` sets the object back to an
- * un‑initialized state, allowing a subsequent `init()` call.
+ * - Decodes base64 PCM chunks and feeds them—in order—to an AudioWorklet
+ *   for glitch-free playback.
+ * - Requires a user-gesture–driven `init()` to unlock the AudioContext.
+ * - Provides `stop()` to clear the queue or `dispose()` to fully tear down.
+ * - Emits `"play"` & `"stop"` events on stream boundaries.
+ * - Optionally emits `"fft"` events when `fft` options are supplied.
  */
 export class EVIWebAudioPlayer extends EventTarget {
     /**
@@ -130,7 +127,26 @@ export class EVIWebAudioPlayer extends EventTarget {
     }
 
     /**
-     * Add a typed event listener; returns the instance for chaining.
+     * * Subscribes to a player event and returns `this` for chaining.
+     *
+     * @param type
+     *   One of `"play"`, `"stop"`, `"fft"`, or `"error"`.
+     * @param fn
+     *   Handler invoked with the event’s typed `detail` payload.
+     * @param opts
+     *   Optional `AddEventListenerOptions` (e.g. `{ once: true }`).
+     * @returns
+     *   The same `EVIWebAudioPlayer` instance, so calls can be chained.
+     *
+     * @example
+     *  ```ts
+     *  const player = new EVIWebAudioPlayer();
+     *  player
+     *    .on('play', e => console.log('play',  e.detail.id))
+     *    .on('stop', e => console.log('stop',  e.detail.id))
+     *    .on('fft', e => console.log('stop',  e.detail.fft))
+     *    .on('error', e => console.error('error', e.detail.message));
+     *  ```
      */
     on<K extends keyof PlayerEventMap>(
         type: K,
@@ -241,6 +257,7 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         try {
             const { data, id } = message;
+
             const blob = convertBase64ToBlob(data);
             const buffer = await blob.arrayBuffer();
             const audio = await this.#ctx.decodeAudioData(buffer);
@@ -258,15 +275,19 @@ export class EVIWebAudioPlayer extends EventTarget {
             const msg = err instanceof Error ? err.message : "Unknown error";
             this.#emitError(`Failed to queue clip: ${msg}`);
         }
+
         return this;
     }
 
     /** Flush the queue and output silence. */
     stop(): this {
+        // Always clear the worklet queue
         this.#clearWorkletQueue();
-        this.#clearFftTimer();
+
+        // If spectrum analysis is enabled, restart the polling timer to keep emitting FFT frames
+        if (this.#resolvedFftOptions) this.#startFftTimer();
+
         this.#playing = false;
-        this.#restoreOrResetFft();
         this.dispatchEvent(new CustomEvent("stop", { detail: { id: "manual" } }));
         return this;
     }
@@ -301,14 +322,25 @@ export class EVIWebAudioPlayer extends EventTarget {
 
     /** Release all Web Audio resources. The object may be re‑initialized with {@link init}. */
     dispose(): void {
-        if (this.#fftTimer) clearInterval(this.#fftTimer);
+        // Only clear the FFT timer if one was ever started
+        if (this.#fftTimer != null) {
+            clearInterval(this.#fftTimer);
+            this.#fftTimer = null;
+        }
+
+        // Tear down the worklet
         this.#worklet?.port.postMessage({ type: "end" });
         this.#worklet?.port.close();
         this.#worklet?.disconnect();
+
+        // Only disconnect the analyser node if it was created
         this.#analyser?.disconnect();
+
+        // Always disconnect gain and close the context
         this.#gain?.disconnect();
         this.#ctx?.close().catch(() => void 0);
 
+        // Reset state
         this.#initialized = false;
         this.#playing = false;
         this.#fft = EVIWebAudioPlayer.emptyFft();
@@ -317,23 +349,6 @@ export class EVIWebAudioPlayer extends EventTarget {
     /** Abandon all buffered audio in the worklet. */
     #clearWorkletQueue(): void {
         this.#worklet?.port.postMessage({ type: "clear" });
-    }
-
-    /** Stop the existing FFT polling timer, if any. */
-    #clearFftTimer(): void {
-        if (this.#fftTimer != null) {
-            clearInterval(this.#fftTimer);
-            this.#fftTimer = null;
-        }
-    }
-
-    /** Either restart polling (if FFT is enabled) or zero out the data. */
-    #restoreOrResetFft(): void {
-        if (this.#resolvedFftOptions) {
-            this.#startFftTimer();
-        } else {
-            this.#fft = EVIWebAudioPlayer.emptyFft();
-        }
     }
 
     /** (Re)start analyser polling using the cached, resolved FFT options. */
