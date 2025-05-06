@@ -52,20 +52,20 @@ type ResolvedFftOptions = Required<Omit<EVIWebAudioPlayerFFTOptions, "enabled">>
  * - Requires a user-gesture–driven `init()` to unlock the AudioContext.
  * - Provides `stop()` to clear the queue or `dispose()` to fully tear down.
  * - Emits `"play"` & `"stop"` events on stream boundaries.
- * - Optionally emits `"fft"` events when `fft` options are supplied.
+ * - Optionally emits `"fft"` events when `fft` is enabled.
  */
 export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Default URL of the `audio-worklet.js` processor module, fetched from Hume AI’s CDN.
      * Override via the {@link EVIWebAudioPlayerOptions.workletUrl} option to self-host or use a custom worklet.
      */
-    static #DEFAULT_WORKLET_URL = "https://storage.googleapis.com/evi-react-sdk-assets/audio-worklet.js";
+    static #DEFAULT_WORKLET_URL = "https://storage.googleapis.com/evi-react-sdk-assets/audio-worklet-20250506.js";
     /** Default FFT size (power-of-two). */
     static #DEFAULT_FFT_SIZE = 2048;
-    /** Default analyser poll interval (ms). ~60 FPS. */
-    static #DEFAULT_FFT_INTERVAL = 16;
-    /** Bark‑scale centre frequencies used by the default transform. */
-    static #BARK_CENTRES = [
+    /** Default analyser poll interval (5ms). */
+    static #DEFAULT_FFT_INTERVAL = 5;
+    /** Bark‑scale center frequencies (hz) used by the default transform. https://en.wikipedia.org/wiki/Bark_scale */
+    static #BARK_CENTER_FREQUENCIES = [
         50, 150, 250, 350, 450, 570, 700, 840, 1000, 1170, 1370, 1600, 1850, 2150, 2500, 2900, 3400, 4000, 4800, 5800,
         7000, 8500, 10500, 13500,
     ] as const;
@@ -90,16 +90,16 @@ export class EVIWebAudioPlayer extends EventTarget {
     }
 
     #ctx: AudioContext | null = null;
-    #gain: GainNode | null = null;
-    #analyser: AnalyserNode | null = null;
     #worklet: AudioWorkletNode | null = null;
+    #analyser: AnalyserNode | null = null;
+    #gain: GainNode | null = null;
 
     #initialized = false;
     #playing = false;
     #muted = false;
     #volume: number;
-    #fft: number[] = EVIWebAudioPlayer.emptyFft();
 
+    #fft: number[] = EVIWebAudioPlayer.emptyFft();
     #fftTimer: number | null = null;
     #resolvedFftOptions: ResolvedFftOptions | null = null;
 
@@ -112,16 +112,24 @@ export class EVIWebAudioPlayer extends EventTarget {
         this.#volume = opts.volume ?? 1.0;
     }
 
+    /**
+     * Generate an empty FFT frame array.
+     * Useful as an initial or placeholder FFT dataset before any real analysis.
+     *
+     * @returns A number[] filled with zeros, length equal to the Bark band count.
+     */
     static emptyFft(): number[] {
-        return Array(EVIWebAudioPlayer.#BARK_CENTRES.length).fill(0);
+        return Array(EVIWebAudioPlayer.#BARK_CENTER_FREQUENCIES.length).fill(0);
     }
 
     /** Map linear‑Hz byte magnitudes to 24 Bark‑band floats in [0, 2]. */
-    static #linearHzToBark(bins: Uint8Array, sampleRate: number): number[] {
-        const hzPerBin = sampleRate / 2 / bins.length;
-        return EVIWebAudioPlayer.#BARK_CENTRES.map((hz) => {
-            const i = Math.round(hz / hzPerBin);
-            const magnitude = bins[i] ?? 0;
+    static #linearHzToBark(linearData: Uint8Array, sampleRate: number): number[] {
+        const maxFrequency = sampleRate / 2;
+        const frequencyResolution = maxFrequency / linearData.length;
+
+        return EVIWebAudioPlayer.#BARK_CENTER_FREQUENCIES.map((barkFreq) => {
+            const linearDataIndex = Math.round(barkFreq / frequencyResolution);
+            const magnitude = linearData[linearDataIndex] ?? 0;
             return (magnitude / EVIWebAudioPlayer.#BYTE_MAX) * 2;
         });
     }
@@ -180,44 +188,37 @@ export class EVIWebAudioPlayer extends EventTarget {
         }
 
         try {
+            // Build AnalyserNode (spectrum analysis, visualization)
+            const { fft } = this.opts;
+            this.#analyser = this.#ctx.createAnalyser();
+            this.#analyser.fftSize = fft?.size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
+
             // Build GainNode (volume/mute control)
             this.#gain = this.#ctx.createGain();
             this.#gain.gain.value = this.#volume;
 
-            // Optionally create the AnalyserNode
-            const { fft } = this.opts;
-            const fftEnabled = fft?.enabled === true;
-
-            if (fftEnabled) {
-                this.#analyser = this.#ctx.createAnalyser();
-                this.#analyser.fftSize = fft.size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
-
+            // If FFT is enabled, start FFT timer for analyser polling
+            if (fft?.enabled === true) {
                 // Cache fully‑resolved FFT options for reuse
                 this.#resolvedFftOptions = {
                     size: this.#analyser.fftSize,
                     interval: fft.interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL,
                     transform: fft.transform ?? EVIWebAudioPlayer.#linearHzToBark,
                 };
-            }
-
-            // Connect Gain → (Analyser?) → Destination
-            const destination = this.#analyser ?? this.#ctx.destination;
-            this.#gain.connect(destination);
-
-            // If analyser is enabled, hook it up and start polling
-            if (fftEnabled) {
-                this.#analyser!.connect(this.#ctx.destination);
                 this.#startFftTimer();
             }
 
-            // Load & connect the AudioWorklet processor
+            // Connect Analyser → Gain → Destination
+            this.#analyser.connect(this.#gain);
+            this.#gain.connect(this.#ctx.destination);
+
+            // Load the AudioWorklet processor
             const workletUrl = this.opts.workletUrl?.toString() ?? EVIWebAudioPlayer.#DEFAULT_WORKLET_URL;
             await this.#ctx.audioWorklet.addModule(workletUrl);
-
             this.#worklet = new AudioWorkletNode(this.#ctx, "audio-processor");
-            this.#worklet.connect(this.#gain);
 
-            this.#attachDeviceListeners();
+            // Connect Worklet → Analyser (Worklet → Analyser → Gain → Destination)
+            this.#worklet.connect(this.#analyser);
 
             this.#initialized = true;
 
@@ -262,17 +263,14 @@ export class EVIWebAudioPlayer extends EventTarget {
 
             const blob = convertBase64ToBlob(data);
             const buffer = await blob.arrayBuffer();
+
             const audio = await this.#ctx.decodeAudioData(buffer);
+            const pcmData = audio.getChannelData(0);
 
-            this.#worklet!.port.postMessage({
-                type: "audio",
-                data: audio.getChannelData(0),
-            });
+            this.#worklet!.port.postMessage({ type: "audio", data: pcmData });
 
-            if (!this.#playing) {
-                this.#playing = true;
-                this.dispatchEvent(new CustomEvent("play", { detail: { id } }));
-            }
+            this.#playing = true;
+            this.dispatchEvent(new CustomEvent("play", { detail: { id } }));
         } catch (err) {
             const msg = err instanceof Error ? err.message : "Unknown error";
             this.#emitError(`Failed to queue clip: ${msg}`);
@@ -331,6 +329,7 @@ export class EVIWebAudioPlayer extends EventTarget {
         }
 
         // Tear down the worklet
+        this.#worklet?.port.postMessage({ type: "fadeAndClear" });
         this.#worklet?.port.postMessage({ type: "end" });
         this.#worklet?.port.close();
         this.#worklet?.disconnect();
@@ -348,78 +347,9 @@ export class EVIWebAudioPlayer extends EventTarget {
         this.#fft = EVIWebAudioPlayer.emptyFft();
     }
 
-    /**
-     * Subscribe to browser events that signal output‑device changes.
-     *
-     * - Listens to `navigator.mediaDevices.devicechange` to detect when the set of
-     *   available audio sinks mutates (e.g. headphones unplugged, Bluetooth speaker
-     *   connected).
-     * - On Chrome/Edge (110 +), also hooks the `sinkchange` event on the
-     *   `AudioContext` to resume playback the moment the graph is rebound.
-     * - Listens to the context’s `statechange` event to recover automatically if
-     *   the graph is forced into the `suspended` state by the operating system.
-     *
-     * Safe to invoke multiple times; called once inside {@link init}.
-     */
-    #attachDeviceListeners(): void {
-        // Device list changed (headphones unplugged, bluetooth toggled, …)
-        navigator.mediaDevices?.addEventListener?.("devicechange", () => void this.#handleDeviceChange());
-
-        // Chrome‑only: the context’s sink *actually* changed
-        this.#ctx?.addEventListener?.("sinkchange", () => {
-            // If the graph was suspended by the OS, resume it.
-            if (this.#ctx?.state === "suspended") {
-                this.#ctx.resume().catch(() => void 0);
-            }
-        });
-
-        // Keep an eye on generic state changes too
-        this.#ctx?.addEventListener?.("statechange", () => {
-            if (this.#ctx?.state === "suspended") {
-                this.#ctx.resume().catch(() => void 0);
-            }
-        });
-    }
-
-    /**
-     * Handle an audio‑output device change signalled by `devicechange`.
-     *
-     * 1. Tries the Chrome/Edge “fast path” by calling
-     *    `AudioContext.setSinkId("default")` for a gap‑free redirect.
-     * 2. If that API is unavailable or fails (Safari, Firefox, permission denied),
-     *    disposes the current Web Audio graph and recreates it so the new
-     *    `AudioContext` attaches to the system’s new default sink.
-     * 3. Restores the player’s previous volume and mute state after a rebuild.
-     *
-     * @returns A promise that resolves once the player is ready to resume
-     *          playback on the new output device.
-     */
-    async #handleDeviceChange(): Promise<void> {
-        if (!this.#ctx) return;
-
-        // Chrome‑style fast path: point the context to the new default sink
-        if ("setSinkId" in this.#ctx) {
-            try {
-                await (this.#ctx as any).setSinkId?.("default");
-                return;
-            } catch (err) {
-                console.warn("setSinkId failed, falling back", err);
-                // Fall through to the slow path
-            }
-        }
-
-        // Slow (but cross‑browser) path — rebuild the entire graph
-        const wasMuted = this.#muted;
-        const lastVolume = this.#volume;
-        this.dispose();
-        await this.init();
-        this.setVolume(lastVolume);
-        if (wasMuted) this.mute();
-    }
-
     /** Abandon all buffered audio in the worklet. */
     #clearWorkletQueue(): void {
-        this.#worklet?.port.postMessage({ type: "clear" });
+        this.#worklet?.port.postMessage({ type: "fadeAndClear" });
     }
 
     /** (Re)start analyser polling using the cached, resolved FFT options. */
@@ -438,7 +368,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     }
 
     /** Emit an `error` event with the given message. */
-    #emitError(msg: string): void {
-        this.dispatchEvent(new CustomEvent("error", { detail: { message: msg } }));
+    #emitError(message: string): void {
+        this.dispatchEvent(new CustomEvent("error", { detail: { message } }));
     }
 }
