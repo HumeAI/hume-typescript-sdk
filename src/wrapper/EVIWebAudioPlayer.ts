@@ -217,6 +217,8 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#worklet = new AudioWorkletNode(this.#ctx, "audio-processor");
             this.#worklet.connect(this.#gain);
 
+            this.#attachDeviceListeners();
+
             this.#initialized = true;
 
             this.#worklet.port.onmessage = (e: MessageEvent) => {
@@ -344,6 +346,75 @@ export class EVIWebAudioPlayer extends EventTarget {
         this.#initialized = false;
         this.#playing = false;
         this.#fft = EVIWebAudioPlayer.emptyFft();
+    }
+
+    /**
+     * Subscribe to browser events that signal output‑device changes.
+     *
+     * - Listens to `navigator.mediaDevices.devicechange` to detect when the set of
+     *   available audio sinks mutates (e.g. headphones unplugged, Bluetooth speaker
+     *   connected).
+     * - On Chrome/Edge (110 +), also hooks the `sinkchange` event on the
+     *   `AudioContext` to resume playback the moment the graph is rebound.
+     * - Listens to the context’s `statechange` event to recover automatically if
+     *   the graph is forced into the `suspended` state by the operating system.
+     *
+     * Safe to invoke multiple times; called once inside {@link init}.
+     */
+    #attachDeviceListeners(): void {
+        // Device list changed (headphones unplugged, bluetooth toggled, …)
+        navigator.mediaDevices?.addEventListener?.("devicechange", () => void this.#handleDeviceChange());
+
+        // Chrome‑only: the context’s sink *actually* changed
+        this.#ctx?.addEventListener?.("sinkchange", () => {
+            // If the graph was suspended by the OS, resume it.
+            if (this.#ctx?.state === "suspended") {
+                this.#ctx.resume().catch(() => void 0);
+            }
+        });
+
+        // Keep an eye on generic state changes too
+        this.#ctx?.addEventListener?.("statechange", () => {
+            if (this.#ctx?.state === "suspended") {
+                this.#ctx.resume().catch(() => void 0);
+            }
+        });
+    }
+
+    /**
+     * Handle an audio‑output device change signalled by `devicechange`.
+     *
+     * 1. Tries the Chrome/Edge “fast path” by calling
+     *    `AudioContext.setSinkId("default")` for a gap‑free redirect.
+     * 2. If that API is unavailable or fails (Safari, Firefox, permission denied),
+     *    disposes the current Web Audio graph and recreates it so the new
+     *    `AudioContext` attaches to the system’s new default sink.
+     * 3. Restores the player’s previous volume and mute state after a rebuild.
+     *
+     * @returns A promise that resolves once the player is ready to resume
+     *          playback on the new output device.
+     */
+    async #handleDeviceChange(): Promise<void> {
+        if (!this.#ctx) return;
+
+        // Chrome‑style fast path: point the context to the new default sink
+        if ("setSinkId" in this.#ctx) {
+            try {
+                await (this.#ctx as any).setSinkId?.("default");
+                return;
+            } catch (err) {
+                console.warn("setSinkId failed, falling back", err);
+                // Fall through to the slow path
+            }
+        }
+
+        // Slow (but cross‑browser) path — rebuild the entire graph
+        const wasMuted = this.#muted;
+        const lastVolume = this.#volume;
+        this.dispose();
+        await this.init();
+        this.setVolume(lastVolume);
+        if (wasMuted) this.mute();
     }
 
     /** Abandon all buffered audio in the worklet. */
