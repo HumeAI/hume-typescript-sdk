@@ -12,9 +12,12 @@ import * as Hume from "../../../../../../index";
  */
 export interface VoicesListRequest {
     /**
-     * Specifies whether to return custom voices created in your account or shared voices provided by Hume
+     * Specify the voice provider to filter voices returned by the endpoint:
+     *
+     * - **`HUME_AI`**: Lists preset, shared voices from Hume's [Voice Library](https://platform.hume.ai/tts/voice-library).
+     * - **`CUSTOM_VOICE`**: Lists custom voices created and saved to your account.
      */
-    provider: Hume.tts.VoiceProvider;
+    provider: Hume.tts.VoicesListRequestProvider;
     /**
      * Specifies the page number to retrieve, enabling pagination.
      *
