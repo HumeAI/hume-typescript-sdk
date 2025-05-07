@@ -234,7 +234,7 @@ export class ChatSocket {
     };
 
     private handleError = (event: core.ErrorEvent) => {
-        const message = event.message ?? "core.ReconnectingWebSocket error";
+        const message = event.message ?? JSON.stringify(event);
         this.eventHandlers.error?.(new Error(message));
     };
 }
