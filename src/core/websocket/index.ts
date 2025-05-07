@@ -1,2 +1,2 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 export * from "./ws";
