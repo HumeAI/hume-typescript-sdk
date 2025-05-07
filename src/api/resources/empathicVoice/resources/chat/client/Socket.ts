@@ -234,7 +234,12 @@ export class ChatSocket {
     };
 
     private handleError = (event: core.ErrorEvent) => {
-        const message = event.message ?? JSON.stringify(event);
-        this.eventHandlers.error?.(new Error(message));
+        try {
+            const message = event.message ?? `core.ReconnectingWebSocket error (${JSON.stringify(event)})`;
+            this.eventHandlers.error?.(new Error(message));
+        } catch {
+            const message = event.message ?? `core.ReconnectingWebSocket error (unable to stringify)`;
+            this.eventHandlers.error?.(new Error(message));
+        }
     };
 }
