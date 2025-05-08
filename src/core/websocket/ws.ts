@@ -516,7 +516,7 @@ export class ReconnectingWebSocket {
      * @param rawErrorOrEventInput - The raw error data (e.g., Error instance, DOM Event, Events.ErrorEvent).
      * @returns A standardized `Events.ErrorEvent` containing an underlying `Error` instance.
      */
-    private _adaptError(rawErrorOrEventInput: any): Events.ErrorEvent {
+    private _adaptError(rawErrorOrEventInput: unknown): Events.ErrorEvent {
         this._debug("Adapting raw error/event via _adaptError:", rawErrorOrEventInput);
         let underlyingError: Error;
 
