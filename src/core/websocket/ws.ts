@@ -243,7 +243,7 @@ export class ReconnectingWebSocket {
         if (!this._ws || this._ws.readyState === this.CLOSED) {
             this._connect();
         } else {
-            // If the socket is already connected then disconnect. The socket will be reconnected in _handleClose
+            // If the socket is already connected then disconnect. The socket will conditionally reconnected in _handleClose
             this._disconnect(code, reason);
         }
     }
