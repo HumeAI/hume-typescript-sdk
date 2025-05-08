@@ -85,6 +85,9 @@ export class ReconnectingWebSocket {
         this._url = url;
         this._protocols = protocols;
         this._options = options;
+        if (!isWebSocket(this._options.WebSocket)) {
+            throw Error("No valid WebSocket class provided");
+        }
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
@@ -393,15 +396,6 @@ export class ReconnectingWebSocket {
             connectionTimeout = DEFAULT.connectionTimeout,
             WebSocket = getGlobalWebSocket(),
         } = this._options;
-
-        // WebSocket implementation check
-        if (!isWebSocket(WebSocket)) {
-            this._shutdown(
-                new Error("No valid WebSocket implementation found or provided. Cannot connect."),
-                "Fatal: No WebSocket support",
-            );
-            return;
-        }
 
         // Max retries check
         if (this._retryCount >= maxRetries) {
