@@ -356,7 +356,7 @@ export class ReconnectingWebSocket {
      * @param error - The specific Error instance indicating the reason for termination.
      * @param closeReason - The reason string to use for the final CloseEvent.
      */
-    private _terminateConnectionAttempt(error: Error, closeReason: string): void {
+    private _shutdown(error: Error, closeReason: string): void {
         this._debug("Terminating connection attempts. Reason:", error.message);
 
         // Ensure state prevents further attempts
@@ -393,7 +393,7 @@ export class ReconnectingWebSocket {
 
         // WebSocket implementation check
         if (!isWebSocket(WebSocket)) {
-            this._terminateConnectionAttempt(
+            this._shutdown(
                 new Error("No valid WebSocket implementation found or provided. Cannot connect."),
                 "Fatal: No WebSocket support",
             );
@@ -402,10 +402,7 @@ export class ReconnectingWebSocket {
 
         // Max retries check
         if (this._retryCount >= maxRetries) {
-            this._terminateConnectionAttempt(
-                new Error(`Max retries (${maxRetries}) reached. Giving up.`),
-                "Max retries reached",
-            );
+            this._shutdown(new Error(`Max retries (${maxRetries}) reached. Giving up.`), "Max retries reached");
             return;
         }
 
