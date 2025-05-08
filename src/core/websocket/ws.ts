@@ -363,10 +363,15 @@ export class ReconnectingWebSocket {
         this._connectLock = false;
         this._shouldReconnect = false;
 
-        // Dispatch the specific error event
+        // Dispatch error event
         const errorEvent = this._adaptError(error);
         if (this.onerror) this.onerror(errorEvent);
         this._listeners.error.forEach((listener) => this._callEventListener(errorEvent, listener));
+
+        // Dispatch close event
+        const closeEvent = new Events.CloseEvent(1000, closeReason, this);
+        if (this.onclose) this.onclose(closeEvent);
+        this._listeners.close.forEach((listener) => this._callEventListener(closeEvent, listener));
     }
 
     private _connect() {
@@ -505,29 +510,31 @@ export class ReconnectingWebSocket {
      * Adapts a raw error or event input into a standardized `Events.ErrorEvent`.
      * This utility is called by `_handleError` to ensure it operates on a
      * consistent error structure.
-     * @param rawErrorOrEvent - The raw error data (e.g., Error instance, DOM Event, Events.ErrorEvent).
+     * @param rawErrorOrEventInput - The raw error data (e.g., Error instance, DOM Event, Events.ErrorEvent).
      * @returns A standardized `Events.ErrorEvent` containing an underlying `Error` instance.
      */
-    private _adaptError(rawErrorOrEvent: any): Events.ErrorEvent {
-        this._debug("Adapting raw error/event via _adaptError:", rawErrorOrEvent);
+    private _adaptError(rawErrorOrEventInput: any): Events.ErrorEvent {
+        this._debug("Adapting raw error/event via _adaptError:", rawErrorOrEventInput);
         let underlyingError: Error;
 
-        if (rawErrorOrEvent instanceof Events.ErrorEvent && rawErrorOrEvent.error instanceof Error) {
-            return rawErrorOrEvent;
+        if (rawErrorOrEventInput instanceof Events.ErrorEvent && rawErrorOrEventInput.error instanceof Error) {
+            return rawErrorOrEventInput;
         }
 
-        if (rawErrorOrEvent instanceof Error) {
-            underlyingError = rawErrorOrEvent;
+        if (rawErrorOrEventInput instanceof Error) {
+            underlyingError = rawErrorOrEventInput;
         } else if (
             typeof Event !== "undefined" &&
-            rawErrorOrEvent instanceof Event &&
-            rawErrorOrEvent.type === "error"
+            rawErrorOrEventInput instanceof Event &&
+            rawErrorOrEventInput.type === "error"
         ) {
             underlyingError = new Error(
                 "WebSocket low-level error occurred (see browser/runtime console for native event details).",
             );
         } else {
-            underlyingError = new Error(`Unknown WebSocket error. Raw data: ${String(rawErrorOrEvent ?? "undefined")}`);
+            underlyingError = new Error(
+                `Unknown WebSocket error. Raw data: ${String(rawErrorOrEventInput ?? "undefined")}`,
+            );
         }
 
         return new Events.ErrorEvent(underlyingError, this);
@@ -544,6 +551,7 @@ export class ReconnectingWebSocket {
         const adaptedError = this._adaptError(rawErrorOrEventInput);
         const { error, message } = adaptedError;
 
+        // Close with abnormal closure code so _handleClose will reconnect if there's a socket
         this._disconnect(ABNORMAL_CLOSURE_CODE, message);
 
         this._debug("Processed error. Dispatching Event:", message, error);
@@ -551,6 +559,12 @@ export class ReconnectingWebSocket {
 
         this._debug("exec error listeners");
         this._listeners.error.forEach((listener) => this._callEventListener(adaptedError, listener));
+
+        // If we never even got a ws instance, _disconnect returned early so we need to explicitly retry here
+        if (!this._ws && this._shouldReconnect) {
+            this._debug("Error before socket created; scheduling initial reconnect.");
+            this._connect();
+        }
     };
 
     /**
