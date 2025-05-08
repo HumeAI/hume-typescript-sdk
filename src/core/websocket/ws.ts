@@ -591,7 +591,6 @@ export class ReconnectingWebSocket {
             this.shouldReconnect = false;
             this._debug("Reconnection stopped: Received close code 1000 (intentional server close).");
         }
-        this._shouldReconnect = attemptReconnect;
 
         // Dispatch event to listeners
         if (this.onclose) this.onclose(adaptedEvent);
