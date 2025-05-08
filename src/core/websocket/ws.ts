@@ -376,9 +376,12 @@ export class ReconnectingWebSocket {
 
     private _connect() {
         // Check locks and intent
-        if (this._connectLock || !this._shouldReconnect) {
-            if (this._connectLock) this._debug("Connection attempt already in progress.");
-            if (!this._shouldReconnect) this._debug("Reconnection disabled, skipping connect attempt.");
+        if (this._connectLock) {
+            this._debug("Connection attempt already in progress.");
+            return;
+        }
+        if (!this._shouldReconnect) {
+            this._debug("Reconnection disabled, skipping connect attempt.");
             return;
         }
 
