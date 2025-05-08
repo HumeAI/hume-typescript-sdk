@@ -3,6 +3,8 @@ import { RUNTIME } from "../runtime";
 import * as Events from "./events";
 import { WebSocket as NodeWebSocket } from "ws";
 
+const ABNORMAL_CLOSURE_CODE = 1006;
+
 const getGlobalWebSocket = (): WebSocket | undefined => {
     if (typeof WebSocket !== "undefined") {
         // @ts-ignore
@@ -238,8 +240,8 @@ export class ReconnectingWebSocket {
         if (!this._ws || this._ws.readyState === this.CLOSED) {
             this._connect();
         } else {
+            // If the socket is already connected then disconnect. The socket will be reconnected in _handleClose
             this._disconnect(code, reason);
-            this._connect();
         }
     }
 
@@ -346,10 +348,36 @@ export class ReconnectingWebSocket {
         throw Error("Invalid URL");
     }
 
+    /**
+     * Handles the final "tear down" process when connection attempts must permanently stop
+     * (e.g., max retries reached, fatal configuration error).
+     * Releases locks, disables reconnection, dispatches final error and close events.
+     *
+     * @param error - The specific Error instance indicating the reason for termination.
+     * @param closeReason - The reason string to use for the final CloseEvent.
+     */
+    private _terminateConnectionAttempt(error: Error, closeReason: string): void {
+        this._debug("Terminating connection attempts. Reason:", error.message);
+
+        // Ensure state prevents further attempts
+        this._connectLock = false;
+        this._shouldReconnect = false;
+
+        // Dispatch the specific error event
+        const errorEvent = this._adaptError(error);
+        if (this.onerror) this.onerror(errorEvent);
+        this._listeners.error.forEach((listener) => this._callEventListener(errorEvent, listener));
+    }
+
     private _connect() {
+        // Check locks and intent
         if (this._connectLock || !this._shouldReconnect) {
+            if (this._connectLock) this._debug("Connection attempt already in progress.");
+            if (!this._shouldReconnect) this._debug("Reconnection disabled, skipping connect attempt.");
             return;
         }
+
+        // Set lock for this attempt
         this._connectLock = true;
 
         const {
@@ -358,30 +386,46 @@ export class ReconnectingWebSocket {
             WebSocket = getGlobalWebSocket(),
         } = this._options;
 
-        if (this._retryCount >= maxRetries) {
-            this._debug("max retries reached", this._retryCount, ">=", maxRetries);
+        // WebSocket implementation check
+        if (!isWebSocket(WebSocket)) {
+            this._terminateConnectionAttempt(
+                new Error("No valid WebSocket implementation found or provided. Cannot connect."),
+                "Fatal: No WebSocket support",
+            );
             return;
         }
 
-        this._retryCount++;
+        // Max retries check
+        if (this._retryCount >= maxRetries) {
+            this._terminateConnectionAttempt(
+                new Error(`Max retries (${maxRetries}) reached. Giving up.`),
+                "Max retries reached",
+            );
+            return;
+        }
 
+        // Prepare connection attempt
+        this._retryCount++;
         this._debug("connect", this._retryCount);
         this._removeListeners();
-        if (!isWebSocket(WebSocket)) {
-            throw Error("No valid WebSocket class provided");
-        }
+
+        // Connection attempt
         this._wait()
             .then(() => this._getNextUrl(this._url))
             .then((url) => {
-                // close could be called before creating the ws
+                // Close could be called before creating the ws
                 if (this._closeCalled) {
+                    this._connectLock = false;
+                    this._debug("Connection cancelled: ReconnectingWebSocket.close() called during setup.");
                     return;
                 }
+
                 this._debug("connect", { url, protocols: this._protocols });
                 this._ws = this._protocols ? new WebSocket(url, this._protocols) : new WebSocket(url);
                 this._ws!.binaryType = this._binaryType;
-                this._connectLock = false;
+
                 this._addListeners();
+                this._connectLock = false;
 
                 this._connectTimeout = setTimeout(() => this._handleTimeout(), connectionTimeout);
             })
@@ -500,36 +544,54 @@ export class ReconnectingWebSocket {
         const adaptedError = this._adaptError(rawErrorOrEventInput);
         const { error, message } = adaptedError;
 
-        this._debug("Processed error. Dispatching Event:", message, error);
-
-        const ABNORMAL_CLOSURE_CODE = 1006;
         this._disconnect(ABNORMAL_CLOSURE_CODE, message);
 
-        if (this.onerror) {
-            this.onerror(adaptedError);
-        }
+        this._debug("Processed error. Dispatching Event:", message, error);
+        if (this.onerror) this.onerror(adaptedError);
+
         this._debug("exec error listeners");
         this._listeners.error.forEach((listener) => this._callEventListener(adaptedError, listener));
-
-        this._connect();
     };
 
-    private _handleClose = (event: Events.CloseEvent) => {
-        this._debug("close event");
+    /**
+     * Handles WebSocket close events, either native or synthesized internally.
+     *
+     * Adapts the event if necessary, manages state, dispatches standardized close events,
+     * and initiates reconnection if appropriate.
+     *
+     * @param eventInfo - Either an internal Events.CloseEvent or a native DOM CloseEvent.
+     */
+    private _handleClose = (event: Events.CloseEvent | CloseEvent) => {
+        this._debug("Raw close event received by _handleClose:", event);
+
+        // Adapt event if event is an instance of the (browser) native CloseEvent
+        const isNativeCloseEvent = typeof CloseEvent !== "undefined" && event instanceof CloseEvent;
+        const adaptedEvent: Events.CloseEvent = isNativeCloseEvent
+            ? new Events.CloseEvent(event.code, event.reason, this)
+            : (event as Events.CloseEvent);
+
+        // Clean up state
         this._clearTimeouts();
+        this._ws = undefined;
+        this._connectLock = false;
 
-        if (event.code === 1000) {
-            this._shouldReconnect = false;
+        // Determine reconnection intent
+        let attemptReconnect = this._shouldReconnect;
+        if (this._closeCalled) {
+            attemptReconnect = false;
+            this._debug("Reconnection stopped: RWS.close() was called.");
+        } else if (adaptedEvent.code === 1000) {
+            attemptReconnect = false;
+            this._debug("Reconnection stopped: Received close code 1000 (intentional server close).");
         }
+        this._shouldReconnect = attemptReconnect;
 
-        if (this._shouldReconnect) {
-            this._connect();
-        }
+        // Dispatch event to listeners
+        if (this.onclose) this.onclose(adaptedEvent);
+        this._listeners.close.forEach((listener) => this._callEventListener(adaptedEvent, listener));
 
-        if (this.onclose) {
-            this.onclose(event);
-        }
-        this._listeners.close.forEach((listener) => this._callEventListener(event, listener));
+        // Conditionally attempt reconnection
+        if (this._shouldReconnect) this._connect();
     };
 
     private _removeListeners() {
@@ -552,7 +614,6 @@ export class ReconnectingWebSocket {
         this._ws.addEventListener("open", this._handleOpen);
         this._ws.addEventListener("close", this._handleClose);
         this._ws.addEventListener("message", this._handleMessage);
-        // @ts-ignore
         this._ws.addEventListener("error", this._handleError);
     }
 
