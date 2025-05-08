@@ -384,6 +384,11 @@ export class ReconnectingWebSocket {
                 this._addListeners();
 
                 this._connectTimeout = setTimeout(() => this._handleTimeout(), connectionTimeout);
+            })
+            .catch((error: any) => {
+                this._debug("Connection setup failed:", error);
+                this._connectLock = false;
+                this._handleError(error);
             });
     }
 
@@ -452,15 +457,59 @@ export class ReconnectingWebSocket {
         this._listeners.message.forEach((listener) => this._callEventListener(event, listener));
     };
 
-    private _handleError = (event: Events.ErrorEvent) => {
-        this._debug("error event", event.message);
-        this._disconnect(undefined, event.message === "TIMEOUT" ? "timeout" : undefined);
+    /**
+     * Adapts a raw error or event input into a standardized `Events.ErrorEvent`.
+     * This utility is called by `_handleError` to ensure it operates on a
+     * consistent error structure.
+     * @param rawErrorOrEvent - The raw error data (e.g., Error instance, DOM Event, Events.ErrorEvent).
+     * @returns A standardized `Events.ErrorEvent` containing an underlying `Error` instance.
+     */
+    private _adaptError(rawErrorOrEvent: any): Events.ErrorEvent {
+        this._debug("Adapting raw error/event via _adaptError:", rawErrorOrEvent);
+        let underlyingError: Error;
+
+        if (rawErrorOrEvent instanceof Events.ErrorEvent && rawErrorOrEvent.error instanceof Error) {
+            return rawErrorOrEvent;
+        }
+
+        if (rawErrorOrEvent instanceof Error) {
+            underlyingError = rawErrorOrEvent;
+        } else if (
+            typeof Event !== "undefined" &&
+            rawErrorOrEvent instanceof Event &&
+            rawErrorOrEvent.type === "error"
+        ) {
+            underlyingError = new Error(
+                "WebSocket low-level error occurred (see browser/runtime console for native event details).",
+            );
+        } else {
+            underlyingError = new Error(`Unknown WebSocket error. Raw data: ${String(rawErrorOrEvent ?? "undefined")}`);
+        }
+
+        return new Events.ErrorEvent(underlyingError, this);
+    }
+
+    /**
+     * Core handler for all errors. It first standardizes the error input using `_adaptError`,
+     * then manages disconnection, dispatches the standardized error event, and initiates reconnection.
+     * @param rawErrorOrEventInput - The error data from any internal source.
+     */
+    private _handleError = (rawErrorOrEventInput: any): void => {
+        this._debug("Raw error/event received by _handleError, passing to _adaptError:", rawErrorOrEventInput);
+
+        const adaptedError = this._adaptError(rawErrorOrEventInput);
+        const { error, message } = adaptedError;
+
+        this._debug("Processed error. Dispatching Event:", message, error);
+
+        const ABNORMAL_CLOSURE_CODE = 1006;
+        this._disconnect(ABNORMAL_CLOSURE_CODE, message);
 
         if (this.onerror) {
-            this.onerror(event);
+            this.onerror(adaptedError);
         }
         this._debug("exec error listeners");
-        this._listeners.error.forEach((listener) => this._callEventListener(event, listener));
+        this._listeners.error.forEach((listener) => this._callEventListener(adaptedError, listener));
 
         this._connect();
     };
