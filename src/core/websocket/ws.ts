@@ -588,7 +588,7 @@ export class ReconnectingWebSocket {
             this._shouldReconnect = false;
             this._debug("Reconnection stopped: RWS.close() was called.");
         } else if (adaptedEvent.code === 1000) {
-            this.shouldReconnect = false;
+            this._shouldReconnect = false;
             this._debug("Reconnection stopped: Received close code 1000 (intentional server close).");
         }
 
