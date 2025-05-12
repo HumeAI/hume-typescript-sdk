@@ -373,6 +373,7 @@ export class ReconnectingWebSocket {
 
         // Dispatch close event
         const closeEvent = new Events.CloseEvent(1000, closeReason, this);
+        closeEvent.willReconnect = false;
         if (this.onclose) this.onclose(closeEvent);
         this._listeners.close.forEach((listener) => this._callEventListener(closeEvent, listener));
     }
@@ -591,6 +592,7 @@ export class ReconnectingWebSocket {
             this._shouldReconnect = false;
             this._debug("Reconnection stopped: Received close code 1000 (intentional server close).");
         }
+        adaptedEvent.willReconnect = this._shouldReconnect;
 
         // Dispatch event to listeners
         if (this.onclose) this.onclose(adaptedEvent);

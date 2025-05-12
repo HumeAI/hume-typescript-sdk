@@ -22,6 +22,7 @@ export class CloseEvent extends Event {
     public code: number;
     public reason: string;
     public wasClean = true;
+    public willReconnect = false;
     constructor(code = 1000, reason = "", target: any) {
         super("close", target);
         this.code = code;
