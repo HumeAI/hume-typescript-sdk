@@ -80,17 +80,21 @@ export class ReconnectingWebSocket {
     private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
     private readonly _options: Options;
+    private readonly _WebSocket: typeof WebSocket;
 
     constructor(url: UrlProvider, protocols?: string | string[], options: Options = {}) {
+        console.log('constructing...')
         this._url = url;
         this._protocols = protocols;
         this._options = options;
-        if (!isWebSocket(this._options.WebSocket)) {
+        this._WebSocket = this._options.WebSocket || getGlobalWebSocket();
+        if (!isWebSocket(this._WebSocket)) {
             throw Error("No valid WebSocket class provided");
         }
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
+        console.log('all good')
         this._connect();
     }
 
@@ -395,7 +399,6 @@ export class ReconnectingWebSocket {
         const {
             maxRetries = DEFAULT.maxRetries,
             connectionTimeout = DEFAULT.connectionTimeout,
-            WebSocket = getGlobalWebSocket(),
         } = this._options;
 
         // Max retries check
@@ -421,7 +424,7 @@ export class ReconnectingWebSocket {
                 }
 
                 this._debug("connect", { url, protocols: this._protocols });
-                this._ws = this._protocols ? new WebSocket(url, this._protocols) : new WebSocket(url);
+                this._ws = this._protocols ? new (this._WebSocket)(url, this._protocols) : new (this._WebSocket)(url);
                 this._ws!.binaryType = this._binaryType;
 
                 this._addListeners();
