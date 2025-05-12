@@ -37,7 +37,7 @@ export declare namespace Chat {
 }
 
 export class Chat {
-    constructor(protected readonly _options: Chat.Options) {}
+    constructor(protected readonly _options: Chat.Options) { }
 
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -77,11 +77,11 @@ export class Chat {
             }
         }
 
+        const environ = (core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production)
+            .replace('https://', 'wss://')
+            .replace('http://', 'ws://');
         const socket = new core.ReconnectingWebSocket(
-            `wss://${(core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production).replace(
-                "https://",
-                "",
-            )}/v0/evi/chat?${qs.stringify(queryParams)}`,
+            `${environ}/v0/evi/chat?${qs.stringify(queryParams)}`,
             [],
             {
                 debug: args.debug ?? false,
