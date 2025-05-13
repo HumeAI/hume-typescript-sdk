@@ -42,7 +42,7 @@ export class Tts {
     }
 
     /**
-     * Synthesizes one or more input texts into speech using the specified voice. If no voice is provided,  a novel voice will be generated dynamically. Optionally, additional context can be included to influence the  speech's style and prosody.
+     * Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      *
      * The response includes the base64-encoded audio and metadata in JSON format.
      *
@@ -55,12 +55,12 @@ export class Tts {
      *     await client.tts.synthesizeJson({
      *         utterances: [{
      *                 text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-     *                 description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm,  steady tone with an articulate, academic quality."
+     *                 description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
      *             }],
      *         context: {
      *             utterances: [{
      *                     text: "How can people see beauty so differently?",
-     *                     description: "A curious student with a clear and respectful tone, seeking clarification on Hume's  ideas with a straightforward question."
+     *                     description: "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question."
      *                 }]
      *         },
      *         format: {
@@ -84,8 +84,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.10.4",
+                "User-Agent": "hume/0.10.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -142,7 +142,7 @@ export class Tts {
     }
 
     /**
-     * Synthesizes one or more input texts into speech using the specified voice. If no voice is provided,  a novel voice will be generated dynamically. Optionally, additional context can be included to influence the  speech's style and prosody.
+     * Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      *
      * The response contains the generated audio file in the requested format.
      * @throws {@link Hume.tts.UnprocessableEntityError}
@@ -162,8 +162,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.10.4",
+                "User-Agent": "hume/0.10.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -216,7 +216,7 @@ export class Tts {
     }
 
     /**
-     * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be  generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+     * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      * @throws {@link Hume.tts.UnprocessableEntityError}
      */
     public async synthesizeFileStreaming(
@@ -234,8 +234,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.10.4",
+                "User-Agent": "hume/0.10.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -288,7 +288,7 @@ export class Tts {
     }
 
     /**
-     * Streams synthesized speech using the specified voice. If no voice is provided,  a novel voice will be generated dynamically. Optionally, additional context can be included to influence the  speech's style and prosody.
+     * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      *
      * The response is a stream of JSON objects including audio encoded in base64.
      */
@@ -307,8 +307,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.10.4",
+                "User-Agent": "hume/0.10.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
