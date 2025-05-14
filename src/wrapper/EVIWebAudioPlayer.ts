@@ -17,20 +17,54 @@ export interface EVIWebAudioPlayerOptions {
 }
 
 /**
- * Configuration for the optional spectrum analyser.
+ * Per-frame FFT (Fast Fourier Transform) spectrum‑analyser options. (needed **only** for audio visualization)
+ *
+ * **Quick start:** if you just want the built-in defaults,
+ * pass `{ enabled: true }` and ignore the other fields.
+ *
+ * If you never visualize the audio waveform, omit this whole block
+ * or set `enabled: false` to avoid allocating an `AnalyserNode` and its timer.
  */
 export interface EVIWebAudioPlayerFFTOptions {
-    /** Turn the analyser ON (`true`) or OFF (`false`). */
+    /**
+     * Turn visualization data ON or OFF.
+     *
+     * - `true`  – create an `AnalyserNode`, poll it, and emit `"fft"` events.
+     * - `false` – skip analyser creation entirely (zero extra CPU).
+     */
     enabled: boolean;
-    /** FFT size (power‑of‑two). Default = 2048 (1024 frequency bins). */
+    /**
+     * **FFT size** – the number of PCM samples processed per frame.
+     *
+     * Must be a power of two (`32 … 32768`); larger sizes give finer
+     * frequency resolution but cost more CPU and add a longer analysis
+     * window (latency).
+     *
+     * - Bins produced  = `size ÷ 2`
+     * - Bin width (Hz) = `sampleRate ÷ size`
+     *
+     * **Default:** `2048` → `1024` bins (~23 Hz resolution at 48 kHz),
+     * ideal for 24- or 32-band EQ style displays.
+     *
+     * @default 2048
+     */
     size?: number;
-    /** Interval between analyser reads in milliseconds. Default = 16 ms (~60 Hz). */
+    /**
+     * Polling interval in **milliseconds**.
+     *
+     * Default **16 ms** (~60 Hz) matches screen refresh, keeping updates
+     * in sync with `requestAnimationFrame()` while staying lightweight.
+     * Use a smaller value (e.g. 8 ms) for ultra-smooth meters, or a larger one to save power.
+     *
+     * @default 16
+     */
     interval?: number;
     /**
-     * Custom post‑processing for raw magnitude data.
+     * Custom post‑processing for raw magnitude data. Omit to use the built-in 24-band Bark mapping.
+     *
      * @param bins       Byte magnitudes (0‑255) from `AnalyserNode`.
      * @param sampleRate Audio‑context sample rate in Hz.
-     * @returns          Data structure emitted with the `"fft"` event.
+     * @returns          Payload emitted with each `"fft"` event.
      */
     transform?: (bins: Uint8Array, sampleRate: number) => number[];
 }
@@ -62,8 +96,8 @@ export class EVIWebAudioPlayer extends EventTarget {
     static #DEFAULT_WORKLET_URL = "https://storage.googleapis.com/evi-react-sdk-assets/audio-worklet-20250506.js";
     /** Default FFT size (power-of-two). */
     static #DEFAULT_FFT_SIZE = 2048;
-    /** Default analyser poll interval (5ms). */
-    static #DEFAULT_FFT_INTERVAL = 5;
+    /** Default analyser poll interval (16ms). */
+    static #DEFAULT_FFT_INTERVAL = 16;
     /** Bark‑scale center frequencies (hz) used by the default transform. https://en.wikipedia.org/wiki/Bark_scale */
     static #BARK_CENTER_FREQUENCIES = [
         50, 150, 250, 350, 450, 570, 700, 840, 1000, 1170, 1370, 1600, 1850, 2150, 2500, 2900, 3400, 4000, 4800, 5800,
@@ -176,9 +210,8 @@ export class EVIWebAudioPlayer extends EventTarget {
     async init(): Promise<this> {
         if (this.#initialized) return this;
 
-        // Create & unlock the AudioContext
+        // Create the AudioContext
         this.#ctx = new AudioContext();
-        await this.#ctx.resume().catch((err) => console.warn("AudioContext resume failed", err));
 
         // Fail fast if AudioWorklet isn’t supported
         if (!this.#ctx.audioWorklet) {
@@ -188,48 +221,62 @@ export class EVIWebAudioPlayer extends EventTarget {
         }
 
         try {
-            // Build AnalyserNode (spectrum analysis, visualization)
-            const { fft } = this.opts;
-            this.#analyser = this.#ctx.createAnalyser();
-            this.#analyser.fftSize = fft?.size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
-
-            // Build GainNode (volume/mute control)
+            // Build gain node
             this.#gain = this.#ctx.createGain();
             this.#gain.gain.value = this.#volume;
 
-            // If FFT is enabled, start FFT timer for analyser polling
-            if (fft?.enabled === true) {
+            const { fft } = this.opts;
+            const useFft = fft?.enabled === true;
+
+            if (useFft) {
+                // Resolve FFT options
+                const size = fft.size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
+                const interval = fft.interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL;
+                const transform = fft.transform ?? EVIWebAudioPlayer.#linearHzToBark;
+
+                // Build analyser node
+                this.#analyser = this.#ctx.createAnalyser();
+                this.#analyser.fftSize = size;
+
                 // Cache fully‑resolved FFT options for reuse
-                this.#resolvedFftOptions = {
-                    size: this.#analyser.fftSize,
-                    interval: fft.interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL,
-                    transform: fft.transform ?? EVIWebAudioPlayer.#linearHzToBark,
-                };
-                this.#startFftTimer();
+                this.#resolvedFftOptions = { size, interval, transform };
             }
 
-            // Connect Analyser → Gain → Destination
-            this.#analyser.connect(this.#gain);
-            this.#gain.connect(this.#ctx.destination);
-
-            // Load the AudioWorklet processor
+            // Load the worklet module
             const workletUrl = this.opts.workletUrl?.toString() ?? EVIWebAudioPlayer.#DEFAULT_WORKLET_URL;
             await this.#ctx.audioWorklet.addModule(workletUrl);
+
+            // Build the worklet node
             this.#worklet = new AudioWorkletNode(this.#ctx, "audio-processor");
 
-            // Connect Worklet → Analyser (Worklet → Analyser → Gain → Destination)
-            this.#worklet.connect(this.#analyser);
-
-            this.#initialized = true;
-
+            // When the worklet posts { type: "ended" }, mark playback stopped and emit a `"stop"` event.
             this.#worklet.port.onmessage = (e: MessageEvent) => {
                 if ((e.data as { type?: string }).type === "ended") {
                     this.#playing = false;
                     this.dispatchEvent(new CustomEvent("stop", { detail: { id: "stream" } }));
                 }
             };
+
+            // Audio graph nodes
+            const worklet = this.#worklet; // audio processor
+            const analyser = this.#analyser; // spectrum analysis (visualization)
+            const gain = this.#gain; // volume control
+            const destination = this.#ctx.destination; // audio output device (speakers)
+
+            // Wire graph: Worklet → Analyser(?) → Gain → Destination
+            // Analyser node is filtered out of signal path if null (FFT disabled)
+            const signalPath = [worklet, analyser, gain, destination].filter(Boolean) as AudioNode[];
+            signalPath.reduce((prev, next) => (prev.connect(next), next));
+
+            // Start FFT timer for analyser polling if enabled
+            if (useFft && analyser) this.#startFftTimer();
+
+            // Unlock the audio
+            await this.#ctx.resume().catch((err) => console.warn("AudioContext resume failed", err));
+
+            this.#initialized = true;
         } catch (err) {
-            const suffix = err instanceof Error ? `: ${err.message}` : "";
+            const suffix = err instanceof Error ? `: ${err.message}` : String(err);
             this.#emitError(`Failed to initialize audio player${suffix}`);
             throw err;
         }
