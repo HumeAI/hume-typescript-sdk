@@ -204,6 +204,10 @@ export class EVIWebAudioPlayer extends EventTarget {
      * - Must be awaited inside a user-gesture (click/tap/key); later calls are no-ops.
      * - If `fft.enabled` is `false` (or `fft` is omitted), no `AnalyserNode` or polling timer is created.
      *
+     * **Safari quirk:** Safari locks an `AudioContext` to the device’s current sample rate at creation.
+     * If you open a Bluetooth headset mic afterward, the OS may switch to the 16 kHz HFP profile and down-sample playback, which sounds “telephone-y.”
+     * To avoid this, call `getUserMedia()` (or otherwise open audio input) **before** `init()`.
+     *
      * @throws {Error} If the browser lacks `AudioWorklet` support, or if `AudioContext.resume()` is rejected (autoplay policy, device error).
      */
     async init(): Promise<void> {
