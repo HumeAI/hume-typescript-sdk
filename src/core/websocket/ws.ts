@@ -83,7 +83,6 @@ export class ReconnectingWebSocket {
     private readonly _WebSocket: typeof WebSocket;
 
     constructor(url: UrlProvider, protocols?: string | string[], options: Options = {}) {
-        console.log('constructing...')
         this._url = url;
         this._protocols = protocols;
         this._options = options;
@@ -94,7 +93,6 @@ export class ReconnectingWebSocket {
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
-        console.log('all good')
         this._connect();
     }
 
