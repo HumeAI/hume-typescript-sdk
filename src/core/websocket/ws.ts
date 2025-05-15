@@ -80,12 +80,14 @@ export class ReconnectingWebSocket {
     private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
     private readonly _options: Options;
+    private readonly _WebSocket: typeof WebSocket;
 
     constructor(url: UrlProvider, protocols?: string | string[], options: Options = {}) {
         this._url = url;
         this._protocols = protocols;
         this._options = options;
-        if (!isWebSocket(this._options.WebSocket)) {
+        this._WebSocket = this._options.WebSocket || getGlobalWebSocket();
+        if (!isWebSocket(this._WebSocket)) {
             throw Error("No valid WebSocket class provided");
         }
         if (this._options.startClosed) {
@@ -373,6 +375,7 @@ export class ReconnectingWebSocket {
 
         // Dispatch close event
         const closeEvent = new Events.CloseEvent(1000, closeReason, this);
+        closeEvent.willReconnect = false;
         if (this.onclose) this.onclose(closeEvent);
         this._listeners.close.forEach((listener) => this._callEventListener(closeEvent, listener));
     }
@@ -391,11 +394,7 @@ export class ReconnectingWebSocket {
         // Set lock for this attempt
         this._connectLock = true;
 
-        const {
-            maxRetries = DEFAULT.maxRetries,
-            connectionTimeout = DEFAULT.connectionTimeout,
-            WebSocket = getGlobalWebSocket(),
-        } = this._options;
+        const { maxRetries = DEFAULT.maxRetries, connectionTimeout = DEFAULT.connectionTimeout } = this._options;
 
         // Max retries check
         if (this._retryCount >= maxRetries) {
@@ -420,7 +419,7 @@ export class ReconnectingWebSocket {
                 }
 
                 this._debug("connect", { url, protocols: this._protocols });
-                this._ws = this._protocols ? new WebSocket(url, this._protocols) : new WebSocket(url);
+                this._ws = this._protocols ? new this._WebSocket(url, this._protocols) : new this._WebSocket(url);
                 this._ws!.binaryType = this._binaryType;
 
                 this._addListeners();
@@ -591,6 +590,7 @@ export class ReconnectingWebSocket {
             this._shouldReconnect = false;
             this._debug("Reconnection stopped: Received close code 1000 (intentional server close).");
         }
+        adaptedEvent.willReconnect = this._shouldReconnect;
 
         // Dispatch event to listeners
         if (this.onclose) this.onclose(adaptedEvent);
