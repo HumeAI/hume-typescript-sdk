@@ -394,10 +394,7 @@ export class ReconnectingWebSocket {
         // Set lock for this attempt
         this._connectLock = true;
 
-        const {
-            maxRetries = DEFAULT.maxRetries,
-            connectionTimeout = DEFAULT.connectionTimeout,
-        } = this._options;
+        const { maxRetries = DEFAULT.maxRetries, connectionTimeout = DEFAULT.connectionTimeout } = this._options;
 
         // Max retries check
         if (this._retryCount >= maxRetries) {
@@ -422,7 +419,7 @@ export class ReconnectingWebSocket {
                 }
 
                 this._debug("connect", { url, protocols: this._protocols });
-                this._ws = this._protocols ? new (this._WebSocket)(url, this._protocols) : new (this._WebSocket)(url);
+                this._ws = this._protocols ? new this._WebSocket(url, this._protocols) : new this._WebSocket(url);
                 this._ws!.binaryType = this._binaryType;
 
                 this._addListeners();
