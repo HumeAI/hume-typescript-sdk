@@ -14,6 +14,6 @@ export interface ReturnGeneration {
     fileSize: number;
     /** A unique ID associated with this TTS generation that can be used as context for generating consistent speech style and prosody across multiple requests. */
     generationId: string;
-    /** A list of snippet groups where each group corresponds to an utterance in the request. Each  group contains segmented snippets that represent the original utterance divided into more natural-sounding units optimized for speech delivery. */
+    /** A list of snippet groups where each group corresponds to an utterance in the request. Each group contains segmented snippets that represent the original utterance divided into more natural-sounding units optimized for speech delivery. */
     snippets: Hume.tts.Snippet[][];
 }
