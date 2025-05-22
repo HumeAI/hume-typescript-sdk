@@ -34,7 +34,7 @@ export class Voices {
     constructor(protected readonly _options: Voices.Options = {}) {}
 
     /**
-     * Lists voices in your **Voice Library**. Set provider to `HUME_AI` to list Hume's preset voices, or to `CUSTOM_VOICE` to a custom voice created in your account.
+     * Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
      *
      * @param {Hume.tts.VoicesListRequest} request
      * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
@@ -53,7 +53,7 @@ export class Voices {
         const list = async (request: Hume.tts.VoicesListRequest): Promise<Hume.tts.ReturnPagedVoices> => {
             const { provider, pageNumber, pageSize, ascendingOrder } = request;
             const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            _queryParams["provider"] = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
+            _queryParams["provider"] = serializers.tts.VoicesListRequestProvider.jsonOrThrow(provider, {
                 unrecognizedObjectKeys: "strip",
             });
             if (pageNumber != null) {
@@ -76,8 +76,8 @@ export class Voices {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.3",
-                    "User-Agent": "hume/0.10.3",
+                    "X-Fern-SDK-Version": "0.11.1",
+                    "User-Agent": "hume/0.11.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -143,7 +143,9 @@ export class Voices {
     }
 
     /**
-     * Creates a new voice from a specified TTS generation ID and saves it to your **Voice Library**. This allows for consistent speech style and prosody across multiple requests.
+     * Saves a new custom voice to your account using the specified TTS generation ID.
+     *
+     * Once saved, this voice can be reused in subsequent TTS requests, ensuring consistent speech style and prosody. For more details on voice creation, see the [Voices Guide](/docs/text-to-speech-tts/voices).
      *
      * @param {Hume.tts.PostedVoice} request
      * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
@@ -171,8 +173,8 @@ export class Voices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -229,7 +231,7 @@ export class Voices {
     }
 
     /**
-     * Removes a custom voice from your **Voice Library**.
+     * Deletes a previously generated custom voice.
      *
      * @param {Hume.tts.VoicesDeleteRequest} request
      * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
@@ -256,8 +258,8 @@ export class Voices {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
