@@ -18,7 +18,7 @@ export interface ToolCallMessage {
      * These parameters define the inputs needed for the tool’s execution, including the expected data type and description for each input field. Structured as a stringified JSON schema, this format ensures the tool receives data in the expected format.
      */
     parameters: string;
-    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Response%20Message.type) or a [Tool Error message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Error%20Message.type). */
+    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/empathic-voice-interface-evi/chat/chat#send.ToolResponseMessage.type) or a [Tool Error message](/reference/empathic-voice-interface-evi/chat/chat#send.ToolErrorMessage.type). */
     responseRequired: boolean;
     /**
      * The unique identifier for a specific tool call instance.
