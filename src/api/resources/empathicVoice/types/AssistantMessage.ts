@@ -10,7 +10,7 @@ import * as Hume from "../../../index";
 export interface AssistantMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
-    /** Indicates if this message was inserted into the conversation as text from an [Assistant Input message](/reference/empathic-voice-interface-evi/chat/chat#send.Assistant%20Input.text). */
+    /** Indicates if this message was inserted into the conversation as text from an [Assistant Input message](/reference/empathic-voice-interface-evi/chat/chat#send.AssistantInput.text). */
     fromText: boolean;
     /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
     id?: string;
