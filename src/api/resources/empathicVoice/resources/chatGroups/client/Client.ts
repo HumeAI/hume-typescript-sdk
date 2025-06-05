@@ -81,8 +81,8 @@ export class ChatGroups {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.3",
-                    "User-Agent": "hume/0.10.3",
+                    "X-Fern-SDK-Version": "0.11.1",
+                    "User-Agent": "hume/0.11.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -135,7 +135,7 @@ export class ChatGroups {
                     });
             }
         };
-        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         return new core.Pageable<Hume.empathicVoice.ReturnPagedChatGroups, Hume.empathicVoice.ReturnChatGroup>({
             response: await list(request),
             hasNextPage: (response) => (response?.chatGroupsPage ?? []).length > 0,
@@ -193,8 +193,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -296,8 +296,8 @@ export class ChatGroups {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.3",
-                    "User-Agent": "hume/0.10.3",
+                    "X-Fern-SDK-Version": "0.11.1",
+                    "User-Agent": "hume/0.11.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -352,7 +352,7 @@ export class ChatGroups {
                     });
             }
         };
-        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         return new core.Pageable<Hume.empathicVoice.ReturnChatGroupPagedEvents, Hume.empathicVoice.ReturnChatEvent>({
             response: await list(request),
             hasNextPage: (response) => (response?.eventsPage ?? []).length > 0,
@@ -410,8 +410,8 @@ export class ChatGroups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

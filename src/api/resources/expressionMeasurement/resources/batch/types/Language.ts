@@ -4,11 +4,6 @@
 
 import * as Hume from "../../../../../index";
 
-/**
- * The Emotional Language model analyzes passages of text. This also supports audio and video files by transcribing and then directly analyzing the transcribed text.
- *
- * Recommended input filetypes: `.txt`, `.mp3`, `.wav`, `.mp4`
- */
 export interface Language {
     granularity?: Hume.expressionMeasurement.batch.Granularity;
     sentiment?: Hume.expressionMeasurement.batch.Unconfigurable;
