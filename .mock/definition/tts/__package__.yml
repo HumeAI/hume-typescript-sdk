@@ -431,11 +431,10 @@ types:
   Snippet:
     properties:
       audio:
-        type: optional<string>
+        type: string
         docs: >-
           The segmented audio output in the requested format, encoded as a
           base64 string.
-        access: read-only
       generation_id:
         type: string
         docs: The generation ID this snippet corresponds to.
