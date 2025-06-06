@@ -8,7 +8,7 @@ import * as core from "../../../../core";
 
 export const Snippet: core.serialization.ObjectSchema<serializers.tts.Snippet.Raw, Hume.tts.Snippet> =
     core.serialization.object({
-        audio: core.serialization.string().optional(),
+        audio: core.serialization.string(),
         generationId: core.serialization.property("generation_id", core.serialization.string()),
         id: core.serialization.string(),
         text: core.serialization.string(),
@@ -17,7 +17,7 @@ export const Snippet: core.serialization.ObjectSchema<serializers.tts.Snippet.Ra
 
 export declare namespace Snippet {
     export interface Raw {
-        audio?: string | null;
+        audio: string;
         generation_id: string;
         id: string;
         text: string;

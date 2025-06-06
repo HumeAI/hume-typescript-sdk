@@ -4,6 +4,11 @@
 
 import * as Hume from "../../../../../index";
 
+/**
+ * The Speech Prosody model analyzes the intonation, stress, and rhythm of spoken word.
+ *
+ * Recommended input file types: `.wav`, `.mp3`, `.mp4`
+ */
 export interface Prosody {
     granularity?: Hume.expressionMeasurement.batch.Granularity;
     window?: Hume.expressionMeasurement.batch.Window;
