@@ -33,26 +33,28 @@ The response includes the base64-encoded audio and metadata in JSON format.
 
 ```typescript
 await client.tts.synthesizeJson({
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-        },
-    ],
-    context: {
+    body: {
         utterances: [
             {
-                text: "How can people see beauty so differently?",
+                text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
                 description:
-                    "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
+                    "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
             },
         ],
+        context: {
+            utterances: [
+                {
+                    text: "How can people see beauty so differently?",
+                    description:
+                        "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
+                },
+            ],
+        },
+        format: {
+            type: "mp3",
+        },
+        numGenerations: 1,
     },
-    format: {
-        type: "mp3",
-    },
-    numGenerations: 1,
 });
 ```
 
@@ -69,7 +71,7 @@ await client.tts.synthesizeJson({
 <dl>
 <dd>
 
-**request:** `Hume.PostedTts`
+**request:** `Hume.tts.SynthesizeJsonRequest`
 
 </dd>
 </dl>
