@@ -3,7 +3,7 @@
  */
 
 /**
- * A specific nudge configuration returned from the server
+ * A specific timeout configuration to be returned from the server
  */
 export interface ReturnTimeoutSpec {
     /**
@@ -12,7 +12,6 @@ export interface ReturnTimeoutSpec {
      * If set to false, EVI will not timeout due to a specified duration being reached. However, the conversation will eventually disconnect after 1,800 seconds (30 minutes), which is the maximum WebSocket duration limit for EVI.
      */
     enabled: boolean;
-    /** Time interval in seconds after which the nudge will be sent. */
-    intervalSecs?: number;
-    durationSecs?: unknown;
+    /** Duration in seconds for the timeout (e.g. 600 seconds represents 10 minutes). */
+    durationSecs?: number;
 }
