@@ -15,11 +15,11 @@ export interface ReturnTimeoutSpecs {
      *
      * Accepts a minimum value of 30 seconds and a maximum value of 1,800 seconds.
      */
-    inactivity: Hume.empathicVoice.ReturnTimeoutSpec;
+    inactivity?: Hume.empathicVoice.ReturnTimeoutSpec;
     /**
      * Specifies the maximum allowed duration (in seconds) for an EVI WebSocket connection before it is automatically disconnected. Default is 1,800 seconds (30 minutes).
      *
      * Accepts a minimum value of 30 seconds and a maximum value of 1,800 seconds.
      */
-    maxDuration: Hume.empathicVoice.ReturnTimeoutSpec;
+    maxDuration?: Hume.empathicVoice.ReturnTimeoutSpec;
 }

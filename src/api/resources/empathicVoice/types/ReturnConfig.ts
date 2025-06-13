@@ -49,6 +49,7 @@ export interface ReturnConfig {
     builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
     timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
+    nudges?: Hume.empathicVoice.ReturnTimeoutSpec;
     /** Map of webhooks associated with this config. */
     webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | undefined)[];
 }

@@ -11,6 +11,8 @@ export interface Snippet {
     id: string;
     /** The text for this **Snippet**. */
     text: string;
+    /** The transcribed text of the generated audio. It is only present if `instant_mode` is set to `false`. */
+    transcribedText?: string;
     /** The index of the utterance in the request this snippet corresponds to. */
     utteranceIndex?: number;
 }

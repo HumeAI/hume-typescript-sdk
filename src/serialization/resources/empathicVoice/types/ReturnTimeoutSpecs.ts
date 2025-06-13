@@ -11,13 +11,13 @@ export const ReturnTimeoutSpecs: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnTimeoutSpecs.Raw,
     Hume.empathicVoice.ReturnTimeoutSpecs
 > = core.serialization.object({
-    inactivity: ReturnTimeoutSpec,
-    maxDuration: core.serialization.property("max_duration", ReturnTimeoutSpec),
+    inactivity: ReturnTimeoutSpec.optional(),
+    maxDuration: core.serialization.property("max_duration", ReturnTimeoutSpec.optional()),
 });
 
 export declare namespace ReturnTimeoutSpecs {
     export interface Raw {
-        inactivity: ReturnTimeoutSpec.Raw;
-        max_duration: ReturnTimeoutSpec.Raw;
+        inactivity?: ReturnTimeoutSpec.Raw | null;
+        max_duration?: ReturnTimeoutSpec.Raw | null;
     }
 }
