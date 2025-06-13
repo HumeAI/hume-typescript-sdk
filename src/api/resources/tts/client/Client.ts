@@ -46,33 +46,41 @@ export class Tts {
      *
      * The response includes the base64-encoded audio and metadata in JSON format.
      *
-     * @param {Hume.tts.PostedTts} request
+     * @param {Hume.tts.SynthesizeJsonRequest} request
      * @param {Tts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.tts.UnprocessableEntityError}
      *
      * @example
      *     await client.tts.synthesizeJson({
-     *         utterances: [{
-     *                 text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-     *                 description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
-     *             }],
-     *         context: {
+     *         body: {
      *             utterances: [{
-     *                     text: "How can people see beauty so differently?",
-     *                     description: "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question."
-     *                 }]
-     *         },
-     *         format: {
-     *             type: "mp3"
-     *         },
-     *         numGenerations: 1
+     *                     text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+     *                     description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
+     *                 }],
+     *             context: {
+     *                 utterances: [{
+     *                         text: "How can people see beauty so differently?",
+     *                         description: "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question."
+     *                     }]
+     *             },
+     *             format: {
+     *                 type: "mp3"
+     *             },
+     *             numGenerations: 1
+     *         }
      *     })
      */
     public async synthesizeJson(
-        request: Hume.tts.PostedTts,
+        request: Hume.tts.SynthesizeJsonRequest,
         requestOptions?: Tts.RequestOptions,
     ): Promise<Hume.tts.ReturnTts> {
+        const { accessToken, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (accessToken != null) {
+            _queryParams["access_token"] = accessToken;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -84,16 +92,17 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.11.1",
-                "User-Agent": "hume/0.11.1",
+                "X-Fern-SDK-Version": "0.11.2",
+                "User-Agent": "hume/0.11.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.tts.PostedTts.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -162,8 +171,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.11.1",
-                "User-Agent": "hume/0.11.1",
+                "X-Fern-SDK-Version": "0.11.2",
+                "User-Agent": "hume/0.11.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,8 +243,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.11.1",
-                "User-Agent": "hume/0.11.1",
+                "X-Fern-SDK-Version": "0.11.2",
+                "User-Agent": "hume/0.11.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -307,8 +316,8 @@ export class Tts {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.11.1",
-                "User-Agent": "hume/0.11.1",
+                "X-Fern-SDK-Version": "0.11.2",
+                "User-Agent": "hume/0.11.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

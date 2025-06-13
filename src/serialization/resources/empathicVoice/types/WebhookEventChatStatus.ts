@@ -15,6 +15,7 @@ export const WebhookEventChatStatus: core.serialization.Schema<
     "USER_TIMEOUT",
     "INACTIVITY_TIMEOUT",
     "MAX_DURATION_TIMEOUT",
+    "SILENCE_TIMEOUT",
     "ERROR",
 ]);
 
@@ -25,5 +26,6 @@ export declare namespace WebhookEventChatStatus {
         | "USER_TIMEOUT"
         | "INACTIVITY_TIMEOUT"
         | "MAX_DURATION_TIMEOUT"
+        | "SILENCE_TIMEOUT"
         | "ERROR";
 }

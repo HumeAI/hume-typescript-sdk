@@ -6,19 +6,17 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const ReturnTimeoutSpec: core.serialization.ObjectSchema<
-    serializers.empathicVoice.ReturnTimeoutSpec.Raw,
-    Hume.empathicVoice.ReturnTimeoutSpec
+export const PostedNudgeSpec: core.serialization.ObjectSchema<
+    serializers.empathicVoice.PostedNudgeSpec.Raw,
+    Hume.empathicVoice.PostedNudgeSpec
 > = core.serialization.object({
-    enabled: core.serialization.boolean(),
+    enabled: core.serialization.boolean().optional(),
     intervalSecs: core.serialization.property("interval_secs", core.serialization.number().optional()),
-    durationSecs: core.serialization.property("duration_secs", core.serialization.unknown().optional()),
 });
 
-export declare namespace ReturnTimeoutSpec {
+export declare namespace PostedNudgeSpec {
     export interface Raw {
-        enabled: boolean;
+        enabled?: boolean | null;
         interval_secs?: number | null;
-        duration_secs?: unknown | null;
     }
 }
