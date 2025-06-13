@@ -81,8 +81,8 @@ export class Configs {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.3",
-                    "User-Agent": "hume/0.10.3",
+                    "X-Fern-SDK-Version": "0.11.1",
+                    "User-Agent": "hume/0.11.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -135,7 +135,7 @@ export class Configs {
                     });
             }
         };
-        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         return new core.Pageable<Hume.empathicVoice.ReturnPagedConfigs, Hume.empathicVoice.ReturnConfig>({
             response: await list(request),
             hasNextPage: (response) => (response?.configsPage ?? []).length > 0,
@@ -205,8 +205,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -306,8 +306,8 @@ export class Configs {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.10.3",
-                    "User-Agent": "hume/0.10.3",
+                    "X-Fern-SDK-Version": "0.11.1",
+                    "User-Agent": "hume/0.11.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -360,7 +360,7 @@ export class Configs {
                     });
             }
         };
-        let _offset = request?.pageNumber != null ? request?.pageNumber : 1;
+        let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         return new core.Pageable<Hume.empathicVoice.ReturnPagedConfigs, Hume.empathicVoice.ReturnConfig>({
             response: await list(request),
             hasNextPage: (response) => (response?.configsPage ?? []).length > 0,
@@ -435,8 +435,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -519,8 +519,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -602,8 +602,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -689,8 +689,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -781,8 +781,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -872,8 +872,8 @@ export class Configs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "hume",
-                "X-Fern-SDK-Version": "0.10.3",
-                "User-Agent": "hume/0.10.3",
+                "X-Fern-SDK-Version": "0.11.1",
+                "User-Agent": "hume/0.11.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
