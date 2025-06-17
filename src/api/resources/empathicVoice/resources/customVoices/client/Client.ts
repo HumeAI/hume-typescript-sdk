@@ -50,88 +50,100 @@ export class CustomVoices {
         request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest = {},
         requestOptions?: CustomVoices.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnCustomVoice>> {
-        const list = async (
-            request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest,
-        ): Promise<Hume.empathicVoice.ReturnPagedCustomVoices> => {
-            const { pageNumber, pageSize, name } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (name != null) {
-                _queryParams["name"] = name;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    "v0/evi/custom_voices",
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnPagedCustomVoices.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedCustomVoices>> => {
+                const { pageNumber, pageSize, name } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (name != null) {
+                    _queryParams["name"] = name;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        "v0/evi/custom_voices",
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnPagedCustomVoices.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnPagedCustomVoices, Hume.empathicVoice.ReturnCustomVoice>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.customVoicesPage ?? []).length > 0,
             getItems: (response) => response?.customVoicesPage ?? [],
             loadPage: (_response) => {
@@ -158,10 +170,17 @@ export class CustomVoices {
      *         parameterModel: "20241004-11parameter"
      *     })
      */
-    public async createCustomVoice(
+    public createCustomVoice(
         request: Hume.empathicVoice.PostedCustomVoice,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnCustomVoice> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnCustomVoice> {
+        return core.HttpResponsePromise.fromPromise(this.__createCustomVoice(request, requestOptions));
+    }
+
+    private async __createCustomVoice(
+        request: Hume.empathicVoice.PostedCustomVoice,
+        requestOptions?: CustomVoices.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnCustomVoice>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -188,12 +207,15 @@ export class CustomVoices {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -206,11 +228,13 @@ export class CustomVoices {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -220,12 +244,14 @@ export class CustomVoices {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/custom_voices.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -243,10 +269,17 @@ export class CustomVoices {
      * @example
      *     await client.empathicVoice.customVoices.getCustomVoice("id")
      */
-    public async getCustomVoice(
+    public getCustomVoice(
         id: string,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnCustomVoice> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnCustomVoice> {
+        return core.HttpResponsePromise.fromPromise(this.__getCustomVoice(id, requestOptions));
+    }
+
+    private async __getCustomVoice(
+        id: string,
+        requestOptions?: CustomVoices.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnCustomVoice>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -272,12 +305,15 @@ export class CustomVoices {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -290,11 +326,13 @@ export class CustomVoices {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -304,12 +342,14 @@ export class CustomVoices {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -332,11 +372,19 @@ export class CustomVoices {
      *         parameterModel: "20241004-11parameter"
      *     })
      */
-    public async createCustomVoiceVersion(
+    public createCustomVoiceVersion(
         id: string,
         request: Hume.empathicVoice.PostedCustomVoice,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnCustomVoice> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnCustomVoice> {
+        return core.HttpResponsePromise.fromPromise(this.__createCustomVoiceVersion(id, request, requestOptions));
+    }
+
+    private async __createCustomVoiceVersion(
+        id: string,
+        request: Hume.empathicVoice.PostedCustomVoice,
+        requestOptions?: CustomVoices.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnCustomVoice>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -363,12 +411,15 @@ export class CustomVoices {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -381,11 +432,13 @@ export class CustomVoices {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -395,12 +448,14 @@ export class CustomVoices {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -418,7 +473,14 @@ export class CustomVoices {
      * @example
      *     await client.empathicVoice.customVoices.deleteCustomVoice("id")
      */
-    public async deleteCustomVoice(id: string, requestOptions?: CustomVoices.RequestOptions): Promise<void> {
+    public deleteCustomVoice(id: string, requestOptions?: CustomVoices.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteCustomVoice(id, requestOptions));
+    }
+
+    private async __deleteCustomVoice(
+        id: string,
+        requestOptions?: CustomVoices.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -444,7 +506,7 @@ export class CustomVoices {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -457,11 +519,13 @@ export class CustomVoices {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -471,12 +535,14 @@ export class CustomVoices {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling DELETE /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -497,11 +563,19 @@ export class CustomVoices {
      *         name: "name"
      *     })
      */
-    public async updateCustomVoiceName(
+    public updateCustomVoiceName(
         id: string,
         request: Hume.empathicVoice.PostedCustomVoiceName,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<string> {
+    ): core.HttpResponsePromise<string> {
+        return core.HttpResponsePromise.fromPromise(this.__updateCustomVoiceName(id, request, requestOptions));
+    }
+
+    private async __updateCustomVoiceName(
+        id: string,
+        request: Hume.empathicVoice.PostedCustomVoiceName,
+        requestOptions?: CustomVoices.RequestOptions,
+    ): Promise<core.WithRawResponse<string>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -531,7 +605,7 @@ export class CustomVoices {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as string;
+            return { data: _response.body as string, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -544,11 +618,13 @@ export class CustomVoices {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -558,12 +634,14 @@ export class CustomVoices {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling PATCH /v0/evi/custom_voices/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

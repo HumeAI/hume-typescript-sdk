@@ -46,10 +46,17 @@ export class Batch {
      * @example
      *     await client.expressionMeasurement.batch.listJobs()
      */
-    public async listJobs(
+    public listJobs(
         request: Hume.expressionMeasurement.batch.BatchListJobsRequest = {},
         requestOptions?: Batch.RequestOptions,
-    ): Promise<Hume.expressionMeasurement.batch.UnionJob[]> {
+    ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.UnionJob[]> {
+        return core.HttpResponsePromise.fromPromise(this.__listJobs(request, requestOptions));
+    }
+
+    private async __listJobs(
+        request: Hume.expressionMeasurement.batch.BatchListJobsRequest = {},
+        requestOptions?: Batch.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionJob[]>> {
         const { limit, status, when, timestampMs, sortBy, direction } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (limit != null) {
@@ -118,18 +125,22 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.batch.listJobs.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.expressionMeasurement.batch.listJobs.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.HumeError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -138,12 +149,14 @@ export class Batch {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/batch/jobs.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -160,10 +173,17 @@ export class Batch {
      *         notify: true
      *     })
      */
-    public async startInferenceJob(
+    public startInferenceJob(
         request: Hume.expressionMeasurement.batch.InferenceBaseRequest,
         requestOptions?: Batch.RequestOptions,
-    ): Promise<Hume.expressionMeasurement.batch.JobId> {
+    ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.JobId> {
+        return core.HttpResponsePromise.fromPromise(this.__startInferenceJob(request, requestOptions));
+    }
+
+    private async __startInferenceJob(
+        request: Hume.expressionMeasurement.batch.InferenceBaseRequest,
+        requestOptions?: Batch.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.JobId>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -192,18 +212,22 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.batch.JobId.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.expressionMeasurement.batch.JobId.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.HumeError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -212,12 +236,14 @@ export class Batch {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/batch/jobs.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -231,10 +257,17 @@ export class Batch {
      * @example
      *     await client.expressionMeasurement.batch.getJobDetails("job_id")
      */
-    public async getJobDetails(
+    public getJobDetails(
         id: string,
         requestOptions?: Batch.RequestOptions,
-    ): Promise<Hume.expressionMeasurement.batch.UnionJob> {
+    ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.UnionJob> {
+        return core.HttpResponsePromise.fromPromise(this.__getJobDetails(id, requestOptions));
+    }
+
+    private async __getJobDetails(
+        id: string,
+        requestOptions?: Batch.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionJob>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -260,18 +293,22 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.batch.UnionJob.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.expressionMeasurement.batch.UnionJob.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.HumeError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -280,12 +317,14 @@ export class Batch {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/batch/jobs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -299,10 +338,17 @@ export class Batch {
      * @example
      *     await client.expressionMeasurement.batch.getJobPredictions("job_id")
      */
-    public async getJobPredictions(
+    public getJobPredictions(
         id: string,
         requestOptions?: Batch.RequestOptions,
-    ): Promise<Hume.expressionMeasurement.batch.UnionPredictResult[]> {
+    ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.UnionPredictResult[]> {
+        return core.HttpResponsePromise.fromPromise(this.__getJobPredictions(id, requestOptions));
+    }
+
+    private async __getJobPredictions(
+        id: string,
+        requestOptions?: Batch.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionPredictResult[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -328,18 +374,22 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.batch.getJobPredictions.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.expressionMeasurement.batch.getJobPredictions.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.HumeError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -348,12 +398,14 @@ export class Batch {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/batch/jobs/{id}/predictions.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -361,7 +413,17 @@ export class Batch {
     /**
      * Get the artifacts ZIP of a completed inference job.
      */
-    public async getJobArtifacts(id: string, requestOptions?: Batch.RequestOptions): Promise<stream.Readable> {
+    public getJobArtifacts(
+        id: string,
+        requestOptions?: Batch.RequestOptions,
+    ): core.HttpResponsePromise<stream.Readable> {
+        return core.HttpResponsePromise.fromPromise(this.__getJobArtifacts(id, requestOptions));
+    }
+
+    private async __getJobArtifacts(
+        id: string,
+        requestOptions?: Batch.RequestOptions,
+    ): Promise<core.WithRawResponse<stream.Readable>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -388,13 +450,14 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.HumeError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -403,12 +466,14 @@ export class Batch {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/batch/jobs/{id}/artifacts.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -423,11 +488,21 @@ export class Batch {
      * @example
      *     await client.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {})
      */
-    public async startInferenceJobFromLocalFile(
+    public startInferenceJobFromLocalFile(
         file: File[] | fs.ReadStream[] | Blob[],
         request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
         requestOptions?: Batch.RequestOptions,
-    ): Promise<Hume.expressionMeasurement.batch.JobId> {
+    ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.JobId> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__startInferenceJobFromLocalFile(file, request, requestOptions),
+        );
+    }
+
+    private async __startInferenceJobFromLocalFile(
+        file: File[] | fs.ReadStream[] | Blob[],
+        request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
+        requestOptions?: Batch.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.JobId>> {
         const _request = await core.newFormData();
         if (request.json != null) {
             _request.append(
@@ -472,18 +547,22 @@ export class Batch {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.expressionMeasurement.batch.JobId.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.expressionMeasurement.batch.JobId.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.HumeError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -492,12 +571,14 @@ export class Batch {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/batch/jobs.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

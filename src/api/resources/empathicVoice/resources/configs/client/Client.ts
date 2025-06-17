@@ -53,91 +53,103 @@ export class Configs {
         request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnConfig>> {
-        const list = async (
-            request: Hume.empathicVoice.ConfigsListConfigsRequest,
-        ): Promise<Hume.empathicVoice.ReturnPagedConfigs> => {
-            const { pageNumber, pageSize, restrictToMostRecent, name } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (restrictToMostRecent != null) {
-                _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
-            }
-            if (name != null) {
-                _queryParams["name"] = name;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    "v0/evi/configs",
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnPagedConfigs.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.ConfigsListConfigsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedConfigs>> => {
+                const { pageNumber, pageSize, restrictToMostRecent, name } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (restrictToMostRecent != null) {
+                    _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
+                }
+                if (name != null) {
+                    _queryParams["name"] = name;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        "v0/evi/configs",
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnPagedConfigs.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/configs.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/configs.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnPagedConfigs, Hume.empathicVoice.ReturnConfig>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.configsPage ?? []).length > 0,
             getItems: (response) => response?.configsPage ?? [],
             loadPage: (_response) => {
@@ -190,10 +202,17 @@ export class Configs {
      *         }
      *     })
      */
-    public async createConfig(
+    public createConfig(
         request: Hume.empathicVoice.PostedConfig,
         requestOptions?: Configs.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnConfig> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
+        return core.HttpResponsePromise.fromPromise(this.__createConfig(request, requestOptions));
+    }
+
+    private async __createConfig(
+        request: Hume.empathicVoice.PostedConfig,
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -220,12 +239,15 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -238,11 +260,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -252,12 +276,14 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/configs.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -281,88 +307,100 @@ export class Configs {
         request: Hume.empathicVoice.ConfigsListConfigVersionsRequest = {},
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnConfig>> {
-        const list = async (
-            request: Hume.empathicVoice.ConfigsListConfigVersionsRequest,
-        ): Promise<Hume.empathicVoice.ReturnPagedConfigs> => {
-            const { pageNumber, pageSize, restrictToMostRecent } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (restrictToMostRecent != null) {
-                _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    `v0/evi/configs/${encodeURIComponent(id)}`,
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnPagedConfigs.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.ConfigsListConfigVersionsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedConfigs>> => {
+                const { pageNumber, pageSize, restrictToMostRecent } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (restrictToMostRecent != null) {
+                    _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        `v0/evi/configs/${encodeURIComponent(id)}`,
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnPagedConfigs.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/configs/{id}.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/configs/{id}.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnPagedConfigs, Hume.empathicVoice.ReturnConfig>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.configsPage ?? []).length > 0,
             getItems: (response) => response?.configsPage ?? [],
             loadPage: (_response) => {
@@ -419,11 +457,19 @@ export class Configs {
      *         }
      *     })
      */
-    public async createConfigVersion(
+    public createConfigVersion(
         id: string,
         request: Hume.empathicVoice.PostedConfigVersion,
         requestOptions?: Configs.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnConfig> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
+        return core.HttpResponsePromise.fromPromise(this.__createConfigVersion(id, request, requestOptions));
+    }
+
+    private async __createConfigVersion(
+        id: string,
+        request: Hume.empathicVoice.PostedConfigVersion,
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -452,12 +498,15 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -470,11 +519,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -484,12 +535,14 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -507,7 +560,14 @@ export class Configs {
      * @example
      *     await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
      */
-    public async deleteConfig(id: string, requestOptions?: Configs.RequestOptions): Promise<void> {
+    public deleteConfig(id: string, requestOptions?: Configs.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteConfig(id, requestOptions));
+    }
+
+    private async __deleteConfig(
+        id: string,
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -533,7 +593,7 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -546,11 +606,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -560,12 +622,14 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling DELETE /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -586,11 +650,19 @@ export class Configs {
      *         name: "Updated Weather Assistant Config Name"
      *     })
      */
-    public async updateConfigName(
+    public updateConfigName(
         id: string,
         request: Hume.empathicVoice.PostedConfigName,
         requestOptions?: Configs.RequestOptions,
-    ): Promise<string> {
+    ): core.HttpResponsePromise<string> {
+        return core.HttpResponsePromise.fromPromise(this.__updateConfigName(id, request, requestOptions));
+    }
+
+    private async __updateConfigName(
+        id: string,
+        request: Hume.empathicVoice.PostedConfigName,
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<string>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -618,7 +690,7 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as string;
+            return { data: _response.body as string, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -631,11 +703,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -645,12 +719,14 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling PATCH /v0/evi/configs/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -673,11 +749,19 @@ export class Configs {
      * @example
      *     await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
      */
-    public async getConfigVersion(
+    public getConfigVersion(
         id: string,
         version: number,
         requestOptions?: Configs.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnConfig> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
+        return core.HttpResponsePromise.fromPromise(this.__getConfigVersion(id, version, requestOptions));
+    }
+
+    private async __getConfigVersion(
+        id: string,
+        version: number,
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -703,12 +787,15 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -721,11 +808,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -735,6 +824,7 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError(
@@ -743,6 +833,7 @@ export class Configs {
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -765,11 +856,19 @@ export class Configs {
      * @example
      *     await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
      */
-    public async deleteConfigVersion(
+    public deleteConfigVersion(
         id: string,
         version: number,
         requestOptions?: Configs.RequestOptions,
-    ): Promise<void> {
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteConfigVersion(id, version, requestOptions));
+    }
+
+    private async __deleteConfigVersion(
+        id: string,
+        version: number,
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -795,7 +894,7 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -808,11 +907,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -822,6 +923,7 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError(
@@ -830,6 +932,7 @@ export class Configs {
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -855,12 +958,23 @@ export class Configs {
      *         versionDescription: "This is an updated version_description."
      *     })
      */
-    public async updateConfigDescription(
+    public updateConfigDescription(
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedConfigVersionDescription = {},
         requestOptions?: Configs.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnConfig> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__updateConfigDescription(id, version, request, requestOptions),
+        );
+    }
+
+    private async __updateConfigDescription(
+        id: string,
+        version: number,
+        request: Hume.empathicVoice.PostedConfigVersionDescription = {},
+        requestOptions?: Configs.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -889,12 +1003,15 @@ export class Configs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnConfig.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -907,11 +1024,13 @@ export class Configs {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -921,6 +1040,7 @@ export class Configs {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError(
@@ -929,6 +1049,7 @@ export class Configs {
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

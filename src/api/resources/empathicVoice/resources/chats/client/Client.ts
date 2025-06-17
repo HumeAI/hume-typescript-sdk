@@ -52,91 +52,103 @@ export class Chats {
         request: Hume.empathicVoice.ChatsListChatsRequest = {},
         requestOptions?: Chats.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChat>> {
-        const list = async (
-            request: Hume.empathicVoice.ChatsListChatsRequest,
-        ): Promise<Hume.empathicVoice.ReturnPagedChats> => {
-            const { pageNumber, pageSize, ascendingOrder, configId } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (ascendingOrder != null) {
-                _queryParams["ascending_order"] = ascendingOrder.toString();
-            }
-            if (configId != null) {
-                _queryParams["config_id"] = configId;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    "v0/evi/chats",
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnPagedChats.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.ChatsListChatsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedChats>> => {
+                const { pageNumber, pageSize, ascendingOrder, configId } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (ascendingOrder != null) {
+                    _queryParams["ascending_order"] = ascendingOrder.toString();
+                }
+                if (configId != null) {
+                    _queryParams["config_id"] = configId;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        "v0/evi/chats",
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnPagedChats.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnPagedChats, Hume.empathicVoice.ReturnChat>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.chatsPage ?? []).length > 0,
             getItems: (response) => response?.chatsPage ?? [],
             loadPage: (_response) => {
@@ -167,88 +179,100 @@ export class Chats {
         request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
         requestOptions?: Chats.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatEvent>> {
-        const list = async (
-            request: Hume.empathicVoice.ChatsListChatEventsRequest,
-        ): Promise<Hume.empathicVoice.ReturnChatPagedEvents> => {
-            const { pageSize, pageNumber, ascendingOrder } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (ascendingOrder != null) {
-                _queryParams["ascending_order"] = ascendingOrder.toString();
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    `v0/evi/chats/${encodeURIComponent(id)}`,
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnChatPagedEvents.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.ChatsListChatEventsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatPagedEvents>> => {
+                const { pageSize, pageNumber, ascendingOrder } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (ascendingOrder != null) {
+                    _queryParams["ascending_order"] = ascendingOrder.toString();
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        `v0/evi/chats/${encodeURIComponent(id)}`,
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnChatPagedEvents.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats/{id}.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats/{id}.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnChatPagedEvents, Hume.empathicVoice.ReturnChatEvent>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.eventsPage ?? []).length > 0,
             getItems: (response) => response?.eventsPage ?? [],
             loadPage: (_response) => {
@@ -269,10 +293,17 @@ export class Chats {
      * @example
      *     await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0")
      */
-    public async getAudio(
+    public getAudio(
         id: string,
         requestOptions?: Chats.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnChatAudioReconstruction> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatAudioReconstruction> {
+        return core.HttpResponsePromise.fromPromise(this.__getAudio(id, requestOptions));
+    }
+
+    private async __getAudio(
+        id: string,
+        requestOptions?: Chats.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatAudioReconstruction>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -298,12 +329,15 @@ export class Chats {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnChatAudioReconstruction.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnChatAudioReconstruction.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -316,11 +350,13 @@ export class Chats {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -330,12 +366,14 @@ export class Chats {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chats/{id}/audio.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

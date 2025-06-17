@@ -53,91 +53,103 @@ export class Prompts {
         request: Hume.empathicVoice.PromptsListPromptsRequest = {},
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnPrompt | undefined>> {
-        const list = async (
-            request: Hume.empathicVoice.PromptsListPromptsRequest,
-        ): Promise<Hume.empathicVoice.ReturnPagedPrompts> => {
-            const { pageNumber, pageSize, restrictToMostRecent, name } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (restrictToMostRecent != null) {
-                _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
-            }
-            if (name != null) {
-                _queryParams["name"] = name;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    "v0/evi/prompts",
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnPagedPrompts.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.PromptsListPromptsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedPrompts>> => {
+                const { pageNumber, pageSize, restrictToMostRecent, name } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (restrictToMostRecent != null) {
+                    _queryParams["restrict_to_most_recent"] = restrictToMostRecent.toString();
+                }
+                if (name != null) {
+                    _queryParams["name"] = name;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        "v0/evi/prompts",
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnPagedPrompts.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/prompts.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/prompts.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnPagedPrompts, Hume.empathicVoice.ReturnPrompt | undefined>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.promptsPage ?? []).length > 0,
             getItems: (response) => response?.promptsPage ?? [],
             loadPage: (_response) => {
@@ -163,10 +175,17 @@ export class Prompts {
      *         text: "<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>"
      *     })
      */
-    public async createPrompt(
+    public createPrompt(
         request: Hume.empathicVoice.PostedPrompt,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
+        return core.HttpResponsePromise.fromPromise(this.__createPrompt(request, requestOptions));
+    }
+
+    private async __createPrompt(
+        request: Hume.empathicVoice.PostedPrompt,
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -193,12 +212,15 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.prompts.createPrompt.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.prompts.createPrompt.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -211,11 +233,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -225,12 +249,14 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/prompts.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -249,11 +275,19 @@ export class Prompts {
      * @example
      *     await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5")
      */
-    public async listPromptVersions(
+    public listPromptVersions(
         id: string,
         request: Hume.empathicVoice.PromptsListPromptVersionsRequest = {},
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnPagedPrompts> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPagedPrompts> {
+        return core.HttpResponsePromise.fromPromise(this.__listPromptVersions(id, request, requestOptions));
+    }
+
+    private async __listPromptVersions(
+        id: string,
+        request: Hume.empathicVoice.PromptsListPromptVersionsRequest = {},
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedPrompts>> {
         const { pageNumber, pageSize, restrictToMostRecent } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
@@ -294,12 +328,15 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnPagedPrompts.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnPagedPrompts.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -312,11 +349,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -326,12 +365,14 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/prompts/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -353,11 +394,19 @@ export class Prompts {
      *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
      *     })
      */
-    public async createPromptVersion(
+    public createPromptVersion(
         id: string,
         request: Hume.empathicVoice.PostedPromptVersion,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
+        return core.HttpResponsePromise.fromPromise(this.__createPromptVersion(id, request, requestOptions));
+    }
+
+    private async __createPromptVersion(
+        id: string,
+        request: Hume.empathicVoice.PostedPromptVersion,
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -386,12 +435,15 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.prompts.createPromptVersion.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.prompts.createPromptVersion.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -404,11 +456,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -418,12 +472,14 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/prompts/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -441,7 +497,14 @@ export class Prompts {
      * @example
      *     await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5")
      */
-    public async deletePrompt(id: string, requestOptions?: Prompts.RequestOptions): Promise<void> {
+    public deletePrompt(id: string, requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deletePrompt(id, requestOptions));
+    }
+
+    private async __deletePrompt(
+        id: string,
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -467,7 +530,7 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -480,11 +543,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -494,12 +559,14 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling DELETE /v0/evi/prompts/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -520,11 +587,19 @@ export class Prompts {
      *         name: "Updated Weather Assistant Prompt Name"
      *     })
      */
-    public async updatePromptName(
+    public updatePromptName(
         id: string,
         request: Hume.empathicVoice.PostedPromptName,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<string> {
+    ): core.HttpResponsePromise<string> {
+        return core.HttpResponsePromise.fromPromise(this.__updatePromptName(id, request, requestOptions));
+    }
+
+    private async __updatePromptName(
+        id: string,
+        request: Hume.empathicVoice.PostedPromptName,
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<string>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -552,7 +627,7 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as string;
+            return { data: _response.body as string, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -565,11 +640,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -579,12 +656,14 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling PATCH /v0/evi/prompts/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -607,11 +686,19 @@ export class Prompts {
      * @example
      *     await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0)
      */
-    public async getPromptVersion(
+    public getPromptVersion(
         id: string,
         version: number,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
+        return core.HttpResponsePromise.fromPromise(this.__getPromptVersion(id, version, requestOptions));
+    }
+
+    private async __getPromptVersion(
+        id: string,
+        version: number,
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -637,12 +724,15 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.prompts.getPromptVersion.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.prompts.getPromptVersion.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -655,11 +745,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -669,6 +761,7 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError(
@@ -677,6 +770,7 @@ export class Prompts {
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -699,11 +793,19 @@ export class Prompts {
      * @example
      *     await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1)
      */
-    public async deletePromptVersion(
+    public deletePromptVersion(
         id: string,
         version: number,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<void> {
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deletePromptVersion(id, version, requestOptions));
+    }
+
+    private async __deletePromptVersion(
+        id: string,
+        version: number,
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -729,7 +831,7 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -742,11 +844,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -756,6 +860,7 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError(
@@ -764,6 +869,7 @@ export class Prompts {
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -789,12 +895,23 @@ export class Prompts {
      *         versionDescription: "This is an updated version_description."
      *     })
      */
-    public async updatePromptDescription(
+    public updatePromptDescription(
         id: string,
         version: number,
         request: Hume.empathicVoice.PostedPromptVersionDescription = {},
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnPrompt | undefined> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__updatePromptDescription(id, version, request, requestOptions),
+        );
+    }
+
+    private async __updatePromptDescription(
+        id: string,
+        version: number,
+        request: Hume.empathicVoice.PostedPromptVersionDescription = {},
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -823,12 +940,15 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.prompts.updatePromptDescription.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.prompts.updatePromptDescription.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -841,11 +961,13 @@ export class Prompts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -855,6 +977,7 @@ export class Prompts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError(
@@ -863,6 +986,7 @@ export class Prompts {
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

@@ -53,91 +53,103 @@ export class ChatGroups {
         request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest = {},
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatGroup>> {
-        const list = async (
-            request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest,
-        ): Promise<Hume.empathicVoice.ReturnPagedChatGroups> => {
-            const { pageNumber, pageSize, ascendingOrder, configId } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (ascendingOrder != null) {
-                _queryParams["ascending_order"] = ascendingOrder.toString();
-            }
-            if (configId != null) {
-                _queryParams["config_id"] = configId;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    "v0/evi/chat_groups",
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnPagedChatGroups.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedChatGroups>> => {
+                const { pageNumber, pageSize, ascendingOrder, configId } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (ascendingOrder != null) {
+                    _queryParams["ascending_order"] = ascendingOrder.toString();
+                }
+                if (configId != null) {
+                    _queryParams["config_id"] = configId;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        "v0/evi/chat_groups",
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnPagedChatGroups.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chat_groups.");
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chat_groups.");
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnPagedChatGroups, Hume.empathicVoice.ReturnChatGroup>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.chatGroupsPage ?? []).length > 0,
             getItems: (response) => response?.chatGroupsPage ?? [],
             loadPage: (_response) => {
@@ -163,11 +175,19 @@ export class ChatGroups {
      *         ascendingOrder: true
      *     })
      */
-    public async getChatGroup(
+    public getChatGroup(
         id: string,
         request: Hume.empathicVoice.ChatGroupsGetChatGroupRequest = {},
         requestOptions?: ChatGroups.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnChatGroupPagedChats> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatGroupPagedChats> {
+        return core.HttpResponsePromise.fromPromise(this.__getChatGroup(id, request, requestOptions));
+    }
+
+    private async __getChatGroup(
+        id: string,
+        request: Hume.empathicVoice.ChatGroupsGetChatGroupRequest = {},
+        requestOptions?: ChatGroups.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedChats>> {
         const { pageSize, pageNumber, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageSize != null) {
@@ -208,12 +228,15 @@ export class ChatGroups {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnChatGroupPagedChats.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnChatGroupPagedChats.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -226,11 +249,13 @@ export class ChatGroups {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -240,12 +265,14 @@ export class ChatGroups {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chat_groups/{id}.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -271,90 +298,102 @@ export class ChatGroups {
         request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest = {},
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatEvent>> {
-        const list = async (
-            request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest,
-        ): Promise<Hume.empathicVoice.ReturnChatGroupPagedEvents> => {
-            const { pageSize, pageNumber, ascendingOrder } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (pageSize != null) {
-                _queryParams["page_size"] = pageSize.toString();
-            }
-            if (pageNumber != null) {
-                _queryParams["page_number"] = pageNumber.toString();
-            }
-            if (ascendingOrder != null) {
-                _queryParams["ascending_order"] = ascendingOrder.toString();
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.HumeEnvironment.Production,
-                    `v0/evi/chat_groups/${encodeURIComponent(id)}/events`,
-                ),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.11.2",
-                    "User-Agent": "hume/0.11.2",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...(await this._getCustomAuthorizationHeaders()),
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.empathicVoice.ReturnChatGroupPagedEvents.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest,
+            ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedEvents>> => {
+                const { pageSize, pageNumber, ascendingOrder } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (pageSize != null) {
+                    _queryParams["page_size"] = pageSize.toString();
+                }
+                if (pageNumber != null) {
+                    _queryParams["page_number"] = pageNumber.toString();
+                }
+                if (ascendingOrder != null) {
+                    _queryParams["ascending_order"] = ascendingOrder.toString();
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.HumeEnvironment.Production,
+                        `v0/evi/chat_groups/${encodeURIComponent(id)}/events`,
+                    ),
+                    method: "GET",
+                    headers: {
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "hume",
+                        "X-Fern-SDK-Version": "0.11.2",
+                        "User-Agent": "hume/0.11.2",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...(await this._getCustomAuthorizationHeaders()),
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new Hume.empathicVoice.BadRequestError(
-                            serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                                unrecognizedObjectKeys: "passthrough",
-                                allowUnrecognizedUnionMembers: true,
-                                allowUnrecognizedEnumValues: true,
-                                breadcrumbsPrefix: ["response"],
-                            }),
-                        );
-                    default:
+                if (_response.ok) {
+                    return {
+                        data: serializers.empathicVoice.ReturnChatGroupPagedEvents.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Hume.empathicVoice.BadRequestError(
+                                serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.HumeError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.HumeError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.HumeTimeoutError(
+                            "Timeout exceeded when calling GET /v0/evi/chat_groups/{id}/events.",
+                        );
+                    case "unknown":
+                        throw new errors.HumeError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.HumeTimeoutError(
-                        "Timeout exceeded when calling GET /v0/evi/chat_groups/{id}/events.",
-                    );
-                case "unknown":
-                    throw new errors.HumeError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Hume.empathicVoice.ReturnChatGroupPagedEvents, Hume.empathicVoice.ReturnChatEvent>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.eventsPage ?? []).length > 0,
             getItems: (response) => response?.eventsPage ?? [],
             loadPage: (_response) => {
@@ -380,11 +419,19 @@ export class ChatGroups {
      *         ascendingOrder: true
      *     })
      */
-    public async getAudio(
+    public getAudio(
         id: string,
         request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
         requestOptions?: ChatGroups.RequestOptions,
-    ): Promise<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions> {
+        return core.HttpResponsePromise.fromPromise(this.__getAudio(id, request, requestOptions));
+    }
+
+    private async __getAudio(
+        id: string,
+        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
+        requestOptions?: ChatGroups.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions>> {
         const { pageNumber, pageSize, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
@@ -425,12 +472,15 @@ export class ChatGroups {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.empathicVoice.ReturnChatGroupPagedAudioReconstructions.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.empathicVoice.ReturnChatGroupPagedAudioReconstructions.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -443,11 +493,13 @@ export class ChatGroups {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -457,12 +509,14 @@ export class ChatGroups {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chat_groups/{id}/audio.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
