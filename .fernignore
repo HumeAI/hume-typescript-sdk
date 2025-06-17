@@ -30,6 +30,3 @@ src/core/index.ts
 # Tests
 tests/empathicVoice
 tests/expressionMeasurement
-
-# Eslint
-src/errors/HumeError.ts
