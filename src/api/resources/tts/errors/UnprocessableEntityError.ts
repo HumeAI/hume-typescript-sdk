@@ -4,13 +4,15 @@
 
 import * as errors from "../../../../errors/index";
 import * as Hume from "../../../index";
+import * as core from "../../../../core";
 
 export class UnprocessableEntityError extends errors.HumeError {
-    constructor(body: Hume.tts.HttpValidationError) {
+    constructor(body: Hume.tts.HttpValidationError, rawResponse?: core.RawResponse) {
         super({
             message: "UnprocessableEntityError",
             statusCode: 422,
             body: body,
+            rawResponse: rawResponse,
         });
         Object.setPrototypeOf(this, UnprocessableEntityError.prototype);
     }

@@ -4,13 +4,15 @@
 
 import * as errors from "../../../../errors/index";
 import * as Hume from "../../../index";
+import * as core from "../../../../core";
 
 export class BadRequestError extends errors.HumeError {
-    constructor(body: Hume.empathicVoice.ErrorResponse) {
+    constructor(body: Hume.empathicVoice.ErrorResponse, rawResponse?: core.RawResponse) {
         super({
             message: "BadRequestError",
             statusCode: 400,
             body: body,
+            rawResponse: rawResponse,
         });
         Object.setPrototypeOf(this, BadRequestError.prototype);
     }

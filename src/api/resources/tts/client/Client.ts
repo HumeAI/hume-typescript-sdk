@@ -71,10 +71,17 @@ export class Tts {
      *         }
      *     })
      */
-    public async synthesizeJson(
+    public synthesizeJson(
         request: Hume.tts.SynthesizeJsonRequest,
         requestOptions?: Tts.RequestOptions,
-    ): Promise<Hume.tts.ReturnTts> {
+    ): core.HttpResponsePromise<Hume.tts.ReturnTts> {
+        return core.HttpResponsePromise.fromPromise(this.__synthesizeJson(request, requestOptions));
+    }
+
+    private async __synthesizeJson(
+        request: Hume.tts.SynthesizeJsonRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.tts.ReturnTts>> {
         const { accessToken, body: _body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (accessToken != null) {
@@ -108,12 +115,15 @@ export class Tts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.tts.ReturnTts.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.tts.ReturnTts.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -126,11 +136,13 @@ export class Tts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -140,12 +152,14 @@ export class Tts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -156,10 +170,17 @@ export class Tts {
      * The response contains the generated audio file in the requested format.
      * @throws {@link Hume.tts.UnprocessableEntityError}
      */
-    public async synthesizeFile(
+    public synthesizeFile(
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
-    ): Promise<stream.Readable> {
+    ): core.HttpResponsePromise<stream.Readable> {
+        return core.HttpResponsePromise.fromPromise(this.__synthesizeFile(request, requestOptions));
+    }
+
+    private async __synthesizeFile(
+        request: Hume.tts.PostedTts,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<stream.Readable>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -187,7 +208,7 @@ export class Tts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -200,11 +221,13 @@ export class Tts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -214,12 +237,14 @@ export class Tts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/file.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -228,10 +253,17 @@ export class Tts {
      * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      * @throws {@link Hume.tts.UnprocessableEntityError}
      */
-    public async synthesizeFileStreaming(
+    public synthesizeFileStreaming(
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
-    ): Promise<stream.Readable> {
+    ): core.HttpResponsePromise<stream.Readable> {
+        return core.HttpResponsePromise.fromPromise(this.__synthesizeFileStreaming(request, requestOptions));
+    }
+
+    private async __synthesizeFileStreaming(
+        request: Hume.tts.PostedTts,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<stream.Readable>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -259,7 +291,7 @@ export class Tts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -272,11 +304,13 @@ export class Tts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -286,12 +320,14 @@ export class Tts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/file.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -301,10 +337,17 @@ export class Tts {
      *
      * The response is a stream of JSON objects including audio encoded in base64.
      */
-    public async synthesizeJsonStreaming(
+    public synthesizeJsonStreaming(
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
-    ): Promise<core.Stream<Hume.tts.SnippetAudioChunk>> {
+    ): core.HttpResponsePromise<core.Stream<Hume.tts.SnippetAudioChunk>> {
+        return core.HttpResponsePromise.fromPromise(this.__synthesizeJsonStreaming(request, requestOptions));
+    }
+
+    private async __synthesizeJsonStreaming(
+        request: Hume.tts.PostedTts,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<core.Stream<Hume.tts.SnippetAudioChunk>>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -332,22 +375,25 @@ export class Tts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return new core.Stream({
-                stream: _response.body,
-                parse: async (data) => {
-                    return serializers.tts.SnippetAudioChunk.parseOrThrow(data, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    });
-                },
-                signal: requestOptions?.abortSignal,
-                eventShape: {
-                    type: "json",
-                    messageTerminator: "\n",
-                },
-            });
+            return {
+                data: new core.Stream({
+                    stream: _response.body,
+                    parse: async (data) => {
+                        return serializers.tts.SnippetAudioChunk.parseOrThrow(data, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        });
+                    },
+                    signal: requestOptions?.abortSignal,
+                    eventShape: {
+                        type: "json",
+                        messageTerminator: "\n",
+                    },
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -360,11 +406,13 @@ export class Tts {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.HumeError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -374,12 +422,14 @@ export class Tts {
                 throw new errors.HumeError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/json.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
