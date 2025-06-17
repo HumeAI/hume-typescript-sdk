@@ -5,6 +5,7 @@ import * as core from "./core";
 import { Tts } from "./api/resources/tts/client/Client";
 import { EmpathicVoice } from "./api/resources/empathicVoice/client/Client";
 import { ExpressionMeasurement } from "./api/resources/expressionMeasurement/client/Client";
+import { SDK_VERSION } from "./version";
 
 export declare namespace HumeClient {
     export interface Options {
@@ -29,12 +30,25 @@ export declare namespace HumeClient {
     }
 }
 
+const fetcherThatAddsHeaders = (fetcherToWrap: core.FetchFunction): core.FetchFunction => {
+    return (args: core.Fetcher.Args) => {
+        const newArgs = { ...args };
+        newArgs.headers = newArgs.headers ?? {};
+        (newArgs.headers["X-Hume-Client-Name"] = "typescript_sdk"),
+            (newArgs.headers["X-Hume-Client-Version"] = SDK_VERSION);
+        return fetcherToWrap(args);
+    };
+};
+
 export class HumeClient {
     protected _tts: Tts | undefined;
     protected _empathicVoice: EmpathicVoice | undefined;
     protected _expressionMeasurement: ExpressionMeasurement | undefined;
 
-    constructor(protected readonly _options: HumeClient.Options = {}) {}
+    constructor(protected readonly _options: HumeClient.Options = {}) {
+        const defaultFetcher = _options.fetcher ?? core.fetcher;
+        this._options.fetcher = fetcherThatAddsHeaders(defaultFetcher);
+    }
 
     public get tts(): Tts {
         return (this._tts ??= new Tts(this._options));
