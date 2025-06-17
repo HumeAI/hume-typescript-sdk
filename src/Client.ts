@@ -2,6 +2,7 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
+import { mergeHeaders } from "./core/headers.js";
 import { Tts } from "./api/resources/tts/client/Client";
 import { EmpathicVoice } from "./api/resources/empathicVoice/client/Client";
 import { ExpressionMeasurement } from "./api/resources/expressionMeasurement/client/Client";
@@ -15,6 +16,7 @@ export declare namespace HumeClient {
         apiKey?: core.Supplier<string | undefined>;
         // THIS (`accessToken`) IS THE ONLY NON-GENERATED PART
         accessToken?: core.Supplier<string | undefined>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -30,24 +32,28 @@ export declare namespace HumeClient {
     }
 }
 
-const fetcherThatAddsHeaders = (fetcherToWrap: core.FetchFunction): core.FetchFunction => {
-    return (args: core.Fetcher.Args) => {
-        const newArgs = { ...args };
-        newArgs.headers = newArgs.headers ?? {};
-        (newArgs.headers["X-Hume-Client-Name"] = "typescript_sdk"),
-            (newArgs.headers["X-Hume-Client-Version"] = SDK_VERSION);
-        return fetcherToWrap(args);
-    };
-};
-
 export class HumeClient {
+    protected readonly _options: HumeClient.Options;
     protected _tts: Tts | undefined;
     protected _empathicVoice: EmpathicVoice | undefined;
     protected _expressionMeasurement: ExpressionMeasurement | undefined;
 
-    constructor(protected readonly _options: HumeClient.Options = {}) {
-        const defaultFetcher = _options.fetcher ?? core.fetcher;
-        this._options.fetcher = fetcherThatAddsHeaders(defaultFetcher);
+    constructor(_options: HumeClient.Options = {}) {
+        this._options = {
+            ..._options,
+            headers: mergeHeaders(
+                {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-SDK-Name": "",
+                    "X-Fern-SDK-Version": "0.0.673",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                    "X-Hume-Client-Name": "typescript_sdk",
+                    "X-Hume-Client-Version": SDK_VERSION,
+                },
+                _options?.headers,
+            ),
+        };
     }
 
     public get tts(): Tts {
