@@ -43,7 +43,7 @@ export class HumeClient {
             ..._options,
             headers: mergeHeaders(
                 {
-                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Language": "typescript",
                     "X-Fern-SDK-Name": "",
                     "X-Fern-SDK-Version": "0.0.673",
                     "X-Fern-Runtime": core.RUNTIME.type,
