@@ -8,6 +8,7 @@
 export interface PostedNudgeSpec {
     /** EVI will nudge user after inactivity */
     enabled?: boolean;
-    /** Time interval in seconds after which the nudge will be sent. */
+    /** The interval of inactivity (in seconds) before a nudge is triggered. */
     intervalSecs?: number;
+    enable?: unknown;
 }
