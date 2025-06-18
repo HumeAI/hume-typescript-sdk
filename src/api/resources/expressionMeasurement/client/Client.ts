@@ -12,14 +12,19 @@ export declare namespace ExpressionMeasurement {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
     }
 }
 
 export class ExpressionMeasurement {
+    protected readonly _options: ExpressionMeasurement.Options;
     protected _batch: Batch | undefined;
 
-    constructor(protected readonly _options: ExpressionMeasurement.Options = {}) {}
+    constructor(_options: ExpressionMeasurement.Options = {}) {
+        this._options = _options;
+    }
 
     public get batch(): Batch {
         return (this._batch ??= new Batch(this._options));
