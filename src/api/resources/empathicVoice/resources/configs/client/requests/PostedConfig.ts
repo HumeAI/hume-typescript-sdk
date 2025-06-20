@@ -65,6 +65,7 @@ export interface PostedConfig {
     /** List of built-in tools associated with this Config. */
     builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
+    /** Configures nudges, brief audio prompts that can guide conversations when users pause or need encouragement to continue speaking. Nudges help create more natural, flowing interactions by providing gentle conversational cues. */
     nudges?: Hume.empathicVoice.PostedNudgeSpec;
     timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
     /** Webhook config specifications for each subscriber. */
