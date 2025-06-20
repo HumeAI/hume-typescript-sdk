@@ -1,4 +1,5 @@
 /** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+import { createHostnameWithProtocol } from "../../src/api/resources/empathicVoice/resources/chat/client/Client";
 import { HumeClient } from "../../src/";
 
 describe("Empathic Voice Interface", () => {
@@ -22,4 +23,14 @@ describe("Empathic Voice Interface", () => {
 
         socket.sendUserInput("Hello, how are you?");
     }, 100000);
+
+    it.each([
+        ["https://foo.bar", "wss://foo.bar"],
+        ["http://foo.bar", "ws://foo.bar"],
+        ["wss://foo.bar", "wss://foo.bar"],
+        ["ws://foo.bar", "ws://foo.bar"],
+        ["foo.bar", "wss://foo.bar"],
+    ])("Generates the correct hostname for %s", (input, expected) => {
+        expect(createHostnameWithProtocol(input)).toBe(expected);
+    });
 });

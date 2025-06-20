@@ -5,6 +5,16 @@ import qs from "qs";
 import { ChatSocket } from "./Socket";
 import { SDK_VERSION } from "../../../../../../version";
 
+export function createHostnameWithProtocol(environment: string) {
+    const protocol = /(https|http|wss|ws):\/\//.exec(environment);
+
+    if (protocol) {
+        return environment.replace("https://", "wss://").replace("http://", "ws://");
+    } else {
+        return `wss://${environment}`;
+    }
+}
+
 export declare namespace Chat {
     interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | string>;
@@ -77,10 +87,11 @@ export class Chat {
             }
         }
 
-        const environ = (core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production)
-            .replace("https://", "wss://")
-            .replace("http://", "ws://");
-        const socket = new core.ReconnectingWebSocket(`${environ}/v0/evi/chat?${qs.stringify(queryParams)}`, [], {
+        const hostname = createHostnameWithProtocol(
+            core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production,
+        );
+
+        const socket = new core.ReconnectingWebSocket(`${hostname}/v0/evi/chat?${qs.stringify(queryParams)}`, [], {
             debug: args.debug ?? false,
             maxRetries: args.reconnectAttempts ?? 30,
         });
