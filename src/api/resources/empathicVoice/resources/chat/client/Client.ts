@@ -37,7 +37,19 @@ export declare namespace Chat {
 }
 
 export class Chat {
-    constructor(protected readonly _options: Chat.Options) {}
+    private readonly wsBaseUrl: string;
+
+    constructor(protected readonly _options: Chat.Options) {
+        const rawBaseUrl = core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production;
+        this.wsBaseUrl = Chat.toWebSocketUrl(rawBaseUrl);
+    }
+
+    private static toWebSocketUrl(rawBaseUrl: string): string {
+        if (rawBaseUrl.startsWith("https://")) return rawBaseUrl.replace("https://", "wss://");
+        if (rawBaseUrl.startsWith("http://")) return rawBaseUrl.replace("http://",  "ws://");
+        if (rawBaseUrl.startsWith("ws://") || rawBaseUrl.startsWith("wss://")) return rawBaseUrl;
+        return "wss://" + rawBaseUrl;
+    }
 
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -77,10 +89,8 @@ export class Chat {
             }
         }
 
-        const environ = (core.Supplier.get(this._options.environment) ?? environments.HumeEnvironment.Production)
-            .replace("https://", "wss://")
-            .replace("http://", "ws://");
-        const socket = new core.ReconnectingWebSocket(`${environ}/v0/evi/chat?${qs.stringify(queryParams)}`, [], {
+        const chatEndpoint = `${this.wsBaseUrl}/v0/evi/chat?${qs.stringify(queryParams)}`;
+        const socket = new core.ReconnectingWebSocket(chatEndpoint, [], {
             debug: args.debug ?? false,
             maxRetries: args.reconnectAttempts ?? 30,
         });
