@@ -6,13 +6,13 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { VoiceRef } from "./VoiceRef";
-import { VoiceEvi2 } from "./VoiceEvi2";
+import { ReturnCustomVoice } from "./ReturnCustomVoice";
 
 export const PostedVoiceSpec: core.serialization.Schema<
     serializers.empathicVoice.PostedVoiceSpec.Raw,
     Hume.empathicVoice.PostedVoiceSpec
-> = core.serialization.undiscriminatedUnion([VoiceRef, VoiceEvi2]);
+> = core.serialization.undiscriminatedUnion([VoiceRef, ReturnCustomVoice]);
 
 export declare namespace PostedVoiceSpec {
-    export type Raw = VoiceRef.Raw | VoiceEvi2.Raw;
+    export type Raw = VoiceRef.Raw | ReturnCustomVoice.Raw;
 }

@@ -105,7 +105,7 @@ export * from "./ReturnChatEventType";
 export * from "./ReturnChatEvent";
 export * from "./ReturnConfigSpec";
 export * from "./ReturnChatGroup";
-export * from "./VoiceEvi2";
+export * from "./ReturnCustomVoice";
 export * from "./PostedEventMessageSpec";
 export * from "./PostedTimeoutSpec";
 export * from "./ReturnVoiceSpecEvi2";

@@ -7,15 +7,15 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { PostedCustomVoice } from "./PostedCustomVoice";
 
-export const VoiceEvi2: core.serialization.ObjectSchema<
-    serializers.empathicVoice.VoiceEvi2.Raw,
-    Hume.empathicVoice.VoiceEvi2
+export const ReturnCustomVoice: core.serialization.ObjectSchema<
+    serializers.empathicVoice.ReturnCustomVoice.Raw,
+    Hume.empathicVoice.ReturnCustomVoice
 > = core.serialization.object({
     provider: core.serialization.string(),
     customVoice: core.serialization.property("custom_voice", PostedCustomVoice.optional()),
 });
 
-export declare namespace VoiceEvi2 {
+export declare namespace ReturnCustomVoice {
     export interface Raw {
         provider: string;
         custom_voice?: PostedCustomVoice.Raw | null;

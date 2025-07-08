@@ -7,7 +7,7 @@ import * as Hume from "../../../index";
 /**
  * An voice specification posted to the server that sets up a custom voice for EVI2
  */
-export interface VoiceEvi2 {
+export interface ReturnCustomVoice {
     /** The provider of the voice to use. Based on the enum VoiceProvider. */
     provider: string;
     customVoice?: Hume.empathicVoice.PostedCustomVoice;
