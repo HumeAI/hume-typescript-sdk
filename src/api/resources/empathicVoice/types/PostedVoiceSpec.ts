@@ -7,7 +7,4 @@ import * as Hume from "../../../index";
 /**
  * An voice specification posted to the server
  */
-export type ReturnVoiceSpec =
-    | Hume.empathicVoice.ReturnVoiceOctavePublic
-    | Hume.empathicVoice.ReturnVoiceSpecEvi2
-    | unknown;
+export type PostedVoiceSpec = Hume.empathicVoice.VoiceRef | Hume.empathicVoice.VoiceEvi2;

@@ -5,7 +5,7 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { ReturnCustomVoice } from "./ReturnCustomVoice";
+import { ReturnVoiceEvi2 } from "./ReturnVoiceEvi2";
 
 export const ReturnPagedCustomVoices: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPagedCustomVoices.Raw,
@@ -14,7 +14,7 @@ export const ReturnPagedCustomVoices: core.serialization.ObjectSchema<
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
-    customVoicesPage: core.serialization.property("custom_voices_page", core.serialization.list(ReturnCustomVoice)),
+    customVoicesPage: core.serialization.property("custom_voices_page", core.serialization.list(ReturnVoiceEvi2)),
 });
 
 export declare namespace ReturnPagedCustomVoices {
@@ -22,6 +22,6 @@ export declare namespace ReturnPagedCustomVoices {
         page_number: number;
         page_size: number;
         total_pages: number;
-        custom_voices_page: ReturnCustomVoice.Raw[];
+        custom_voices_page: ReturnVoiceEvi2.Raw[];
     }
 }

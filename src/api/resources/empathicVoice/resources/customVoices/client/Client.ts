@@ -56,7 +56,7 @@ export class CustomVoices {
     public async listCustomVoices(
         request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest = {},
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<core.Page<Hume.empathicVoice.ReturnCustomVoice>> {
+    ): Promise<core.Page<Hume.empathicVoice.ReturnVoiceEvi2>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
                 request: Hume.empathicVoice.CustomVoicesListCustomVoicesRequest,
@@ -141,7 +141,7 @@ export class CustomVoices {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Hume.empathicVoice.ReturnPagedCustomVoices, Hume.empathicVoice.ReturnCustomVoice>({
+        return new core.Pageable<Hume.empathicVoice.ReturnPagedCustomVoices, Hume.empathicVoice.ReturnVoiceEvi2>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.customVoicesPage ?? []).length > 0,
@@ -173,14 +173,14 @@ export class CustomVoices {
     public createCustomVoice(
         request: Hume.empathicVoice.PostedCustomVoice,
         requestOptions?: CustomVoices.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnCustomVoice> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnVoiceEvi2> {
         return core.HttpResponsePromise.fromPromise(this.__createCustomVoice(request, requestOptions));
     }
 
     private async __createCustomVoice(
         request: Hume.empathicVoice.PostedCustomVoice,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnCustomVoice>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnVoiceEvi2>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -203,7 +203,7 @@ export class CustomVoices {
         });
         if (_response.ok) {
             return {
-                data: serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
+                data: serializers.empathicVoice.ReturnVoiceEvi2.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -267,14 +267,14 @@ export class CustomVoices {
     public getCustomVoice(
         id: string,
         requestOptions?: CustomVoices.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnCustomVoice> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnVoiceEvi2> {
         return core.HttpResponsePromise.fromPromise(this.__getCustomVoice(id, requestOptions));
     }
 
     private async __getCustomVoice(
         id: string,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnCustomVoice>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnVoiceEvi2>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -294,7 +294,7 @@ export class CustomVoices {
         });
         if (_response.ok) {
             return {
-                data: serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
+                data: serializers.empathicVoice.ReturnVoiceEvi2.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -364,7 +364,7 @@ export class CustomVoices {
         id: string,
         request: Hume.empathicVoice.PostedCustomVoice,
         requestOptions?: CustomVoices.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnCustomVoice> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnVoiceEvi2> {
         return core.HttpResponsePromise.fromPromise(this.__createCustomVoiceVersion(id, request, requestOptions));
     }
 
@@ -372,7 +372,7 @@ export class CustomVoices {
         id: string,
         request: Hume.empathicVoice.PostedCustomVoice,
         requestOptions?: CustomVoices.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnCustomVoice>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnVoiceEvi2>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -395,7 +395,7 @@ export class CustomVoices {
         });
         if (_response.ok) {
             return {
-                data: serializers.empathicVoice.ReturnCustomVoice.parseOrThrow(_response.body, {
+                data: serializers.empathicVoice.ReturnVoiceEvi2.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

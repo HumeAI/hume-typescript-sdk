@@ -5,19 +5,18 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnVoiceOctavePublic } from "./ReturnVoiceOctavePublic";
 import { ReturnVoiceSpecEvi2 } from "./ReturnVoiceSpecEvi2";
-import { ReturnVoiceSpecOctavecustom } from "./ReturnVoiceSpecOctavecustom";
-import { ReturnVoiceSpecOctaveshared } from "./ReturnVoiceSpecOctaveshared";
 
 export const ReturnVoiceSpec: core.serialization.Schema<
     serializers.empathicVoice.ReturnVoiceSpec.Raw,
     Hume.empathicVoice.ReturnVoiceSpec
 > = core.serialization.undiscriminatedUnion([
+    ReturnVoiceOctavePublic,
     ReturnVoiceSpecEvi2,
-    ReturnVoiceSpecOctavecustom,
-    ReturnVoiceSpecOctaveshared,
+    core.serialization.unknown(),
 ]);
 
 export declare namespace ReturnVoiceSpec {
-    export type Raw = ReturnVoiceSpecEvi2.Raw | ReturnVoiceSpecOctavecustom.Raw | ReturnVoiceSpecOctaveshared.Raw;
+    export type Raw = ReturnVoiceOctavePublic.Raw | ReturnVoiceSpecEvi2.Raw | unknown;
 }

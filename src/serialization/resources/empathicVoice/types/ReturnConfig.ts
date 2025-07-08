@@ -8,7 +8,7 @@ import * as core from "../../../../core";
 import { ReturnTimeoutSpecs } from "./ReturnTimeoutSpecs";
 import { ReturnNudgeSpec } from "./ReturnNudgeSpec";
 import { ReturnEllmModel } from "./ReturnEllmModel";
-import { ReturnVoice } from "./ReturnVoice";
+import { ReturnVoiceSpec } from "./ReturnVoiceSpec";
 import { ReturnPrompt } from "./ReturnPrompt";
 import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnWebhookSpec } from "./ReturnWebhookSpec";
@@ -27,7 +27,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     timeouts: ReturnTimeoutSpecs.optional(),
     nudges: ReturnNudgeSpec.optional(),
     ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
-    voice: ReturnVoice.optional(),
+    voice: ReturnVoiceSpec.optional(),
     prompt: ReturnPrompt.optional(),
     tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
     webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
@@ -51,7 +51,7 @@ export declare namespace ReturnConfig {
         timeouts?: ReturnTimeoutSpecs.Raw | null;
         nudges?: ReturnNudgeSpec.Raw | null;
         ellm_model?: ReturnEllmModel.Raw | null;
-        voice?: ReturnVoice.Raw | null;
+        voice?: ReturnVoiceSpec.Raw | null;
         prompt?: ReturnPrompt.Raw | null;
         tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
         webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
