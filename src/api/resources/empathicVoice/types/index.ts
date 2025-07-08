@@ -108,7 +108,6 @@ export * from "./ReturnChatGroup";
 export * from "./ReturnCustomVoice";
 export * from "./PostedEventMessageSpec";
 export * from "./PostedTimeoutSpec";
-export * from "./ReturnVoiceSpecEvi2";
 export * from "./ReturnEventMessageSpec";
 export * from "./ReturnTimeoutSpec";
 export * from "./ReturnVoiceOctavePublicProvider";

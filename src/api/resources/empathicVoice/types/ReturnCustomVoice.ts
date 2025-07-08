@@ -5,10 +5,12 @@
 import * as Hume from "../../../index";
 
 /**
- * An voice specification posted to the server that sets up a custom voice for EVI2
+ * A specific voice specification for use with EVI 1 or 2
  */
 export interface ReturnCustomVoice {
     /** The provider of the voice to use. Based on the enum VoiceProvider. */
     provider: string;
-    customVoice?: Hume.empathicVoice.PostedCustomVoice;
+    /** String with the name of the voice to use. Maximum length of 75 characters. Will be converted to all-uppercase. */
+    name?: string;
+    customVoice: Hume.empathicVoice.ReturnVoiceEvi2;
 }
