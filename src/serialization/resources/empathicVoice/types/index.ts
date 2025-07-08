@@ -75,7 +75,7 @@ export * from "./ReturnChatGroupPagedAudioReconstructionsPaginationDirection";
 export * from "./ReturnChatGroupPagedAudioReconstructions";
 export * from "./ReturnPromptVersionType";
 export * from "./PostedConfigPromptSpec";
-export * from "./PostedVoiceSpec";
+export * from "./PostedVoice";
 export * from "./PostedLanguageModel";
 export * from "./PostedEllmModel";
 export * from "./PostedUserDefinedToolSpec";

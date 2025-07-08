@@ -8,11 +8,11 @@ import * as core from "../../../../core";
 import { VoiceRef } from "./VoiceRef";
 import { ReturnCustomVoice } from "./ReturnCustomVoice";
 
-export const PostedVoiceSpec: core.serialization.Schema<
-    serializers.empathicVoice.PostedVoiceSpec.Raw,
-    Hume.empathicVoice.PostedVoiceSpec
+export const PostedVoice: core.serialization.Schema<
+    serializers.empathicVoice.PostedVoice.Raw,
+    Hume.empathicVoice.PostedVoice
 > = core.serialization.undiscriminatedUnion([VoiceRef, ReturnCustomVoice]);
 
-export declare namespace PostedVoiceSpec {
+export declare namespace PostedVoice {
     export type Raw = VoiceRef.Raw | ReturnCustomVoice.Raw;
 }
