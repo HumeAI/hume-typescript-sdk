@@ -8,15 +8,15 @@ import * as core from "../../../../core";
 import { ReturnVoiceOctavePublic } from "./ReturnVoiceOctavePublic";
 import { ReturnVoiceSpecEvi2 } from "./ReturnVoiceSpecEvi2";
 
-export const ReturnVoiceSpec: core.serialization.Schema<
-    serializers.empathicVoice.ReturnVoiceSpec.Raw,
-    Hume.empathicVoice.ReturnVoiceSpec
+export const ReturnVoice: core.serialization.Schema<
+    serializers.empathicVoice.ReturnVoice.Raw,
+    Hume.empathicVoice.ReturnVoice
 > = core.serialization.undiscriminatedUnion([
     ReturnVoiceOctavePublic,
     ReturnVoiceSpecEvi2,
     core.serialization.unknown(),
 ]);
 
-export declare namespace ReturnVoiceSpec {
+export declare namespace ReturnVoice {
     export type Raw = ReturnVoiceOctavePublic.Raw | ReturnVoiceSpecEvi2.Raw | unknown;
 }

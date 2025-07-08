@@ -31,7 +31,7 @@ export interface ReturnConfig {
      */
     ellmModel?: Hume.empathicVoice.ReturnEllmModel;
     /** A voice specification associated with this Config. */
-    voice?: Hume.empathicVoice.ReturnVoiceSpec;
+    voice?: Hume.empathicVoice.ReturnVoice;
     prompt?: Hume.empathicVoice.ReturnPrompt;
     /** List of user-defined tools associated with this Config. */
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];

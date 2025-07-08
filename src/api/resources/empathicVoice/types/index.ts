@@ -88,7 +88,7 @@ export * from "./PostedTimeoutSpecsMaxDuration";
 export * from "./PostedTimeoutSpecs";
 export * from "./PostedWebhookEventType";
 export * from "./PostedWebhookSpec";
-export * from "./ReturnVoiceSpec";
+export * from "./ReturnVoice";
 export * from "./ReturnLanguageModel";
 export * from "./ReturnEllmModel";
 export * from "./ReturnBuiltinToolToolType";
