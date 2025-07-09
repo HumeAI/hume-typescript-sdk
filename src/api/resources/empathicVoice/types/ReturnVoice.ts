@@ -7,4 +7,12 @@ import * as Hume from "../../../index";
 /**
  * An voice specification posted to the server
  */
-export type ReturnVoice = Hume.empathicVoice.ReturnVoiceOctavePublic | Hume.empathicVoice.ReturnCustomVoice | unknown;
+export interface ReturnVoice {
+    /** The name of the voice. Maximum length of 75 characters. Will be converted to all-uppercase. (e.g., "sample voice" becomes "SAMPLE VOICE") */
+    name?: string;
+    type?: string;
+    provider?: Hume.empathicVoice.ReturnVoiceSpecProvider;
+    /** Identifier for the voice. Formatted as a UUID. */
+    id?: string;
+    customVoice?: Hume.empathicVoice.ReturnCustomVoice;
+}

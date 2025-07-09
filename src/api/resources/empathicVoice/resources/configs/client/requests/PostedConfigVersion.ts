@@ -48,7 +48,7 @@ export interface PostedConfigVersion {
     versionDescription?: string;
     prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
     /** A voice specification associated with this Config version. */
-    voice?: Hume.empathicVoice.PostedVoice;
+    voice?: Hume.empathicVoice.VoiceRef;
     /**
      * The supplemental language model associated with this Config version.
      *

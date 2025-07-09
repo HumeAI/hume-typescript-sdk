@@ -23,5 +23,5 @@ export interface ReturnPagedCustomVoices {
     /** The total number of pages in the collection. */
     totalPages: number;
     /** List of Custom Voices for the specified `page_number` and `page_size`. */
-    customVoicesPage: Hume.empathicVoice.ReturnVoiceEvi2[];
+    customVoicesPage: Hume.empathicVoice.ReturnCustomVoice[];
 }

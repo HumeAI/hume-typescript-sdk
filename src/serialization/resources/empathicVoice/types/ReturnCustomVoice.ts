@@ -5,21 +5,32 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { ReturnVoiceEvi2 } from "./ReturnVoiceEvi2";
 
 export const ReturnCustomVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnCustomVoice.Raw,
     Hume.empathicVoice.ReturnCustomVoice
 > = core.serialization.object({
-    provider: core.serialization.string(),
-    name: core.serialization.string().optional(),
-    customVoice: core.serialization.property("custom_voice", ReturnVoiceEvi2),
+    id: core.serialization.string(),
+    version: core.serialization.number(),
+    name: core.serialization.string(),
+    createdOn: core.serialization.property("created_on", core.serialization.number()),
+    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
+    baseVoice: core.serialization.property("base_voice", core.serialization.string()),
+    speechRateMultiplier: core.serialization.property("speech_rate_multiplier", core.serialization.number().optional()),
+    parameterModel: core.serialization.property("parameter_model", core.serialization.string()),
+    parameters: core.serialization.record(core.serialization.string(), core.serialization.number()),
 });
 
 export declare namespace ReturnCustomVoice {
     export interface Raw {
-        provider: string;
-        name?: string | null;
-        custom_voice: ReturnVoiceEvi2.Raw;
+        id: string;
+        version: number;
+        name: string;
+        created_on: number;
+        modified_on: number;
+        base_voice: string;
+        speech_rate_multiplier?: number | null;
+        parameter_model: string;
+        parameters: Record<string, number>;
     }
 }

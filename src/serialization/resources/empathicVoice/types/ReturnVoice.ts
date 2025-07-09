@@ -5,14 +5,26 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { ReturnVoiceOctavePublic } from "./ReturnVoiceOctavePublic";
+import { ReturnVoiceSpecProvider } from "./ReturnVoiceSpecProvider";
 import { ReturnCustomVoice } from "./ReturnCustomVoice";
 
-export const ReturnVoice: core.serialization.Schema<
+export const ReturnVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnVoice.Raw,
     Hume.empathicVoice.ReturnVoice
-> = core.serialization.undiscriminatedUnion([ReturnVoiceOctavePublic, ReturnCustomVoice, core.serialization.unknown()]);
+> = core.serialization.object({
+    name: core.serialization.string().optional(),
+    type: core.serialization.string().optional(),
+    provider: ReturnVoiceSpecProvider.optional(),
+    id: core.serialization.string().optional(),
+    customVoice: core.serialization.property("custom_voice", ReturnCustomVoice.optional()),
+});
 
 export declare namespace ReturnVoice {
-    export type Raw = ReturnVoiceOctavePublic.Raw | ReturnCustomVoice.Raw | unknown;
+    export interface Raw {
+        name?: string | null;
+        type?: string | null;
+        provider?: ReturnVoiceSpecProvider.Raw | null;
+        id?: string | null;
+        custom_voice?: ReturnCustomVoice.Raw | null;
+    }
 }
