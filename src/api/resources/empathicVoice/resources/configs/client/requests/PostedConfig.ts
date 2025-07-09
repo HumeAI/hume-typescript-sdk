@@ -12,10 +12,10 @@ import * as Hume from "../../../../../../index";
  *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
  *             version: 0
  *         },
- *         eviVersion: "2",
+ *         eviVersion: "3",
  *         voice: {
  *             provider: "HUME_AI",
- *             name: "SAMPLE VOICE"
+ *             name: "Ava Song"
  *         },
  *         languageModel: {
  *             modelProvider: "ANTHROPIC",

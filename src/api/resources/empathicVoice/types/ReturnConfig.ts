@@ -30,8 +30,7 @@ export interface ReturnConfig {
      * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
      */
     ellmModel?: Hume.empathicVoice.ReturnEllmModel;
-    /** A voice specification associated with this Config. */
-    voice?: Hume.empathicVoice.ReturnVoice;
+    voice?: unknown;
     prompt?: Hume.empathicVoice.ReturnPrompt;
     /** List of user-defined tools associated with this Config. */
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];

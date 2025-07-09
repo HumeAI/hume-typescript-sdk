@@ -176,10 +176,10 @@ export class Configs {
      *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *             version: 0
      *         },
-     *         eviVersion: "2",
+     *         eviVersion: "3",
      *         voice: {
      *             provider: "HUME_AI",
-     *             name: "SAMPLE VOICE"
+     *             name: "Ava Song"
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
@@ -412,14 +412,14 @@ export class Configs {
      * @example
      *     await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
      *         versionDescription: "This is an updated version of the Weather Assistant Config.",
-     *         eviVersion: "2",
+     *         eviVersion: "3",
      *         prompt: {
      *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *             version: 0
      *         },
      *         voice: {
      *             provider: "HUME_AI",
-     *             name: "ITO"
+     *             name: "Ava Song"
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",

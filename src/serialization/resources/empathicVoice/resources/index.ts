@@ -4,7 +4,5 @@ export * as tools from "./tools";
 export * as prompts from "./prompts";
 export * from "./tools/client/requests";
 export * from "./prompts/client/requests";
-export * as customVoices from "./customVoices";
-export * from "./customVoices/client/requests";
 export * as configs from "./configs";
 export * from "./configs/client/requests";
