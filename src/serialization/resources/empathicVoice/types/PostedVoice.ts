@@ -5,13 +5,12 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { VoiceRef } from "./VoiceRef";
 
 export const PostedVoice: core.serialization.Schema<
     serializers.empathicVoice.PostedVoice.Raw,
     Hume.empathicVoice.PostedVoice
-> = VoiceRef;
+> = core.serialization.unknown();
 
 export declare namespace PostedVoice {
-    export type Raw = VoiceRef.Raw;
+    export type Raw = unknown;
 }

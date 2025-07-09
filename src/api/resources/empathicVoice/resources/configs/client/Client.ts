@@ -178,8 +178,8 @@ export class Configs {
      *         },
      *         eviVersion: "3",
      *         voice: {
-     *             provider: "HUME_AI",
-     *             name: "Ava Song"
+     *             "provider": "HUME_AI",
+     *             "name": "Ava Song"
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
@@ -418,8 +418,8 @@ export class Configs {
      *             version: 0
      *         },
      *         voice: {
-     *             provider: "HUME_AI",
-     *             name: "Ava Song"
+     *             "provider": "HUME_AI",
+     *             "name": "Ava Song"
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
