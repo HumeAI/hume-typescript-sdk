@@ -14,8 +14,8 @@ import * as Hume from "../../../../../../index";
  *             version: 0
  *         },
  *         voice: {
- *             "provider": "HUME_AI",
- *             "name": "Ava Song"
+ *             provider: "HUME_AI",
+ *             name: "Ava Song"
  *         },
  *         languageModel: {
  *             modelProvider: "ANTHROPIC",
@@ -47,7 +47,8 @@ export interface PostedConfigVersion {
     /** An optional description of the Config version. */
     versionDescription?: string;
     prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
-    voice?: unknown;
+    /** A voice specification associated with this Config version. */
+    voice?: Hume.empathicVoice.VoiceRef;
     /**
      * The supplemental language model associated with this Config version.
      *
