@@ -103,3 +103,4 @@ export * from "./PostedTimeoutSpec";
 export * from "./ReturnEventMessageSpec";
 export * from "./ReturnTimeoutSpec";
 export * from "./PostedVoice";
+export * from "./ReturnVoice";
