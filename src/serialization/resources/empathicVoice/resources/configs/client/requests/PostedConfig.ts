@@ -6,7 +6,6 @@ import * as serializers from "../../../../../../index";
 import * as Hume from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 import { PostedConfigPromptSpec } from "../../../../types/PostedConfigPromptSpec";
-import { PostedVoice } from "../../../../types/PostedVoice";
 import { PostedLanguageModel } from "../../../../types/PostedLanguageModel";
 import { PostedEllmModel } from "../../../../types/PostedEllmModel";
 import { PostedUserDefinedToolSpec } from "../../../../types/PostedUserDefinedToolSpec";
@@ -24,7 +23,7 @@ export const PostedConfig: core.serialization.Schema<
     name: core.serialization.string(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     prompt: PostedConfigPromptSpec.optional(),
-    voice: PostedVoice.optional(),
+    voice: core.serialization.unknown().optional(),
     languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
     ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
     tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
@@ -44,7 +43,7 @@ export declare namespace PostedConfig {
         name: string;
         version_description?: string | null;
         prompt?: PostedConfigPromptSpec.Raw | null;
-        voice?: (PostedVoice.Raw | undefined) | null;
+        voice?: unknown | null;
         language_model?: PostedLanguageModel.Raw | null;
         ellm_model?: PostedEllmModel.Raw | null;
         tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
