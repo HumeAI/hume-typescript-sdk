@@ -4,4 +4,4 @@
 
 import * as Hume from "../../../index";
 
-export type PostedVoice = Hume.empathicVoice.VoiceRef;
+export type VoiceRef = Hume.empathicVoice.VoiceId | Hume.empathicVoice.VoiceName;
