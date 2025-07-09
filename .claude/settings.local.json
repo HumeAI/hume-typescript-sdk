@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(git diff:*)",
-      "Bash(cp:*)"
-    ],
-    "deny": []
-  }
-}
