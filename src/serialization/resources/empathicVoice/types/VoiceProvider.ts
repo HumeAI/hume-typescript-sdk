@@ -6,11 +6,11 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const PostedVoiceProvider: core.serialization.Schema<
-    serializers.empathicVoice.PostedVoiceProvider.Raw,
-    Hume.empathicVoice.PostedVoiceProvider
+export const VoiceProvider: core.serialization.Schema<
+    serializers.empathicVoice.VoiceProvider.Raw,
+    Hume.empathicVoice.VoiceProvider
 > = core.serialization.enum_(["HUME_AI", "CUSTOM_VOICE"]);
 
-export declare namespace PostedVoiceProvider {
+export declare namespace VoiceProvider {
     export type Raw = "HUME_AI" | "CUSTOM_VOICE";
 }

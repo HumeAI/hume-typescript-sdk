@@ -7,6 +7,7 @@ import * as Hume from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { AssistantEnd } from "../../../types/AssistantEnd";
 import { AssistantMessage } from "../../../types/AssistantMessage";
+import { AssistantProsody } from "../../../types/AssistantProsody";
 import { AudioOutput } from "../../../types/AudioOutput";
 import { ChatMetadata } from "../../../types/ChatMetadata";
 import { WebSocketError } from "../../../types/WebSocketError";
@@ -22,6 +23,7 @@ export const SubscribeEvent: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([
     AssistantEnd,
     AssistantMessage,
+    AssistantProsody,
     AudioOutput,
     ChatMetadata,
     WebSocketError,
@@ -36,6 +38,7 @@ export declare namespace SubscribeEvent {
     export type Raw =
         | AssistantEnd.Raw
         | AssistantMessage.Raw
+        | AssistantProsody.Raw
         | AudioOutput.Raw
         | ChatMetadata.Raw
         | WebSocketError.Raw

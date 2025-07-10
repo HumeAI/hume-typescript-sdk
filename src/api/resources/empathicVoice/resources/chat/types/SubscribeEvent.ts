@@ -7,6 +7,7 @@ import * as Hume from "../../../../../index";
 export type SubscribeEvent =
     | Hume.empathicVoice.AssistantEnd
     | Hume.empathicVoice.AssistantMessage
+    | Hume.empathicVoice.AssistantProsody
     | Hume.empathicVoice.AudioOutput
     | Hume.empathicVoice.ChatMetadata
     | Hume.empathicVoice.WebSocketError
