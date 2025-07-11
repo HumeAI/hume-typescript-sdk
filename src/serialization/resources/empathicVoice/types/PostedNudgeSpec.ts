@@ -12,11 +12,13 @@ export const PostedNudgeSpec: core.serialization.ObjectSchema<
 > = core.serialization.object({
     enabled: core.serialization.boolean().optional(),
     intervalSecs: core.serialization.property("interval_secs", core.serialization.number().optional()),
+    enable: core.serialization.unknown().optional(),
 });
 
 export declare namespace PostedNudgeSpec {
     export interface Raw {
         enabled?: boolean | null;
         interval_secs?: number | null;
+        enable?: unknown | null;
     }
 }
