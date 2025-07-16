@@ -202,17 +202,12 @@ await client.tts.synthesizeFileStreaming({
     utterances: [
         {
             text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
         },
     ],
-    context: {
-        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2",
-    },
-    format: {
-        type: "mp3",
-    },
-    numGenerations: 1,
 });
 ```
 
@@ -282,22 +277,12 @@ const response = await client.tts.synthesizeJsonStreaming({
     utterances: [
         {
             text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
         },
     ],
-    context: {
-        utterances: [
-            {
-                text: "How can people see beauty so differently?",
-                description:
-                    "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
-            },
-        ],
-    },
-    format: {
-        type: "mp3",
-    },
 });
 for await (const item of response) {
     console.log(item);
