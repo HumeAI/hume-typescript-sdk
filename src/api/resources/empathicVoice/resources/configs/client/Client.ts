@@ -43,7 +43,7 @@ export class Configs {
     /**
      * Fetches a paginated list of **Configs**.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {Hume.empathicVoice.ConfigsListConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
@@ -162,7 +162,7 @@ export class Configs {
     /**
      * Creates a **Config** which can be applied to EVI.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {Hume.empathicVoice.PostedConfig} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
@@ -176,10 +176,10 @@ export class Configs {
      *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *             version: 0
      *         },
-     *         eviVersion: "2",
+     *         eviVersion: "3",
      *         voice: {
      *             provider: "HUME_AI",
-     *             name: "SAMPLE VOICE"
+     *             name: "Ava Song"
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
@@ -286,7 +286,7 @@ export class Configs {
     /**
      * Fetches a list of a **Config's** versions.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.ConfigsListConfigVersionsRequest} request
@@ -401,7 +401,7 @@ export class Configs {
     /**
      * Updates a **Config** by creating a new version of the **Config**.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigVersion} request
@@ -412,14 +412,14 @@ export class Configs {
      * @example
      *     await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
      *         versionDescription: "This is an updated version of the Weather Assistant Config.",
-     *         eviVersion: "2",
+     *         eviVersion: "3",
      *         prompt: {
      *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *             version: 0
      *         },
      *         voice: {
      *             provider: "HUME_AI",
-     *             name: "ITO"
+     *             name: "Ava Song"
      *         },
      *         languageModel: {
      *             modelProvider: "ANTHROPIC",
@@ -533,7 +533,7 @@ export class Configs {
     /**
      * Deletes a **Config** and its versions.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
@@ -613,7 +613,7 @@ export class Configs {
     /**
      * Updates the name of a **Config**.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigName} request
@@ -705,7 +705,7 @@ export class Configs {
     /**
      * Fetches a specified version of a **Config**.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {number} version - Version number for a Config.
@@ -805,7 +805,7 @@ export class Configs {
     /**
      * Deletes a specified version of a **Config**.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {number} version - Version number for a Config.
@@ -897,7 +897,7 @@ export class Configs {
     /**
      * Updates the description of a **Config**.
      *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
      * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {number} version - Version number for a Config.

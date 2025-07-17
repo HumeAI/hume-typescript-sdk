@@ -202,17 +202,12 @@ await client.tts.synthesizeFileStreaming({
     utterances: [
         {
             text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
         },
     ],
-    context: {
-        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2",
-    },
-    format: {
-        type: "mp3",
-    },
-    numGenerations: 1,
 });
 ```
 
@@ -282,22 +277,12 @@ const response = await client.tts.synthesizeJsonStreaming({
     utterances: [
         {
             text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
         },
     ],
-    context: {
-        utterances: [
-            {
-                text: "How can people see beauty so differently?",
-                description:
-                    "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
-            },
-        ],
-    },
-    format: {
-        type: "mp3",
-    },
 });
 for await (const item of response) {
     console.log(item);
@@ -563,7 +548,7 @@ await client.tts.voices.delete({
 
 Fetches a paginated list of **Tools**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -641,9 +626,9 @@ while (page.hasNextPage()) {
 <dl>
 <dd>
 
-Creates a **Tool** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
+Creates a **Tool** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -715,7 +700,7 @@ await client.empathicVoice.tools.createTool({
 
 Fetches a list of a **Tool's** versions.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -797,7 +782,7 @@ while (page.hasNextPage()) {
 
 Updates a **Tool** by creating a new version of the **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -876,7 +861,7 @@ await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-6098
 
 Deletes a **Tool** and its versions.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -941,7 +926,7 @@ await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268be
 
 Updates the name of a **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -1016,7 +1001,7 @@ await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-6098642
 
 Fetches a specified version of a **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -1095,7 +1080,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 Deletes a specified version of a **Tool**.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -1174,7 +1159,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 Updates the description of a specified **Tool** version.
 
-Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 
 </dd>
 </dl>
@@ -1266,7 +1251,7 @@ Version numbers are integer values representing different iterations of the Tool
 
 Fetches a paginated list of **Prompts**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1344,9 +1329,9 @@ while (page.hasNextPage()) {
 <dl>
 <dd>
 
-Creates a **Prompt** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
+Creates a **Prompt** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1414,7 +1399,7 @@ await client.empathicVoice.prompts.createPrompt({
 
 Fetches a list of a **Prompt's** versions.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1487,7 +1472,7 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 
 Updates a **Prompt** by creating a new version of the **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1563,7 +1548,7 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 
 Deletes a **Prompt** and its versions.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1628,7 +1613,7 @@ await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da
 
 Updates the name of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1703,7 +1688,7 @@ await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9
 
 Fetches a specified version of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1782,7 +1767,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 Deletes a specified version of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1861,7 +1846,7 @@ Version numbers are integer values representing different iterations of the Prom
 
 Updates the description of a **Prompt**.
 
-See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 
 </dd>
 </dl>
@@ -1936,433 +1921,6 @@ Version numbers are integer values representing different iterations of the Prom
 </dl>
 </details>
 
-## EmpathicVoice CustomVoices
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">listCustomVoices</a>({ ...params }) -> core.Page<Hume.ReturnCustomVoice></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Custom Voices**.
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const response = await client.empathicVoice.customVoices.listCustomVoices();
-for await (const item of response) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-const page = await client.empathicVoice.customVoices.listCustomVoices();
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.CustomVoicesListCustomVoicesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">createCustomVoice</a>({ ...params }) -> Hume.ReturnCustomVoice</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a **Custom Voice** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customVoices.createCustomVoice({
-    name: "name",
-    baseVoice: "ITO",
-    parameterModel: "20241004-11parameter",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedCustomVoice`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">getCustomVoice</a>(id) -> Hume.ReturnCustomVoice</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a specific **Custom Voice** by ID.
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customVoices.getCustomVoice("id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">createCustomVoiceVersion</a>(id, { ...params }) -> Hume.ReturnCustomVoice</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a **Custom Voice** by creating a new version of the **Custom Voice**.
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customVoices.createCustomVoiceVersion("id", {
-    name: "name",
-    baseVoice: "ITO",
-    parameterModel: "20241004-11parameter",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedCustomVoice`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">deleteCustomVoice</a>(id) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a **Custom Voice** and its versions.
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customVoices.deleteCustomVoice("id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.customVoices.<a href="/src/api/resources/empathicVoice/resources/customVoices/client/Client.ts">updateCustomVoiceName</a>(id, { ...params }) -> string</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Custom Voice**.
-
-Refer to our [voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for details on creating a custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
-    name: "name",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Custom Voice. Formatted as a UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedCustomVoiceName`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CustomVoices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## EmpathicVoice Configs
 
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> core.Page<Hume.ReturnConfig></code></summary>
@@ -2379,7 +1937,7 @@ await client.empathicVoice.customVoices.updateCustomVoiceName("id", {
 
 Fetches a paginated list of **Configs**.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2459,7 +2017,7 @@ while (page.hasNextPage()) {
 
 Creates a **Config** which can be applied to EVI.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2481,10 +2039,10 @@ await client.empathicVoice.configs.createConfig({
         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
         version: 0,
     },
-    eviVersion: "2",
+    eviVersion: "3",
     voice: {
         provider: "HUME_AI",
-        name: "SAMPLE VOICE",
+        name: "Ava Song",
     },
     languageModel: {
         modelProvider: "ANTHROPIC",
@@ -2554,7 +2112,7 @@ await client.empathicVoice.configs.createConfig({
 
 Fetches a list of a **Config's** versions.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2636,7 +2194,7 @@ while (page.hasNextPage()) {
 
 Updates a **Config** by creating a new version of the **Config**.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2654,14 +2212,14 @@ For more details on configuration options and how to configure EVI, see our [con
 ```typescript
 await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
     versionDescription: "This is an updated version of the Weather Assistant Config.",
-    eviVersion: "2",
+    eviVersion: "3",
     prompt: {
         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
         version: 0,
     },
     voice: {
         provider: "HUME_AI",
-        name: "ITO",
+        name: "Ava Song",
     },
     languageModel: {
         modelProvider: "ANTHROPIC",
@@ -2742,7 +2300,7 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
 
 Deletes a **Config** and its versions.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2807,7 +2365,7 @@ await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354
 
 Updates the name of a **Config**.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2882,7 +2440,7 @@ await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189
 
 Fetches a specified version of a **Config**.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -2961,7 +2519,7 @@ Version numbers are integer values representing different iterations of the Conf
 
 Deletes a specified version of a **Config**.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -3040,7 +2598,7 @@ Version numbers are integer values representing different iterations of the Conf
 
 Updates the description of a **Config**.
 
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/empathic-voice-interface-evi/configuration).
+For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
 
 </dd>
 </dl>
@@ -3297,7 +2855,7 @@ while (page.hasNextPage()) {
 <dl>
 <dd>
 
-Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/empathic-voice-interface-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
 
 </dd>
 </dl>
@@ -3607,7 +3165,7 @@ while (page.hasNextPage()) {
 <dl>
 <dd>
 
-Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/empathic-voice-interface-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
 
 </dd>
 </dl>
