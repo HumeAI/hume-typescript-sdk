@@ -7,9 +7,9 @@ import * as Hume from "../../../index";
 /**
  * A Custom Voice specification to be associated with this Config.
  *
- * If a Custom Voice specification is not provided then the [name](/reference/empathic-voice-interface-evi/configs/create-config#request.body.voice.name) of a base voice or previously created Custom Voice must be provided.
+ * If a Custom Voice specification is not provided then the [name](/reference/speech-to-speech-evi/configs/create-config#request.body.voice.name) of a base voice or previously created Custom Voice must be provided.
  *
- *  See our [Voices guide](/docs/empathic-voice-interface-evi/configuration/voices) for a tutorial on how to craft a Custom Voice.
+ *  See our [Voices guide](/docs/speech-to-speech-evi/configuration/voices) for a tutorial on how to craft a Custom Voice.
  */
 export interface PostedCustomVoice {
     /** The name of the Custom Voice. Maximum length of 75 characters. Will be converted to all-uppercase. (e.g., "sample voice" becomes "SAMPLE VOICE") */

@@ -18,7 +18,7 @@ export interface ReturnConfig {
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
     version?: number;
-    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/empathic-voice-interface-evi/configuration/evi-version). */
+    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/speech-to-speech-evi/configuration/evi-version). */
     eviVersion?: string;
     /** An optional description of the Config version. */
     versionDescription?: string;
