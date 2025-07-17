@@ -390,7 +390,7 @@ export class ChatGroups {
     }
 
     /**
-     * Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/empathic-voice-interface-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+     * Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
      *
      * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatGroupsGetAudioRequest} request

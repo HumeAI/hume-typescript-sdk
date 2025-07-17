@@ -43,7 +43,7 @@ export class Tools {
     /**
      * Fetches a paginated list of **Tools**.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {Hume.empathicVoice.ToolsListToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
@@ -163,9 +163,9 @@ export class Tools {
     }
 
     /**
-     * Creates a **Tool** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
+     * Creates a **Tool** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {Hume.empathicVoice.PostedUserDefinedTool} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
@@ -267,7 +267,7 @@ export class Tools {
     /**
      * Fetches a list of a **Tool's** versions.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.ToolsListToolVersionsRequest} request
@@ -385,7 +385,7 @@ export class Tools {
     /**
      * Updates a **Tool** by creating a new version of the **Tool**.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersion} request
@@ -489,7 +489,7 @@ export class Tools {
     /**
      * Deletes a **Tool** and its versions.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
@@ -566,7 +566,7 @@ export class Tools {
     /**
      * Updates the name of a **Tool**.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolName} request
@@ -660,7 +660,7 @@ export class Tools {
     /**
      * Fetches a specified version of a **Tool**.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {number} version - Version number for a Tool.
@@ -760,7 +760,7 @@ export class Tools {
     /**
      * Deletes a specified version of a **Tool**.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {number} version - Version number for a Tool.
@@ -852,7 +852,7 @@ export class Tools {
     /**
      * Updates the description of a specified **Tool** version.
      *
-     * Refer to our [tool use](/docs/empathic-voice-interface-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
      * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {number} version - Version number for a Tool.

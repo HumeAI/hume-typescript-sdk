@@ -43,7 +43,7 @@ export class Prompts {
     /**
      * Fetches a paginated list of **Prompts**.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {Hume.empathicVoice.PromptsListPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
@@ -160,9 +160,9 @@ export class Prompts {
     }
 
     /**
-     * Creates a **Prompt** that can be added to an [EVI configuration](/reference/empathic-voice-interface-evi/configs/create-config).
+     * Creates a **Prompt** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {Hume.empathicVoice.PostedPrompt} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
@@ -259,7 +259,7 @@ export class Prompts {
     /**
      * Fetches a list of a **Prompt's** versions.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PromptsListPromptVersionsRequest} request
@@ -368,7 +368,7 @@ export class Prompts {
     /**
      * Updates a **Prompt** by creating a new version of the **Prompt**.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptVersion} request
@@ -470,7 +470,7 @@ export class Prompts {
     /**
      * Deletes a **Prompt** and its versions.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
@@ -550,7 +550,7 @@ export class Prompts {
     /**
      * Updates the name of a **Prompt**.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptName} request
@@ -642,7 +642,7 @@ export class Prompts {
     /**
      * Fetches a specified version of a **Prompt**.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {number} version - Version number for a Prompt.
@@ -742,7 +742,7 @@ export class Prompts {
     /**
      * Deletes a specified version of a **Prompt**.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {number} version - Version number for a Prompt.
@@ -834,7 +834,7 @@ export class Prompts {
     /**
      * Updates the description of a **Prompt**.
      *
-     * See our [prompting guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips on crafting your system prompt.
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
      * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {number} version - Version number for a Prompt.

@@ -13,8 +13,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       pagination:
         offset: $request.page_number
         results: $response.configs_page
@@ -149,8 +148,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       display-name: Create config
@@ -164,7 +162,7 @@ service:
                 Specifies the EVI version to use. Use `"1"` for version 1, or
                 `"2"` for the latest enhanced version. For a detailed comparison
                 of the two versions, refer to our
-                [guide](/docs/empathic-voice-interface-evi/configuration/evi-version).
+                [guide](/docs/speech-to-speech-evi/configuration/evi-version).
             name:
               type: string
               docs: Name applied to all versions of a particular Config.
@@ -202,7 +200,13 @@ service:
               type: optional<list<optional<root.PostedBuiltinTool>>>
               docs: List of built-in tools associated with this Config.
             event_messages: optional<root.PostedEventMessageSpecs>
-            nudges: optional<root.PostedNudgeSpec>
+            nudges:
+              type: optional<root.PostedNudgeSpec>
+              docs: >-
+                Configures nudges, brief audio prompts that can guide
+                conversations when users pause or need encouragement to continue
+                speaking. Nudges help create more natural, flowing interactions
+                by providing gentle conversational cues. 
             timeouts: optional<root.PostedTimeoutSpecs>
             webhooks:
               type: optional<list<optional<root.PostedWebhookSpec>>>
@@ -318,8 +322,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       pagination:
         offset: $request.page_number
         results: $response.configs_page
@@ -454,8 +457,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -625,8 +627,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -648,8 +649,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -685,8 +685,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -799,8 +798,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -838,8 +836,7 @@ service:
 
 
         For more details on configuration options and how to configure EVI, see
-        our [configuration
-        guide](/docs/empathic-voice-interface-evi/configuration).
+        our [configuration guide](/docs/speech-to-speech-evi/configuration).
       source:
         openapi: evi-openapi.json
       path-parameters:
