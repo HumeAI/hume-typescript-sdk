@@ -8,6 +8,8 @@ import * as Hume from "../../../index";
  * A specific config version returned from the server
  */
 export interface ReturnConfig {
+    /** Name applied to all versions of a particular Config. */
+    name?: string;
     /** Identifier for a Config. Formatted as a UUID. */
     id?: string;
     /**
@@ -18,38 +20,35 @@ export interface ReturnConfig {
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
     version?: number;
-    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/empathic-voice-interface-evi/configuration/evi-version). */
+    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/speech-to-speech-evi/configuration/evi-version). */
     eviVersion?: string;
-    /** An optional description of the Config version. */
-    versionDescription?: string;
-    /** Name applied to all versions of a particular Config. */
-    name?: string;
-    /** Time at which the Config was created. Measured in seconds since the Unix epoch. */
-    createdOn?: number;
-    /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
-    modifiedOn?: number;
-    prompt?: Hume.empathicVoice.ReturnPrompt;
-    /** A voice specification associated with this Config. */
-    voice?: Hume.empathicVoice.ReturnVoice;
-    /**
-     * The supplemental language model associated with this Config.
-     *
-     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
-     */
-    languageModel?: Hume.empathicVoice.ReturnLanguageModel;
+    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
+    nudges?: Hume.empathicVoice.ReturnNudgeSpec;
     /**
      * The eLLM setup associated with this Config.
      *
      * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
      */
     ellmModel?: Hume.empathicVoice.ReturnEllmModel;
+    voice?: unknown;
+    prompt?: Hume.empathicVoice.ReturnPrompt;
     /** List of user-defined tools associated with this Config. */
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    /** Map of webhooks associated with this config. */
+    webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | undefined)[];
+    /** Time at which the Config was created. Measured in seconds since the Unix epoch. */
+    createdOn?: number;
+    /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
+    modifiedOn?: number;
+    /**
+     * The supplemental language model associated with this Config.
+     *
+     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
+     */
+    languageModel?: Hume.empathicVoice.ReturnLanguageModel;
     /** List of built-in tools associated with this Config. */
     builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
-    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
-    nudges?: Hume.empathicVoice.ReturnNudgeSpec;
-    /** Map of webhooks associated with this config. */
-    webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | undefined)[];
+    /** An optional description of the Config version. */
+    versionDescription?: string;
 }

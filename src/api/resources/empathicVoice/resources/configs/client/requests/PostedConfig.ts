@@ -12,10 +12,10 @@ import * as Hume from "../../../../../../index";
  *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
  *             version: 0
  *         },
- *         eviVersion: "2",
+ *         eviVersion: "3",
  *         voice: {
  *             provider: "HUME_AI",
- *             name: "SAMPLE VOICE"
+ *             name: "Ava Song"
  *         },
  *         languageModel: {
  *             modelProvider: "ANTHROPIC",
@@ -39,7 +39,7 @@ import * as Hume from "../../../../../../index";
  *     }
  */
 export interface PostedConfig {
-    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/empathic-voice-interface-evi/configuration/evi-version). */
+    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/speech-to-speech-evi/configuration/evi-version). */
     eviVersion: string;
     /** Name applied to all versions of a particular Config. */
     name: string;
@@ -47,7 +47,7 @@ export interface PostedConfig {
     versionDescription?: string;
     prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
     /** A voice specification associated with this Config. */
-    voice?: Hume.empathicVoice.PostedVoice;
+    voice?: Hume.empathicVoice.VoiceRef;
     /**
      * The supplemental language model associated with this Config.
      *
@@ -65,6 +65,7 @@ export interface PostedConfig {
     /** List of built-in tools associated with this Config. */
     builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
+    /** Configures nudges, brief audio prompts that can guide conversations when users pause or need encouragement to continue speaking. Nudges help create more natural, flowing interactions by providing gentle conversational cues. */
     nudges?: Hume.empathicVoice.PostedNudgeSpec;
     timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
     /** Webhook config specifications for each subscriber. */
