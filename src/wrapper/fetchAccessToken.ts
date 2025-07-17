@@ -30,7 +30,6 @@ export const fetchAccessToken = async ({
     const encoded = base64Encode(authString);
 
     const res = await fetch(`https://${host}/oauth2-cc/token`, {
-        
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
