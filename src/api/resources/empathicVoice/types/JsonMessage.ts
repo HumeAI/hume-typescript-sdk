@@ -13,4 +13,5 @@ export type JsonMessage =
     | Hume.empathicVoice.UserMessage
     | Hume.empathicVoice.ToolCallMessage
     | Hume.empathicVoice.ToolResponseMessage
-    | Hume.empathicVoice.ToolErrorMessage;
+    | Hume.empathicVoice.ToolErrorMessage
+    | Hume.empathicVoice.AssistantProsody;

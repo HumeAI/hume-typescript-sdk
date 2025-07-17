@@ -14,6 +14,7 @@ import { UserMessage } from "./UserMessage";
 import { ToolCallMessage } from "./ToolCallMessage";
 import { ToolResponseMessage } from "./ToolResponseMessage";
 import { ToolErrorMessage } from "./ToolErrorMessage";
+import { AssistantProsody } from "./AssistantProsody";
 
 export const JsonMessage: core.serialization.Schema<
     serializers.empathicVoice.JsonMessage.Raw,
@@ -28,6 +29,7 @@ export const JsonMessage: core.serialization.Schema<
     ToolCallMessage,
     ToolResponseMessage,
     ToolErrorMessage,
+    AssistantProsody,
 ]);
 
 export declare namespace JsonMessage {
@@ -40,5 +42,6 @@ export declare namespace JsonMessage {
         | UserMessage.Raw
         | ToolCallMessage.Raw
         | ToolResponseMessage.Raw
-        | ToolErrorMessage.Raw;
+        | ToolErrorMessage.Raw
+        | AssistantProsody.Raw;
 }
