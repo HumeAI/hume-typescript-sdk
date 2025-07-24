@@ -13,7 +13,7 @@ export interface PostedUtterance {
      * - **Voice not specified**: the description will serve as a voice prompt for generating a voice. See our [prompting guide](/docs/text-to-speech-tts/prompting) for design tips.
      */
     description?: string;
-    /** Speed multiplier for the synthesized speech. */
+    /** Speed multiplier for the synthesized speech. Extreme values below 1 and above 1.5 may sometimes cause instability to the generated output. */
     speed?: number;
     /** The input text to be synthesized into speech. */
     text: string;
