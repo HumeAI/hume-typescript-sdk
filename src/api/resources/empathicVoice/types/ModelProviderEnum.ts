@@ -10,7 +10,10 @@ export type ModelProviderEnum =
     | "CUSTOM_LANGUAGE_MODEL"
     | "GOOGLE"
     | "HUME_AI"
-    | "AMAZON_BEDROCK";
+    | "AMAZON_BEDROCK"
+    | "PERPLEXITY"
+    | "SAMBANOVA"
+    | "CEREBRAS";
 export const ModelProviderEnum = {
     Groq: "GROQ",
     OpenAi: "OPEN_AI",
@@ -20,4 +23,7 @@ export const ModelProviderEnum = {
     Google: "GOOGLE",
     HumeAi: "HUME_AI",
     AmazonBedrock: "AMAZON_BEDROCK",
+    Perplexity: "PERPLEXITY",
+    Sambanova: "SAMBANOVA",
+    Cerebras: "CEREBRAS",
 } as const;

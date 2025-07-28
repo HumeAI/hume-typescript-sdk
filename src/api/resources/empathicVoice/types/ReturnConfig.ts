@@ -20,7 +20,22 @@ export interface ReturnConfig {
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
     version?: number;
-    /** Specifies the EVI version to use. Use `"1"` for version 1, or `"2"` for the latest enhanced version. For a detailed comparison of the two versions, refer to our [guide](/docs/speech-to-speech-evi/configuration/evi-version). */
+    /** An optional description of the Config version. */
+    versionDescription?: string;
+    /**
+     * The supplemental language model associated with this Config.
+     *
+     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
+     */
+    languageModel?: Hume.empathicVoice.ReturnLanguageModel;
+    /** List of built-in tools associated with this Config. */
+    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
+    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
+    /**
+     * Specifies the EVI version to use. See our [EVI Version  Guide](/docs/speech-to-speech-evi/configuration/evi-version) for differences between versions.
+     *
+     * **We're officially sunsetting EVI versions 1 and 2 on August 30, 2025**. To keep things running smoothly, be sure to [migrate to EVI 3](/docs/speech-to-speech-evi/configuration/evi-version#migrating-to-evi-3) before then.
+     */
     eviVersion?: string;
     timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
     nudges?: Hume.empathicVoice.ReturnNudgeSpec;
@@ -40,15 +55,4 @@ export interface ReturnConfig {
     createdOn?: number;
     /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
     modifiedOn?: number;
-    /**
-     * The supplemental language model associated with this Config.
-     *
-     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
-     */
-    languageModel?: Hume.empathicVoice.ReturnLanguageModel;
-    /** List of built-in tools associated with this Config. */
-    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
-    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
-    /** An optional description of the Config version. */
-    versionDescription?: string;
 }
