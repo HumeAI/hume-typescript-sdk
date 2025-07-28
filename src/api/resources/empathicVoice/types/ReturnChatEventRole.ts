@@ -4,13 +4,9 @@
 
 /**
  * The role of the entity which generated the Chat Event. There are four possible values:
- *
  * - `USER`: The user, capable of sending user messages and interruptions.
- *
  * - `AGENT`: The assistant, capable of sending agent messages.
- *
  * - `SYSTEM`: The backend server, capable of transmitting errors.
- *
  * - `TOOL`: The function calling mechanism.
  */
 export type ReturnChatEventRole = "USER" | "AGENT" | "SYSTEM" | "TOOL";
