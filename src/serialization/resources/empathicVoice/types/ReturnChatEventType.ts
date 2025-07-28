@@ -10,20 +10,30 @@ export const ReturnChatEventType: core.serialization.Schema<
     serializers.empathicVoice.ReturnChatEventType.Raw,
     Hume.empathicVoice.ReturnChatEventType
 > = core.serialization.enum_([
-    "SYSTEM_PROMPT",
-    "USER_MESSAGE",
-    "USER_INTERRUPTION",
-    "AGENT_MESSAGE",
     "FUNCTION_CALL",
     "FUNCTION_CALL_RESPONSE",
+    "CHAT_END_MESSAGE",
+    "AGENT_MESSAGE",
+    "SYSTEM_PROMPT",
+    "USER_RECORDING_START_MESSAGE",
+    "RESUME_ONSET",
+    "USER_INTERRUPTION",
+    "CHAT_START_MESSAGE",
+    "PAUSE_ONSET",
+    "USER_MESSAGE",
 ]);
 
 export declare namespace ReturnChatEventType {
     export type Raw =
-        | "SYSTEM_PROMPT"
-        | "USER_MESSAGE"
-        | "USER_INTERRUPTION"
-        | "AGENT_MESSAGE"
         | "FUNCTION_CALL"
-        | "FUNCTION_CALL_RESPONSE";
+        | "FUNCTION_CALL_RESPONSE"
+        | "CHAT_END_MESSAGE"
+        | "AGENT_MESSAGE"
+        | "SYSTEM_PROMPT"
+        | "USER_RECORDING_START_MESSAGE"
+        | "RESUME_ONSET"
+        | "USER_INTERRUPTION"
+        | "CHAT_START_MESSAGE"
+        | "PAUSE_ONSET"
+        | "USER_MESSAGE";
 }
