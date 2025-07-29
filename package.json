@@ -23,7 +23,7 @@
         "form-data-encoder": "^4.0.2",
         "ws": "^8.14.2",
         "uuid": "9.0.1",
-        "zod": "^3.23.8"
+        "zod": "^4.0.13"
     },
     "devDependencies": {
         "@types/url-join": "4.0.1",
