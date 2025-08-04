@@ -1,16 +1,21 @@
 /** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 import { RUNTIME } from "../runtime";
 import * as Events from "./events";
-import { WebSocket as NodeWebSocket } from "ws";
 
 const ABNORMAL_CLOSURE_CODE = 1006;
 
-const getGlobalWebSocket = (): WebSocket | undefined => {
+const getGlobalWebSocket = async (): Promise<WebSocket | undefined> => {
     if (typeof WebSocket !== "undefined") {
         // @ts-ignore
         return WebSocket;
     } else if (RUNTIME.type === "node") {
-        return NodeWebSocket as unknown as WebSocket;
+        try {
+            const { WebSocket: NodeWebSocket } = await import("ws");
+            return NodeWebSocket as unknown as WebSocket;
+        } catch (error) {
+            console.warn("Failed to import ws package:", error);
+            return undefined;
+        }
     }
     return undefined;
 };
@@ -80,13 +85,13 @@ export class ReconnectingWebSocket {
     private readonly _url: UrlProvider;
     private readonly _protocols?: string | string[];
     private readonly _options: Options;
-    private readonly _WebSocket: typeof WebSocket;
+    private readonly _WebSocket: () => Promise<typeof WebSocket>;
 
     constructor(url: UrlProvider, protocols?: string | string[], options: Options = {}) {
         this._url = url;
         this._protocols = protocols;
         this._options = options;
-        this._WebSocket = this._options.WebSocket || getGlobalWebSocket();
+        this._WebSocket = () => this._options.WebSocket ? Promise.resolve(this._options.WebSocket) : getGlobalWebSocket();
         if (!isWebSocket(this._WebSocket)) {
             throw Error("No valid WebSocket class provided");
         }
@@ -418,14 +423,16 @@ export class ReconnectingWebSocket {
                     return;
                 }
 
-                this._debug("connect", { url, protocols: this._protocols });
-                this._ws = this._protocols ? new this._WebSocket(url, this._protocols) : new this._WebSocket(url);
-                this._ws!.binaryType = this._binaryType;
+                return this._WebSocket().then((_WebSocket) => {
+                    this._debug("connect", { url, protocols: this._protocols });
+                    this._ws = this._protocols ? new _WebSocket(url, this._protocols) : new _WebSocket(url);
+                    this._ws!.binaryType = this._binaryType;
 
-                this._addListeners();
-                this._connectLock = false;
+                    this._addListeners();
+                    this._connectLock = false;
 
-                this._connectTimeout = setTimeout(() => this._handleTimeout(), connectionTimeout);
+                    this._connectTimeout = setTimeout(() => this._handleTimeout(), connectionTimeout);
+                })
             })
             .catch((error: any) => {
                 this._debug("Connection setup failed:", error);
