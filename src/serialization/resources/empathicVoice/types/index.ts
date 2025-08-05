@@ -36,6 +36,7 @@ export * from "./JsonMessage";
 export * from "./HttpValidationError";
 export * from "./LanguageModelType";
 export * from "./ModelProviderEnum";
+export * from "./SupportsToolUse";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";
 export * from "./WebhookEventBase";

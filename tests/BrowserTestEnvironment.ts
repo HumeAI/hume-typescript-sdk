@@ -1,3 +1,4 @@
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 import { TestEnvironment } from "jest-environment-jsdom";
 
 class BrowserTestEnvironment extends TestEnvironment {

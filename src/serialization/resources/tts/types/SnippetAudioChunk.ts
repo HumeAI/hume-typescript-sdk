@@ -9,26 +9,8 @@ import * as core from "../../../../core";
 export const SnippetAudioChunk: core.serialization.ObjectSchema<
     serializers.tts.SnippetAudioChunk.Raw,
     Hume.tts.SnippetAudioChunk
-> = core.serialization.object({
-    audio: core.serialization.string(),
-    chunkIndex: core.serialization.property("chunk_index", core.serialization.number()),
-    generationId: core.serialization.property("generation_id", core.serialization.string()),
-    isLastChunk: core.serialization.property("is_last_chunk", core.serialization.boolean()),
-    snippetId: core.serialization.property("snippet_id", core.serialization.string()),
-    text: core.serialization.string(),
-    transcribedText: core.serialization.property("transcribed_text", core.serialization.string().optional()),
-    utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
-});
+> = core.serialization.object({});
 
 export declare namespace SnippetAudioChunk {
-    export interface Raw {
-        audio: string;
-        chunk_index: number;
-        generation_id: string;
-        is_last_chunk: boolean;
-        snippet_id: string;
-        text: string;
-        transcribed_text?: string | null;
-        utterance_index?: number | null;
-    }
+    export interface Raw {}
 }
