@@ -10,9 +10,8 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/he
 import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 import * as stream from "stream";
-import * as fs from "fs";
-import { Blob } from "buffer";
 import { toJson } from "../../../../../../core/json";
+import { FileLike } from "core/file";
 
 export declare namespace Batch {
     export interface Options {
@@ -455,7 +454,7 @@ export class Batch {
     /**
      * Start a new batch inference job.
      *
-     * @param {File[] | fs.ReadStream[] | Blob[]} file
+     * @param {FileLike[]} file
      * @param {Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -463,7 +462,7 @@ export class Batch {
      *     await client.expressionMeasurement.batch.startInferenceJobFromLocalFile([fs.createReadStream("/path/to/your/file")], {})
      */
     public startInferenceJobFromLocalFile(
-        file: File[] | fs.ReadStream[] | Blob[],
+        file: FileLike[],
         request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
         requestOptions?: Batch.RequestOptions,
     ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.JobId> {
@@ -473,7 +472,7 @@ export class Batch {
     }
 
     private async __startInferenceJobFromLocalFile(
-        file: File[] | fs.ReadStream[] | Blob[],
+        file: FileLike[],
         request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
         requestOptions?: Batch.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.JobId>> {
