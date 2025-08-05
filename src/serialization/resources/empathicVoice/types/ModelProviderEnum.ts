@@ -18,6 +18,9 @@ export const ModelProviderEnum: core.serialization.Schema<
     "GOOGLE",
     "HUME_AI",
     "AMAZON_BEDROCK",
+    "PERPLEXITY",
+    "SAMBANOVA",
+    "CEREBRAS",
 ]);
 
 export declare namespace ModelProviderEnum {
@@ -29,5 +32,8 @@ export declare namespace ModelProviderEnum {
         | "CUSTOM_LANGUAGE_MODEL"
         | "GOOGLE"
         | "HUME_AI"
-        | "AMAZON_BEDROCK";
+        | "AMAZON_BEDROCK"
+        | "PERPLEXITY"
+        | "SAMBANOVA"
+        | "CEREBRAS";
 }

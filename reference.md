@@ -3532,7 +3532,7 @@ await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
 <dl>
 <dd>
 
-**file:** `File[] | fs.ReadStream[] | Blob[]`
+**file:** `core.FileLike[]`
 
 </dd>
 </dl>
