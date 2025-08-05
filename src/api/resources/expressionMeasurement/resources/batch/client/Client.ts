@@ -11,9 +11,7 @@ import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 import * as stream from "stream";
 import { toJson } from "../../../../../../core/json";
-import { Readable } from "stream";
-
-type FileLike = Buffer | File | Blob | Readable | ReadableStream | ArrayBuffer | Uint8Array;
+import {FileLike} from 'core/file';
 
 export declare namespace Batch {
     export interface Options {
