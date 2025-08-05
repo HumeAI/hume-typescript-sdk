@@ -30,3 +30,6 @@ src/core/index.ts
 # Tests
 tests/empathicVoice
 tests/expressionMeasurement
+
+# Needed because node 18 doesn't actually have a global.File
+tests/BrowserTestEnvironment.ts
