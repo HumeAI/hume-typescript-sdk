@@ -9,7 +9,11 @@ class BrowserTestEnvironment extends TestEnvironment {
         this.global.TextEncoder = TextEncoder;
         this.global.TextDecoder = TextDecoder;
         this.global.FormData = FormData;
-        this.global.File = File;
+        if (typeof File === "undefined") {
+            this.global.File = require("buffer").File;
+        } else {
+            this.global.File = File;
+        }
         this.global.Blob = Blob;
     }
 }

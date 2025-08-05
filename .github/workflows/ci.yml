@@ -46,6 +46,9 @@ jobs:
             - name: Run tests
               run: yarn test
 
+            - name: Run browser tests
+              run: yarn test:browser
+
     publish:
         needs: [compile, test]
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
