@@ -532,6 +532,58 @@ await client.tts.voices.delete({
 </dl>
 </details>
 
+## EmpathicVoice
+
+<details><summary><code>client.empathicVoice.<a href="/src/api/resources/empathicVoice/client/Client.ts">customLanguageModelSupportsToolUseV0EviCustomLanguageModelSupportsToolUsePost</a>({ ...params }) -> Hume.SupportsToolUse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.customLanguageModelSupportsToolUseV0EviCustomLanguageModelSupportsToolUsePost({
+    modelResource: "model_resource",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.BodyCustomLanguageModelSupportsToolUseV0EviCustomLanguageModelSupportsToolUsePost`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EmpathicVoice.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## EmpathicVoice Tools
 
 <details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<Hume.ReturnUserDefinedTool | undefined></code></summary>

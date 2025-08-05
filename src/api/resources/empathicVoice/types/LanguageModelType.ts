@@ -14,7 +14,10 @@ export type LanguageModelType =
     | "us.anthropic.claude-3-5-haiku-20241022-v1:0"
     | "us.anthropic.claude-3-5-sonnet-20240620-v1:0"
     | "us.anthropic.claude-3-haiku-20240307-v1:0"
+    | "gpt-oss-120b"
     | "qwen-3-235b-a22b"
+    | "qwen-3-235b-a22b-instruct-2507"
+    | "qwen-3-235b-a22b-thinking-2507"
     | "gemini-1.5-pro"
     | "gemini-1.5-flash"
     | "gemini-1.5-pro-002"
@@ -28,6 +31,7 @@ export type LanguageModelType =
     | "gpt-3.5-turbo"
     | "gpt-4o"
     | "gpt-4o-mini"
+    | "gpt-4.1"
     | "gemma-7b-it"
     | "llama3-8b-8192"
     | "llama3-70b-8192"
@@ -60,7 +64,10 @@ export const LanguageModelType = {
     UsAnthropicClaude35Haiku20241022V10: "us.anthropic.claude-3-5-haiku-20241022-v1:0",
     UsAnthropicClaude35Sonnet20240620V10: "us.anthropic.claude-3-5-sonnet-20240620-v1:0",
     UsAnthropicClaude3Haiku20240307V10: "us.anthropic.claude-3-haiku-20240307-v1:0",
+    GptOss120B: "gpt-oss-120b",
     Qwen3235Ba22B: "qwen-3-235b-a22b",
+    Qwen3235Ba22BInstruct2507: "qwen-3-235b-a22b-instruct-2507",
+    Qwen3235Ba22BThinking2507: "qwen-3-235b-a22b-thinking-2507",
     Gemini15Pro: "gemini-1.5-pro",
     Gemini15Flash: "gemini-1.5-flash",
     Gemini15Pro002: "gemini-1.5-pro-002",
@@ -74,6 +81,7 @@ export const LanguageModelType = {
     Gpt35Turbo: "gpt-3.5-turbo",
     Gpt4O: "gpt-4o",
     Gpt4OMini: "gpt-4o-mini",
+    Gpt41: "gpt-4.1",
     Gemma7BIt: "gemma-7b-it",
     Llama38B8192: "llama3-8b-8192",
     Llama370B8192: "llama3-70b-8192",
