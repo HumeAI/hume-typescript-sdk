@@ -7,8 +7,8 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const VoiceProvider: core.serialization.Schema<serializers.tts.VoiceProvider.Raw, Hume.tts.VoiceProvider> =
-    core.serialization.enum_(["HUME_AI", "CUSTOM_VOICE"]);
+    core.serialization.string();
 
 export declare namespace VoiceProvider {
-    export type Raw = "HUME_AI" | "CUSTOM_VOICE";
+    export type Raw = string;
 }

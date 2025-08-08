@@ -11,17 +11,17 @@ export const AssistantProsody: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantProsody.Raw,
     Hume.empathicVoice.AssistantProsody
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    id: core.serialization.string().optional(),
-    models: Inference,
     type: core.serialization.stringLiteral("assistant_prosody"),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    models: Inference,
+    id: core.serialization.string().optional(),
 });
 
 export declare namespace AssistantProsody {
     export interface Raw {
-        custom_session_id?: string | null;
-        id?: string | null;
-        models: Inference.Raw;
         type: "assistant_prosody";
+        custom_session_id?: string | null;
+        models: Inference.Raw;
+        id?: string | null;
     }
 }
