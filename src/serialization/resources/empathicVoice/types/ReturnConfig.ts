@@ -5,15 +5,15 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnLanguageModel } from "./ReturnLanguageModel";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool";
 import { ReturnTimeoutSpecs } from "./ReturnTimeoutSpecs";
+import { ReturnNudgeSpec } from "./ReturnNudgeSpec";
 import { ReturnEventMessageSpecs } from "./ReturnEventMessageSpecs";
 import { ReturnEllmModel } from "./ReturnEllmModel";
-import { ReturnWebhookSpec } from "./ReturnWebhookSpec";
-import { ReturnNudgeSpec } from "./ReturnNudgeSpec";
 import { ReturnPrompt } from "./ReturnPrompt";
-import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
+import { ReturnWebhookSpec } from "./ReturnWebhookSpec";
 
 export const ReturnConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfig.Raw,
@@ -22,6 +22,8 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     name: core.serialization.string().optional(),
     id: core.serialization.string().optional(),
     version: core.serialization.number().optional(),
+    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     builtinTools: core.serialization.property(
         "builtin_tools",
@@ -29,16 +31,14 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     ),
     eviVersion: core.serialization.property("evi_version", core.serialization.string().optional()),
     timeouts: ReturnTimeoutSpecs.optional(),
+    nudges: ReturnNudgeSpec.optional(),
     eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
     ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
-    webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
-    modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
-    nudges: ReturnNudgeSpec.optional(),
     voice: core.serialization.unknown().optional(),
     prompt: ReturnPrompt.optional(),
-    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
+    webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
+    createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
+    modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
 });
 
 export declare namespace ReturnConfig {
@@ -46,19 +46,19 @@ export declare namespace ReturnConfig {
         name?: string | null;
         id?: string | null;
         version?: number | null;
+        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
+        version_description?: string | null;
         language_model?: ReturnLanguageModel.Raw | null;
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
         evi_version?: string | null;
         timeouts?: ReturnTimeoutSpecs.Raw | null;
+        nudges?: ReturnNudgeSpec.Raw | null;
         event_messages?: ReturnEventMessageSpecs.Raw | null;
         ellm_model?: ReturnEllmModel.Raw | null;
-        webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
-        version_description?: string | null;
-        created_on?: number | null;
-        modified_on?: number | null;
-        nudges?: ReturnNudgeSpec.Raw | null;
         voice?: unknown | null;
         prompt?: ReturnPrompt.Raw | null;
-        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
+        webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
+        created_on?: number | null;
+        modified_on?: number | null;
     }
 }

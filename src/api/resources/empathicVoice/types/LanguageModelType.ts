@@ -32,6 +32,9 @@ export type LanguageModelType =
     | "gpt-4o"
     | "gpt-4o-mini"
     | "gpt-4.1"
+    | "gpt-5"
+    | "gpt-5-mini"
+    | "gpt-5-nano"
     | "gemma-7b-it"
     | "llama3-8b-8192"
     | "llama3-70b-8192"
@@ -82,6 +85,9 @@ export const LanguageModelType = {
     Gpt4O: "gpt-4o",
     Gpt4OMini: "gpt-4o-mini",
     Gpt41: "gpt-4.1",
+    Gpt5: "gpt-5",
+    Gpt5Mini: "gpt-5-mini",
+    Gpt5Nano: "gpt-5-nano",
     Gemma7BIt: "gemma-7b-it",
     Llama38B8192: "llama3-8b-8192",
     Llama370B8192: "llama3-70b-8192",
