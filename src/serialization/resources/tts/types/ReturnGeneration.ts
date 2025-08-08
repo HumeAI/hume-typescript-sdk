@@ -12,21 +12,21 @@ export const ReturnGeneration: core.serialization.ObjectSchema<
     serializers.tts.ReturnGeneration.Raw,
     Hume.tts.ReturnGeneration
 > = core.serialization.object({
-    audio: core.serialization.string(),
-    duration: core.serialization.number(),
-    encoding: AudioEncoding,
-    fileSize: core.serialization.property("file_size", core.serialization.number()),
     generationId: core.serialization.property("generation_id", core.serialization.string()),
+    duration: core.serialization.number(),
+    fileSize: core.serialization.property("file_size", core.serialization.number()),
+    encoding: AudioEncoding,
+    audio: core.serialization.string(),
     snippets: core.serialization.list(core.serialization.list(Snippet)),
 });
 
 export declare namespace ReturnGeneration {
     export interface Raw {
-        audio: string;
-        duration: number;
-        encoding: AudioEncoding.Raw;
-        file_size: number;
         generation_id: string;
+        duration: number;
+        file_size: number;
+        encoding: AudioEncoding.Raw;
+        audio: string;
         snippets: Snippet.Raw[][];
     }
 }

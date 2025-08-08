@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const ContextType: core.serialization.Schema<
     serializers.empathicVoice.ContextType.Raw,
     Hume.empathicVoice.ContextType
-> = core.serialization.enum_(["editable", "persistent", "temporary"]);
+> = core.serialization.enum_(["temporary", "persistent"]);
 
 export declare namespace ContextType {
-    export type Raw = "editable" | "persistent" | "temporary";
+    export type Raw = "temporary" | "persistent";
 }

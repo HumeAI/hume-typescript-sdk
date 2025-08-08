@@ -13,23 +13,23 @@ export const WebhookEventChatStarted: core.serialization.ObjectSchema<
     Hume.empathicVoice.WebhookEventChatStarted
 > = core.serialization
     .object({
-        callerNumber: core.serialization.property("caller_number", core.serialization.string().optional()),
-        chatStartType: core.serialization.property("chat_start_type", WebhookEventChatStartType),
-        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
         eventName: core.serialization.property(
             "event_name",
             core.serialization.stringLiteral("chat_started").optional(),
         ),
         startTime: core.serialization.property("start_time", core.serialization.number()),
+        chatStartType: core.serialization.property("chat_start_type", WebhookEventChatStartType),
+        callerNumber: core.serialization.property("caller_number", core.serialization.string().optional()),
+        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     })
     .extend(WebhookEventBase);
 
 export declare namespace WebhookEventChatStarted {
     export interface Raw extends WebhookEventBase.Raw {
-        caller_number?: string | null;
-        chat_start_type: WebhookEventChatStartType.Raw;
-        custom_session_id?: string | null;
         event_name?: "chat_started" | null;
         start_time: number;
+        chat_start_type: WebhookEventChatStartType.Raw;
+        caller_number?: string | null;
+        custom_session_id?: string | null;
     }
 }
