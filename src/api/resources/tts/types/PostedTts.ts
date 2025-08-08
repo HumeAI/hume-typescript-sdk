@@ -7,10 +7,16 @@ import * as Hume from "../../../index";
 export interface PostedTts {
     /** Utterances to use as context for generating consistent speech style and prosody across multiple requests. These will not be converted to speech output. */
     context?: Hume.tts.PostedContext;
-    /** Specifies the output audio file format. */
-    format?: Hume.tts.Format;
+    /**
+     * A list of **Utterances** to be converted to speech output.
+     *
+     * An **Utterance** is a unit of input for [Octave](/docs/text-to-speech-tts/overview), and includes input `text`, an optional `description` to serve as the prompt for how the speech should be delivered, an optional `voice` specification, and additional controls to guide delivery for `speed` and `trailing_silence`.
+     */
+    utterances: Hume.tts.PostedUtterance[];
     /** Number of generations of the audio to produce. */
     numGenerations?: number;
+    /** Specifies the output audio file format. */
+    format?: Hume.tts.Format;
     /**
      * Controls how audio output is segmented in the response.
      *
@@ -21,14 +27,10 @@ export interface PostedTts {
      * This setting affects how the `snippets` array is structured in the response, which may be important for applications that need to track the relationship between input text and generated audio segments. When setting to `false`, avoid including utterances with long `text`, as this can result in distorted output.
      */
     splitUtterances?: boolean;
+    /** If enabled, consecutive utterances with the different voices will be generated with compounding context that takes into account the previous utterances. */
+    multiSpeaker?: boolean;
     /** If enabled, the audio for all the chunks of a generation, once concatenated together, will constitute a single audio file. Otherwise, if disabled, each chunk's audio will be its own audio file, each with its own headers (if applicable). */
     stripHeaders?: boolean;
-    /**
-     * A list of **Utterances** to be converted to speech output.
-     *
-     * An **Utterance** is a unit of input for [Octave](/docs/text-to-speech-tts/overview), and includes input `text`, an optional `description` to serve as the prompt for how the speech should be delivered, an optional `voice` specification, and additional controls to guide delivery for `speed` and `trailing_silence`.
-     */
-    utterances: Hume.tts.PostedUtterance[];
     /**
      * Enables ultra-low latency streaming, significantly reducing the time until the first audio chunk is received. Recommended for real-time applications requiring immediate audio playback. For further details, see our documentation on [instant mode](/docs/text-to-speech-tts/overview#ultra-low-latency-streaming-instant-mode).
      * - A [voice](/reference/text-to-speech-tts/synthesize-json-streaming#request.body.utterances.voice) must be specified when instant mode is enabled. Dynamic voice generation is not supported with this mode.

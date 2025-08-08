@@ -15,8 +15,8 @@ export const ReturnPrompt: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     text: core.serialization.string(),
     version: core.serialization.number(),
-    versionType: core.serialization.property("version_type", ReturnPromptVersionType),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionType: core.serialization.property("version_type", ReturnPromptVersionType),
     createdOn: core.serialization.property("created_on", core.serialization.number()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
 });
@@ -27,8 +27,8 @@ export declare namespace ReturnPrompt {
         id: string;
         text: string;
         version: number;
-        version_type: ReturnPromptVersionType.Raw;
         version_description?: string | null;
+        version_type: ReturnPromptVersionType.Raw;
         created_on: number;
         modified_on: number;
     }
