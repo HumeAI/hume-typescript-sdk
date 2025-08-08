@@ -33,28 +33,26 @@ The response includes the base64-encoded audio and metadata in JSON format.
 
 ```typescript
 await client.tts.synthesizeJson({
-    body: {
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+        },
+    ],
+    context: {
         utterances: [
             {
-                text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+                text: "How can people see beauty so differently?",
                 description:
-                    "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+                    "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
             },
         ],
-        context: {
-            utterances: [
-                {
-                    text: "How can people see beauty so differently?",
-                    description:
-                        "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
-                },
-            ],
-        },
-        format: {
-            type: "mp3",
-        },
-        numGenerations: 1,
     },
+    format: {
+        type: "mp3",
+    },
+    numGenerations: 1,
 });
 ```
 
@@ -71,7 +69,7 @@ await client.tts.synthesizeJson({
 <dl>
 <dd>
 
-**request:** `Hume.tts.SynthesizeJsonRequest`
+**request:** `Hume.PostedTts`
 
 </dd>
 </dl>
@@ -170,79 +168,6 @@ await client.tts.synthesizeFile({
 </dl>
 </details>
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFileStreaming</a>({ ...params }) -> stream.Readable</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.synthesizeFileStreaming({
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            voice: {
-                name: "Male English Actor",
-                provider: "HUME_AI",
-            },
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedTts`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tts.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.SnippetAudioChunk></code></summary>
 <dl>
 <dd>
@@ -287,6 +212,79 @@ const response = await client.tts.synthesizeJsonStreaming({
 for await (const item of response) {
     console.log(item);
 }
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFileStreaming</a>({ ...params }) -> stream.Readable</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeFileStreaming({
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
+        },
+    ],
+});
 ```
 
 </dd>
@@ -522,58 +520,6 @@ await client.tts.voices.delete({
 <dd>
 
 **requestOptions:** `Voices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## EmpathicVoice
-
-<details><summary><code>client.empathicVoice.<a href="/src/api/resources/empathicVoice/client/Client.ts">customLanguageModelSupportsToolUseV0EviCustomLanguageModelSupportsToolUsePost</a>({ ...params }) -> Hume.SupportsToolUse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.customLanguageModelSupportsToolUseV0EviCustomLanguageModelSupportsToolUsePost({
-    modelResource: "model_resource",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.BodyCustomLanguageModelSupportsToolUseV0EviCustomLanguageModelSupportsToolUsePost`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EmpathicVoice.RequestOptions`
 
 </dd>
 </dl>

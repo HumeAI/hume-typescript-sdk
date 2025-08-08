@@ -62,28 +62,26 @@ describe("Tts", () => {
             .build();
 
         const response = await client.tts.synthesizeJson({
-            body: {
+            utterances: [
+                {
+                    text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+                    description:
+                        "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+                },
+            ],
+            context: {
                 utterances: [
                     {
-                        text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+                        text: "How can people see beauty so differently?",
                         description:
-                            "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+                            "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
                     },
                 ],
-                context: {
-                    utterances: [
-                        {
-                            text: "How can people see beauty so differently?",
-                            description:
-                                "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
-                        },
-                    ],
-                },
-                format: {
-                    type: "mp3",
-                },
-                numGenerations: 1,
             },
+            format: {
+                type: "mp3",
+            },
+            numGenerations: 1,
         });
         expect(response).toEqual({
             generations: [

@@ -8,8 +8,20 @@ import * as Hume from "../../../index";
  * When provided, the output is a user message.
  */
 export interface UserMessage {
+    /**
+     * The type of message sent through the socket; for a User Message, this must be `user_message`.
+     *
+     * This message contains both a transcript of the user’s input and the expression measurement predictions if the input was sent as an [Audio Input message](/reference/empathic-voice-interface-evi/chat/chat#send.AudioInput.type). Expression measurement predictions are not provided for a [User Input message](/reference/empathic-voice-interface-evi/chat/chat#send.UserInput.type), as the prosody model relies on audio input and cannot process text alone.
+     */
+    type: "user_message";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
+    /** Transcript of the message. */
+    message: Hume.empathicVoice.ChatMessage;
+    /** Inference model results. */
+    models: Hume.empathicVoice.Inference;
+    /** Start and End time of user message. */
+    time: Hume.empathicVoice.MillisecondInterval;
     /** Indicates if this message was inserted into the conversation as text from a [User Input](/reference/empathic-voice-interface-evi/chat/chat#send.UserInput.text) message. */
     fromText: boolean;
     /**
@@ -21,16 +33,4 @@ export interface UserMessage {
      * Interim transcripts are only sent when the [`verbose_transcription`](/reference/empathic-voice-interface-evi/chat/chat#request.query.verbose_transcription) query parameter is set to `true` in the initial handshake.
      */
     interim: boolean;
-    /** Transcript of the message. */
-    message: Hume.empathicVoice.ChatMessage;
-    /** Inference model results. */
-    models: Hume.empathicVoice.Inference;
-    /** Start and End time of user message. */
-    time: Hume.empathicVoice.MillisecondInterval;
-    /**
-     * The type of message sent through the socket; for a User Message, this must be `user_message`.
-     *
-     * This message contains both a transcript of the user’s input and the expression measurement predictions if the input was sent as an [Audio Input message](/reference/empathic-voice-interface-evi/chat/chat#send.AudioInput.type). Expression measurement predictions are not provided for a [User Input message](/reference/empathic-voice-interface-evi/chat/chat#send.UserInput.type), as the prosody model relies on audio input and cannot process text alone.
-     */
-    type: "user_message";
 }
