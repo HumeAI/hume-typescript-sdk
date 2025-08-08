@@ -342,13 +342,6 @@ types:
           setting to `false`, avoid including utterances with long `text`, as
           this can result in distorted output.
         default: true
-      multi_speaker:
-        type: optional<boolean>
-        docs: >-
-          If enabled, consecutive utterances with the different voices will be
-          generated with compounding context that takes into account the
-          previous utterances.
-        default: true
       strip_headers:
         type: optional<boolean>
         docs: >-
