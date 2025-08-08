@@ -27,8 +27,6 @@ export interface PostedTts {
      * This setting affects how the `snippets` array is structured in the response, which may be important for applications that need to track the relationship between input text and generated audio segments. When setting to `false`, avoid including utterances with long `text`, as this can result in distorted output.
      */
     splitUtterances?: boolean;
-    /** If enabled, consecutive utterances with the different voices will be generated with compounding context that takes into account the previous utterances. */
-    multiSpeaker?: boolean;
     /** If enabled, the audio for all the chunks of a generation, once concatenated together, will constitute a single audio file. Otherwise, if disabled, each chunk's audio will be its own audio file, each with its own headers (if applicable). */
     stripHeaders?: boolean;
     /**
