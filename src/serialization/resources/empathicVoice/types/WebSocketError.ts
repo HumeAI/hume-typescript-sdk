@@ -10,21 +10,21 @@ export const WebSocketError: core.serialization.ObjectSchema<
     serializers.empathicVoice.WebSocketError.Raw,
     Hume.empathicVoice.WebSocketError
 > = core.serialization.object({
-    code: core.serialization.string(),
+    type: core.serialization.stringLiteral("error"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    code: core.serialization.string(),
+    slug: core.serialization.string(),
     message: core.serialization.string(),
     requestId: core.serialization.property("request_id", core.serialization.string().optional()),
-    slug: core.serialization.string(),
-    type: core.serialization.stringLiteral("error"),
 });
 
 export declare namespace WebSocketError {
     export interface Raw {
-        code: string;
+        type: "error";
         custom_session_id?: string | null;
+        code: string;
+        slug: string;
         message: string;
         request_id?: string | null;
-        slug: string;
-        type: "error";
     }
 }

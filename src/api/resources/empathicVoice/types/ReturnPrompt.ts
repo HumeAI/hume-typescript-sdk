@@ -28,10 +28,10 @@ export interface ReturnPrompt {
      * Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      */
     version: number;
-    /** Versioning method for a Prompt. Either `FIXED` for using a fixed version number or `LATEST` for auto-updating to the latest version. */
-    versionType: Hume.empathicVoice.ReturnPromptVersionType;
     /** An optional description of the Prompt version. */
     versionDescription?: string;
+    /** Versioning method for a Prompt. Either `FIXED` for using a fixed version number or `LATEST` for auto-updating to the latest version. */
+    versionType: Hume.empathicVoice.ReturnPromptVersionType;
     /** Time at which the Prompt was created. Measured in seconds since the Unix epoch. */
     createdOn: number;
     /** Time at which the Prompt was last modified. Measured in seconds since the Unix epoch. */

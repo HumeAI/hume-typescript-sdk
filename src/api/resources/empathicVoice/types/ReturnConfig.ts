@@ -20,6 +20,10 @@ export interface ReturnConfig {
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
     version?: number;
+    /** List of user-defined tools associated with this Config. */
+    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    /** An optional description of the Config version. */
+    versionDescription?: string;
     /**
      * The supplemental language model associated with this Config.
      *
@@ -35,6 +39,7 @@ export interface ReturnConfig {
      */
     eviVersion?: string;
     timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
+    nudges?: Hume.empathicVoice.ReturnNudgeSpec;
     eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
     /**
      * The eLLM setup associated with this Config.
@@ -42,17 +47,12 @@ export interface ReturnConfig {
      * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
      */
     ellmModel?: Hume.empathicVoice.ReturnEllmModel;
+    voice?: unknown;
+    prompt?: Hume.empathicVoice.ReturnPrompt;
     /** Map of webhooks associated with this config. */
     webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | undefined)[];
-    /** An optional description of the Config version. */
-    versionDescription?: string;
     /** Time at which the Config was created. Measured in seconds since the Unix epoch. */
     createdOn?: number;
     /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
     modifiedOn?: number;
-    nudges?: Hume.empathicVoice.ReturnNudgeSpec;
-    voice?: unknown;
-    prompt?: Hume.empathicVoice.ReturnPrompt;
-    /** List of user-defined tools associated with this Config. */
-    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
 }
