@@ -39,6 +39,9 @@ export const LanguageModelType: core.serialization.Schema<
     "gpt-4o",
     "gpt-4o-mini",
     "gpt-4.1",
+    "gpt-5",
+    "gpt-5-mini",
+    "gpt-5-nano",
     "gemma-7b-it",
     "llama3-8b-8192",
     "llama3-70b-8192",
@@ -92,6 +95,9 @@ export declare namespace LanguageModelType {
         | "gpt-4o"
         | "gpt-4o-mini"
         | "gpt-4.1"
+        | "gpt-5"
+        | "gpt-5-mini"
+        | "gpt-5-nano"
         | "gemma-7b-it"
         | "llama3-8b-8192"
         | "llama3-70b-8192"

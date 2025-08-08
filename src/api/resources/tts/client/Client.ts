@@ -247,84 +247,6 @@ export class Tts {
 
     /**
      * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
-     * @throws {@link Hume.tts.UnprocessableEntityError}
-     */
-    public synthesizeFileStreaming(
-        request: Hume.tts.PostedTts,
-        requestOptions?: Tts.RequestOptions,
-    ): core.HttpResponsePromise<stream.Readable> {
-        return core.HttpResponsePromise.fromPromise(this.__synthesizeFileStreaming(request, requestOptions));
-    }
-
-    private async __synthesizeFileStreaming(
-        request: Hume.tts.PostedTts,
-        requestOptions?: Tts.RequestOptions,
-    ): Promise<core.WithRawResponse<stream.Readable>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.HumeEnvironment.Production,
-                "v0/tts/stream/file",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            responseType: "streaming",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Hume.tts.UnprocessableEntityError(
-                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/file.");
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      *
      * The response is a stream of JSON objects including audio encoded in base64.
      */
@@ -412,6 +334,84 @@ export class Tts {
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/json.");
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+     * @throws {@link Hume.tts.UnprocessableEntityError}
+     */
+    public synthesizeFileStreaming(
+        request: Hume.tts.PostedTts,
+        requestOptions?: Tts.RequestOptions,
+    ): core.HttpResponsePromise<stream.Readable> {
+        return core.HttpResponsePromise.fromPromise(this.__synthesizeFileStreaming(request, requestOptions));
+    }
+
+    private async __synthesizeFileStreaming(
+        request: Hume.tts.PostedTts,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<stream.Readable>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.HumeEnvironment.Production,
+                "v0/tts/stream/file",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            responseType: "streaming",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/file.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,
