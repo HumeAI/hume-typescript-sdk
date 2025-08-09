@@ -5,9 +5,9 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Hume from "../../../../../index";
+import * as serializers from "../../../../../../serialization/index";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Voices {
@@ -61,7 +61,9 @@ export class Voices {
             async (request: Hume.tts.VoicesListRequest): Promise<core.WithRawResponse<Hume.tts.ReturnPagedVoices>> => {
                 const { provider, pageNumber, pageSize, ascendingOrder } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                _queryParams["provider"] = provider;
+                _queryParams["provider"] = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
+                    unrecognizedObjectKeys: "strip",
+                });
                 if (pageNumber != null) {
                     _queryParams["page_number"] = pageNumber.toString();
                 }
