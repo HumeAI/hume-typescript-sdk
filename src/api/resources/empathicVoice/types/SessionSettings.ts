@@ -25,7 +25,7 @@ export interface SessionSettings {
      */
     customSessionId?: string;
     /**
-     * Instructions used to shape EVI’s behavior, responses, and style for the session.
+     * Instructions used to shape EVI's behavior, responses, and style for the session.
      *
      * When included in a Session Settings message, the provided Prompt overrides the existing one specified in the EVI configuration. If no Prompt was defined in the configuration, this Prompt will be the one used for the session.
      *
@@ -51,7 +51,7 @@ export interface SessionSettings {
     /**
      * Third party API key for the supplemental language model.
      *
-     * When provided, EVI will use this key instead of Hume’s API key for the supplemental LLM. This allows you to bypass rate limits and utilize your own API key as needed.
+     * When provided, EVI will use this key instead of Hume's API key for the supplemental LLM. This allows you to bypass rate limits and utilize your own API key as needed.
      */
     languageModelApiKey?: string;
     /**
