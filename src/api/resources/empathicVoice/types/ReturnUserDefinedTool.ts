@@ -37,7 +37,7 @@ export interface ReturnUserDefinedTool {
     /**
      * Stringified JSON defining the parameters used by this version of the Tool.
      *
-     * These parameters define the inputs needed for the Tool’s execution, including the expected data type and description for each input field. Structured as a stringified JSON schema, this format ensures the tool receives data in the expected format.
+     * These parameters define the inputs needed for the Tool's execution, including the expected data type and description for each input field. Structured as a stringified JSON schema, this format ensures the tool receives data in the expected format.
      */
     parameters: string;
 }

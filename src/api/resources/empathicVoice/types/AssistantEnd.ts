@@ -9,7 +9,7 @@ export interface AssistantEnd {
     /**
      * The type of message sent through the socket; for an Assistant End message, this must be `assistant_end`.
      *
-     * This message indicates the conclusion of the assistant’s response, signaling that the assistant has finished speaking for the current conversational turn.
+     * This message indicates the conclusion of the assistant's response, signaling that the assistant has finished speaking for the current conversational turn.
      */
     type: "assistant_end";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
