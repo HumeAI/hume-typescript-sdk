@@ -41,6 +41,9 @@ export declare namespace Chat {
         /** A flag to enable verbose transcription. Set this query parameter to `true` to have unfinalized user transcripts be sent to the client as interim UserMessage messages. The [interim](/reference/empathic-voice-interface-evi/chat/chat#receive.User%20Message.interim) field on a [UserMessage](/reference/empathic-voice-interface-evi/chat/chat#receive.User%20Message.type) denotes whether the message is "interim" or "final." */
         verboseTranscription?: boolean;
 
+        /** ID of the Voice to use for this chat. If specified, will override the voice set in the Config */
+        voiceId?: string;
+
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
     }
