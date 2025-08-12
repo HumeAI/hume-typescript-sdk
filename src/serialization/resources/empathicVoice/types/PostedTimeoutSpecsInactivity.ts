@@ -10,13 +10,13 @@ export const PostedTimeoutSpecsInactivity: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedTimeoutSpecsInactivity.Raw,
     Hume.empathicVoice.PostedTimeoutSpecsInactivity
 > = core.serialization.object({
-    enabled: core.serialization.boolean(),
     durationSecs: core.serialization.property("duration_secs", core.serialization.number().optional()),
+    enabled: core.serialization.boolean(),
 });
 
 export declare namespace PostedTimeoutSpecsInactivity {
     export interface Raw {
-        enabled: boolean;
         duration_secs?: number | null;
+        enabled: boolean;
     }
 }

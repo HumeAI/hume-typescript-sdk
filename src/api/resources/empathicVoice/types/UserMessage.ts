@@ -11,7 +11,7 @@ export interface UserMessage {
     /**
      * The type of message sent through the socket; for a User Message, this must be `user_message`.
      *
-     * This message contains both a transcript of the user’s input and the expression measurement predictions if the input was sent as an [Audio Input message](/reference/empathic-voice-interface-evi/chat/chat#send.AudioInput.type). Expression measurement predictions are not provided for a [User Input message](/reference/empathic-voice-interface-evi/chat/chat#send.UserInput.type), as the prosody model relies on audio input and cannot process text alone.
+     * This message contains both a transcript of the user's input and the expression measurement predictions if the input was sent as an [Audio Input message](/reference/empathic-voice-interface-evi/chat/chat#send.AudioInput.type). Expression measurement predictions are not provided for a [User Input message](/reference/empathic-voice-interface-evi/chat/chat#send.UserInput.type), as the prosody model relies on audio input and cannot process text alone.
      */
     type: "user_message";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */

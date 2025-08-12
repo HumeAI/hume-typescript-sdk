@@ -12,7 +12,7 @@ export interface Tool {
     /**
      * Parameters of the tool. Is a stringified JSON schema.
      *
-     * These parameters define the inputs needed for the tool’s execution, including the expected data type and description for each input field. Structured as a JSON schema, this format ensures the tool receives data in the expected format.
+     * These parameters define the inputs needed for the tool's execution, including the expected data type and description for each input field. Structured as a JSON schema, this format ensures the tool receives data in the expected format.
      */
     parameters: string;
     /** An optional description of what the tool does, used by the supplemental LLM to choose when and how to call the function. */

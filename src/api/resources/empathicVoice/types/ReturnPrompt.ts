@@ -13,11 +13,9 @@ export interface ReturnPrompt {
     /** Identifier for a Prompt. Formatted as a UUID. */
     id: string;
     /**
-     * Instructions used to shape EVI’s behavior, responses, and style.
+     * Instructions used to shape EVI's behavior, responses, and style.
      *
-     * You can use the Prompt to define a specific goal or role for EVI, specifying how it should act or what it should focus on during the conversation. For example, EVI can be instructed to act as a customer support representative, a fitness coach, or a travel advisor, each with its own set of behaviors and response styles.
-     *
-     * For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
+     * You can use the Prompt to define a specific goal or role for EVI, specifying how it should act or what it should focus on during the conversation. For example, EVI can be instructed to act as a customer support representative, a fitness coach, or a travel advisor, each with its own set of behaviors and response styles. For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
      */
     text: string;
     /**
