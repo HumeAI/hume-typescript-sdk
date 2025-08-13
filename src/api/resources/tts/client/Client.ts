@@ -59,10 +59,6 @@ export class Tts {
      *
      * @example
      *     await client.tts.synthesizeJson({
-     *         utterances: [{
-     *                 text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-     *                 description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
-     *             }],
      *         context: {
      *             utterances: [{
      *                     text: "How can people see beauty so differently?",
@@ -72,7 +68,11 @@ export class Tts {
      *         format: {
      *             type: "mp3"
      *         },
-     *         numGenerations: 1
+     *         numGenerations: 1,
+     *         utterances: [{
+     *                 text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+     *                 description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
+     *             }]
      *     })
      */
     public synthesizeJson(

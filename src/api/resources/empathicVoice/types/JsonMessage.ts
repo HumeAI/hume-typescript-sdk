@@ -7,11 +7,11 @@ import * as Hume from "../../../index";
 export type JsonMessage =
     | Hume.empathicVoice.AssistantEnd
     | Hume.empathicVoice.AssistantMessage
+    | Hume.empathicVoice.AssistantProsody
     | Hume.empathicVoice.ChatMetadata
     | Hume.empathicVoice.WebSocketError
     | Hume.empathicVoice.UserInterruption
     | Hume.empathicVoice.UserMessage
     | Hume.empathicVoice.ToolCallMessage
     | Hume.empathicVoice.ToolResponseMessage
-    | Hume.empathicVoice.ToolErrorMessage
-    | Hume.empathicVoice.AssistantProsody;
+    | Hume.empathicVoice.ToolErrorMessage;
