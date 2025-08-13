@@ -84,6 +84,10 @@ export class Chat {
             queryParams["verbose_transcription"] = args.verboseTranscription ? "true" : "false";
         }
 
+        if (args.voiceId !== null && args.voiceId !== undefined && args.voiceId !== "") {
+            queryParams["voice_id"] = args.voiceId;
+        }
+
         if (args.queryParams !== null && args.queryParams !== undefined) {
             for (const [name, value] of Object.entries(args.queryParams)) {
                 queryParams[name] = value;
