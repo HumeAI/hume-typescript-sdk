@@ -7,6 +7,7 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { AssistantEnd } from "./AssistantEnd";
 import { AssistantMessage } from "./AssistantMessage";
+import { AssistantProsody } from "./AssistantProsody";
 import { ChatMetadata } from "./ChatMetadata";
 import { WebSocketError } from "./WebSocketError";
 import { UserInterruption } from "./UserInterruption";
@@ -14,7 +15,6 @@ import { UserMessage } from "./UserMessage";
 import { ToolCallMessage } from "./ToolCallMessage";
 import { ToolResponseMessage } from "./ToolResponseMessage";
 import { ToolErrorMessage } from "./ToolErrorMessage";
-import { AssistantProsody } from "./AssistantProsody";
 
 export const JsonMessage: core.serialization.Schema<
     serializers.empathicVoice.JsonMessage.Raw,
@@ -22,6 +22,7 @@ export const JsonMessage: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([
     AssistantEnd,
     AssistantMessage,
+    AssistantProsody,
     ChatMetadata,
     WebSocketError,
     UserInterruption,
@@ -29,19 +30,18 @@ export const JsonMessage: core.serialization.Schema<
     ToolCallMessage,
     ToolResponseMessage,
     ToolErrorMessage,
-    AssistantProsody,
 ]);
 
 export declare namespace JsonMessage {
     export type Raw =
         | AssistantEnd.Raw
         | AssistantMessage.Raw
+        | AssistantProsody.Raw
         | ChatMetadata.Raw
         | WebSocketError.Raw
         | UserInterruption.Raw
         | UserMessage.Raw
         | ToolCallMessage.Raw
         | ToolResponseMessage.Raw
-        | ToolErrorMessage.Raw
-        | AssistantProsody.Raw;
+        | ToolErrorMessage.Raw;
 }

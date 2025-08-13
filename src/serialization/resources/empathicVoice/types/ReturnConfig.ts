@@ -12,6 +12,7 @@ import { ReturnTimeoutSpecs } from "./ReturnTimeoutSpecs";
 import { ReturnNudgeSpec } from "./ReturnNudgeSpec";
 import { ReturnEventMessageSpecs } from "./ReturnEventMessageSpecs";
 import { ReturnEllmModel } from "./ReturnEllmModel";
+import { ReturnVoice } from "./ReturnVoice";
 import { ReturnPrompt } from "./ReturnPrompt";
 import { ReturnWebhookSpec } from "./ReturnWebhookSpec";
 
@@ -34,7 +35,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     nudges: ReturnNudgeSpec.optional(),
     eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
     ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
-    voice: core.serialization.unknown().optional(),
+    voice: ReturnVoice.optional(),
     prompt: ReturnPrompt.optional(),
     webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
     createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
@@ -55,7 +56,7 @@ export declare namespace ReturnConfig {
         nudges?: ReturnNudgeSpec.Raw | null;
         event_messages?: ReturnEventMessageSpecs.Raw | null;
         ellm_model?: ReturnEllmModel.Raw | null;
-        voice?: unknown | null;
+        voice?: ReturnVoice.Raw | null;
         prompt?: ReturnPrompt.Raw | null;
         webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
         created_on?: number | null;

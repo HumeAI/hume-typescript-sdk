@@ -11,8 +11,8 @@ describe("Voices", () => {
         const client = new HumeClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { generation_id: "795c949a-1510-4a80-9646-7d0863b023ab", name: "David Hume" };
         const rawResponseBody = {
-            name: "David Hume",
             id: "c42352c0-4566-455d-b180-0f654b65b525",
+            name: "David Hume",
             provider: "CUSTOM_VOICE",
         };
         server
@@ -29,8 +29,8 @@ describe("Voices", () => {
             name: "David Hume",
         });
         expect(response).toEqual({
-            name: "David Hume",
             id: "c42352c0-4566-455d-b180-0f654b65b525",
+            name: "David Hume",
             provider: "CUSTOM_VOICE",
         });
     });

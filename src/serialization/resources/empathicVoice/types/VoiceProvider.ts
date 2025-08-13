@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const VoiceProvider: core.serialization.Schema<
     serializers.empathicVoice.VoiceProvider.Raw,
     Hume.empathicVoice.VoiceProvider
-> = core.serialization.enum_(["HUME_AI", "CUSTOM_VOICE", "OCTAVE_COMBINED"]);
+> = core.serialization.enum_(["HUME_AI", "CUSTOM_VOICE"]);
 
 export declare namespace VoiceProvider {
-    export type Raw = "HUME_AI" | "CUSTOM_VOICE" | "OCTAVE_COMBINED";
+    export type Raw = "HUME_AI" | "CUSTOM_VOICE";
 }

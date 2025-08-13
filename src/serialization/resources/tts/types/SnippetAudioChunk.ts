@@ -5,12 +5,36 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
+import { AudioFormatType } from "./AudioFormatType";
+import { Snippet } from "./Snippet";
 
 export const SnippetAudioChunk: core.serialization.ObjectSchema<
     serializers.tts.SnippetAudioChunk.Raw,
     Hume.tts.SnippetAudioChunk
-> = core.serialization.object({});
+> = core.serialization.object({
+    generationId: core.serialization.property("generation_id", core.serialization.string()),
+    snippetId: core.serialization.property("snippet_id", core.serialization.string()),
+    text: core.serialization.string(),
+    transcribedText: core.serialization.property("transcribed_text", core.serialization.string().optional()),
+    chunkIndex: core.serialization.property("chunk_index", core.serialization.number()),
+    audio: core.serialization.string(),
+    audioFormat: core.serialization.property("audio_format", AudioFormatType),
+    isLastChunk: core.serialization.property("is_last_chunk", core.serialization.boolean()),
+    utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
+    snippet: Snippet,
+});
 
 export declare namespace SnippetAudioChunk {
-    export interface Raw {}
+    export interface Raw {
+        generation_id: string;
+        snippet_id: string;
+        text: string;
+        transcribed_text?: string | null;
+        chunk_index: number;
+        audio: string;
+        audio_format: AudioFormatType.Raw;
+        is_last_chunk: boolean;
+        utterance_index?: number | null;
+        snippet: Snippet.Raw;
+    }
 }

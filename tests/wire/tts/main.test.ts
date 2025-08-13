@@ -10,13 +10,6 @@ describe("Tts", () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            utterances: [
-                {
-                    text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-                    description:
-                        "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-                },
-            ],
             context: {
                 utterances: [
                     {
@@ -28,15 +21,22 @@ describe("Tts", () => {
             },
             format: { type: "mp3" },
             num_generations: 1,
+            utterances: [
+                {
+                    text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+                    description:
+                        "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+                },
+            ],
         };
         const rawResponseBody = {
             generations: [
                 {
-                    generation_id: "795c949a-1510-4a80-9646-7d0863b023ab",
-                    duration: 7.44225,
-                    file_size: 120192,
-                    encoding: { format: "mp3", sample_rate: 48000 },
                     audio: "//PExAA0DDYRvkpNfhv3JI5JZ...etc.",
+                    duration: 7.44225,
+                    encoding: { format: "mp3", sample_rate: 48000 },
+                    file_size: 120192,
+                    generation_id: "795c949a-1510-4a80-9646-7d0863b023ab",
                     snippets: [
                         [
                             {
@@ -62,13 +62,6 @@ describe("Tts", () => {
             .build();
 
         const response = await client.tts.synthesizeJson({
-            utterances: [
-                {
-                    text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-                    description:
-                        "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-                },
-            ],
             context: {
                 utterances: [
                     {
@@ -82,18 +75,25 @@ describe("Tts", () => {
                 type: "mp3",
             },
             numGenerations: 1,
+            utterances: [
+                {
+                    text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+                    description:
+                        "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+                },
+            ],
         });
         expect(response).toEqual({
             generations: [
                 {
-                    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
+                    audio: "//PExAA0DDYRvkpNfhv3JI5JZ...etc.",
                     duration: 7.44225,
-                    fileSize: 120192,
                     encoding: {
                         format: "mp3",
                         sampleRate: 48000,
                     },
-                    audio: "//PExAA0DDYRvkpNfhv3JI5JZ...etc.",
+                    fileSize: 120192,
+                    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
                     snippets: [
                         [
                             {

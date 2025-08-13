@@ -33,13 +33,6 @@ The response includes the base64-encoded audio and metadata in JSON format.
 
 ```typescript
 await client.tts.synthesizeJson({
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-        },
-    ],
     context: {
         utterances: [
             {
@@ -53,6 +46,13 @@ await client.tts.synthesizeJson({
         type: "mp3",
     },
     numGenerations: 1,
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+        },
+    ],
 });
 ```
 
@@ -119,13 +119,6 @@ The response contains the generated audio file in the requested format.
 
 ```typescript
 await client.tts.synthesizeFile({
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-        },
-    ],
     context: {
         generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2",
     },
@@ -133,6 +126,13 @@ await client.tts.synthesizeFile({
         type: "mp3",
     },
     numGenerations: 1,
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+        },
+    ],
 });
 ```
 
