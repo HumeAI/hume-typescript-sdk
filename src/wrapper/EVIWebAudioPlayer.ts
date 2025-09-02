@@ -139,8 +139,12 @@ export class EVIWebAudioPlayer extends EventTarget {
     #clipQueue: Array<{ id: string; buffer: AudioBuffer; index: number }> = [];
     #currentlyPlayingAudioBuffer: AudioBufferSourceNode | null = null;
     #isProcessing = false;
+    // chunkBufferQueues and #lastQueuedChunk are used to make sure that
+    // we don't play chunks out of order. #chunkBufferQueues is NOT the
+    // audio playback queue.
     #lastQueuedChunk: { id: string; index: number } | null = null;
     #chunkBufferQueues: Record<string, Array<AudioBuffer | undefined>> = {};
+
 
     constructor(private readonly opts: EVIWebAudioPlayerOptions = {}) {
         super();
