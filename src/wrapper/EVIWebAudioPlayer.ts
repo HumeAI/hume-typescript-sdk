@@ -1,5 +1,7 @@
 import { convertBase64ToBlob } from "./convertBase64ToBlob";
 import type { AudioOutput } from "api/resources/empathicVoice";
+import { convertLinearFrequenciesToBark } from './convertFrequencyScale';
+import { generateEmptyFft } from './generateEmptyFft';
 
 /**
  * Options for configuring an {@link EVIWebAudioPlayer}.
@@ -95,13 +97,6 @@ export class EVIWebAudioPlayer extends EventTarget {
     static #DEFAULT_FFT_SIZE = 2048;
     /** Default analyser poll interval (16 ms). */
     static #DEFAULT_FFT_INTERVAL = 16;
-    /** Bark‑scale center frequencies (hz) used by the default transform. https://en.wikipedia.org/wiki/Bark_scale */
-    static #BARK_CENTER_FREQUENCIES = [
-        50, 150, 250, 350, 450, 570, 700, 840, 1000, 1170, 1370, 1600, 1850, 2150, 2500, 2900, 3400, 4000, 4800, 5800,
-        7000, 8500, 10500, 13500,
-    ] as const;
-    /** Max byte magnitude (255) returned by `AnalyserNode.getByteFrequencyData`. */
-    static #BYTE_MAX = 255;
 
     /** `true` while any clip is currently audible. */
     get playing(): boolean {
@@ -130,7 +125,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     #muted = false;
     #volume: number;
 
-    #fft: number[] = EVIWebAudioPlayer.emptyFft();
+    #fft: number[] = generateEmptyFft();
     #fftTimer: number | null = null;
     #fftOptions: ResolvedFftOptions | null = null;
 
@@ -144,31 +139,10 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#fftOptions = {
                 size: size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE,
                 interval: interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL,
-                transform: transform ?? EVIWebAudioPlayer.#linearHzToBark,
+                transform: transform ?? ((bins, sampleRate) =>
+                    convertLinearFrequenciesToBark(bins, sampleRate)),
             };
         }
-    }
-
-    /**
-     * Generate an empty FFT frame array.
-     * Useful as an initial or placeholder FFT dataset before any real analysis.
-     *
-     * @returns A number[] filled with zeros, length equal to the Bark band count (24).
-     */
-    static emptyFft(): number[] {
-        return Array(EVIWebAudioPlayer.#BARK_CENTER_FREQUENCIES.length).fill(0);
-    }
-
-    /** Map linear‑Hz byte magnitudes to 24 Bark‑band floats in [0, 2]. */
-    static #linearHzToBark(linearData: Uint8Array, sampleRate: number): number[] {
-        const maxFrequency = sampleRate / 2;
-        const frequencyResolution = maxFrequency / linearData.length;
-
-        return EVIWebAudioPlayer.#BARK_CENTER_FREQUENCIES.map((barkFreq) => {
-            const linearDataIndex = Math.round(barkFreq / frequencyResolution);
-            const magnitude = linearData[linearDataIndex] ?? 0;
-            return (magnitude / EVIWebAudioPlayer.#BYTE_MAX) * 2;
-        });
     }
 
     /**
@@ -381,7 +355,7 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         this.#initialized = false;
         this.#playing = false;
-        this.#fft = EVIWebAudioPlayer.emptyFft();
+        this.#fft = generateEmptyFft();
     }
 
     /**
