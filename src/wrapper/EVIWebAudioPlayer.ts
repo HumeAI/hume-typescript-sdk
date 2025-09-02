@@ -204,69 +204,74 @@ export class EVIWebAudioPlayer extends EventTarget {
         // Create the AudioContext
         this.#ctx = new AudioContext();
 
-        // Build GainNode
-        this.#gainNode = this.#ctx.createGain();
-        this.#gainNode.gain.value = this.#volume;
-
-        // Build AnalyserNode (optional)
-        if (this.#fftOptions) {
-            this.#analyserNode = this.#ctx.createAnalyser();
-            this.#analyserNode.fftSize = this.#fftOptions.size;
+        // Fail fast if AudioWorklet isn’t supported
+        if (!this.#ctx.audioWorklet) {
+            console.warn("AudioWorklet is not supported in this browser. Falling back to Regular Buffer Mode.");
+            this.#enableAudioWorklet = false;
         }
 
-        if (this.#enableAudioWorklet) {
-            // Fail fast if AudioWorklet isn’t supported
-            if (!this.#ctx.audioWorklet) {
-                const msg = "AudioWorklet is not supported in this browser";
-                this.#emitError(msg);
-                throw new Error(msg);
+        try {
+            // Build GainNode
+            this.#gainNode = this.#ctx.createGain();
+            this.#gainNode.gain.value = this.#volume;
+
+            // Build AnalyserNode (optional)
+            if (this.#fftOptions) {
+                this.#analyserNode = this.#ctx.createAnalyser();
+                this.#analyserNode.fftSize = this.#fftOptions.size;
             }
 
-            // Loads the AudioWorklet processor module.
-            await this.#ctx.audioWorklet.addModule(EVIWebAudioPlayer.#DEFAULT_WORKLET_URL);
+            if (this.#enableAudioWorklet) {
+                // Loads the AudioWorklet processor module.
+                await this.#ctx.audioWorklet.addModule(EVIWebAudioPlayer.#DEFAULT_WORKLET_URL);
 
-            // Build AudioWorkletNode
-            this.#workletNode = new AudioWorkletNode(this.#ctx, "audio-processor");
+                // Build AudioWorkletNode
+                this.#workletNode = new AudioWorkletNode(this.#ctx, "audio-processor");
 
-            // When the worklet posts { type: "ended" }, mark playback stopped and emit a `'stop'` event.
-            this.#workletNode.port.onmessage = (e: MessageEvent) => {
-                if ((e.data as { type?: string }).type === "ended") {
-                    this.#playing = false;
-                    this.dispatchEvent(new CustomEvent("stop", { detail: { id: "stream" } }));
-                }
-            };
+                // When the worklet posts { type: "ended" }, mark playback stopped and emit a `'stop'` event.
+                this.#workletNode.port.onmessage = (e: MessageEvent) => {
+                    if ((e.data as { type?: string }).type === "ended") {
+                        this.#playing = false;
+                        this.dispatchEvent(new CustomEvent("stop", { detail: { id: "stream" } }));
+                    }
+                };
 
-            // Audio graph nodes
-            const workletNode = this.#workletNode; // AudioWorkletNode (PCM processor)
-            const analyserNode = this.#analyserNode; // Optional AnalyserNode (FFT)
-            const gainNode = this.#gainNode; // GainNode (volume control)
-            const destination = this.#ctx.destination; // AudioDestinationNode (speakers)
+                // Audio graph nodes
+                const workletNode = this.#workletNode; // AudioWorkletNode (PCM processor)
+                const analyserNode = this.#analyserNode; // Optional AnalyserNode (FFT)
+                const gainNode = this.#gainNode; // GainNode (volume control)
+                const destination = this.#ctx.destination; // AudioDestinationNode (speakers)
 
-            // Analyser node is filtered out of audio graph if null (FFT disabled)
-            const audioGraph = [workletNode, analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
+                // Analyser node is filtered out of audio graph if null (FFT disabled)
+                const audioGraph = [workletNode, analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
 
-            // Wire nodes: AudioWorkletNode → (AnalyserNode?) → GainNode → AudioDestinationNode
-            audioGraph.reduce((prev, next) => (prev.connect(next), next));
-        } else {
-            // Regular Buffer Mode
-            const analyserNode = this.#analyserNode;
-            const gainNode = this.#gainNode;
-            const destination = this.#ctx.destination;
+                // Wire nodes: AudioWorkletNode → (AnalyserNode?) → GainNode → AudioDestinationNode
+                audioGraph.reduce((prev, next) => (prev.connect(next), next));
+            } else {
+                // Regular Buffer Mode
+                const analyserNode = this.#analyserNode;
+                const gainNode = this.#gainNode;
+                const destination = this.#ctx.destination;
 
-            // Wire nodes: (AnalyserNode?) → GainNode → AudioDestinationNode
-            const audioGraph = [analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
-            audioGraph.reduce((prev, next) => (prev.connect(next), next));
+                // Wire nodes: (AnalyserNode?) → GainNode → AudioDestinationNode
+                const audioGraph = [analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
+                audioGraph.reduce((prev, next) => (prev.connect(next), next));
+            }
+
+            // If an analyser is configured, begin polling it at the resolved interval and dispatching `'fft'` events for each frame.
+            this.#startAnalyserPollingIfEnabled();
+
+            // Resume the AudioContext now that the audio graph is fully wired.
+            // Browsers allow `resume()` only inside a user-gesture callback.
+            // Any rejection (autoplay policy, hardware issue, etc.) is caught by the outer catch-block below, which emits an 'error' event and re-throws.
+            await this.#ctx.resume();
+
+            this.#initialized = true;
+        } catch (err) {
+            const suffix = err instanceof Error ? `: ${err.message}` : String(err);
+            this.#emitError(`Failed to initialize audio player${suffix}`);
+            throw err;
         }
-
-        // If an analyser is configured, begin polling it at the resolved interval and dispatching `'fft'` events for each frame.
-        this.#startAnalyserPollingIfEnabled();
-
-        // Resume the AudioContext now that the audio graph is fully wired.
-        // Browsers allow `resume()` only inside a user-gesture callback.
-        // Any rejection (autoplay policy, hardware issue, etc.) is caught by the outer catch-block below, which emits an 'error' event and re-throws.
-        await this.#ctx.resume();
-
-        this.#initialized = true;
     }
 
     /**
@@ -304,18 +309,18 @@ export class EVIWebAudioPlayer extends EventTarget {
             }
         } else {
             // Regular Buffer Mode
-            const audioBuffer = await this.#convertToAudioBuffer(message);
-            if (!audioBuffer) {
-                this.#emitError("Failed to convert data to audio buffer");
-                return;
-            }
-
-            const playableBuffers = this.#getNextAudioBuffers(message, audioBuffer);
-            if (playableBuffers.length === 0) {
-                return;
-            }
-
             try {
+                const audioBuffer = await this.#convertToAudioBuffer(message);
+                if (!audioBuffer) {
+                    this.#emitError("Failed to convert data to audio buffer");
+                    return;
+                }
+
+                const playableBuffers = this.#getNextAudioBuffers(message, audioBuffer);
+                if (playableBuffers.length === 0) {
+                    return;
+                }
+
                 for (const nextAudioBufferToPlay of playableBuffers) {
                     this.#clipQueue.push({
                         id: nextAudioBufferToPlay.id,
@@ -341,7 +346,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             // Clear buffered audio from the worklet queue
             this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
         } else {
-            // Non-AudioWorklet mode
+            // Regular Buffer mode
             if (this.#currentlyPlayingAudioBuffer) {
                 this.#currentlyPlayingAudioBuffer.stop();
                 this.#currentlyPlayingAudioBuffer.disconnect();
@@ -409,7 +414,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#workletNode?.port.close();
             this.#workletNode?.disconnect();
         } else {
-            // Non-AudioWorklet mode
+            // Regular Buffer mode
             if (this.#currentlyPlayingAudioBuffer) {
                 this.#currentlyPlayingAudioBuffer.stop();
                 this.#currentlyPlayingAudioBuffer.disconnect();
@@ -526,7 +531,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     }
 
     /**
-     * Only for non-AudioWorklet mode.
+     * Only for Regular Buffer mode.
      * This function is called when the current audio clip ends.
      * It will play the next clip in the queue if there is one.
      */
