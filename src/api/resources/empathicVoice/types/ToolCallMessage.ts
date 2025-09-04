@@ -32,6 +32,6 @@ export interface ToolCallMessage {
     customSessionId?: string;
     /** Type of tool called. Either `builtin` for natively implemented tools, like web search, or `function` for user-defined tools. */
     toolType?: Hume.empathicVoice.ToolType;
-    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/empathic-voice-interface-evi/chat/chat#send.ToolResponseMessage.type) or a [Tool Error message](/reference/empathic-voice-interface-evi/chat/chat#send.ToolErrorMessage.type). */
+    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/speech-to-speech-evi/chat#send.ToolResponseMessage) or a [Tool Error message](/reference/speech-to-speech-evi/chat#send.ToolErrorMessage). */
     responseRequired: boolean;
 }
