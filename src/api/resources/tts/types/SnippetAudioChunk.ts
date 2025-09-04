@@ -23,5 +23,5 @@ export interface SnippetAudioChunk {
     isLastChunk: boolean;
     /** The index of the utterance in the request that the parent snippet of this chunk corresponds to. */
     utteranceIndex?: number;
-    snippet: Hume.tts.Snippet;
+    snippet?: Hume.tts.Snippet;
 }
