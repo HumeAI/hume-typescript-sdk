@@ -21,7 +21,7 @@ export const SnippetAudioChunk: core.serialization.ObjectSchema<
     audioFormat: core.serialization.property("audio_format", AudioFormatType),
     isLastChunk: core.serialization.property("is_last_chunk", core.serialization.boolean()),
     utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
-    snippet: Snippet,
+    snippet: Snippet.optional(),
 });
 
 export declare namespace SnippetAudioChunk {
@@ -35,6 +35,6 @@ export declare namespace SnippetAudioChunk {
         audio_format: AudioFormatType.Raw;
         is_last_chunk: boolean;
         utterance_index?: number | null;
-        snippet: Snippet.Raw;
+        snippet?: Snippet.Raw | null;
     }
 }
