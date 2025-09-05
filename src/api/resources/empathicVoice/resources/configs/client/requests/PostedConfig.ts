@@ -39,11 +39,7 @@ import * as Hume from "../../../../../../index";
  *     }
  */
 export interface PostedConfig {
-    /**
-     * Specifies the EVI version to use. See our [EVI Version  Guide](/docs/speech-to-speech-evi/configuration/evi-version) for differences between versions.
-     *
-     * **We're officially sunsetting EVI versions 1 and 2 on August 30, 2025**. To keep things running smoothly, be sure to [migrate to EVI 3](/docs/speech-to-speech-evi/configuration/evi-version#migrating-to-evi-3) before then.
-     */
+    /** EVI version to use. Only version `3` is supported. */
     eviVersion: string;
     /** Name applied to all versions of a particular Config. */
     name: string;
