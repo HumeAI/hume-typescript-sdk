@@ -223,6 +223,10 @@ export class EVIWebAudioPlayer extends EventTarget {
             if (this.#fftOptions) {
                 this.#analyserNode = this.#ctx.createAnalyser();
                 this.#analyserNode.fftSize = this.#fftOptions.size;
+            } else {
+                // Always create AnalyserNode, even if FFT is disabled, to avoid null checks in Buffer Mode
+                this.#analyserNode = this.#ctx.createAnalyser();
+                this.#analyserNode.fftSize = EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
             }
 
             if (this.#enableAudioWorklet) {
@@ -506,13 +510,8 @@ export class EVIWebAudioPlayer extends EventTarget {
                     index: 0,
                     buffer: queueForCurrMessage[0],
                 });
-                // Every time we add a buffer to the buffers array, we set the current index to undefined.
-                // This is so that we don't try to add the same buffer to the buffers array again the next
-                // time we call this function.
                 queueForCurrMessage[0] = undefined;
             } else {
-                // If the current index is not 0, that means the chunks came out of order,
-                // so we return an empty array instead of returning anything to be added to the queue.
                 return [];
             }
         }
@@ -524,7 +523,6 @@ export class EVIWebAudioPlayer extends EventTarget {
         let nextBuf = queueForCurrMessage[nextIdx];
         while (nextBuf) {
             buffers.push({ index: nextIdx, buffer: nextBuf, id: message.id });
-            // As above re: setting queueForCurrMessage[nextIdx] to undefined
             queueForCurrMessage[nextIdx] = undefined;
             this.#lastQueuedChunk = { id: message.id, index: nextIdx };
             nextIdx += 1;
@@ -553,7 +551,9 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         const nextClip = this.#clipQueue.shift();
 
-        if (!nextClip) return;
+        if (!nextClip) {
+            return;
+        }
 
         this.#isProcessing = true;
         this.#playing = true;
