@@ -17,9 +17,9 @@ export interface ChatMetadata {
     /**
      * ID of the Chat Group.
      *
-     * Used to resume a Chat when passed in the [resumed_chat_group_id](/reference/empathic-voice-interface-evi/chat/chat#request.query.resumed_chat_group_id) query parameter of a subsequent connection request. This allows EVI to continue the conversation from where it left off within the Chat Group.
+     * Used to resume a Chat when passed in the [resumed_chat_group_id](/reference/speech-to-speech-evi/chat#request.query.resumed_chat_group_id) query parameter of a subsequent connection request. This allows EVI to continue the conversation from where it left off within the Chat Group.
      *
-     * Learn more about [supporting chat resumability](/docs/empathic-voice-interface-evi/faq#does-evi-support-chat-resumability) from the EVI FAQ.
+     * Learn more about [supporting chat resumability](/docs/speech-to-speech-evi/faq#does-evi-support-chat-resumability) from the EVI FAQ.
      */
     chatGroupId: string;
     /** ID of the Chat session. Allows the Chat session to be tracked and referenced. */
