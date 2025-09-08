@@ -3,14 +3,18 @@
         "extendedDiagnostics": true,
         "strict": true,
         "target": "ES6",
-        "moduleResolution": "node",
+        "moduleResolution": "Bundler",
         "esModuleInterop": true,
         "skipLibCheck": true,
         "declaration": true,
+        "sourceMap": true,
         "outDir": "dist",
         "rootDir": "src",
-        "baseUrl": "src",
-        "module": "CommonJS"
+        "module": "ESNext",
+        "baseUrl": ".",
+        "paths": {
+            "api/*": ["./src/api/*"]
+        }
     },
     "include": ["src"],
     "exclude": []

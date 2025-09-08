@@ -1,7 +1,7 @@
 import { convertBase64ToBlob } from "./convertBase64ToBlob";
 import type { AudioOutput } from "api/resources/empathicVoice";
-import { convertLinearFrequenciesToBark } from './convertFrequencyScale';
-import { generateEmptyFft } from './generateEmptyFft';
+import { convertLinearFrequenciesToBark } from "./convertFrequencyScale";
+import { generateEmptyFft } from "./generateEmptyFft";
 
 /**
  * Options for configuring an {@link EVIWebAudioPlayer}.
@@ -145,7 +145,6 @@ export class EVIWebAudioPlayer extends EventTarget {
     #lastQueuedChunk: { id: string; index: number } | null = null;
     #chunkBufferQueues: Record<string, Array<AudioBuffer | undefined>> = {};
 
-
     constructor(private readonly opts: EVIWebAudioPlayerOptions = {}) {
         super();
         this.#volume = opts.volume ?? 1.0;
@@ -157,8 +156,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#fftOptions = {
                 size: size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE,
                 interval: interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL,
-                transform: transform ?? ((bins, sampleRate) =>
-                    convertLinearFrequenciesToBark(bins, sampleRate)),
+                transform: transform ?? ((bins, sampleRate) => convertLinearFrequenciesToBark(bins, sampleRate)),
             };
         }
     }
@@ -340,7 +338,7 @@ export class EVIWebAudioPlayer extends EventTarget {
                     }
                 }
             } catch (e) {
-                const eMessage = e instanceof Error ? e.message : 'Unknown error';
+                const eMessage = e instanceof Error ? e.message : "Unknown error";
                 this.#emitError(`Failed to add clip to queue: ${eMessage}`);
             }
         }
@@ -555,9 +553,7 @@ export class EVIWebAudioPlayer extends EventTarget {
         }
 
         if (this.#analyserNode === null || this.#ctx === null) {
-            this.#emitError(
-                'Audio player is not initialized',
-            );
+            this.#emitError("Audio player is not initialized");
             return;
         }
 
