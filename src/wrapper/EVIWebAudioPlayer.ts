@@ -227,7 +227,7 @@ export class EVIWebAudioPlayer extends EventTarget {
                 this.#analyserNode.fftSize = EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
             }
 
-            if (this.#disableAudioWorklet) {
+            if (!this.#disableAudioWorklet) {
                 // Loads the AudioWorklet processor module.
                 await this.#ctx.audioWorklet.addModule(EVIWebAudioPlayer.#DEFAULT_WORKLET_URL);
 
@@ -295,7 +295,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             return;
         }
 
-        if (this.#disableAudioWorklet) {
+        if (!this.#disableAudioWorklet) {
             try {
                 const { data, id } = message;
 
@@ -348,7 +348,7 @@ export class EVIWebAudioPlayer extends EventTarget {
      * Flush the worklet queue and output silence.
      */
     stop() {
-        if (this.#disableAudioWorklet) {
+        if (!this.#disableAudioWorklet) {
             // Clear buffered audio from the worklet queue
             this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
         } else {
@@ -414,7 +414,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#fftTimer = null;
         }
 
-        if (this.#disableAudioWorklet) {
+        if (!this.#disableAudioWorklet) {
             this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
             this.#workletNode?.port.postMessage({ type: "end" });
             this.#workletNode?.port.close();
