@@ -488,10 +488,22 @@ export class EVIWebAudioPlayer extends EventTarget {
         message: AudioOutput,
         audioBuffer: AudioBuffer,
     ): Array<{ id: string; index: number; buffer: AudioBuffer }> {
+        // Prevent prototype pollution by restricting dangerous property names.
+        if (message.id === "__proto__" || message.id === "constructor" || message.id === "prototype") {
+            this.#emitError(`Attempted to use a dangerous property name as message ID: ${message.id}`);
+            return [];
+        }
         //1. Add the current buffer to the queue
         if (!this.#chunkBufferQueues[message.id]) {
             this.#chunkBufferQueues[message.id] = [];
         }
+
+        // Ensure message.index is a safe, non-negative integer to prevent prototype pollution.
+        if (!Number.isInteger(message.index) || message.index < 0) {
+            this.#emitError(`Attempted to use an invalid index: ${message.index}`);
+            return [];
+        }
+
         const queueForCurrMessage = this.#chunkBufferQueues[message.id] || [];
         // Prevent prototype pollution: ensure index is a safe integer array index
         if (
