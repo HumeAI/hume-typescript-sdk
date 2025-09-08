@@ -493,6 +493,15 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#chunkBufferQueues[message.id] = [];
         }
         const queueForCurrMessage = this.#chunkBufferQueues[message.id] || [];
+        // Prevent prototype pollution: ensure index is a safe integer array index
+        if (
+            typeof message.index !== "number" ||
+            !Number.isInteger(message.index) ||
+            message.index < 0
+        ) {
+            // Skip, or optionally emit error/log
+            return [];
+        }
         queueForCurrMessage[message.index] = audioBuffer;
 
         // 2. Now collect buffers that are ready to be played
