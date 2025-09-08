@@ -17,11 +17,11 @@ export interface EVIWebAudioPlayerOptions {
      */
     volume?: number;
     /**
-     * AudioWorklet Mode (default): Uses a separate thread for audio processing via AudioWorkletNode
-     * Regular Buffer Mode: Falls back to AudioBufferSourceNode in the main thread if worklets aren't available
-     * @default true
+     * Disable AudioWorklet Mode and use Regular Buffer Mode instead.
+     * Regular Buffer Mode falls back to AudioBufferSourceNode in the main thread if worklets aren't available.
+     * @default false (AudioWorklet Mode enabled)
      */
-    enableAudioWorklet?: boolean;
+    disableAudioWorklet?: boolean;
     /**
      * Real-time FFT (frequency-domain) settings **only** for visualization.
      *
@@ -130,7 +130,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     #playing = false;
     #muted = false;
     #volume: number;
-    #enableAudioWorklet: boolean;
+    #disableAudioWorklet: boolean;
 
     #fft: number[] = generateEmptyFft();
     #fftTimer: number | null = null;
@@ -148,7 +148,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     constructor(private readonly opts: EVIWebAudioPlayerOptions = {}) {
         super();
         this.#volume = opts.volume ?? 1.0;
-        this.#enableAudioWorklet = opts.enableAudioWorklet ?? true;
+        this.#disableAudioWorklet = opts.disableAudioWorklet ?? false;
 
         // Resolve FFT options if enabled
         if (opts.fft?.enabled) {
@@ -209,7 +209,7 @@ export class EVIWebAudioPlayer extends EventTarget {
         // Fail fast if AudioWorklet isn’t supported
         if (!this.#ctx.audioWorklet) {
             console.warn("AudioWorklet is not supported in this browser. Falling back to Regular Buffer Mode.");
-            this.#enableAudioWorklet = false;
+            this.#disableAudioWorklet = true;
         }
 
         try {
@@ -227,7 +227,7 @@ export class EVIWebAudioPlayer extends EventTarget {
                 this.#analyserNode.fftSize = EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
             }
 
-            if (this.#enableAudioWorklet) {
+            if (this.#disableAudioWorklet) {
                 // Loads the AudioWorklet processor module.
                 await this.#ctx.audioWorklet.addModule(EVIWebAudioPlayer.#DEFAULT_WORKLET_URL);
 
@@ -295,7 +295,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             return;
         }
 
-        if (this.#enableAudioWorklet) {
+        if (this.#disableAudioWorklet) {
             try {
                 const { data, id } = message;
 
@@ -348,7 +348,7 @@ export class EVIWebAudioPlayer extends EventTarget {
      * Flush the worklet queue and output silence.
      */
     stop() {
-        if (this.#enableAudioWorklet) {
+        if (this.#disableAudioWorklet) {
             // Clear buffered audio from the worklet queue
             this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
         } else {
@@ -414,7 +414,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#fftTimer = null;
         }
 
-        if (this.#enableAudioWorklet) {
+        if (this.#disableAudioWorklet) {
             this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
             this.#workletNode?.port.postMessage({ type: "end" });
             this.#workletNode?.port.close();
