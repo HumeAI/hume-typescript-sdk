@@ -7,7 +7,7 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { PostedUtteranceVoice } from "./PostedUtteranceVoice";
 
-export const PublishTts: core.serialization.ObjectSchema<serializers.tts.PublishTts.Raw, Hume.tts.PublishTts> =
+export const InputMessage: core.serialization.ObjectSchema<serializers.tts.InputMessage.Raw, Hume.tts.InputMessage> =
     core.serialization.object({
         text: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
@@ -18,7 +18,7 @@ export const PublishTts: core.serialization.ObjectSchema<serializers.tts.Publish
         close: core.serialization.boolean().optional(),
     });
 
-export declare namespace PublishTts {
+export declare namespace InputMessage {
     export interface Raw {
         text?: string | null;
         description?: string | null;

@@ -77,4 +77,6 @@ export interface SessionSettings {
      * Using this field, you can personalize responses based on session-specific details. For more guidance, see our [guide on using dynamic variables](/docs/speech-to-speech-evi/features/dynamic-variables).
      */
     variables?: Record<string, Hume.empathicVoice.SessionSettingsVariablesValue>;
+    /** Allows you to change the voice during an active chat. Updating the voice does not affect chat context or conversation history. */
+    voiceId?: string;
 }
