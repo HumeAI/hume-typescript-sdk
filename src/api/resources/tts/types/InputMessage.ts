@@ -7,7 +7,7 @@ import * as Hume from "../../../index";
 /**
  * Input message type for the TTS stream.
  */
-export interface PublishTts {
+export interface InputMessage {
     /** The input text to be converted to speech output. */
     text?: string;
     /** Natural language instructions describing how the text should be spoken by the model (e.g., `"a soft, gentle voice with a strong British accent"`). */
