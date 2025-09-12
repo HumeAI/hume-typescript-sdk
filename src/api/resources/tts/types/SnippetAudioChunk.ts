@@ -4,7 +4,12 @@
 
 import * as Hume from "../../../index";
 
+/**
+ * Metadata for a chunk of generated audio.
+ */
 export interface SnippetAudioChunk {
+    /** ID of the initiating request. */
+    requestId: string;
     /** The generation ID of the parent snippet that this chunk corresponds to. */
     generationId: string;
     /** The ID of the parent snippet that this chunk corresponds to. */
