@@ -1,4 +1,4 @@
-export * from "./PublishTts";
+export * from "./InputMessage";
 export * from "./PostedUtteranceVoiceWithId";
 export * from "./PostedUtteranceVoiceWithName";
 export * from "./VoiceProvider";
