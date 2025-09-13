@@ -12,6 +12,7 @@ export const SnippetAudioChunk: core.serialization.ObjectSchema<
     serializers.tts.SnippetAudioChunk.Raw,
     Hume.tts.SnippetAudioChunk
 > = core.serialization.object({
+    requestId: core.serialization.property("request_id", core.serialization.string()),
     generationId: core.serialization.property("generation_id", core.serialization.string()),
     snippetId: core.serialization.property("snippet_id", core.serialization.string()),
     text: core.serialization.string(),
@@ -26,6 +27,7 @@ export const SnippetAudioChunk: core.serialization.ObjectSchema<
 
 export declare namespace SnippetAudioChunk {
     export interface Raw {
+        request_id: string;
         generation_id: string;
         snippet_id: string;
         text: string;
