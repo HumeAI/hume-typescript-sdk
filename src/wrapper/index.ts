@@ -9,3 +9,5 @@ export { getAudioStream } from "./getAudioStream";
 export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType";
 export { HumeClient } from "./HumeClient";
 export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer";
+export { collate } from "./collate";
+export { SilenceFiller } from "./SilenceFiller";
