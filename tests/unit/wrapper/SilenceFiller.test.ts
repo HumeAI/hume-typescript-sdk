@@ -1,6 +1,6 @@
 import { UnclockedSilenceFiller } from "../../../src/wrapper/SilenceFiller";
 
-test("UnclockedSilenceFiller", () => {
+describe("UnclockedSilenceFiller", () => {
     const sampleRate = 48000;
     const bytesPerSample = 2;
     const msOfAudioBytes = (ms: number) => (ms * bytesPerSample * sampleRate) / 1000; // Returns bytes
