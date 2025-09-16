@@ -25,6 +25,7 @@ export const SessionSettings: core.serialization.ObjectSchema<
     builtinTools: core.serialization.property("builtin_tools", core.serialization.list(BuiltinToolConfig).optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     variables: core.serialization.record(core.serialization.string(), SessionSettingsVariablesValue).optional(),
+    voiceId: core.serialization.property("voice_id", core.serialization.string().optional()),
 });
 
 export declare namespace SessionSettings {
@@ -39,5 +40,6 @@ export declare namespace SessionSettings {
         builtin_tools?: BuiltinToolConfig.Raw[] | null;
         metadata?: Record<string, unknown> | null;
         variables?: Record<string, SessionSettingsVariablesValue.Raw> | null;
+        voice_id?: string | null;
     }
 }
