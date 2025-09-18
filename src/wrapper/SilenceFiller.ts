@@ -43,11 +43,7 @@ export class SilenceFiller {
      * @param bytesPerSample - The number of bytes per audio sample (default: 2 for 16-bit).
      * @param bufferSize - Prebuffer size in bytes (default: 9600).
      */
-    constructor(
-        sampleRate: number = 48000,
-        bytesPerSample: number = 2,
-        bufferSize: number = 9600,
-    ) {
+    constructor(sampleRate: number = 48000, bytesPerSample: number = 2, bufferSize: number = 9600) {
         this.bufferSize = bufferSize;
         this.sampleRate = sampleRate;
         this.bytesPerSample = bytesPerSample;
