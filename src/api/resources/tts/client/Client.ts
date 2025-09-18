@@ -18,6 +18,7 @@ export declare namespace Tts {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
+        accessToken?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -86,6 +87,11 @@ export class Tts {
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.tts.ReturnTts>> {
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        const accessToken = await core.Supplier.get(this._options.accessToken);
+        if (accessToken != null && accessToken !== "") {
+            _queryParams["accessToken"] = accessToken;
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -99,6 +105,7 @@ export class Tts {
                 mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             contentType: "application/json",
             requestType: "json",
             body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -173,6 +180,11 @@ export class Tts {
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
     ): Promise<core.WithRawResponse<stream.Readable>> {
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        const accessToken = await core.Supplier.get(this._options.accessToken);
+        if (accessToken != null && accessToken !== "") {
+            _queryParams["accessToken"] = accessToken;
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -186,6 +198,7 @@ export class Tts {
                 mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             contentType: "application/json",
             requestType: "json",
             body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -245,6 +258,8 @@ export class Tts {
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
     ): core.HttpResponsePromise<core.Stream<Hume.tts.SnippetAudioChunk>> {
+        console.log('You called me!!')
+        console.log(requestOptions)
         return core.HttpResponsePromise.fromPromise(this.__synthesizeJsonStreaming(request, requestOptions));
     }
 
@@ -252,6 +267,11 @@ export class Tts {
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
     ): Promise<core.WithRawResponse<core.Stream<Hume.tts.SnippetAudioChunk>>> {
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        const accessToken = await core.Supplier.get(this._options.accessToken);
+        if (accessToken != null && accessToken !== "") {
+            _queryParams["accessToken"] = accessToken;
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -265,6 +285,7 @@ export class Tts {
                 mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             contentType: "application/json",
             requestType: "json",
             body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -348,6 +369,11 @@ export class Tts {
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
     ): Promise<core.WithRawResponse<stream.Readable>> {
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        const accessToken = await core.Supplier.get(this._options.accessToken);
+        if (accessToken != null && accessToken !== "") {
+            _queryParams["accessToken"] = accessToken;
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -361,6 +387,7 @@ export class Tts {
                 mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             contentType: "application/json",
             requestType: "json",
             body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -412,6 +439,11 @@ export class Tts {
     }
 
     protected async _getCustomAuthorizationHeaders() {
+        // Prefer access token over API key. When access token is provided, do not include API key header.
+        const accessToken = await core.Supplier.get(this._options.accessToken);
+        if (accessToken != null && accessToken !== "") {
+            return {};
+        }
         const apiKeyValue = await core.Supplier.get(this._options.apiKey);
         return { "X-Hume-Api-Key": apiKeyValue };
     }
