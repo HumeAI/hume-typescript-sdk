@@ -1,62 +1,52 @@
-import { Readable } from "stream";
-
 /**
- * SilenceFiller is a Readable stream that intersperses incoming audio data
- * with bytes of silence. This is important in some cases to keep an audio
- * stream "alive". Audio players, such as ffmpeg, can interpret inactivity as
- * meaning the stream is ended, or disconnected.
+ * SilenceFiller intersperses incoming audio data with bytes of silence.
+ * This keeps audio streams "alive" as players like ffmpeg can interpret
+ * inactivity as stream end or disconnection.
  *
  * @example
  * ```typescript
  * import { SilenceFiller } from 'hume';
  *
- * const BYTES_PER_SAMPLE = 2; // 16-bit samples
- * const SAMPLE_RATE = 48000;
- * const BUFFER_SIZE = Math.floor(SAMPLE_RATE * 0.1 * BYTES_PER_SAMPLE); // 100ms buffer
- * const silenceFiller = new SilenceFiller(BUFFER_SIZE, SAMPLE_RATE, BYTES_PER_SAMPLE, 10);
- *
- * // Pipe silence filler output to audio player stdin
- * silenceFiller.pipe(audioPlayer.stdin);
- *
- * // Handle pipe errors
- * silenceFiller.on('error', (err) => {
- *   console.error("SilenceFiller error:", err);
- * });
+ * const silenceFiller = new SilenceFiller();
  *
  * // Write audio data as it arrives
  * silenceFiller.writeAudio(audioBuffer);
  *
- * // End the stream when done
- * await silenceFiller.endStream();
+ * // Read audio data with silence filled in
+ * const chunk = silenceFiller.readAudio();
+ * if (chunk) {
+ *   // Send to audio player
+ *   audioPlayer.write(chunk);
+ * }
+ *
+ * // When done, drain remaining audio
+ * const remaining = silenceFiller.drain();
+ * if (remaining) {
+ *   audioPlayer.write(remaining);
+ * }
  * ```
  */
-export class SilenceFiller extends Readable {
-    private unclockedSilenceFiller: UnclockedSilenceFiller;
-    private isStarted: boolean = false;
-    private pushInterval: NodeJS.Timeout | null = null;
+export class SilenceFiller {
+    private audioQueue: Uint8Array[] = [];
+    private totalBufferedBytes: number = 0;
+    private startTimestamp: number | null = null;
+    private totalBytesSent: number = 0;
+    private donePrebuffering: boolean = false;
+    private bufferSize: number;
+    private sampleRate: number;
     private bytesPerSample: number;
-    private pushIntervalMs: number;
 
     /**
      * Creates a new SilenceFiller instance.
      *
-     * @param pushIntervalMs - The interval in milliseconds for pushing audio data (default: 5ms).
-     * @param sampleRate - The sample rate of the audio (e.g., 48000).
-     * @param bytesPerSample - The number of bytes per audio sample (e.g., 2 for 16-bit).
-     * @param bufferSize - How much to 'prebuffer'. If you set this too low there
-     * is a chance that playback will stutter, but if you set it too high
-     * playback will take longer to start.
+     * @param sampleRate - The sample rate of the audio (default: 48000).
+     * @param bytesPerSample - The number of bytes per audio sample (default: 2 for 16-bit).
+     * @param bufferSize - Prebuffer size in bytes (default: 9600).
      */
-    constructor(
-        pushIntervalMs: number = 5,
-        sampleRate: number = 48000,
-        bytesPerSample: number = 2,
-        bufferSize: number = 9600,
-    ) {
-        super({ objectMode: false });
-        this.unclockedSilenceFiller = new UnclockedSilenceFiller(bufferSize, sampleRate, bytesPerSample);
+    constructor(sampleRate: number = 48000, bytesPerSample: number = 2, bufferSize: number = 9600) {
+        this.bufferSize = bufferSize;
+        this.sampleRate = sampleRate;
         this.bytesPerSample = bytesPerSample;
-        this.pushIntervalMs = pushIntervalMs;
     }
 
     /**
@@ -64,123 +54,13 @@ export class SilenceFiller extends Readable {
      *
      * @param audioBuffer - The audio buffer to write.
      */
-    writeAudio(audioBuffer: Buffer): void {
-        const now = Date.now();
-        try {
-            this.unclockedSilenceFiller.writeAudio(audioBuffer, now);
-            if (!this.isStarted && this.unclockedSilenceFiller.donePrebuffering) {
-                this.isStarted = true;
-                this.startPushInterval();
-            }
-        } catch (error) {
-            console.error(`[SilenceFiller] Error writing audio:`, error);
-            this.emit("error", error);
-        }
-    }
-
-    private startPushInterval(): void {
-        this.pushInterval = setInterval(() => {
-            this.pushData();
-        }, this.pushIntervalMs);
-    }
-
-    private pushData(): void {
-        if (!this.isStarted) return;
-
-        try {
-            const now = Date.now();
-            const audioChunk = this.unclockedSilenceFiller.readAudio(now);
-
-            if (audioChunk && audioChunk.length > 0) {
-                // Ensure chunk size is aligned to bytesPerSample
-                const alignedChunkSize = Math.floor(audioChunk.length / this.bytesPerSample) * this.bytesPerSample;
-
-                if (alignedChunkSize > 0) {
-                    const chunk = audioChunk.subarray(0, alignedChunkSize);
-                    this.push(chunk);
-                }
-            }
-        } catch (error) {
-            console.error(`[SilenceFiller] Error pushing data:`, error);
-            this.emit("error", error);
-        }
-    }
-
-    _read(): void {}
-
-    _destroy(error: Error | null, callback: (error?: Error | null) => void): void {
-        super._destroy(error, callback);
-    }
-
-    /**
-     * Ends the stream and drains all remaining audio data.
-     *
-     * @returns A promise that resolves when the stream has ended.
-     */
-    endStream(): Promise<void> {
-        return new Promise((resolve) => {
-            // Stop pushing data
-            if (this.pushInterval) {
-                clearInterval(this.pushInterval);
-                this.pushInterval = null;
-            }
-
-            // Drain all remaining audio from SilenceFiller
-            const now = Date.now();
-
-            // Keep reading until no more audio is available
-            while (true) {
-                const remainingChunk = this.unclockedSilenceFiller.readAudio(now);
-
-                if (!remainingChunk || remainingChunk.length === 0) {
-                    break;
-                }
-
-                const alignedChunkSize = Math.floor(remainingChunk.length / this.bytesPerSample) * this.bytesPerSample;
-                if (alignedChunkSize > 0) {
-                    const chunk = remainingChunk.subarray(0, alignedChunkSize);
-                    this.push(chunk);
-                }
-            }
-
-            this.push(null); // Signal end of stream
-
-            this.once("end", () => {
-                resolve();
-            });
-        });
-    }
-}
-
-/**
- * Does the actual calculation of how interspersing audio with silence
- * is "pure" in the sense that it does not rely on the system clock.
- * It's up to the caller to provide timestamps.
- *
- * @internal
- */
-export class UnclockedSilenceFiller {
-    private audioQueue: Buffer[] = [];
-    private totalBufferedBytes: number = 0;
-    private startTimestamp: number | null = null;
-    private totalBytesSent: number = 0;
-    public donePrebuffering: boolean = false;
-    private bufferSize: number;
-    private sampleRate: number;
-    private bytesPerSample: number;
-
-    constructor(bufferSize: number, sampleRate: number, bytesPerSample: number) {
-        this.bufferSize = bufferSize;
-        this.sampleRate = sampleRate;
-        this.bytesPerSample = bytesPerSample;
-    }
-
-    writeAudio(audioBuffer: Buffer, timestamp: number): void {
+    writeAudio(audioBuffer: Uint8Array): void {
         this.audioQueue.push(audioBuffer);
         this.totalBufferedBytes += audioBuffer.length;
 
+        const now = Date.now();
         if (this.startTimestamp === null) {
-            this.startTimestamp = timestamp;
+            this.startTimestamp = now;
         }
 
         if (!this.donePrebuffering && this.totalBufferedBytes >= this.bufferSize) {
@@ -188,15 +68,20 @@ export class UnclockedSilenceFiller {
         }
     }
 
-    readAudio(timestamp: number): Buffer | null {
+    /**
+     * Reads audio data with appropriate silence filling.
+     * Call this periodically (e.g., every 5-10ms) to get a steady stream.
+     *
+     * @returns Audio chunk with silence filled as needed, or null if not ready.
+     */
+    readAudio(): Uint8Array | null {
         if (this.startTimestamp === null || !this.donePrebuffering) {
             return null;
         }
 
-        const elapsedMs = timestamp - this.startTimestamp;
-
+        const now = Date.now();
+        const elapsedMs = now - this.startTimestamp;
         const targetBytesSent = Math.floor(((this.sampleRate * elapsedMs) / 1000) * this.bytesPerSample);
-
         const bytesNeeded = targetBytesSent - this.totalBytesSent;
 
         if (bytesNeeded <= 0) {
@@ -210,12 +95,12 @@ export class UnclockedSilenceFiller {
             return null;
         }
 
-        let chunk = Buffer.alloc(0);
+        let chunk = new Uint8Array(0);
 
         // Drain from queue until we have enough bytes
         while (chunk.length < alignedBytesNeeded && this.audioQueue.length > 0) {
             const nextBuffer = this.audioQueue.shift()!;
-            chunk = Buffer.concat([chunk, nextBuffer]);
+            chunk = this.concat([chunk, nextBuffer]);
             this.totalBufferedBytes -= nextBuffer.length;
         }
 
@@ -229,13 +114,60 @@ export class UnclockedSilenceFiller {
 
         // Fill remaining with silence if needed
         if (chunk.length < alignedBytesNeeded) {
-            const silenceNeeded = Buffer.alloc(alignedBytesNeeded - chunk.length, 0);
-            chunk = Buffer.concat([chunk, silenceNeeded]);
+            const silenceNeeded = new Uint8Array(alignedBytesNeeded - chunk.length);
+            chunk = this.concat([chunk, silenceNeeded]);
         }
 
         // Update total bytes sent
         this.totalBytesSent += chunk.length;
 
         return chunk;
+    }
+
+    /**
+     * Drains all remaining audio data from the buffer.
+     * Call this when you're done writing audio to get any remaining data.
+     *
+     * @returns All remaining audio data, or null if buffer is empty.
+     */
+    drain(): Uint8Array | null {
+        if (this.audioQueue.length === 0) {
+            return null;
+        }
+
+        const chunks: Uint8Array[] = [];
+        while (this.audioQueue.length > 0) {
+            chunks.push(this.audioQueue.shift()!);
+        }
+
+        this.totalBufferedBytes = 0;
+        return this.concat(chunks);
+    }
+
+    /**
+     * Resets the silence filler to its initial state.
+     */
+    reset(): void {
+        this.audioQueue = [];
+        this.totalBufferedBytes = 0;
+        this.startTimestamp = null;
+        this.totalBytesSent = 0;
+        this.donePrebuffering = false;
+    }
+
+    /**
+     * Helper to concatenate Uint8Arrays
+     */
+    private concat(buffers: Uint8Array[]): Uint8Array {
+        const totalLength = buffers.reduce((sum, buf) => sum + buf.length, 0);
+        const result = new Uint8Array(totalLength);
+        let offset = 0;
+
+        for (const buf of buffers) {
+            result.set(buf, offset);
+            offset += buf.length;
+        }
+
+        return result;
     }
 }
