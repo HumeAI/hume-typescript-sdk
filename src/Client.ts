@@ -30,12 +30,22 @@ export declare namespace HumeClient {
     }
 }
 
-const fetcherThatAddsHeaders = (fetcherToWrap: core.FetchFunction): core.FetchFunction => {
+const customFetcher = (
+    fetcherToWrap: core.FetchFunction,
+    accessToken?: core.Supplier<string | undefined>,
+): core.FetchFunction => {
     return (args: core.Fetcher.Args) => {
         const newArgs = { ...args };
         newArgs.headers = newArgs.headers ?? {};
         ((newArgs.headers["X-Hume-Client-Name"] = "typescript_sdk"),
             (newArgs.headers["X-Hume-Client-Version"] = SDK_VERSION));
+        if (accessToken) {
+            const supplied = core.Supplier.get(accessToken);
+            if (supplied) {
+                newArgs.headers = newArgs.headers ?? {};
+                newArgs.headers["Authorization"] = `Bearer ${supplied}`;
+            }
+        }
         return fetcherToWrap(args);
     };
 };
@@ -47,7 +57,7 @@ export class HumeClient {
 
     constructor(protected readonly _options: HumeClient.Options = {}) {
         const defaultFetcher = _options.fetcher ?? core.fetcher;
-        this._options.fetcher = fetcherThatAddsHeaders(defaultFetcher);
+        this._options.fetcher = customFetcher(defaultFetcher, _options.accessToken);
     }
 
     public get tts(): Tts {
