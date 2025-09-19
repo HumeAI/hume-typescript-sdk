@@ -30,7 +30,10 @@ export declare namespace HumeClient {
     }
 }
 
-const customFetcher = (fetcherToWrap: core.FetchFunction, accessToken?: core.Supplier<string | undefined>): core.FetchFunction => {
+const customFetcher = (
+    fetcherToWrap: core.FetchFunction,
+    accessToken?: core.Supplier<string | undefined>,
+): core.FetchFunction => {
     return (args: core.Fetcher.Args) => {
         const newArgs = { ...args };
         newArgs.headers = newArgs.headers ?? {};
@@ -40,7 +43,7 @@ const customFetcher = (fetcherToWrap: core.FetchFunction, accessToken?: core.Sup
             const supplied = core.Supplier.get(accessToken);
             if (supplied) {
                 newArgs.headers = newArgs.headers ?? {};
-                newArgs.headers["Authorization"] = `Bearer ${supplied}`
+                newArgs.headers["Authorization"] = `Bearer ${supplied}`;
             }
         }
         return fetcherToWrap(args);
