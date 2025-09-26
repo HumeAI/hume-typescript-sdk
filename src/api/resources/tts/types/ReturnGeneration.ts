@@ -5,15 +5,15 @@
 import * as Hume from "../../../index";
 
 export interface ReturnGeneration {
-    /** A unique ID associated with this TTS generation that can be used as context for generating consistent speech style and prosody across multiple requests. */
-    generationId: string;
-    /** Duration of the generated audio in seconds. */
-    duration: number;
-    /** Size of the generated audio in bytes. */
-    fileSize: number;
-    encoding: Hume.tts.AudioEncoding;
     /** The generated audio output in the requested format, encoded as a base64 string. */
     audio: string;
+    /** Duration of the generated audio in seconds. */
+    duration: number;
+    encoding: Hume.tts.AudioEncoding;
+    /** Size of the generated audio in bytes. */
+    fileSize: number;
+    /** A unique ID associated with this TTS generation that can be used as context for generating consistent speech style and prosody across multiple requests. */
+    generationId: string;
     /** A list of snippet groups where each group corresponds to an utterance in the request. Each group contains segmented snippets that represent the original utterance divided into more natural-sounding units optimized for speech delivery. */
     snippets: Hume.tts.Snippet[][];
 }

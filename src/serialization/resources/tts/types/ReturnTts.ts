@@ -9,13 +9,13 @@ import { ReturnGeneration } from "./ReturnGeneration";
 
 export const ReturnTts: core.serialization.ObjectSchema<serializers.tts.ReturnTts.Raw, Hume.tts.ReturnTts> =
     core.serialization.object({
-        requestId: core.serialization.property("request_id", core.serialization.string().optional()),
         generations: core.serialization.list(ReturnGeneration),
+        requestId: core.serialization.property("request_id", core.serialization.string().optional()),
     });
 
 export declare namespace ReturnTts {
     export interface Raw {
-        request_id?: string | null;
         generations: ReturnGeneration.Raw[];
+        request_id?: string | null;
     }
 }

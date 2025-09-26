@@ -35,6 +35,12 @@ export type LanguageModelType =
     | "gpt-5"
     | "gpt-5-mini"
     | "gpt-5-nano"
+    | "gpt-4o-priority"
+    | "gpt-4o-mini-priority"
+    | "gpt-4.1-priority"
+    | "gpt-5-priority"
+    | "gpt-5-mini-priority"
+    | "gpt-5-nano-priority"
     | "gemma-7b-it"
     | "llama3-8b-8192"
     | "llama3-70b-8192"
@@ -88,6 +94,12 @@ export const LanguageModelType = {
     Gpt5: "gpt-5",
     Gpt5Mini: "gpt-5-mini",
     Gpt5Nano: "gpt-5-nano",
+    Gpt4OPriority: "gpt-4o-priority",
+    Gpt4OMiniPriority: "gpt-4o-mini-priority",
+    Gpt41Priority: "gpt-4.1-priority",
+    Gpt5Priority: "gpt-5-priority",
+    Gpt5MiniPriority: "gpt-5-mini-priority",
+    Gpt5NanoPriority: "gpt-5-nano-priority",
     Gemma7BIt: "gemma-7b-it",
     Llama38B8192: "llama3-8b-8192",
     Llama370B8192: "llama3-70b-8192",

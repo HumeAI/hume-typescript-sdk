@@ -8,16 +8,16 @@ import * as Hume from "../../../index";
  * When provided, the output is an Assistant Prosody message.
  */
 export interface AssistantProsody {
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+    customSessionId?: string;
+    /** Unique identifier for the segment. */
+    id?: string;
+    /** Inference model results. */
+    models: Hume.empathicVoice.Inference;
     /**
      * The type of message sent through the socket; for an Assistant Prosody message, this must be `assistant_PROSODY`.
      *
      * This message the expression measurement predictions of the assistant's audio output.
      */
     type: "assistant_prosody";
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
-    /** Inference model results. */
-    models: Hume.empathicVoice.Inference;
-    /** Unique identifier for the segment. */
-    id?: string;
 }

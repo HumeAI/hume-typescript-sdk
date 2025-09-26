@@ -8,8 +8,6 @@
  * Expression measurement results are not available for User Input messages, as the prosody model relies on audio input and cannot process text alone.
  */
 export interface UserInput {
-    /** The type of message sent through the socket; must be `user_input` for our server to correctly identify and process it as a User Input message. */
-    type: "user_input";
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /**
@@ -18,4 +16,6 @@ export interface UserInput {
      * Expression measurement results are not available for User Input messages, as the prosody model relies on audio input and cannot process text alone.
      */
     text: string;
+    /** The type of message sent through the socket; must be `user_input` for our server to correctly identify and process it as a User Input message. */
+    type: "user_input";
 }

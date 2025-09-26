@@ -10,13 +10,13 @@ export const PauseAssistantMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.PauseAssistantMessage.Raw,
     Hume.empathicVoice.PauseAssistantMessage
 > = core.serialization.object({
-    type: core.serialization.stringLiteral("pause_assistant_message"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    type: core.serialization.stringLiteral("pause_assistant_message"),
 });
 
 export declare namespace PauseAssistantMessage {
     export interface Raw {
-        type: "pause_assistant_message";
         custom_session_id?: string | null;
+        type: "pause_assistant_message";
     }
 }
