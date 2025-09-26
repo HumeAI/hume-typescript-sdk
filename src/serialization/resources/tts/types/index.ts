@@ -15,6 +15,7 @@ export * from "./PostedContext";
 export * from "./Format";
 export * from "./PostedTts";
 export * from "./ReturnTts";
+export * from "./OctaveVersion";
 export * from "./ReturnVoice";
 export * from "./FormatPcm";
 export * from "./Snippet";

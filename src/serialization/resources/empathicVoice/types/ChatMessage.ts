@@ -13,16 +13,16 @@ export const ChatMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ChatMessage.Raw,
     Hume.empathicVoice.ChatMessage
 > = core.serialization.object({
-    role: Role,
     content: core.serialization.string().optional(),
+    role: Role,
     toolCall: core.serialization.property("tool_call", ToolCallMessage.optional()),
     toolResult: core.serialization.property("tool_result", ChatMessageToolResult.optional()),
 });
 
 export declare namespace ChatMessage {
     export interface Raw {
-        role: Role.Raw;
         content?: string | null;
+        role: Role.Raw;
         tool_call?: ToolCallMessage.Raw | null;
         tool_result?: ChatMessageToolResult.Raw | null;
     }
