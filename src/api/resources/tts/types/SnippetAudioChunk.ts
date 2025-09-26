@@ -8,26 +8,27 @@ import * as Hume from "../../../index";
  * Metadata for a chunk of generated audio.
  */
 export interface SnippetAudioChunk {
-    /** The generated audio output chunk in the requested format. */
-    audio: string;
-    /** The generated audio output format. */
-    audioFormat: Hume.tts.AudioFormatType;
-    /** The index of the audio chunk in the snippet. */
-    chunkIndex: number;
-    /** The generation ID of the parent snippet that this chunk corresponds to. */
-    generationId: string;
-    /** Whether or not this is the last chunk streamed back from the decoder for one input snippet. */
-    isLastChunk: boolean;
     /** ID of the initiating request. */
     requestId: string;
-    snippet?: Hume.tts.Snippet;
+    /** The generation ID of the parent snippet that this chunk corresponds to. */
+    generationId: string;
     /** The ID of the parent snippet that this chunk corresponds to. */
     snippetId: string;
     /** The text of the parent snippet that this chunk corresponds to. */
     text: string;
     /** The transcribed text of the generated audio of the parent snippet that this chunk corresponds to. It is only present if `instant_mode` is set to `false`. */
     transcribedText?: string;
-    type?: "audio";
+    /** The index of the audio chunk in the snippet. */
+    chunkIndex: number;
+    /** The generated audio output chunk in the requested format. */
+    audio: string;
+    /** The generated audio output format. */
+    audioFormat: Hume.tts.AudioFormatType;
+    /** Whether or not this is the last chunk streamed back from the decoder for one input snippet. */
+    isLastChunk: boolean;
     /** The index of the utterance in the request that the parent snippet of this chunk corresponds to. */
     utteranceIndex?: number;
+    /** A list of word-level timestamps for the snippet's generated audio. */
+    timestamps?: Hume.tts.Timestamp[];
+    snippet?: Hume.tts.Snippet;
 }

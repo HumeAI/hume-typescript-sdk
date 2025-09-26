@@ -9,27 +9,13 @@ import * as Hume from "../../../index";
  */
 export interface SessionSettings {
     /**
-     * Configuration details for the audio input used during the session. Ensures the audio is being correctly set up for processing.
+     * The type of message sent through the socket; must be `session_settings` for our server to correctly identify and process it as a Session Settings message.
      *
-     * This optional field is only required when the audio input is encoded in PCM Linear 16 (16-bit, little-endian, signed PCM WAV data). For detailed instructions on how to configure session settings for PCM Linear 16 audio, please refer to the [Session Settings guide](/docs/speech-to-speech-evi/configuration/session-settings).
+     * Session settings are temporary and apply only to the current Chat session. These settings can be adjusted dynamically based on the requirements of each session to ensure optimal performance and user experience.
+     *
+     * For more information, please refer to the [Session Settings guide](/docs/speech-to-speech-evi/configuration/session-settings).
      */
-    audio?: Hume.empathicVoice.AudioConfiguration;
-    /**
-     * List of built-in tools to enable for the session.
-     *
-     * Tools are resources used by EVI to perform various tasks, such as searching the web or calling external APIs. Built-in tools, like web search, are natively integrated, while user-defined tools are created and invoked by the user. To learn more, see our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use).
-     *
-     * Currently, the only built-in tool Hume provides is **Web Search**. When enabled, Web Search equips EVI with the ability to search the web for up-to-date information.
-     */
-    builtinTools?: Hume.empathicVoice.BuiltinToolConfig[];
-    /**
-     * Field for injecting additional context into the conversation, which is appended to the end of user messages for the session.
-     *
-     * When included in a Session Settings message, the provided context can be used to remind the LLM of its role in every user message, prevent it from forgetting important details, or add new relevant information to the conversation.
-     *
-     * Set to `null` to clear injected context.
-     */
-    context?: Hume.empathicVoice.Context;
+    type: "session_settings";
     /**
      * Unique identifier for the session. Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions.
      *
@@ -38,13 +24,6 @@ export interface SessionSettings {
      * It is recommended to pass a `custom_session_id` if you are using a Custom Language Model. Please see our guide to [using a custom language model](/docs/speech-to-speech-evi/guides/custom-language-model) with EVI to learn more.
      */
     customSessionId?: string;
-    /**
-     * Third party API key for the supplemental language model.
-     *
-     * When provided, EVI will use this key instead of Hume's API key for the supplemental LLM. This allows you to bypass rate limits and utilize your own API key as needed.
-     */
-    languageModelApiKey?: string;
-    metadata?: Record<string, unknown>;
     /**
      * Instructions used to shape EVI's behavior, responses, and style for the session.
      *
@@ -56,19 +35,40 @@ export interface SessionSettings {
      */
     systemPrompt?: string;
     /**
+     * Field for injecting additional context into the conversation, which is appended to the end of user messages for the session.
+     *
+     * When included in a Session Settings message, the provided context can be used to remind the LLM of its role in every user message, prevent it from forgetting important details, or add new relevant information to the conversation.
+     *
+     * Set to `null` to clear injected context.
+     */
+    context?: Hume.empathicVoice.Context;
+    /**
+     * Configuration details for the audio input used during the session. Ensures the audio is being correctly set up for processing.
+     *
+     * This optional field is only required when the audio input is encoded in PCM Linear 16 (16-bit, little-endian, signed PCM WAV data). For detailed instructions on how to configure session settings for PCM Linear 16 audio, please refer to the [Session Settings guide](/docs/speech-to-speech-evi/configuration/session-settings).
+     */
+    audio?: Hume.empathicVoice.AudioConfiguration;
+    /**
+     * Third party API key for the supplemental language model.
+     *
+     * When provided, EVI will use this key instead of Hume's API key for the supplemental LLM. This allows you to bypass rate limits and utilize your own API key as needed.
+     */
+    languageModelApiKey?: string;
+    /**
      * List of user-defined tools to enable for the session.
      *
      * Tools are resources used by EVI to perform various tasks, such as searching the web or calling external APIs. Built-in tools, like web search, are natively integrated, while user-defined tools are created and invoked by the user. To learn more, see our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use).
      */
     tools?: Hume.empathicVoice.Tool[];
     /**
-     * The type of message sent through the socket; must be `session_settings` for our server to correctly identify and process it as a Session Settings message.
+     * List of built-in tools to enable for the session.
      *
-     * Session settings are temporary and apply only to the current Chat session. These settings can be adjusted dynamically based on the requirements of each session to ensure optimal performance and user experience.
+     * Tools are resources used by EVI to perform various tasks, such as searching the web or calling external APIs. Built-in tools, like web search, are natively integrated, while user-defined tools are created and invoked by the user. To learn more, see our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use).
      *
-     * For more information, please refer to the [Session Settings guide](/docs/speech-to-speech-evi/configuration/session-settings).
+     * Currently, the only built-in tool Hume provides is **Web Search**. When enabled, Web Search equips EVI with the ability to search the web for up-to-date information.
      */
-    type: "session_settings";
+    builtinTools?: Hume.empathicVoice.BuiltinToolConfig[];
+    metadata?: Record<string, unknown>;
     /**
      * This field allows you to assign values to dynamic variables referenced in your system prompt.
      *

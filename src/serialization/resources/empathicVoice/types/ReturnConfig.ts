@@ -5,7 +5,6 @@
 import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
-import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 import { ReturnLanguageModel } from "./ReturnLanguageModel";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool";
 import { ReturnTimeoutSpecs } from "./ReturnTimeoutSpecs";
@@ -15,6 +14,7 @@ import { ReturnEllmModel } from "./ReturnEllmModel";
 import { ReturnVoice } from "./ReturnVoice";
 import { ReturnPrompt } from "./ReturnPrompt";
 import { ReturnWebhookSpec } from "./ReturnWebhookSpec";
+import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool";
 
 export const ReturnConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfig.Raw,
@@ -23,8 +23,6 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     name: core.serialization.string().optional(),
     id: core.serialization.string().optional(),
     version: core.serialization.number().optional(),
-    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     builtinTools: core.serialization.property(
         "builtin_tools",
@@ -38,8 +36,10 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     voice: ReturnVoice.optional(),
     prompt: ReturnPrompt.optional(),
     webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
+    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
 });
 
 export declare namespace ReturnConfig {
@@ -47,8 +47,6 @@ export declare namespace ReturnConfig {
         name?: string | null;
         id?: string | null;
         version?: number | null;
-        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
-        version_description?: string | null;
         language_model?: ReturnLanguageModel.Raw | null;
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
         evi_version?: string | null;
@@ -59,7 +57,9 @@ export declare namespace ReturnConfig {
         voice?: ReturnVoice.Raw | null;
         prompt?: ReturnPrompt.Raw | null;
         webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
+        version_description?: string | null;
         created_on?: number | null;
         modified_on?: number | null;
+        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
     }
 }

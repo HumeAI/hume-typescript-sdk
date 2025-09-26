@@ -6,39 +6,40 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { AudioFormatType } from "./AudioFormatType";
+import { Timestamp } from "./Timestamp";
 import { Snippet } from "./Snippet";
 
 export const SnippetAudioChunk: core.serialization.ObjectSchema<
     serializers.tts.SnippetAudioChunk.Raw,
     Hume.tts.SnippetAudioChunk
 > = core.serialization.object({
-    audio: core.serialization.string(),
-    audioFormat: core.serialization.property("audio_format", AudioFormatType),
-    chunkIndex: core.serialization.property("chunk_index", core.serialization.number()),
-    generationId: core.serialization.property("generation_id", core.serialization.string()),
-    isLastChunk: core.serialization.property("is_last_chunk", core.serialization.boolean()),
     requestId: core.serialization.property("request_id", core.serialization.string()),
-    snippet: Snippet.optional(),
+    generationId: core.serialization.property("generation_id", core.serialization.string()),
     snippetId: core.serialization.property("snippet_id", core.serialization.string()),
     text: core.serialization.string(),
     transcribedText: core.serialization.property("transcribed_text", core.serialization.string().optional()),
-    type: core.serialization.stringLiteral("audio").optional(),
+    chunkIndex: core.serialization.property("chunk_index", core.serialization.number()),
+    audio: core.serialization.string(),
+    audioFormat: core.serialization.property("audio_format", AudioFormatType),
+    isLastChunk: core.serialization.property("is_last_chunk", core.serialization.boolean()),
     utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
+    timestamps: core.serialization.list(Timestamp).optional(),
+    snippet: Snippet.optional(),
 });
 
 export declare namespace SnippetAudioChunk {
     export interface Raw {
-        audio: string;
-        audio_format: AudioFormatType.Raw;
-        chunk_index: number;
-        generation_id: string;
-        is_last_chunk: boolean;
         request_id: string;
-        snippet?: Snippet.Raw | null;
+        generation_id: string;
         snippet_id: string;
         text: string;
         transcribed_text?: string | null;
-        type?: "audio" | null;
+        chunk_index: number;
+        audio: string;
+        audio_format: AudioFormatType.Raw;
+        is_last_chunk: boolean;
         utterance_index?: number | null;
+        timestamps?: Timestamp.Raw[] | null;
+        snippet?: Snippet.Raw | null;
     }
 }

@@ -42,12 +42,6 @@ export const LanguageModelType: core.serialization.Schema<
     "gpt-5",
     "gpt-5-mini",
     "gpt-5-nano",
-    "gpt-4o-priority",
-    "gpt-4o-mini-priority",
-    "gpt-4.1-priority",
-    "gpt-5-priority",
-    "gpt-5-mini-priority",
-    "gpt-5-nano-priority",
     "gemma-7b-it",
     "llama3-8b-8192",
     "llama3-70b-8192",
@@ -104,12 +98,6 @@ export declare namespace LanguageModelType {
         | "gpt-5"
         | "gpt-5-mini"
         | "gpt-5-nano"
-        | "gpt-4o-priority"
-        | "gpt-4o-mini-priority"
-        | "gpt-4.1-priority"
-        | "gpt-5-priority"
-        | "gpt-5-mini-priority"
-        | "gpt-5-nano-priority"
         | "gemma-7b-it"
         | "llama3-8b-8192"
         | "llama3-70b-8192"

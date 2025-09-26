@@ -34,6 +34,7 @@ channel:
       type: optional<boolean>
       default: false
       docs: If enabled, no binary websocket messages will be sent to the client.
+    version: root.OctaveVersion
     access_token:
       type: optional<string>
       default: ''

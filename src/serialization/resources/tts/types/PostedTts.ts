@@ -6,31 +6,28 @@ import * as serializers from "../../../index";
 import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { PostedContext } from "./PostedContext";
-import { Format } from "./Format";
 import { PostedUtterance } from "./PostedUtterance";
-import { OctaveVersion } from "./OctaveVersion";
+import { Format } from "./Format";
 
 export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTts.Raw, Hume.tts.PostedTts> =
     core.serialization.object({
         context: PostedContext.optional(),
-        format: Format.optional(),
+        utterances: core.serialization.list(PostedUtterance),
         numGenerations: core.serialization.property("num_generations", core.serialization.number().optional()),
+        format: Format.optional(),
         splitUtterances: core.serialization.property("split_utterances", core.serialization.boolean().optional()),
         stripHeaders: core.serialization.property("strip_headers", core.serialization.boolean().optional()),
-        utterances: core.serialization.list(PostedUtterance),
-        version: OctaveVersion.optional(),
         instantMode: core.serialization.property("instant_mode", core.serialization.boolean().optional()),
     });
 
 export declare namespace PostedTts {
     export interface Raw {
         context?: PostedContext.Raw | null;
-        format?: Format.Raw | null;
+        utterances: PostedUtterance.Raw[];
         num_generations?: number | null;
+        format?: Format.Raw | null;
         split_utterances?: boolean | null;
         strip_headers?: boolean | null;
-        utterances: PostedUtterance.Raw[];
-        version?: OctaveVersion.Raw | null;
         instant_mode?: boolean | null;
     }
 }
