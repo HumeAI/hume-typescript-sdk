@@ -18,6 +18,7 @@ export const LanguageModelType: core.serialization.Schema<
     "claude-3-sonnet-20240229",
     "claude-3-haiku-20240307",
     "claude-sonnet-4-20250514",
+    "claude-sonnet-4-5-20250929",
     "us.anthropic.claude-3-5-haiku-20241022-v1:0",
     "us.anthropic.claude-3-5-sonnet-20240620-v1:0",
     "us.anthropic.claude-3-haiku-20240307-v1:0",
@@ -65,6 +66,7 @@ export const LanguageModelType: core.serialization.Schema<
     "DeepSeek-R1-Distill-Llama-70B",
     "Llama-4-Maverick-17B-128E-Instruct",
     "Qwen3-32B",
+    "grok-4-fast-non-reasoning-latest",
     "ellm",
     "custom-language-model",
     "hume-evi-3-web-search",
@@ -80,6 +82,7 @@ export declare namespace LanguageModelType {
         | "claude-3-sonnet-20240229"
         | "claude-3-haiku-20240307"
         | "claude-sonnet-4-20250514"
+        | "claude-sonnet-4-5-20250929"
         | "us.anthropic.claude-3-5-haiku-20241022-v1:0"
         | "us.anthropic.claude-3-5-sonnet-20240620-v1:0"
         | "us.anthropic.claude-3-haiku-20240307-v1:0"
@@ -127,6 +130,7 @@ export declare namespace LanguageModelType {
         | "DeepSeek-R1-Distill-Llama-70B"
         | "Llama-4-Maverick-17B-128E-Instruct"
         | "Qwen3-32B"
+        | "grok-4-fast-non-reasoning-latest"
         | "ellm"
         | "custom-language-model"
         | "hume-evi-3-web-search";
