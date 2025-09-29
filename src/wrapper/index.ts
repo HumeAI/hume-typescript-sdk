@@ -10,4 +10,12 @@ export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMime
 export { HumeClient } from "./HumeClient";
 export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer";
 export { collate } from "./collate";
-export { SilenceFiller } from "./SilenceFiller";
+
+// SilenceFiller extends from Node.JS Readable -- this should not be exported in non-nodeJS environments. Otherwise the bundle will crash in the browser.
+export const createSilenceFiller = async () => {
+    if (typeof process === "undefined" || !process.versions?.node) {
+        throw new Error("SilenceFiller is only available in Node.js environments");
+    }
+    const { SilenceFiller } = await import("./SilenceFiller");
+    return SilenceFiller;
+};
