@@ -9,6 +9,8 @@ export interface PostedTts {
     context?: Hume.tts.PostedContext;
     /** Specifies the output audio file format. */
     format?: Hume.tts.Format;
+    /** The set of timestamp types to include in the response. */
+    includeTimestampTypes?: Hume.tts.TimestampType[];
     /** Number of generations of the audio to produce. */
     numGenerations?: number;
     /**
@@ -29,6 +31,7 @@ export interface PostedTts {
      * An **Utterance** is a unit of input for [Octave](/docs/text-to-speech-tts/overview), and includes input `text`, an optional `description` to serve as the prompt for how the speech should be delivered, an optional `voice` specification, and additional controls to guide delivery for `speed` and `trailing_silence`.
      */
     utterances: Hume.tts.PostedUtterance[];
+    /** The version of the Octave Model to use. 1 for the legacy model, 2 for the new model. */
     version?: Hume.tts.OctaveVersion;
     /**
      * Enables ultra-low latency streaming, significantly reducing the time until the first audio chunk is received. Recommended for real-time applications requiring immediate audio playback. For further details, see our documentation on [instant mode](/docs/text-to-speech-tts/overview#ultra-low-latency-streaming-instant-mode).
