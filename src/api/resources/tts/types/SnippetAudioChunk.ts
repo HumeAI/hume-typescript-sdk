@@ -27,7 +27,6 @@ export interface SnippetAudioChunk {
     text: string;
     /** The transcribed text of the generated audio of the parent snippet that this chunk corresponds to. It is only present if `instant_mode` is set to `false`. */
     transcribedText?: string;
-    type?: "audio";
     /** The index of the utterance in the request that the parent snippet of this chunk corresponds to. */
     utteranceIndex?: number;
 }

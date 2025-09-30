@@ -241,7 +241,7 @@ await client.tts.synthesizeFileStreaming({
 </dl>
 </details>
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.SnippetAudioChunk></code></summary>
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.SynthesizeJsonStreamingResponse></code></summary>
 <dl>
 <dd>
 

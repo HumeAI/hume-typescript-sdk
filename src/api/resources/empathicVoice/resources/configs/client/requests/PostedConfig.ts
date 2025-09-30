@@ -39,7 +39,7 @@ import * as Hume from "../../../../../../index";
  *     }
  */
 export interface PostedConfig {
-    /** EVI version to use. Only version `3` is supported. */
+    /** EVI version to use. Only versions `3` and `4-mini` are supported. */
     eviVersion: string;
     /** Name applied to all versions of a particular Config. */
     name: string;
