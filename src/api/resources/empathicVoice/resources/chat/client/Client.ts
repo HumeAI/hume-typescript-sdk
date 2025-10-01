@@ -45,9 +45,12 @@ export declare namespace Chat {
         /** ID of the Voice to use for this chat. If specified, will override the voice set in the Config */
         voiceId?: string;
 
-        sessionSettings?: Pick<SessionSettings, Exclude<keyof SessionSettings, "builtinTools" | "type" | "metadata"> & {
+        sessionSettings?: Pick<
+            SessionSettings,
+            Exclude<keyof SessionSettings, "builtinTools" | "type" | "metadata" | "tools">
+        > & {
             eventLimit?: number;
-        }>;
+        };
 
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
@@ -92,6 +95,46 @@ export class Chat {
 
         if (args.voiceId !== null && args.voiceId !== undefined && args.voiceId !== "") {
             queryParams["voice_id"] = args.voiceId;
+        }
+
+        if (args.sessionSettings !== null && args.sessionSettings !== undefined) {
+            if (args.sessionSettings.audio !== null && args.sessionSettings.audio !== undefined) {
+                if (args.sessionSettings.audio?.channels !== null && args.sessionSettings.audio?.channels !== undefined) {
+                    queryParams["session_settings[audio][channels]"] = String(args.sessionSettings.audio.channels);
+                }
+                if (args.sessionSettings.audio?.encoding !== null && args.sessionSettings.audio?.encoding !== undefined) {
+                    queryParams["session_settings[audio][encoding]"] = String(args.sessionSettings.audio.encoding);
+                }
+                if (args.sessionSettings.audio?.sampleRate !== null && args.sessionSettings.audio?.sampleRate !== undefined) {
+                    queryParams["session_settings[audio][sample_rate]"] = String(args.sessionSettings.audio.sampleRate);
+                }
+            }
+            if (args.sessionSettings.context !== null && args.sessionSettings.context !== undefined) {
+                if (args.sessionSettings?.context?.text !== null && args.sessionSettings?.context?.text !== undefined) {
+                    queryParams["session_settings[context][text]"] = String(args.sessionSettings.context.text);
+                }
+                if (args.sessionSettings?.context?.type !== null && args.sessionSettings?.context?.type !== undefined) {
+                    queryParams["session_settings[context][type]"] = String(args.sessionSettings.context.type);
+                }
+            }
+            if (args.sessionSettings?.customSessionId !== null && args.sessionSettings?.customSessionId !== undefined) {
+                queryParams["session_settings[custom_session_id]"] = String(args.sessionSettings.customSessionId);
+            }
+            if (args.sessionSettings?.eventLimit !== null && args.sessionSettings?.eventLimit !== undefined) {
+                queryParams["session_settings[event_limit]"] = String(args.sessionSettings.eventLimit);
+            }
+            if (args.sessionSettings?.languageModelApiKey !== null && args.sessionSettings?.languageModelApiKey !== undefined) {
+                queryParams["session_settings[language_model_api_key]"] = String(args.sessionSettings.languageModelApiKey);
+            }
+            if (args.sessionSettings?.systemPrompt !== null && args.sessionSettings?.systemPrompt !== undefined) {
+                queryParams["session_settings[system_prompt]"] = String(args.sessionSettings.systemPrompt);
+            }
+            if (args.sessionSettings?.variables !== null && args.sessionSettings?.variables !== undefined) {
+                queryParams["session_settings[variables]"] = String(args.sessionSettings.variables);
+            }
+            if (args.sessionSettings?.voiceId !== null && args.sessionSettings?.voiceId !== undefined) {
+                queryParams["session_settings[voice_id]"] = String(args.sessionSettings.voiceId);
+            }
         }
 
         if (args.queryParams !== null && args.queryParams !== undefined) {
