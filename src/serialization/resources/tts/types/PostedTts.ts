@@ -7,6 +7,7 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 import { PostedContext } from "./PostedContext";
 import { Format } from "./Format";
+import { TimestampType } from "./TimestampType";
 import { PostedUtterance } from "./PostedUtterance";
 import { OctaveVersion } from "./OctaveVersion";
 
@@ -14,6 +15,10 @@ export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTt
     core.serialization.object({
         context: PostedContext.optional(),
         format: Format.optional(),
+        includeTimestampTypes: core.serialization.property(
+            "include_timestamp_types",
+            core.serialization.list(TimestampType).optional(),
+        ),
         numGenerations: core.serialization.property("num_generations", core.serialization.number().optional()),
         splitUtterances: core.serialization.property("split_utterances", core.serialization.boolean().optional()),
         stripHeaders: core.serialization.property("strip_headers", core.serialization.boolean().optional()),
@@ -26,6 +31,7 @@ export declare namespace PostedTts {
     export interface Raw {
         context?: PostedContext.Raw | null;
         format?: Format.Raw | null;
+        include_timestamp_types?: TimestampType.Raw[] | null;
         num_generations?: number | null;
         split_utterances?: boolean | null;
         strip_headers?: boolean | null;
