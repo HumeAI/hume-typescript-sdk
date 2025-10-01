@@ -54,12 +54,11 @@ export declare namespace Chat {
 
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
-
     }
 }
 
 export class Chat {
-    constructor(protected readonly _options: Chat.Options) { }
+    constructor(protected readonly _options: Chat.Options) {}
 
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -99,13 +98,22 @@ export class Chat {
 
         if (args.sessionSettings !== null && args.sessionSettings !== undefined) {
             if (args.sessionSettings.audio !== null && args.sessionSettings.audio !== undefined) {
-                if (args.sessionSettings.audio?.channels !== null && args.sessionSettings.audio?.channels !== undefined) {
+                if (
+                    args.sessionSettings.audio?.channels !== null &&
+                    args.sessionSettings.audio?.channels !== undefined
+                ) {
                     queryParams["session_settings[audio][channels]"] = String(args.sessionSettings.audio.channels);
                 }
-                if (args.sessionSettings.audio?.encoding !== null && args.sessionSettings.audio?.encoding !== undefined) {
+                if (
+                    args.sessionSettings.audio?.encoding !== null &&
+                    args.sessionSettings.audio?.encoding !== undefined
+                ) {
                     queryParams["session_settings[audio][encoding]"] = String(args.sessionSettings.audio.encoding);
                 }
-                if (args.sessionSettings.audio?.sampleRate !== null && args.sessionSettings.audio?.sampleRate !== undefined) {
+                if (
+                    args.sessionSettings.audio?.sampleRate !== null &&
+                    args.sessionSettings.audio?.sampleRate !== undefined
+                ) {
                     queryParams["session_settings[audio][sample_rate]"] = String(args.sessionSettings.audio.sampleRate);
                 }
             }
@@ -123,8 +131,13 @@ export class Chat {
             if (args.sessionSettings?.eventLimit !== null && args.sessionSettings?.eventLimit !== undefined) {
                 queryParams["session_settings[event_limit]"] = String(args.sessionSettings.eventLimit);
             }
-            if (args.sessionSettings?.languageModelApiKey !== null && args.sessionSettings?.languageModelApiKey !== undefined) {
-                queryParams["session_settings[language_model_api_key]"] = String(args.sessionSettings.languageModelApiKey);
+            if (
+                args.sessionSettings?.languageModelApiKey !== null &&
+                args.sessionSettings?.languageModelApiKey !== undefined
+            ) {
+                queryParams["session_settings[language_model_api_key]"] = String(
+                    args.sessionSettings.languageModelApiKey,
+                );
             }
             if (args.sessionSettings?.systemPrompt !== null && args.sessionSettings?.systemPrompt !== undefined) {
                 queryParams["session_settings[system_prompt]"] = String(args.sessionSettings.systemPrompt);
