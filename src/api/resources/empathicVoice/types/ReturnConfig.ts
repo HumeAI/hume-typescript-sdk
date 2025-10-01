@@ -20,10 +20,6 @@ export interface ReturnConfig {
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
     version?: number;
-    /** List of user-defined tools associated with this Config. */
-    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
-    /** An optional description of the Config version. */
-    versionDescription?: string;
     /**
      * The supplemental language model associated with this Config.
      *
@@ -56,4 +52,8 @@ export interface ReturnConfig {
     createdOn?: number;
     /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
     modifiedOn?: number;
+    /** An optional description of the Config version. */
+    versionDescription?: string;
+    /** List of user-defined tools associated with this Config. */
+    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
 }
