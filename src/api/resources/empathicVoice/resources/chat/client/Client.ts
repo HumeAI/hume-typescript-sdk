@@ -4,6 +4,7 @@ import * as core from "../../../../../../core";
 import qs from "qs";
 import { ChatSocket } from "./Socket";
 import { SDK_VERSION } from "../../../../../../version";
+import { SessionSettings } from "../../../types/SessionSettings";
 
 export function createHostnameWithProtocol(environment: string) {
     const protocol = /(https|http|wss|ws):\/\//.exec(environment);
@@ -44,13 +45,18 @@ export declare namespace Chat {
         /** ID of the Voice to use for this chat. If specified, will override the voice set in the Config */
         voiceId?: string;
 
+        sessionSettings?: Pick<SessionSettings, Exclude<keyof SessionSettings, "builtinTools" | "type" | "metadata"> & {
+            eventLimit?: number;
+        }>;
+
         /** Extra query parameters sent at WebSocket connection */
         queryParams?: Record<string, string | string[] | object | object[]>;
+
     }
 }
 
 export class Chat {
-    constructor(protected readonly _options: Chat.Options) {}
+    constructor(protected readonly _options: Chat.Options) { }
 
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const queryParams: Record<string, string | string[] | object | object[]> = {};
