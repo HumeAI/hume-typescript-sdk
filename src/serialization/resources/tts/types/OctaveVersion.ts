@@ -7,8 +7,8 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const OctaveVersion: core.serialization.Schema<serializers.tts.OctaveVersion.Raw, Hume.tts.OctaveVersion> =
-    core.serialization.string();
+    core.serialization.enum_(["1", "2"]);
 
 export declare namespace OctaveVersion {
-    export type Raw = string;
+    export type Raw = "1" | "2";
 }

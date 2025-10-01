@@ -322,14 +322,14 @@ export class Tts {
     public synthesizeJsonStreaming(
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
-    ): core.HttpResponsePromise<core.Stream<Hume.tts.SnippetAudioChunk>> {
+    ): core.HttpResponsePromise<core.Stream<Hume.tts.TtsOutput>> {
         return core.HttpResponsePromise.fromPromise(this.__synthesizeJsonStreaming(request, requestOptions));
     }
 
     private async __synthesizeJsonStreaming(
         request: Hume.tts.PostedTts,
         requestOptions?: Tts.RequestOptions,
-    ): Promise<core.WithRawResponse<core.Stream<Hume.tts.SnippetAudioChunk>>> {
+    ): Promise<core.WithRawResponse<core.Stream<Hume.tts.TtsOutput>>> {
         const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -356,7 +356,7 @@ export class Tts {
                 data: new core.Stream({
                     stream: _response.body,
                     parse: async (data) => {
-                        return serializers.tts.SnippetAudioChunk.parseOrThrow(data, {
+                        return serializers.tts.TtsOutput.parseOrThrow(data, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,

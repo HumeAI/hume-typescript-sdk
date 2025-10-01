@@ -8,18 +8,18 @@ import * as Hume from "../../../index";
  * Input message type for the TTS stream.
  */
 export interface PublishTts {
-    /** The input text to be converted to speech output. */
-    text?: string;
-    /** Natural language instructions describing how the text should be spoken by the model (e.g., `"a soft, gentle voice with a strong British accent"`). */
-    description?: string;
-    /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this and all subsequent utterances, until the `"voice"` field is updated again. */
-    voice?: Hume.tts.PostedUtteranceVoice;
-    /** A relative measure of how fast this utterance should be spoken. */
-    speed?: number;
-    /** Duration of trailing silence (in seconds) to add to this utterance */
-    trailingSilence?: number;
-    /** Force the generation of audio regardless of how much text has been supplied. */
-    flush?: boolean;
     /** Force the generation of audio and close the stream. */
     close?: boolean;
+    /** Natural language instructions describing how the text should be spoken by the model (e.g., `"a soft, gentle voice with a strong British accent"`). */
+    description?: string;
+    /** Force the generation of audio regardless of how much text has been supplied. */
+    flush?: boolean;
+    /** A relative measure of how fast this utterance should be spoken. */
+    speed?: number;
+    /** The input text to be converted to speech output. */
+    text?: string;
+    /** Duration of trailing silence (in seconds) to add to this utterance */
+    trailingSilence?: number;
+    /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this and all subsequent utterances, until the `"voice"` field is updated again. */
+    voice?: Hume.tts.PostedUtteranceVoice;
 }
