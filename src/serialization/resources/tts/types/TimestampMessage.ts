@@ -15,6 +15,7 @@ export const TimestampMessage: core.serialization.ObjectSchema<
     requestId: core.serialization.property("request_id", core.serialization.string()),
     snippetId: core.serialization.property("snippet_id", core.serialization.string()),
     timestamp: Timestamp,
+    type: core.serialization.stringLiteral("timestamp"),
 });
 
 export declare namespace TimestampMessage {
@@ -23,5 +24,6 @@ export declare namespace TimestampMessage {
         request_id: string;
         snippet_id: string;
         timestamp: Timestamp.Raw;
+        type: "timestamp";
     }
 }
