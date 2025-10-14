@@ -9,29 +9,9 @@ import { FormatMp3 } from "./FormatMp3";
 import { FormatPcm } from "./FormatPcm";
 import { FormatWav } from "./FormatWav";
 
-export const Format: core.serialization.Schema<serializers.tts.Format.Raw, Hume.tts.Format> = core.serialization
-    .union("type", {
-        mp3: FormatMp3,
-        pcm: FormatPcm,
-        wav: FormatWav,
-    })
-    .transform<Hume.tts.Format>({
-        transform: (value) => value,
-        untransform: (value) => value,
-    });
+export const Format: core.serialization.Schema<serializers.tts.Format.Raw, Hume.tts.Format> =
+    core.serialization.undiscriminatedUnion([FormatMp3, FormatPcm, FormatWav]);
 
 export declare namespace Format {
-    export type Raw = Format.Mp3 | Format.Pcm | Format.Wav;
-
-    export interface Mp3 extends FormatMp3.Raw {
-        type: "mp3";
-    }
-
-    export interface Pcm extends FormatPcm.Raw {
-        type: "pcm";
-    }
-
-    export interface Wav extends FormatWav.Raw {
-        type: "wav";
-    }
+    export type Raw = FormatMp3.Raw | FormatPcm.Raw | FormatWav.Raw;
 }

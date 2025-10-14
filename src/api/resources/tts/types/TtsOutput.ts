@@ -4,14 +4,4 @@
 
 import * as Hume from "../../../index";
 
-export type TtsOutput = Hume.tts.TtsOutput.Timestamp | Hume.tts.TtsOutput.Audio;
-
-export namespace TtsOutput {
-    export interface Timestamp extends Hume.tts.TimestampMessage {
-        type: "timestamp";
-    }
-
-    export interface Audio extends Hume.tts.SnippetAudioChunk {
-        type: "audio";
-    }
-}
+export type TtsOutput = Hume.tts.TimestampMessage | Hume.tts.SnippetAudioChunk;

@@ -16,4 +16,5 @@ export interface TimestampMessage {
     snippetId: string;
     /** A word or phoneme level timestamp for the generated audio. */
     timestamp: Hume.tts.Timestamp;
+    type: "timestamp";
 }

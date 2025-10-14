@@ -7,8 +7,12 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const FormatPcm: core.serialization.ObjectSchema<serializers.tts.FormatPcm.Raw, Hume.tts.FormatPcm> =
-    core.serialization.object({});
+    core.serialization.object({
+        type: core.serialization.stringLiteral("pcm"),
+    });
 
 export declare namespace FormatPcm {
-    export interface Raw {}
+    export interface Raw {
+        type: "pcm";
+    }
 }
