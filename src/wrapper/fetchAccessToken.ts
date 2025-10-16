@@ -38,7 +38,6 @@ export const fetchAccessToken = async ({
         body: new URLSearchParams({
             grant_type: "client_credentials",
         }).toString(),
-        cache: "no-cache",
     });
     return z
         .object({
