@@ -23,8 +23,33 @@ tsconfig.dev.json
 # src/api/resources/empathicVoice/resources/chat/client
 # src/core/websocket
 # src/core/index.ts
+# EVI Chat Client - manually maintained to preserve backward compatibility
+# Client.ts changes from generated version:
+# - ConnectArgs.sessionSettings is optional (was required)
+# - ConnectArgs.configVersion accepts string | number (was only number)
+# - ConnectArgs.voiceId added back as deprecated parameter
+# - ConnectArgs.queryParams added for arbitrary query parameters
+# - connect() args parameter is optional with default {}
+# - Handles voiceId parameter (maps to voice_id query param)
+# - Handles flexible configVersion types (both string and number)
+# - Conditional sessionSettings serialization (only if provided)
+# - Merges custom queryParams into query parameters
 src/api/resources/empathicVoice/resources/chat/client/Client.ts
+
+# Socket.ts changes from generated version:
+# - Response type includes receivedAt: Date timestamp
+# - handleMessage adds receivedAt timestamp to messages
+# - Restored 8 convenience methods that wrap sendPublish():
+#   - sendAudioInput(), sendSessionSettings(), sendAssistantInput()
+#   - pauseAssistant(), resumeAssistant()
+#   - sendToolResponseMessage(), sendToolErrorMessage(), sendUserInput()
+# - Added tillSocketOpen() as deprecated alias for waitForOpen()
 src/api/resources/empathicVoice/resources/chat/client/Socket.ts
+
+# index.ts - manually maintained to export Chat and ChatSocket
+# Generated version exports nothing (export {}), but we need to export
+# our manually maintained Client and Socket classes
+src/api/resources/empathicVoice/resources/chat/client/index.ts
 
 # Tests
 tests/empathicVoice
