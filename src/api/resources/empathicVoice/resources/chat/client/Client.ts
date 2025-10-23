@@ -4,7 +4,9 @@
 
 import * as environments from "../../../../../../environments.js";
 import * as core from "../../../../../../core/index.js";
+import * as Hume from "../../../../../index.js";
 import { mergeOnlyDefinedHeaders, mergeHeaders } from "../../../../../../core/headers.js";
+import * as serializers from "../../../../../../serialization/index.js";
 import { ChatSocket } from "./Socket.js";
 
 export declare namespace Chat {
@@ -23,19 +25,9 @@ export declare namespace Chat {
         configVersion?: number | undefined;
         eventLimit?: number | undefined;
         resumedChatGroupId?: string | undefined;
-        sessionSettingsAudioChannels?: number | undefined;
-        sessionSettingsAudioEncoding?: string | undefined;
-        sessionSettingsAudioSampleRate?: number | undefined;
-        sessionSettingsContextText?: string | undefined;
-        sessionSettingsContextType?: string | undefined;
-        sessionSettingsCustomSessionId?: string | undefined;
-        sessionSettingsEventLimit?: number | undefined;
-        sessionSettingsLanguageModelApiKey?: string | undefined;
-        sessionSettingsSystemPrompt?: string | undefined;
-        sessionSettingsVariables?: string | undefined;
-        sessionSettingsVoiceId?: string | undefined;
         verboseTranscription?: boolean | undefined;
         apiKey?: string | undefined;
+        sessionSettings: Hume.empathicVoice.ConnectSessionSettings;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
         /** Enable debug mode on the websocket. Defaults to false. */
@@ -52,26 +44,16 @@ export class Chat {
         this._options = _options;
     }
 
-    public async connect(args: Chat.ConnectArgs = {}): Promise<ChatSocket> {
+    public async connect(args: Chat.ConnectArgs): Promise<ChatSocket> {
         const {
             accessToken,
             configId,
             configVersion,
             eventLimit,
             resumedChatGroupId,
-            sessionSettingsAudioChannels,
-            sessionSettingsAudioEncoding,
-            sessionSettingsAudioSampleRate,
-            sessionSettingsContextText,
-            sessionSettingsContextType,
-            sessionSettingsCustomSessionId,
-            sessionSettingsEventLimit,
-            sessionSettingsLanguageModelApiKey,
-            sessionSettingsSystemPrompt,
-            sessionSettingsVariables,
-            sessionSettingsVoiceId,
             verboseTranscription,
             apiKey,
+            sessionSettings,
             headers,
             debug,
             reconnectAttempts,
@@ -97,50 +79,6 @@ export class Chat {
             _queryParams["resumed_chat_group_id"] = resumedChatGroupId;
         }
 
-        if (sessionSettingsAudioChannels != null) {
-            _queryParams["session_settings[audio][channels]"] = sessionSettingsAudioChannels.toString();
-        }
-
-        if (sessionSettingsAudioEncoding != null) {
-            _queryParams["session_settings[audio][encoding]"] = sessionSettingsAudioEncoding;
-        }
-
-        if (sessionSettingsAudioSampleRate != null) {
-            _queryParams["session_settings[audio][sample_rate]"] = sessionSettingsAudioSampleRate.toString();
-        }
-
-        if (sessionSettingsContextText != null) {
-            _queryParams["session_settings[context][text]"] = sessionSettingsContextText;
-        }
-
-        if (sessionSettingsContextType != null) {
-            _queryParams["session_settings[context][type]"] = sessionSettingsContextType;
-        }
-
-        if (sessionSettingsCustomSessionId != null) {
-            _queryParams["session_settings[custom_session_id]"] = sessionSettingsCustomSessionId;
-        }
-
-        if (sessionSettingsEventLimit != null) {
-            _queryParams["session_settings[event_limit]"] = sessionSettingsEventLimit.toString();
-        }
-
-        if (sessionSettingsLanguageModelApiKey != null) {
-            _queryParams["session_settings[language_model_api_key]"] = sessionSettingsLanguageModelApiKey;
-        }
-
-        if (sessionSettingsSystemPrompt != null) {
-            _queryParams["session_settings[system_prompt]"] = sessionSettingsSystemPrompt;
-        }
-
-        if (sessionSettingsVariables != null) {
-            _queryParams["session_settings[variables]"] = sessionSettingsVariables;
-        }
-
-        if (sessionSettingsVoiceId != null) {
-            _queryParams["session_settings[voice_id]"] = sessionSettingsVoiceId;
-        }
-
         if (verboseTranscription != null) {
             _queryParams["verbose_transcription"] = verboseTranscription.toString();
         }
@@ -149,6 +87,16 @@ export class Chat {
             _queryParams["api_key"] = apiKey;
         }
 
+        _queryParams["session_settings"] = serializers.empathicVoice.ConnectSessionSettings.jsonOrThrow(
+            sessionSettings,
+            {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
+                breadcrumbsPrefix: ["request", "sessionSettings"],
+            },
+        );
         let _headers: Record<string, unknown> = mergeHeaders(
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             headers,
