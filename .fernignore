@@ -14,18 +14,15 @@ tsconfig.dev.json
 .github
 .prettierignore
 
-# Wrapper client
-src/wrapper
-src/index.ts
 
 # EVI WebSocket
-src/core/fetcher/Supplier.ts
-src/Client.ts
-src/api/resources/empathicVoice/client/Client.ts
-src/api/resources/empathicVoice/resources/chat/index.ts
-src/api/resources/empathicVoice/resources/chat/client
-src/core/websocket
-src/core/index.ts
+# src/core/fetcher/Supplier.ts
+# src/Client.ts
+# src/api/resources/empathicVoice/client/Client.ts
+# src/api/resources/empathicVoice/resources/chat/index.ts
+# src/api/resources/empathicVoice/resources/chat/client
+# src/core/websocket
+# src/core/index.ts
 
 # Tests
 tests/empathicVoice
@@ -37,3 +34,7 @@ tests/BrowserTestEnvironment.ts
 # Needed to send apiKey on websocket queryParams
 # See https://github.com/fern-demo/hume-typescript-sdk/pull/1
 src/core/websocket/ws.ts
+
+# Needed to export the utilities under src/wrapper
+src/wrapper
+src/index.ts
