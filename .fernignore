@@ -23,6 +23,8 @@ tsconfig.dev.json
 # src/api/resources/empathicVoice/resources/chat/client
 # src/core/websocket
 # src/core/index.ts
+src/api/resources/empathicVoice/resources/chat/client/Client.ts
+src/api/resources/empathicVoice/resources/chat/client/Socket.ts
 
 # Tests
 tests/empathicVoice

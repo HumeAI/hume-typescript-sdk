@@ -3,6 +3,7 @@ import { WebSocket as NodeWebSocket } from "ws";
 import { RUNTIME } from "../runtime/index.js";
 import { toQueryString } from "../url/qs.js";
 import * as Events from "./events.js";
+import { SDK_VERSION } from "../../version.js";
 
 const getGlobalWebSocket = (): WebSocket | undefined => {
     if (typeof WebSocket !== "undefined") {
@@ -83,6 +84,14 @@ function addApiKeyFromHeader({
     return queryParameters;
 }
 
+function addSdkTracking(queryParameters: Record<string, any> | undefined) {
+    return {
+        ...queryParameters,
+        fernSdkLanguage: "JavaScript",
+        fernSdkVersion: SDK_VERSION,
+    };
+}
+
 export class ReconnectingWebSocket {
     private _ws?: WebSocket;
     private _listeners: ReconnectingWebSocket.ListenersMap = {
@@ -111,7 +120,7 @@ export class ReconnectingWebSocket {
         this._protocols = protocols;
         this._options = options ?? DEFAULT_OPTIONS;
         this._headers = headers;
-        this._queryParameters = addApiKeyFromHeader({headers, queryParameters});
+        this._queryParameters = addSdkTracking(addApiKeyFromHeader({headers, queryParameters}));
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
