@@ -69,6 +69,20 @@ const DEFAULT_OPTIONS = {
     debug: false,
 };
 
+function addApiKeyFromHeader({
+    headers,
+    queryParameters,
+}: {
+    headers: Record<string, any> | undefined;
+    queryParameters: Record<string, any> | undefined;
+}) {
+    const apiKeyValue = headers?.["X-Hume-Api-Key"];
+    if (apiKeyValue && !queryParameters?.["api_key"]) {
+        return { ...queryParameters, apiKey: apiKeyValue };
+    }
+    return queryParameters;
+}
+
 export class ReconnectingWebSocket {
     private _ws?: WebSocket;
     private _listeners: ReconnectingWebSocket.ListenersMap = {
@@ -97,7 +111,7 @@ export class ReconnectingWebSocket {
         this._protocols = protocols;
         this._options = options ?? DEFAULT_OPTIONS;
         this._headers = headers;
-        this._queryParameters = queryParameters;
+        this._queryParameters = addApiKeyFromHeader({headers, queryParameters});
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
