@@ -4,3 +4,5 @@ export { HumeError, HumeTimeoutError } from "./errors/index.js";
 export { HumeClient } from "./Client.js";
 export { HumeEnvironment, HumeEnvironmentUrls } from "./environments.js";
 export * from "./exports.js";
+
+export * from "./wrapper";

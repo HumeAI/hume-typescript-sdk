@@ -33,3 +33,7 @@ tests/expressionMeasurement
 
 # Needed because node 18 doesn't actually have a global.File
 tests/BrowserTestEnvironment.ts
+
+# Needed to send apiKey on websocket queryParams
+# See https://github.com/fern-demo/hume-typescript-sdk/pull/1
+src/core/websocket/ws.ts
