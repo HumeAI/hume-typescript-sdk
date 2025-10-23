@@ -1,5 +1,6 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-export * as Hume from "./api";
-export * from "./wrapper";
-export { HumeEnvironment } from "./environments";
-export { HumeError, HumeTimeoutError } from "./errors";
+export * as Hume from "./api/index.js";
+export * as serialization from "./serialization/index.js";
+export { HumeError, HumeTimeoutError } from "./errors/index.js";
+export { HumeClient } from "./Client.js";
+export { HumeEnvironment, HumeEnvironmentUrls } from "./environments.js";
+export * from "./exports.js";

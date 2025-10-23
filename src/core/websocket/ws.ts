@@ -1,9 +1,8 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-import { RUNTIME } from "../runtime";
-import * as Events from "./events";
 import { WebSocket as NodeWebSocket } from "ws";
 
-const ABNORMAL_CLOSURE_CODE = 1006;
+import { RUNTIME } from "../runtime/index.js";
+import { toQueryString } from "../url/qs.js";
+import * as Events from "./events.js";
 
 const getGlobalWebSocket = (): WebSocket | undefined => {
     if (typeof WebSocket !== "undefined") {
@@ -24,20 +23,41 @@ export type Event = Events.Event;
 export type ErrorEvent = Events.ErrorEvent;
 export type CloseEvent = Events.CloseEvent;
 
-export type Options = {
-    WebSocket?: any;
-    maxReconnectionDelay?: number;
-    minReconnectionDelay?: number;
-    reconnectionDelayGrowFactor?: number;
-    minUptime?: number;
-    connectionTimeout?: number;
-    maxRetries?: number;
-    maxEnqueuedMessages?: number;
-    startClosed?: boolean;
-    debug?: boolean;
-};
+export declare namespace ReconnectingWebSocket {
+    export interface Args {
+        url: string;
+        protocols?: string | string[];
+        options?: ReconnectingWebSocket.Options;
+        headers?: Record<string, unknown>;
+        queryParameters?: Record<string, string | string[] | object | object[] | null | undefined>;
+    }
 
-const DEFAULT = {
+    export type Options = {
+        WebSocket?: any;
+        maxReconnectionDelay?: number;
+        minReconnectionDelay?: number;
+        reconnectionDelayGrowFactor?: number;
+        minUptime?: number;
+        connectionTimeout?: number;
+        maxRetries?: number;
+        maxEnqueuedMessages?: number;
+        startClosed?: boolean;
+        debug?: boolean;
+    };
+
+    export type UrlProvider = string | (() => string) | (() => Promise<string>);
+
+    export type Message = string | ArrayBuffer | Blob | ArrayBufferView;
+
+    export type ListenersMap = {
+        error: Array<Events.WebSocketEventListenerMap["error"]>;
+        message: Array<Events.WebSocketEventListenerMap["message"]>;
+        open: Array<Events.WebSocketEventListenerMap["open"]>;
+        close: Array<Events.WebSocketEventListenerMap["close"]>;
+    };
+}
+
+const DEFAULT_OPTIONS = {
     maxReconnectionDelay: 10000,
     minReconnectionDelay: 1000 + Math.random() * 4000,
     minUptime: 5000,
@@ -49,20 +69,9 @@ const DEFAULT = {
     debug: false,
 };
 
-export type UrlProvider = string | (() => string) | (() => Promise<string>);
-
-export type Message = string | ArrayBuffer | Blob | ArrayBufferView;
-
-export type ListenersMap = {
-    error: Array<Events.WebSocketEventListenerMap["error"]>;
-    message: Array<Events.WebSocketEventListenerMap["message"]>;
-    open: Array<Events.WebSocketEventListenerMap["open"]>;
-    close: Array<Events.WebSocketEventListenerMap["close"]>;
-};
-
 export class ReconnectingWebSocket {
     private _ws?: WebSocket;
-    private _listeners: ListenersMap = {
+    private _listeners: ReconnectingWebSocket.ListenersMap = {
         error: [],
         message: [],
         open: [],
@@ -75,21 +84,20 @@ export class ReconnectingWebSocket {
     private _connectLock = false;
     private _binaryType: BinaryType = "blob";
     private _closeCalled = false;
-    private _messageQueue: Message[] = [];
+    private _messageQueue: ReconnectingWebSocket.Message[] = [];
 
-    private readonly _url: UrlProvider;
+    private readonly _url: ReconnectingWebSocket.UrlProvider;
     private readonly _protocols?: string | string[];
-    private readonly _options: Options;
-    private readonly _WebSocket: typeof WebSocket;
+    private readonly _options: ReconnectingWebSocket.Options;
+    private readonly _headers?: Record<string, any>;
+    private readonly _queryParameters?: Record<string, any>;
 
-    constructor(url: UrlProvider, protocols?: string | string[], options: Options = {}) {
+    constructor({ url, protocols, options, headers, queryParameters }: ReconnectingWebSocket.Args) {
         this._url = url;
         this._protocols = protocols;
-        this._options = options;
-        this._WebSocket = this._options.WebSocket || getGlobalWebSocket();
-        if (!isWebSocket(this._WebSocket)) {
-            throw Error("No valid WebSocket class provided");
-        }
+        this._options = options ?? DEFAULT_OPTIONS;
+        this._headers = headers;
+        this._queryParameters = queryParameters;
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
@@ -245,20 +253,20 @@ export class ReconnectingWebSocket {
         if (!this._ws || this._ws.readyState === this.CLOSED) {
             this._connect();
         } else {
-            // If the socket is already connected then disconnect. The socket will conditionally reconnected in _handleClose
             this._disconnect(code, reason);
+            this._connect();
         }
     }
 
     /**
      * Enqueue specified data to be transmitted to the server over the WebSocket connection
      */
-    public send(data: Message) {
+    public send(data: ReconnectingWebSocket.Message) {
         if (this._ws && this._ws.readyState === this.OPEN) {
             this._debug("send", data);
             this._ws.send(data);
         } else {
-            const { maxEnqueuedMessages = DEFAULT.maxEnqueuedMessages } = this._options;
+            const { maxEnqueuedMessages = DEFAULT_OPTIONS.maxEnqueuedMessages } = this._options;
             if (this._messageQueue.length < maxEnqueuedMessages) {
                 this._debug("enqueue", data);
                 this._messageQueue.push(data);
@@ -309,15 +317,16 @@ export class ReconnectingWebSocket {
         if (this._options.debug) {
             // not using spread because compiled version uses Symbols
             // tslint:disable-next-line
+            // biome-ignore lint/suspicious/noConsole: allow console
             console.log.apply(console, ["RWS>", ...args]);
         }
     }
 
     private _getNextDelay() {
         const {
-            reconnectionDelayGrowFactor = DEFAULT.reconnectionDelayGrowFactor,
-            minReconnectionDelay = DEFAULT.minReconnectionDelay,
-            maxReconnectionDelay = DEFAULT.maxReconnectionDelay,
+            reconnectionDelayGrowFactor = DEFAULT_OPTIONS.reconnectionDelayGrowFactor,
+            minReconnectionDelay = DEFAULT_OPTIONS.minReconnectionDelay,
+            maxReconnectionDelay = DEFAULT_OPTIONS.maxReconnectionDelay,
         } = this._options;
         let delay = 0;
         if (this._retryCount > 0) {
@@ -336,7 +345,7 @@ export class ReconnectingWebSocket {
         });
     }
 
-    private _getNextUrl(urlProvider: UrlProvider): Promise<string> {
+    private _getNextUrl(urlProvider: ReconnectingWebSocket.UrlProvider): Promise<string> {
         if (typeof urlProvider === "string") {
             return Promise.resolve(urlProvider);
         }
@@ -353,84 +362,52 @@ export class ReconnectingWebSocket {
         throw Error("Invalid URL");
     }
 
-    /**
-     * Handles the final "tear down" process when connection attempts must permanently stop
-     * (e.g., max retries reached, fatal configuration error).
-     * Releases locks, disables reconnection, dispatches final error and close events.
-     *
-     * @param error - The specific Error instance indicating the reason for termination.
-     * @param closeReason - The reason string to use for the final CloseEvent.
-     */
-    private _shutdown(error: Error, closeReason: string): void {
-        this._debug("Terminating connection attempts. Reason:", error.message);
-
-        // Ensure state prevents further attempts
-        this._connectLock = false;
-        this._shouldReconnect = false;
-
-        // Dispatch error event
-        const errorEvent = this._adaptError(error);
-        if (this.onerror) this.onerror(errorEvent);
-        this._listeners.error.forEach((listener) => this._callEventListener(errorEvent, listener));
-
-        // Dispatch close event
-        const closeEvent = new Events.CloseEvent(1000, closeReason, this);
-        closeEvent.willReconnect = false;
-        if (this.onclose) this.onclose(closeEvent);
-        this._listeners.close.forEach((listener) => this._callEventListener(closeEvent, listener));
-    }
-
     private _connect() {
-        // Check locks and intent
-        if (this._connectLock) {
-            this._debug("Connection attempt already in progress.");
+        if (this._connectLock || !this._shouldReconnect) {
             return;
         }
-        if (!this._shouldReconnect) {
-            this._debug("Reconnection disabled, skipping connect attempt.");
-            return;
-        }
-
-        // Set lock for this attempt
         this._connectLock = true;
 
-        const { maxRetries = DEFAULT.maxRetries, connectionTimeout = DEFAULT.connectionTimeout } = this._options;
+        const {
+            maxRetries = DEFAULT_OPTIONS.maxRetries,
+            connectionTimeout = DEFAULT_OPTIONS.connectionTimeout,
+            WebSocket = getGlobalWebSocket(),
+        } = this._options;
 
-        // Max retries check
         if (this._retryCount >= maxRetries) {
-            this._shutdown(new Error(`Max retries (${maxRetries}) reached. Giving up.`), "Max retries reached");
+            this._debug("max retries reached", this._retryCount, ">=", maxRetries);
             return;
         }
 
-        // Prepare connection attempt
         this._retryCount++;
+
         this._debug("connect", this._retryCount);
         this._removeListeners();
-
-        // Connection attempt
+        if (!isWebSocket(WebSocket)) {
+            throw Error("No valid WebSocket class provided");
+        }
         this._wait()
             .then(() => this._getNextUrl(this._url))
             .then((url) => {
-                // Close could be called before creating the ws
                 if (this._closeCalled) {
-                    this._connectLock = false;
-                    this._debug("Connection cancelled: ReconnectingWebSocket.close() called during setup.");
                     return;
                 }
-
-                this._debug("connect", { url, protocols: this._protocols });
-                this._ws = this._protocols ? new this._WebSocket(url, this._protocols) : new this._WebSocket(url);
+                const options: Record<string, unknown> = {};
+                if (this._headers) {
+                    options.headers = this._headers;
+                }
+                if (this._queryParameters && Object.keys(this._queryParameters).length > 0) {
+                    const queryString = toQueryString(this._queryParameters, { arrayFormat: "repeat" });
+                    if (queryString) {
+                        url = `${url}?${queryString}`;
+                    }
+                }
+                this._ws = new WebSocket(url, this._protocols, options);
                 this._ws!.binaryType = this._binaryType;
-
-                this._addListeners();
                 this._connectLock = false;
+                this._addListeners();
 
                 this._connectTimeout = setTimeout(() => this._handleTimeout(), connectionTimeout);
-            })
-            .catch((error: any) => {
-                this._debug("Connection setup failed:", error);
-                this._connectLock = false;
-                this._handleError(error);
             });
     }
 
@@ -473,7 +450,7 @@ export class ReconnectingWebSocket {
 
     private _handleOpen = (event: Event) => {
         this._debug("open event");
-        const { minUptime = DEFAULT.minUptime } = this._options;
+        const { minUptime = DEFAULT_OPTIONS.minUptime } = this._options;
 
         clearTimeout(this._connectTimeout);
         this._uptimeTimeout = setTimeout(() => this._acceptOpen(), minUptime);
@@ -499,105 +476,35 @@ export class ReconnectingWebSocket {
         this._listeners.message.forEach((listener) => this._callEventListener(event, listener));
     };
 
-    /**
-     * Adapts a raw error or event input into a standardized `Events.ErrorEvent`.
-     * This utility is called by `_handleError` to ensure it operates on a
-     * consistent error structure.
-     * @param rawErrorOrEventInput - The raw error data (e.g., Error instance, DOM Event, Events.ErrorEvent).
-     * @returns A standardized `Events.ErrorEvent` containing an underlying `Error` instance.
-     */
-    private _adaptError(rawErrorOrEventInput: unknown): Events.ErrorEvent {
-        this._debug("Adapting raw error/event via _adaptError:", rawErrorOrEventInput);
-        let underlyingError: Error;
+    private _handleError = (event: Events.ErrorEvent) => {
+        this._debug("error event", event.message);
+        this._disconnect(undefined, event.message === "TIMEOUT" ? "timeout" : undefined);
 
-        if (rawErrorOrEventInput instanceof Events.ErrorEvent && rawErrorOrEventInput.error instanceof Error) {
-            return rawErrorOrEventInput;
+        if (this.onerror) {
+            this.onerror(event);
         }
-
-        if (rawErrorOrEventInput instanceof Error) {
-            underlyingError = rawErrorOrEventInput;
-        } else if (
-            typeof Event !== "undefined" &&
-            rawErrorOrEventInput instanceof Event &&
-            rawErrorOrEventInput.type === "error"
-        ) {
-            underlyingError = new Error(
-                "WebSocket low-level error occurred (see browser/runtime console for native event details).",
-            );
-        } else {
-            underlyingError = new Error(
-                `Unknown WebSocket error. Raw data: ${String(rawErrorOrEventInput ?? "undefined")}`,
-            );
-        }
-
-        return new Events.ErrorEvent(underlyingError, this);
-    }
-
-    /**
-     * Core handler for all errors. It first standardizes the error input using `_adaptError`,
-     * then manages disconnection, dispatches the standardized error event, and initiates reconnection.
-     * @param rawErrorOrEventInput - The error data from any internal source.
-     */
-    private _handleError = (rawErrorOrEventInput: any): void => {
-        this._debug("Raw error/event received by _handleError, passing to _adaptError:", rawErrorOrEventInput);
-
-        const adaptedError = this._adaptError(rawErrorOrEventInput);
-        const { error, message } = adaptedError;
-
-        // Close with abnormal closure code so _handleClose will reconnect if there's a socket
-        this._disconnect(ABNORMAL_CLOSURE_CODE, message);
-
-        this._debug("Processed error. Dispatching Event:", message, error);
-        if (this.onerror) this.onerror(adaptedError);
-
         this._debug("exec error listeners");
-        this._listeners.error.forEach((listener) => this._callEventListener(adaptedError, listener));
+        this._listeners.error.forEach((listener) => this._callEventListener(event, listener));
 
-        // If we never even got a ws instance, _disconnect returned early so we need to explicitly retry here
-        if (!this._ws && this._shouldReconnect) {
-            this._debug("Error before socket created; scheduling initial reconnect.");
-            this._connect();
-        }
+        this._connect();
     };
 
-    /**
-     * Handles WebSocket close events, either native or synthesized internally.
-     *
-     * Adapts the event if necessary, manages state, dispatches standardized close events,
-     * and initiates reconnection if appropriate.
-     *
-     * @param eventInfo - Either an internal Events.CloseEvent or a native DOM CloseEvent.
-     */
-    private _handleClose = (event: Events.CloseEvent | CloseEvent) => {
-        this._debug("Raw close event received by _handleClose:", event);
-
-        // Adapt event if event is an instance of the (browser) native CloseEvent
-        const isNativeCloseEvent = typeof CloseEvent !== "undefined" && event instanceof CloseEvent;
-        const adaptedEvent: Events.CloseEvent = isNativeCloseEvent
-            ? new Events.CloseEvent(event.code, event.reason, this)
-            : (event as Events.CloseEvent);
-
-        // Clean up state
+    private _handleClose = (event: Events.CloseEvent) => {
+        this._debug("close event");
         this._clearTimeouts();
-        this._ws = undefined;
-        this._connectLock = false;
 
-        // Determine reconnection intent
-        if (this._closeCalled) {
+        if (event.code === 1000) {
             this._shouldReconnect = false;
-            this._debug("Reconnection stopped: RWS.close() was called.");
-        } else if (adaptedEvent.code === 1000) {
-            this._shouldReconnect = false;
-            this._debug("Reconnection stopped: Received close code 1000 (intentional server close).");
         }
-        adaptedEvent.willReconnect = this._shouldReconnect;
 
-        // Dispatch event to listeners
-        if (this.onclose) this.onclose(adaptedEvent);
-        this._listeners.close.forEach((listener) => this._callEventListener(adaptedEvent, listener));
+        if (this._shouldReconnect) {
+            this._connect();
+        }
 
-        // Conditionally attempt reconnection
-        if (this._shouldReconnect) this._connect();
+        if (this.onclose) {
+            this.onclose(event);
+        }
+        this._listeners.close.forEach((listener) => this._callEventListener(event, listener));
     };
 
     private _removeListeners() {
@@ -620,6 +527,7 @@ export class ReconnectingWebSocket {
         this._ws.addEventListener("open", this._handleOpen);
         this._ws.addEventListener("close", this._handleClose);
         this._ws.addEventListener("message", this._handleMessage);
+        // @ts-ignore
         this._ws.addEventListener("error", this._handleError);
     }
 

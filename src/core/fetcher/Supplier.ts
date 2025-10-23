@@ -1,8 +1,7 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-export type Supplier<T> = T | (() => T);
+export type Supplier<T> = T | Promise<T> | (() => T | Promise<T>);
 
 export const Supplier = {
-    get: <T>(supplier: Supplier<T>): T => {
+    get: async <T>(supplier: Supplier<T>): Promise<T> => {
         if (typeof supplier === "function") {
             return (supplier as () => T)();
         } else {

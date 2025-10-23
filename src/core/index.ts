@@ -1,12 +1,10 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-export * from "./fetcher";
-export * from "./runtime";
-export * from "./stream";
-export * from "./utils";
-export * from "./pagination";
-export * from "./form-data-utils";
-export * from "./file";
-export * as serialization from "./schemas";
-
-// This one is manually added
-export * from "./websocket";
+export * from "./fetcher/index.js";
+export * from "./runtime/index.js";
+export * as url from "./url/index.js";
+export * as serialization from "./schemas/index.js";
+export * from "./websocket/index.js";
+export * from "./stream/index.js";
+export * from "./utils/index.js";
+export * from "./pagination/index.js";
+export * from "./form-data-utils/index.js";
+export * as file from "./file/index.js";

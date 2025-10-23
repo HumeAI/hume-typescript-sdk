@@ -1,2 +1,2 @@
-export * from "./PublishEvent";
-export * from "./SubscribeEvent";
+export * from "./PublishEvent.js";
+export * from "./SubscribeEvent.js";
