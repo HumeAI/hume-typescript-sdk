@@ -84,6 +84,26 @@ function addApiKeyFromHeader({
     return queryParameters;
 }
 
+function addAccessTokenFromHeader({
+    headers,
+    queryParameters,
+}: {
+    headers: Record<string, any> | undefined;
+    queryParameters: Record<string, any> | undefined;
+}) {
+    const authHeaderValue = headers?.["Authorization"];
+    if (!authHeaderValue) {
+        return queryParameters;
+    }
+    if (!authHeaderValue.startsWith("Bearer ")) {
+        return queryParameters;
+    }
+    if (queryParameters?.["access_token"]) {
+        return queryParameters;
+    }
+    return { ...queryParameters, access_token: authHeaderValue.substring("Bearer ".length) };
+}
+
 function addSdkTracking(queryParameters: Record<string, any> | undefined) {
     return {
         ...queryParameters,
@@ -120,7 +140,16 @@ export class ReconnectingWebSocket {
         this._protocols = protocols;
         this._options = options ?? DEFAULT_OPTIONS;
         this._headers = headers;
-        this._queryParameters = addSdkTracking(addApiKeyFromHeader({ headers, queryParameters }));
+        this._queryParameters = addSdkTracking(
+            addAccessTokenFromHeader({
+                headers,
+                queryParameters: addApiKeyFromHeader({
+                    headers,
+                    queryParameters,
+                }),
+            }),
+        );
+
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
