@@ -7,8 +7,12 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const FormatMp3: core.serialization.ObjectSchema<serializers.tts.FormatMp3.Raw, Hume.tts.FormatMp3> =
-    core.serialization.object({});
+    core.serialization.object({
+        type: core.serialization.stringLiteral("mp3"),
+    });
 
 export declare namespace FormatMp3 {
-    export interface Raw {}
+    export interface Raw {
+        type: "mp3";
+    }
 }
