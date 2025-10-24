@@ -16,6 +16,7 @@ tsconfig.dev.json
 
 
 # EVI WebSocket
+# Supplier.ts - sync version required to keep EVI chat client .connect() method synchronous
 src/core/fetcher/Supplier.ts
 # src/Client.ts
 # src/api/resources/empathicVoice/client/Client.ts
