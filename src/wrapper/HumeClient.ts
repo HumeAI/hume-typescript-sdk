@@ -55,7 +55,12 @@ export class HumeClient extends FernClient {
                             stream: e.replace('https://', 'wss://') + "/v0/stream",
                         }
                     }
-                    throw new Error(`Invalid environment URL: ${e}. Must start with http:// or https://`);
+                        return {
+                            base: 'https://' + e,
+                            evi: 'wss://' + e + "/v0/evi",
+                            tts: 'wss://' + e + "/v0/tts",
+                            stream: 'wss://' + e + "/v0/stream",
+                        }
                 } else {
                     return e
                 }
