@@ -16,7 +16,7 @@ tsconfig.dev.json
 
 
 # EVI WebSocket
-# src/core/fetcher/Supplier.ts
+src/core/fetcher/Supplier.ts
 # src/Client.ts
 # src/api/resources/empathicVoice/client/Client.ts
 # src/api/resources/empathicVoice/resources/chat/index.ts

@@ -46,7 +46,7 @@ export class Chat {
         this._options = _options;
     }
 
-    public async connect(args: Chat.ConnectArgs = {}): Promise<ChatSocket> {
+    public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const {
             accessToken,
             configId,
@@ -118,13 +118,13 @@ export class Chat {
         }
 
         let _headers: Record<string, unknown> = mergeHeaders(
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            mergeOnlyDefinedHeaders({ ...this._getCustomAuthorizationHeaders() }),
             headers,
         );
         const socket = new core.ReconnectingWebSocket({
             url: core.url.join(
-                (await core.Supplier.get(this._options["baseUrl"])) ??
-                    ((await core.Supplier.get(this._options["environment"])) ?? environments.HumeEnvironment.Prod).evi,
+                core.Supplier.get(this._options["baseUrl"]) ??
+                    (core.Supplier.get(this._options["environment"]) ?? environments.HumeEnvironment.Prod).evi,
                 "/chat",
             ),
             protocols: [],
@@ -135,8 +135,8 @@ export class Chat {
         return new ChatSocket({ socket });
     }
 
-    protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
+    protected _getCustomAuthorizationHeaders() {
+        const apiKeyValue = core.Supplier.get(this._options.apiKey);
         return { "X-Hume-Api-Key": apiKeyValue };
     }
 }

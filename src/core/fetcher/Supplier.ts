@@ -1,7 +1,8 @@
-export type Supplier<T> = T | Promise<T> | (() => T | Promise<T>);
+/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+export type Supplier<T> = T | (() => T);
 
 export const Supplier = {
-    get: async <T>(supplier: Supplier<T>): Promise<T> => {
+    get: <T>(supplier: Supplier<T>): T => {
         if (typeof supplier === "function") {
             return (supplier as () => T)();
         } else {
