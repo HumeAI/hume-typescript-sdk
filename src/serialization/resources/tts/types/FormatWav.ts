@@ -7,8 +7,12 @@ import * as Hume from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const FormatWav: core.serialization.ObjectSchema<serializers.tts.FormatWav.Raw, Hume.tts.FormatWav> =
-    core.serialization.object({});
+    core.serialization.object({
+        type: core.serialization.stringLiteral("wav"),
+    });
 
 export declare namespace FormatWav {
-    export interface Raw {}
+    export interface Raw {
+        type: "wav";
+    }
 }
