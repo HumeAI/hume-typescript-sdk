@@ -73,7 +73,8 @@ export class Chat {
         }
 
         if (configVersion != null) {
-            _queryParams["config_version"] = typeof configVersion === "number" ? configVersion.toString() : configVersion;
+            _queryParams["config_version"] =
+                typeof configVersion === "number" ? configVersion.toString() : configVersion;
         }
 
         if (eventLimit != null) {

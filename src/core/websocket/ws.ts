@@ -120,7 +120,7 @@ export class ReconnectingWebSocket {
         this._protocols = protocols;
         this._options = options ?? DEFAULT_OPTIONS;
         this._headers = headers;
-        this._queryParameters = addSdkTracking(addApiKeyFromHeader({headers, queryParameters}));
+        this._queryParameters = addSdkTracking(addApiKeyFromHeader({ headers, queryParameters }));
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }

@@ -3,7 +3,7 @@ import * as core from "../core/index.js";
 import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient";
 
 export declare namespace HumeClient {
-    type Options = FernClient.Options & { secretKey?: string, accessToken?: string } & (
+    type Options = FernClient.Options & { secretKey?: string; accessToken?: string } & (
             | { accessToken: NonNullable<core.Supplier<string>> }
             | { apiKey: NonNullable<FernClient.Options["apiKey"]> }
         );
