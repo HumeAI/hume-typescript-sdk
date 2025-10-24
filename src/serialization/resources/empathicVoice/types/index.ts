@@ -35,6 +35,7 @@ export * from "./UserMessage.js";
 export * from "./JsonMessage.js";
 export * from "./ConnectSessionSettingsAudio.js";
 export * from "./ConnectSessionSettingsContext.js";
+export * from "./ConnectSessionSettingsVariablesValue.js";
 export * from "./ConnectSessionSettings.js";
 export * from "./HttpValidationError.js";
 export * from "./LanguageModelType.js";

@@ -11,6 +11,13 @@ export interface ConnectSessionSettings {
     eventLimit?: number;
     languageModelApiKey?: string;
     systemPrompt?: string;
-    variables?: string;
+    /**
+     * This field allows you to assign values to dynamic variables referenced in your system prompt.
+     *
+     * Each key represents the variable name, and the corresponding value is the specific content you wish to assign to that variable within the session. While the values for variables can be strings, numbers, or booleans, the value will ultimately be converted to a string when injected into your system prompt.
+     *
+     * Using this field, you can personalize responses based on session-specific details. For more guidance, see our [guide on using dynamic variables](/docs/speech-to-speech-evi/features/dynamic-variables).
+     */
+    variables?: Record<string, Hume.empathicVoice.ConnectSessionSettingsVariablesValue>;
     voiceId?: string;
 }
