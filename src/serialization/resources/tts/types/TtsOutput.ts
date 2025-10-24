@@ -9,24 +9,8 @@ import { TimestampMessage } from "./TimestampMessage";
 import { SnippetAudioChunk } from "./SnippetAudioChunk";
 
 export const TtsOutput: core.serialization.Schema<serializers.tts.TtsOutput.Raw, Hume.tts.TtsOutput> =
-    core.serialization
-        .union("type", {
-            timestamp: TimestampMessage,
-            audio: SnippetAudioChunk,
-        })
-        .transform<Hume.tts.TtsOutput>({
-            transform: (value) => value,
-            untransform: (value) => value,
-        });
+    core.serialization.undiscriminatedUnion([TimestampMessage, SnippetAudioChunk]);
 
 export declare namespace TtsOutput {
-    export type Raw = TtsOutput.Timestamp | TtsOutput.Audio;
-
-    export interface Timestamp extends TimestampMessage.Raw {
-        type: "timestamp";
-    }
-
-    export interface Audio extends SnippetAudioChunk.Raw {
-        type: "audio";
-    }
+    export type Raw = TimestampMessage.Raw | SnippetAudioChunk.Raw;
 }
