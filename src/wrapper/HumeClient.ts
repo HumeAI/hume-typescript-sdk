@@ -11,7 +11,30 @@ export declare namespace HumeClient {
 
 export class HumeClient extends FernClient {
     constructor(protected readonly _options: HumeClient.Options) {
-        super(_options || {});
+        if (_options.accessToken && _options.headers) {
+            const hasAuthHeader = Object.keys(_options.headers).some(
+                key => key.toLowerCase() === 'authorization'
+            );
+            if (hasAuthHeader) {
+                throw new Error(
+                    "Cannot provide both 'accessToken' and 'headers.Authorization'. Please use only one."
+                );
+            }
+        }
+
+        // If accessToken is provided, add Authorization header
+        let optionsWithAuth = _options;
+        if (_options.accessToken) {
+            optionsWithAuth = {
+                ..._options,
+                headers: {
+                    ..._options.headers,
+                    Authorization: core.Supplier.map(_options.accessToken, (token) => `Bearer ${token}`),
+                },
+            };
+        }
+
+        super(optionsWithAuth || {});
     }
 
     // We need to override this from FernClient to use the extended
