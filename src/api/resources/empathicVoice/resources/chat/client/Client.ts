@@ -137,6 +137,10 @@ export class Chat {
 
     protected _getCustomAuthorizationHeaders() {
         const apiKeyValue = core.Supplier.get(this._options.apiKey);
-        return { "X-Hume-Api-Key": apiKeyValue };
+        // This `authHeaderValue` is manually added as if you don't provide it it will
+        // be omitted from the headers which means it won't reach the logic in ws.ts that
+        // extracts values from the headers and adds them to query parameters.
+        const authHeaderValue = core.Supplier.get(this._options.headers?.Authorization);
+        return { "X-Hume-Api-Key": apiKeyValue, "Authorization": authHeaderValue};
     }
 }

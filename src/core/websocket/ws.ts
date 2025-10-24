@@ -91,7 +91,7 @@ function addAccessTokenFromHeader({
     headers: Record<string, any> | undefined;
     queryParameters: Record<string, any> | undefined;
 }) {
-    const authHeaderValue = headers?.["Authorization"];
+    const authHeaderValue = headers?.["Authorization"] || headers?.["authorization"];
     if (!authHeaderValue) {
         return queryParameters;
     }
@@ -101,7 +101,8 @@ function addAccessTokenFromHeader({
     if (queryParameters?.["access_token"]) {
         return queryParameters;
     }
-    return { ...queryParameters, access_token: authHeaderValue.substring("Bearer ".length) };
+    const token = authHeaderValue.substring("Bearer ".length)
+    return { ...queryParameters, access_token: token };
 }
 
 function addSdkTracking(queryParameters: Record<string, any> | undefined) {
