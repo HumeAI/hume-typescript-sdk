@@ -1,16 +1,17 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-import * as core from "../../../../../../core";
-import * as errors from "../../../../../../errors";
-import * as Hume from "../../../../../index";
-import * as serializers from "../../../../../../serialization/index";
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
+
+import * as core from "../../../../../../core/index.js";
+import * as Hume from "../../../../../index.js";
+import { PublishEvent } from "../../../../../../serialization/resources/empathicVoice/resources/chat/types/PublishEvent.js";
+import { fromJson } from "../../../../../../core/json.js";
+import * as serializers from "../../../../../../serialization/index.js";
 
 export declare namespace ChatSocket {
-    interface Args {
+    export interface Args {
         socket: core.ReconnectingWebSocket;
     }
 
-    type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: Date };
-
+    export type Response = Hume.empathicVoice.SubscribeEvent & { receivedAt: Date };
     type EventHandlers = {
         open?: () => void;
         message?: (message: Response) => void;
@@ -21,21 +22,46 @@ export declare namespace ChatSocket {
 
 export class ChatSocket {
     public readonly socket: core.ReconnectingWebSocket;
-
     protected readonly eventHandlers: ChatSocket.EventHandlers = {};
+    private handleOpen: () => void = () => {
+        this.eventHandlers.open?.();
+    };
+    private handleMessage: (event: { data: string }) => void = (event) => {
+        const data = fromJson(event.data);
 
-    constructor({ socket }: ChatSocket.Args) {
-        this.socket = socket;
+        const parsedResponse = serializers.empathicVoice.ChatSocketResponse.parse(data, {
+            unrecognizedObjectKeys: "passthrough",
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            skipValidation: true,
+            omitUndefined: true,
+        });
+        if (parsedResponse.ok) {
+            this.eventHandlers.message?.({
+                ...parsedResponse.value,
+                receivedAt: new Date(),
+            });
+        } else {
+            this.eventHandlers.error?.(new Error("Received unknown message type"));
+        }
+    };
+    private handleClose: (event: core.CloseEvent) => void = (event) => {
+        this.eventHandlers.close?.(event);
+    };
+    private handleError: (event: core.ErrorEvent) => void = (event) => {
+        const message = event.message;
+        this.eventHandlers.error?.(new Error(message));
+    };
 
+    constructor(args: ChatSocket.Args) {
+        this.socket = args.socket;
         this.socket.addEventListener("open", this.handleOpen);
         this.socket.addEventListener("message", this.handleMessage);
         this.socket.addEventListener("close", this.handleClose);
         this.socket.addEventListener("error", this.handleError);
     }
 
-    /**
-     * The current state of the connection; this is one of the Ready state constants
-     */
+    /** The current state of the connection; this is one of the readyState constants. */
     get readyState(): number {
         return this.socket.readyState;
     }
@@ -43,25 +69,34 @@ export class ChatSocket {
     /**
      * @param event - The event to attach to.
      * @param callback - The callback to run when the event is triggered.
-     *
-     * @example
-     * ```ts
-     * const socket = hume.empathicVoice.chat.connect({ apiKey: "...." });
-     * socket.on('open', () => {
-     *  console.log('Socket opened');
+     * Usage:
+     * ```typescript
+     * this.on('open', () => {
+     *     console.log('The websocket is open');
      * });
      * ```
      */
-    on<T extends keyof ChatSocket.EventHandlers>(event: T, callback: ChatSocket.EventHandlers[T]) {
+    public on<T extends keyof ChatSocket.EventHandlers>(event: T, callback: ChatSocket.EventHandlers[T]) {
         this.eventHandlers[event] = callback;
+    }
+
+    public sendPublish(message: Hume.empathicVoice.PublishEvent): void {
+        this.assertSocketIsOpen();
+        const jsonPayload = PublishEvent.jsonOrThrow(message, {
+            unrecognizedObjectKeys: "passthrough",
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            skipValidation: true,
+            omitUndefined: true,
+        });
+        this.socket.send(JSON.stringify(jsonPayload));
     }
 
     /**
      * Send audio input
      */
     public sendAudioInput(message: Omit<Hume.empathicVoice.AudioInput, "type">): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "audio_input",
             ...message,
         });
@@ -71,8 +106,7 @@ export class ChatSocket {
      * Send session settings
      */
     public sendSessionSettings(message: Omit<Hume.empathicVoice.SessionSettings, "type"> = {}): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "session_settings",
             ...message,
         });
@@ -82,8 +116,7 @@ export class ChatSocket {
      * Send assistant input
      */
     public sendAssistantInput(message: Omit<Hume.empathicVoice.AssistantInput, "type">): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "assistant_input",
             ...message,
         });
@@ -93,8 +126,7 @@ export class ChatSocket {
      * Send pause assistant message
      */
     public pauseAssistant(message: Omit<Hume.empathicVoice.PauseAssistantMessage, "type"> = {}): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "pause_assistant_message",
             ...message,
         });
@@ -104,8 +136,7 @@ export class ChatSocket {
      * Send resume assistant message
      */
     public resumeAssistant(message: Omit<Hume.empathicVoice.ResumeAssistantMessage, "type"> = {}): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "resume_assistant_message",
             ...message,
         });
@@ -115,8 +146,7 @@ export class ChatSocket {
      * Send tool response message
      */
     public sendToolResponseMessage(message: Omit<Hume.empathicVoice.ToolResponseMessage, "type">): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "tool_response",
             ...message,
         });
@@ -126,8 +156,7 @@ export class ChatSocket {
      * Send tool error message
      */
     public sendToolErrorMessage(message: Omit<Hume.empathicVoice.ToolErrorMessage, "type">): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "tool_error",
             ...message,
         });
@@ -137,18 +166,13 @@ export class ChatSocket {
      * Send text input
      */
     public sendUserInput(text: string): void {
-        this.assertSocketIsOpen();
-        this.sendJson({
+        this.sendPublish({
             type: "user_input",
             text,
         });
     }
 
-    /**
-     * @name connect
-     * @description
-     * Connect to the core.ReconnectingWebSocket.
-     */
+    /** Connect to the websocket and register event handlers. */
     public connect(): ChatSocket {
         this.socket.reconnect();
 
@@ -160,9 +184,7 @@ export class ChatSocket {
         return this;
     }
 
-    /**
-     * Closes the underlying socket.
-     */
+    /** Close the websocket and unregister event handlers. */
     public close(): void {
         this.socket.close();
 
@@ -174,10 +196,12 @@ export class ChatSocket {
         this.socket.removeEventListener("error", this.handleError);
     }
 
-    public async tillSocketOpen(): Promise<core.ReconnectingWebSocket> {
+    /** Returns a promise that resolves when the websocket is open. */
+    public async waitForOpen(): Promise<core.ReconnectingWebSocket> {
         if (this.socket.readyState === core.ReconnectingWebSocket.OPEN) {
             return this.socket;
         }
+
         return new Promise((resolve, reject) => {
             this.socket.addEventListener("open", () => {
                 resolve(this.socket);
@@ -189,50 +213,26 @@ export class ChatSocket {
         });
     }
 
+    /**
+     * @deprecated Use waitForOpen() instead
+     */
+    public async tillSocketOpen(): Promise<core.ReconnectingWebSocket> {
+        return this.waitForOpen();
+    }
+
+    /** Asserts that the websocket is open. */
     private assertSocketIsOpen(): void {
         if (!this.socket) {
-            throw new errors.HumeError({ message: "Socket is not connected." });
+            throw new Error("Socket is not connected.");
         }
 
         if (this.socket.readyState !== core.ReconnectingWebSocket.OPEN) {
-            throw new errors.HumeError({ message: "Socket is not open." });
+            throw new Error("Socket is not open.");
         }
     }
 
-    private sendJson(payload: Hume.empathicVoice.PublishEvent): void {
-        const jsonPayload = serializers.empathicVoice.PublishEvent.jsonOrThrow(payload, {
-            unrecognizedObjectKeys: "strip",
-        });
-        this.socket.send(JSON.stringify(jsonPayload));
+    /** Send a binary payload to the websocket. */
+    protected sendBinary(payload: ArrayBufferLike | Blob | ArrayBufferView): void {
+        this.socket.send(payload);
     }
-
-    private handleOpen = () => {
-        this.eventHandlers.open?.();
-    };
-
-    private handleMessage = (event: { data: string }): void => {
-        const data = JSON.parse(event.data);
-
-        const parsedResponse = serializers.empathicVoice.SubscribeEvent.parse(data, {
-            unrecognizedObjectKeys: "passthrough",
-            allowUnrecognizedUnionMembers: true,
-            allowUnrecognizedEnumValues: true,
-            breadcrumbsPrefix: ["response"],
-        });
-        if (parsedResponse.ok) {
-            this.eventHandlers.message?.({
-                ...parsedResponse.value,
-                receivedAt: new Date(),
-            });
-        }
-    };
-
-    private handleClose = (event: core.CloseEvent) => {
-        this.eventHandlers.close?.(event);
-    };
-
-    private handleError = (event: core.ErrorEvent) => {
-        // Create and dispatch a new Error object using the message from the standardized event.
-        this.eventHandlers.error?.(new Error(event.message));
-    };
 }

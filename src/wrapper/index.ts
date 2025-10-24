@@ -8,6 +8,7 @@ export { fetchAccessToken } from "./fetchAccessToken";
 export { getAudioStream } from "./getAudioStream";
 export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType";
 export { HumeClient } from "./HumeClient";
+export { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient";
 export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer";
 export { collate } from "./collate";
 

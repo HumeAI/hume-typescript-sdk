@@ -9,8 +9,6 @@
  *     }
  */
 export interface VoicesDeleteRequest {
-    /**
-     * Name of the voice to delete
-     */
+    /** Name of the voice to delete */
     name: string;
 }

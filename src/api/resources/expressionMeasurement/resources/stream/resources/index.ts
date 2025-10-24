@@ -1,2 +1,2 @@
-export * as stream from "./stream";
-export * from "./stream/types";
+export * as stream from "./stream/index.js";
+export * from "./stream/types/index.js";

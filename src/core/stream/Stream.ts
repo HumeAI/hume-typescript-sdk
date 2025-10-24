@@ -1,6 +1,4 @@
-import { Readable } from "stream";
-
-import { RUNTIME } from "../runtime";
+import { RUNTIME } from "../runtime/index.js";
 
 export declare namespace Stream {
     interface Args {
@@ -8,7 +6,7 @@ export declare namespace Stream {
          * The HTTP response stream to read from.
          */
 
-        stream: Readable | ReadableStream;
+        stream: ReadableStream;
 
         /**
          * The event shape to use for parsing the stream data.
@@ -34,7 +32,7 @@ export declare namespace Stream {
 const DATA_PREFIX = "data:";
 
 export class Stream<T> implements AsyncIterable<T> {
-    private stream: Readable | ReadableStream;
+    private stream: ReadableStream;
 
     private parse: (val: unknown) => Promise<T>;
     /**
@@ -119,7 +117,7 @@ export class Stream<T> implements AsyncIterable<T> {
 /**
  * Browser polyfill for ReadableStream
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: allow explicit any
 export function readableStreamAsyncIterable<T>(stream: any): AsyncIterableIterator<T> {
     if (stream[Symbol.asyncIterator]) {
         return stream;

@@ -9,4 +9,11 @@ export const Supplier = {
             return supplier;
         }
     },
+    map: <T, U, R = U>(supplier: Supplier<T>, f: (value: T) => R): Supplier<R> => {
+        if (typeof supplier === "function") {
+            return () => f(Supplier.get(supplier));
+        } else {
+            return f(supplier);
+        }
+    },
 };
