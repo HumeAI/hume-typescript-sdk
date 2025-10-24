@@ -11,7 +11,7 @@ import { ExpressionMeasurement } from "./api/resources/expressionMeasurement/cli
 
 export declare namespace HumeClient {
     export interface Options {
-        environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls | string>;
+        environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
