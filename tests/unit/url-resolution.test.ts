@@ -45,23 +45,18 @@ describe("HumeClient URL Resolution", () => {
 
   // Helper function to normalize URLs by sorting query parameters alphabetically
   function normalizeUrl(url: string): string {
-    try {
-      const urlObj = new URL(url);
-      const params = new URLSearchParams(urlObj.search);
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
 
-      // Sort parameters alphabetically
-      const sortedParams = new URLSearchParams();
-      Array.from(params.keys()).sort().forEach(key => {
-        sortedParams.set(key, params.get(key) || '');
-      });
+    // Sort parameters alphabetically
+    const sortedParams = new URLSearchParams();
+    Array.from(params.keys()).sort().forEach(key => {
+      sortedParams.set(key, params.get(key) || '');
+    });
 
-      // Reconstruct URL with sorted parameters
-      urlObj.search = sortedParams.toString();
-      return urlObj.toString();
-    } catch (error) {
-      // If URL parsing fails, return original
-      return url;
-    }
+    // Reconstruct URL with sorted parameters
+    urlObj.search = sortedParams.toString();
+    return urlObj.toString();
   }
 
   // Helper function to test empathicVoice.chat.connect and return the URL
@@ -70,24 +65,19 @@ describe("HumeClient URL Resolution", () => {
   ): Promise<string> {
     const client = new HumeClient({
       apiKey: "test-key",
-      environment: "Prod",
       ...clientConfig,
-    });
+    } as HumeClient.Options);
 
-    try {
-      const socket = client.empathicVoice.chat.connect({});
+    const socket = client.empathicVoice.chat.connect();
 
-      // Small delay to ensure WebSocket constructor is called
-      await new Promise((resolve) => setTimeout(resolve, 10));
+    // Small delay to ensure WebSocket constructor is called
+    await new Promise((resolve) => setTimeout(resolve, 10));
 
-      socket.close();
+    socket.close();
 
-      // Get the normalized captured URL
-      const rawUrl = capturedUrls[capturedUrls.length - 1] || "no-url-captured";
-      return normalizeUrl(rawUrl);
-    } catch (error) {
-      return `connection-failed: ${(error as Error).message}`;
-    }
+    // Get the normalized captured URL
+    const rawUrl = capturedUrls[capturedUrls.length - 1] || "no-url-captured";
+    return normalizeUrl(rawUrl);
   }
 
   // Helper function to test tts.synthesizeJson and return the URL
@@ -96,21 +86,16 @@ describe("HumeClient URL Resolution", () => {
   ): Promise<string> {
     const client = new HumeClient({
       apiKey: "test-key",
-      environment: "Prod",
       ...clientConfig,
+    } as HumeClient.Options);
+
+    await client.tts.synthesizeJson({
+      utterances: [{ text: "Hello world" }]
     });
 
-    try {
-      await client.tts.synthesizeJson({
-        utterances: [{ text: "Hello world" }]
-      });
-
-      // Get the normalized captured URL
-      const rawUrl = capturedUrls[capturedUrls.length - 1] || "no-url-captured";
-      return normalizeUrl(rawUrl);
-    } catch (error) {
-      return `request-failed: ${(error as Error).message}`;
-    }
+    // Get the normalized captured URL
+    const rawUrl = capturedUrls[capturedUrls.length - 1] || "no-url-captured";
+    return normalizeUrl(rawUrl);
   }
 
   // ============================================================================
@@ -120,12 +105,12 @@ describe("HumeClient URL Resolution", () => {
   describe("empathicVoice.chat.connect", () => {
     it("Default configuration", async () => {
       const url = await testEmpathicVoiceConnect({});
-      expect(url).toBe("wss://prod/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("wss://api.hume.ai/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl takes precedence over environment", async () => {
       const url = await testEmpathicVoiceConnect({
-        environment: "https://staging.hume.ai",
+        environment: "https://foobar.hume.ai",
         baseUrl: "ws://localhost:8080"
       });
       expect(url).toBe("ws://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
@@ -140,12 +125,12 @@ describe("HumeClient URL Resolution", () => {
 
     it("Environment only (no baseUrl)", async () => {
       const url = await testEmpathicVoiceConnect({
-        environment: "https://staging.hume.ai"
+        environment: "https://foobar.hume.ai"
       });
-      expect(url).toBe("wss://staging.hume.ai/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("wss://foobar.hume.ai/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
-    it("Environment ws:// only", async () => {
+    it("INVALID: Environment with ws://", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "ws://localhost:3000"
       });
@@ -181,12 +166,12 @@ describe("HumeClient URL Resolution", () => {
   describe("tts.synthesizeJson", () => {
     it("Default configuration", async () => {
       const url = await testTtsSynthesize({});
-      expect(url).toBe("https://prod/v0/tts");
+      expect(url).toBe("https://api.hume.ai/v0/tts");
     });
 
     it("baseUrl takes precedence over environment", async () => {
       const url = await testTtsSynthesize({
-        environment: "https://staging.hume.ai",
+        environment: "https://foobar.hume.ai",
         baseUrl: "http://localhost:8080"
       });
       expect(url).toBe("http://localhost:8080/v0/tts");
@@ -201,12 +186,12 @@ describe("HumeClient URL Resolution", () => {
 
     it("Environment only (no baseUrl)", async () => {
       const url = await testTtsSynthesize({
-        environment: "https://staging.hume.ai"
+        environment: "https://foobar.hume.ai"
       });
-      expect(url).toBe("https://staging.hume.ai/v0/tts");
+      expect(url).toBe("https://foobar.hume.ai/v0/tts");
     });
 
-    it("Environment ws:// only", async () => {
+    it("INVALID: Environment ws:// only", async () => {
       const url = await testTtsSynthesize({
         environment: "ws://localhost:3000"
       });
@@ -220,7 +205,7 @@ describe("HumeClient URL Resolution", () => {
       expect(url).toBe("http://localhost:3000/v0/tts");
     });
 
-    it("baseUrl ws:// only", async () => {
+    it("INVALID: baseUrl ws:// only", async () => {
       const url = await testTtsSynthesize({
         baseUrl: "ws://localhost:8080"
       });
