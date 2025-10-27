@@ -120,7 +120,7 @@ describe("HumeClient URL Resolution", () => {
   describe("empathicVoice.chat.connect", () => {
     it("Default configuration", async () => {
       const url = await testEmpathicVoiceConnect({});
-      expect(url).toMatchInlineSnapshot(`"wss://prod/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("wss://prod/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl takes precedence over environment", async () => {
@@ -128,49 +128,49 @@ describe("HumeClient URL Resolution", () => {
         environment: "https://staging.hume.ai",
         baseUrl: "ws://localhost:8080"
       });
-      expect(url).toMatchInlineSnapshot(`"ws://localhost:8080/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("ws://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl with different protocols", async () => {
       const url = await testEmpathicVoiceConnect({
         baseUrl: "wss://api.hume.ai"
       });
-      expect(url).toMatchInlineSnapshot(`"wss://api.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("wss://api.hume.ai/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("Environment only (no baseUrl)", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "https://staging.hume.ai"
       });
-      expect(url).toMatchInlineSnapshot(`"wss://staging.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("wss://staging.hume.ai/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("Environment ws:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "ws://localhost:3000"
       });
-      expect(url).toMatchInlineSnapshot(`"wss://ws//localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("wss://ws//localhost:3000/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("Environment http:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "http://localhost:3000"
       });
-      expect(url).toMatchInlineSnapshot(`"ws://localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("ws://localhost:3000/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl ws:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         baseUrl: "ws://localhost:8080"
       });
-      expect(url).toMatchInlineSnapshot(`"ws://localhost:8080/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("ws://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl http:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         baseUrl: "http://localhost:8080"
       });
-      expect(url).toMatchInlineSnapshot(`"ws://localhost:8080/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2"`);
+      expect(url).toBe("http://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
   });
 
@@ -181,7 +181,7 @@ describe("HumeClient URL Resolution", () => {
   describe("tts.synthesizeJson", () => {
     it("Default configuration", async () => {
       const url = await testTtsSynthesize({});
-      expect(url).toMatchInlineSnapshot(`"https://prod/v0/tts"`);
+      expect(url).toBe("https://prod/v0/tts");
     });
 
     it("baseUrl takes precedence over environment", async () => {
@@ -189,49 +189,49 @@ describe("HumeClient URL Resolution", () => {
         environment: "https://staging.hume.ai",
         baseUrl: "http://localhost:8080"
       });
-      expect(url).toMatchInlineSnapshot(`"http://localhost:8080/v0/tts"`);
+      expect(url).toBe("http://localhost:8080/v0/tts");
     });
 
     it("baseUrl with different protocols", async () => {
       const url = await testTtsSynthesize({
         baseUrl: "https://api.hume.ai"
       });
-      expect(url).toMatchInlineSnapshot(`"https://api.hume.ai/v0/tts"`);
+      expect(url).toBe("https://api.hume.ai/v0/tts");
     });
 
     it("Environment only (no baseUrl)", async () => {
       const url = await testTtsSynthesize({
         environment: "https://staging.hume.ai"
       });
-      expect(url).toMatchInlineSnapshot(`"https://staging.hume.ai/v0/tts"`);
+      expect(url).toBe("https://staging.hume.ai/v0/tts");
     });
 
     it("Environment ws:// only", async () => {
       const url = await testTtsSynthesize({
         environment: "ws://localhost:3000"
       });
-      expect(url).toMatchInlineSnapshot(`"https://ws//localhost:3000/v0/tts"`);
+      expect(url).toBe("https://ws//localhost:3000/v0/tts");
     });
 
     it("Environment http:// only", async () => {
       const url = await testTtsSynthesize({
         environment: "http://localhost:3000"
       });
-      expect(url).toMatchInlineSnapshot(`"http://localhost:3000/v0/tts"`);
+      expect(url).toBe("http://localhost:3000/v0/tts");
     });
 
     it("baseUrl ws:// only", async () => {
       const url = await testTtsSynthesize({
         baseUrl: "ws://localhost:8080"
       });
-      expect(url).toMatchInlineSnapshot(`"ws://localhost:8080/v0/tts"`);
+      expect(url).toBe("ws://localhost:8080/v0/tts");
     });
 
     it("baseUrl http:// only", async () => {
       const url = await testTtsSynthesize({
         baseUrl: "http://localhost:8080"
       });
-      expect(url).toMatchInlineSnapshot(`"http://localhost:8080/v0/tts"`);
+      expect(url).toBe("http://localhost:8080/v0/tts");
     });
   });
 });
