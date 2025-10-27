@@ -135,7 +135,7 @@ export class Chat {
         const socket = new core.ReconnectingWebSocket({
             url: core.url.join(
                 core.Supplier.get(this._options["baseUrl"]) ??
-                ((core.Supplier.get(this._options["environment"])) ?? environments.HumeEnvironment.Prod).evi,
+                    (core.Supplier.get(this._options["environment"]) ?? environments.HumeEnvironment.Prod).evi,
                 "/stream/input",
             ),
             protocols: [],
