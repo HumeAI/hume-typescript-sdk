@@ -22,12 +22,12 @@ export declare namespace StreamInput {
     export interface ConnectArgs {
         accessToken?: string | undefined;
         contextGenerationId?: string | undefined;
-        formatType: Hume.tts.AudioFormatType;
+        formatType?: Hume.tts.AudioFormatType | undefined;
         includeTimestampTypes?: Hume.tts.TimestampType | undefined;
         instantMode?: boolean | undefined;
         noBinary?: boolean | undefined;
         stripHeaders?: boolean | undefined;
-        version: Hume.tts.OctaveVersion;
+        version?: Hume.tts.OctaveVersion | undefined;
         apiKey?: string | undefined;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
@@ -45,7 +45,7 @@ export class StreamInput {
         this._options = _options;
     }
 
-    public async connect(args: StreamInput.ConnectArgs): Promise<StreamInputSocket> {
+    public async connect(args: StreamInput.ConnectArgs = {}): Promise<StreamInputSocket> {
         const {
             accessToken,
             contextGenerationId,
@@ -69,10 +69,13 @@ export class StreamInput {
             _queryParams["context_generation_id"] = contextGenerationId;
         }
 
-        _queryParams["format_type"] = serializers.tts.AudioFormatType.jsonOrThrow(formatType, {
-            unrecognizedObjectKeys: "strip",
-            omitUndefined: true,
-        });
+        if (formatType != null) {
+            _queryParams["format_type"] = serializers.tts.AudioFormatType.jsonOrThrow(formatType, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            });
+        }
+
         if (includeTimestampTypes != null) {
             if (Array.isArray(includeTimestampTypes)) {
                 _queryParams["include_timestamp_types"] = includeTimestampTypes.map((item) =>
@@ -101,10 +104,13 @@ export class StreamInput {
             _queryParams["strip_headers"] = stripHeaders.toString();
         }
 
-        _queryParams["version"] = serializers.tts.OctaveVersion.jsonOrThrow(version, {
-            unrecognizedObjectKeys: "strip",
-            omitUndefined: true,
-        });
+        if (version != null) {
+            _queryParams["version"] = serializers.tts.OctaveVersion.jsonOrThrow(version, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            });
+        }
+
         if (apiKey != null) {
             _queryParams["api_key"] = apiKey;
         }

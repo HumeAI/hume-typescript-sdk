@@ -55,6 +55,7 @@ src/api/resources/empathicVoice/resources/chat/client/index.ts
 # Tests
 tests/empathicVoice
 tests/expressionMeasurement
+tests/unit/url-resolution.test.ts
 
 # Needed because node 18 doesn't actually have a global.File
 tests/BrowserTestEnvironment.ts

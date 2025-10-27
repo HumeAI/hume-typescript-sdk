@@ -5,13 +5,13 @@
 import * as serializers from "../../../../../../index.js";
 import * as Hume from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
-import { SubscribeEvent } from "../../types/SubscribeEvent.js";
+import { TtsOutput } from "../../../../types/TtsOutput.js";
 
 export const StreamInputSocketResponse: core.serialization.Schema<
     serializers.tts.StreamInputSocketResponse.Raw,
-    Hume.tts.SubscribeEvent
-> = core.serialization.undiscriminatedUnion([SubscribeEvent]);
+    Hume.tts.TtsOutput
+> = core.serialization.undiscriminatedUnion([TtsOutput]);
 
 export declare namespace StreamInputSocketResponse {
-    export type Raw = SubscribeEvent.Raw;
+    export type Raw = TtsOutput.Raw;
 }

@@ -13,7 +13,7 @@ export declare namespace StreamInputSocket {
         socket: core.ReconnectingWebSocket;
     }
 
-    export type Response = Hume.tts.SubscribeEvent;
+    export type Response = Hume.tts.TtsOutput;
     type EventHandlers = {
         open?: () => void;
         message?: (message: Response) => void;
