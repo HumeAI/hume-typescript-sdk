@@ -101,7 +101,7 @@ function addAccessTokenFromHeader({
     if (queryParameters?.["access_token"]) {
         return queryParameters;
     }
-    const token = authHeaderValue.substring("Bearer ".length)
+    const token = authHeaderValue.substring("Bearer ".length);
     return { ...queryParameters, access_token: token };
 }
 
