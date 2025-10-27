@@ -19,7 +19,7 @@ function createHostnameWithProtocol(url: string): string {
 
 export declare namespace Chat {
     export interface Options {
-        environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls | string>;
+        environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         apiKey?: core.Supplier<string | undefined>;
@@ -132,24 +132,12 @@ export class Chat {
             headers,
         );
 
-        // Construct WebSocket URL with protocol conversion
-        const baseUrl = core.Supplier.get(this._options["baseUrl"]);
-        const environment = core.Supplier.get(this._options["environment"]) ?? environments.HumeEnvironment.Prod;
-
-        let websocketUrl: string;
-        if (baseUrl) {
-            // baseUrl takes precedence - apply protocol conversion
-            websocketUrl = core.url.join(createHostnameWithProtocol(baseUrl), "/v0/evi/chat");
-        } else if (typeof environment === "string") {
-            // String environment - apply protocol conversion
-            websocketUrl = core.url.join(createHostnameWithProtocol(environment), "/v0/evi/chat");
-        } else {
-            // Structured environment object - use .evi property directly
-            websocketUrl = core.url.join(environment.evi, "/chat");
-        }
-
         const socket = new core.ReconnectingWebSocket({
-            url: websocketUrl,
+            url: core.url.join(
+                core.Supplier.get(this._options["baseUrl"]) ??
+                ((core.Supplier.get(this._options["environment"])) ?? environments.HumeEnvironment.Prod).evi,
+                "/stream/input",
+            ),
             protocols: [],
             queryParameters: _queryParams,
             headers: _headers,
