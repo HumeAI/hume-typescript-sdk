@@ -1,535 +1,5 @@
 # Reference
 
-## Tts
-
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJson</a>({ ...params }) -> Hume.ReturnTts</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
-
-The response includes the base64-encoded audio and metadata in JSON format.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.synthesizeJson({
-    context: {
-        utterances: [
-            {
-                text: "How can people see beauty so differently?",
-                description:
-                    "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
-            },
-        ],
-    },
-    format: {
-        type: "mp3",
-    },
-    numGenerations: 1,
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedTts`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tts.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFile</a>({ ...params }) -> stream.Readable</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
-
-The response contains the generated audio file in the requested format.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.synthesizeFile({
-    context: {
-        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2",
-    },
-    format: {
-        type: "mp3",
-    },
-    numGenerations: 1,
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description:
-                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedTts`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tts.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFileStreaming</a>({ ...params }) -> stream.Readable</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.synthesizeFileStreaming({
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            voice: {
-                name: "Male English Actor",
-                provider: "HUME_AI",
-            },
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedTts`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tts.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
-
-The response is a stream of JSON objects including audio encoded in base64.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const response = await client.tts.synthesizeJsonStreaming({
-    utterances: [
-        {
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            voice: {
-                name: "Male English Actor",
-                provider: "HUME_AI",
-            },
-        },
-    ],
-});
-for await (const item of response) {
-    console.log(item);
-}
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedTts`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tts.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Tts Voices
-
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const response = await client.tts.voices.list({
-    provider: "CUSTOM_VOICE",
-});
-for await (const item of response) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-const page = await client.tts.voices.list({
-    provider: "CUSTOM_VOICE",
-});
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.VoicesListRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Voices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Saves a new custom voice to your account using the specified TTS generation ID.
-
-Once saved, this voice can be reused in subsequent TTS requests, ensuring consistent speech style and prosody. For more details on voice creation, see the [Voices Guide](/docs/text-to-speech-tts/voices).
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.voices.create({
-    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
-    name: "David Hume",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.PostedVoice`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Voices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">delete</a>({ ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a previously generated custom voice.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.voices.delete({
-    name: "David Hume",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.VoicesDeleteRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Voices.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## EmpathicVoice Tools
 
 <details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<Hume.ReturnUserDefinedTool | undefined></code></summary>
@@ -571,7 +41,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.tools.listTools({
+let page = await client.empathicVoice.tools.listTools({
     pageNumber: 0,
     pageSize: 2,
 });
@@ -720,7 +190,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+let page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }
@@ -1274,7 +744,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.prompts.listPrompts({
+let page = await client.empathicVoice.prompts.listPrompts({
     pageNumber: 0,
     pageSize: 2,
 });
@@ -1960,7 +1430,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.configs.listConfigs({
+let page = await client.empathicVoice.configs.listConfigs({
     pageNumber: 0,
     pageSize: 1,
 });
@@ -2132,7 +1602,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+let page = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }
@@ -2711,7 +2181,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.chats.listChats({
+let page = await client.empathicVoice.chats.listChats({
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true,
@@ -2791,7 +2261,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+let page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true,
@@ -2945,7 +2415,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.chatGroups.listChatGroups({
+let page = await client.empathicVoice.chatGroups.listChatGroups({
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true,
@@ -3101,7 +2571,7 @@ for await (const item of response) {
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+let page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true,
@@ -3216,6 +2686,536 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dd>
 
 **requestOptions:** `ChatGroups.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tts
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJson</a>({ ...params }) -> Hume.ReturnTts</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response includes the base64-encoded audio and metadata in JSON format.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeJson({
+    context: {
+        utterances: [
+            {
+                text: "How can people see beauty so differently?",
+                description:
+                    "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question.",
+            },
+        ],
+    },
+    format: {
+        type: "mp3",
+    },
+    numGenerations: 1,
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFile</a>({ ...params }) -> core.BinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response contains the generated audio file in the requested format.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeFile({
+    context: {
+        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2",
+    },
+    format: {
+        type: "mp3",
+    },
+    numGenerations: 1,
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description:
+                "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality.",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFileStreaming</a>({ ...params }) -> core.BinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeFileStreaming({
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response is a stream of JSON objects including audio encoded in base64.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.tts.synthesizeJsonStreaming({
+    utterances: [
+        {
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI",
+            },
+        },
+    ],
+});
+for await (const item of response) {
+    console.log(item);
+}
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tts Voices
+
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.tts.voices.list({
+    provider: "CUSTOM_VOICE",
+});
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.tts.voices.list({
+    provider: "CUSTOM_VOICE",
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.VoicesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Voices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Saves a new custom voice to your account using the specified TTS generation ID.
+
+Once saved, this voice can be reused in subsequent TTS requests, ensuring consistent speech style and prosody. For more details on voice creation, see the [Voices Guide](/docs/text-to-speech-tts/voices).
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.voices.create({
+    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
+    name: "David Hume",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.PostedVoice`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Voices.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">delete</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a previously generated custom voice.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.voices.delete({
+    name: "David Hume",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.VoicesDeleteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Voices.RequestOptions`
 
 </dd>
 </dl>
@@ -3483,7 +3483,7 @@ await client.expressionMeasurement.batch.getJobPredictions("job_id");
 </dl>
 </details>
 
-<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>(file, { ...params }) -> Hume.JobId</code></summary>
+<details><summary><code>client.expressionMeasurement.batch.<a href="/src/api/resources/expressionMeasurement/resources/batch/client/Client.ts">startInferenceJobFromLocalFile</a>({ ...params }) -> Hume.JobId</code></summary>
 <dl>
 <dd>
 
@@ -3511,10 +3511,9 @@ Start a new batch inference job.
 <dd>
 
 ```typescript
-await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
-    [fs.createReadStream("/path/to/your/file")],
-    {},
-);
+await client.expressionMeasurement.batch.startInferenceJobFromLocalFile({
+    file: [fs.createReadStream("/path/to/your/file")],
+});
 ```
 
 </dd>
@@ -3526,14 +3525,6 @@ await client.expressionMeasurement.batch.startInferenceJobFromLocalFile(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**file:** `core.FileLike[]`
-
-</dd>
-</dl>
 
 <dl>
 <dd>

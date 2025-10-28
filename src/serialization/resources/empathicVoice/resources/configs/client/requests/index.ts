@@ -1,4 +1,4 @@
-export { PostedConfig } from "./PostedConfig";
-export { PostedConfigVersion } from "./PostedConfigVersion";
-export { PostedConfigName } from "./PostedConfigName";
-export { PostedConfigVersionDescription } from "./PostedConfigVersionDescription";
+export { PostedConfig } from "./PostedConfig.js";
+export { PostedConfigVersion } from "./PostedConfigVersion.js";
+export { PostedConfigName } from "./PostedConfigName.js";
+export { PostedConfigVersionDescription } from "./PostedConfigVersionDescription.js";

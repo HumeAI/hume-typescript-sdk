@@ -22,12 +22,8 @@ export interface ToolsListToolsRequest {
      * For example, if `page_size` is set to 10, each page will include up to 10 items. Defaults to 10.
      */
     pageSize?: number;
-    /**
-     * By default, `restrict_to_most_recent` is set to true, returning only the latest version of each tool. To include all versions of each tool in the list, set `restrict_to_most_recent` to false.
-     */
+    /** By default, `restrict_to_most_recent` is set to true, returning only the latest version of each tool. To include all versions of each tool in the list, set `restrict_to_most_recent` to false. */
     restrictToMostRecent?: boolean;
-    /**
-     * Filter to only include tools with name.
-     */
+    /** Filter to only include tools with name. */
     name?: string;
 }
