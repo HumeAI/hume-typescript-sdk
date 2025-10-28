@@ -105,7 +105,7 @@ describe("HumeClient URL Resolution", () => {
   describe("empathicVoice.chat.connect", () => {
     it("Default configuration", async () => {
       const url = await testEmpathicVoiceConnect({});
-      expect(url).toBe("wss://api.hume.ai/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("wss://api.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl takes precedence over environment", async () => {
@@ -113,49 +113,49 @@ describe("HumeClient URL Resolution", () => {
         environment: "https://foobar.hume.ai",
         baseUrl: "ws://localhost:8080"
       });
-      expect(url).toBe("ws://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("ws://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
-    it("baseUrl with different protocols", async () => {
+    it("baseUrl with wss", async () => {
       const url = await testEmpathicVoiceConnect({
         baseUrl: "wss://api.hume.ai"
       });
-      expect(url).toBe("wss://api.hume.ai/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("wss://api.hume.ai/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("Environment only (no baseUrl)", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "https://foobar.hume.ai"
       });
-      expect(url).toBe("wss://foobar.hume.ai/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("wss://foobar.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("INVALID: Environment with ws://", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "ws://localhost:3000"
       });
-      expect(url).toBe("wss://ws//localhost:3000/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("wss://ws//localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("Environment http:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         environment: "http://localhost:3000"
       });
-      expect(url).toBe("ws://localhost:3000/v0/evi/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("ws://localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
     it("baseUrl ws:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         baseUrl: "ws://localhost:8080"
       });
-      expect(url).toBe("ws://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("ws://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
 
-    it("baseUrl http:// only", async () => {
+    it("INVALID: baseUrl http:// only", async () => {
       const url = await testEmpathicVoiceConnect({
         baseUrl: "http://localhost:8080"
       });
-      expect(url).toBe("http://localhost:8080/stream/input?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+      expect(url).toBe("http://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
     });
   });
 

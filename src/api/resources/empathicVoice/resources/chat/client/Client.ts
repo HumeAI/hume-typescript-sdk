@@ -7,16 +7,6 @@ import { mergeOnlyDefinedHeaders, mergeHeaders } from "../../../../../../core/he
 import * as serializers from "../../../../../../serialization/index.js";
 import { ChatSocket } from "./Socket.js";
 
-function createHostnameWithProtocol(url: string): string {
-    const protocol = /(https|http|wss|ws):\/\//.exec(url);
-
-    if (protocol) {
-        return url.replace("https://", "wss://").replace("http://", "ws://");
-    } else {
-        return `wss://${url}`;
-    }
-}
-
 export declare namespace Chat {
     export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls>;
@@ -136,7 +126,7 @@ export class Chat {
             url: core.url.join(
                 core.Supplier.get(this._options["baseUrl"]) ??
                     (core.Supplier.get(this._options["environment"]) ?? environments.HumeEnvironment.Prod).evi,
-                "/stream/input",
+                "/chat",
             ),
             protocols: [],
             queryParameters: _queryParams,
