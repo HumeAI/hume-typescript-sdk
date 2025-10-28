@@ -3,6 +3,11 @@ import { join } from "path";
 import { Readable } from "stream";
 import { toBinaryUploadRequest, Uploadable } from "../../../src/core/file/index";
 
+let File = global.File
+if (typeof File === 'undefined') {
+    File = require("buffer").File;
+}
+
 describe("toBinaryUploadRequest", () => {
     const TEST_FILE_PATH = join(__dirname, "test-file.txt");
 

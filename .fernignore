@@ -57,6 +57,10 @@ tests/unit/url-resolution.test.ts
 tests/expressionMeasurement/batch.test.ts
 tests/expressionMeasurement/streaming.test.ts
 
+# Required manual edits for Node 18 compatibility
+tests/unit/fetcher/Fetcher.test.ts
+tests/unit/file/file.test.ts
+
 # Needed because node 18 doesn't actually have a global.File
 tests/BrowserTestEnvironment.ts
 
