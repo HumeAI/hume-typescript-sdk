@@ -20,12 +20,27 @@ describe("Test getResponseBody", () => {
     });
 
     it("should handle streaming response type", async () => {
-        if (RUNTIME.type === "node") {
-            const mockStream = new ReadableStream();
-            const mockResponse = new Response(mockStream);
-            const result = await getResponseBody(mockResponse, "streaming");
-            expect(result).toBe(mockStream);
-        }
+        // Create a ReadableStream with some test data
+        const encoder = new TextEncoder();
+        const testData = "test stream data";
+        const mockStream = new ReadableStream({
+            start(controller) {
+                controller.enqueue(encoder.encode(testData));
+                controller.close();
+            },
+        });
+
+        const mockResponse = new Response(mockStream);
+        const result = (await getResponseBody(mockResponse, "streaming")) as ReadableStream;
+
+        expect(result).toBeInstanceOf(ReadableStream);
+
+        // Read and verify the stream content
+        const reader = result.getReader();
+        const decoder = new TextDecoder();
+        const { value } = await reader.read();
+        const streamContent = decoder.decode(value);
+        expect(streamContent).toBe(testData);
     });
 
     it("should handle text response type", async () => {
