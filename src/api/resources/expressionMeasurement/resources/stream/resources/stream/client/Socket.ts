@@ -35,6 +35,7 @@ export class StreamSocket {
             unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,
+            skipValidation: true,
         });
         if (parsedResponse.ok) {
             this.eventHandlers.message?.(parsedResponse.value);
@@ -83,6 +84,7 @@ export class StreamSocket {
             unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,
+            skipValidation: true,
         });
         this.socket.send(JSON.stringify(jsonPayload));
     }
