@@ -5,7 +5,7 @@ import * as environments from "../environments.js";
 import { SDK_VERSION } from "../version.js";
 
 export declare namespace HumeClient {
-    type Options = Omit<FernClient.Options, "environment"> & { secretKey?: string; accessToken?: string } & (
+    type Options = Omit<FernClient.Options, "environment"> & { accessToken?: string } & (
             | { accessToken: NonNullable<core.Supplier<string>> }
             | { apiKey: NonNullable<FernClient.Options["apiKey"]> }
         ) & {
