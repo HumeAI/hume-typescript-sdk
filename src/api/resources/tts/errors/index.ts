@@ -1,2 +1,2 @@
-export * from "./UnprocessableEntityError";
-export * from "./BadRequestError";
+export * from "./UnprocessableEntityError.js";
+export * from "./BadRequestError.js";

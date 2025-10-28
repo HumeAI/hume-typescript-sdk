@@ -1,36 +1,64 @@
 {
     "name": "hume",
-    "version": "0.14.1",
+    "version": "0.14.2",
     "private": false,
-    "repository": "https://github.com/HumeAI/hume-typescript-sdk",
-    "main": "./index.js",
-    "types": "./index.d.ts",
+    "repository": "github:humeai/hume-typescript-sdk",
+    "type": "commonjs",
+    "main": "./dist/cjs/index.js",
+    "module": "./dist/esm/index.mjs",
+    "types": "./dist/cjs/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/cjs/index.d.ts",
+            "import": {
+                "types": "./dist/esm/index.d.mts",
+                "default": "./dist/esm/index.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/index.d.ts",
+                "default": "./dist/cjs/index.js"
+            },
+            "default": "./dist/cjs/index.js"
+        },
+        "./serialization": {
+            "types": "./dist/cjs/serialization/index.d.ts",
+            "import": {
+                "types": "./dist/esm/serialization/index.d.mts",
+                "default": "./dist/esm/serialization/index.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/serialization/index.d.ts",
+                "default": "./dist/cjs/serialization/index.js"
+            },
+            "default": "./dist/cjs/serialization/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist",
+        "reference.md",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
         "format": "prettier . --write --ignore-unknown",
-        "build": "tsc",
-        "prepack": "cp -rv dist/. .",
-        "test": "jest tests/unit",
-        "test:browser": "jest --config jest.browser.config.mjs",
-        "test:wire": "jest tests/wire",
-        "wire:test": "yarn test:wire"
+        "build": "yarn build:cjs && yarn build:esm",
+        "build:cjs": "tsc --project ./tsconfig.cjs.json",
+        "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
+        "test": "jest --config jest.config.mjs",
+        "test:unit": "jest --selectProjects unit",
+        "test:browser": "jest --selectProjects browser",
+        "test:wire": "jest --selectProjects wire"
     },
     "dependencies": {
-        "url-join": "4.0.1",
-        "node-fetch": "^2.7.0",
-        "qs": "^6.13.1",
-        "readable-stream": "^4.5.2",
-        "ws": "^8.14.2",
-        "isomorphic-ws": "^5.0.0",
+        "ws": "^8.16.0",
         "uuid": "9.0.1",
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "@types/url-join": "4.0.1",
-        "@types/qs": "^6.9.17",
-        "@types/node-fetch": "^2.6.12",
-        "@types/readable-stream": "^4.0.18",
         "webpack": "^5.97.1",
         "ts-loader": "^9.5.1",
+        "@types/ws": "^8.5.9",
         "jest": "^29.7.0",
         "@jest/globals": "^29.7.0",
         "@types/jest": "^29.5.14",
@@ -40,7 +68,6 @@
         "@types/node": "^18.19.70",
         "prettier": "^3.4.2",
         "typescript": "~5.7.2",
-        "@types/ws": "^8.5.9",
         "@types/uuid": "9.0.7"
     },
     "browser": {
@@ -49,5 +76,9 @@
         "path": false,
         "stream": false
     },
-    "packageManager": "yarn@1.22.22"
+    "packageManager": "yarn@1.22.22",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "sideEffects": false
 }
