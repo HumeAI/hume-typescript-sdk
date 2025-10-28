@@ -53,8 +53,8 @@ src/api/resources/empathicVoice/resources/chat/client/Socket.ts
 src/api/resources/empathicVoice/resources/chat/client/index.ts
 
 # Tests
-tests/empathicVoice
-tests/expressionMeasurement
+# tests/empathicVoice
+# tests/expressionMeasurement
 tests/unit/url-resolution.test.ts
 
 # Needed because node 18 doesn't actually have a global.File
