@@ -29,10 +29,11 @@ describe("HumeClient URL Resolution", () => {
             }
         } as any;
 
-        // Monkeypatch fetch for TTS tests
+        // Monkeypatch fetch for TTS and Config tests
         global.fetch = async (input: string | URL | Request, init?: RequestInit) => {
             console.log(`🔍 Fetch called with URL: ${input}`);
             capturedUrls.push(input.toString());
+
             return new Response('{"mock": "response"}', { status: 200 });
         };
     });
@@ -93,6 +94,29 @@ describe("HumeClient URL Resolution", () => {
 
         await client.tts.synthesizeJson({
             utterances: [{ text: "Hello world" }],
+        });
+
+        // Get the normalized captured URL
+        const rawUrl = capturedUrls[capturedUrls.length - 1] || "no-url-captured";
+        return normalizeUrl(rawUrl);
+    }
+
+    // Helper function to test empathicVoice.configs.createConfig and return the URL
+    async function testConfigsCreate(
+        clientConfig: Partial<ConstructorParameters<typeof HumeClient>[0]>,
+    ): Promise<string> {
+        const client = new HumeClient({
+            apiKey: "test-key",
+            ...clientConfig,
+        } as HumeClient.Options);
+
+        await client.empathicVoice.configs.createConfig({
+            name: "Test Config",
+            eviVersion: "3",
+            voice: {
+                provider: "HUME_AI",
+                name: "Test Voice",
+            },
         });
 
         // Get the normalized captured URL
@@ -233,6 +257,67 @@ describe("HumeClient URL Resolution", () => {
                 baseUrl: "http://localhost:8080",
             });
             expect(url).toBe("http://localhost:8080/v0/tts");
+        });
+    });
+
+    // ============================================================================
+    // empathicVoice.configs.createConfig Tests
+    // ============================================================================
+
+    describe("empathicVoice.configs.createConfig", () => {
+        it("Default configuration", async () => {
+            const url = await testConfigsCreate({});
+            expect(url).toBe("https://api.hume.ai/v0/evi/configs");
+        });
+
+        it("baseUrl takes precedence over environment", async () => {
+            const url = await testConfigsCreate({
+                environment: "https://foobar.hume.ai",
+                baseUrl: "http://localhost:8080",
+            });
+            expect(url).toBe("http://localhost:8080/v0/evi/configs");
+        });
+
+        it("baseUrl with different protocols", async () => {
+            const url = await testConfigsCreate({
+                baseUrl: "https://api.hume.ai",
+            });
+            expect(url).toBe("https://api.hume.ai/v0/evi/configs");
+        });
+
+        it("Environment only (no baseUrl)", async () => {
+            const url = await testConfigsCreate({
+                environment: "https://foobar.hume.ai",
+            });
+            expect(url).toBe("https://foobar.hume.ai/v0/evi/configs");
+        });
+
+        it("INVALID: Environment ws:// only", async () => {
+            const url = await testConfigsCreate({
+                environment: "ws://localhost:3000",
+            });
+            expect(url).toBe("https://ws//localhost:3000/v0/evi/configs");
+        });
+
+        it("Environment http:// only", async () => {
+            const url = await testConfigsCreate({
+                environment: "http://localhost:3000",
+            });
+            expect(url).toBe("http://localhost:3000/v0/evi/configs");
+        });
+
+        it("INVALID: baseUrl ws:// only", async () => {
+            const url = await testConfigsCreate({
+                baseUrl: "ws://localhost:8080",
+            });
+            expect(url).toBe("ws://localhost:8080/v0/evi/configs");
+        });
+
+        it("baseUrl http:// only", async () => {
+            const url = await testConfigsCreate({
+                baseUrl: "http://localhost:8080",
+            });
+            expect(url).toBe("http://localhost:8080/v0/evi/configs");
         });
     });
 });
