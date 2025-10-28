@@ -52,10 +52,10 @@ src/api/resources/empathicVoice/resources/chat/client/Socket.ts
 # our manually maintained Client and Socket classes
 src/api/resources/empathicVoice/resources/chat/client/index.ts
 
-# Tests
-# tests/empathicVoice
-# tests/expressionMeasurement
+# Manually added tests
 tests/unit/url-resolution.test.ts
+tests/expressionMeasurement/batch.test.ts
+tests/expressionMeasurement/streaming.test.ts
 
 # Needed because node 18 doesn't actually have a global.File
 tests/BrowserTestEnvironment.ts
