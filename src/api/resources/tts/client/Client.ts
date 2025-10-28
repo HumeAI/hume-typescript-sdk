@@ -19,6 +19,7 @@ export declare namespace Tts {
         apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
+        fetcher?: core.FetchFunction;
     }
 
     export interface RequestOptions {
@@ -96,7 +97,7 @@ export class Tts {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -107,10 +108,7 @@ export class Tts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -121,7 +119,6 @@ export class Tts {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -136,7 +133,6 @@ export class Tts {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -189,7 +185,7 @@ export class Tts {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher<core.BinaryResponse>({
+        const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -200,10 +196,7 @@ export class Tts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             responseType: "binary-response",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -221,7 +214,6 @@ export class Tts {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -272,7 +264,7 @@ export class Tts {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher<core.BinaryResponse>({
+        const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -283,10 +275,7 @@ export class Tts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             responseType: "binary-response",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -304,7 +293,6 @@ export class Tts {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -356,7 +344,7 @@ export class Tts {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher<ReadableStream>({
+        const _response = await (this._options.fetcher ?? core.fetcher)<ReadableStream>({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -367,10 +355,7 @@ export class Tts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: serializers.tts.PostedTts.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             responseType: "sse",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -385,7 +370,6 @@ export class Tts {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         });
                     },
@@ -407,7 +391,6 @@ export class Tts {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,

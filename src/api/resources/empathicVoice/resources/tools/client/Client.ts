@@ -17,6 +17,7 @@ export declare namespace Tools {
         apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
+        fetcher?: core.FetchFunction;
     }
 
     export interface RequestOptions {
@@ -83,7 +84,7 @@ export class Tools {
                     mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                     requestOptions?.headers,
                 );
-                const _response = await core.fetcher({
+                const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: core.url.join(
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod)
@@ -104,7 +105,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         rawResponse: _response.rawResponse,
@@ -118,7 +118,6 @@ export class Tools {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
                                     allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
                                     breadcrumbsPrefix: ["response"],
                                 }),
                                 _response.rawResponse,
@@ -200,7 +199,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -213,7 +212,6 @@ export class Tools {
             requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedTool.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -225,7 +223,6 @@ export class Tools {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -240,7 +237,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -310,7 +306,7 @@ export class Tools {
                     mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                     requestOptions?.headers,
                 );
-                const _response = await core.fetcher({
+                const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: core.url.join(
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod)
@@ -331,7 +327,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         rawResponse: _response.rawResponse,
@@ -345,7 +340,6 @@ export class Tools {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
                                     allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
                                     breadcrumbsPrefix: ["response"],
                                 }),
                                 _response.rawResponse,
@@ -429,7 +423,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -442,7 +436,6 @@ export class Tools {
             requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedToolVersion.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -454,7 +447,6 @@ export class Tools {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -469,7 +461,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -523,7 +514,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -548,7 +539,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -613,7 +603,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -626,7 +616,6 @@ export class Tools {
             requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedToolName.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             }),
             responseType: "text",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -645,7 +634,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -712,7 +700,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -731,7 +719,6 @@ export class Tools {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -746,7 +733,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -815,7 +801,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -840,7 +826,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -914,7 +899,7 @@ export class Tools {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -927,7 +912,6 @@ export class Tools {
             requestType: "json",
             body: serializers.empathicVoice.PostedUserDefinedToolVersionDescription.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -939,7 +923,6 @@ export class Tools {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -954,7 +937,6 @@ export class Tools {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,

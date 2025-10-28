@@ -19,6 +19,7 @@ export declare namespace Batch {
         apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
+        fetcher?: core.FetchFunction;
     }
 
     export interface RequestOptions {
@@ -73,13 +74,11 @@ export class Batch {
                 _queryParams["status"] = status.map((item) =>
                     serializers.expressionMeasurement.batch.Status.jsonOrThrow(item, {
                         unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
                     }),
                 );
             } else {
                 _queryParams["status"] = serializers.expressionMeasurement.batch.Status.jsonOrThrow(status, {
                     unrecognizedObjectKeys: "strip",
-                    omitUndefined: true,
                 });
             }
         }
@@ -87,7 +86,6 @@ export class Batch {
         if (when != null) {
             _queryParams["when"] = serializers.expressionMeasurement.batch.When.jsonOrThrow(when, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             });
         }
 
@@ -98,14 +96,12 @@ export class Batch {
         if (sortBy != null) {
             _queryParams["sort_by"] = serializers.expressionMeasurement.batch.SortBy.jsonOrThrow(sortBy, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             });
         }
 
         if (direction != null) {
             _queryParams["direction"] = serializers.expressionMeasurement.batch.Direction.jsonOrThrow(direction, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             });
         }
 
@@ -114,7 +110,7 @@ export class Batch {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -133,7 +129,6 @@ export class Batch {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -193,7 +188,7 @@ export class Batch {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -206,7 +201,6 @@ export class Batch {
             requestType: "json",
             body: serializers.expressionMeasurement.batch.InferenceBaseRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -218,7 +212,6 @@ export class Batch {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -275,7 +268,7 @@ export class Batch {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -294,7 +287,6 @@ export class Batch {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -351,7 +343,7 @@ export class Batch {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -370,7 +362,6 @@ export class Batch {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -421,7 +412,7 @@ export class Batch {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher<core.BinaryResponse>({
+        const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -494,7 +485,6 @@ export class Batch {
                 toJson(
                     serializers.expressionMeasurement.batch.InferenceBaseRequest.jsonOrThrow(request.json, {
                         unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
                     }),
                 ),
             );
@@ -513,7 +503,7 @@ export class Batch {
             }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -535,7 +525,6 @@ export class Batch {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,

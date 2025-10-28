@@ -17,6 +17,7 @@ export declare namespace Voices {
         apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
+        fetcher?: core.FetchFunction;
     }
 
     export interface RequestOptions {
@@ -63,7 +64,6 @@ export class Voices {
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 _queryParams["provider"] = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
                     unrecognizedObjectKeys: "strip",
-                    omitUndefined: true,
                 });
                 if (pageNumber != null) {
                     _queryParams["page_number"] = pageNumber.toString();
@@ -79,7 +79,7 @@ export class Voices {
                     mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                     requestOptions?.headers,
                 );
-                const _response = await core.fetcher({
+                const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: core.url.join(
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod)
@@ -100,7 +100,6 @@ export class Voices {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         rawResponse: _response.rawResponse,
@@ -114,7 +113,6 @@ export class Voices {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
                                     allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
                                     breadcrumbsPrefix: ["response"],
                                 }),
                                 _response.rawResponse,
@@ -190,7 +188,7 @@ export class Voices {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -201,10 +199,7 @@ export class Voices {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedVoice.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: serializers.tts.PostedVoice.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -215,7 +210,6 @@ export class Voices {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
                     breadcrumbsPrefix: ["response"],
                 }),
                 rawResponse: _response.rawResponse,
@@ -230,7 +224,6 @@ export class Voices {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,
@@ -293,7 +286,7 @@ export class Voices {
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
@@ -318,7 +311,6 @@ export class Voices {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
                             breadcrumbsPrefix: ["response"],
                         }),
                         _response.rawResponse,

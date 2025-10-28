@@ -17,6 +17,7 @@ export declare namespace StreamInput {
         apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
+        fetcher?: core.FetchFunction;
     }
 
     export interface ConnectArgs {
@@ -72,22 +73,18 @@ export class StreamInput {
         if (formatType != null) {
             _queryParams["format_type"] = serializers.tts.AudioFormatType.jsonOrThrow(formatType, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             });
         }
 
         if (includeTimestampTypes != null) {
             if (Array.isArray(includeTimestampTypes)) {
                 _queryParams["include_timestamp_types"] = includeTimestampTypes.map((item) =>
-                    serializers.tts.TimestampType.jsonOrThrow(item, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    }),
+                    serializers.tts.TimestampType.jsonOrThrow(item, { unrecognizedObjectKeys: "strip" }),
                 );
             } else {
                 _queryParams["include_timestamp_types"] = serializers.tts.TimestampType.jsonOrThrow(
                     includeTimestampTypes,
-                    { unrecognizedObjectKeys: "strip", omitUndefined: true },
+                    { unrecognizedObjectKeys: "strip" },
                 );
             }
         }
@@ -107,7 +104,6 @@ export class StreamInput {
         if (version != null) {
             _queryParams["version"] = serializers.tts.OctaveVersion.jsonOrThrow(version, {
                 unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
             });
         }
 
