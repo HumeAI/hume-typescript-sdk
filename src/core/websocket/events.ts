@@ -1,4 +1,3 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
 export class Event {
     public target: any;
     public type: string;
@@ -22,7 +21,6 @@ export class CloseEvent extends Event {
     public code: number;
     public reason: string;
     public wasClean = true;
-    public willReconnect?: boolean = false;
     constructor(code = 1000, reason = "", target: any) {
         super("close", target);
         this.code = code;
