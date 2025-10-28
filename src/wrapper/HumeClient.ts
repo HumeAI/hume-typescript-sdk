@@ -8,7 +8,7 @@ export declare namespace HumeClient {
             | { accessToken: NonNullable<core.Supplier<string>> }
             | { apiKey: NonNullable<FernClient.Options["apiKey"]> }
         ) & {
-            environment: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls | string>;
+            environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls | string>;
         };
 }
 
