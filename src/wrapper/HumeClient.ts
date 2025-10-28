@@ -2,6 +2,7 @@ import { HumeClient as FernClient } from "../Client";
 import * as core from "../core/index.js";
 import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient";
 import * as environments from "../environments.js";
+import { SDK_VERSION } from "../version.js";
 
 export declare namespace HumeClient {
     type Options = Omit<FernClient.Options, "environment"> & { secretKey?: string; accessToken?: string } & (
@@ -32,6 +33,13 @@ export class HumeClient extends FernClient {
                 Authorization: core.Supplier.map(_options.accessToken, (token) => `Bearer ${token}`),
             };
         }
+
+        // Add telemetry headers
+        options.headers = {
+            ...options.headers,
+            "X-Hume-Client-Name": "typescript_sdk",
+            "X-Hume-Client-Version": SDK_VERSION,
+        };
 
         // Allow setting a single url http://... or https://... for environment'
         if (oldEnvironment) {

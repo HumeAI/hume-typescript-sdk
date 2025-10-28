@@ -1,19 +1,22 @@
 /** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import { HumeClient } from "../../src/wrapper/HumeClient";
+import { SDK_VERSION } from "../../src/version";
 
 // ============================================================================
-// URL Resolution Tests for HumeClient Methods
+// Request Tests for HumeClient Methods
 // ============================================================================
 
-describe("HumeClient URL Resolution", () => {
+describe("HumeClient Request Tests", () => {
     // Monkeypatch the WebSocket constructor to capture URLs
     const capturedUrls: string[] = [];
+    const capturedHeaders: HeadersInit[] = [];
     let originalWebSocket: typeof WebSocket;
     let originalFetch: typeof fetch;
 
     beforeEach(() => {
         // Clear previous captures
         capturedUrls.length = 0;
+        capturedHeaders.length = 0;
 
         // Store original WebSocket and fetch
         originalWebSocket = global.WebSocket;
@@ -22,7 +25,6 @@ describe("HumeClient URL Resolution", () => {
         // Monkeypatch WebSocket constructor
         global.WebSocket = class extends WebSocket {
             constructor(url: string | URL, protocols?: string | string[]) {
-                console.log(`🔍 WebSocket constructor called with URL: ${url}`);
                 capturedUrls.push(url.toString());
                 // Call super with a mock URL to avoid actual connection
                 super("ws://localhost:0/mock", protocols);
@@ -31,9 +33,9 @@ describe("HumeClient URL Resolution", () => {
 
         // Monkeypatch fetch for TTS and Config tests
         global.fetch = async (input: string | URL | Request, init?: RequestInit) => {
-            console.log(`🔍 Fetch called with URL: ${input}`);
             const url = input.toString();
             capturedUrls.push(url);
+            capturedHeaders.push(init?.headers || {});
             if (url.includes("tts")) {
                 return new Response('{"generations": []}', { status: 200 });
             }
@@ -135,7 +137,7 @@ describe("HumeClient URL Resolution", () => {
         it("Default configuration", async () => {
             const url = await testEmpathicVoiceConnect({});
             expect(url).toBe(
-                "wss://api.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `wss://api.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
         });
 
@@ -145,7 +147,7 @@ describe("HumeClient URL Resolution", () => {
                 baseUrl: "ws://localhost:8080",
             });
             expect(url).toBe(
-                "ws://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `ws://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
         });
 
@@ -153,7 +155,9 @@ describe("HumeClient URL Resolution", () => {
             const url = await testEmpathicVoiceConnect({
                 baseUrl: "wss://api.hume.ai",
             });
-            expect(url).toBe("wss://api.hume.ai/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2");
+            expect(url).toBe(
+                `wss://api.hume.ai/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
+            );
         });
 
         it("Environment only (no baseUrl)", async () => {
@@ -161,7 +165,7 @@ describe("HumeClient URL Resolution", () => {
                 environment: "https://foobar.hume.ai",
             });
             expect(url).toBe(
-                "wss://foobar.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `wss://foobar.hume.ai/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
         });
 
@@ -170,7 +174,7 @@ describe("HumeClient URL Resolution", () => {
                 environment: "ws://localhost:3000",
             });
             expect(url).toBe(
-                "wss://ws//localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `wss://ws//localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
         });
 
@@ -179,7 +183,7 @@ describe("HumeClient URL Resolution", () => {
                 environment: "http://localhost:3000",
             });
             expect(url).toBe(
-                "ws://localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `ws://localhost:3000/v0/evi/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
         });
 
@@ -188,7 +192,7 @@ describe("HumeClient URL Resolution", () => {
                 baseUrl: "ws://localhost:8080",
             });
             expect(url).toBe(
-                "ws://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `ws://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
         });
 
@@ -197,8 +201,15 @@ describe("HumeClient URL Resolution", () => {
                 baseUrl: "http://localhost:8080",
             });
             expect(url).toBe(
-                "http://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=0.14.2",
+                `http://localhost:8080/chat?apiKey=test-key&fernSdkLanguage=JavaScript&fernSdkVersion=${SDK_VERSION}`,
             );
+        });
+
+        it("Should include SDK tracking query params", async () => {
+            const url = await testEmpathicVoiceConnect({});
+            const urlObj = new URL(url);
+            expect(urlObj.searchParams.get("fernSdkLanguage")).toBe("JavaScript");
+            expect(urlObj.searchParams.get("fernSdkVersion")).toBe(SDK_VERSION);
         });
     });
 
@@ -261,6 +272,15 @@ describe("HumeClient URL Resolution", () => {
             });
             expect(url).toBe("http://localhost:8080/v0/tts");
         });
+
+        it("Should include telemetry headers", async () => {
+            const client = new HumeClient({ apiKey: "test-key" } as HumeClient.Options);
+            await client.tts.synthesizeJson({ utterances: [{ text: "Hello" }] });
+
+            const headers = capturedHeaders[capturedHeaders.length - 1] as Record<string, string>;
+            expect(headers["X-Hume-Client-Name"]).toBe("typescript_sdk");
+            expect(headers["X-Hume-Client-Version"]).toBe(SDK_VERSION);
+        });
     });
 
     // ============================================================================
@@ -321,6 +341,19 @@ describe("HumeClient URL Resolution", () => {
                 baseUrl: "http://localhost:8080",
             });
             expect(url).toBe("http://localhost:8080/v0/evi/configs");
+        });
+
+        it("Should include telemetry headers", async () => {
+            const client = new HumeClient({ apiKey: "test-key" } as HumeClient.Options);
+            await client.empathicVoice.configs.createConfig({
+                name: "Test Config",
+                eviVersion: "3",
+                voice: { provider: "HUME_AI", name: "Test Voice" },
+            });
+
+            const headers = capturedHeaders[capturedHeaders.length - 1] as Record<string, string>;
+            expect(headers["X-Hume-Client-Name"]).toBe("typescript_sdk");
+            expect(headers["X-Hume-Client-Version"]).toBe(SDK_VERSION);
         });
     });
 });
