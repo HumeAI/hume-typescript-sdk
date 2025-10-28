@@ -1,2 +1,2 @@
-export * as batch from "./batch";
-export * as stream from "./stream";
+export * as batch from "./batch/index.js";
+export * as stream from "./stream/index.js";

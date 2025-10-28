@@ -1,1 +1,1 @@
-export { PostedVoice } from "./PostedVoice";
+export { PostedVoice } from "./PostedVoice.js";
