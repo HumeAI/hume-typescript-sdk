@@ -32,12 +32,12 @@ describe("HumeClient URL Resolution", () => {
         // Monkeypatch fetch for TTS and Config tests
         global.fetch = async (input: string | URL | Request, init?: RequestInit) => {
             console.log(`🔍 Fetch called with URL: ${input}`);
-            const url = input.toString()
+            const url = input.toString();
             capturedUrls.push(url);
-            if (url.includes('tts')) {
+            if (url.includes("tts")) {
                 return new Response('{"generations": []}', { status: 200 });
             }
-            return new Response('{}', { status: 200 });
+            return new Response("{}", { status: 200 });
         };
     });
 
