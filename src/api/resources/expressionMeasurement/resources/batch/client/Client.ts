@@ -74,11 +74,13 @@ export class Batch {
                 _queryParams["status"] = status.map((item) =>
                     serializers.expressionMeasurement.batch.Status.jsonOrThrow(item, {
                         unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
                     }),
                 );
             } else {
                 _queryParams["status"] = serializers.expressionMeasurement.batch.Status.jsonOrThrow(status, {
                     unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
                 });
             }
         }
@@ -86,6 +88,7 @@ export class Batch {
         if (when != null) {
             _queryParams["when"] = serializers.expressionMeasurement.batch.When.jsonOrThrow(when, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             });
         }
 
@@ -96,12 +99,14 @@ export class Batch {
         if (sortBy != null) {
             _queryParams["sort_by"] = serializers.expressionMeasurement.batch.SortBy.jsonOrThrow(sortBy, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             });
         }
 
         if (direction != null) {
             _queryParams["direction"] = serializers.expressionMeasurement.batch.Direction.jsonOrThrow(direction, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             });
         }
 
@@ -202,6 +207,7 @@ export class Batch {
             requestType: "json",
             body: serializers.expressionMeasurement.batch.InferenceBaseRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -489,6 +495,7 @@ export class Batch {
                 toJson(
                     serializers.expressionMeasurement.batch.InferenceBaseRequest.jsonOrThrow(request.json, {
                         unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
                     }),
                 ),
             );

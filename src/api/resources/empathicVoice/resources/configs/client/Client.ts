@@ -233,7 +233,10 @@ export class Configs {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedConfig.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.empathicVoice.PostedConfig.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -486,6 +489,7 @@ export class Configs {
             requestType: "json",
             body: serializers.empathicVoice.PostedConfigVersion.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -670,7 +674,10 @@ export class Configs {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedConfigName.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.empathicVoice.PostedConfigName.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
             responseType: "text",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -972,6 +979,7 @@ export class Configs {
             requestType: "json",
             body: serializers.empathicVoice.PostedConfigVersionDescription.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

@@ -73,18 +73,22 @@ export class StreamInput {
         if (formatType != null) {
             _queryParams["format_type"] = serializers.tts.AudioFormatType.jsonOrThrow(formatType, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             });
         }
 
         if (includeTimestampTypes != null) {
             if (Array.isArray(includeTimestampTypes)) {
                 _queryParams["include_timestamp_types"] = includeTimestampTypes.map((item) =>
-                    serializers.tts.TimestampType.jsonOrThrow(item, { unrecognizedObjectKeys: "strip" }),
+                    serializers.tts.TimestampType.jsonOrThrow(item, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    }),
                 );
             } else {
                 _queryParams["include_timestamp_types"] = serializers.tts.TimestampType.jsonOrThrow(
                     includeTimestampTypes,
-                    { unrecognizedObjectKeys: "strip" },
+                    { unrecognizedObjectKeys: "strip", omitUndefined: true },
                 );
             }
         }
@@ -104,6 +108,7 @@ export class StreamInput {
         if (version != null) {
             _queryParams["version"] = serializers.tts.OctaveVersion.jsonOrThrow(version, {
                 unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
             });
         }
 

@@ -64,6 +64,7 @@ export class Voices {
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 _queryParams["provider"] = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
                     unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
                 });
                 if (pageNumber != null) {
                     _queryParams["page_number"] = pageNumber.toString();
@@ -201,7 +202,10 @@ export class Voices {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedVoice.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.tts.PostedVoice.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
