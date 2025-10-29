@@ -1,7 +1,7 @@
 import * as Hume from "../../../api/index.js";
 import * as serializers from "../../../serialization/index.js";
 import * as core from "../../../core/index.js";
-import { StreamSocket } from "./StreamSocket";
+import { StreamSocket } from "./StreamSocket.js";
 import WebSocket from "ws";
 
 export declare namespace StreamClient {

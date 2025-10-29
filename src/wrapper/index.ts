@@ -1,22 +1,22 @@
-export { base64Decode } from "./base64Decode";
-export { base64Encode } from "./base64Encode";
-export { convertBase64ToBlob } from "./convertBase64ToBlob";
-export { convertBlobToBase64 } from "./convertBlobToBase64";
-export { ensureSingleValidAudioTrack } from "./ensureSingleValidAudioTrack";
-export { checkForAudioTracks } from "./checkForAudioTracks";
-export { fetchAccessToken } from "./fetchAccessToken";
-export { getAudioStream } from "./getAudioStream";
-export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType";
-export { HumeClient } from "./HumeClient";
-export { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient";
-export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer";
-export { collate } from "./collate";
+export { base64Decode } from "./base64Decode.js";
+export { base64Encode } from "./base64Encode.js";
+export { convertBase64ToBlob } from "./convertBase64ToBlob.js";
+export { convertBlobToBase64 } from "./convertBlobToBase64.js";
+export { ensureSingleValidAudioTrack } from "./ensureSingleValidAudioTrack.js";
+export { checkForAudioTracks } from "./checkForAudioTracks.js";
+export { fetchAccessToken } from "./fetchAccessToken.js";
+export { getAudioStream } from "./getAudioStream.js";
+export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType.js";
+export { HumeClient } from "./HumeClient.js";
+export { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient.js";
+export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer.js";
+export { collate } from "./collate.js";
 
 // SilenceFiller extends from Node.JS Readable -- this should not be exported in non-nodeJS environments. Otherwise the bundle will crash in the browser.
 export const createSilenceFiller = async () => {
     if (typeof process === "undefined" || !process.versions?.node) {
         throw new Error("SilenceFiller is only available in Node.js environments");
     }
-    const { SilenceFiller } = await import("./SilenceFiller");
+    const { SilenceFiller } = await import("./SilenceFiller.js");
     return SilenceFiller;
 };

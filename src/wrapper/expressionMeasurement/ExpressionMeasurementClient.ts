@@ -1,6 +1,6 @@
-import { ExpressionMeasurement as FernClient } from "../../api/resources/expressionMeasurement/client/Client";
-import { BatchClient } from "./batch/BatchClient";
-import { StreamClient } from "./streaming/StreamingClient";
+import { ExpressionMeasurement as FernClient } from "../../api/resources/expressionMeasurement/client/Client.js";
+import { BatchClient } from "./batch/BatchClient.js";
+import { StreamClient } from "./streaming/StreamingClient.js";
 
 export class ExpressionMeasurement extends FernClient {
     protected _batch: BatchClient | undefined;

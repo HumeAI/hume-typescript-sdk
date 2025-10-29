@@ -1,7 +1,7 @@
 import WebSocket from "ws";
 import { v4 as uuid } from "uuid";
-import { parse } from "./StreamingClient";
-import { base64Encode } from "../../base64Encode";
+import { parse } from "./StreamingClient.js";
+import { base64Encode } from "../../base64Encode.js";
 import * as Hume from "../../../api/index.js";
 import * as errors from "../../../errors/index.js";
 import * as serializers from "../../../serialization/index.js";

@@ -1,6 +1,6 @@
-import { HumeClient as FernClient } from "../Client";
+import { HumeClient as FernClient } from "../Client.js";
 import * as core from "../core/index.js";
-import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient";
+import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient.js";
 import * as environments from "../environments.js";
 import { SDK_VERSION } from "../version.js";
 
