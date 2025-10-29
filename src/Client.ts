@@ -5,8 +5,8 @@
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
-import { EmpathicVoice } from "./api/resources/empathicVoice/client/Client.js";
 import { Tts } from "./api/resources/tts/client/Client.js";
+import { EmpathicVoice } from "./api/resources/empathicVoice/client/Client.js";
 import { ExpressionMeasurement } from "./api/resources/expressionMeasurement/client/Client.js";
 
 export declare namespace HumeClient {
@@ -36,8 +36,8 @@ export declare namespace HumeClient {
 
 export class HumeClient {
     protected readonly _options: HumeClient.Options;
-    protected _empathicVoice: EmpathicVoice | undefined;
     protected _tts: Tts | undefined;
+    protected _empathicVoice: EmpathicVoice | undefined;
     protected _expressionMeasurement: ExpressionMeasurement | undefined;
 
     constructor(_options: HumeClient.Options = {}) {
@@ -47,8 +47,8 @@ export class HumeClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.15.1",
-                    "User-Agent": "hume/0.15.1",
+                    "X-Fern-SDK-Version": "0.15.2",
+                    "User-Agent": "hume/0.15.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -57,12 +57,12 @@ export class HumeClient {
         };
     }
 
-    public get empathicVoice(): EmpathicVoice {
-        return (this._empathicVoice ??= new EmpathicVoice(this._options));
-    }
-
     public get tts(): Tts {
         return (this._tts ??= new Tts(this._options));
+    }
+
+    public get empathicVoice(): EmpathicVoice {
+        return (this._empathicVoice ??= new EmpathicVoice(this._options));
     }
 
     public get expressionMeasurement(): ExpressionMeasurement {
