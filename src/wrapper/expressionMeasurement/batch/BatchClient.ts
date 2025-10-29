@@ -1,7 +1,7 @@
 import { Batch as FernClient } from "../../../api/resources/expressionMeasurement/resources/batch/client/Client";
-import * as Hume from "../../../api";
+import * as Hume from "../../../api/index.js";
 import { Job } from "./Job";
-import * as core from "../../../core";
+import * as core from "../../../core/index.js";
 
 export class BatchClient extends FernClient {
     // This just wraps the return value of the base class's `startInferenceJob` method

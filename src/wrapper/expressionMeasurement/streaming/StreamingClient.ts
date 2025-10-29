@@ -1,6 +1,6 @@
-import * as Hume from "../../../api";
-import * as serializers from "../../../serialization";
-import * as core from "../../../core";
+import * as Hume from "../../../api/index.js";
+import * as serializers from "../../../serialization/index.js";
+import * as core from "../../../core/index.js";
 import { StreamSocket } from "./StreamSocket";
 import WebSocket from "ws";
 

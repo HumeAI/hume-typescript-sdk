@@ -1,5 +1,5 @@
-import * as Hume from "../../../api";
-import * as errors from "../../../errors";
+import * as Hume from "../../../api/index.js";
+import * as errors from "../../../errors/index.js";
 import { BatchClient } from "./BatchClient";
 
 export class Job implements Hume.expressionMeasurement.batch.JobId {
