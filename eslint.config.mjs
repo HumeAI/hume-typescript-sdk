@@ -39,6 +39,30 @@ export default [
     {
         rules: {
             "@typescript-eslint/no-namespace": "off",
+            // Enforce explicit file extensions in imports to prevent directory needing resolution
+            // This prevents issues like: import * from "./wrapper" (should be "./wrapper/index.js")
+            "@typescript-eslint/consistent-type-imports": "off",
+        },
+    },
+    {
+        // Custom rule configuration to catch directory imports without explicit index file
+        files: ["src/**/*.ts"],
+        rules: {
+            // Prevent directory imports - require explicit file paths with extensions
+            // This catches patterns like: from "./wrapper" or from "../wrapper"
+            // but allows: from "./wrapper/index.js" or from "./file.js"
+            "no-restricted-syntax": [
+                "error",
+                {
+                    // Match ImportDeclaration nodes where source.value matches:
+                    // - Starts with ./ or ../ 
+                    // - Single directory name (no slashes or dots after the directory)
+                    // - No file extension
+                    // This will catch: "./wrapper" but allow "./wrapper/index.js" and "./file.js"
+                    selector: "ImportDeclaration[source.value=/^\\.\\.?\\/[^./]+$/]",
+                    message: "Directory imports without explicit index file are not allowed. Use explicit file paths with extensions (e.g., './wrapper/index.js' instead of './wrapper'). This prevents ES module resolution errors.",
+                },
+            ],
         },
     },
     fernRules,

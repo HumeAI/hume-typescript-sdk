@@ -32,11 +32,7 @@
             },
             "default": "./dist/cjs/serialization/index.js"
         },
-        "./package.json": "./package.json",
-        "./core": {
-            "types": "./dist/esm/core/index.d.mts",
-            "default": "./dist/esm/core/index.mjs"
-        }
+        "./package.json": "./package.json"
     },
     "files": [
         "dist",
