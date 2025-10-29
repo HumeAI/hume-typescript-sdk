@@ -1,4 +1,4 @@
-import { base64Encode } from "./base64Encode";
+import { base64Encode } from "./base64Encode.js";
 import { z } from "zod";
 
 /**

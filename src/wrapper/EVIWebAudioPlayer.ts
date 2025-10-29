@@ -1,7 +1,7 @@
-import { convertBase64ToBlob } from "./convertBase64ToBlob";
+import { convertBase64ToBlob } from "./convertBase64ToBlob.js";
 import type { AudioOutput } from "api/resources/empathicVoice";
-import { convertLinearFrequenciesToBark } from "./convertFrequencyScale";
-import { generateEmptyFft } from "./generateEmptyFft";
+import { convertLinearFrequenciesToBark } from "./convertFrequencyScale.js";
+import { generateEmptyFft } from "./generateEmptyFft.js";
 
 /**
  * Options for configuring an {@link EVIWebAudioPlayer}.
