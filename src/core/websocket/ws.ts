@@ -170,16 +170,16 @@ export class ReconnectingWebSocket {
         return 3;
     }
 
-    get CONNECTING() {
+    get CONNECTING(): number {
         return ReconnectingWebSocket.CONNECTING;
     }
-    get OPEN() {
+    get OPEN(): number {
         return ReconnectingWebSocket.OPEN;
     }
-    get CLOSING() {
+    get CLOSING(): number {
         return ReconnectingWebSocket.CLOSING;
     }
-    get CLOSED() {
+    get CLOSED(): number {
         return ReconnectingWebSocket.CLOSED;
     }
 
