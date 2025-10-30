@@ -14,8 +14,8 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup pnpm
-              run: npm install -g pnpm
+            - name: Install pnpm
+              run: pnpm/action-setup@4
 
             - name: Install dependencies
               run: pnpm install
@@ -34,8 +34,8 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup pnpm
-              run: npm install -g pnpm
+            - name: Install pnpm
+              run: pnpm/action-setup@4
 
             - name: Install dependencies
               run: pnpm install
@@ -44,10 +44,12 @@ jobs:
               run: pnpm format:check
 
             - name: Run tests
-              run: pnpm test
+              # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
+              run: pnpm test --configLoader runner
 
             - name: Run browser tests
-              run: pnpm test:browser
+              # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
+              run: pnpm test:browser --configLoader runner
 
     publish:
         needs: [compile, test]
