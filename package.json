@@ -1,6 +1,6 @@
 {
     "name": "hume",
-    "version": "0.15.2",
+    "version": "0.15.3",
     "private": false,
     "repository": "github:humeai/hume-typescript-sdk",
     "type": "commonjs",
@@ -32,11 +32,7 @@
             },
             "default": "./dist/cjs/serialization/index.js"
         },
-        "./package.json": "./package.json",
-        "./core": {
-            "types": "./dist/esm/core/index.d.mts",
-            "default": "./dist/esm/core/index.mjs"
-        }
+        "./package.json": "./package.json"
     },
     "files": [
         "dist",
