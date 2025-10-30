@@ -409,8 +409,13 @@ describe("toBinaryUploadRequest", () => {
             const mockStats = { size: 123 };
             const mockReadStream = {} as fs.ReadStream;
 
-            const createReadStreamSpy = vi.spyOn(fs, "createReadStream").mockReturnValue(mockReadStream);
-            const statSpy = vi.spyOn(fs.promises, "stat").mockResolvedValue(mockStats as fs.Stats);
+            // Mock the dynamic import of fs
+            vi.doMock("fs", () => ({
+                createReadStream: vi.fn().mockReturnValue(mockReadStream),
+                promises: {
+                    stat: vi.fn().mockResolvedValue(mockStats),
+                },
+            }));
 
             const result = await toBinaryUploadRequest(input);
 
@@ -420,9 +425,8 @@ describe("toBinaryUploadRequest", () => {
                 "Content-Length": "123",
             });
 
-            // Restore mocks
-            createReadStreamSpy.mockRestore();
-            statSpy.mockRestore();
+            // Clear the mock
+            vi.doUnmock("fs");
         });
 
         it("should handle file path when fs is not available", async () => {
@@ -431,15 +435,16 @@ describe("toBinaryUploadRequest", () => {
             };
 
             // Mock import to simulate environment without fs
-            const originalImport = vi.importActual("fs");
-            vi.doMock("fs", () => null);
+            vi.doMock("fs", () => ({
+                createReadStream: undefined,
+            }));
 
             await expect(toBinaryUploadRequest(input)).rejects.toThrow(
                 "File path uploads are not supported in this environment.",
             );
 
-            // Restore fs
-            vi.doMock("fs", () => originalImport);
+            // Clear the mock
+            vi.doUnmock("fs");
         });
     });
 
