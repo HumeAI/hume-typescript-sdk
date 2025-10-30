@@ -9,7 +9,8 @@ export { getAudioStream } from "./getAudioStream.js";
 export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType.js";
 export { HumeClient } from "./HumeClient.js";
 export { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient.js";
-export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer.js";
+export { EVIWebAudioPlayer } from "./EVIWebAudioPlayer.js";
+export type { EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer.js";
 export { collate } from "./collate.js";
 
 // SilenceFiller extends from Node.JS Readable -- this should not be exported in non-nodeJS environments. Otherwise the bundle will crash in the browser.
