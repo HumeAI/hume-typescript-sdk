@@ -347,7 +347,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Flush the worklet queue and output silence.
      */
-    stop() {
+    stop(): void {
         if (!this.#disableAudioWorklet) {
             // Clear buffered audio from the worklet queue
             this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
@@ -378,7 +378,7 @@ export class EVIWebAudioPlayer extends EventTarget {
      *
      * @param volume Desired gain; clamped to [0, 1].
      */
-    setVolume(volume: number) {
+    setVolume(volume: number): void {
         const clampedVolume = Math.max(0, Math.min(volume, 1));
         this.#volume = clampedVolume;
 
@@ -390,7 +390,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Mute output instantly by setting the gain to 0. Retains the last volume internally for later restore.
      */
-    mute() {
+    mute(): void {
         if (!this.#gainNode || !this.#ctx) return;
         this.#gainNode.gain.setValueAtTime(0, this.#ctx.currentTime);
         this.#muted = true;
@@ -399,7 +399,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Restore output gain to the last set volume (via setVolume).
      */
-    unmute() {
+    unmute(): void {
         if (!this.#gainNode || !this.#ctx) return;
         this.#gainNode.gain.setValueAtTime(this.#volume, this.#ctx.currentTime);
         this.#muted = false;
@@ -408,7 +408,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Tear down all Web-Audio resources (worklet, analyser, gain, context) and reset state so {@link init} can be called again.
      */
-    dispose() {
+    dispose(): void {
         if (this.#fftTimer != null) {
             clearInterval(this.#fftTimer);
             this.#fftTimer = null;
