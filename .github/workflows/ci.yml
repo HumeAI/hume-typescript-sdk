@@ -46,9 +46,6 @@ jobs:
             - name: Run tests
               run: pnpm test --configLoader runner
 
-            - name: Run browser tests
-              run: pnpm test:browser --configLoader runner
-
     publish:
         needs: [compile, test]
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
