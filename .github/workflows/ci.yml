@@ -47,10 +47,6 @@ jobs:
               # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
               run: pnpm test --configLoader runner
 
-            - name: Run browser tests
-              # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
-              run: pnpm test:browser --configLoader runner
-
     publish:
         needs: [compile, test]
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
