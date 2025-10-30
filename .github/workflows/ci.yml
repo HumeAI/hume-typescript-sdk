@@ -3,40 +3,83 @@ name: ci
 on: [push]
 
 jobs:
-  compile:
-    runs-on: ubuntu-latest
+    compile:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+            - name: Set up node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18.18.0"
 
-      - name: Set up node
-        uses: actions/setup-node@v4
+            - name: Setup pnpm
+              run: npm install -g pnpm
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Install dependencies
-        run: pnpm install
+            - name: Compile
+              run: pnpm build
 
-      - name: Compile
-        run: pnpm build
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
 
-  test:
-    runs-on: ubuntu-latest
+            - name: Set up node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18.18.0"
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+            - name: Setup pnpm
+              run: npm install -g pnpm
 
-      - name: Set up node
-        uses: actions/setup-node@v4
-                
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Install dependencies
-        run: pnpm install
+            - name: Check for formatting issues
+              run: pnpm format:check
 
-      - name: Test
-        run: pnpm test
+            - name: Run tests
+              run: pnpm test
+
+            - name: Run browser tests
+              run: pnpm test:browser
+
+    publish:
+        needs: [compile, test]
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Set up node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18.18.0"
+
+            - name: Setup pnpm
+              run: npm install -g pnpm
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build
+              run: pnpm build
+
+            - name: Publish to npm
+              run: |
+                  npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+                  if [[ ${GITHUB_REF} == *alpha* ]]; then
+                    npm publish --access public --tag alpha
+                  elif [[ ${GITHUB_REF} == *beta* ]]; then
+                    npm publish --access public --tag beta
+                  else
+                    npm publish --access public
+                  fi
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
