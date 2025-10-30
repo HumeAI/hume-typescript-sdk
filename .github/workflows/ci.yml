@@ -14,8 +14,8 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Install pnpm
+              run: pnpm/action-setup@4
 
             - name: Install dependencies
               run: yarn install
@@ -34,8 +34,8 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Install pnpm
+              run: pnpm/action-setup@4
 
             - name: Install dependencies
               run: yarn install
@@ -44,10 +44,10 @@ jobs:
               run: yarn prettier . --check --ignore-unknown
 
             - name: Run tests
-              run: yarn test
+              run: pnpm test --configLoader runner
 
             - name: Run browser tests
-              run: yarn test:browser
+              run: pnpm test:browser --configLoader runner
 
     publish:
         needs: [compile, test]
