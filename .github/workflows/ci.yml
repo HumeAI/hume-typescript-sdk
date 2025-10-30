@@ -14,14 +14,14 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Setup pnpm
+              run: npm install -g pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install
 
             - name: Compile
-              run: yarn build
+              run: pnpm build
 
     test:
         runs-on: ubuntu-latest
@@ -34,20 +34,20 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Setup pnpm
+              run: npm install -g pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install
 
             - name: Check for formatting issues
-              run: yarn prettier . --check --ignore-unknown
+              run: pnpm prettier . --check --ignore-unknown
 
             - name: Run tests
-              run: yarn test
+              run: pnpm test
 
             - name: Run browser tests
-              run: yarn test:browser
+              run: pnpm test:browser
 
     publish:
         needs: [compile, test]
@@ -62,14 +62,14 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Setup pnpm
+              run: npm install -g pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install
 
             - name: Build
-              run: yarn build
+              run: pnpm build
 
             - name: Publish to npm
               run: |
