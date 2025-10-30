@@ -132,9 +132,9 @@ export class Tools {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<
-            Hume.empathicVoice.ReturnPagedUserDefinedTools,
-            Hume.empathicVoice.ReturnUserDefinedTool | undefined
+        return new core.Page<
+            Hume.empathicVoice.ReturnUserDefinedTool | undefined,
+            Hume.empathicVoice.ReturnPagedUserDefinedTools
         >({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
@@ -360,9 +360,9 @@ export class Tools {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<
-            Hume.empathicVoice.ReturnPagedUserDefinedTools,
-            Hume.empathicVoice.ReturnUserDefinedTool | undefined
+        return new core.Page<
+            Hume.empathicVoice.ReturnUserDefinedTool | undefined,
+            Hume.empathicVoice.ReturnPagedUserDefinedTools
         >({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,

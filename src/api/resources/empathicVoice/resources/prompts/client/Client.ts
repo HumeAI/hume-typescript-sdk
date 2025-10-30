@@ -130,7 +130,7 @@ export class Prompts {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Hume.empathicVoice.ReturnPagedPrompts, Hume.empathicVoice.ReturnPrompt | undefined>({
+        return new core.Page<Hume.empathicVoice.ReturnPrompt | undefined, Hume.empathicVoice.ReturnPagedPrompts>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.promptsPage ?? []).length > 0,

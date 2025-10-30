@@ -130,7 +130,7 @@ export class ChatGroups {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Hume.empathicVoice.ReturnPagedChatGroups, Hume.empathicVoice.ReturnChatGroup>({
+        return new core.Page<Hume.empathicVoice.ReturnChatGroup, Hume.empathicVoice.ReturnPagedChatGroups>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.chatGroupsPage ?? []).length > 0,
@@ -364,7 +364,7 @@ export class ChatGroups {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Hume.empathicVoice.ReturnChatGroupPagedEvents, Hume.empathicVoice.ReturnChatEvent>({
+        return new core.Page<Hume.empathicVoice.ReturnChatEvent, Hume.empathicVoice.ReturnChatGroupPagedEvents>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.eventsPage ?? []).length > 0,
