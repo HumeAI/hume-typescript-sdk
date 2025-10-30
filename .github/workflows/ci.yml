@@ -41,7 +41,7 @@ jobs:
               run: pnpm install
 
             - name: Check for formatting issues
-              run: pnpm prettier . --check --ignore-unknown
+              run: pnpm format:check
 
             - name: Run tests
               run: pnpm test
