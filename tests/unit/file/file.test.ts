@@ -12,7 +12,7 @@ describe("toBinaryUploadRequest", () => {
     const TEST_FILE_PATH = join(__dirname, "test-file.txt");
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe("Buffer input", () => {
@@ -409,8 +409,8 @@ describe("toBinaryUploadRequest", () => {
             const mockStats = { size: 123 };
             const mockReadStream = {} as fs.ReadStream;
 
-            const createReadStreamSpy = jest.spyOn(fs, "createReadStream").mockReturnValue(mockReadStream);
-            const statSpy = jest.spyOn(fs.promises, "stat").mockResolvedValue(mockStats as fs.Stats);
+            const createReadStreamSpy = vi.spyOn(fs, "createReadStream").mockReturnValue(mockReadStream);
+            const statSpy = vi.spyOn(fs.promises, "stat").mockResolvedValue(mockStats as fs.Stats);
 
             const result = await toBinaryUploadRequest(input);
 
@@ -431,15 +431,15 @@ describe("toBinaryUploadRequest", () => {
             };
 
             // Mock import to simulate environment without fs
-            const originalImport = jest.requireActual("fs");
-            jest.doMock("fs", () => null);
+            const originalImport = vi.importActual("fs");
+            vi.doMock("fs", () => null);
 
             await expect(toBinaryUploadRequest(input)).rejects.toThrow(
                 "File path uploads are not supported in this environment.",
             );
 
             // Restore fs
-            jest.doMock("fs", () => originalImport);
+            vi.doMock("fs", () => originalImport);
         });
     });
 
