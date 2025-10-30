@@ -11,7 +11,7 @@ eslint.config.mjs
 justfile
 tsconfig.dev.json
 .nvmrc
-.github
+#.github
 .prettierignore
 
 
