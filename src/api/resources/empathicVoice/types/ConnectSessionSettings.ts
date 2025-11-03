@@ -7,9 +7,25 @@ import * as Hume from "../../../index.js";
 export interface ConnectSessionSettings {
     audio?: Hume.empathicVoice.ConnectSessionSettingsAudio;
     context?: Hume.empathicVoice.ConnectSessionSettingsContext;
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
+    /** The maximum number of chat events to return from chat history. By default, the system returns up to 300 events (100 events per page × 3 pages). Set this parameter to a smaller value to limit the number of events returned. */
     eventLimit?: number;
+    /**
+     * Third party API key for the supplemental language model.
+     *
+     * When provided, EVI will use this key instead of Hume's API key for the supplemental LLM. This allows you to bypass rate limits and utilize your own API key as needed.
+     */
     languageModelApiKey?: string;
+    /**
+     * Instructions used to shape EVI's behavior, responses, and style for the session.
+     *
+     * When included in a Session Settings message, the provided Prompt overrides the existing one specified in the EVI configuration. If no Prompt was defined in the configuration, this Prompt will be the one used for the session.
+     *
+     * You can use the Prompt to define a specific goal or role for EVI, specifying how it should act or what it should focus on during the conversation. For example, EVI can be instructed to act as a customer support representative, a fitness coach, or a travel advisor, each with its own set of behaviors and response styles.
+     *
+     * For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
+     */
     systemPrompt?: string;
     /**
      * This field allows you to assign values to dynamic variables referenced in your system prompt.
@@ -19,5 +35,6 @@ export interface ConnectSessionSettings {
      * Using this field, you can personalize responses based on session-specific details. For more guidance, see our [guide on using dynamic variables](/docs/speech-to-speech-evi/features/dynamic-variables).
      */
     variables?: Record<string, Hume.empathicVoice.ConnectSessionSettingsVariablesValue>;
+    /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this EVI session. This will override the speaker set in the selected configuration. */
     voiceId?: string;
 }
