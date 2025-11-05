@@ -1,5 +1,6 @@
 export * as chat from "./chat/index.js";
 export * from "./chat/types/index.js";
+export * as controlPlane from "./controlPlane/index.js";
 export * as tools from "./tools/index.js";
 export * as prompts from "./prompts/index.js";
 export * as configs from "./configs/index.js";

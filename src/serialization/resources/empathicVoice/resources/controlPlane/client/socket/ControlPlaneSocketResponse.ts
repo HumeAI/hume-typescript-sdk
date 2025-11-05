@@ -7,11 +7,11 @@ import * as Hume from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import { SubscribeEvent } from "../../../../types/SubscribeEvent.js";
 
-export const ChatSocketResponse: core.serialization.Schema<
-    serializers.empathicVoice.ChatSocketResponse.Raw,
+export const ControlPlaneSocketResponse: core.serialization.Schema<
+    serializers.empathicVoice.ControlPlaneSocketResponse.Raw,
     Hume.empathicVoice.SubscribeEvent
 > = core.serialization.undiscriminatedUnion([SubscribeEvent]);
 
-export declare namespace ChatSocketResponse {
+export declare namespace ControlPlaneSocketResponse {
     export type Raw = SubscribeEvent.Raw;
 }

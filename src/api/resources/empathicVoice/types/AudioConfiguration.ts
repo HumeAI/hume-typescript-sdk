@@ -7,6 +7,8 @@ import * as Hume from "../../../index.js";
 export interface AudioConfiguration {
     /** Number of audio channels. */
     channels: number;
+    /** Optional codec information. */
+    codec?: string;
     /** Encoding format of the audio input, such as `linear16`. */
     encoding: Hume.empathicVoice.Encoding;
     /** Audio sample rate. Number of samples per second in the audio input, measured in Hertz. */

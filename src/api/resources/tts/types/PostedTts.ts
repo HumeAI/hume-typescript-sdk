@@ -11,11 +11,7 @@ export interface PostedTts {
     format?: Hume.tts.Format;
     /** The set of timestamp types to include in the response. */
     includeTimestampTypes?: Hume.tts.TimestampType[];
-    /**
-     * Number of audio generations to produce from the input utterances.
-     *
-     * Using `num_generations` enables faster processing than issuing multiple sequential requests. Additionally, specifying `num_generations` allows prosody continuation across all generations without repeating context, ensuring each generation sounds slightly different while maintaining contextual consistency.
-     */
+    /** Number of generations of the audio to produce. */
     numGenerations?: number;
     /**
      * Controls how audio output is segmented in the response.

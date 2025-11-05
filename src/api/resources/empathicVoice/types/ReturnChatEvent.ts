@@ -47,4 +47,6 @@ export interface ReturnChatEvent {
     emotionFeatures?: string;
     /** Stringified JSON with additional metadata about the chat event. */
     metadata?: string;
+    /** Identifier for a related chat event. Currently only seen on ASSISTANT_PROSODY events, to point back to the ASSISTANT_MESSAGE that generated these prosody scores */
+    relatedEventId?: string;
 }

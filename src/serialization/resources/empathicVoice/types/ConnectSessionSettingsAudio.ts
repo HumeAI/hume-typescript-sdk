@@ -5,20 +5,21 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
+import { Encoding } from "./Encoding.js";
 
 export const ConnectSessionSettingsAudio: core.serialization.ObjectSchema<
     serializers.empathicVoice.ConnectSessionSettingsAudio.Raw,
     Hume.empathicVoice.ConnectSessionSettingsAudio
 > = core.serialization.object({
     channels: core.serialization.number().optional(),
-    encoding: core.serialization.string().optional(),
+    encoding: Encoding.optional(),
     sampleRate: core.serialization.property("sample_rate", core.serialization.number().optional()),
 });
 
 export declare namespace ConnectSessionSettingsAudio {
     export interface Raw {
         channels?: number | null;
-        encoding?: string | null;
+        encoding?: Encoding.Raw | null;
         sample_rate?: number | null;
     }
 }

@@ -4,6 +4,7 @@
 
 import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
+import { ControlPlane } from "../resources/controlPlane/client/Client.js";
 import { Tools } from "../resources/tools/client/Client.js";
 import { Prompts } from "../resources/prompts/client/Client.js";
 import { Configs } from "../resources/configs/client/Client.js";
@@ -25,6 +26,7 @@ export declare namespace EmpathicVoice {
 
 export class EmpathicVoice {
     protected readonly _options: EmpathicVoice.Options;
+    protected _controlPlane: ControlPlane | undefined;
     protected _tools: Tools | undefined;
     protected _prompts: Prompts | undefined;
     protected _configs: Configs | undefined;
@@ -34,6 +36,10 @@ export class EmpathicVoice {
 
     constructor(_options: EmpathicVoice.Options = {}) {
         this._options = _options;
+    }
+
+    public get controlPlane(): ControlPlane {
+        return (this._controlPlane ??= new ControlPlane(this._options));
     }
 
     public get tools(): Tools {
