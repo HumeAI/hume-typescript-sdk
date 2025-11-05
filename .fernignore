@@ -71,3 +71,10 @@ src/core/websocket/ws.ts
 # Needed to export the utilities under src/wrapper
 src/wrapper
 src/index.ts
+
+# Deprecated type aliases for backward compatibility
+src/api/resources/empathicVoice/resources/chat/types/SubscribeEvent.ts
+src/serialization/resources/empathicVoice/resources/chat/types/SubscribeEvent.ts
+# Modified index files to support deprecated aliases
+src/api/resources/empathicVoice/resources/chat/index.ts
+src/serialization/resources/empathicVoice/resources/chat/index.ts
