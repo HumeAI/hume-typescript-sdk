@@ -5,18 +5,19 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
+import { ContextType } from "./ContextType.js";
 
 export const ConnectSessionSettingsContext: core.serialization.ObjectSchema<
     serializers.empathicVoice.ConnectSessionSettingsContext.Raw,
     Hume.empathicVoice.ConnectSessionSettingsContext
 > = core.serialization.object({
     text: core.serialization.string().optional(),
-    type: core.serialization.string().optional(),
+    type: ContextType.optional(),
 });
 
 export declare namespace ConnectSessionSettingsContext {
     export interface Raw {
         text?: string | null;
-        type?: string | null;
+        type?: ContextType.Raw | null;
     }
 }

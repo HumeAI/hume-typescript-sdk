@@ -696,6 +696,7 @@ types:
 
           Voices created through this endpoint will always have the provider set
           to `CUSTOM_VOICE`, indicating a custom voice stored in your account.
+      compatible_octave_models: optional<list<string>>
     source:
       openapi: tts-openapi.json
   FormatPcm:

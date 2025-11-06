@@ -11,4 +11,5 @@ export interface ReturnVoice {
     id?: string;
     name?: string;
     provider?: Hume.empathicVoice.VoiceProvider;
+    compatibleOctaveModels?: string[];
 }

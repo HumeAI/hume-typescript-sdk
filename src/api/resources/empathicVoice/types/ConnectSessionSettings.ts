@@ -5,7 +5,19 @@
 import * as Hume from "../../../index.js";
 
 export interface ConnectSessionSettings {
+    /**
+     * Configuration details for the audio input used during the session. Ensures the audio is being correctly set up for processing.
+     *
+     * This optional field is only required when the audio input is encoded in PCM Linear 16 (16-bit, little-endian, signed PCM WAV data). For detailed instructions on how to configure session settings for PCM Linear 16 audio, please refer to the [Session Settings section](/docs/empathic-voice-interface-evi/configuration#session-settings) on the EVI Configuration page.
+     */
     audio?: Hume.empathicVoice.ConnectSessionSettingsAudio;
+    /**
+     * Allows developers to inject additional context into the conversation, which is appended to the end of user messages for the session.
+     *
+     * When included in a Session Settings message, the provided context can be used to remind the LLM of its role in every user message, prevent it from forgetting important details, or add new relevant information to the conversation.
+     *
+     * Set to `null` to disable context injection.
+     */
     context?: Hume.empathicVoice.ConnectSessionSettingsContext;
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;

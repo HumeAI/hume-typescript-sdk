@@ -18,4 +18,5 @@ export interface ReturnVoice {
      * Voices created through this endpoint will always have the provider set to `CUSTOM_VOICE`, indicating a custom voice stored in your account.
      */
     provider?: Hume.tts.VoiceProvider;
+    compatibleOctaveModels?: string[];
 }

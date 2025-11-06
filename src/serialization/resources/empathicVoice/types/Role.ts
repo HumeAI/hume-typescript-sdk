@@ -7,8 +7,8 @@ import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 
 export const Role: core.serialization.Schema<serializers.empathicVoice.Role.Raw, Hume.empathicVoice.Role> =
-    core.serialization.enum_(["assistant", "system", "user", "all", "tool"]);
+    core.serialization.enum_(["assistant", "system", "user", "all", "tool", "context"]);
 
 export declare namespace Role {
-    export type Raw = "assistant" | "system" | "user" | "all" | "tool";
+    export type Raw = "assistant" | "system" | "user" | "all" | "tool" | "context";
 }

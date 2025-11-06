@@ -1,3 +1,5 @@
+export * as controlPlane from "./controlPlane/index.js";
+export * from "./controlPlane/client/socket/index.js";
 export * as chat from "./chat/index.js";
 export * from "./chat/client/socket/index.js";
 export * from "./chat/types/index.js";
