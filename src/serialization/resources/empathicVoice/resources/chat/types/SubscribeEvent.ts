@@ -11,7 +11,7 @@ import { SubscribeEvent as NewSubscribeEvent } from "../../../types/SubscribeEve
  * @deprecated Use `serialization.empathicVoice.SubscribeEvent` instead.
  * This serializer alias will be removed in a future version.
  */
-export const SubscribeEvent = NewSubscribeEvent;
+export const SubscribeEvent: typeof NewSubscribeEvent = NewSubscribeEvent;
 
 export declare namespace SubscribeEvent {
     /**

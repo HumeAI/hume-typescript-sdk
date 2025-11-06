@@ -14,14 +14,14 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install
 
             - name: Compile
-              run: yarn build
+              run: pnpm build
 
     test:
         runs-on: ubuntu-latest
@@ -34,20 +34,18 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install
 
             - name: Check for formatting issues
-              run: yarn prettier . --check --ignore-unknown
+              run: pnpm format:check
 
             - name: Run tests
-              run: yarn test
-
-            - name: Run browser tests
-              run: yarn test:browser
+              # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
+              run: pnpm test --configLoader runner
 
     publish:
         needs: [compile, test]
@@ -62,14 +60,14 @@ jobs:
               with:
                   node-version: "18.18.0"
 
-            - name: Setup yarn
-              run: npm install -g yarn
+            - name: Setup pnpm
+              run: npm install -g pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install
 
             - name: Build
-              run: yarn build
+              run: pnpm build
 
             - name: Publish to npm
               run: |

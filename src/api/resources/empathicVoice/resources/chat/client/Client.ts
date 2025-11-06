@@ -136,7 +136,7 @@ export class Chat {
         return new ChatSocket({ socket });
     }
 
-    protected _getCustomAuthorizationHeaders() {
+    protected _getCustomAuthorizationHeaders(): Record<string, string | null | undefined> {
         const apiKeyValue = core.Supplier.get(this._options.apiKey);
         // This `authHeaderValue` is manually added as if you don't provide it it will
         // be omitted from the headers which means it won't reach the logic in ws.ts that
