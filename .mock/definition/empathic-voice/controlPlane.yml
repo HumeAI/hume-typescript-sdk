@@ -18,6 +18,11 @@ service:
         content-type: application/json
       errors:
         - root.UnprocessableEntityError
+      examples:
+        - path-parameters:
+            chat_id: chat_id
+          request:
+            type: session_settings
   source:
     openapi: evi-openapi.json
 channel:

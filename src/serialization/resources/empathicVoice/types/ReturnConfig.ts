@@ -21,7 +21,6 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     name: core.serialization.string().optional(),
     id: core.serialization.string().optional(),
     version: core.serialization.number().optional(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     builtinTools: core.serialization.property(
         "builtin_tools",
@@ -37,6 +36,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
     createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
 });
 
@@ -45,7 +45,6 @@ export declare namespace ReturnConfig {
         name?: string | null;
         id?: string | null;
         version?: number | null;
-        version_description?: string | null;
         language_model?: ReturnLanguageModel.Raw | null;
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
         evi_version?: string | null;
@@ -58,6 +57,7 @@ export declare namespace ReturnConfig {
         webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
         created_on?: number | null;
         modified_on?: number | null;
+        version_description?: string | null;
         tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
     }
 }

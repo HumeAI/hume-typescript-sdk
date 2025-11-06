@@ -19,6 +19,8 @@ export interface UserMessage {
      * Interim transcripts are only sent when the [`verbose_transcription`](/reference/speech-to-speech-evi/chat#request.query.verbose_transcription) query parameter is set to `true` in the initial handshake.
      */
     interim: boolean;
+    /** Detected language of the message text. */
+    language?: string;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */

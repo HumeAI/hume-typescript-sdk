@@ -3,6 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { toJson } from "../../../../core/json.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as serializers from "../../../../serialization/index.js";
@@ -419,6 +420,309 @@ export class Tts {
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/json.");
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @throws {@link Hume.tts.UnprocessableEntityError}
+     */
+    public convertVoiceFile(
+        request: Hume.tts.ConvertVoiceFileRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): core.HttpResponsePromise<core.BinaryResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__convertVoiceFile(request, requestOptions));
+    }
+
+    private async __convertVoiceFile(
+        request: Hume.tts.ConvertVoiceFileRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<core.BinaryResponse>> {
+        const _request = await core.newFormData();
+        if (request.stripHeaders != null) {
+            _request.append("strip_headers", request.stripHeaders.toString());
+        }
+
+        await _request.appendFile("audio", request.audio);
+        if (request.context != null) {
+            _request.append(
+                "context",
+                (() => {
+                    const mapped = serializers.tts.PostedContext.jsonOrThrow(request.context, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    });
+                    return typeof mapped === "string" ? mapped : toJson(mapped);
+                })(),
+            );
+        }
+
+        if (request.voice != null) {
+            _request.append(
+                "voice",
+                (() => {
+                    const mapped = serializers.tts.PostedUtteranceVoice.jsonOrThrow(request.voice, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    });
+                    return typeof mapped === "string" ? mapped : toJson(mapped);
+                })(),
+            );
+        }
+
+        if (request.format != null) {
+            _request.append(
+                "format",
+                (() => {
+                    const mapped = serializers.tts.Format.jsonOrThrow(request.format, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    });
+                    return typeof mapped === "string" ? mapped : toJson(mapped);
+                })(),
+            );
+        }
+
+        if (request.includeTimestampTypes != null) {
+            for (const _item of request.includeTimestampTypes) {
+                _request.append(
+                    "include_timestamp_types",
+                    serializers.tts.TimestampType.jsonOrThrow(_item, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    }),
+                );
+            }
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+                ..._maybeEncodedRequest.headers,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
+                "v0/tts/voice_conversion/file",
+            ),
+            method: "POST",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
+            responseType: "binary-response",
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/voice_conversion/file.");
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    public convertVoiceJson(
+        request: Hume.tts.ConvertVoiceJsonRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): core.HttpResponsePromise<core.Stream<Hume.tts.TtsOutput>> {
+        return core.HttpResponsePromise.fromPromise(this.__convertVoiceJson(request, requestOptions));
+    }
+
+    private async __convertVoiceJson(
+        request: Hume.tts.ConvertVoiceJsonRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<core.Stream<Hume.tts.TtsOutput>>> {
+        const _request = await core.newFormData();
+        if (request.stripHeaders != null) {
+            _request.append("strip_headers", request.stripHeaders.toString());
+        }
+
+        if (request.audio != null) {
+            await _request.appendFile("audio", request.audio);
+        }
+
+        if (request.context != null) {
+            _request.append(
+                "context",
+                (() => {
+                    const mapped = serializers.tts.PostedContext.jsonOrThrow(request.context, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    });
+                    return typeof mapped === "string" ? mapped : toJson(mapped);
+                })(),
+            );
+        }
+
+        if (request.voice != null) {
+            _request.append(
+                "voice",
+                (() => {
+                    const mapped = serializers.tts.PostedUtteranceVoice.jsonOrThrow(request.voice, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    });
+                    return typeof mapped === "string" ? mapped : toJson(mapped);
+                })(),
+            );
+        }
+
+        if (request.format != null) {
+            _request.append(
+                "format",
+                (() => {
+                    const mapped = serializers.tts.Format.jsonOrThrow(request.format, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    });
+                    return typeof mapped === "string" ? mapped : toJson(mapped);
+                })(),
+            );
+        }
+
+        if (request.includeTimestampTypes != null) {
+            for (const _item of request.includeTimestampTypes) {
+                _request.append(
+                    "include_timestamp_types",
+                    serializers.tts.TimestampType.jsonOrThrow(_item, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    }),
+                );
+            }
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+                ..._maybeEncodedRequest.headers,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)<ReadableStream>({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
+                "v0/tts/voice_conversion/json",
+            ),
+            method: "POST",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
+            responseType: "sse",
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: new core.Stream({
+                    stream: _response.body,
+                    parse: async (data) => {
+                        return serializers.tts.TtsOutput.parseOrThrow(data, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        });
+                    },
+                    signal: requestOptions?.abortSignal,
+                    eventShape: {
+                        type: "json",
+                        messageTerminator: "\n",
+                    },
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/voice_conversion/json.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,

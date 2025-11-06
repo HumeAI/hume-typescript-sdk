@@ -15,8 +15,8 @@ export declare namespace HumeClient {
 
 export class HumeClient {
     protected readonly _options: HumeClient.Options;
-    protected _tts: Tts | undefined;
     protected _empathicVoice: EmpathicVoice | undefined;
+    protected _tts: Tts | undefined;
     protected _expressionMeasurement: ExpressionMeasurement | undefined;
 
     constructor(_options: HumeClient.Options = {}) {
@@ -37,12 +37,12 @@ export class HumeClient {
         };
     }
 
-    public get tts(): Tts {
-        return (this._tts ??= new Tts(this._options));
-    }
-
     public get empathicVoice(): EmpathicVoice {
         return (this._empathicVoice ??= new EmpathicVoice(this._options));
+    }
+
+    public get tts(): Tts {
+        return (this._tts ??= new Tts(this._options));
     }
 
     public get expressionMeasurement(): ExpressionMeasurement {

@@ -112,4 +112,5 @@ export * from "./WebhookEventChatEnded.js";
 export * from "./WebhookEventChatStarted.js";
 export * from "./WebhookEventChatStartType.js";
 export * from "./WebhookEventChatStatus.js";
+export * from "./WebhookEventToolCall.js";
 export * from "./WebSocketError.js";

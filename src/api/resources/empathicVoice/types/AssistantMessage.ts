@@ -12,6 +12,8 @@ export interface AssistantMessage {
     fromText: boolean;
     /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
     id?: string;
+    /** Detected language of the message text. */
+    language?: string;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */

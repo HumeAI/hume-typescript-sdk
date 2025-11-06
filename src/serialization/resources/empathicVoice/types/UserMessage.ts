@@ -14,6 +14,7 @@ export const UserMessage: core.serialization.ObjectSchema<
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     fromText: core.serialization.property("from_text", core.serialization.boolean()),
     interim: core.serialization.boolean(),
+    language: core.serialization.string().optional(),
     message: ChatMessage,
     models: Inference,
     time: MillisecondInterval,
@@ -25,6 +26,7 @@ export declare namespace UserMessage {
         custom_session_id?: string | null;
         from_text: boolean;
         interim: boolean;
+        language?: string | null;
         message: ChatMessage.Raw;
         models: Inference.Raw;
         time: MillisecondInterval.Raw;
