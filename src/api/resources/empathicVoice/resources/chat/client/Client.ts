@@ -24,6 +24,7 @@ export declare namespace Chat {
         eventLimit?: number | undefined;
         resumedChatGroupId?: string | undefined;
         verboseTranscription?: boolean | undefined;
+        allowConnection?: boolean | undefined;
         /** @deprecated Use sessionSettings.voiceId instead */
         voiceId?: string | undefined;
         apiKey?: string | undefined;
@@ -61,6 +62,7 @@ export class Chat {
             headers,
             debug,
             reconnectAttempts,
+            allowConnection,
         } = args;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
 
@@ -95,6 +97,10 @@ export class Chat {
 
         if (apiKey != null) {
             _queryParams["api_key"] = apiKey;
+        }
+
+        if (allowConnection != null) {
+            _queryParams["allow_connection"] = allowConnection === true ? 'true' : 'false';
         }
 
         if (sessionSettings != null) {
