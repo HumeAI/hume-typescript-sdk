@@ -100,7 +100,7 @@ export class Chat {
         }
 
         if (allowConnection != null) {
-            _queryParams["allow_connection"] = allowConnection === true ? 'true' : 'false';
+            _queryParams["allow_connection"] = allowConnection === true ? "true" : "false";
         }
 
         if (sessionSettings != null) {
