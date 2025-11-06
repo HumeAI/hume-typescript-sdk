@@ -1,6 +1,6 @@
 /**
  * This file was manually added to provide backward compatibility.
- * 
+ *
  * @deprecated Use `serialization.empathicVoice.SubscribeEvent` instead.
  * This serializer alias will be removed in a future version.
  */
@@ -20,4 +20,3 @@ export declare namespace SubscribeEvent {
      */
     export type Raw = NewSubscribeEvent.Raw;
 }
-
