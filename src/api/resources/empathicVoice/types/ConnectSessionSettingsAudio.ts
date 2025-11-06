@@ -10,10 +10,10 @@ import * as Hume from "../../../index.js";
  * This optional field is only required when the audio input is encoded in PCM Linear 16 (16-bit, little-endian, signed PCM WAV data). For detailed instructions on how to configure session settings for PCM Linear 16 audio, please refer to the [Session Settings section](/docs/empathic-voice-interface-evi/configuration#session-settings) on the EVI Configuration page.
  */
 export interface ConnectSessionSettingsAudio {
-    /** Number of audio channels. */
+    /** Sets number of audio channels for audio input. */
     channels?: number;
-    /** Encoding format of the audio input, such as `linear16`. */
+    /** Sets encoding format of the audio input, such as `linear16`. */
     encoding?: Hume.empathicVoice.Encoding;
-    /** Audio sample rate. Number of samples per second in the audio input, measured in Hertz. */
+    /** Sets the sample rate for audio input. (Number of samples per second in the audio input, measured in Hertz.) */
     sampleRate?: number;
 }

@@ -1040,15 +1040,15 @@ types:
     properties:
       channels:
         type: optional<integer>
-        docs: Number of audio channels.
+        docs: Sets number of audio channels for audio input.
       encoding:
         type: optional<Encoding>
-        docs: Encoding format of the audio input, such as `linear16`.
+        docs: Sets encoding format of the audio input, such as `linear16`.
       sample_rate:
         type: optional<integer>
         docs: >-
-          Audio sample rate. Number of samples per second in the audio input,
-          measured in Hertz.
+          Sets the sample rate for audio input. (Number of samples per second in
+          the audio input, measured in Hertz.)
     source:
       openapi: evi-asyncapi.json
     inline: true
@@ -1074,11 +1074,12 @@ types:
           conversation.
 
 
-          This text will be appended to the end of user messages based on the
-          chosen persistence level. For example, if you want to remind EVI of
-          its role as a helpful weather assistant, the context you insert will
-          be appended to the end of user messages as `{Context: You are a
-          helpful weather assistant}`.
+          This text will be appended to the end of
+          [user_messages](/reference/speech-to-speech-evi/chat#receive.UserMessage.message.content)
+          based on the chosen persistence level. For example, if you want to
+          remind EVI of its role as a helpful weather assistant, the context you
+          insert will be appended to the end of user messages as `{Context: You
+          are a helpful weather assistant}`.
       type:
         type: optional<ContextType>
         docs: >-
@@ -1086,19 +1087,12 @@ types:
           injected context will remain active in the session.
 
 
-          There are three possible context types:
+          - **Temporary**: Context that is only applied to the following
+          assistant response.
 
 
-          - **Persistent**: The context is appended to all user messages for the
-          duration of the session.
-
-
-          - **Temporary**: The context is appended only to the next user
-          message.
-
-           - **Editable**: The original context is updated to reflect the new context.
-
-           If the type is not specified, it will default to `temporary`.
+          - **Persistent**: Context that is applied to all subsequent assistant
+          responses for the remainder of the Chat.
     source:
       openapi: evi-asyncapi.json
     inline: true
@@ -1143,23 +1137,15 @@ types:
       custom_session_id:
         type: optional<string>
         docs: >-
-          Unique identifier for the session. Used to manage conversational
-          state, correlate frontend and backend data, and persist conversations
-          across EVI sessions.
-
-
-          If included, the response sent from Hume to your backend will include
-          this ID. This allows you to correlate frontend users with their
-          incoming messages.
-
-
-          It is recommended to pass a `custom_session_id` if you are using a
-          Custom Language Model. Please see our guide to [using a custom
-          language
-          model](/docs/empathic-voice-interface-evi/custom-language-model) with
-          EVI to learn more.
+          Used to manage conversational state, correlate frontend and backend
+          data, and persist conversations across EVI sessions.
       event_limit:
         type: optional<integer>
+        docs: >-
+          The maximum number of chat events to return from chat history. By
+          default, the system returns up to 300 events (100 events per page × 3
+          pages). Set this parameter to a smaller value to limit the number of
+          events returned.
       language_model_api_key:
         type: optional<string>
         docs: >-
@@ -1190,7 +1176,7 @@ types:
 
 
           For help writing a system prompt, see our [Prompting
-          Guide](/docs/empathic-voice-interface-evi/prompting).
+          Guide](/docs/speech-to-speech-evi/guides/prompting).
       variables:
         type: optional<map<string, ConnectSessionSettingsVariablesValue>>
         docs: >-
@@ -1211,6 +1197,10 @@ types:
           variables](/docs/speech-to-speech-evi/features/dynamic-variables).
       voice_id:
         type: optional<string>
+        docs: >-
+          The name or ID of the voice from the `Voice Library` to be used as the
+          speaker for this EVI session. This will override the speaker set in
+          the selected configuration.
     source:
       openapi: evi-asyncapi.json
   ControlPlanePublishEvent:
