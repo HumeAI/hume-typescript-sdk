@@ -35,7 +35,7 @@ export declare namespace ControlPlane {
     }
 
     export interface ConnectArgs {
-        chat_id: string;
+        chatId: string;
         accessToken?: string | undefined;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
@@ -158,7 +158,7 @@ export class ControlPlane {
     }
 
     public async connect(args: ControlPlane.ConnectArgs): Promise<ControlPlaneSocket> {
-        const { chat_id, accessToken, headers, debug, reconnectAttempts } = args;
+        const { chatId, accessToken, headers, debug, reconnectAttempts } = args;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (accessToken != null) {
             _queryParams["access_token"] = accessToken;
