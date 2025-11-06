@@ -10,13 +10,13 @@ export const ConnectSessionSettingsContext: core.serialization.ObjectSchema<
     serializers.empathicVoice.ConnectSessionSettingsContext.Raw,
     Hume.empathicVoice.ConnectSessionSettingsContext
 > = core.serialization.object({
-    text: core.serialization.string().optional(),
     type: core.serialization.string().optional(),
+    text: core.serialization.string().optional(),
 });
 
 export declare namespace ConnectSessionSettingsContext {
     export interface Raw {
-        text?: string | null;
         type?: string | null;
+        text?: string | null;
     }
 }

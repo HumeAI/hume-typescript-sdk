@@ -5,18 +5,30 @@
 import * as Hume from "../../../index.js";
 
 export interface PostedTts {
+    /**
+     * Selects the Octave model version used to synthesize speech for this request. If you omit this field, Hume automatically routes the request to the most appropriate model. Setting a specific version ensures stable and repeatable behavior across requests.
+     *
+     * Use `2` to opt into the latest Octave capabilities. When you specify version `2`, you must also provide a `voice`. Requests that set `version: 2` without a voice will be rejected.
+     *
+     * For a comparison of Octave versions, see the [Octave versions](/docs/text-to-speech-tts/overview#octave-versions) section in the TTS overview.
+     */
+    version?: Hume.tts.OctaveVersion;
     /** Utterances to use as context for generating consistent speech style and prosody across multiple requests. These will not be converted to speech output. */
     context?: Hume.tts.PostedContext;
-    /** Specifies the output audio file format. */
-    format?: Hume.tts.Format;
-    /** The set of timestamp types to include in the response. */
-    includeTimestampTypes?: Hume.tts.TimestampType[];
+    /**
+     * A list of **Utterances** to be converted to speech output.
+     *
+     * An **Utterance** is a unit of input for [Octave](/docs/text-to-speech-tts/overview), and includes input `text`, an optional `description` to serve as the prompt for how the speech should be delivered, an optional `voice` specification, and additional controls to guide delivery for `speed` and `trailing_silence`.
+     */
+    utterances: Hume.tts.PostedUtterance[];
     /**
      * Number of audio generations to produce from the input utterances.
      *
      * Using `num_generations` enables faster processing than issuing multiple sequential requests. Additionally, specifying `num_generations` allows prosody continuation across all generations without repeating context, ensuring each generation sounds slightly different while maintaining contextual consistency.
      */
     numGenerations?: number;
+    /** Specifies the output audio file format. */
+    format?: Hume.tts.Format;
     /**
      * Controls how audio output is segmented in the response.
      *
@@ -29,20 +41,8 @@ export interface PostedTts {
     splitUtterances?: boolean;
     /** If enabled, the audio for all the chunks of a generation, once concatenated together, will constitute a single audio file. Otherwise, if disabled, each chunk's audio will be its own audio file, each with its own headers (if applicable). */
     stripHeaders?: boolean;
-    /**
-     * A list of **Utterances** to be converted to speech output.
-     *
-     * An **Utterance** is a unit of input for [Octave](/docs/text-to-speech-tts/overview), and includes input `text`, an optional `description` to serve as the prompt for how the speech should be delivered, an optional `voice` specification, and additional controls to guide delivery for `speed` and `trailing_silence`.
-     */
-    utterances: Hume.tts.PostedUtterance[];
-    /**
-     * Selects the Octave model version used to synthesize speech for this request. If you omit this field, Hume automatically routes the request to the most appropriate model. Setting a specific version ensures stable and repeatable behavior across requests.
-     *
-     * Use `2` to opt into the latest Octave capabilities. When you specify version `2`, you must also provide a `voice`. Requests that set `version: 2` without a voice will be rejected.
-     *
-     * For a comparison of Octave versions, see the [Octave versions](/docs/text-to-speech-tts/overview#octave-versions) section in the TTS overview.
-     */
-    version?: Hume.tts.OctaveVersion;
+    /** The set of timestamp types to include in the response. */
+    includeTimestampTypes?: Hume.tts.TimestampType[];
     /**
      * Enables ultra-low latency streaming, significantly reducing the time until the first audio chunk is received. Recommended for real-time applications requiring immediate audio playback. For further details, see our documentation on [instant mode](/docs/text-to-speech-tts/overview#ultra-low-latency-streaming-instant-mode).
      * - A [voice](/reference/text-to-speech-tts/synthesize-json-streaming#request.body.utterances.voice) must be specified when instant mode is enabled. Dynamic voice generation is not supported with this mode.

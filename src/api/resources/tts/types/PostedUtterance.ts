@@ -5,6 +5,8 @@
 import * as Hume from "../../../index.js";
 
 export interface PostedUtterance {
+    /** The input text to be synthesized into speech. */
+    text: string;
     /**
      * Natural language instructions describing how the synthesized speech should sound, including but not limited to tone, intonation, pacing, and accent.
      *
@@ -13,16 +15,14 @@ export interface PostedUtterance {
      * - **Voice not specified**: the description will serve as a voice prompt for generating a voice. See our [prompting guide](/docs/text-to-speech-tts/prompting) for design tips.
      */
     description?: string;
-    /** Speed multiplier for the synthesized speech. Extreme values below 0.75 and above 1.5 may sometimes cause instability to the generated output. */
-    speed?: number;
-    /** The input text to be synthesized into speech. */
-    text: string;
-    /** Duration of trailing silence (in seconds) to add to this utterance */
-    trailingSilence?: number;
     /**
      * The `name` or `id` associated with a **Voice** from the **Voice Library** to be used as the speaker for this and all subsequent `utterances`, until the `voice` field is updated again.
      *
      *  See our [voices guide](/docs/text-to-speech-tts/voices) for more details on generating and specifying **Voices**.
      */
     voice?: Hume.tts.PostedUtteranceVoice;
+    /** Speed multiplier for the synthesized speech. Extreme values below 0.75 and above 1.5 may sometimes cause instability to the generated output. */
+    speed?: number;
+    /** Duration of trailing silence (in seconds) to add to this utterance */
+    trailingSilence?: number;
 }

@@ -5,38 +5,38 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
+import { OctaveVersion } from "./OctaveVersion.js";
 import { PostedContext } from "./PostedContext.js";
+import { PostedUtterance } from "./PostedUtterance.js";
 import { Format } from "./Format.js";
 import { TimestampType } from "./TimestampType.js";
-import { PostedUtterance } from "./PostedUtterance.js";
-import { OctaveVersion } from "./OctaveVersion.js";
 
 export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTts.Raw, Hume.tts.PostedTts> =
     core.serialization.object({
+        version: OctaveVersion.optional(),
         context: PostedContext.optional(),
+        utterances: core.serialization.list(PostedUtterance),
+        numGenerations: core.serialization.property("num_generations", core.serialization.number().optional()),
         format: Format.optional(),
+        splitUtterances: core.serialization.property("split_utterances", core.serialization.boolean().optional()),
+        stripHeaders: core.serialization.property("strip_headers", core.serialization.boolean().optional()),
         includeTimestampTypes: core.serialization.property(
             "include_timestamp_types",
             core.serialization.list(TimestampType).optional(),
         ),
-        numGenerations: core.serialization.property("num_generations", core.serialization.number().optional()),
-        splitUtterances: core.serialization.property("split_utterances", core.serialization.boolean().optional()),
-        stripHeaders: core.serialization.property("strip_headers", core.serialization.boolean().optional()),
-        utterances: core.serialization.list(PostedUtterance),
-        version: OctaveVersion.optional(),
         instantMode: core.serialization.property("instant_mode", core.serialization.boolean().optional()),
     });
 
 export declare namespace PostedTts {
     export interface Raw {
+        version?: OctaveVersion.Raw | null;
         context?: PostedContext.Raw | null;
-        format?: Format.Raw | null;
-        include_timestamp_types?: TimestampType.Raw[] | null;
+        utterances: PostedUtterance.Raw[];
         num_generations?: number | null;
+        format?: Format.Raw | null;
         split_utterances?: boolean | null;
         strip_headers?: boolean | null;
-        utterances: PostedUtterance.Raw[];
-        version?: OctaveVersion.Raw | null;
+        include_timestamp_types?: TimestampType.Raw[] | null;
         instant_mode?: boolean | null;
     }
 }

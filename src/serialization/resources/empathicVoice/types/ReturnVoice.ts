@@ -14,6 +14,10 @@ export const ReturnVoice: core.serialization.ObjectSchema<
     id: core.serialization.string().optional(),
     name: core.serialization.string().optional(),
     provider: VoiceProvider.optional(),
+    compatibleOctaveModels: core.serialization.property(
+        "compatible_octave_models",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
 });
 
 export declare namespace ReturnVoice {
@@ -21,5 +25,6 @@ export declare namespace ReturnVoice {
         id?: string | null;
         name?: string | null;
         provider?: VoiceProvider.Raw | null;
+        compatible_octave_models?: string[] | null;
     }
 }

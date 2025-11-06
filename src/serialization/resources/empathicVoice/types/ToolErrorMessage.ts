@@ -5,32 +5,32 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
-import { ErrorLevel } from "./ErrorLevel.js";
 import { ToolType } from "./ToolType.js";
+import { ErrorLevel } from "./ErrorLevel.js";
 
 export const ToolErrorMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ToolErrorMessage.Raw,
     Hume.empathicVoice.ToolErrorMessage
 > = core.serialization.object({
-    code: core.serialization.string().optional(),
-    content: core.serialization.string().optional(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    error: core.serialization.string(),
-    level: ErrorLevel.optional(),
-    toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
-    toolType: core.serialization.property("tool_type", ToolType.optional()),
     type: core.serialization.stringLiteral("tool_error"),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    toolType: core.serialization.property("tool_type", ToolType.optional()),
+    toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
+    content: core.serialization.string().optional(),
+    error: core.serialization.string(),
+    code: core.serialization.string().optional(),
+    level: ErrorLevel.optional(),
 });
 
 export declare namespace ToolErrorMessage {
     export interface Raw {
-        code?: string | null;
-        content?: string | null;
-        custom_session_id?: string | null;
-        error: string;
-        level?: ErrorLevel.Raw | null;
-        tool_call_id: string;
-        tool_type?: ToolType.Raw | null;
         type: "tool_error";
+        custom_session_id?: string | null;
+        tool_type?: ToolType.Raw | null;
+        tool_call_id: string;
+        content?: string | null;
+        error: string;
+        code?: string | null;
+        level?: ErrorLevel.Raw | null;
     }
 }

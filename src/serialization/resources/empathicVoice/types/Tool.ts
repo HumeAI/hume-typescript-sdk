@@ -9,19 +9,19 @@ import { ToolType } from "./ToolType.js";
 
 export const Tool: core.serialization.ObjectSchema<serializers.empathicVoice.Tool.Raw, Hume.empathicVoice.Tool> =
     core.serialization.object({
-        description: core.serialization.string().optional(),
-        fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+        type: ToolType,
         name: core.serialization.string(),
         parameters: core.serialization.string(),
-        type: ToolType,
+        description: core.serialization.string().optional(),
+        fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
     });
 
 export declare namespace Tool {
     export interface Raw {
-        description?: string | null;
-        fallback_content?: string | null;
+        type: ToolType.Raw;
         name: string;
         parameters: string;
-        type: ToolType.Raw;
+        description?: string | null;
+        fallback_content?: string | null;
     }
 }

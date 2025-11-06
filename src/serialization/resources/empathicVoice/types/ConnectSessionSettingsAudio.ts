@@ -10,15 +10,15 @@ export const ConnectSessionSettingsAudio: core.serialization.ObjectSchema<
     serializers.empathicVoice.ConnectSessionSettingsAudio.Raw,
     Hume.empathicVoice.ConnectSessionSettingsAudio
 > = core.serialization.object({
-    channels: core.serialization.number().optional(),
     encoding: core.serialization.string().optional(),
+    channels: core.serialization.number().optional(),
     sampleRate: core.serialization.property("sample_rate", core.serialization.number().optional()),
 });
 
 export declare namespace ConnectSessionSettingsAudio {
     export interface Raw {
-        channels?: number | null;
         encoding?: string | null;
+        channels?: number | null;
         sample_rate?: number | null;
     }
 }

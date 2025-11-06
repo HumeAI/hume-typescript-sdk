@@ -5,20 +5,20 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
-import { MillisecondInterval } from "./MillisecondInterval.js";
 import { TimestampType } from "./TimestampType.js";
+import { MillisecondInterval } from "./MillisecondInterval.js";
 
 export const Timestamp: core.serialization.ObjectSchema<serializers.tts.Timestamp.Raw, Hume.tts.Timestamp> =
     core.serialization.object({
+        type: TimestampType,
         text: core.serialization.string(),
         time: MillisecondInterval,
-        type: TimestampType,
     });
 
 export declare namespace Timestamp {
     export interface Raw {
+        type: TimestampType.Raw;
         text: string;
         time: MillisecondInterval.Raw;
-        type: TimestampType.Raw;
     }
 }

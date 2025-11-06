@@ -124,29 +124,29 @@ describe("Tts", () => {
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = {
+            version: undefined,
             context: undefined,
-            format: undefined,
-            include_timestamp_types: undefined,
-            num_generations: undefined,
-            split_utterances: undefined,
-            strip_headers: undefined,
             utterances: [
                 {
-                    description: undefined,
-                    speed: undefined,
                     text: "text",
-                    trailing_silence: undefined,
+                    description: undefined,
                     voice: undefined,
+                    speed: undefined,
+                    trailing_silence: undefined,
                 },
                 {
-                    description: undefined,
-                    speed: undefined,
                     text: "text",
-                    trailing_silence: undefined,
+                    description: undefined,
                     voice: undefined,
+                    speed: undefined,
+                    trailing_silence: undefined,
                 },
             ],
-            version: undefined,
+            num_generations: undefined,
+            format: undefined,
+            split_utterances: undefined,
+            strip_headers: undefined,
+            include_timestamp_types: undefined,
             instant_mode: undefined,
         };
         const rawResponseBody = { detail: undefined };
@@ -161,29 +161,29 @@ describe("Tts", () => {
 
         await expect(async () => {
             return await client.tts.synthesizeJson({
+                version: undefined,
                 context: undefined,
-                format: undefined,
-                includeTimestampTypes: undefined,
-                numGenerations: undefined,
-                splitUtterances: undefined,
-                stripHeaders: undefined,
                 utterances: [
                     {
-                        description: undefined,
-                        speed: undefined,
                         text: "text",
-                        trailingSilence: undefined,
+                        description: undefined,
                         voice: undefined,
+                        speed: undefined,
+                        trailingSilence: undefined,
                     },
                     {
-                        description: undefined,
-                        speed: undefined,
                         text: "text",
-                        trailingSilence: undefined,
+                        description: undefined,
                         voice: undefined,
+                        speed: undefined,
+                        trailingSilence: undefined,
                     },
                 ],
-                version: undefined,
+                numGenerations: undefined,
+                format: undefined,
+                splitUtterances: undefined,
+                stripHeaders: undefined,
+                includeTimestampTypes: undefined,
                 instantMode: undefined,
             });
         }).rejects.toThrow(

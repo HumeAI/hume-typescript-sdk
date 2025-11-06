@@ -12,6 +12,7 @@ export type LanguageModelType =
     | "claude-3-haiku-20240307"
     | "claude-sonnet-4-20250514"
     | "claude-sonnet-4-5-20250929"
+    | "claude-haiku-4-5-20251001"
     | "us.anthropic.claude-3-5-haiku-20241022-v1:0"
     | "us.anthropic.claude-3-5-sonnet-20240620-v1:0"
     | "us.anthropic.claude-3-haiku-20240307-v1:0"
@@ -73,6 +74,7 @@ export const LanguageModelType = {
     Claude3Haiku20240307: "claude-3-haiku-20240307",
     ClaudeSonnet420250514: "claude-sonnet-4-20250514",
     ClaudeSonnet4520250929: "claude-sonnet-4-5-20250929",
+    ClaudeHaiku4520251001: "claude-haiku-4-5-20251001",
     UsAnthropicClaude35Haiku20241022V10: "us.anthropic.claude-3-5-haiku-20241022-v1:0",
     UsAnthropicClaude35Sonnet20240620V10: "us.anthropic.claude-3-5-sonnet-20240620-v1:0",
     UsAnthropicClaude3Haiku20240307V10: "us.anthropic.claude-3-haiku-20240307-v1:0",

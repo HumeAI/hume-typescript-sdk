@@ -11,19 +11,19 @@ export const TimestampMessage: core.serialization.ObjectSchema<
     serializers.tts.TimestampMessage.Raw,
     Hume.tts.TimestampMessage
 > = core.serialization.object({
-    generationId: core.serialization.property("generation_id", core.serialization.string()),
+    type: core.serialization.stringLiteral("timestamp"),
     requestId: core.serialization.property("request_id", core.serialization.string()),
+    generationId: core.serialization.property("generation_id", core.serialization.string()),
     snippetId: core.serialization.property("snippet_id", core.serialization.string()),
     timestamp: Timestamp,
-    type: core.serialization.stringLiteral("timestamp"),
 });
 
 export declare namespace TimestampMessage {
     export interface Raw {
-        generation_id: string;
+        type: "timestamp";
         request_id: string;
+        generation_id: string;
         snippet_id: string;
         timestamp: Timestamp.Raw;
-        type: "timestamp";
     }
 }

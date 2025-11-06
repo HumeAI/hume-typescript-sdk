@@ -5,7 +5,7 @@
 import * as Hume from "../../../index.js";
 
 export interface Timestamp {
+    type: Hume.tts.TimestampType;
     text: string;
     time: Hume.tts.MillisecondInterval;
-    type: Hume.tts.TimestampType;
 }

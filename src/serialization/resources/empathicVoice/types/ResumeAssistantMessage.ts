@@ -10,13 +10,13 @@ export const ResumeAssistantMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ResumeAssistantMessage.Raw,
     Hume.empathicVoice.ResumeAssistantMessage
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     type: core.serialization.stringLiteral("resume_assistant_message"),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
 });
 
 export declare namespace ResumeAssistantMessage {
     export interface Raw {
-        custom_session_id?: string | null;
         type: "resume_assistant_message";
+        custom_session_id?: string | null;
     }
 }

@@ -21,14 +21,14 @@ export declare namespace StreamInput {
     }
 
     export interface ConnectArgs {
-        accessToken?: string | undefined;
         contextGenerationId?: string | undefined;
         formatType?: Hume.tts.AudioFormatType | undefined;
-        includeTimestampTypes?: Hume.tts.TimestampType | undefined;
+        stripHeaders?: boolean | undefined;
         instantMode?: boolean | undefined;
         noBinary?: boolean | undefined;
-        stripHeaders?: boolean | undefined;
         version?: Hume.tts.OctaveVersion | undefined;
+        includeTimestampTypes?: Hume.tts.TimestampType | undefined;
+        accessToken?: string | undefined;
         apiKey?: string | undefined;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
@@ -48,30 +48,45 @@ export class StreamInput {
 
     public async connect(args: StreamInput.ConnectArgs = {}): Promise<StreamInputSocket> {
         const {
-            accessToken,
             contextGenerationId,
             formatType,
-            includeTimestampTypes,
+            stripHeaders,
             instantMode,
             noBinary,
-            stripHeaders,
             version,
+            includeTimestampTypes,
+            accessToken,
             apiKey,
             headers,
             debug,
             reconnectAttempts,
         } = args;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (accessToken != null) {
-            _queryParams["access_token"] = accessToken;
-        }
-
         if (contextGenerationId != null) {
             _queryParams["context_generation_id"] = contextGenerationId;
         }
 
         if (formatType != null) {
             _queryParams["format_type"] = serializers.tts.AudioFormatType.jsonOrThrow(formatType, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            });
+        }
+
+        if (stripHeaders != null) {
+            _queryParams["strip_headers"] = stripHeaders.toString();
+        }
+
+        if (instantMode != null) {
+            _queryParams["instant_mode"] = instantMode.toString();
+        }
+
+        if (noBinary != null) {
+            _queryParams["no_binary"] = noBinary.toString();
+        }
+
+        if (version != null) {
+            _queryParams["version"] = serializers.tts.OctaveVersion.jsonOrThrow(version, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             });
@@ -93,23 +108,8 @@ export class StreamInput {
             }
         }
 
-        if (instantMode != null) {
-            _queryParams["instant_mode"] = instantMode.toString();
-        }
-
-        if (noBinary != null) {
-            _queryParams["no_binary"] = noBinary.toString();
-        }
-
-        if (stripHeaders != null) {
-            _queryParams["strip_headers"] = stripHeaders.toString();
-        }
-
-        if (version != null) {
-            _queryParams["version"] = serializers.tts.OctaveVersion.jsonOrThrow(version, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            });
+        if (accessToken != null) {
+            _queryParams["access_token"] = accessToken;
         }
 
         if (apiKey != null) {

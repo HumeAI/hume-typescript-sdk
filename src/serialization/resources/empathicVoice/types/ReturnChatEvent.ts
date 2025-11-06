@@ -20,6 +20,7 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
     messageText: core.serialization.property("message_text", core.serialization.string().optional()),
     emotionFeatures: core.serialization.property("emotion_features", core.serialization.string().optional()),
     metadata: core.serialization.string().optional(),
+    relatedEventId: core.serialization.property("related_event_id", core.serialization.string().optional()),
 });
 
 export declare namespace ReturnChatEvent {
@@ -32,5 +33,6 @@ export declare namespace ReturnChatEvent {
         message_text?: string | null;
         emotion_features?: string | null;
         metadata?: string | null;
+        related_event_id?: string | null;
     }
 }

@@ -11,21 +11,21 @@ export const ToolResponseMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ToolResponseMessage.Raw,
     Hume.empathicVoice.ToolResponseMessage
 > = core.serialization.object({
-    content: core.serialization.string(),
+    type: core.serialization.stringLiteral("tool_response"),
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
+    content: core.serialization.string(),
     toolName: core.serialization.property("tool_name", core.serialization.string().optional()),
     toolType: core.serialization.property("tool_type", ToolType.optional()),
-    type: core.serialization.stringLiteral("tool_response"),
 });
 
 export declare namespace ToolResponseMessage {
     export interface Raw {
-        content: string;
+        type: "tool_response";
         custom_session_id?: string | null;
         tool_call_id: string;
+        content: string;
         tool_name?: string | null;
         tool_type?: ToolType.Raw | null;
-        type: "tool_response";
     }
 }

@@ -9,23 +9,23 @@ import { PostedUtteranceVoice } from "./PostedUtteranceVoice.js";
 
 export const PublishTts: core.serialization.ObjectSchema<serializers.tts.PublishTts.Raw, Hume.tts.PublishTts> =
     core.serialization.object({
-        close: core.serialization.boolean().optional(),
-        description: core.serialization.string().optional(),
-        flush: core.serialization.boolean().optional(),
-        speed: core.serialization.number().optional(),
         text: core.serialization.string().optional(),
-        trailingSilence: core.serialization.property("trailing_silence", core.serialization.number().optional()),
+        description: core.serialization.string().optional(),
         voice: PostedUtteranceVoice.optional(),
+        speed: core.serialization.number().optional(),
+        trailingSilence: core.serialization.property("trailing_silence", core.serialization.number().optional()),
+        flush: core.serialization.boolean().optional(),
+        close: core.serialization.boolean().optional(),
     });
 
 export declare namespace PublishTts {
     export interface Raw {
-        close?: boolean | null;
-        description?: string | null;
-        flush?: boolean | null;
-        speed?: number | null;
         text?: string | null;
-        trailing_silence?: number | null;
+        description?: string | null;
         voice?: PostedUtteranceVoice.Raw | null;
+        speed?: number | null;
+        trailing_silence?: number | null;
+        flush?: boolean | null;
+        close?: boolean | null;
     }
 }

@@ -5,12 +5,12 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
-import { SnippetAudioChunk } from "./SnippetAudioChunk.js";
 import { TimestampMessage } from "./TimestampMessage.js";
+import { SnippetAudioChunk } from "./SnippetAudioChunk.js";
 
 export const TtsOutput: core.serialization.Schema<serializers.tts.TtsOutput.Raw, Hume.tts.TtsOutput> =
-    core.serialization.undiscriminatedUnion([SnippetAudioChunk, TimestampMessage]);
+    core.serialization.undiscriminatedUnion([TimestampMessage, SnippetAudioChunk]);
 
 export declare namespace TtsOutput {
-    export type Raw = SnippetAudioChunk.Raw | TimestampMessage.Raw;
+    export type Raw = TimestampMessage.Raw | SnippetAudioChunk.Raw;
 }

@@ -8,20 +8,22 @@ import * as Hume from "../../../index.js";
  * When provided, the output is an assistant message.
  */
 export interface AssistantMessage {
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
-    /** Indicates if this message was inserted into the conversation as text from an [Assistant Input message](/reference/speech-to-speech-evi/chat#send.AssistantInput.text). */
-    fromText: boolean;
-    /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
-    id?: string;
-    /** Transcript of the message. */
-    message: Hume.empathicVoice.ChatMessage;
-    /** Inference model results. */
-    models: Hume.empathicVoice.Inference;
     /**
      * The type of message sent through the socket; for an Assistant Message, this must be `assistant_message`.
      *
      * This message contains both a transcript of the assistant's response and the expression measurement predictions of the assistant's audio output.
      */
     type: "assistant_message";
+    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+    customSessionId?: string;
+    /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
+    id?: string;
+    /** Transcript of the message. */
+    message: Hume.empathicVoice.ChatMessage;
+    /** Inference model results. */
+    models: Hume.empathicVoice.Inference;
+    /** Indicates if this message was inserted into the conversation as text from an [Assistant Input message](/reference/speech-to-speech-evi/chat#send.AssistantInput.text). */
+    fromText: boolean;
+    /** Detected language of the message text. */
+    language?: string;
 }

@@ -5,33 +5,33 @@
 import * as serializers from "../../../index.js";
 import * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
-import { ConnectSessionSettingsAudio } from "./ConnectSessionSettingsAudio.js";
 import { ConnectSessionSettingsContext } from "./ConnectSessionSettingsContext.js";
+import { ConnectSessionSettingsAudio } from "./ConnectSessionSettingsAudio.js";
 import { ConnectSessionSettingsVariablesValue } from "./ConnectSessionSettingsVariablesValue.js";
 
 export const ConnectSessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.ConnectSessionSettings.Raw,
     Hume.empathicVoice.ConnectSessionSettings
 > = core.serialization.object({
-    audio: ConnectSessionSettingsAudio.optional(),
-    context: ConnectSessionSettingsContext.optional(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    eventLimit: core.serialization.property("event_limit", core.serialization.number().optional()),
-    languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
     systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
+    context: ConnectSessionSettingsContext.optional(),
+    audio: ConnectSessionSettingsAudio.optional(),
+    languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     variables: core.serialization.record(core.serialization.string(), ConnectSessionSettingsVariablesValue).optional(),
+    eventLimit: core.serialization.property("event_limit", core.serialization.number().optional()),
     voiceId: core.serialization.property("voice_id", core.serialization.string().optional()),
 });
 
 export declare namespace ConnectSessionSettings {
     export interface Raw {
-        audio?: ConnectSessionSettingsAudio.Raw | null;
-        context?: ConnectSessionSettingsContext.Raw | null;
-        custom_session_id?: string | null;
-        event_limit?: number | null;
-        language_model_api_key?: string | null;
         system_prompt?: string | null;
+        context?: ConnectSessionSettingsContext.Raw | null;
+        audio?: ConnectSessionSettingsAudio.Raw | null;
+        language_model_api_key?: string | null;
+        custom_session_id?: string | null;
         variables?: Record<string, ConnectSessionSettingsVariablesValue.Raw> | null;
+        event_limit?: number | null;
         voice_id?: string | null;
     }
 }

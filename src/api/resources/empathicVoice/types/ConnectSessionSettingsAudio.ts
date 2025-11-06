@@ -3,10 +3,10 @@
  */
 
 export interface ConnectSessionSettingsAudio {
-    /** Sets number of audio channels for audio input. */
-    channels?: number;
     /** Sets encoding format of the audio input, such as `linear16`. */
     encoding?: string;
+    /** Sets number of audio channels for audio input. */
+    channels?: number;
     /** Sets the sample rate for audio input. (Number of samples per second in the audio input, measured in Hertz.) */
     sampleRate?: number;
 }

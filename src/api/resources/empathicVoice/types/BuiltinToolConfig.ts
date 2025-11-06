@@ -5,7 +5,7 @@
 import * as Hume from "../../../index.js";
 
 export interface BuiltinToolConfig {
+    name: Hume.empathicVoice.BuiltInTool;
     /** Optional text passed to the supplemental LLM if the tool call fails. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation. */
     fallbackContent?: string;
-    name: Hume.empathicVoice.BuiltInTool;
 }
