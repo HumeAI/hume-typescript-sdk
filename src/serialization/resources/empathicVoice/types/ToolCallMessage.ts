@@ -15,7 +15,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<
     responseRequired: core.serialization.property("response_required", core.serialization.boolean()),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
     toolType: core.serialization.property("tool_type", ToolType),
-    type: core.serialization.stringLiteral("tool_call"),
+    type: core.serialization.stringLiteral("tool_call").optional(),
 });
 
 export declare namespace ToolCallMessage {
@@ -26,6 +26,6 @@ export declare namespace ToolCallMessage {
         response_required: boolean;
         tool_call_id: string;
         tool_type: ToolType.Raw;
-        type: "tool_call";
+        type?: "tool_call" | null;
     }
 }
