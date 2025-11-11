@@ -9,15 +9,15 @@ export const ReturnBuiltinTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnBuiltinTool.Raw,
     Hume.empathicVoice.ReturnBuiltinTool
 > = core.serialization.object({
-    toolType: core.serialization.property("tool_type", ReturnBuiltinToolToolType),
-    name: core.serialization.string(),
     fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    name: core.serialization.string(),
+    toolType: core.serialization.property("tool_type", ReturnBuiltinToolToolType),
 });
 
 export declare namespace ReturnBuiltinTool {
     export interface Raw {
-        tool_type: ReturnBuiltinToolToolType.Raw;
-        name: string;
         fallback_content?: string | null;
+        name: string;
+        tool_type: ReturnBuiltinToolToolType.Raw;
     }
 }
