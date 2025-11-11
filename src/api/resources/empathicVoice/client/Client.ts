@@ -16,11 +16,11 @@ export declare namespace EmpathicVoice {
 export class EmpathicVoice {
     protected readonly _options: EmpathicVoice.Options;
     protected _controlPlane: ControlPlane | undefined;
-    protected _tools: Tools | undefined;
-    protected _prompts: Prompts | undefined;
-    protected _configs: Configs | undefined;
-    protected _chats: Chats | undefined;
     protected _chatGroups: ChatGroups | undefined;
+    protected _chats: Chats | undefined;
+    protected _configs: Configs | undefined;
+    protected _prompts: Prompts | undefined;
+    protected _tools: Tools | undefined;
     protected _chat: Chat | undefined;
 
     constructor(_options: EmpathicVoice.Options = {}) {
@@ -31,24 +31,24 @@ export class EmpathicVoice {
         return (this._controlPlane ??= new ControlPlane(this._options));
     }
 
-    public get tools(): Tools {
-        return (this._tools ??= new Tools(this._options));
-    }
-
-    public get prompts(): Prompts {
-        return (this._prompts ??= new Prompts(this._options));
-    }
-
-    public get configs(): Configs {
-        return (this._configs ??= new Configs(this._options));
+    public get chatGroups(): ChatGroups {
+        return (this._chatGroups ??= new ChatGroups(this._options));
     }
 
     public get chats(): Chats {
         return (this._chats ??= new Chats(this._options));
     }
 
-    public get chatGroups(): ChatGroups {
-        return (this._chatGroups ??= new ChatGroups(this._options));
+    public get configs(): Configs {
+        return (this._configs ??= new Configs(this._options));
+    }
+
+    public get prompts(): Prompts {
+        return (this._prompts ??= new Prompts(this._options));
+    }
+
+    public get tools(): Tools {
+        return (this._tools ??= new Tools(this._options));
     }
 
     public get chat(): Chat {

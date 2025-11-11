@@ -10,25 +10,25 @@ export const ReturnChat: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChat.Raw,
     Hume.empathicVoice.ReturnChat
 > = core.serialization.object({
-    id: core.serialization.string(),
     chatGroupId: core.serialization.property("chat_group_id", core.serialization.string()),
-    status: ReturnChatStatus,
-    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
+    config: ReturnConfigSpec.optional(),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
     eventCount: core.serialization.property("event_count", core.serialization.number().optional()),
+    id: core.serialization.string(),
     metadata: core.serialization.string().optional(),
-    config: ReturnConfigSpec.optional(),
+    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
+    status: ReturnChatStatus,
 });
 
 export declare namespace ReturnChat {
     export interface Raw {
-        id: string;
         chat_group_id: string;
-        status: ReturnChatStatus.Raw;
-        start_timestamp: number;
+        config?: ReturnConfigSpec.Raw | null;
         end_timestamp?: number | null;
         event_count?: number | null;
+        id: string;
         metadata?: string | null;
-        config?: ReturnConfigSpec.Raw | null;
+        start_timestamp: number;
+        status: ReturnChatStatus.Raw;
     }
 }

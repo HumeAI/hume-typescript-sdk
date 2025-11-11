@@ -18,8 +18,8 @@ export interface ReturnPagedUserDefinedTools {
      * This value corresponds to the `page_size` parameter specified in the request.
      */
     pageSize: number;
-    /** The total number of pages in the collection. */
-    totalPages: number;
     /** List of tools returned for the specified `page_number` and `page_size`. */
     toolsPage: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    /** The total number of pages in the collection. */
+    totalPages: number;
 }

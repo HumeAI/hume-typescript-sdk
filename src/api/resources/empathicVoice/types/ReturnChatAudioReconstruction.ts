@@ -6,10 +6,16 @@ import type * as Hume from "../../../index.js";
  * List of chat audio reconstructions returned for the specified page number and page size.
  */
 export interface ReturnChatAudioReconstruction {
+    /** Name of the chat audio reconstruction file. */
+    filename?: string;
     /** Identifier for the chat. Formatted as a UUID. */
     id: string;
-    /** Identifier for the user that owns this chat. Formatted as a UUID. */
-    userId: string;
+    /** The timestamp of the most recent status change for this audio reconstruction, formatted milliseconds since the Unix epoch. */
+    modifiedAt?: number;
+    /** Signed URL used to download the chat audio reconstruction file. */
+    signedAudioUrl?: string;
+    /** The timestamp when the signed URL will expire, formatted as a Unix epoch milliseconds. */
+    signedUrlExpirationTimestampMillis?: number;
     /**
      * Indicates the current state of the audio reconstruction job. There are five possible statuses:
      *
@@ -24,12 +30,6 @@ export interface ReturnChatAudioReconstruction {
      * - `CANCELED`: The reconstruction job has been canceled.
      */
     status: Hume.empathicVoice.ReturnChatAudioReconstructionStatus;
-    /** Name of the chat audio reconstruction file. */
-    filename?: string;
-    /** The timestamp of the most recent status change for this audio reconstruction, formatted milliseconds since the Unix epoch. */
-    modifiedAt?: number;
-    /** Signed URL used to download the chat audio reconstruction file. */
-    signedAudioUrl?: string;
-    /** The timestamp when the signed URL will expire, formatted as a Unix epoch milliseconds. */
-    signedUrlExpirationTimestampMillis?: number;
+    /** Identifier for the user that owns this chat. Formatted as a UUID. */
+    userId: string;
 }

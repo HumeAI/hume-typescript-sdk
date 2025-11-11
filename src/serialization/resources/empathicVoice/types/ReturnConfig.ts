@@ -18,46 +18,46 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnConfig.Raw,
     Hume.empathicVoice.ReturnConfig
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
-    id: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
-    languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     builtinTools: core.serialization.property(
         "builtin_tools",
         core.serialization.list(ReturnBuiltinTool.optional()).optional(),
     ),
-    eviVersion: core.serialization.property("evi_version", core.serialization.string().optional()),
-    timeouts: ReturnTimeoutSpecs.optional(),
-    nudges: ReturnNudgeSpec.optional(),
-    eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
-    ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
-    voice: ReturnVoice.optional(),
-    prompt: ReturnPrompt.optional(),
-    webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
     createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
+    ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
+    eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
+    eviVersion: core.serialization.property("evi_version", core.serialization.string().optional()),
+    id: core.serialization.string().optional(),
+    languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    name: core.serialization.string().optional(),
+    nudges: ReturnNudgeSpec.optional(),
+    prompt: ReturnPrompt.optional(),
+    timeouts: ReturnTimeoutSpecs.optional(),
     tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
+    version: core.serialization.number().optional(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    voice: ReturnVoice.optional(),
+    webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
 });
 
 export declare namespace ReturnConfig {
     export interface Raw {
-        name?: string | null;
-        id?: string | null;
-        version?: number | null;
-        language_model?: ReturnLanguageModel.Raw | null;
         builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
-        evi_version?: string | null;
-        timeouts?: ReturnTimeoutSpecs.Raw | null;
-        nudges?: ReturnNudgeSpec.Raw | null;
-        event_messages?: ReturnEventMessageSpecs.Raw | null;
-        ellm_model?: ReturnEllmModel.Raw | null;
-        voice?: ReturnVoice.Raw | null;
-        prompt?: ReturnPrompt.Raw | null;
-        webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
         created_on?: number | null;
+        ellm_model?: ReturnEllmModel.Raw | null;
+        event_messages?: ReturnEventMessageSpecs.Raw | null;
+        evi_version?: string | null;
+        id?: string | null;
+        language_model?: ReturnLanguageModel.Raw | null;
         modified_on?: number | null;
-        version_description?: string | null;
+        name?: string | null;
+        nudges?: ReturnNudgeSpec.Raw | null;
+        prompt?: ReturnPrompt.Raw | null;
+        timeouts?: ReturnTimeoutSpecs.Raw | null;
         tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
+        version?: number | null;
+        version_description?: string | null;
+        voice?: ReturnVoice.Raw | null;
+        webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
     }
 }
