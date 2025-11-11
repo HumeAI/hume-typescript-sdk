@@ -260,6 +260,121 @@ export class ChatGroups {
     }
 
     /**
+     * Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+     *
+     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
+     * @param {Hume.empathicVoice.ChatGroupsGetAudioRequest} request
+     * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.empathicVoice.BadRequestError}
+     *
+     * @example
+     *     await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+     *         pageNumber: 0,
+     *         pageSize: 10,
+     *         ascendingOrder: true
+     *     })
+     */
+    public getAudio(
+        id: string,
+        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
+        requestOptions?: ChatGroups.RequestOptions,
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions> {
+        return core.HttpResponsePromise.fromPromise(this.__getAudio(id, request, requestOptions));
+    }
+
+    private async __getAudio(
+        id: string,
+        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
+        requestOptions?: ChatGroups.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions>> {
+        const { pageNumber, pageSize, ascendingOrder } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (pageNumber != null) {
+            _queryParams.page_number = pageNumber.toString();
+        }
+
+        if (pageSize != null) {
+            _queryParams.page_size = pageSize.toString();
+        }
+
+        if (ascendingOrder != null) {
+            _queryParams.ascending_order = ascendingOrder.toString();
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
+                `v0/evi/chat_groups/${core.url.encodePathParam(id)}/audio`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.empathicVoice.ReturnChatGroupPagedAudioReconstructions.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Hume.empathicVoice.BadRequestError(
+                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chat_groups/{id}/audio.");
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Fetches a paginated list of **Chat** events associated with a **Chat Group**.
      *
      * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
@@ -380,121 +495,6 @@ export class ChatGroups {
                 return list(core.setObjectProperty(request, "pageNumber", _offset));
             },
         });
-    }
-
-    /**
-     * Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
-     *
-     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ChatGroupsGetAudioRequest} request
-     * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Hume.empathicVoice.BadRequestError}
-     *
-     * @example
-     *     await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
-     *         pageNumber: 0,
-     *         pageSize: 10,
-     *         ascendingOrder: true
-     *     })
-     */
-    public getAudio(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
-        requestOptions?: ChatGroups.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions> {
-        return core.HttpResponsePromise.fromPromise(this.__getAudio(id, request, requestOptions));
-    }
-
-    private async __getAudio(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
-        requestOptions?: ChatGroups.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions>> {
-        const { pageNumber, pageSize, ascendingOrder } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (pageNumber != null) {
-            _queryParams.page_number = pageNumber.toString();
-        }
-
-        if (pageSize != null) {
-            _queryParams.page_size = pageSize.toString();
-        }
-
-        if (ascendingOrder != null) {
-            _queryParams.ascending_order = ascendingOrder.toString();
-        }
-
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
-                `v0/evi/chat_groups/${core.url.encodePathParam(id)}/audio`,
-            ),
-            method: "GET",
-            headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.empathicVoice.ReturnChatGroupPagedAudioReconstructions.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Hume.empathicVoice.BadRequestError(
-                        serializers.empathicVoice.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.HumeError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError("Timeout exceeded when calling GET /v0/evi/chat_groups/{id}/audio.");
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
     }
 
     protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | undefined>> {

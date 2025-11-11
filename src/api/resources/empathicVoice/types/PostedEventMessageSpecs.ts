@@ -8,8 +8,6 @@ import type * as Hume from "../../../index.js";
  * Event messages are sent by the server when specific events occur during a chat session. These messages are used to configure behaviors for EVI, such as controlling how EVI starts a new conversation.
  */
 export interface PostedEventMessageSpecs {
-    /** Specifies the initial message EVI provides when a new chat is started, such as a greeting or welcome message. */
-    onNewChat?: Hume.empathicVoice.PostedEventMessageSpec;
     /**
      * Specifies the message EVI provides when the chat is about to be disconnected due to a user inactivity timeout, such as a message mentioning a lack of user input for a period of time.
      *
@@ -22,4 +20,6 @@ export interface PostedEventMessageSpecs {
     onInactivityTimeout?: Hume.empathicVoice.PostedEventMessageSpec;
     /** Specifies the message EVI provides when the chat is disconnected due to reaching the maximum chat duration, such as a message mentioning the time limit for the chat has been reached. */
     onMaxDurationTimeout?: Hume.empathicVoice.PostedEventMessageSpec;
+    /** Specifies the initial message EVI provides when a new chat is started, such as a greeting or welcome message. */
+    onNewChat?: Hume.empathicVoice.PostedEventMessageSpec;
 }
