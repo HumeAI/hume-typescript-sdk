@@ -35,7 +35,7 @@ src/core/fetcher/Supplier.ts
 # - Handles flexible configVersion types (both string and number)
 # - Conditional sessionSettings serialization (only if provided)
 # - Merges custom queryParams into query parameters
-src/api/resources/empathicVoice/resources/chat/client/Client.ts
+# src/api/resources/empathicVoice/resources/chat/client/Client.ts
 
 # Socket.ts changes from generated version:
 # - Response type includes receivedAt: Date timestamp
@@ -45,7 +45,7 @@ src/api/resources/empathicVoice/resources/chat/client/Client.ts
 #   - pauseAssistant(), resumeAssistant()
 #   - sendToolResponseMessage(), sendToolErrorMessage(), sendUserInput()
 # - Added tillSocketOpen() as deprecated alias for waitForOpen()
-src/api/resources/empathicVoice/resources/chat/client/Socket.ts
+# src/api/resources/empathicVoice/resources/chat/client/Socket.ts
 
 # index.ts - manually maintained to export Chat and ChatSocket
 # Generated version exports nothing (export {}), but we need to export
