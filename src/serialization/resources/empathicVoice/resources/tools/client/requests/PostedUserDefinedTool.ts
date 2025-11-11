@@ -8,19 +8,19 @@ export const PostedUserDefinedTool: core.serialization.Schema<
     serializers.empathicVoice.PostedUserDefinedTool.Raw,
     Hume.empathicVoice.PostedUserDefinedTool
 > = core.serialization.object({
-    name: core.serialization.string(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     description: core.serialization.string().optional(),
-    parameters: core.serialization.string(),
     fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    name: core.serialization.string(),
+    parameters: core.serialization.string(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
 });
 
 export declare namespace PostedUserDefinedTool {
     export interface Raw {
-        name: string;
-        version_description?: string | null;
         description?: string | null;
-        parameters: string;
         fallback_content?: string | null;
+        name: string;
+        parameters: string;
+        version_description?: string | null;
     }
 }

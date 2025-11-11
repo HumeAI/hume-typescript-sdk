@@ -6,6 +6,7 @@ import type * as Hume from "../../../index.js";
  * An Octave voice available for text-to-speech
  */
 export interface ReturnVoice {
+    compatibleOctaveModels?: string[];
     /** ID of the voice in the `Voice Library`. */
     id?: string;
     /** Name of the voice in the `Voice Library`. */
@@ -16,5 +17,4 @@ export interface ReturnVoice {
      * Voices created through this endpoint will always have the provider set to `CUSTOM_VOICE`, indicating a custom voice stored in your account.
      */
     provider?: Hume.tts.VoiceProvider;
-    compatibleOctaveModels?: string[];
 }

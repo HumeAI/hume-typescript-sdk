@@ -7,20 +7,20 @@ import { VoiceProvider } from "./VoiceProvider.js";
 
 export const ReturnVoice: core.serialization.ObjectSchema<serializers.tts.ReturnVoice.Raw, Hume.tts.ReturnVoice> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        name: core.serialization.string().optional(),
-        provider: VoiceProvider.optional(),
         compatibleOctaveModels: core.serialization.property(
             "compatible_octave_models",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        id: core.serialization.string().optional(),
+        name: core.serialization.string().optional(),
+        provider: VoiceProvider.optional(),
     });
 
 export declare namespace ReturnVoice {
     export interface Raw {
+        compatible_octave_models?: string[] | null;
         id?: string | null;
         name?: string | null;
         provider?: VoiceProvider.Raw | null;
-        compatible_octave_models?: string[] | null;
     }
 }
