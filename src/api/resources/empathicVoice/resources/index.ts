@@ -1,5 +1,3 @@
-export * as chat from "./chat/index.js";
-export * from "./chat/types/index.js";
 export * from "./chatGroups/client/requests/index.js";
 export * as chatGroups from "./chatGroups/index.js";
 export * from "./chats/client/requests/index.js";

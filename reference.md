@@ -1,4 +1,574 @@
 # Reference
+## Tts
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJson</a>({ ...params }) -> Hume.ReturnTts</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+
+The response includes the base64-encoded audio and metadata in JSON format.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeJson({
+    context: {
+        utterances: [{
+                text: "How can people see beauty so differently?",
+                description: "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question."
+            }]
+    },
+    format: {
+        type: "mp3"
+    },
+    numGenerations: 1,
+    utterances: [{
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFile</a>({ ...params }) -> core.BinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody. 
+
+The response contains the generated audio file in the requested format.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeFile({
+    context: {
+        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2"
+    },
+    format: {
+        type: "mp3"
+    },
+    numGenerations: 1,
+    utterances: [{
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFileStreaming</a>({ ...params }) -> core.BinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.synthesizeFileStreaming({
+    utterances: [{
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI"
+            }
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody. 
+
+The response is a stream of JSON objects including audio encoded in base64.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.tts.synthesizeJsonStreaming({
+    utterances: [{
+            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
+            voice: {
+                name: "Male English Actor",
+                provider: "HUME_AI"
+            }
+        }]
+});
+for await (const item of response) {
+    console.log(item);
+}
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.PostedTts` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">convertVoiceJson</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.tts.convertVoiceJson({});
+for await (const item of response) {
+    console.log(item);
+}
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.ConvertVoiceJsonRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Tts Voices
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice, Hume.ReturnPagedVoices></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.tts.voices.list({
+    provider: "CUSTOM_VOICE"
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.tts.voices.list({
+    provider: "CUSTOM_VOICE"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.VoicesListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Voices.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Saves a new custom voice to your account using the specified TTS generation ID.
+
+Once saved, this voice can be reused in subsequent TTS requests, ensuring consistent speech style and prosody. For more details on voice creation, see the [Voices Guide](/docs/text-to-speech-tts/voices).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.voices.create({
+    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
+    name: "David Hume"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.PostedVoice` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Voices.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">delete</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a previously generated custom voice.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tts.voices.delete({
+    name: "David Hume"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.tts.VoicesDeleteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Voices.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## EmpathicVoice ControlPlane
 <details><summary><code>client.empathicVoice.controlPlane.<a href="/src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts">send</a>(chatId, { ...params }) -> void</code></summary>
 <dl>
@@ -73,8 +643,8 @@ await client.empathicVoice.controlPlane.send("chat_id", {
 </dl>
 </details>
 
-## EmpathicVoice Tools
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
+## EmpathicVoice ChatGroups
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> core.Page<Hume.ReturnChatGroup, Hume.ReturnPagedChatGroups></code></summary>
 <dl>
 <dd>
 
@@ -86,9 +656,7 @@ await client.empathicVoice.controlPlane.send("chat_id", {
 <dl>
 <dd>
 
-Fetches a paginated list of **Tools**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Fetches a paginated list of **Chat Groups**.
 </dd>
 </dl>
 </dd>
@@ -103,18 +671,22 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.tools.listTools({
+const pageableResponse = await client.empathicVoice.chatGroups.listChatGroups({
     pageNumber: 0,
-    pageSize: 2
+    pageSize: 1,
+    ascendingOrder: true,
+    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
 });
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.tools.listTools({
+let page = await client.empathicVoice.chatGroups.listChatGroups({
     pageNumber: 0,
-    pageSize: 2
+    pageSize: 1,
+    ascendingOrder: true,
+    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -137,7 +709,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ToolsListToolsRequest` 
+**request:** `Hume.empathicVoice.ChatGroupsListChatGroupsRequest` 
     
 </dd>
 </dl>
@@ -145,7 +717,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ChatGroups.RequestOptions` 
     
 </dd>
 </dl>
@@ -157,7 +729,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">createTool</a>({ ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">getChatGroup</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedChats</code></summary>
 <dl>
 <dd>
 
@@ -169,9 +741,7 @@ const response = page.response;
 <dl>
 <dd>
 
-Creates a **Tool** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associated with the **ChatGroup**.
 </dd>
 </dl>
 </dd>
@@ -186,640 +756,170 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.createTool({
-    name: "get_current_weather",
-    parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
-    versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
-    description: "This tool is for getting the current weather.",
-    fallbackContent: "Unable to fetch current weather."
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedUserDefinedTool` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a list of a **Tool's** versions.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const pageableResponse = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
-for await (const item of pageableResponse) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-let page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
-
-// You can also access the underlying response
-const response = page.response;
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.ToolsListToolVersionsRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">createToolVersion</a>(id, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a **Tool** by creating a new version of the **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
-    parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
-    versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
-    fallbackContent: "Unable to fetch current weather.",
-    description: "This tool is for getting the current weather."
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedUserDefinedToolVersion` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteTool</a>(id) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a **Tool** and its versions.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolName</a>(id, { ...params }) -> string</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
-    name: "get_current_temperature"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedUserDefinedToolName` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">getToolVersion</a>(id, version) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a specified version of a **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `number` 
-
-Version number for a Tool.
-
-Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteToolVersion</a>(id, version) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a specified version of a **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `number` 
-
-Version number for a Tool.
-
-Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolDescription</a>(id, version, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the description of a specified **Tool** version.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
-    versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `number` 
-
-Version number for a Tool.
-
-Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedUserDefinedToolVersionDescription` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## EmpathicVoice Prompts
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> core.Page<(Hume.ReturnPrompt | undefined), Hume.ReturnPagedPrompts></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Prompts**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const pageableResponse = await client.empathicVoice.prompts.listPrompts({
+await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
     pageNumber: 0,
-    pageSize: 2
+    pageSize: 1,
+    ascendingOrder: true
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.ChatGroupsGetChatGroupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ChatGroups.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">getAudio</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedAudioReconstructions</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+    pageNumber: 0,
+    pageSize: 10,
+    ascendingOrder: true
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.ChatGroupsGetAudioRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ChatGroups.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatGroupPagedEvents></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a paginated list of **Chat** events associated with a **Chat Group**.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true
 });
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.prompts.listPrompts({
+let page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
     pageNumber: 0,
-    pageSize: 2
+    pageSize: 3,
+    ascendingOrder: true
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -842,7 +942,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.PromptsListPromptsRequest` 
+**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -850,7 +950,15 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**request:** `Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ChatGroups.RequestOptions` 
     
 </dd>
 </dl>
@@ -862,7 +970,8 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPrompt</a>({ ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
+## EmpathicVoice Chats
+<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> core.Page<Hume.ReturnChat, Hume.ReturnPagedChats></code></summary>
 <dl>
 <dd>
 
@@ -874,9 +983,7 @@ const response = page.response;
 <dl>
 <dd>
 
-Creates a **Prompt** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+Fetches a paginated list of **Chats**.
 </dd>
 </dl>
 </dd>
@@ -891,151 +998,27 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.createPrompt({
-    name: "Weather Assistant Prompt",
-    text: "<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>"
+const pageableResponse = await client.empathicVoice.chats.listChats({
+    pageNumber: 0,
+    pageSize: 1,
+    ascendingOrder: true
 });
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedPrompt` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPromptVersions</a>(id, { ...params }) -> Hume.ReturnPagedPrompts</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a list of a **Prompt's** versions.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PromptsListPromptVersionsRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVersion</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a **Prompt** by creating a new version of the **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
-    text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
-    versionDescription: "This is an updated version of the Weather Assistant Prompt."
+// Or you can manually iterate page-by-page
+let page = await client.empathicVoice.chats.listChats({
+    pageNumber: 0,
+    pageSize: 1,
+    ascendingOrder: true
 });
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
 
 ```
 </dd>
@@ -1051,7 +1034,7 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**request:** `Hume.empathicVoice.ChatsListChatsRequest` 
     
 </dd>
 </dl>
@@ -1059,15 +1042,7 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.PostedPromptVersion` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `Chats.RequestOptions` 
     
 </dd>
 </dl>
@@ -1079,7 +1054,7 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePrompt</a>(id) -> void</code></summary>
+<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatPagedEvents></code></summary>
 <dl>
 <dd>
 
@@ -1091,9 +1066,7 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-Deletes a **Prompt** and its versions.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+Fetches a paginated list of **Chat** events.
 </dd>
 </dl>
 </dd>
@@ -1108,307 +1081,27 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptName</a>(id, { ...params }) -> string</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
-    name: "Updated Weather Assistant Prompt Name"
+const pageableResponse = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true
 });
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Hume.empathicVoice.PostedPromptName` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">getPromptVersion</a>(id, version) -> Hume.ReturnPrompt | undefined</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a specified version of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0);
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `number` 
-
-Version number for a Prompt.
-
-Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePromptVersion</a>(id, version) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a specified version of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1);
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `number` 
-
-Version number for a Prompt.
-
-Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Prompts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptDescription</a>(id, version, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the description of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
-    versionDescription: "This is an updated version_description."
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+    pageNumber: 0,
+    pageSize: 3,
+    ascendingOrder: true
 });
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
 
 ```
 </dd>
@@ -1424,7 +1117,7 @@ await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-9
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a Chat. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1432,13 +1125,7 @@ await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-9
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Prompt.
-
-Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+**request:** `Hume.empathicVoice.ChatsListChatEventsRequest` 
     
 </dd>
 </dl>
@@ -1446,7 +1133,62 @@ Version numbers are integer values representing different iterations of the Prom
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.PostedPromptVersionDescription` 
+**requestOptions:** `Chats.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">getAudio</a>(id) -> Hume.ReturnChatAudioReconstruction</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1454,7 +1196,7 @@ Version numbers are integer values representing different iterations of the Prom
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `Chats.RequestOptions` 
     
 </dd>
 </dl>
@@ -2223,8 +1965,8 @@ Version numbers are integer values representing different iterations of the Conf
 </dl>
 </details>
 
-## EmpathicVoice Chats
-<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> core.Page<Hume.ReturnChat, Hume.ReturnPagedChats></code></summary>
+## EmpathicVoice Prompts
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> core.Page<(Hume.ReturnPrompt | undefined), Hume.ReturnPagedPrompts></code></summary>
 <dl>
 <dd>
 
@@ -2236,7 +1978,9 @@ Version numbers are integer values representing different iterations of the Conf
 <dl>
 <dd>
 
-Fetches a paginated list of **Chats**.
+Fetches a paginated list of **Prompts**.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 </dd>
 </dl>
 </dd>
@@ -2251,20 +1995,18 @@ Fetches a paginated list of **Chats**.
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.chats.listChats({
+const pageableResponse = await client.empathicVoice.prompts.listPrompts({
     pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true
+    pageSize: 2
 });
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.chats.listChats({
+let page = await client.empathicVoice.prompts.listPrompts({
     pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true
+    pageSize: 2
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -2287,7 +2029,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ChatsListChatsRequest` 
+**request:** `Hume.empathicVoice.PromptsListPromptsRequest` 
     
 </dd>
 </dl>
@@ -2295,7 +2037,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `Chats.RequestOptions` 
+**requestOptions:** `Prompts.RequestOptions` 
     
 </dd>
 </dl>
@@ -2307,7 +2049,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatPagedEvents></code></summary>
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPrompt</a>({ ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
 <dl>
 <dd>
 
@@ -2319,7 +2061,9 @@ const response = page.response;
 <dl>
 <dd>
 
-Fetches a paginated list of **Chat** events.
+Creates a **Prompt** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
 </dd>
 </dl>
 </dd>
@@ -2334,20 +2078,623 @@ Fetches a paginated list of **Chat** events.
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+await client.empathicVoice.prompts.createPrompt({
+    name: "Weather Assistant Prompt",
+    text: "<role>You are an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedPrompt` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPromptVersions</a>(id, { ...params }) -> Hume.ReturnPagedPrompts</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a list of a **Prompt's** versions.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PromptsListPromptVersionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">createPromptVersion</a>(id, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a **Prompt** by creating a new version of the **Prompt**.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+    text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
+    versionDescription: "This is an updated version of the Weather Assistant Prompt."
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedPromptVersion` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePrompt</a>(id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a **Prompt** and its versions.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptName</a>(id, { ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the name of a **Prompt**.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+    name: "Updated Weather Assistant Prompt Name"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedPromptName` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">getPromptVersion</a>(id, version) -> Hume.ReturnPrompt | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a specified version of a **Prompt**.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0);
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `number` 
+
+Version number for a Prompt.
+
+Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePromptVersion</a>(id, version) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a specified version of a **Prompt**.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1);
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `number` 
+
+Version number for a Prompt.
+
+Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptDescription</a>(id, version, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the description of a **Prompt**.
+
+See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
+    versionDescription: "This is an updated version_description."
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `number` 
+
+Version number for a Prompt.
+
+Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Hume.empathicVoice.PostedPromptVersionDescription` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## EmpathicVoice Tools
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a paginated list of **Tools**.
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.empathicVoice.tools.listTools({
     pageNumber: 0,
-    pageSize: 3,
-    ascendingOrder: true
+    pageSize: 2
 });
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+let page = await client.empathicVoice.tools.listTools({
     pageNumber: 0,
-    pageSize: 3,
-    ascendingOrder: true
+    pageSize: 2
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -2370,7 +2717,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat. Formatted as a UUID.
+**request:** `Hume.empathicVoice.ToolsListToolsRequest` 
     
 </dd>
 </dl>
@@ -2378,15 +2725,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ChatsListChatEventsRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Chats.RequestOptions` 
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2398,7 +2737,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">getAudio</a>(id) -> Hume.ReturnChatAudioReconstruction</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">createTool</a>({ ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
 <dl>
 <dd>
 
@@ -2410,7 +2749,9 @@ const response = page.response;
 <dl>
 <dd>
 
-Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+Creates a **Tool** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2425,7 +2766,13 @@ Fetches the audio of a previous **Chat**. For more details, see our guide on aud
 <dd>
 
 ```typescript
-await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0");
+await client.empathicVoice.tools.createTool({
+    name: "get_current_weather",
+    parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
+    versionDescription: "Fetches current weather and uses celsius or fahrenheit based on location of user.",
+    description: "This tool is for getting the current weather.",
+    fallbackContent: "Unable to fetch current weather."
+});
 
 ```
 </dd>
@@ -2441,7 +2788,7 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a chat. Formatted as a UUID.
+**request:** `Hume.empathicVoice.PostedUserDefinedTool` 
     
 </dd>
 </dl>
@@ -2449,7 +2796,7 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 <dl>
 <dd>
 
-**requestOptions:** `Chats.RequestOptions` 
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2461,8 +2808,7 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 </dl>
 </details>
 
-## EmpathicVoice ChatGroups
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> core.Page<Hume.ReturnChatGroup, Hume.ReturnPagedChatGroups></code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
 <dl>
 <dd>
 
@@ -2474,7 +2820,9 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 <dl>
 <dd>
 
-Fetches a paginated list of **Chat Groups**.
+Fetches a list of a **Tool's** versions.
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2489,23 +2837,13 @@ Fetches a paginated list of **Chat Groups**.
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.chatGroups.listChatGroups({
-    pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true,
-    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
-});
+const pageableResponse = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.chatGroups.listChatGroups({
-    pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true,
-    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
-});
+let page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }
@@ -2527,7 +2865,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ChatGroupsListChatGroupsRequest` 
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2535,7 +2873,15 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `ChatGroups.RequestOptions` 
+**request:** `Hume.empathicVoice.ToolsListToolVersionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2547,7 +2893,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">getChatGroup</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedChats</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">createToolVersion</a>(id, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
 <dl>
 <dd>
 
@@ -2559,7 +2905,9 @@ const response = page.response;
 <dl>
 <dd>
 
-Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associated with the **ChatGroup**.
+Updates a **Tool** by creating a new version of the **Tool**.
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2574,10 +2922,11 @@ Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associate
 <dd>
 
 ```typescript
-await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
-    pageNumber: 0,
-    pageSize: 1,
-    ascendingOrder: true
+await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+    parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
+    versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
+    fallbackContent: "Unable to fetch current weather.",
+    description: "This tool is for getting the current weather."
 });
 
 ```
@@ -2594,7 +2943,7 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2602,7 +2951,7 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ChatGroupsGetChatGroupRequest` 
+**request:** `Hume.empathicVoice.PostedUserDefinedToolVersion` 
     
 </dd>
 </dl>
@@ -2610,7 +2959,7 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 <dl>
 <dd>
 
-**requestOptions:** `ChatGroups.RequestOptions` 
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2622,7 +2971,7 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatGroupPagedEvents></code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteTool</a>(id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -2634,7 +2983,9 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 <dl>
 <dd>
 
-Fetches a paginated list of **Chat** events associated with a **Chat Group**.
+Deletes a **Tool** and its versions.
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2649,27 +3000,7 @@ Fetches a paginated list of **Chat** events associated with a **Chat Group**.
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
-    pageNumber: 0,
-    pageSize: 3,
-    ascendingOrder: true
-});
-for await (const item of pageableResponse) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-let page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
-    pageNumber: 0,
-    pageSize: 3,
-    ascendingOrder: true
-});
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
-
-// You can also access the underlying response
-const response = page.response;
+await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
 
 ```
 </dd>
@@ -2685,7 +3016,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2693,15 +3024,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ChatGroups.RequestOptions` 
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2713,7 +3036,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">getAudio</a>(id, { ...params }) -> Hume.ReturnChatGroupPagedAudioReconstructions</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolName</a>(id, { ...params }) -> string</code></summary>
 <dl>
 <dd>
 
@@ -2725,7 +3048,9 @@ const response = page.response;
 <dl>
 <dd>
 
-Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+Updates the name of a **Tool**.
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2740,10 +3065,8 @@ Fetches a paginated list of audio for each **Chat** within the specified **Chat 
 <dd>
 
 ```typescript
-await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
-    pageNumber: 0,
-    pageSize: 10,
-    ascendingOrder: true
+await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+    name: "get_current_temperature"
 });
 
 ```
@@ -2760,7 +3083,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2768,7 +3091,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dl>
 <dd>
 
-**request:** `Hume.empathicVoice.ChatGroupsGetAudioRequest` 
+**request:** `Hume.empathicVoice.PostedUserDefinedToolName` 
     
 </dd>
 </dl>
@@ -2776,7 +3099,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dl>
 <dd>
 
-**requestOptions:** `ChatGroups.RequestOptions` 
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2788,8 +3111,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 </dl>
 </details>
 
-## Tts
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJson</a>({ ...params }) -> Hume.ReturnTts</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">getToolVersion</a>(id, version) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
 <dl>
 <dd>
 
@@ -2801,9 +3123,9 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dl>
 <dd>
 
-Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+Fetches a specified version of a **Tool**.
 
-The response includes the base64-encoded audio and metadata in JSON format.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2818,22 +3140,7 @@ The response includes the base64-encoded audio and metadata in JSON format.
 <dd>
 
 ```typescript
-await client.tts.synthesizeJson({
-    context: {
-        utterances: [{
-                text: "How can people see beauty so differently?",
-                description: "A curious student with a clear and respectful tone, seeking clarification on Hume's ideas with a straightforward question."
-            }]
-    },
-    format: {
-        type: "mp3"
-    },
-    numGenerations: 1,
-    utterances: [{
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
-        }]
-});
+await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
 
 ```
 </dd>
@@ -2849,7 +3156,7 @@ await client.tts.synthesizeJson({
 <dl>
 <dd>
 
-**request:** `Hume.PostedTts` 
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2857,7 +3164,21 @@ await client.tts.synthesizeJson({
 <dl>
 <dd>
 
-**requestOptions:** `Tts.RequestOptions` 
+**version:** `number` 
+
+Version number for a Tool.
+
+Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2869,7 +3190,7 @@ await client.tts.synthesizeJson({
 </dl>
 </details>
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFile</a>({ ...params }) -> core.BinaryResponse</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteToolVersion</a>(id, version) -> void</code></summary>
 <dl>
 <dd>
 
@@ -2881,9 +3202,9 @@ await client.tts.synthesizeJson({
 <dl>
 <dd>
 
-Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody. 
+Deletes a specified version of a **Tool**.
 
-The response contains the generated audio file in the requested format.
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2898,19 +3219,7 @@ The response contains the generated audio file in the requested format.
 <dd>
 
 ```typescript
-await client.tts.synthesizeFile({
-    context: {
-        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2"
-    },
-    format: {
-        type: "mp3"
-    },
-    numGenerations: 1,
-    utterances: [{
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            description: "Middle-aged masculine voice with a clear, rhythmic Scots lilt, rounded vowels, and a warm, steady tone with an articulate, academic quality."
-        }]
-});
+await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
 
 ```
 </dd>
@@ -2926,7 +3235,7 @@ await client.tts.synthesizeFile({
 <dl>
 <dd>
 
-**request:** `Hume.PostedTts` 
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2934,7 +3243,21 @@ await client.tts.synthesizeFile({
 <dl>
 <dd>
 
-**requestOptions:** `Tts.RequestOptions` 
+**version:** `number` 
+
+Version number for a Tool.
+
+Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+
+Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>
@@ -2946,7 +3269,7 @@ await client.tts.synthesizeFile({
 </dl>
 </details>
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeFileStreaming</a>({ ...params }) -> core.BinaryResponse</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolDescription</a>(id, version, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
 <dl>
 <dd>
 
@@ -2958,7 +3281,9 @@ await client.tts.synthesizeFile({
 <dl>
 <dd>
 
-Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+Updates the description of a specified **Tool** version.
+
+Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
 </dd>
 </dl>
 </dd>
@@ -2973,14 +3298,8 @@ Streams synthesized speech using the specified voice. If no voice is provided, a
 <dd>
 
 ```typescript
-await client.tts.synthesizeFileStreaming({
-    utterances: [{
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            voice: {
-                name: "Male English Actor",
-                provider: "HUME_AI"
-            }
-        }]
+await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+    versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
 });
 
 ```
@@ -2997,7 +3316,7 @@ await client.tts.synthesizeFileStreaming({
 <dl>
 <dd>
 
-**request:** `Hume.PostedTts` 
+**id:** `string` — Identifier for a Tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -3005,75 +3324,13 @@ await client.tts.synthesizeFileStreaming({
 <dl>
 <dd>
 
-**requestOptions:** `Tts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**version:** `number` 
 
+Version number for a Tool.
 
-</dd>
-</dl>
-</details>
+Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody. 
-
-The response is a stream of JSON objects including audio encoded in base64.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const response = await client.tts.synthesizeJsonStreaming({
-    utterances: [{
-            text: "Beauty is no quality in things themselves: It exists merely in the mind which contemplates them.",
-            voice: {
-                name: "Male English Actor",
-                provider: "HUME_AI"
-            }
-        }]
-});
-for await (const item of response) {
-    console.log(item);
-}
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.PostedTts` 
+Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
     
 </dd>
 </dl>
@@ -3081,51 +3338,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**requestOptions:** `Tts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">convertVoiceJson</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const response = await client.tts.convertVoiceJson({});
-for await (const item of response) {
-    console.log(item);
-}
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.ConvertVoiceJsonRequest` 
+**request:** `Hume.empathicVoice.PostedUserDefinedToolVersionDescription` 
     
 </dd>
 </dl>
@@ -3133,220 +3346,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**requestOptions:** `Tts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Tts Voices
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice, Hume.ReturnPagedVoices></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const pageableResponse = await client.tts.voices.list({
-    provider: "CUSTOM_VOICE"
-});
-for await (const item of pageableResponse) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-let page = await client.tts.voices.list({
-    provider: "CUSTOM_VOICE"
-});
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
-
-// You can also access the underlying response
-const response = page.response;
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.VoicesListRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Voices.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">create</a>({ ...params }) -> Hume.ReturnVoice</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Saves a new custom voice to your account using the specified TTS generation ID.
-
-Once saved, this voice can be reused in subsequent TTS requests, ensuring consistent speech style and prosody. For more details on voice creation, see the [Voices Guide](/docs/text-to-speech-tts/voices).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.voices.create({
-    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
-    name: "David Hume"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.PostedVoice` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Voices.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">delete</a>({ ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a previously generated custom voice.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tts.voices.delete({
-    name: "David Hume"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Hume.tts.VoicesDeleteRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Voices.RequestOptions` 
+**requestOptions:** `Tools.RequestOptions` 
     
 </dd>
 </dl>

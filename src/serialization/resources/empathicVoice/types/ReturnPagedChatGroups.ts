@@ -10,19 +10,19 @@ export const ReturnPagedChatGroups: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPagedChatGroups.Raw,
     Hume.empathicVoice.ReturnPagedChatGroups
 > = core.serialization.object({
+    chatGroupsPage: core.serialization.property("chat_groups_page", core.serialization.list(ReturnChatGroup)),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
-    totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property("pagination_direction", ReturnPagedChatGroupsPaginationDirection),
-    chatGroupsPage: core.serialization.property("chat_groups_page", core.serialization.list(ReturnChatGroup)),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
 });
 
 export declare namespace ReturnPagedChatGroups {
     export interface Raw {
+        chat_groups_page: ReturnChatGroup.Raw[];
         page_number: number;
         page_size: number;
-        total_pages: number;
         pagination_direction: ReturnPagedChatGroupsPaginationDirection.Raw;
-        chat_groups_page: ReturnChatGroup.Raw[];
+        total_pages: number;
     }
 }

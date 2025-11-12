@@ -6,6 +6,8 @@ import type * as Hume from "../../../index.js";
  * A paginated list of chat_groups returned from the server
  */
 export interface ReturnPagedChatGroups {
+    /** List of Chat Groups and their metadata returned for the specified `page_number` and `page_size`. */
+    chatGroupsPage: Hume.empathicVoice.ReturnChatGroup[];
     /**
      * The page number of the returned list.
      *
@@ -18,14 +20,12 @@ export interface ReturnPagedChatGroups {
      * This value corresponds to the `page_size` parameter specified in the request.
      */
     pageSize: number;
-    /** The total number of pages in the collection. */
-    totalPages: number;
     /**
      * Indicates the order in which the paginated results are presented, based on their creation date.
      *
      * It shows `ASC` for ascending order (chronological, with the oldest records first) or `DESC` for descending order (reverse-chronological, with the newest records first). This value corresponds to the `ascending_order` query parameter used in the request.
      */
     paginationDirection: Hume.empathicVoice.ReturnPagedChatGroupsPaginationDirection;
-    /** List of Chat Groups and their metadata returned for the specified `page_number` and `page_size`. */
-    chatGroupsPage: Hume.empathicVoice.ReturnChatGroup[];
+    /** The total number of pages in the collection. */
+    totalPages: number;
 }

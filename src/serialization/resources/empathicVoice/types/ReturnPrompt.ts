@@ -3,31 +3,30 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
-import { ReturnPromptVersionType } from "./ReturnPromptVersionType.js";
 
 export const ReturnPrompt: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPrompt.Raw,
     Hume.empathicVoice.ReturnPrompt
 > = core.serialization.object({
-    name: core.serialization.string(),
+    createdOn: core.serialization.property("created_on", core.serialization.number()),
     id: core.serialization.string(),
+    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
+    name: core.serialization.string(),
     text: core.serialization.string(),
     version: core.serialization.number(),
-    versionType: core.serialization.property("version_type", ReturnPromptVersionType),
-    createdOn: core.serialization.property("created_on", core.serialization.number()),
-    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionType: core.serialization.property("version_type", core.serialization.string()),
 });
 
 export declare namespace ReturnPrompt {
     export interface Raw {
-        name: string;
+        created_on: number;
         id: string;
+        modified_on: number;
+        name: string;
         text: string;
         version: number;
-        version_type: ReturnPromptVersionType.Raw;
-        created_on: number;
-        modified_on: number;
         version_description?: string | null;
+        version_type: string;
     }
 }

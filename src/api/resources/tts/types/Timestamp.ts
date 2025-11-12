@@ -3,7 +3,9 @@
 import type * as Hume from "../../../index.js";
 
 export interface Timestamp {
+    /** The word or phoneme text that the timestamp corresponds to. */
     text: string;
+    /** The start and end timestamps for the word or phoneme in milliseconds. */
     time: Hume.tts.MillisecondInterval;
     type: Hume.tts.TimestampType;
 }
