@@ -9,20 +9,20 @@ export const ReturnVoice: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnVoice.Raw,
     Hume.empathicVoice.ReturnVoice
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    name: core.serialization.string().optional(),
-    provider: VoiceProvider.optional(),
     compatibleOctaveModels: core.serialization.property(
         "compatible_octave_models",
         core.serialization.list(core.serialization.string()).optional(),
     ),
+    id: core.serialization.string().optional(),
+    name: core.serialization.string().optional(),
+    provider: VoiceProvider.optional(),
 });
 
 export declare namespace ReturnVoice {
     export interface Raw {
+        compatible_octave_models?: string[] | null;
         id?: string | null;
         name?: string | null;
         provider?: VoiceProvider.Raw | null;
-        compatible_octave_models?: string[] | null;
     }
 }

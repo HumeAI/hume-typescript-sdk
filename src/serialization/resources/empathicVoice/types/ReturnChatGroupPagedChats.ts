@@ -10,32 +10,32 @@ export const ReturnChatGroupPagedChats: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatGroupPagedChats.Raw,
     Hume.empathicVoice.ReturnChatGroupPagedChats
 > = core.serialization.object({
-    id: core.serialization.string(),
+    active: core.serialization.boolean().optional(),
+    chatsPage: core.serialization.property("chats_page", core.serialization.list(ReturnChat)),
     firstStartTimestamp: core.serialization.property("first_start_timestamp", core.serialization.number()),
+    id: core.serialization.string(),
     mostRecentStartTimestamp: core.serialization.property("most_recent_start_timestamp", core.serialization.number()),
     numChats: core.serialization.property("num_chats", core.serialization.number()),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
-    totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property(
         "pagination_direction",
         ReturnChatGroupPagedChatsPaginationDirection,
     ),
-    chatsPage: core.serialization.property("chats_page", core.serialization.list(ReturnChat)),
-    active: core.serialization.boolean().optional(),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
 });
 
 export declare namespace ReturnChatGroupPagedChats {
     export interface Raw {
-        id: string;
+        active?: boolean | null;
+        chats_page: ReturnChat.Raw[];
         first_start_timestamp: number;
+        id: string;
         most_recent_start_timestamp: number;
         num_chats: number;
         page_number: number;
         page_size: number;
-        total_pages: number;
         pagination_direction: ReturnChatGroupPagedChatsPaginationDirection.Raw;
-        chats_page: ReturnChat.Raw[];
-        active?: boolean | null;
+        total_pages: number;
     }
 }

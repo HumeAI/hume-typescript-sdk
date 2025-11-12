@@ -9,23 +9,23 @@ export const ReturnChatGroup: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatGroup.Raw,
     Hume.empathicVoice.ReturnChatGroup
 > = core.serialization.object({
-    id: core.serialization.string(),
+    active: core.serialization.boolean().optional(),
     firstStartTimestamp: core.serialization.property("first_start_timestamp", core.serialization.number()),
-    mostRecentStartTimestamp: core.serialization.property("most_recent_start_timestamp", core.serialization.number()),
+    id: core.serialization.string(),
     mostRecentChatId: core.serialization.property("most_recent_chat_id", core.serialization.string().optional()),
     mostRecentConfig: core.serialization.property("most_recent_config", ReturnConfigSpec.optional()),
+    mostRecentStartTimestamp: core.serialization.property("most_recent_start_timestamp", core.serialization.number()),
     numChats: core.serialization.property("num_chats", core.serialization.number()),
-    active: core.serialization.boolean().optional(),
 });
 
 export declare namespace ReturnChatGroup {
     export interface Raw {
-        id: string;
+        active?: boolean | null;
         first_start_timestamp: number;
-        most_recent_start_timestamp: number;
+        id: string;
         most_recent_chat_id?: string | null;
         most_recent_config?: ReturnConfigSpec.Raw | null;
+        most_recent_start_timestamp: number;
         num_chats: number;
-        active?: boolean | null;
     }
 }

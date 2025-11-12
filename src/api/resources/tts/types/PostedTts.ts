@@ -7,7 +7,7 @@ export interface PostedTts {
     context?: Hume.tts.PostedContext;
     /** Specifies the output audio file format. */
     format?: Hume.tts.Format;
-    /** The set of timestamp types to include in the response. */
+    /** The set of timestamp types to include in the response. Only supported for Octave 2 requests. */
     includeTimestampTypes?: Hume.tts.TimestampType[];
     /**
      * Number of audio generations to produce from the input utterances.

@@ -3,10 +3,26 @@
 import type * as Hume from "../../../index.js";
 
 export type ControlPlanePublishEvent =
+    /**
+     * Settings for this chat session. */
     | Hume.empathicVoice.SessionSettings
+    /**
+     * User text to insert into the conversation. Text sent through a User Input message is treated as the user's speech to EVI. EVI processes this input and provides a corresponding response.
+     *
+     * Expression measurement results are not available for User Input messages, as the prosody model relies on audio input and cannot process text alone. */
     | Hume.empathicVoice.UserInput
+    /**
+     * When provided, the input is spoken by EVI. */
     | Hume.empathicVoice.AssistantInput
+    /**
+     * When provided, the output is a function call response. */
     | Hume.empathicVoice.ToolResponseMessage
+    /**
+     * When provided, the output is a function call error. */
     | Hume.empathicVoice.ToolErrorMessage
+    /**
+     * Pause responses from EVI. Chat history is still saved and sent after resuming.  */
     | Hume.empathicVoice.PauseAssistantMessage
+    /**
+     * Resume responses from EVI. Chat history sent while paused will now be sent.  */
     | Hume.empathicVoice.ResumeAssistantMessage;
