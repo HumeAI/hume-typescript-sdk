@@ -171,6 +171,91 @@ describe("ChatGroups", () => {
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
+    test("get-audio (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new HumeClient({
+            apiKey: "test",
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
+        });
+
+        const rawResponseBody = {
+            id: "369846cf-6ad5-404d-905e-a8acb5cdfc78",
+            user_id: "e6235940-cfda-3988-9147-ff531627cf42",
+            num_chats: 1,
+            page_number: 0,
+            page_size: 10,
+            total_pages: 1,
+            pagination_direction: "ASC",
+            audio_reconstructions_page: [
+                {
+                    id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
+                    user_id: "e6235940-cfda-3988-9147-ff531627cf42",
+                    status: "COMPLETE",
+                    filename:
+                        "e6235940-cfda-3988-9147-ff531627cf42/470a49f6-1dec-4afe-8b61-035d3b2d63b0/reconstructed_audio.mp4",
+                    modified_at: 1729875432555,
+                    signed_audio_url: "https://storage.googleapis.com/...etc.",
+                    signed_url_expiration_timestamp_millis: 1730232816964,
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/v0/evi/chat_groups/369846cf-6ad5-404d-905e-a8acb5cdfc78/audio")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+            pageNumber: 0,
+            pageSize: 10,
+            ascendingOrder: true,
+        });
+        expect(response).toEqual({
+            id: "369846cf-6ad5-404d-905e-a8acb5cdfc78",
+            userId: "e6235940-cfda-3988-9147-ff531627cf42",
+            numChats: 1,
+            pageNumber: 0,
+            pageSize: 10,
+            totalPages: 1,
+            paginationDirection: "ASC",
+            audioReconstructionsPage: [
+                {
+                    id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
+                    userId: "e6235940-cfda-3988-9147-ff531627cf42",
+                    status: "COMPLETE",
+                    filename:
+                        "e6235940-cfda-3988-9147-ff531627cf42/470a49f6-1dec-4afe-8b61-035d3b2d63b0/reconstructed_audio.mp4",
+                    modifiedAt: 1729875432555,
+                    signedAudioUrl: "https://storage.googleapis.com/...etc.",
+                    signedUrlExpirationTimestampMillis: 1730232816964,
+                },
+            ],
+        });
+    });
+
+    test("get-audio (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new HumeClient({
+            apiKey: "test",
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
+        });
+
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .get("/v0/evi/chat_groups/id/audio")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.empathicVoice.chatGroups.getAudio("id");
+        }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
+    });
+
     test("list-chat-group-events (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
@@ -302,91 +387,6 @@ describe("ChatGroups", () => {
 
         await expect(async () => {
             return await client.empathicVoice.chatGroups.listChatGroupEvents("id");
-        }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
-    });
-
-    test("get-audio (1)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new HumeClient({
-            apiKey: "test",
-            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
-        });
-
-        const rawResponseBody = {
-            id: "369846cf-6ad5-404d-905e-a8acb5cdfc78",
-            user_id: "e6235940-cfda-3988-9147-ff531627cf42",
-            num_chats: 1,
-            page_number: 0,
-            page_size: 10,
-            total_pages: 1,
-            pagination_direction: "ASC",
-            audio_reconstructions_page: [
-                {
-                    id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
-                    user_id: "e6235940-cfda-3988-9147-ff531627cf42",
-                    status: "COMPLETE",
-                    filename:
-                        "e6235940-cfda-3988-9147-ff531627cf42/470a49f6-1dec-4afe-8b61-035d3b2d63b0/reconstructed_audio.mp4",
-                    modified_at: 1729875432555,
-                    signed_audio_url: "https://storage.googleapis.com/...etc.",
-                    signed_url_expiration_timestamp_millis: 1730232816964,
-                },
-            ],
-        };
-        server
-            .mockEndpoint()
-            .get("/v0/evi/chat_groups/369846cf-6ad5-404d-905e-a8acb5cdfc78/audio")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
-            pageNumber: 0,
-            pageSize: 10,
-            ascendingOrder: true,
-        });
-        expect(response).toEqual({
-            id: "369846cf-6ad5-404d-905e-a8acb5cdfc78",
-            userId: "e6235940-cfda-3988-9147-ff531627cf42",
-            numChats: 1,
-            pageNumber: 0,
-            pageSize: 10,
-            totalPages: 1,
-            paginationDirection: "ASC",
-            audioReconstructionsPage: [
-                {
-                    id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
-                    userId: "e6235940-cfda-3988-9147-ff531627cf42",
-                    status: "COMPLETE",
-                    filename:
-                        "e6235940-cfda-3988-9147-ff531627cf42/470a49f6-1dec-4afe-8b61-035d3b2d63b0/reconstructed_audio.mp4",
-                    modifiedAt: 1729875432555,
-                    signedAudioUrl: "https://storage.googleapis.com/...etc.",
-                    signedUrlExpirationTimestampMillis: 1730232816964,
-                },
-            ],
-        });
-    });
-
-    test("get-audio (2)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new HumeClient({
-            apiKey: "test",
-            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
-        });
-
-        const rawResponseBody = {};
-        server
-            .mockEndpoint()
-            .get("/v0/evi/chat_groups/id/audio")
-            .respondWith()
-            .statusCode(400)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.empathicVoice.chatGroups.getAudio("id");
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 });

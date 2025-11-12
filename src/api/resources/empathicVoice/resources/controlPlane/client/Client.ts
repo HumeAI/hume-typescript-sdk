@@ -7,23 +7,11 @@ import * as environments from "../../../../../../environments.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as serializers from "../../../../../../serialization/index.js";
 import * as Hume from "../../../../../index.js";
-import { ControlPlaneSocket } from "./Socket.js";
 
 export declare namespace ControlPlane {
     export interface Options extends BaseClientOptions {}
 
     export interface RequestOptions extends BaseRequestOptions {}
-
-    export interface ConnectArgs {
-        chatId: string;
-        accessToken?: string | undefined;
-        /** Arbitrary headers to send with the websocket connect request. */
-        headers?: Record<string, string>;
-        /** Enable debug mode on the websocket. Defaults to false. */
-        debug?: boolean;
-        /** Number of reconnect attempts. Defaults to 30. */
-        reconnectAttempts?: number;
-    }
 }
 
 export class ControlPlane {
@@ -127,31 +115,6 @@ export class ControlPlane {
                     rawResponse: _response.rawResponse,
                 });
         }
-    }
-
-    public async connect(args: ControlPlane.ConnectArgs): Promise<ControlPlaneSocket> {
-        const { chatId, accessToken, headers, debug, reconnectAttempts } = args;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (accessToken != null) {
-            _queryParams.access_token = accessToken;
-        }
-
-        const _headers: Record<string, unknown> = mergeHeaders(
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-            headers,
-        );
-        const socket = new core.ReconnectingWebSocket({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).evi,
-                `/chat/${core.url.encodePathParam(chatId)}/connect`,
-            ),
-            protocols: [],
-            queryParameters: _queryParams,
-            headers: _headers,
-            options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
-        });
-        return new ControlPlaneSocket({ socket });
     }
 
     protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | undefined>> {

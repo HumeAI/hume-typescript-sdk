@@ -10,31 +10,31 @@ export const ReturnUserDefinedTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnUserDefinedTool.Raw,
     Hume.empathicVoice.ReturnUserDefinedTool
 > = core.serialization.object({
-    toolType: core.serialization.property("tool_type", ReturnUserDefinedToolToolType),
-    id: core.serialization.string(),
-    version: core.serialization.number(),
-    versionType: core.serialization.property("version_type", ReturnUserDefinedToolVersionType),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    name: core.serialization.string(),
     createdOn: core.serialization.property("created_on", core.serialization.number()),
-    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
-    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
     description: core.serialization.string().optional(),
+    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    id: core.serialization.string(),
+    modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
+    name: core.serialization.string(),
     parameters: core.serialization.string(),
+    toolType: core.serialization.property("tool_type", ReturnUserDefinedToolToolType),
+    version: core.serialization.number(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionType: core.serialization.property("version_type", ReturnUserDefinedToolVersionType),
 });
 
 export declare namespace ReturnUserDefinedTool {
     export interface Raw {
-        tool_type: ReturnUserDefinedToolToolType.Raw;
-        id: string;
-        version: number;
-        version_type: ReturnUserDefinedToolVersionType.Raw;
-        version_description?: string | null;
-        name: string;
         created_on: number;
-        modified_on: number;
-        fallback_content?: string | null;
         description?: string | null;
+        fallback_content?: string | null;
+        id: string;
+        modified_on: number;
+        name: string;
         parameters: string;
+        tool_type: ReturnUserDefinedToolToolType.Raw;
+        version: number;
+        version_description?: string | null;
+        version_type: ReturnUserDefinedToolVersionType.Raw;
     }
 }
