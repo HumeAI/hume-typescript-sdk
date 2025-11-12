@@ -9,15 +9,15 @@ export const PostedEventMessageSpecs: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedEventMessageSpecs.Raw,
     Hume.empathicVoice.PostedEventMessageSpecs
 > = core.serialization.object({
-    onNewChat: core.serialization.property("on_new_chat", PostedEventMessageSpec.optional()),
     onInactivityTimeout: core.serialization.property("on_inactivity_timeout", PostedEventMessageSpec.optional()),
     onMaxDurationTimeout: core.serialization.property("on_max_duration_timeout", PostedEventMessageSpec.optional()),
+    onNewChat: core.serialization.property("on_new_chat", PostedEventMessageSpec.optional()),
 });
 
 export declare namespace PostedEventMessageSpecs {
     export interface Raw {
-        on_new_chat?: PostedEventMessageSpec.Raw | null;
         on_inactivity_timeout?: PostedEventMessageSpec.Raw | null;
         on_max_duration_timeout?: PostedEventMessageSpec.Raw | null;
+        on_new_chat?: PostedEventMessageSpec.Raw | null;
     }
 }

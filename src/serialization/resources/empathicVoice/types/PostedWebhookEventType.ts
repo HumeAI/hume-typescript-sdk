@@ -7,8 +7,8 @@ import type * as serializers from "../../../index.js";
 export const PostedWebhookEventType: core.serialization.Schema<
     serializers.empathicVoice.PostedWebhookEventType.Raw,
     Hume.empathicVoice.PostedWebhookEventType
-> = core.serialization.enum_(["chat_started", "chat_ended"]);
+> = core.serialization.enum_(["chat_started", "chat_ended", "tool_call"]);
 
 export declare namespace PostedWebhookEventType {
-    export type Raw = "chat_started" | "chat_ended";
+    export type Raw = "chat_started" | "chat_ended" | "tool_call";
 }
