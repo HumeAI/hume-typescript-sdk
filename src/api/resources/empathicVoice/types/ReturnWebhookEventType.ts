@@ -4,5 +4,6 @@
 export const ReturnWebhookEventType = {
     ChatStarted: "chat_started",
     ChatEnded: "chat_ended",
+    ToolCall: "tool_call",
 } as const;
 export type ReturnWebhookEventType = (typeof ReturnWebhookEventType)[keyof typeof ReturnWebhookEventType];

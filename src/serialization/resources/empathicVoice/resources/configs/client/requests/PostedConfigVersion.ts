@@ -18,36 +18,36 @@ export const PostedConfigVersion: core.serialization.Schema<
     serializers.empathicVoice.PostedConfigVersion.Raw,
     Hume.empathicVoice.PostedConfigVersion
 > = core.serialization.object({
-    eviVersion: core.serialization.property("evi_version", core.serialization.string()),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
-    prompt: PostedConfigPromptSpec.optional(),
-    voice: VoiceRef.optional(),
-    languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
-    ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
-    tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
     builtinTools: core.serialization.property(
         "builtin_tools",
         core.serialization.list(PostedBuiltinTool.optional()).optional(),
     ),
+    ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
     eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
-    timeouts: PostedTimeoutSpecs.optional(),
+    eviVersion: core.serialization.property("evi_version", core.serialization.string()),
+    languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
     nudges: PostedNudgeSpec.optional(),
+    prompt: PostedConfigPromptSpec.optional(),
+    timeouts: PostedTimeoutSpecs.optional(),
+    tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    voice: VoiceRef.optional(),
     webhooks: core.serialization.list(PostedWebhookSpec.optional()).optional(),
 });
 
 export declare namespace PostedConfigVersion {
     export interface Raw {
-        evi_version: string;
-        version_description?: string | null;
-        prompt?: PostedConfigPromptSpec.Raw | null;
-        voice?: VoiceRef.Raw | null;
-        language_model?: PostedLanguageModel.Raw | null;
-        ellm_model?: PostedEllmModel.Raw | null;
-        tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
         builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;
+        ellm_model?: PostedEllmModel.Raw | null;
         event_messages?: PostedEventMessageSpecs.Raw | null;
-        timeouts?: PostedTimeoutSpecs.Raw | null;
+        evi_version: string;
+        language_model?: PostedLanguageModel.Raw | null;
         nudges?: PostedNudgeSpec.Raw | null;
+        prompt?: PostedConfigPromptSpec.Raw | null;
+        timeouts?: PostedTimeoutSpecs.Raw | null;
+        tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
+        version_description?: string | null;
+        voice?: VoiceRef.Raw | null;
         webhooks?: (PostedWebhookSpec.Raw | null | undefined)[] | null;
     }
 }

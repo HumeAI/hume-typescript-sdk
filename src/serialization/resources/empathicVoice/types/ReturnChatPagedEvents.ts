@@ -12,33 +12,33 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatPagedEvents.Raw,
     Hume.empathicVoice.ReturnChatPagedEvents
 > = core.serialization.object({
-    id: core.serialization.string(),
     chatGroupId: core.serialization.property("chat_group_id", core.serialization.string()),
-    status: ReturnChatPagedEventsStatus,
-    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
+    config: ReturnConfigSpec.optional(),
     endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
-    paginationDirection: core.serialization.property("pagination_direction", ReturnChatPagedEventsPaginationDirection),
     eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
+    id: core.serialization.string(),
     metadata: core.serialization.string().optional(),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
+    paginationDirection: core.serialization.property("pagination_direction", ReturnChatPagedEventsPaginationDirection),
+    startTimestamp: core.serialization.property("start_timestamp", core.serialization.number()),
+    status: ReturnChatPagedEventsStatus,
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
-    config: ReturnConfigSpec.optional(),
 });
 
 export declare namespace ReturnChatPagedEvents {
     export interface Raw {
-        id: string;
         chat_group_id: string;
-        status: ReturnChatPagedEventsStatus.Raw;
-        start_timestamp: number;
+        config?: ReturnConfigSpec.Raw | null;
         end_timestamp?: number | null;
-        pagination_direction: ReturnChatPagedEventsPaginationDirection.Raw;
         events_page: ReturnChatEvent.Raw[];
+        id: string;
         metadata?: string | null;
         page_number: number;
         page_size: number;
+        pagination_direction: ReturnChatPagedEventsPaginationDirection.Raw;
+        start_timestamp: number;
+        status: ReturnChatPagedEventsStatus.Raw;
         total_pages: number;
-        config?: ReturnConfigSpec.Raw | null;
     }
 }
