@@ -37,35 +37,35 @@ import type * as Hume from "../../../../../../index.js";
  *     }
  */
 export interface PostedConfig {
-    /** EVI version to use. Only versions `3` and `4-mini` are supported. */
-    eviVersion: string;
-    /** Name applied to all versions of a particular Config. */
-    name: string;
-    /** An optional description of the Config version. */
-    versionDescription?: string;
-    prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
-    /** A voice specification associated with this Config. */
-    voice?: Hume.empathicVoice.VoiceRef;
-    /**
-     * The supplemental language model associated with this Config.
-     *
-     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
-     */
-    languageModel?: Hume.empathicVoice.PostedLanguageModel;
+    /** List of built-in tools associated with this Config. */
+    builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
     /**
      * The eLLM setup associated with this Config.
      *
      * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
      */
     ellmModel?: Hume.empathicVoice.PostedEllmModel;
-    /** List of user-defined tools associated with this Config. */
-    tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
-    /** List of built-in tools associated with this Config. */
-    builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
     eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
+    /** EVI version to use. Only versions `3` and `4-mini` are supported. */
+    eviVersion: string;
+    /**
+     * The supplemental language model associated with this Config.
+     *
+     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
+     */
+    languageModel?: Hume.empathicVoice.PostedLanguageModel;
+    /** Name applied to all versions of a particular Config. */
+    name: string;
     /** Configures nudges, brief audio prompts that can guide conversations when users pause or need encouragement to continue speaking. Nudges help create more natural, flowing interactions by providing gentle conversational cues. */
     nudges?: Hume.empathicVoice.PostedNudgeSpec;
+    prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
     timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
+    /** List of user-defined tools associated with this Config. */
+    tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
+    /** An optional description of the Config version. */
+    versionDescription?: string;
+    /** A voice specification associated with this Config. */
+    voice?: Hume.empathicVoice.VoiceRef;
     /** Webhook config specifications for each subscriber. */
     webhooks?: (Hume.empathicVoice.PostedWebhookSpec | undefined)[];
 }

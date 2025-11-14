@@ -3,14 +3,36 @@
 import type * as Hume from "../../../index.js";
 
 export type SubscribeEvent =
+    /**
+     * When provided, the output is an assistant end message. */
     | Hume.empathicVoice.AssistantEnd
+    /**
+     * When provided, the output is an assistant message. */
     | Hume.empathicVoice.AssistantMessage
+    /**
+     * When provided, the output is an Assistant Prosody message. */
     | Hume.empathicVoice.AssistantProsody
+    /**
+     * The type of message sent through the socket; for an Audio Output message, this must be `audio_output`. */
     | Hume.empathicVoice.AudioOutput
+    /**
+     * When provided, the output is a chat metadata message. */
     | Hume.empathicVoice.ChatMetadata
+    /**
+     * When provided, the output is an error message. */
     | Hume.empathicVoice.WebSocketError
+    /**
+     * When provided, the output is an interruption. */
     | Hume.empathicVoice.UserInterruption
+    /**
+     * When provided, the output is a user message. */
     | Hume.empathicVoice.UserMessage
+    /**
+     * When provided, the output is a tool call. */
     | Hume.empathicVoice.ToolCallMessage
+    /**
+     * When provided, the output is a function call response. */
     | Hume.empathicVoice.ToolResponseMessage
+    /**
+     * When provided, the output is a function call error. */
     | Hume.empathicVoice.ToolErrorMessage;

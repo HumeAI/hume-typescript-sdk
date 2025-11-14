@@ -6,15 +6,15 @@ import type * as serializers from "../../../index.js";
 
 export const ErrorResponse: core.serialization.ObjectSchema<serializers.tts.ErrorResponse.Raw, Hume.tts.ErrorResponse> =
     core.serialization.object({
+        code: core.serialization.string().optional(),
         error: core.serialization.string().optional(),
         message: core.serialization.string().optional(),
-        code: core.serialization.string().optional(),
     });
 
 export declare namespace ErrorResponse {
     export interface Raw {
+        code?: string | null;
         error?: string | null;
         message?: string | null;
-        code?: string | null;
     }
 }
