@@ -1,9 +1,8 @@
 import fs from "fs";
-import stream from "stream";
 import { join } from "path";
-
-import { Fetcher, fetcherImpl } from "../../../src/core/fetcher/Fetcher";
+import stream from "stream";
 import type { BinaryResponse } from "../../../src/core";
+import { type Fetcher, fetcherImpl } from "../../../src/core/fetcher/Fetcher";
 
 describe("Test fetcherImpl", () => {
     it("should handle successful request", async () => {
@@ -241,10 +240,10 @@ describe("Test fetcherImpl", () => {
             const body = result.body as BinaryResponse;
             expect(body).toBeDefined();
             expect(body.bodyUsed).toBe(false);
+            expect(typeof body.bytes).toBe("function");
             if (!body.bytes) {
                 return;
             }
-            expect(typeof body.bytes).toBe("function");
             const bytes = await body.bytes();
             expect(bytes).toBeInstanceOf(Uint8Array);
             const decoder = new TextDecoder();

@@ -10,24 +10,24 @@ export const ReturnChatGroupPagedEvents: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatGroupPagedEvents.Raw,
     Hume.empathicVoice.ReturnChatGroupPagedEvents
 > = core.serialization.object({
+    eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
     id: core.serialization.string(),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
-    totalPages: core.serialization.property("total_pages", core.serialization.number()),
     paginationDirection: core.serialization.property(
         "pagination_direction",
         ReturnChatGroupPagedEventsPaginationDirection,
     ),
-    eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
 });
 
 export declare namespace ReturnChatGroupPagedEvents {
     export interface Raw {
+        events_page: ReturnChatEvent.Raw[];
         id: string;
         page_number: number;
         page_size: number;
-        total_pages: number;
         pagination_direction: ReturnChatGroupPagedEventsPaginationDirection.Raw;
-        events_page: ReturnChatEvent.Raw[];
+        total_pages: number;
     }
 }
