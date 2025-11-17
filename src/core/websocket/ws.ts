@@ -77,7 +77,7 @@ function addApiKeyFromHeader({
     headers: Record<string, any> | undefined;
     queryParameters: Record<string, any> | undefined;
 }) {
-    const apiKeyValue = headers?.["X-Hume-Api-Key"];
+    const apiKeyValue = Object.entries(headers ?? {}).find(([k]) => k.toLowerCase() === 'x-hume-api-key')
     if (apiKeyValue && !queryParameters?.["api_key"]) {
         return { ...queryParameters, apiKey: apiKeyValue };
     }
