@@ -10,8 +10,6 @@
 export interface PostedPrompt {
     /** Name applied to all versions of a particular Prompt. */
     name: string;
-    /** An optional description of the Prompt version. */
-    versionDescription?: string;
     /**
      * Instructions used to shape EVI's behavior, responses, and style.
      *
@@ -20,4 +18,6 @@ export interface PostedPrompt {
      * For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
      */
     text: string;
+    /** An optional description of the Prompt version. */
+    versionDescription?: string;
 }
