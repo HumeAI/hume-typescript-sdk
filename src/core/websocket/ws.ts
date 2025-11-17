@@ -79,7 +79,7 @@ function addApiKeyFromHeader({
 }) {
     const apiKeyValue = headers?.["X-Hume-Api-Key"];
     if (apiKeyValue && !queryParameters?.["api_key"]) {
-        return { ...queryParameters, apiKey: apiKeyValue };
+        return { ...queryParameters, api_key: apiKeyValue };
     }
     return queryParameters;
 }
