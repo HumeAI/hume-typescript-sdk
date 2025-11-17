@@ -8,13 +8,13 @@ export const PostedPromptVersion: core.serialization.Schema<
     serializers.empathicVoice.PostedPromptVersion.Raw,
     Hume.empathicVoice.PostedPromptVersion
 > = core.serialization.object({
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     text: core.serialization.string(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
 });
 
 export declare namespace PostedPromptVersion {
     export interface Raw {
-        version_description?: string | null;
         text: string;
+        version_description?: string | null;
     }
 }
