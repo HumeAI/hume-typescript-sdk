@@ -18,8 +18,8 @@ export interface ReturnPagedPrompts {
      * This value corresponds to the `page_size` parameter specified in the request.
      */
     pageSize: number;
-    /** The total number of pages in the collection. */
-    totalPages: number;
     /** List of prompts returned for the specified `page_number` and `page_size`. */
     promptsPage: (Hume.empathicVoice.ReturnPrompt | undefined)[];
+    /** The total number of pages in the collection. */
+    totalPages: number;
 }

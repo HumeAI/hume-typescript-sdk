@@ -3,81 +3,40 @@ name: ci
 on: [push]
 
 jobs:
-    compile:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v4
+  compile:
+    runs-on: ubuntu-latest
 
-            - name: Set up node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "18.18.0"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
+      - name: Set up node
+        uses: actions/setup-node@v4
 
-            - name: Install dependencies
-              run: pnpm install
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-            - name: Compile
-              run: pnpm build
+      - name: Install dependencies
+        run: pnpm install
 
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v4
+      - name: Compile
+        run: pnpm build
 
-            - name: Set up node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "18.18.0"
+  test:
+    runs-on: ubuntu-latest
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-            - name: Install dependencies
-              run: pnpm install
+      - name: Set up node
+        uses: actions/setup-node@v4
+                
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-            - name: Check for formatting issues
-              run: pnpm format:check
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Run tests
-              # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
-              run: pnpm test --configLoader runner
-
-    publish:
-        needs: [compile, test]
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v4
-
-            - name: Set up node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "18.18.0"
-
-            - name: Setup pnpm
-              run: npm install -g pnpm
-
-            - name: Install dependencies
-              run: pnpm install
-
-            - name: Build
-              run: pnpm build
-
-            - name: Publish to npm
-              run: |
-                  npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-                  if [[ ${GITHUB_REF} == *alpha* ]]; then
-                    npm publish --access public --tag alpha
-                  elif [[ ${GITHUB_REF} == *beta* ]]; then
-                    npm publish --access public --tag beta
-                  else
-                    npm publish --access public
-                  fi
-              env:
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Test
+        run: pnpm test
