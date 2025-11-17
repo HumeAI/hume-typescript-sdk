@@ -9,26 +9,26 @@ export const ReturnChatAudioReconstruction: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatAudioReconstruction.Raw,
     Hume.empathicVoice.ReturnChatAudioReconstruction
 > = core.serialization.object({
-    id: core.serialization.string(),
-    userId: core.serialization.property("user_id", core.serialization.string()),
-    status: ReturnChatAudioReconstructionStatus,
     filename: core.serialization.string().optional(),
+    id: core.serialization.string(),
     modifiedAt: core.serialization.property("modified_at", core.serialization.number().optional()),
     signedAudioUrl: core.serialization.property("signed_audio_url", core.serialization.string().optional()),
     signedUrlExpirationTimestampMillis: core.serialization.property(
         "signed_url_expiration_timestamp_millis",
         core.serialization.number().optional(),
     ),
+    status: ReturnChatAudioReconstructionStatus,
+    userId: core.serialization.property("user_id", core.serialization.string()),
 });
 
 export declare namespace ReturnChatAudioReconstruction {
     export interface Raw {
-        id: string;
-        user_id: string;
-        status: ReturnChatAudioReconstructionStatus.Raw;
         filename?: string | null;
+        id: string;
         modified_at?: number | null;
         signed_audio_url?: string | null;
         signed_url_expiration_timestamp_millis?: number | null;
+        status: ReturnChatAudioReconstructionStatus.Raw;
+        user_id: string;
     }
 }
