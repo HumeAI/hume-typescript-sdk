@@ -3,7 +3,6 @@ import { WebSocket as NodeWebSocket } from "ws";
 import { RUNTIME } from "../runtime/index.js";
 import { toQueryString } from "../url/qs.js";
 import * as Events from "./events.js";
-import { SDK_VERSION } from "../../version.js";
 
 const getGlobalWebSocket = (): WebSocket | undefined => {
     if (typeof WebSocket !== "undefined") {
@@ -70,49 +69,6 @@ const DEFAULT_OPTIONS = {
     debug: false,
 };
 
-function addApiKeyFromHeader({
-    headers,
-    queryParameters,
-}: {
-    headers: Record<string, any> | undefined;
-    queryParameters: Record<string, any> | undefined;
-}) {
-    const apiKeyValue = headers?.["X-Hume-Api-Key"];
-    if (apiKeyValue && !queryParameters?.["api_key"]) {
-        return { ...queryParameters, apiKey: apiKeyValue };
-    }
-    return queryParameters;
-}
-
-function addAccessTokenFromHeader({
-    headers,
-    queryParameters,
-}: {
-    headers: Record<string, any> | undefined;
-    queryParameters: Record<string, any> | undefined;
-}) {
-    const authHeaderValue = headers?.["Authorization"] || headers?.["authorization"];
-    if (!authHeaderValue) {
-        return queryParameters;
-    }
-    if (!authHeaderValue.startsWith("Bearer ")) {
-        return queryParameters;
-    }
-    if (queryParameters?.["access_token"]) {
-        return queryParameters;
-    }
-    const token = authHeaderValue.substring("Bearer ".length);
-    return { ...queryParameters, access_token: token };
-}
-
-function addSdkTracking(queryParameters: Record<string, any> | undefined) {
-    return {
-        ...queryParameters,
-        fernSdkLanguage: "JavaScript",
-        fernSdkVersion: SDK_VERSION,
-    };
-}
-
 export class ReconnectingWebSocket {
     private _ws?: WebSocket;
     private _listeners: ReconnectingWebSocket.ListenersMap = {
@@ -141,47 +97,22 @@ export class ReconnectingWebSocket {
         this._protocols = protocols;
         this._options = options ?? DEFAULT_OPTIONS;
         this._headers = headers;
-        this._queryParameters = addSdkTracking(
-            addAccessTokenFromHeader({
-                headers,
-                queryParameters: addApiKeyFromHeader({
-                    headers,
-                    queryParameters,
-                }),
-            }),
-        );
-
+        this._queryParameters = queryParameters;
         if (this._options.startClosed) {
             this._shouldReconnect = false;
         }
         this._connect();
     }
 
-    static get CONNECTING() {
-        return 0;
-    }
-    static get OPEN() {
-        return 1;
-    }
-    static get CLOSING() {
-        return 2;
-    }
-    static get CLOSED() {
-        return 3;
-    }
+    public static readonly CONNECTING = 0;
+    public static readonly OPEN = 1;
+    public static readonly CLOSING = 2;
+    public static readonly CLOSED = 3;
 
-    get CONNECTING(): number {
-        return ReconnectingWebSocket.CONNECTING;
-    }
-    get OPEN(): number {
-        return ReconnectingWebSocket.OPEN;
-    }
-    get CLOSING(): number {
-        return ReconnectingWebSocket.CLOSING;
-    }
-    get CLOSED(): number {
-        return ReconnectingWebSocket.CLOSED;
-    }
+    public readonly CONNECTING: typeof ReconnectingWebSocket.CONNECTING = ReconnectingWebSocket.CONNECTING;
+    public readonly OPEN: typeof ReconnectingWebSocket.OPEN = ReconnectingWebSocket.OPEN;
+    public readonly CLOSING: typeof ReconnectingWebSocket.CLOSING = ReconnectingWebSocket.CLOSING;
+    public readonly CLOSED: typeof ReconnectingWebSocket.CLOSED = ReconnectingWebSocket.CLOSED;
 
     get binaryType() {
         return this._ws ? this._ws.binaryType : this._binaryType;
@@ -383,7 +314,7 @@ export class ReconnectingWebSocket {
         } = this._options;
         let delay = 0;
         if (this._retryCount > 0) {
-            delay = minReconnectionDelay * Math.pow(reconnectionDelayGrowFactor, this._retryCount - 1);
+            delay = minReconnectionDelay * reconnectionDelayGrowFactor ** (this._retryCount - 1);
             if (delay > maxReconnectionDelay) {
                 delay = maxReconnectionDelay;
             }
@@ -478,7 +409,7 @@ export class ReconnectingWebSocket {
         try {
             this._ws.close(code, reason);
             this._handleClose(new Events.CloseEvent(code, reason, this));
-        } catch (error) {
+        } catch (_error) {
             // ignore
         }
     }
