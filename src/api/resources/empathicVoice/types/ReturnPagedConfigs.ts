@@ -6,6 +6,8 @@ import type * as Hume from "../../../index.js";
  * A paginated list of config versions returned from the server
  */
 export interface ReturnPagedConfigs {
+    /** List of configs returned for the specified `page_number` and `page_size`. */
+    configsPage?: Hume.empathicVoice.ReturnConfig[];
     /**
      * The page number of the returned list.
      *
@@ -20,6 +22,4 @@ export interface ReturnPagedConfigs {
     pageSize?: number;
     /** The total number of pages in the collection. */
     totalPages: number;
-    /** List of configs returned for the specified `page_number` and `page_size`. */
-    configsPage?: Hume.empathicVoice.ReturnConfig[];
 }
