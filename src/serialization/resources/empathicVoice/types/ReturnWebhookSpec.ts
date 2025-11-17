@@ -9,13 +9,13 @@ export const ReturnWebhookSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnWebhookSpec.Raw,
     Hume.empathicVoice.ReturnWebhookSpec
 > = core.serialization.object({
-    url: core.serialization.string(),
     events: core.serialization.list(ReturnWebhookEventType),
+    url: core.serialization.string(),
 });
 
 export declare namespace ReturnWebhookSpec {
     export interface Raw {
-        url: string;
         events: ReturnWebhookEventType.Raw[];
+        url: string;
     }
 }

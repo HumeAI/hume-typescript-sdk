@@ -9,14 +9,14 @@ export const PostedPrompt: core.serialization.Schema<
     Hume.empathicVoice.PostedPrompt
 > = core.serialization.object({
     name: core.serialization.string(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     text: core.serialization.string(),
+    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
 });
 
 export declare namespace PostedPrompt {
     export interface Raw {
         name: string;
-        version_description?: string | null;
         text: string;
+        version_description?: string | null;
     }
 }

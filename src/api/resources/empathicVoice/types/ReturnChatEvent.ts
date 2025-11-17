@@ -6,12 +6,22 @@ import type * as Hume from "../../../index.js";
  * A description of a single event in a chat returned from the server
  */
 export interface ReturnChatEvent {
-    /** Identifier for a Chat Event. Formatted as a UUID. */
-    id: string;
     /** Identifier for the Chat this event occurred in. Formatted as a UUID. */
     chatId: string;
-    /** Time at which the Chat Event occurred. Measured in seconds since the Unix epoch. */
-    timestamp: number;
+    /**
+     * Stringified JSON containing the prosody model inference results.
+     *
+     * EVI uses the prosody model to measure 48 expressions related to speech and vocal characteristics. These results contain a detailed emotional and tonal analysis of the audio. Scores typically range from 0 to 1, with higher values indicating a stronger confidence level in the measured attribute.
+     */
+    emotionFeatures?: string;
+    /** Identifier for a Chat Event. Formatted as a UUID. */
+    id: string;
+    /** The text of the Chat Event. This field contains the message content for each event type listed in the `type` field. */
+    messageText?: string;
+    /** Stringified JSON with additional metadata about the chat event. */
+    metadata?: string;
+    /** Identifier for a related chat event. Currently only seen on ASSISTANT_PROSODY events, to point back to the ASSISTANT_MESSAGE that generated these prosody scores */
+    relatedEventId?: string;
     /**
      * The role of the entity which generated the Chat Event. There are four possible values:
      * - `USER`: The user, capable of sending user messages and interruptions.
@@ -20,6 +30,8 @@ export interface ReturnChatEvent {
      * - `TOOL`: The function calling mechanism.
      */
     role: Hume.empathicVoice.ReturnChatEventRole;
+    /** Time at which the Chat Event occurred. Measured in seconds since the Unix epoch. */
+    timestamp: number;
     /**
      * Type of Chat Event. There are eleven Chat Event types:
      * - `SYSTEM_PROMPT`: The system prompt used to initialize the session.
@@ -35,16 +47,4 @@ export interface ReturnChatEvent {
      * - `CHAT_END_MESSAGE`: Indicates the end of the chat session.
      */
     type: Hume.empathicVoice.ReturnChatEventType;
-    /** The text of the Chat Event. This field contains the message content for each event type listed in the `type` field. */
-    messageText?: string;
-    /**
-     * Stringified JSON containing the prosody model inference results.
-     *
-     * EVI uses the prosody model to measure 48 expressions related to speech and vocal characteristics. These results contain a detailed emotional and tonal analysis of the audio. Scores typically range from 0 to 1, with higher values indicating a stronger confidence level in the measured attribute.
-     */
-    emotionFeatures?: string;
-    /** Stringified JSON with additional metadata about the chat event. */
-    metadata?: string;
-    /** Identifier for a related chat event. Currently only seen on ASSISTANT_PROSODY events, to point back to the ASSISTANT_MESSAGE that generated these prosody scores */
-    relatedEventId?: string;
 }
