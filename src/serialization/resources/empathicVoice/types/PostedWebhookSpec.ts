@@ -9,13 +9,13 @@ export const PostedWebhookSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedWebhookSpec.Raw,
     Hume.empathicVoice.PostedWebhookSpec
 > = core.serialization.object({
-    url: core.serialization.string(),
     events: core.serialization.list(PostedWebhookEventType),
+    url: core.serialization.string(),
 });
 
 export declare namespace PostedWebhookSpec {
     export interface Raw {
-        url: string;
         events: PostedWebhookEventType.Raw[];
+        url: string;
     }
 }
