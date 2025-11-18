@@ -37,6 +37,10 @@ src/core/fetcher/Supplier.ts
 # - Merges custom queryParams into query parameters
 src/api/resources/empathicVoice/resources/chat/client/Client.ts
 
+# The below websocket clients also need a custom _getCustomAuthorizationHeaders
+src/api/resources/tts/resources/streamInput/client/Client.ts
+src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts
+
 # Socket.ts changes from generated version:
 # - Response type includes receivedAt: Date timestamp
 # - handleMessage adds receivedAt timestamp to messages
