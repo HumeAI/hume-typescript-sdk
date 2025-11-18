@@ -729,22 +729,15 @@ types:
         docs: Name of the tool called.
       parameters:
         type: string
-        docs: >-
-          Parameters of the tool.
-
-
-          These parameters define the inputs needed for the tool's execution,
-          including the expected data type and description for each input field.
-          Structured as a stringified JSON schema, this format ensures the tool
-          receives data in the expected format.
+        docs: Parameters of the tool call. Is a stringified JSON schema.
       response_required:
         type: boolean
         docs: >-
           Indicates whether a response to the tool call is required from the
           developer, either in the form of a [Tool Response
-          message](/reference/speech-to-speech-evi/chat#send.ToolResponseMessage)
+          message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Response%20Message.type)
           or a [Tool Error
-          message](/reference/speech-to-speech-evi/chat#send.ToolErrorMessage).
+          message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Error%20Message.type).
       tool_call_id:
         type: string
         docs: >-
@@ -760,7 +753,7 @@ types:
           Type of tool called. Either `builtin` for natively implemented tools,
           like web search, or `function` for user-defined tools.
       type:
-        type: literal<"tool_call">
+        type: optional<literal<"tool_call">>
         docs: >-
           The type of message sent through the socket; for a Tool Call message,
           this must be `tool_call`.
