@@ -9,14 +9,14 @@ export const PostedConfigPromptSpec: core.serialization.ObjectSchema<
     Hume.empathicVoice.PostedConfigPromptSpec
 > = core.serialization.object({
     id: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
     text: core.serialization.string().optional(),
+    version: core.serialization.number().optional(),
 });
 
 export declare namespace PostedConfigPromptSpec {
     export interface Raw {
         id?: string | null;
-        version?: number | null;
         text?: string | null;
+        version?: number | null;
     }
 }

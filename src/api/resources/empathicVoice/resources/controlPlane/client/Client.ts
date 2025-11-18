@@ -15,7 +15,7 @@ export declare namespace ControlPlane {
     export interface RequestOptions extends BaseRequestOptions {}
 
     export interface ConnectArgs {
-        chatId: string;
+        chat_id: string;
         accessToken?: string | undefined;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
@@ -130,7 +130,7 @@ export class ControlPlane {
     }
 
     public async connect(args: ControlPlane.ConnectArgs): Promise<ControlPlaneSocket> {
-        const { chatId, accessToken, headers, debug, reconnectAttempts } = args;
+        const { chat_id, accessToken, headers, debug, reconnectAttempts } = args;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (accessToken != null) {
             _queryParams.access_token = accessToken;
@@ -144,7 +144,7 @@ export class ControlPlane {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).evi,
-                `/chat/${core.url.encodePathParam(chatId)}/connect`,
+                `/chat/${core.url.encodePathParam(chat_id)}/connect`,
             ),
             protocols: [],
             queryParameters: _queryParams,

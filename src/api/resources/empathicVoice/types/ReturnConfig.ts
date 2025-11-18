@@ -6,52 +6,31 @@ import type * as Hume from "../../../index.js";
  * A specific config version returned from the server
  */
 export interface ReturnConfig {
-    /** Name applied to all versions of a particular Config. */
-    name?: string;
+    /** List of built-in tools associated with this config */
+    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
+    /** The timestamp when the first version of this config was created. */
+    createdOn?: number;
+    ellmModel?: Hume.empathicVoice.ReturnEllmModel;
+    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
+    /** The version of the EVI used with this config. */
+    eviVersion?: string;
     /** Identifier for a Config. Formatted as a UUID. */
     id?: string;
-    /**
-     * Version number for a Config.
-     *
-     * Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
-     */
-    version?: number;
-    /**
-     * The supplemental language model associated with this Config.
-     *
-     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
-     */
     languageModel?: Hume.empathicVoice.ReturnLanguageModel;
-    /** List of built-in tools associated with this Config. */
-    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
-    /**
-     * Specifies the EVI version to use. See our [EVI Version  Guide](/docs/speech-to-speech-evi/configuration/evi-version) for differences between versions.
-     *
-     * **We're officially sunsetting EVI versions 1 and 2 on August 30, 2025**. To keep things running smoothly, be sure to [migrate to EVI 3](/docs/speech-to-speech-evi/configuration/evi-version#migrating-to-evi-3) before then.
-     */
-    eviVersion?: string;
-    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
+    /** The timestamp when this version of the config was created. */
+    modifiedOn?: number;
+    /** Name applied to all versions of a particular Config. */
+    name?: string;
     nudges?: Hume.empathicVoice.ReturnNudgeSpec;
-    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
-    /**
-     * The eLLM setup associated with this Config.
-     *
-     * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
-     */
-    ellmModel?: Hume.empathicVoice.ReturnEllmModel;
-    /** A voice specification associated with this Config. */
-    voice?: Hume.empathicVoice.ReturnVoice;
     prompt?: Hume.empathicVoice.ReturnPrompt;
+    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
+    /** List of user-defined tools associated with this config. */
+    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    /** Version number for a Config. Version numbers should be integers. The combination of configId and version number is unique. */
+    version?: number;
+    /** Description that is appended to a specific version of a Config. */
+    versionDescription?: string;
+    voice?: Hume.empathicVoice.ReturnVoice;
     /** Map of webhooks associated with this config. */
     webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | undefined)[];
-    /** Time at which the Config was created. Measured in seconds since the Unix epoch. */
-    createdOn?: number;
-    /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
-    modifiedOn?: number;
-    /** An optional description of the Config version. */
-    versionDescription?: string;
-    /** List of user-defined tools associated with this Config. */
-    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
 }
