@@ -144,7 +144,7 @@ export class ControlPlane {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).evi,
-                `/chat/${core.url.encodePathParam(chatId)}/connect`,
+                `/chat/${core.url.encodePathParam(chat_id)}/connect`,
             ),
             protocols: [],
             queryParameters: _queryParams,
