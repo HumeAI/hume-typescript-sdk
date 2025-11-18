@@ -10,9 +10,13 @@ export interface ToolCallMessage {
     customSessionId?: string;
     /** Name of the tool called. */
     name: string;
-    /** Parameters of the tool call. Is a stringified JSON schema. */
+    /**
+     * Parameters of the tool.
+     *
+     * These parameters define the inputs needed for the tool's execution, including the expected data type and description for each input field. Structured as a stringified JSON schema, this format ensures the tool receives data in the expected format.
+     */
     parameters: string;
-    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Response%20Message.type) or a [Tool Error message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Error%20Message.type). */
+    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/speech-to-speech-evi/chat#send.ToolResponseMessage) or a [Tool Error message](/reference/speech-to-speech-evi/chat#send.ToolErrorMessage). */
     responseRequired: boolean;
     /**
      * The unique identifier for a specific tool call instance.
@@ -27,5 +31,5 @@ export interface ToolCallMessage {
      *
      * This message indicates that the supplemental LLM has detected a need to invoke the specified tool.
      */
-    type?: "tool_call";
+    type: "tool_call";
 }
