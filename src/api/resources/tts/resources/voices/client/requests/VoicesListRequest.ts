@@ -29,4 +29,5 @@ export interface VoicesListRequest {
      */
     pageSize?: number;
     ascendingOrder?: boolean;
+    filterTag?: string | string[];
 }

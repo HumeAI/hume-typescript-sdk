@@ -16,6 +16,6 @@ export interface ConvertVoiceJsonRequest {
     voice?: Hume.tts.PostedUtteranceVoice;
     /** Specifies the output audio file format. */
     format?: Hume.tts.Format;
-    /** The set of timestamp types to include in the response. */
-    includeTimestampTypes?: Hume.tts.TimestampType[];
+    /** The set of timestamp types to include in the response. When used in multipart/form-data, specify each value using bracket notation: `include_timestamp_types[0]=word&include_timestamp_types[1]=phoneme`. Only supported for Octave 2 requests. */
+    includeTimestampTypesN?: Hume.tts.TimestampType;
 }

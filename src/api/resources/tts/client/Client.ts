@@ -487,16 +487,14 @@ export class Tts {
             );
         }
 
-        if (request.includeTimestampTypes != null) {
-            for (const _item of request.includeTimestampTypes) {
-                _request.append(
-                    "include_timestamp_types",
-                    serializers.tts.TimestampType.jsonOrThrow(_item, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    }),
-                );
-            }
+        if (request.includeTimestampTypesN != null) {
+            _request.append(
+                "include_timestamp_types[<n>]",
+                serializers.tts.TimestampType.jsonOrThrow(request.includeTimestampTypesN, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
         }
 
         const _maybeEncodedRequest = await _request.getRequest();
@@ -629,16 +627,14 @@ export class Tts {
             );
         }
 
-        if (request.includeTimestampTypes != null) {
-            for (const _item of request.includeTimestampTypes) {
-                _request.append(
-                    "include_timestamp_types",
-                    serializers.tts.TimestampType.jsonOrThrow(_item, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    }),
-                );
-            }
+        if (request.includeTimestampTypesN != null) {
+            _request.append(
+                "include_timestamp_types[<n>]",
+                serializers.tts.TimestampType.jsonOrThrow(request.includeTimestampTypesN, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
         }
 
         const _maybeEncodedRequest = await _request.getRequest();

@@ -40,7 +40,7 @@ export class Voices {
     ): Promise<core.Page<Hume.tts.ReturnVoice, Hume.tts.ReturnPagedVoices>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Hume.tts.VoicesListRequest): Promise<core.WithRawResponse<Hume.tts.ReturnPagedVoices>> => {
-                const { provider, pageNumber, pageSize, ascendingOrder } = request;
+                const { provider, pageNumber, pageSize, ascendingOrder, filterTag } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 _queryParams.provider = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
                     unrecognizedObjectKeys: "strip",
@@ -54,6 +54,13 @@ export class Voices {
                 }
                 if (ascendingOrder != null) {
                     _queryParams.ascending_order = ascendingOrder.toString();
+                }
+                if (filterTag != null) {
+                    if (Array.isArray(filterTag)) {
+                        _queryParams.filter_tag = filterTag.map((item) => item);
+                    } else {
+                        _queryParams.filter_tag = filterTag;
+                    }
                 }
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     this._options?.headers,
