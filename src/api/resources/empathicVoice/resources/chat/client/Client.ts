@@ -150,7 +150,7 @@ export class Chat
             url: core.url.join(
                 core.Supplier.get( this._options[ "baseUrl" ] ) ??
                 ( core.Supplier.get( this._options[ "environment" ] ) ?? environments.HumeEnvironment.Prod ).evi,
-                "/chat_broken", // BREAKING CHANGE: wrong path - should be "/chat"
+                "/chat",
             ),
             protocols: [],
             queryParameters: _queryParams,
