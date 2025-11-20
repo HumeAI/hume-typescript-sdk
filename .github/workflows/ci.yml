@@ -99,7 +99,7 @@ jobs:
           cd ./sdk
           pnpm link --global
           cd ../examples/evi/evi-typescript-quickstart
-          pnpm install
+          pnpm install --no-frozen-lockfile
           pnpm remove hume || true
           pnpm link hume
           echo "Verifying linked SDK..."
