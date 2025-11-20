@@ -83,3 +83,6 @@ src/serialization/resources/empathicVoice/resources/chat/types/SubscribeEvent.ts
 # Modified index files to support deprecated aliases
 src/api/resources/empathicVoice/resources/chat/index.ts
 src/serialization/resources/empathicVoice/resources/chat/index.ts
+
+scripts/test-examples-local.sh
+justfile
