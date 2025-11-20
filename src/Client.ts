@@ -27,8 +27,8 @@ export class HumeClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "hume",
-                    "X-Fern-SDK-Version": "0.15.6",
-                    "User-Agent": "hume/0.15.6",
+                    "X-Fern-SDK-Version": "0.15.7",
+                    "User-Agent": "hume/0.15.7",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
