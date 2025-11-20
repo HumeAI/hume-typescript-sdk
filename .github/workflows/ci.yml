@@ -9,6 +9,8 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    permissions:
+      contents: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -30,6 +32,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    permissions:
+      contents: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -56,6 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     # Only run on pull_request events
     if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
     steps:
       - name: Checkout SDK repo (PR branch)
         uses: actions/checkout@v4
@@ -110,6 +116,8 @@ jobs:
     needs: [compile, test]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
