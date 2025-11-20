@@ -1,0 +1,9 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-2bL9Qb/hume-typescript-sdk/src/api/resources/empathicVoice/resources/chat/client/index.ts b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/api/resources/empathicVoice/resources/chat/client/index.ts
+index 38d5d5ff..cb0ff5c3 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-2bL9Qb/hume-typescript-sdk/src/api/resources/empathicVoice/resources/chat/client/index.ts
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/api/resources/empathicVoice/resources/chat/client/index.ts
+@@ -1,3 +1 @@
+-/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
+-export { ChatSocket } from "./Socket.js";
+-export { Chat } from "./Client.js";
++export {};

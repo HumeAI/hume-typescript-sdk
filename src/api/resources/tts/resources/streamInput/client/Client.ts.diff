@@ -1,0 +1,20 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-2bL9Qb/hume-typescript-sdk/src/api/resources/tts/resources/streamInput/client/Client.ts b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/api/resources/tts/resources/streamInput/client/Client.ts
+index 55e3be81..38701335 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-2bL9Qb/hume-typescript-sdk/src/api/resources/tts/resources/streamInput/client/Client.ts
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/api/resources/tts/resources/streamInput/client/Client.ts
+@@ -125,12 +125,8 @@ export class StreamInput {
+         return new StreamInputSocket({ socket });
+     }
+ 
+-    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | null | undefined>> {
+-        const apiKeyValue = core.Supplier.get(this._options.apiKey);
+-        // This `authHeaderValue` is manually added as if you don't provide it it will
+-        // be omitted from the headers which means it won't reach the logic in ws.ts that
+-        // extracts values from the headers and adds them to query parameters.
+-        const authHeaderValue = core.Supplier.get(this._options.headers?.authorization);
+-        return { "X-Hume-Api-Key": apiKeyValue, Authorization: authHeaderValue };
++    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | undefined>> {
++        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
++        return { "X-Hume-Api-Key": apiKeyValue };
+     }
+ }
