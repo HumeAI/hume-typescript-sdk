@@ -1,0 +1,240 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/ISSUE_TEMPLATE/bug_report.md b/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/ISSUE_TEMPLATE/bug_report.md
+deleted file mode 100644
+index 9b77ea71..00000000
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/ISSUE_TEMPLATE/bug_report.md
++++ /dev/null
+@@ -1,40 +0,0 @@
+----
+-name: Bug report
+-about: Create a report to help us improve
+-title: ""
+-labels: ""
+-assignees: ""
+----
+-
+-**Describe the bug**
+-A clear and concise description of what the bug is.
+-
+-**To Reproduce**
+-Steps to reproduce the behavior:
+-
+-1. Go to '...'
+-2. Click on '....'
+-3. Scroll down to '....'
+-4. See error
+-
+-**Expected behavior**
+-A clear and concise description of what you expected to happen.
+-
+-**Screenshots**
+-If applicable, add screenshots to help explain your problem.
+-
+-**Desktop (please complete the following information):**
+-
+-- OS: [e.g. iOS]
+-- Browser [e.g. chrome, safari]
+-- Version [e.g. 22]
+-
+-**Smartphone (please complete the following information):**
+-
+-- Device: [e.g. iPhone6]
+-- OS: [e.g. iOS8.1]
+-- Browser [e.g. stock browser, safari]
+-- Version [e.g. 22]
+-
+-**Additional context**
+-Add any other context about the problem here.
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/ISSUE_TEMPLATE/feature_request.md b/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/ISSUE_TEMPLATE/feature_request.md
+deleted file mode 100644
+index 2bc5d5f7..00000000
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/ISSUE_TEMPLATE/feature_request.md
++++ /dev/null
+@@ -1,19 +0,0 @@
+----
+-name: Feature request
+-about: Suggest an idea for this project
+-title: ""
+-labels: ""
+-assignees: ""
+----
+-
+-**Is your feature request related to a problem? Please describe.**
+-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+-
+-**Describe the solution you'd like**
+-A clear and concise description of what you want to happen.
+-
+-**Describe alternatives you've considered**
+-A clear and concise description of any alternative solutions or features you've considered.
+-
+-**Additional context**
+-Add any other context or screenshots about the feature request here.
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/dependabot.yml b/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/dependabot.yml
+deleted file mode 100644
+index 0194d43c..00000000
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/dependabot.yml
++++ /dev/null
+@@ -1,24 +0,0 @@
+-json = {};
+-json.updates = [];
+-json.updates[0] = {};
+-json.updates[0].directory = "/";
+-json.updates[0].schedule = {};
+-json.updates[0].schedule.day = "monday";
+-json.updates[0].schedule.interval = "weekly";
+-json.updates[0].schedule.time = "06:00";
+-json.updates[0].schedule.timezone = "America/New_York";
+-json.updates[0]["commit-message"] = {};
+-json.updates[0]["commit-message"].prefix = "[github actions] ";
+-json.updates[0]["open-pull-requests-limit"] = 5;
+-json.updates[0]["package-ecosystem"] = "github-actions";
+-json.updates[1] = {};
+-json.updates[1].directory = "/";
+-json.updates[1].schedule = {};
+-json.updates[1].schedule.interval = "daily";
+-json.updates[1].schedule.time = "06:00";
+-json.updates[1].schedule.timezone = "America/New_York";
+-json.updates[1]["commit-message"] = {};
+-json.updates[1]["commit-message"].prefix = "[npm] ";
+-json.updates[1]["open-pull-requests-limit"] = 5;
+-json.updates[1]["package-ecosystem"] = "npm";
+-json.version = 2;
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/workflows/ci.yml b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/.github/workflows/ci.yml
+index 1c5292af..5834b384 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-v7nRfy/hume-typescript-sdk/.github/workflows/ci.yml
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/.github/workflows/ci.yml
+@@ -1,8 +1,6 @@
+ json = {};
+ json.jobs = {};
+ json.jobs.compile = {};
+-json.jobs.compile.permissions = {};
+-json.jobs.compile.permissions.contents = "read";
+ json.jobs.compile.steps = [];
+ json.jobs.compile.steps[0] = {};
+ json.jobs.compile.steps[0].name = "Checkout repo";
+@@ -10,8 +8,6 @@ json.jobs.compile.steps[0].uses = "actions/checkout@v4";
+ json.jobs.compile.steps[1] = {};
+ json.jobs.compile.steps[1].name = "Set up node";
+ json.jobs.compile.steps[1].uses = "actions/setup-node@v4";
+-json.jobs.compile.steps[1]["with"] = {};
+-json.jobs.compile.steps[1]["with"]["node-version"] = "18.18.0";
+ json.jobs.compile.steps[2] = {};
+ json.jobs.compile.steps[2].name = "Install pnpm";
+ json.jobs.compile.steps[2].uses = "pnpm/action-setup@v4";
+@@ -21,42 +17,8 @@ json.jobs.compile.steps[3].run = "pnpm install";
+ json.jobs.compile.steps[4] = {};
+ json.jobs.compile.steps[4].name = "Compile";
+ json.jobs.compile.steps[4].run = "pnpm build";
+-json.jobs.compile["if"] = "github.event_name == 'push'";
+ json.jobs.compile["runs-on"] = "ubuntu-latest";
+-json.jobs.publish = {};
+-json.jobs.publish.needs = [];
+-json.jobs.publish.needs[0] = "compile";
+-json.jobs.publish.needs[1] = "test";
+-json.jobs.publish.permissions = {};
+-json.jobs.publish.permissions.contents = "read";
+-json.jobs.publish.steps = [];
+-json.jobs.publish.steps[0] = {};
+-json.jobs.publish.steps[0].name = "Checkout repo";
+-json.jobs.publish.steps[0].uses = "actions/checkout@v4";
+-json.jobs.publish.steps[1] = {};
+-json.jobs.publish.steps[1].name = "Set up node";
+-json.jobs.publish.steps[1].uses = "actions/setup-node@v4";
+-json.jobs.publish.steps[1]["with"] = {};
+-json.jobs.publish.steps[1]["with"]["node-version"] = "18.18.0";
+-json.jobs.publish.steps[2] = {};
+-json.jobs.publish.steps[2].name = "Setup pnpm";
+-json.jobs.publish.steps[2].run = "npm install -g pnpm";
+-json.jobs.publish.steps[3] = {};
+-json.jobs.publish.steps[3].name = "Install dependencies";
+-json.jobs.publish.steps[3].run = "pnpm install";
+-json.jobs.publish.steps[4] = {};
+-json.jobs.publish.steps[4].name = "Build";
+-json.jobs.publish.steps[4].run = "pnpm build";
+-json.jobs.publish.steps[5] = {};
+-json.jobs.publish.steps[5].env = {};
+-json.jobs.publish.steps[5].env.NPM_TOKEN = "${{ secrets.NPM_TOKEN }}";
+-json.jobs.publish.steps[5].name = "Publish to npm";
+-json.jobs.publish.steps[5].run = "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}\nif [[ ${GITHUB_REF} == *alpha* ]]; then\n  npm publish --access public --tag alpha\nelif [[ ${GITHUB_REF} == *beta* ]]; then\n  npm publish --access public --tag beta\nelse\n  npm publish --access public\nfi\n";
+-json.jobs.publish["if"] = "github.event_name == 'push' && contains(github.ref, 'refs/tags/')";
+-json.jobs.publish["runs-on"] = "ubuntu-latest";
+ json.jobs.test = {};
+-json.jobs.test.permissions = {};
+-json.jobs.test.permissions.contents = "read";
+ json.jobs.test.steps = [];
+ json.jobs.test.steps[0] = {};
+ json.jobs.test.steps[0].name = "Checkout repo";
+@@ -64,8 +26,6 @@ json.jobs.test.steps[0].uses = "actions/checkout@v4";
+ json.jobs.test.steps[1] = {};
+ json.jobs.test.steps[1].name = "Set up node";
+ json.jobs.test.steps[1].uses = "actions/setup-node@v4";
+-json.jobs.test.steps[1]["with"] = {};
+-json.jobs.test.steps[1]["with"]["node-version"] = "18.18.0";
+ json.jobs.test.steps[2] = {};
+ json.jobs.test.steps[2].name = "Install pnpm";
+ json.jobs.test.steps[2].uses = "pnpm/action-setup@v4";
+@@ -73,60 +33,9 @@ json.jobs.test.steps[3] = {};
+ json.jobs.test.steps[3].name = "Install dependencies";
+ json.jobs.test.steps[3].run = "pnpm install";
+ json.jobs.test.steps[4] = {};
+-json.jobs.test.steps[4].name = "Check for formatting issues";
+-json.jobs.test.steps[4].run = "pnpm format:check";
+-json.jobs.test.steps[5] = {};
+-json.jobs.test.steps[5].name = "Run tests";
+-json.jobs.test.steps[5].run = "pnpm test --configLoader runner";
+-json.jobs.test["if"] = "github.event_name == 'push'";
++json.jobs.test.steps[4].name = "Test";
++json.jobs.test.steps[4].run = "pnpm test";
+ json.jobs.test["runs-on"] = "ubuntu-latest";
+-json.jobs["test-examples"] = {};
+-json.jobs["test-examples"].permissions = {};
+-json.jobs["test-examples"].permissions.contents = "read";
+-json.jobs["test-examples"].steps = [];
+-json.jobs["test-examples"].steps[0] = {};
+-json.jobs["test-examples"].steps[0].name = "Checkout SDK repo (PR branch)";
+-json.jobs["test-examples"].steps[0].uses = "actions/checkout@v4";
+-json.jobs["test-examples"].steps[0]["with"] = {};
+-json.jobs["test-examples"].steps[0]["with"].path = "sdk";
+-json.jobs["test-examples"].steps[0]["with"].ref = "${{ github.event.pull_request.head.sha || github.head_ref || github.ref }}";
+-json.jobs["test-examples"].steps[0]["with"]["fetch-depth"] = 0;
+-json.jobs["test-examples"].steps[1] = {};
+-json.jobs["test-examples"].steps[1].name = "Checkout examples repo";
+-json.jobs["test-examples"].steps[1].uses = "actions/checkout@v4";
+-json.jobs["test-examples"].steps[1]["with"] = {};
+-json.jobs["test-examples"].steps[1]["with"].path = "examples";
+-json.jobs["test-examples"].steps[1]["with"].repository = "humeai/hume-api-examples";
+-json.jobs["test-examples"].steps[2] = {};
+-json.jobs["test-examples"].steps[2].name = "Set up node";
+-json.jobs["test-examples"].steps[2].uses = "actions/setup-node@v4";
+-json.jobs["test-examples"].steps[2]["with"] = {};
+-json.jobs["test-examples"].steps[2]["with"]["node-version"] = "18.18.0";
+-json.jobs["test-examples"].steps[3] = {};
+-json.jobs["test-examples"].steps[3].name = "Install pnpm";
+-json.jobs["test-examples"].steps[3].uses = "pnpm/action-setup@v4";
+-json.jobs["test-examples"].steps[3]["with"] = {};
+-json.jobs["test-examples"].steps[3]["with"].version = "10.20.0";
+-json.jobs["test-examples"].steps[4] = {};
+-json.jobs["test-examples"].steps[4].name = "Build SDK";
+-json.jobs["test-examples"].steps[4].run = "echo \"=== SDK Build Info ===\"\necho \"Branch: ${{ github.head_ref || github.ref_name || 'unknown' }}\"\necho \"Ref: ${{ github.event.pull_request.head.sha || github.head_ref || github.ref }}\"\necho \"Commit SHA: $(git rev-parse HEAD)\"\necho \"Branch name: $(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'detached')\"\necho \"======================\"\npnpm install\npnpm build\necho \"SDK version from package.json: $(node -p \"require('./package.json').version\")\"\n";
+-json.jobs["test-examples"].steps[4]["working-directory"] = "./sdk";
+-json.jobs["test-examples"].steps[5] = {};
+-json.jobs["test-examples"].steps[5].name = "Link SDK to examples";
+-json.jobs["test-examples"].steps[5].run = "cd ./sdk\nSDK_VERSION=$(node -p \"require('./package.json').version\")\nSDK_PATH=$(pwd)\necho \"=== Linking SDK ===\"\necho \"SDK version: $SDK_VERSION\"\necho \"SDK path: $SDK_PATH\"\npnpm link --global\ncd ../examples/evi/evi-typescript-quickstart\npnpm install --no-frozen-lockfile\npnpm remove hume || true\npnpm link hume\necho \"\"\necho \"=== Verifying Linked SDK ===\"\nif [ -L node_modules/hume ]; then\n  LINK_TARGET=$(readlink -f node_modules/hume)\n  echo \"✓ node_modules/hume is a symlink\"\n  echo \"  Link target: $LINK_TARGET\"\n  if [[ \"$LINK_TARGET\" == *\"$SDK_PATH\"* ]] || [[ \"$LINK_TARGET\" == *\"global\"* ]]; then\n    echo \"✓ Link points to local SDK (not npm package)\"\n  else\n    echo \"✗ WARNING: Link may not point to local SDK\"\n  fi\nelse\n  echo \"✗ ERROR: node_modules/hume is NOT a symlink - using npm package!\"\n  exit 1\nfi\nINSTALLED_VERSION=$(node -p \"require('hume/package.json').version\")\necho \"Installed hume version: $INSTALLED_VERSION\"\nif [ \"$INSTALLED_VERSION\" != \"$SDK_VERSION\" ]; then\n  echo \"✗ WARNING: Version mismatch! Expected $SDK_VERSION, got $INSTALLED_VERSION\"\nelse\n  echo \"✓ Version matches: $INSTALLED_VERSION\"\nfi\necho \"====================\"\n";
+-json.jobs["test-examples"].steps[6] = {};
+-json.jobs["test-examples"].steps[6].env = {};
+-json.jobs["test-examples"].steps[6].env.TEST_HUME_API_KEY = "${{ secrets.TEST_HUME_API_KEY }}";
+-json.jobs["test-examples"].steps[6].name = "Run example evi-typescript-quickstart";
+-json.jobs["test-examples"].steps[6].run = "pnpm run test";
+-json.jobs["test-examples"].steps[6]["working-directory"] = "./examples/evi/evi-typescript-quickstart";
+-json.jobs["test-examples"]["if"] = "github.event_name == 'pull_request' || github.event_name == 'push'";
+-json.jobs["test-examples"]["runs-on"] = "ubuntu-latest";
+ json.name = "ci";
+-json.on = {};
+-json.on.pull_request = {};
+-json.on.pull_request.types = [];
+-json.on.pull_request.types[0] = "synchronize";
+-json.on.pull_request.types[1] = "reopened";
+-json.on.pull_request.types[2] = "ready_for_review";
+-json.on.push = null;
++json.on = [];
++json.on[0] = "push";
