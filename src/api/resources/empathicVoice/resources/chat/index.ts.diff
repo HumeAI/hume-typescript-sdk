@@ -1,0 +1,13 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/api/resources/empathicVoice/resources/chat/index.ts b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/api/resources/empathicVoice/resources/chat/index.ts
+index a2f33dc7..d9adb1af 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/api/resources/empathicVoice/resources/chat/index.ts
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/api/resources/empathicVoice/resources/chat/index.ts
+@@ -1,7 +1,2 @@
+-export * from "./types/index.js";
+ export * from "./client/index.js";
+-/**
+- * @deprecated Use `Hume.empathicVoice.SubscribeEvent` instead.
+- * This type alias will be removed in a future version.
+- */
+-export type { SubscribeEvent } from "./types/SubscribeEvent.js";
++export * from "./types/index.js";

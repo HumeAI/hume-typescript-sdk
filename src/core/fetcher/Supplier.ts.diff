@@ -1,0 +1,26 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/core/fetcher/Supplier.ts b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/core/fetcher/Supplier.ts
+index aa95dd85..867c931c 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/core/fetcher/Supplier.ts
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/core/fetcher/Supplier.ts
+@@ -1,19 +1,11 @@
+-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+-export type Supplier<T> = T | (() => T);
++export type Supplier<T> = T | Promise<T> | (() => T | Promise<T>);
+ 
+ export const Supplier = {
+-    get: <T>(supplier: Supplier<T>): T => {
++    get: async <T>(supplier: Supplier<T>): Promise<T> => {
+         if (typeof supplier === "function") {
+             return (supplier as () => T)();
+         } else {
+             return supplier;
+         }
+     },
+-    map: <T, U, R = U>(supplier: Supplier<T>, f: (value: T) => R): Supplier<R> => {
+-        if (typeof supplier === "function") {
+-            return () => f(Supplier.get(supplier));
+-        } else {
+-            return f(supplier);
+-        }
+-    },
+ };

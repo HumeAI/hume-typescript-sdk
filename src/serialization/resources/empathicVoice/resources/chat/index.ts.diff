@@ -1,0 +1,12 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/serialization/resources/empathicVoice/resources/chat/index.ts b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/serialization/resources/empathicVoice/resources/chat/index.ts
+index f5ca113c..d9adb1af 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/serialization/resources/empathicVoice/resources/chat/index.ts
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/serialization/resources/empathicVoice/resources/chat/index.ts
+@@ -1,7 +1,2 @@
+ export * from "./client/index.js";
+ export * from "./types/index.js";
+-/**
+- * @deprecated Use `serialization.empathicVoice.SubscribeEvent` instead.
+- * This serializer alias will be removed in a future version.
+- */
+-export { SubscribeEvent } from "./types/SubscribeEvent.js";

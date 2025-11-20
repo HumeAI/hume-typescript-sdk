@@ -1,0 +1,17 @@
+diff --git a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/index.ts b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/index.ts
+index 4d199020..c814670b 100644
+--- a/var/folders/5_/tlgrkrq92pv1mxbrp9y7v3h80000gn/T/fern-generate-TCUT3z/hume-typescript-sdk/src/index.ts
++++ b/Users/twitchard/dev/fern-config/fern/apis/unioned/.preview/fern-typescript-node-sdk/src/index.ts
+@@ -1,8 +1,7 @@
+ export * as Hume from "./api/index.js";
+-export * as serialization from "./serialization/index.js";
++export type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
++export { HumeClient } from "./Client.js";
++export { HumeEnvironment, type HumeEnvironmentUrls } from "./environments.js";
+ export { HumeError, HumeTimeoutError } from "./errors/index.js";
+-export { HumeEnvironment } from "./environments.js";
+-export type { HumeEnvironmentUrls } from "./environments.js";
+ export * from "./exports.js";
+-
+-export * from "./wrapper/index.js";
++export * as serialization from "./serialization/index.js";
