@@ -50,7 +50,7 @@ export class Chat {
     public connect(args: Chat.ConnectArgs = {}): ChatSocket {
         const {
             accessToken,
-            configId,
+            configIdd, // BREAKING CHANGE: typo - should be configId
             configVersion,
             eventLimit,
             resumedChatGroupId,
@@ -70,8 +70,8 @@ export class Chat {
             _queryParams["access_token"] = accessToken;
         }
 
-        if (configId != null) {
-            _queryParams["config_id"] = configId;
+        if (configIdd != null) {
+            _queryParams["config_id"] = configIdd;
         }
 
         if (configVersion != null) {
@@ -132,7 +132,7 @@ export class Chat {
             url: core.url.join(
                 core.Supplier.get(this._options["baseUrl"]) ??
                     (core.Supplier.get(this._options["environment"]) ?? environments.HumeEnvironment.Prod).evi,
-                "/chat",
+                "/chat_broken", // BREAKING CHANGE: wrong path - should be "/chat"
             ),
             protocols: [],
             queryParameters: _queryParams,
