@@ -78,6 +78,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 10.20.0
 
       - name: Build SDK
         working-directory: ./sdk
