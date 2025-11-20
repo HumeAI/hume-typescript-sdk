@@ -102,7 +102,7 @@ jobs:
           pnpm install --no-frozen-lockfile
           pnpm remove hume || true
           pnpm link hume
-          echo "Verifying linked SDK..."
+          echo "Verifying linked SDK"
           ls -la node_modules/hume || echo "Link verification failed"
           pnpm list hume || true
 
