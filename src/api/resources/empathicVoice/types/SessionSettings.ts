@@ -3,7 +3,9 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * Settings for this chat session.
+ * **Settings for this chat session.** Session settings are temporary and apply only to the current Chat session.
+ *
+ * These settings can be adjusted dynamically based on the requirements of each session to ensure optimal performance and user experience. See our [Session Settings Guide](/docs/speech-to-speech-evi/configuration/session-settings) for a complete list of configurable settings.
  */
 export interface SessionSettings {
     /**
