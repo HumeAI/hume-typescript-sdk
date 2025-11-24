@@ -449,7 +449,9 @@ describe("Configs", () => {
                 },
             ],
         };
-        const page = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+        const page = await client.empathicVoice.configs.listConfigVersions({
+            id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+        });
 
         expect(expected.configsPage).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -468,7 +470,9 @@ describe("Configs", () => {
         server.mockEndpoint().get("/v0/evi/configs/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.empathicVoice.configs.listConfigVersions("id");
+            return await client.empathicVoice.configs.listConfigVersions({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -533,43 +537,41 @@ describe("Configs", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.configs.createConfigVersion(
-            "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
-            {
-                versionDescription: "This is an updated version of the Weather Assistant Config.",
-                eviVersion: "3",
-                prompt: {
-                    id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
-                    version: 0,
+        const response = await client.empathicVoice.configs.createConfigVersion({
+            id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+            versionDescription: "This is an updated version of the Weather Assistant Config.",
+            eviVersion: "3",
+            prompt: {
+                id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+                version: 0,
+            },
+            voice: {
+                provider: "HUME_AI",
+                name: "Ava Song",
+            },
+            languageModel: {
+                modelProvider: "ANTHROPIC",
+                modelResource: "claude-3-7-sonnet-latest",
+                temperature: 1,
+            },
+            ellmModel: {
+                allowShortResponses: true,
+            },
+            eventMessages: {
+                onNewChat: {
+                    enabled: false,
+                    text: "",
                 },
-                voice: {
-                    provider: "HUME_AI",
-                    name: "Ava Song",
+                onInactivityTimeout: {
+                    enabled: false,
+                    text: "",
                 },
-                languageModel: {
-                    modelProvider: "ANTHROPIC",
-                    modelResource: "claude-3-7-sonnet-latest",
-                    temperature: 1,
-                },
-                ellmModel: {
-                    allowShortResponses: true,
-                },
-                eventMessages: {
-                    onNewChat: {
-                        enabled: false,
-                        text: "",
-                    },
-                    onInactivityTimeout: {
-                        enabled: false,
-                        text: "",
-                    },
-                    onMaxDurationTimeout: {
-                        enabled: false,
-                        text: "",
-                    },
+                onMaxDurationTimeout: {
+                    enabled: false,
+                    text: "",
                 },
             },
-        );
+        });
         expect(response).toEqual({
             id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
             version: 1,
@@ -648,7 +650,8 @@ describe("Configs", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.configs.createConfigVersion("id", {
+            return await client.empathicVoice.configs.createConfigVersion({
+                id: "id",
                 eviVersion: "evi_version",
             });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
@@ -668,7 +671,9 @@ describe("Configs", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+        const response = await client.empathicVoice.configs.deleteConfig({
+            id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -689,7 +694,9 @@ describe("Configs", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.configs.deleteConfig("id");
+            return await client.empathicVoice.configs.deleteConfig({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -741,7 +748,10 @@ describe("Configs", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1);
+        const response = await client.empathicVoice.configs.getConfigVersion({
+            id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+            version: 1,
+        });
         expect(response).toEqual({
             id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
             version: 1,
@@ -819,7 +829,10 @@ describe("Configs", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.configs.getConfigVersion("id", 1);
+            return await client.empathicVoice.configs.getConfigVersion({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -837,10 +850,10 @@ describe("Configs", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.configs.deleteConfigVersion(
-            "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
-            1,
-        );
+        const response = await client.empathicVoice.configs.deleteConfigVersion({
+            id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+            version: 1,
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -861,7 +874,10 @@ describe("Configs", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.configs.deleteConfigVersion("id", 1);
+            return await client.empathicVoice.configs.deleteConfigVersion({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -914,13 +930,11 @@ describe("Configs", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.configs.updateConfigDescription(
-            "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
-            1,
-            {
-                versionDescription: "This is an updated version_description.",
-            },
-        );
+        const response = await client.empathicVoice.configs.updateConfigDescription({
+            id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+            version: 1,
+            versionDescription: "This is an updated version_description.",
+        });
         expect(response).toEqual({
             id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
             version: 1,
@@ -999,7 +1013,10 @@ describe("Configs", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.configs.updateConfigDescription("id", 1);
+            return await client.empathicVoice.configs.updateConfigDescription({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 });

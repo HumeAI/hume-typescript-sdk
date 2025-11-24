@@ -9,12 +9,12 @@ export const ReturnNudgeSpec: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnNudgeSpec
 > = core.serialization.object({
     enabled: core.serialization.boolean(),
-    intervalSecs: core.serialization.property("interval_secs", core.serialization.number().optional()),
+    intervalSecs: core.serialization.property("interval_secs", core.serialization.number().optionalNullable()),
 });
 
 export declare namespace ReturnNudgeSpec {
     export interface Raw {
         enabled: boolean;
-        interval_secs?: number | null;
+        interval_secs?: (number | null | undefined) | null;
     }
 }

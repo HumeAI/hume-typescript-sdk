@@ -11,11 +11,11 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnChatEvent
 > = core.serialization.object({
     chatId: core.serialization.property("chat_id", core.serialization.string()),
-    emotionFeatures: core.serialization.property("emotion_features", core.serialization.string().optional()),
+    emotionFeatures: core.serialization.property("emotion_features", core.serialization.string().optionalNullable()),
     id: core.serialization.string(),
-    messageText: core.serialization.property("message_text", core.serialization.string().optional()),
-    metadata: core.serialization.string().optional(),
-    relatedEventId: core.serialization.property("related_event_id", core.serialization.string().optional()),
+    messageText: core.serialization.property("message_text", core.serialization.string().optionalNullable()),
+    metadata: core.serialization.string().optionalNullable(),
+    relatedEventId: core.serialization.property("related_event_id", core.serialization.string().optionalNullable()),
     role: ReturnChatEventRole,
     timestamp: core.serialization.number(),
     type: ReturnChatEventType,
@@ -24,11 +24,11 @@ export const ReturnChatEvent: core.serialization.ObjectSchema<
 export declare namespace ReturnChatEvent {
     export interface Raw {
         chat_id: string;
-        emotion_features?: string | null;
+        emotion_features?: (string | null | undefined) | null;
         id: string;
-        message_text?: string | null;
-        metadata?: string | null;
-        related_event_id?: string | null;
+        message_text?: (string | null | undefined) | null;
+        metadata?: (string | null | undefined) | null;
+        related_event_id?: (string | null | undefined) | null;
         role: ReturnChatEventRole.Raw;
         timestamp: number;
         type: ReturnChatEventType.Raw;

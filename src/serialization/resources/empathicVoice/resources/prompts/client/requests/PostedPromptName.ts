@@ -6,7 +6,7 @@ import type * as serializers from "../../../../../../index.js";
 
 export const PostedPromptName: core.serialization.Schema<
     serializers.empathicVoice.PostedPromptName.Raw,
-    Hume.empathicVoice.PostedPromptName
+    Omit<Hume.empathicVoice.PostedPromptName, "id">
 > = core.serialization.object({
     name: core.serialization.string(),
 });

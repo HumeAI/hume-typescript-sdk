@@ -6,7 +6,7 @@ export interface StreamModelPredictionsFacePredictionsItem {
     /** Frame number */
     frame?: number;
     /** Time in seconds when face detection occurred. */
-    time?: number;
+    time?: number | null;
     bbox?: Hume.expressionMeasurement.stream.StreamBoundingBox;
     /** The predicted probability that a detected face was actually a face. */
     prob?: number;

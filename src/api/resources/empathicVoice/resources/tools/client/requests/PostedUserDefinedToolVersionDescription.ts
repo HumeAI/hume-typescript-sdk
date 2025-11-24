@@ -3,10 +3,22 @@
 /**
  * @example
  *     {
+ *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
+ *         version: 1,
  *         versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
  *     }
  */
 export interface PostedUserDefinedToolVersionDescription {
+    /** Identifier for a Tool. Formatted as a UUID. */
+    id: string;
+    /**
+     * Version number for a Tool.
+     *
+     * Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *
+     * Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+     */
+    version: number;
     /** An optional description of the Tool version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

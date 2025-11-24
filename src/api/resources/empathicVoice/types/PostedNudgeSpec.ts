@@ -5,7 +5,7 @@
  */
 export interface PostedNudgeSpec {
     /** If true, EVI will 'nudge' the user to speak after a determined interval of silence. */
-    enabled?: boolean;
+    enabled?: boolean | null;
     /** The interval of inactivity (in seconds) before a nudge is triggered. */
-    intervalSecs?: number;
+    intervalSecs?: number | null;
 }

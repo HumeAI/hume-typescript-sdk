@@ -8,13 +8,13 @@ export const PostedTimeoutSpecsMaxDuration: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedTimeoutSpecsMaxDuration.Raw,
     Hume.empathicVoice.PostedTimeoutSpecsMaxDuration
 > = core.serialization.object({
-    durationSecs: core.serialization.property("duration_secs", core.serialization.number().optional()),
+    durationSecs: core.serialization.property("duration_secs", core.serialization.number().optionalNullable()),
     enabled: core.serialization.boolean(),
 });
 
 export declare namespace PostedTimeoutSpecsMaxDuration {
     export interface Raw {
-        duration_secs?: number | null;
+        duration_secs?: (number | null | undefined) | null;
         enabled: boolean;
     }
 }

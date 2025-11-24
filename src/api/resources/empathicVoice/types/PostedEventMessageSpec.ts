@@ -11,5 +11,5 @@ export interface PostedEventMessageSpec {
      */
     enabled: boolean;
     /** Text to use as the event message when the corresponding event occurs. If no text is specified, EVI will generate an appropriate message based on its current context and the system prompt. */
-    text?: string;
+    text?: string | null;
 }

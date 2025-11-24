@@ -25,21 +25,21 @@ export class Batch {
     /**
      * Sort and filter jobs.
      *
-     * @param {Hume.expressionMeasurement.batch.BatchListJobsRequest} request
+     * @param {Hume.expressionMeasurement.batch.ListJobsBatchRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await client.expressionMeasurement.batch.listJobs()
      */
     public listJobs(
-        request: Hume.expressionMeasurement.batch.BatchListJobsRequest = {},
+        request: Hume.expressionMeasurement.batch.ListJobsBatchRequest = {},
         requestOptions?: Batch.RequestOptions,
     ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.UnionJob[]> {
         return core.HttpResponsePromise.fromPromise(this.__listJobs(request, requestOptions));
     }
 
     private async __listJobs(
-        request: Hume.expressionMeasurement.batch.BatchListJobsRequest = {},
+        request: Hume.expressionMeasurement.batch.ListJobsBatchRequest = {},
         requestOptions?: Batch.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionJob[]>> {
         const { limit, status, when, timestampMs, sortBy, direction } = request;
@@ -237,23 +237,26 @@ export class Batch {
     /**
      * Get the request details and state of a given job.
      *
-     * @param {string} id - The unique identifier for the job.
+     * @param {Hume.expressionMeasurement.batch.GetJobDetailsBatchRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.expressionMeasurement.batch.getJobDetails("job_id")
+     *     await client.expressionMeasurement.batch.getJobDetails({
+     *         id: "job_id"
+     *     })
      */
     public getJobDetails(
-        id: string,
+        request: Hume.expressionMeasurement.batch.GetJobDetailsBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.UnionJob> {
-        return core.HttpResponsePromise.fromPromise(this.__getJobDetails(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getJobDetails(request, requestOptions));
     }
 
     private async __getJobDetails(
-        id: string,
+        request: Hume.expressionMeasurement.batch.GetJobDetailsBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionJob>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -315,23 +318,26 @@ export class Batch {
     /**
      * Get the JSON predictions of a completed inference job.
      *
-     * @param {string} id - The unique identifier for the job.
+     * @param {Hume.expressionMeasurement.batch.GetJobPredictionsBatchRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.expressionMeasurement.batch.getJobPredictions("job_id")
+     *     await client.expressionMeasurement.batch.getJobPredictions({
+     *         id: "job_id"
+     *     })
      */
     public getJobPredictions(
-        id: string,
+        request: Hume.expressionMeasurement.batch.GetJobPredictionsBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.UnionPredictResult[]> {
-        return core.HttpResponsePromise.fromPromise(this.__getJobPredictions(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getJobPredictions(request, requestOptions));
     }
 
     private async __getJobPredictions(
-        id: string,
+        request: Hume.expressionMeasurement.batch.GetJobPredictionsBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionPredictResult[]>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -394,16 +400,17 @@ export class Batch {
      * Get the artifacts ZIP of a completed inference job.
      */
     public getJobArtifacts(
-        id: string,
+        request: Hume.expressionMeasurement.batch.GetJobArtifactsBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): core.HttpResponsePromise<core.BinaryResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getJobArtifacts(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getJobArtifacts(request, requestOptions));
     }
 
     private async __getJobArtifacts(
-        id: string,
+        request: Hume.expressionMeasurement.batch.GetJobArtifactsBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -457,7 +464,7 @@ export class Batch {
     /**
      * Start a new batch inference job.
      *
-     * @param {Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest} request
+     * @param {Hume.expressionMeasurement.batch.StartInferenceJobFromLocalFileBatchRequest} request
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -467,14 +474,14 @@ export class Batch {
      *     })
      */
     public startInferenceJobFromLocalFile(
-        request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
+        request: Hume.expressionMeasurement.batch.StartInferenceJobFromLocalFileBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): core.HttpResponsePromise<Hume.expressionMeasurement.batch.JobId> {
         return core.HttpResponsePromise.fromPromise(this.__startInferenceJobFromLocalFile(request, requestOptions));
     }
 
     private async __startInferenceJobFromLocalFile(
-        request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
+        request: Hume.expressionMeasurement.batch.StartInferenceJobFromLocalFileBatchRequest,
         requestOptions?: Batch.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.JobId>> {
         const _request = await core.newFormData();

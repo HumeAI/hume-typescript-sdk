@@ -7,7 +7,7 @@ import type * as Hume from "../../../index.js";
  */
 export interface ToolCallMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
+    customSessionId?: string | null;
     /** Name of the tool called. */
     name: string;
     /** Parameters of the tool call. Is a stringified JSON schema. */
@@ -27,5 +27,5 @@ export interface ToolCallMessage {
      *
      * This message indicates that the supplemental LLM has detected a need to invoke the specified tool.
      */
-    type?: "tool_call";
+    type?: Hume.empathicVoice.ToolCallMessageType;
 }

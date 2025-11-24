@@ -9,9 +9,9 @@ export interface ReturnUserDefinedTool {
     /** Time at which the Tool was created. Measured in seconds since the Unix epoch. */
     createdOn: number;
     /** An optional description of what the Tool does, used by the supplemental LLM to choose when and how to call the function. */
-    description?: string;
+    description?: string | null;
     /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
-    fallbackContent?: string;
+    fallbackContent?: string | null;
     /** Identifier for a Tool. Formatted as a UUID. */
     id: string;
     /** Time at which the Tool was last modified. Measured in seconds since the Unix epoch. */
@@ -35,7 +35,7 @@ export interface ReturnUserDefinedTool {
      */
     version: number;
     /** An optional description of the Tool version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
     /** Versioning method for a Tool. Either `FIXED` for using a fixed version number or `LATEST` for auto-updating to the latest version. */
     versionType: Hume.empathicVoice.ReturnUserDefinedToolVersionType;
 }

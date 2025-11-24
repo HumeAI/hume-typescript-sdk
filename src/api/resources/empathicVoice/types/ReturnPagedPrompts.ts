@@ -19,7 +19,7 @@ export interface ReturnPagedPrompts {
      */
     pageSize: number;
     /** List of prompts returned for the specified `page_number` and `page_size`. */
-    promptsPage: (Hume.empathicVoice.ReturnPrompt | undefined)[];
+    promptsPage: (Hume.empathicVoice.ReturnPrompt | null)[];
     /** The total number of pages in the collection. */
     totalPages: number;
 }

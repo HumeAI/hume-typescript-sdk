@@ -14,7 +14,7 @@ export interface Snippet {
     /** A list of word or phoneme level timestamps for the generated audio. Timestamps are only returned for Octave 2 requests. */
     timestamps: Hume.tts.Timestamp[];
     /** The transcribed text of the generated audio. It is only present if `instant_mode` is set to `false`. */
-    transcribedText?: string;
+    transcribedText: string | null;
     /** The index of the utterance in the request this snippet corresponds to. */
-    utteranceIndex?: number;
+    utteranceIndex: number | null;
 }

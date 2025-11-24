@@ -21,8 +21,11 @@ describe("ControlPlane", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.controlPlane.send("chat_id", {
-            type: "session_settings",
+        const response = await client.empathicVoice.controlPlane.send({
+            chatId: "chat_id",
+            body: {
+                type: "session_settings",
+            },
         });
         expect(response).toEqual(undefined);
     });
@@ -45,8 +48,11 @@ describe("ControlPlane", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.controlPlane.send("chat_id", {
-                type: "session_settings",
+            return await client.empathicVoice.controlPlane.send({
+                chatId: "chat_id",
+                body: {
+                    type: "session_settings",
+                },
             });
         }).rejects.toThrow(Hume.empathicVoice.UnprocessableEntityError);
     });

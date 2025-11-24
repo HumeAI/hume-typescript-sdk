@@ -1,6 +1,9 @@
+export type { DeletePromptPromptsRequest } from "./DeletePromptPromptsRequest.js";
+export type { DeletePromptVersionPromptsRequest } from "./DeletePromptVersionPromptsRequest.js";
+export type { GetPromptVersionPromptsRequest } from "./GetPromptVersionPromptsRequest.js";
+export type { ListPromptsPromptsRequest } from "./ListPromptsPromptsRequest.js";
+export type { ListPromptVersionsPromptsRequest } from "./ListPromptVersionsPromptsRequest.js";
 export type { PostedPrompt } from "./PostedPrompt.js";
 export type { PostedPromptName } from "./PostedPromptName.js";
 export type { PostedPromptVersion } from "./PostedPromptVersion.js";
 export type { PostedPromptVersionDescription } from "./PostedPromptVersionDescription.js";
-export type { PromptsListPromptsRequest } from "./PromptsListPromptsRequest.js";
-export type { PromptsListPromptVersionsRequest } from "./PromptsListPromptVersionsRequest.js";

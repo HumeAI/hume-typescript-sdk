@@ -14,7 +14,10 @@ export const ReturnPrompt: core.serialization.ObjectSchema<
     name: core.serialization.string(),
     text: core.serialization.string(),
     version: core.serialization.number(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
     versionType: core.serialization.property("version_type", core.serialization.string()),
 });
 
@@ -26,7 +29,7 @@ export declare namespace ReturnPrompt {
         name: string;
         text: string;
         version: number;
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
         version_type: string;
     }
 }

@@ -3,6 +3,7 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { ToolResponseMessageType } from "./ToolResponseMessageType.js";
 import { ToolType } from "./ToolType.js";
 
 export const ToolResponseMessage: core.serialization.ObjectSchema<
@@ -10,20 +11,20 @@ export const ToolResponseMessage: core.serialization.ObjectSchema<
     Hume.empathicVoice.ToolResponseMessage
 > = core.serialization.object({
     content: core.serialization.string(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
-    toolName: core.serialization.property("tool_name", core.serialization.string().optional()),
-    toolType: core.serialization.property("tool_type", ToolType.optional()),
-    type: core.serialization.stringLiteral("tool_response"),
+    toolName: core.serialization.property("tool_name", core.serialization.string().optionalNullable()),
+    toolType: core.serialization.property("tool_type", ToolType.optionalNullable()),
+    type: ToolResponseMessageType,
 });
 
 export declare namespace ToolResponseMessage {
     export interface Raw {
         content: string;
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         tool_call_id: string;
-        tool_name?: string | null;
-        tool_type?: ToolType.Raw | null;
-        type: "tool_response";
+        tool_name?: (string | null | undefined) | null;
+        tool_type?: (ToolType.Raw | null | undefined) | null;
+        type: ToolResponseMessageType.Raw;
     }
 }

@@ -6,6 +6,7 @@ export * from "./chats/client/requests/index.js";
 export * as chats from "./chats/index.js";
 export * from "./configs/client/requests/index.js";
 export * as configs from "./configs/index.js";
+export * from "./controlPlane/client/requests/index.js";
 export * as controlPlane from "./controlPlane/index.js";
 export * from "./prompts/client/requests/index.js";
 export * as prompts from "./prompts/index.js";

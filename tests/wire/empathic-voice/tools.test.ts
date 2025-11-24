@@ -257,7 +257,9 @@ describe("Tools", () => {
                 },
             ],
         };
-        const page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+        const page = await client.empathicVoice.tools.listToolVersions({
+            id: "00183a3f-79ba-413d-9f3b-609864268bea",
+        });
 
         expect(expected.toolsPage).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -276,7 +278,9 @@ describe("Tools", () => {
         server.mockEndpoint().get("/v0/evi/tools/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.empathicVoice.tools.listToolVersions("id");
+            return await client.empathicVoice.tools.listToolVersions({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -318,7 +322,8 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+        const response = await client.empathicVoice.tools.createToolVersion({
+            id: "00183a3f-79ba-413d-9f3b-609864268bea",
             parameters:
                 '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
             versionDescription:
@@ -361,7 +366,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.tools.createToolVersion("id", {
+            return await client.empathicVoice.tools.createToolVersion({
+                id: "id",
                 parameters: "parameters",
             });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
@@ -381,7 +387,9 @@ describe("Tools", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
+        const response = await client.empathicVoice.tools.deleteTool({
+            id: "00183a3f-79ba-413d-9f3b-609864268bea",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -402,7 +410,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.tools.deleteTool("id");
+            return await client.empathicVoice.tools.deleteTool({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -436,7 +446,10 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+        const response = await client.empathicVoice.tools.getToolVersion({
+            id: "00183a3f-79ba-413d-9f3b-609864268bea",
+            version: 1,
+        });
         expect(response).toEqual({
             toolType: "FUNCTION",
             id: "00183a3f-79ba-413d-9f3b-609864268bea",
@@ -471,7 +484,10 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.tools.getToolVersion("id", 1);
+            return await client.empathicVoice.tools.getToolVersion({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -489,7 +505,10 @@ describe("Tools", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+        const response = await client.empathicVoice.tools.deleteToolVersion({
+            id: "00183a3f-79ba-413d-9f3b-609864268bea",
+            version: 1,
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -510,7 +529,10 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.tools.deleteToolVersion("id", 1);
+            return await client.empathicVoice.tools.deleteToolVersion({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -548,14 +570,12 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.tools.updateToolDescription(
-            "00183a3f-79ba-413d-9f3b-609864268bea",
-            1,
-            {
-                versionDescription:
-                    "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
-            },
-        );
+        const response = await client.empathicVoice.tools.updateToolDescription({
+            id: "00183a3f-79ba-413d-9f3b-609864268bea",
+            version: 1,
+            versionDescription:
+                "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
+        });
         expect(response).toEqual({
             toolType: "FUNCTION",
             id: "00183a3f-79ba-413d-9f3b-609864268bea",
@@ -591,7 +611,10 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.tools.updateToolDescription("id", 1);
+            return await client.empathicVoice.tools.updateToolDescription({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 });

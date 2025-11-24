@@ -3,23 +3,24 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { AssistantProsodyType } from "./AssistantProsodyType.js";
 import { Inference } from "./Inference.js";
 
 export const AssistantProsody: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantProsody.Raw,
     Hume.empathicVoice.AssistantProsody
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     id: core.serialization.string().optional(),
     models: Inference,
-    type: core.serialization.stringLiteral("assistant_prosody"),
+    type: AssistantProsodyType,
 });
 
 export declare namespace AssistantProsody {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         id?: string | null;
         models: Inference.Raw;
-        type: "assistant_prosody";
+        type: AssistantProsodyType.Raw;
     }
 }

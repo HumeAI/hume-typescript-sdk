@@ -1,4 +1,4 @@
-export type { ChatGroupsGetAudioRequest } from "./ChatGroupsGetAudioRequest.js";
-export type { ChatGroupsGetChatGroupRequest } from "./ChatGroupsGetChatGroupRequest.js";
-export type { ChatGroupsListChatGroupEventsRequest } from "./ChatGroupsListChatGroupEventsRequest.js";
-export type { ChatGroupsListChatGroupsRequest } from "./ChatGroupsListChatGroupsRequest.js";
+export type { GetAudioChatGroupsRequest } from "./GetAudioChatGroupsRequest.js";
+export type { GetChatGroupChatGroupsRequest } from "./GetChatGroupChatGroupsRequest.js";
+export type { ListChatGroupEventsChatGroupsRequest } from "./ListChatGroupEventsChatGroupsRequest.js";
+export type { ListChatGroupsChatGroupsRequest } from "./ListChatGroupsChatGroupsRequest.js";

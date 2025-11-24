@@ -9,7 +9,7 @@ import type * as Hume from "../../../index.js";
  */
 export interface UserMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
+    customSessionId?: string | null;
     /** Indicates if this message was inserted into the conversation as text from a [User Input](/reference/speech-to-speech-evi/chat#send.UserInput.text) message. */
     fromText: boolean;
     /**
@@ -22,7 +22,7 @@ export interface UserMessage {
      */
     interim: boolean;
     /** Detected language of the message text. */
-    language?: string;
+    language?: string | null;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */
@@ -34,5 +34,5 @@ export interface UserMessage {
      *
      * This message contains both a transcript of the user's input and the expression measurement predictions if the input was sent as an [Audio Input message](/reference/speech-to-speech-evi/chat#send.AudioInput). Expression measurement predictions are not provided for a [User Input message](/reference/speech-to-speech-evi/chat#send.UserInput), as the prosody model relies on audio input and cannot process text alone.
      */
-    type: "user_message";
+    type: Hume.empathicVoice.UserMessageType;
 }

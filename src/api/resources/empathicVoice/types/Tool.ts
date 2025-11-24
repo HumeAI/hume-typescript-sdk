@@ -4,9 +4,9 @@ import type * as Hume from "../../../index.js";
 
 export interface Tool {
     /** An optional description of what the tool does, used by the supplemental LLM to choose when and how to call the function. */
-    description?: string;
+    description?: string | null;
     /** Optional text passed to the supplemental LLM if the tool call fails. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation. */
-    fallbackContent?: string;
+    fallbackContent?: string | null;
     /** Name of the user-defined tool to be enabled. */
     name: string;
     /**

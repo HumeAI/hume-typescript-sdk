@@ -3,10 +3,22 @@
 /**
  * @example
  *     {
+ *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+ *         version: 1,
  *         versionDescription: "This is an updated version_description."
  *     }
  */
 export interface PostedPromptVersionDescription {
+    /** Identifier for a Prompt. Formatted as a UUID. */
+    id: string;
+    /**
+     * Version number for a Prompt.
+     *
+     * Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     * Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+     */
+    version: number;
     /** An optional description of the Prompt version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

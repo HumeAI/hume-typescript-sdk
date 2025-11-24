@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
+ *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
  *         name: "Updated Weather Assistant Config Name"
  *     }
  */
 export interface PostedConfigName {
+    /** Identifier for a Config. Formatted as a UUID. */
+    id: string;
     /** Name applied to all versions of a particular Config. */
     name: string;
 }

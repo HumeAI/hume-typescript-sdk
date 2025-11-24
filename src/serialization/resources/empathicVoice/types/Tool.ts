@@ -7,8 +7,11 @@ import { ToolType } from "./ToolType.js";
 
 export const Tool: core.serialization.ObjectSchema<serializers.empathicVoice.Tool.Raw, Hume.empathicVoice.Tool> =
     core.serialization.object({
-        description: core.serialization.string().optional(),
-        fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+        description: core.serialization.string().optionalNullable(),
+        fallbackContent: core.serialization.property(
+            "fallback_content",
+            core.serialization.string().optionalNullable(),
+        ),
         name: core.serialization.string(),
         parameters: core.serialization.string(),
         type: ToolType,
@@ -16,8 +19,8 @@ export const Tool: core.serialization.ObjectSchema<serializers.empathicVoice.Too
 
 export declare namespace Tool {
     export interface Raw {
-        description?: string | null;
-        fallback_content?: string | null;
+        description?: (string | null | undefined) | null;
+        fallback_content?: (string | null | undefined) | null;
         name: string;
         parameters: string;
         type: ToolType.Raw;

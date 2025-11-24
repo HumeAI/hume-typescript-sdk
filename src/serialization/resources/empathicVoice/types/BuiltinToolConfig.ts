@@ -9,13 +9,13 @@ export const BuiltinToolConfig: core.serialization.ObjectSchema<
     serializers.empathicVoice.BuiltinToolConfig.Raw,
     Hume.empathicVoice.BuiltinToolConfig
 > = core.serialization.object({
-    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optionalNullable()),
     name: BuiltInTool,
 });
 
 export declare namespace BuiltinToolConfig {
     export interface Raw {
-        fallback_content?: string | null;
+        fallback_content?: (string | null | undefined) | null;
         name: BuiltInTool.Raw;
     }
 }

@@ -20,44 +20,47 @@ export const ReturnConfig: core.serialization.ObjectSchema<
 > = core.serialization.object({
     builtinTools: core.serialization.property(
         "builtin_tools",
-        core.serialization.list(ReturnBuiltinTool.optional()).optional(),
+        core.serialization.list(ReturnBuiltinTool.nullable()).optionalNullable(),
     ),
     createdOn: core.serialization.property("created_on", core.serialization.number().optional()),
-    ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optional()),
-    eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
+    ellmModel: core.serialization.property("ellm_model", ReturnEllmModel.optionalNullable()),
+    eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optionalNullable()),
     eviVersion: core.serialization.property("evi_version", core.serialization.string().optional()),
     id: core.serialization.string().optional(),
-    languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
+    languageModel: core.serialization.property("language_model", ReturnLanguageModel.optionalNullable()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
     name: core.serialization.string().optional(),
-    nudges: ReturnNudgeSpec.optional(),
-    prompt: ReturnPrompt.optional(),
-    timeouts: ReturnTimeoutSpecs.optional(),
-    tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
+    nudges: ReturnNudgeSpec.optionalNullable(),
+    prompt: ReturnPrompt.optionalNullable(),
+    timeouts: ReturnTimeoutSpecs.optionalNullable(),
+    tools: core.serialization.list(ReturnUserDefinedTool.nullable()).optionalNullable(),
     version: core.serialization.number().optional(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
     voice: ReturnVoice.optional(),
-    webhooks: core.serialization.list(ReturnWebhookSpec.optional()).optional(),
+    webhooks: core.serialization.list(ReturnWebhookSpec.nullable()).optionalNullable(),
 });
 
 export declare namespace ReturnConfig {
     export interface Raw {
-        builtin_tools?: (ReturnBuiltinTool.Raw | null | undefined)[] | null;
+        builtin_tools?: ((ReturnBuiltinTool.Raw | null | undefined)[] | null | undefined) | null;
         created_on?: number | null;
-        ellm_model?: ReturnEllmModel.Raw | null;
-        event_messages?: ReturnEventMessageSpecs.Raw | null;
+        ellm_model?: (ReturnEllmModel.Raw | null | undefined) | null;
+        event_messages?: (ReturnEventMessageSpecs.Raw | null | undefined) | null;
         evi_version?: string | null;
         id?: string | null;
-        language_model?: ReturnLanguageModel.Raw | null;
+        language_model?: (ReturnLanguageModel.Raw | null | undefined) | null;
         modified_on?: number | null;
         name?: string | null;
-        nudges?: ReturnNudgeSpec.Raw | null;
-        prompt?: ReturnPrompt.Raw | null;
-        timeouts?: ReturnTimeoutSpecs.Raw | null;
-        tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
+        nudges?: (ReturnNudgeSpec.Raw | null | undefined) | null;
+        prompt?: (ReturnPrompt.Raw | null | undefined) | null;
+        timeouts?: (ReturnTimeoutSpecs.Raw | null | undefined) | null;
+        tools?: ((ReturnUserDefinedTool.Raw | null | undefined)[] | null | undefined) | null;
         version?: number | null;
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
         voice?: ReturnVoice.Raw | null;
-        webhooks?: (ReturnWebhookSpec.Raw | null | undefined)[] | null;
+        webhooks?: ((ReturnWebhookSpec.Raw | null | undefined)[] | null | undefined) | null;
     }
 }

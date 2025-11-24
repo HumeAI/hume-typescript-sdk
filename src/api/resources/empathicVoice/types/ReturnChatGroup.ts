@@ -13,8 +13,8 @@ export interface ReturnChatGroup {
     /** Identifier for the Chat Group. Any Chat resumed from this Chat Group will have the same `chat_group_id`. Formatted as a UUID. */
     id: string;
     /** The `chat_id` of the most recent Chat in this Chat Group. Formatted as a UUID. */
-    mostRecentChatId?: string;
-    mostRecentConfig?: Hume.empathicVoice.ReturnConfigSpec;
+    mostRecentChatId?: string | null;
+    mostRecentConfig?: Hume.empathicVoice.ReturnConfigSpec | null;
     /** Time at which the most recent Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
     mostRecentStartTimestamp: number;
     /** The total number of Chats in this Chat Group. */

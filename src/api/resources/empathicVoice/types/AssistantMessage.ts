@@ -7,15 +7,13 @@ import type * as Hume from "../../../index.js";
  */
 export interface AssistantMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
+    customSessionId?: string | null;
     /** Indicates if this message was inserted into the conversation as text from an [Assistant Input message](/reference/speech-to-speech-evi/chat#send.AssistantInput.text). */
     fromText: boolean;
     /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
     id?: string;
-    /** Indicates if this message is a quick response or not. */
-    isQuickResponse: boolean;
     /** Detected language of the message text. */
-    language?: string;
+    language?: string | null;
     /** Transcript of the message. */
     message: Hume.empathicVoice.ChatMessage;
     /** Inference model results. */

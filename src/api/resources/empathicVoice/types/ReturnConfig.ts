@@ -7,30 +7,30 @@ import type * as Hume from "../../../index.js";
  */
 export interface ReturnConfig {
     /** List of built-in tools associated with this config */
-    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | undefined)[];
+    builtinTools?: (Hume.empathicVoice.ReturnBuiltinTool | null)[] | null;
     /** The timestamp when the first version of this config was created. */
     createdOn?: number;
-    ellmModel?: Hume.empathicVoice.ReturnEllmModel;
-    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs;
+    ellmModel?: Hume.empathicVoice.ReturnEllmModel | null;
+    eventMessages?: Hume.empathicVoice.ReturnEventMessageSpecs | null;
     /** The version of the EVI used with this config. */
     eviVersion?: string;
     /** Identifier for a Config. Formatted as a UUID. */
     id?: string;
-    languageModel?: Hume.empathicVoice.ReturnLanguageModel;
+    languageModel?: Hume.empathicVoice.ReturnLanguageModel | null;
     /** The timestamp when this version of the config was created. */
     modifiedOn?: number;
     /** Name applied to all versions of a particular Config. */
     name?: string;
-    nudges?: Hume.empathicVoice.ReturnNudgeSpec;
-    prompt?: Hume.empathicVoice.ReturnPrompt;
-    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
+    nudges?: Hume.empathicVoice.ReturnNudgeSpec | null;
+    prompt?: Hume.empathicVoice.ReturnPrompt | null;
+    timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs | null;
     /** List of user-defined tools associated with this config. */
-    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    tools?: (Hume.empathicVoice.ReturnUserDefinedTool | null)[] | null;
     /** Version number for a Config. Version numbers should be integers. The combination of configId and version number is unique. */
     version?: number;
     /** Description that is appended to a specific version of a Config. */
-    versionDescription?: string;
+    versionDescription?: string | null;
     voice?: Hume.empathicVoice.ReturnVoice;
     /** Map of webhooks associated with this config. */
-    webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | undefined)[];
+    webhooks?: (Hume.empathicVoice.ReturnWebhookSpec | null)[] | null;
 }

@@ -9,7 +9,7 @@ export const Inference: core.serialization.ObjectSchema<
     serializers.empathicVoice.Inference.Raw,
     Hume.empathicVoice.Inference
 > = core.serialization.object({
-    prosody: ProsodyInference.optional(),
+    prosody: ProsodyInference.nullable(),
 });
 
 export declare namespace Inference {

@@ -8,7 +8,7 @@ import { ReturnGeneration } from "./ReturnGeneration.js";
 export const ReturnTts: core.serialization.ObjectSchema<serializers.tts.ReturnTts.Raw, Hume.tts.ReturnTts> =
     core.serialization.object({
         generations: core.serialization.list(ReturnGeneration),
-        requestId: core.serialization.property("request_id", core.serialization.string().optional()),
+        requestId: core.serialization.property("request_id", core.serialization.string().nullable()),
     });
 
 export declare namespace ReturnTts {

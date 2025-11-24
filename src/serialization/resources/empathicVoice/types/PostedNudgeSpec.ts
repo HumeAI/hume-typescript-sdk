@@ -8,13 +8,13 @@ export const PostedNudgeSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedNudgeSpec.Raw,
     Hume.empathicVoice.PostedNudgeSpec
 > = core.serialization.object({
-    enabled: core.serialization.boolean().optional(),
-    intervalSecs: core.serialization.property("interval_secs", core.serialization.number().optional()),
+    enabled: core.serialization.boolean().optionalNullable(),
+    intervalSecs: core.serialization.property("interval_secs", core.serialization.number().optionalNullable()),
 });
 
 export declare namespace PostedNudgeSpec {
     export interface Raw {
-        enabled?: boolean | null;
-        interval_secs?: number | null;
+        enabled?: (boolean | null | undefined) | null;
+        interval_secs?: (number | null | undefined) | null;
     }
 }

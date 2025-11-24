@@ -26,7 +26,7 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {Hume.empathicVoice.ConfigsListConfigsRequest} request
+     * @param {Hume.empathicVoice.ListConfigsConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -38,12 +38,12 @@ export class Configs {
      *     })
      */
     public async listConfigs(
-        request: Hume.empathicVoice.ConfigsListConfigsRequest = {},
+        request: Hume.empathicVoice.ListConfigsConfigsRequest = {},
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnConfig, Hume.empathicVoice.ReturnPagedConfigs>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ConfigsListConfigsRequest,
+                request: Hume.empathicVoice.ListConfigsConfigsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedConfigs>> => {
                 const { pageNumber, pageSize, restrictToMostRecent, name } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -281,25 +281,25 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ConfigsListConfigVersionsRequest} request
+     * @param {Hume.empathicVoice.ListConfigVersionsConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
+     *     await client.empathicVoice.configs.listConfigVersions({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+     *     })
      */
     public async listConfigVersions(
-        id: string,
-        request: Hume.empathicVoice.ConfigsListConfigVersionsRequest = {},
+        request: Hume.empathicVoice.ListConfigVersionsConfigsRequest,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnConfig, Hume.empathicVoice.ReturnPagedConfigs>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ConfigsListConfigVersionsRequest,
+                request: Hume.empathicVoice.ListConfigVersionsConfigsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedConfigs>> => {
-                const { pageNumber, pageSize, restrictToMostRecent } = request;
+                const { id, pageNumber, pageSize, restrictToMostRecent } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (pageNumber != null) {
                     _queryParams.page_number = pageNumber.toString();
@@ -400,14 +400,14 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigVersion} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+     *     await client.empathicVoice.configs.createConfigVersion({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
      *         versionDescription: "This is an updated version of the Weather Assistant Config.",
      *         eviVersion: "3",
      *         prompt: {
@@ -443,18 +443,17 @@ export class Configs {
      *     })
      */
     public createConfigVersion(
-        id: string,
         request: Hume.empathicVoice.PostedConfigVersion,
         requestOptions?: Configs.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
-        return core.HttpResponsePromise.fromPromise(this.__createConfigVersion(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__createConfigVersion(request, requestOptions));
     }
 
     private async __createConfigVersion(
-        id: string,
         request: Hume.empathicVoice.PostedConfigVersion,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -471,7 +470,7 @@ export class Configs {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedConfigVersion.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedConfigVersion.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -538,22 +537,28 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
+     * @param {Hume.empathicVoice.DeleteConfigConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
+     *     await client.empathicVoice.configs.deleteConfig({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+     *     })
      */
-    public deleteConfig(id: string, requestOptions?: Configs.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteConfig(id, requestOptions));
+    public deleteConfig(
+        request: Hume.empathicVoice.DeleteConfigConfigsRequest,
+        requestOptions?: Configs.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteConfig(request, requestOptions));
     }
 
     private async __deleteConfig(
-        id: string,
+        request: Hume.empathicVoice.DeleteConfigConfigsRequest,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -622,30 +627,29 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigName} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+     *     await client.empathicVoice.configs.updateConfigName({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
      *         name: "Updated Weather Assistant Config Name"
      *     })
      */
     public updateConfigName(
-        id: string,
         request: Hume.empathicVoice.PostedConfigName,
         requestOptions?: Configs.RequestOptions,
     ): core.HttpResponsePromise<string> {
-        return core.HttpResponsePromise.fromPromise(this.__updateConfigName(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updateConfigName(request, requestOptions));
     }
 
     private async __updateConfigName(
-        id: string,
         request: Hume.empathicVoice.PostedConfigName,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.WithRawResponse<string>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -662,7 +666,7 @@ export class Configs {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedConfigName.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedConfigName.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -721,32 +725,29 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {number} version - Version number for a Config.
-     *
-     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     * @param {Hume.empathicVoice.GetConfigVersionConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
+     *     await client.empathicVoice.configs.getConfigVersion({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+     *         version: 1
+     *     })
      */
     public getConfigVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.GetConfigVersionConfigsRequest,
         requestOptions?: Configs.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
-        return core.HttpResponsePromise.fromPromise(this.__getConfigVersion(id, version, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getConfigVersion(request, requestOptions));
     }
 
     private async __getConfigVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.GetConfigVersionConfigsRequest,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
+        const { id, version } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -826,32 +827,29 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {number} version - Version number for a Config.
-     *
-     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     * @param {Hume.empathicVoice.DeleteConfigVersionConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
+     *     await client.empathicVoice.configs.deleteConfigVersion({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+     *         version: 1
+     *     })
      */
     public deleteConfigVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.DeleteConfigVersionConfigsRequest,
         requestOptions?: Configs.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteConfigVersion(id, version, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteConfigVersion(request, requestOptions));
     }
 
     private async __deleteConfigVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.DeleteConfigVersionConfigsRequest,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
+        const { id, version } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -922,39 +920,30 @@ export class Configs {
      *
      * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
      *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {number} version - Version number for a Config.
-     *
-     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      * @param {Hume.empathicVoice.PostedConfigVersionDescription} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1, {
+     *     await client.empathicVoice.configs.updateConfigDescription({
+     *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+     *         version: 1,
      *         versionDescription: "This is an updated version_description."
      *     })
      */
     public updateConfigDescription(
-        id: string,
-        version: number,
-        request: Hume.empathicVoice.PostedConfigVersionDescription = {},
+        request: Hume.empathicVoice.PostedConfigVersionDescription,
         requestOptions?: Configs.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnConfig> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__updateConfigDescription(id, version, request, requestOptions),
-        );
+        return core.HttpResponsePromise.fromPromise(this.__updateConfigDescription(request, requestOptions));
     }
 
     private async __updateConfigDescription(
-        id: string,
-        version: number,
-        request: Hume.empathicVoice.PostedConfigVersionDescription = {},
+        request: Hume.empathicVoice.PostedConfigVersionDescription,
         requestOptions?: Configs.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnConfig>> {
+        const { id, version, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -971,7 +960,7 @@ export class Configs {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedConfigVersionDescription.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedConfigVersionDescription.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

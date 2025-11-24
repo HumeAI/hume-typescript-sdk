@@ -9,13 +9,13 @@ export const ReturnChatAudioReconstruction: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnChatAudioReconstruction.Raw,
     Hume.empathicVoice.ReturnChatAudioReconstruction
 > = core.serialization.object({
-    filename: core.serialization.string().optional(),
+    filename: core.serialization.string().optionalNullable(),
     id: core.serialization.string(),
-    modifiedAt: core.serialization.property("modified_at", core.serialization.number().optional()),
-    signedAudioUrl: core.serialization.property("signed_audio_url", core.serialization.string().optional()),
+    modifiedAt: core.serialization.property("modified_at", core.serialization.number().optionalNullable()),
+    signedAudioUrl: core.serialization.property("signed_audio_url", core.serialization.string().optionalNullable()),
     signedUrlExpirationTimestampMillis: core.serialization.property(
         "signed_url_expiration_timestamp_millis",
-        core.serialization.number().optional(),
+        core.serialization.number().optionalNullable(),
     ),
     status: ReturnChatAudioReconstructionStatus,
     userId: core.serialization.property("user_id", core.serialization.string()),
@@ -23,11 +23,11 @@ export const ReturnChatAudioReconstruction: core.serialization.ObjectSchema<
 
 export declare namespace ReturnChatAudioReconstruction {
     export interface Raw {
-        filename?: string | null;
+        filename?: (string | null | undefined) | null;
         id: string;
-        modified_at?: number | null;
-        signed_audio_url?: string | null;
-        signed_url_expiration_timestamp_millis?: number | null;
+        modified_at?: (number | null | undefined) | null;
+        signed_audio_url?: (string | null | undefined) | null;
+        signed_url_expiration_timestamp_millis?: (number | null | undefined) | null;
         status: ReturnChatAudioReconstructionStatus.Raw;
         user_id: string;
     }

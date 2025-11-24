@@ -7,7 +7,7 @@ import type * as Hume from "../../../index.js";
  */
 export interface PostedBuiltinTool {
     /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
-    fallbackContent?: string;
+    fallbackContent?: string | null;
     /**
      * Name of the built-in tool to use. Hume supports the following built-in tools:
      *

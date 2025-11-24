@@ -8,15 +8,15 @@ import type * as Hume from "../../../index.js";
 export interface ReturnChat {
     /** Identifier for the Chat Group. Any chat resumed from this Chat will have the same `chat_group_id`. Formatted as a UUID. */
     chatGroupId: string;
-    config?: Hume.empathicVoice.ReturnConfigSpec;
+    config?: Hume.empathicVoice.ReturnConfigSpec | null;
     /** Time at which the Chat ended. Measured in seconds since the Unix epoch. */
-    endTimestamp?: number;
+    endTimestamp?: number | null;
     /** The total number of events currently in this chat. */
-    eventCount?: number;
+    eventCount?: number | null;
     /** Identifier for a Chat. Formatted as a UUID. */
     id: string;
     /** Stringified JSON with additional metadata about the chat. */
-    metadata?: string;
+    metadata?: string | null;
     /** Time at which the Chat started. Measured in seconds since the Unix epoch. */
     startTimestamp: number;
     /**

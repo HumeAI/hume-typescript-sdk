@@ -3,20 +3,21 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { UserInterruptionType } from "./UserInterruptionType.js";
 
 export const UserInterruption: core.serialization.ObjectSchema<
     serializers.empathicVoice.UserInterruption.Raw,
     Hume.empathicVoice.UserInterruption
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     time: core.serialization.number(),
-    type: core.serialization.stringLiteral("user_interruption"),
+    type: UserInterruptionType,
 });
 
 export declare namespace UserInterruption {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         time: number;
-        type: "user_interruption";
+        type: UserInterruptionType.Raw;
     }
 }

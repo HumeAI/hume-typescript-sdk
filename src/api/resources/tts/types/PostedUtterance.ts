@@ -10,7 +10,7 @@ export interface PostedUtterance {
      * - **Voice specified**: the description will serve as acting directions for delivery. Keep directions concise—100 characters or fewer—for best results. See our guide on [acting instructions](/docs/text-to-speech-tts/acting-instructions).
      * - **Voice not specified**: the description will serve as a voice prompt for generating a voice. See our [prompting guide](/docs/text-to-speech-tts/prompting) for design tips.
      */
-    description?: string;
+    description?: string | null;
     /** Speed multiplier for the synthesized speech. Extreme values below 0.75 and above 1.5 may sometimes cause instability to the generated output. */
     speed?: number;
     /** The input text to be synthesized into speech. */
@@ -22,5 +22,5 @@ export interface PostedUtterance {
      *
      *  See our [voices guide](/docs/text-to-speech-tts/voices) for more details on generating and specifying **Voices**.
      */
-    voice?: Hume.tts.PostedUtteranceVoice;
+    voice?: Hume.tts.PostedUtteranceVoice | null;
 }
