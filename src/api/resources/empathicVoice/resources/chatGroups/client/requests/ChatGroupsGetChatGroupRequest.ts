@@ -9,6 +9,8 @@
  *     }
  */
 export interface ChatGroupsGetChatGroupRequest {
+    /** Chat status to apply to the chat. String from the ChatStatus enum. */
+    status?: string;
     /**
      * Specifies the maximum number of results to include per page, enabling pagination. The value must be between 1 and 100, inclusive.
      *

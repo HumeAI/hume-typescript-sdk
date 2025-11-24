@@ -3,7 +3,7 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * When provided, the output is an assistant message.
+ * **Transcript of the assistant's message.** Contains the message role, content, and optionally tool call information including the tool name, parameters, response requirement status, tool call ID, and tool type.
  */
 export interface AssistantMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
@@ -12,6 +12,8 @@ export interface AssistantMessage {
     fromText: boolean;
     /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
     id?: string;
+    /** Indicates if this message is a quick response or not. */
+    isQuickResponse: boolean;
     /** Detected language of the message text. */
     language?: string;
     /** Transcript of the message. */
