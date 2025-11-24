@@ -13,7 +13,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up node
         uses: actions/setup-node@v4
@@ -36,7 +36,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up node
         uses: actions/setup-node@v4
@@ -64,7 +64,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout SDK repo (PR branch)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: sdk
           # checkout the PR branch, not main
@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 0
 
       - name: Checkout examples repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: humeai/hume-api-examples
           path: examples
@@ -151,7 +151,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up node
         uses: actions/setup-node@v4
