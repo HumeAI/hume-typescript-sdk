@@ -9,5 +9,5 @@ export interface PostedEllmModel {
      *
      * If omitted, short responses from the eLLM are enabled by default.
      */
-    allowShortResponses?: boolean;
+    allowShortResponses?: boolean | null;
 }

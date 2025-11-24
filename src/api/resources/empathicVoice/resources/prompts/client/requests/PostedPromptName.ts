@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
+ *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
  *         name: "Updated Weather Assistant Prompt Name"
  *     }
  */
 export interface PostedPromptName {
+    /** Identifier for a Prompt. Formatted as a UUID. */
+    id: string;
     /** Name applied to all versions of a particular Prompt. */
     name: string;
 }

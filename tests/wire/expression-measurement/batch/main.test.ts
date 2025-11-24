@@ -171,7 +171,9 @@ describe("Batch", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.expressionMeasurement.batch.getJobDetails("job_id");
+        const response = await client.expressionMeasurement.batch.getJobDetails({
+            id: "job_id",
+        });
         expect(response).toEqual({
             type: "INFERENCE",
             jobId: "job_id",
@@ -314,7 +316,9 @@ describe("Batch", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.expressionMeasurement.batch.getJobPredictions("job_id");
+        const response = await client.expressionMeasurement.batch.getJobPredictions({
+            id: "job_id",
+        });
         expect(response).toEqual([
             {
                 source: {

@@ -26,7 +26,7 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {Hume.empathicVoice.ToolsListToolsRequest} request
+     * @param {Hume.empathicVoice.ListToolsToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -38,14 +38,14 @@ export class Tools {
      *     })
      */
     public async listTools(
-        request: Hume.empathicVoice.ToolsListToolsRequest = {},
+        request: Hume.empathicVoice.ListToolsToolsRequest = {},
         requestOptions?: Tools.RequestOptions,
     ): Promise<
-        core.Page<Hume.empathicVoice.ReturnUserDefinedTool | undefined, Hume.empathicVoice.ReturnPagedUserDefinedTools>
+        core.Page<Hume.empathicVoice.ReturnUserDefinedTool | null, Hume.empathicVoice.ReturnPagedUserDefinedTools>
     > {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ToolsListToolsRequest,
+                request: Hume.empathicVoice.ListToolsToolsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedUserDefinedTools>> => {
                 const { pageNumber, pageSize, restrictToMostRecent, name } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -135,7 +135,7 @@ export class Tools {
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Page<
-            Hume.empathicVoice.ReturnUserDefinedTool | undefined,
+            Hume.empathicVoice.ReturnUserDefinedTool | null,
             Hume.empathicVoice.ReturnPagedUserDefinedTools
         >({
             response: dataWithRawResponse.data,
@@ -171,14 +171,14 @@ export class Tools {
     public createTool(
         request: Hume.empathicVoice.PostedUserDefinedTool,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | null> {
         return core.HttpResponsePromise.fromPromise(this.__createTool(request, requestOptions));
     }
 
     private async __createTool(
         request: Hume.empathicVoice.PostedUserDefinedTool,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | null>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -262,27 +262,27 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ToolsListToolVersionsRequest} request
+     * @param {Hume.empathicVoice.ListToolVersionsToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea")
+     *     await client.empathicVoice.tools.listToolVersions({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea"
+     *     })
      */
     public async listToolVersions(
-        id: string,
-        request: Hume.empathicVoice.ToolsListToolVersionsRequest = {},
+        request: Hume.empathicVoice.ListToolVersionsToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<
-        core.Page<Hume.empathicVoice.ReturnUserDefinedTool | undefined, Hume.empathicVoice.ReturnPagedUserDefinedTools>
+        core.Page<Hume.empathicVoice.ReturnUserDefinedTool | null, Hume.empathicVoice.ReturnPagedUserDefinedTools>
     > {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ToolsListToolVersionsRequest,
+                request: Hume.empathicVoice.ListToolVersionsToolsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedUserDefinedTools>> => {
-                const { pageNumber, pageSize, restrictToMostRecent } = request;
+                const { id, pageNumber, pageSize, restrictToMostRecent } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (pageNumber != null) {
                     _queryParams.page_number = pageNumber.toString();
@@ -367,7 +367,7 @@ export class Tools {
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Page<
-            Hume.empathicVoice.ReturnUserDefinedTool | undefined,
+            Hume.empathicVoice.ReturnUserDefinedTool | null,
             Hume.empathicVoice.ReturnPagedUserDefinedTools
         >({
             response: dataWithRawResponse.data,
@@ -386,14 +386,14 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersion} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *     await client.empathicVoice.tools.createToolVersion({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
      *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
      *         versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
      *         fallbackContent: "Unable to fetch current weather.",
@@ -401,18 +401,17 @@ export class Tools {
      *     })
      */
     public createToolVersion(
-        id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolVersion,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
-        return core.HttpResponsePromise.fromPromise(this.__createToolVersion(id, request, requestOptions));
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | null> {
+        return core.HttpResponsePromise.fromPromise(this.__createToolVersion(request, requestOptions));
     }
 
     private async __createToolVersion(
-        id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolVersion,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | null>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -429,7 +428,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedUserDefinedToolVersion.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedUserDefinedToolVersion.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -496,19 +495,28 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+     * @param {Hume.empathicVoice.DeleteToolToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea")
+     *     await client.empathicVoice.tools.deleteTool({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea"
+     *     })
      */
-    public deleteTool(id: string, requestOptions?: Tools.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteTool(id, requestOptions));
+    public deleteTool(
+        request: Hume.empathicVoice.DeleteToolToolsRequest,
+        requestOptions?: Tools.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteTool(request, requestOptions));
     }
 
-    private async __deleteTool(id: string, requestOptions?: Tools.RequestOptions): Promise<core.WithRawResponse<void>> {
+    private async __deleteTool(
+        request: Hume.empathicVoice.DeleteToolToolsRequest,
+        requestOptions?: Tools.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -577,30 +585,29 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolName} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *     await client.empathicVoice.tools.updateToolName({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
      *         name: "get_current_temperature"
      *     })
      */
     public updateToolName(
-        id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolName,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<string> {
-        return core.HttpResponsePromise.fromPromise(this.__updateToolName(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updateToolName(request, requestOptions));
     }
 
     private async __updateToolName(
-        id: string,
         request: Hume.empathicVoice.PostedUserDefinedToolName,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<string>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -617,7 +624,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedUserDefinedToolName.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedUserDefinedToolName.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -676,32 +683,29 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
-     * @param {number} version - Version number for a Tool.
-     *
-     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+     * @param {Hume.empathicVoice.GetToolVersionToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
+     *     await client.empathicVoice.tools.getToolVersion({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
+     *         version: 1
+     *     })
      */
     public getToolVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.GetToolVersionToolsRequest,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
-        return core.HttpResponsePromise.fromPromise(this.__getToolVersion(id, version, requestOptions));
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | null> {
+        return core.HttpResponsePromise.fromPromise(this.__getToolVersion(request, requestOptions));
     }
 
     private async __getToolVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.GetToolVersionToolsRequest,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | null>> {
+        const { id, version } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -781,32 +785,29 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
-     * @param {number} version - Version number for a Tool.
-     *
-     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+     * @param {Hume.empathicVoice.DeleteToolVersionToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
+     *     await client.empathicVoice.tools.deleteToolVersion({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
+     *         version: 1
+     *     })
      */
     public deleteToolVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.DeleteToolVersionToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteToolVersion(id, version, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteToolVersion(request, requestOptions));
     }
 
     private async __deleteToolVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.DeleteToolVersionToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
+        const { id, version } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -877,37 +878,30 @@ export class Tools {
      *
      * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
      *
-     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
-     * @param {number} version - Version number for a Tool.
-     *
-     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersionDescription} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+     *     await client.empathicVoice.tools.updateToolDescription({
+     *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
+     *         version: 1,
      *         versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
      *     })
      */
     public updateToolDescription(
-        id: string,
-        version: number,
-        request: Hume.empathicVoice.PostedUserDefinedToolVersionDescription = {},
+        request: Hume.empathicVoice.PostedUserDefinedToolVersionDescription,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | undefined> {
-        return core.HttpResponsePromise.fromPromise(this.__updateToolDescription(id, version, request, requestOptions));
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnUserDefinedTool | null> {
+        return core.HttpResponsePromise.fromPromise(this.__updateToolDescription(request, requestOptions));
     }
 
     private async __updateToolDescription(
-        id: string,
-        version: number,
-        request: Hume.empathicVoice.PostedUserDefinedToolVersionDescription = {},
+        request: Hume.empathicVoice.PostedUserDefinedToolVersionDescription,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnUserDefinedTool | null>> {
+        const { id, version, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -924,7 +918,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedUserDefinedToolVersionDescription.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedUserDefinedToolVersionDescription.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

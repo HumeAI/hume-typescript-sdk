@@ -7,7 +7,7 @@ import type * as Hume from "../../../index.js";
  */
 export interface AssistantProsody {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
+    customSessionId?: string | null;
     /** Unique identifier for the segment. */
     id?: string;
     /** Inference model results. */
@@ -17,5 +17,5 @@ export interface AssistantProsody {
      *
      * This message the expression measurement predictions of the assistant's audio output.
      */
-    type: "assistant_prosody";
+    type: Hume.empathicVoice.AssistantProsodyType;
 }

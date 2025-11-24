@@ -7,7 +7,7 @@ import type * as Hume from "../../../index.js";
  */
 export interface ReturnBuiltinTool {
     /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
-    fallbackContent?: string;
+    fallbackContent?: string | null;
     /** Name applied to all versions of a particular Tool. */
     name: string;
     /** Type of Tool. Either `BUILTIN` for natively implemented tools, like web search, or `FUNCTION` for user-defined tools. */

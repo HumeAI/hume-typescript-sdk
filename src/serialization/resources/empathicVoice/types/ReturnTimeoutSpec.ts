@@ -8,13 +8,13 @@ export const ReturnTimeoutSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnTimeoutSpec.Raw,
     Hume.empathicVoice.ReturnTimeoutSpec
 > = core.serialization.object({
-    durationSecs: core.serialization.property("duration_secs", core.serialization.number().optional()),
+    durationSecs: core.serialization.property("duration_secs", core.serialization.number().optionalNullable()),
     enabled: core.serialization.boolean(),
 });
 
 export declare namespace ReturnTimeoutSpec {
     export interface Raw {
-        duration_secs?: number | null;
+        duration_secs?: (number | null | undefined) | null;
         enabled: boolean;
     }
 }

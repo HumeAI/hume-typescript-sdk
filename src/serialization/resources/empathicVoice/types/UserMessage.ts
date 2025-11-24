@@ -6,30 +6,31 @@ import type * as serializers from "../../../index.js";
 import { ChatMessage } from "./ChatMessage.js";
 import { Inference } from "./Inference.js";
 import { MillisecondInterval } from "./MillisecondInterval.js";
+import { UserMessageType } from "./UserMessageType.js";
 
 export const UserMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.UserMessage.Raw,
     Hume.empathicVoice.UserMessage
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     fromText: core.serialization.property("from_text", core.serialization.boolean()),
     interim: core.serialization.boolean(),
-    language: core.serialization.string().optional(),
+    language: core.serialization.string().optionalNullable(),
     message: ChatMessage,
     models: Inference,
     time: MillisecondInterval,
-    type: core.serialization.stringLiteral("user_message"),
+    type: UserMessageType,
 });
 
 export declare namespace UserMessage {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         from_text: boolean;
         interim: boolean;
-        language?: string | null;
+        language?: (string | null | undefined) | null;
         message: ChatMessage.Raw;
         models: Inference.Raw;
         time: MillisecondInterval.Raw;
-        type: "user_message";
+        type: UserMessageType.Raw;
     }
 }

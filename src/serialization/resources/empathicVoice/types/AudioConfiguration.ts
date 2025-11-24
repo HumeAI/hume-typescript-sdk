@@ -10,7 +10,7 @@ export const AudioConfiguration: core.serialization.ObjectSchema<
     Hume.empathicVoice.AudioConfiguration
 > = core.serialization.object({
     channels: core.serialization.number(),
-    codec: core.serialization.string().optional(),
+    codec: core.serialization.string().optionalNullable(),
     encoding: Encoding,
     sampleRate: core.serialization.property("sample_rate", core.serialization.number()),
 });
@@ -18,7 +18,7 @@ export const AudioConfiguration: core.serialization.ObjectSchema<
 export declare namespace AudioConfiguration {
     export interface Raw {
         channels: number;
-        codec?: string | null;
+        codec?: (string | null | undefined) | null;
         encoding: Encoding.Raw;
         sample_rate: number;
     }

@@ -7,15 +7,15 @@ import type * as Hume from "../../../index.js";
  */
 export interface ReturnChatAudioReconstruction {
     /** Name of the chat audio reconstruction file. */
-    filename?: string;
+    filename?: string | null;
     /** Identifier for the chat. Formatted as a UUID. */
     id: string;
     /** The timestamp of the most recent status change for this audio reconstruction, formatted milliseconds since the Unix epoch. */
-    modifiedAt?: number;
+    modifiedAt?: number | null;
     /** Signed URL used to download the chat audio reconstruction file. */
-    signedAudioUrl?: string;
+    signedAudioUrl?: string | null;
     /** The timestamp when the signed URL will expire, formatted as a Unix epoch milliseconds. */
-    signedUrlExpirationTimestampMillis?: number;
+    signedUrlExpirationTimestampMillis?: number | null;
     /**
      * Indicates the current state of the audio reconstruction job. There are five possible statuses:
      *

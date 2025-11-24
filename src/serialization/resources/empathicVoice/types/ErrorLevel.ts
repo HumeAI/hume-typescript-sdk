@@ -7,7 +7,7 @@ import type * as serializers from "../../../index.js";
 export const ErrorLevel: core.serialization.Schema<
     serializers.empathicVoice.ErrorLevel.Raw,
     Hume.empathicVoice.ErrorLevel
-> = core.serialization.stringLiteral("warn");
+> = core.serialization.enum_(["warn"]);
 
 export declare namespace ErrorLevel {
     export type Raw = "warn";

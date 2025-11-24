@@ -7,7 +7,7 @@
  */
 export interface PostedTimeoutSpecsInactivity {
     /** Duration in seconds for the timeout (e.g. 600 seconds represents 10 minutes). */
-    durationSecs?: number;
+    durationSecs?: number | null;
     /**
      * Boolean indicating if this timeout is enabled.
      *

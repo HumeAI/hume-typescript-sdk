@@ -13,5 +13,5 @@ export interface ReturnConfigSpec {
      *
      * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
      */
-    version?: number;
+    version?: number | null;
 }

@@ -12,13 +12,13 @@ export const ReturnLanguageModel: core.serialization.ObjectSchema<
 > = core.serialization.object({
     modelProvider: core.serialization.property("model_provider", ModelProviderEnum.optional()),
     modelResource: core.serialization.property("model_resource", LanguageModelType.optional()),
-    temperature: core.serialization.number().optional(),
+    temperature: core.serialization.number().optionalNullable(),
 });
 
 export declare namespace ReturnLanguageModel {
     export interface Raw {
         model_provider?: ModelProviderEnum.Raw | null;
         model_resource?: LanguageModelType.Raw | null;
-        temperature?: number | null;
+        temperature?: (number | null | undefined) | null;
     }
 }

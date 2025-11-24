@@ -11,30 +11,33 @@ export const ReturnUserDefinedTool: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnUserDefinedTool
 > = core.serialization.object({
     createdOn: core.serialization.property("created_on", core.serialization.number()),
-    description: core.serialization.string().optional(),
-    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    description: core.serialization.string().optionalNullable(),
+    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optionalNullable()),
     id: core.serialization.string(),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
     name: core.serialization.string(),
     parameters: core.serialization.string(),
     toolType: core.serialization.property("tool_type", ReturnUserDefinedToolToolType),
     version: core.serialization.number(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
     versionType: core.serialization.property("version_type", ReturnUserDefinedToolVersionType),
 });
 
 export declare namespace ReturnUserDefinedTool {
     export interface Raw {
         created_on: number;
-        description?: string | null;
-        fallback_content?: string | null;
+        description?: (string | null | undefined) | null;
+        fallback_content?: (string | null | undefined) | null;
         id: string;
         modified_on: number;
         name: string;
         parameters: string;
         tool_type: ReturnUserDefinedToolToolType.Raw;
         version: number;
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
         version_type: ReturnUserDefinedToolVersionType.Raw;
     }
 }

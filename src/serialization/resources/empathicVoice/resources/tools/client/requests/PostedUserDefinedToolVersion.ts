@@ -6,19 +6,22 @@ import type * as serializers from "../../../../../../index.js";
 
 export const PostedUserDefinedToolVersion: core.serialization.Schema<
     serializers.empathicVoice.PostedUserDefinedToolVersion.Raw,
-    Hume.empathicVoice.PostedUserDefinedToolVersion
+    Omit<Hume.empathicVoice.PostedUserDefinedToolVersion, "id">
 > = core.serialization.object({
-    description: core.serialization.string().optional(),
-    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    description: core.serialization.string().optionalNullable(),
+    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optionalNullable()),
     parameters: core.serialization.string(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
 });
 
 export declare namespace PostedUserDefinedToolVersion {
     export interface Raw {
-        description?: string | null;
-        fallback_content?: string | null;
+        description?: (string | null | undefined) | null;
+        fallback_content?: (string | null | undefined) | null;
         parameters: string;
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
     }
 }

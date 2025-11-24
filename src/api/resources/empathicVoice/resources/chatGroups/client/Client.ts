@@ -24,7 +24,7 @@ export class ChatGroups {
     /**
      * Fetches a paginated list of **Chat Groups**.
      *
-     * @param {Hume.empathicVoice.ChatGroupsListChatGroupsRequest} request
+     * @param {Hume.empathicVoice.ListChatGroupsChatGroupsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -38,12 +38,12 @@ export class ChatGroups {
      *     })
      */
     public async listChatGroups(
-        request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest = {},
+        request: Hume.empathicVoice.ListChatGroupsChatGroupsRequest = {},
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatGroup, Hume.empathicVoice.ReturnPagedChatGroups>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest,
+                request: Hume.empathicVoice.ListChatGroupsChatGroupsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedChatGroups>> => {
                 const { pageNumber, pageSize, ascendingOrder, configId } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -147,38 +147,32 @@ export class ChatGroups {
     /**
      * Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associated with the **ChatGroup**.
      *
-     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ChatGroupsGetChatGroupRequest} request
+     * @param {Hume.empathicVoice.GetChatGroupChatGroupsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+     *     await client.empathicVoice.chatGroups.getChatGroup({
+     *         id: "697056f0-6c7e-487d-9bd8-9c19df79f05f",
      *         pageNumber: 0,
      *         pageSize: 1,
      *         ascendingOrder: true
      *     })
      */
     public getChatGroup(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetChatGroupRequest = {},
+        request: Hume.empathicVoice.GetChatGroupChatGroupsRequest,
         requestOptions?: ChatGroups.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatGroupPagedChats> {
-        return core.HttpResponsePromise.fromPromise(this.__getChatGroup(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getChatGroup(request, requestOptions));
     }
 
     private async __getChatGroup(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetChatGroupRequest = {},
+        request: Hume.empathicVoice.GetChatGroupChatGroupsRequest,
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedChats>> {
-        const { status, pageSize, pageNumber, ascendingOrder } = request;
+        const { id, pageSize, pageNumber, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (status != null) {
-            _queryParams.status = status;
-        }
-
         if (pageSize != null) {
             _queryParams.page_size = pageSize.toString();
         }
@@ -266,33 +260,31 @@ export class ChatGroups {
     /**
      * Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
      *
-     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ChatGroupsGetAudioRequest} request
+     * @param {Hume.empathicVoice.GetAudioChatGroupsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+     *     await client.empathicVoice.chatGroups.getAudio({
+     *         id: "369846cf-6ad5-404d-905e-a8acb5cdfc78",
      *         pageNumber: 0,
      *         pageSize: 10,
      *         ascendingOrder: true
      *     })
      */
     public getAudio(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
+        request: Hume.empathicVoice.GetAudioChatGroupsRequest,
         requestOptions?: ChatGroups.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions> {
-        return core.HttpResponsePromise.fromPromise(this.__getAudio(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getAudio(request, requestOptions));
     }
 
     private async __getAudio(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsGetAudioRequest = {},
+        request: Hume.empathicVoice.GetAudioChatGroupsRequest,
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions>> {
-        const { pageNumber, pageSize, ascendingOrder } = request;
+        const { id, pageNumber, pageSize, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams.page_number = pageNumber.toString();
@@ -381,29 +373,28 @@ export class ChatGroups {
     /**
      * Fetches a paginated list of **Chat** events associated with a **Chat Group**.
      *
-     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest} request
+     * @param {Hume.empathicVoice.ListChatGroupEventsChatGroupsRequest} request
      * @param {ChatGroups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+     *     await client.empathicVoice.chatGroups.listChatGroupEvents({
+     *         id: "697056f0-6c7e-487d-9bd8-9c19df79f05f",
      *         pageNumber: 0,
      *         pageSize: 3,
      *         ascendingOrder: true
      *     })
      */
     public async listChatGroupEvents(
-        id: string,
-        request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest = {},
+        request: Hume.empathicVoice.ListChatGroupEventsChatGroupsRequest,
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatEvent, Hume.empathicVoice.ReturnChatGroupPagedEvents>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest,
+                request: Hume.empathicVoice.ListChatGroupEventsChatGroupsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedEvents>> => {
-                const { pageSize, pageNumber, ascendingOrder } = request;
+                const { id, pageSize, pageNumber, ascendingOrder } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (pageSize != null) {
                     _queryParams.page_size = pageSize.toString();

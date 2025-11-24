@@ -2,13 +2,13 @@
 
 import type * as Hume from "../../../index.js";
 
-export interface WebhookEventToolCall extends Hume.empathicVoice.WebhookEventBase {
+export interface WebhookEventToolCall extends Hume.empathicVoice.WebhookBaseEvent {
     /** Phone number of the caller in E.164 format (e.g., `+12223333333`). This field is included only if the Chat was created via the [Twilio phone calling](/docs/empathic-voice-interface-evi/phone-calling) integration. */
-    callerNumber?: string;
+    callerNumber: string | null;
     /** User-defined session ID. Relevant only when employing a [custom language model](/docs/empathic-voice-interface-evi/custom-language-model) in the EVI Config. */
-    customSessionId?: string;
+    customSessionId: string | null;
     /** Always `tool_call`. */
-    eventName?: "tool_call";
+    eventName?: Hume.empathicVoice.WebhookEventToolCallEventName;
     /** Unix timestamp (in milliseconds) indicating when the tool call was triggered. */
     timestamp: number;
     /** The tool call. */

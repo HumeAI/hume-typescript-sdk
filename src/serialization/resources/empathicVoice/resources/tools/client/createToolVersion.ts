@@ -7,8 +7,8 @@ import { ReturnUserDefinedTool } from "../../../types/ReturnUserDefinedTool.js";
 
 export const Response: core.serialization.Schema<
     serializers.empathicVoice.tools.createToolVersion.Response.Raw,
-    Hume.empathicVoice.ReturnUserDefinedTool | undefined
-> = ReturnUserDefinedTool.optional();
+    Hume.empathicVoice.ReturnUserDefinedTool | null
+> = ReturnUserDefinedTool.nullable();
 
 export declare namespace Response {
     export type Raw = ReturnUserDefinedTool.Raw | null | undefined;

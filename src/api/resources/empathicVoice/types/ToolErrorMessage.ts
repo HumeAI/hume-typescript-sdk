@@ -9,15 +9,15 @@ import type * as Hume from "../../../index.js";
  */
 export interface ToolErrorMessage {
     /** Error code. Identifies the type of error encountered. */
-    code?: string;
+    code?: string | null;
     /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the tool errors. */
-    content?: string;
+    content?: string | null;
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
-    customSessionId?: string;
+    customSessionId?: string | null;
     /** Error message from the tool call, not exposed to the LLM or user. */
     error: string;
     /** Indicates the severity of an error; for a Tool Error message, this must be `warn` to signal an unexpected event. */
-    level?: Hume.empathicVoice.ErrorLevel;
+    level?: Hume.empathicVoice.ErrorLevel | null;
     /**
      * The unique identifier for a specific tool call instance.
      *
@@ -25,11 +25,11 @@ export interface ToolErrorMessage {
      */
     toolCallId: string;
     /** Type of tool called. Either `builtin` for natively implemented tools, like web search, or `function` for user-defined tools. */
-    toolType?: Hume.empathicVoice.ToolType;
+    toolType?: Hume.empathicVoice.ToolType | null;
     /**
      * The type of message sent through the socket; for a Tool Error message, this must be `tool_error`.
      *
      * Upon receiving a [Tool Call message](/reference/speech-to-speech-evi/chat#receive.ToolCallMessage) and failing to invoke the function, this message is sent to notify EVI of the tool's failure.
      */
-    type: "tool_error";
+    type: Hume.empathicVoice.ToolErrorMessageType;
 }

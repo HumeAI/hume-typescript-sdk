@@ -24,7 +24,7 @@ export class Chats {
     /**
      * Fetches a paginated list of **Chats**.
      *
-     * @param {Hume.empathicVoice.ChatsListChatsRequest} request
+     * @param {Hume.empathicVoice.ListChatsChatsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -37,14 +37,14 @@ export class Chats {
      *     })
      */
     public async listChats(
-        request: Hume.empathicVoice.ChatsListChatsRequest = {},
+        request: Hume.empathicVoice.ListChatsChatsRequest = {},
         requestOptions?: Chats.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChat, Hume.empathicVoice.ReturnPagedChats>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ChatsListChatsRequest,
+                request: Hume.empathicVoice.ListChatsChatsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedChats>> => {
-                const { pageNumber, pageSize, ascendingOrder, configId, status } = request;
+                const { pageNumber, pageSize, ascendingOrder, configId } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (pageNumber != null) {
                     _queryParams.page_number = pageNumber.toString();
@@ -57,9 +57,6 @@ export class Chats {
                 }
                 if (configId != null) {
                     _queryParams.config_id = configId;
-                }
-                if (status != null) {
-                    _queryParams.status = status;
                 }
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     this._options?.headers,
@@ -149,29 +146,28 @@ export class Chats {
     /**
      * Fetches a paginated list of **Chat** events.
      *
-     * @param {string} id - Identifier for a Chat. Formatted as a UUID.
-     * @param {Hume.empathicVoice.ChatsListChatEventsRequest} request
+     * @param {Hume.empathicVoice.ListChatEventsChatsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+     *     await client.empathicVoice.chats.listChatEvents({
+     *         id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
      *         pageNumber: 0,
      *         pageSize: 3,
      *         ascendingOrder: true
      *     })
      */
     public async listChatEvents(
-        id: string,
-        request: Hume.empathicVoice.ChatsListChatEventsRequest = {},
+        request: Hume.empathicVoice.ListChatEventsChatsRequest,
         requestOptions?: Chats.RequestOptions,
     ): Promise<core.Page<Hume.empathicVoice.ReturnChatEvent, Hume.empathicVoice.ReturnChatPagedEvents>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.ChatsListChatEventsRequest,
+                request: Hume.empathicVoice.ListChatEventsChatsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatPagedEvents>> => {
-                const { pageSize, pageNumber, ascendingOrder } = request;
+                const { id, pageSize, pageNumber, ascendingOrder } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (pageSize != null) {
                     _queryParams.page_size = pageSize.toString();
@@ -270,25 +266,28 @@ export class Chats {
     /**
      * Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
      *
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * @param {Hume.empathicVoice.GetAudioChatsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0")
+     *     await client.empathicVoice.chats.getAudio({
+     *         id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0"
+     *     })
      */
     public getAudio(
-        id: string,
+        request: Hume.empathicVoice.GetAudioChatsRequest,
         requestOptions?: Chats.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnChatAudioReconstruction> {
-        return core.HttpResponsePromise.fromPromise(this.__getAudio(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getAudio(request, requestOptions));
     }
 
     private async __getAudio(
-        id: string,
+        request: Hume.empathicVoice.GetAudioChatsRequest,
         requestOptions?: Chats.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatAudioReconstruction>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),

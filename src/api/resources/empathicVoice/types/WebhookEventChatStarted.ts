@@ -2,15 +2,15 @@
 
 import type * as Hume from "../../../index.js";
 
-export interface WebhookEventChatStarted extends Hume.empathicVoice.WebhookEventBase {
+export interface WebhookEventChatStarted extends Hume.empathicVoice.WebhookBaseEvent {
     /** Phone number of the caller in E.164 format (e.g., `+12223333333`). This field is included only if the Chat was created via the [Twilio phone calling](/docs/empathic-voice-interface-evi/phone-calling) integration. */
-    callerNumber?: string;
+    callerNumber: string | null;
     /** Indicates whether the chat is the first in a new Chat Group (`new_chat_group`) or the continuation of an existing chat group (`resumed_chat_group`). */
     chatStartType: Hume.empathicVoice.WebhookEventChatStartType;
     /** User-defined session ID. Relevant only when employing a [custom language model](/docs/empathic-voice-interface-evi/custom-language-model) in the EVI Config. */
-    customSessionId?: string;
+    customSessionId: string | null;
     /** Always `chat_started`. */
-    eventName?: "chat_started";
+    eventName?: Hume.empathicVoice.WebhookEventChatStartedEventName;
     /** Unix timestamp (in milliseconds) indicating when the session started. */
     startTime: number;
 }

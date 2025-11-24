@@ -6,13 +6,16 @@ import type * as serializers from "../../../../../../index.js";
 
 export const PostedPromptVersionDescription: core.serialization.Schema<
     serializers.empathicVoice.PostedPromptVersionDescription.Raw,
-    Hume.empathicVoice.PostedPromptVersionDescription
+    Omit<Hume.empathicVoice.PostedPromptVersionDescription, "id" | "version">
 > = core.serialization.object({
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
 });
 
 export declare namespace PostedPromptVersionDescription {
     export interface Raw {
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
     }
 }
