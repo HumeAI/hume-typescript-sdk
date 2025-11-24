@@ -13,7 +13,6 @@ export * from "./ChatMetadata.js";
 export * from "./ConnectSessionSettings.js";
 export * from "./ConnectSessionSettingsAudio.js";
 export * from "./ConnectSessionSettingsContext.js";
-export * from "./ConnectSessionSettingsVariablesValue.js";
 export * from "./Context.js";
 export * from "./ContextType.js";
 export * from "./ControlPlanePublishEvent.js";

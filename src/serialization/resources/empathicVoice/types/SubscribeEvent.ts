@@ -8,6 +8,7 @@ import { AssistantMessage } from "./AssistantMessage.js";
 import { AssistantProsody } from "./AssistantProsody.js";
 import { AudioOutput } from "./AudioOutput.js";
 import { ChatMetadata } from "./ChatMetadata.js";
+import { SessionSettings } from "./SessionSettings.js";
 import { ToolCallMessage } from "./ToolCallMessage.js";
 import { ToolErrorMessage } from "./ToolErrorMessage.js";
 import { ToolResponseMessage } from "./ToolResponseMessage.js";
@@ -30,6 +31,7 @@ export const SubscribeEvent: core.serialization.Schema<
     ToolCallMessage,
     ToolResponseMessage,
     ToolErrorMessage,
+    SessionSettings,
 ]);
 
 export declare namespace SubscribeEvent {
@@ -44,5 +46,6 @@ export declare namespace SubscribeEvent {
         | UserMessage.Raw
         | ToolCallMessage.Raw
         | ToolResponseMessage.Raw
-        | ToolErrorMessage.Raw;
+        | ToolErrorMessage.Raw
+        | SessionSettings.Raw;
 }

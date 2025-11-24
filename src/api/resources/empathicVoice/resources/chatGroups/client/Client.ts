@@ -173,8 +173,12 @@ export class ChatGroups {
         request: Hume.empathicVoice.ChatGroupsGetChatGroupRequest = {},
         requestOptions?: ChatGroups.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedChats>> {
-        const { pageSize, pageNumber, ascendingOrder } = request;
+        const { status, pageSize, pageNumber, ascendingOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (status != null) {
+            _queryParams.status = status;
+        }
+
         if (pageSize != null) {
             _queryParams.page_size = pageSize.toString();
         }

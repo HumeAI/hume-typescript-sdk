@@ -5,7 +5,6 @@ import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
 import { ConnectSessionSettingsAudio } from "./ConnectSessionSettingsAudio.js";
 import { ConnectSessionSettingsContext } from "./ConnectSessionSettingsContext.js";
-import { ConnectSessionSettingsVariablesValue } from "./ConnectSessionSettingsVariablesValue.js";
 
 export const ConnectSessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.ConnectSessionSettings.Raw,
@@ -17,7 +16,6 @@ export const ConnectSessionSettings: core.serialization.ObjectSchema<
     eventLimit: core.serialization.property("event_limit", core.serialization.number().optional()),
     languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
     systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
-    variables: core.serialization.record(core.serialization.string(), ConnectSessionSettingsVariablesValue).optional(),
     voiceId: core.serialization.property("voice_id", core.serialization.string().optional()),
 });
 
@@ -29,7 +27,6 @@ export declare namespace ConnectSessionSettings {
         event_limit?: number | null;
         language_model_api_key?: string | null;
         system_prompt?: string | null;
-        variables?: Record<string, ConnectSessionSettingsVariablesValue.Raw> | null;
         voice_id?: string | null;
     }
 }
