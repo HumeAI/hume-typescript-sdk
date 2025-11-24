@@ -31,6 +31,6 @@ export class BatchClient extends FernClient {
                 .then((result) => {
                     return { data: new Job(result.data.jobId, this), rawResponse: result.rawResponse };
                 }),
-v        );
+        );
     }
 }
