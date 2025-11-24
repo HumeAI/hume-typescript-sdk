@@ -194,7 +194,9 @@ describe("Prompts", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5");
+        const response = await client.empathicVoice.prompts.listPromptVersions({
+            id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+        });
         expect(response).toEqual({
             pageNumber: 0,
             pageSize: 10,
@@ -225,7 +227,9 @@ describe("Prompts", () => {
         server.mockEndpoint().get("/v0/evi/prompts/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.empathicVoice.prompts.listPromptVersions("id");
+            return await client.empathicVoice.prompts.listPromptVersions({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -258,13 +262,11 @@ describe("Prompts", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.createPromptVersion(
-            "af699d45-2985-42cc-91b9-af9e5da3bac5",
-            {
-                text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
-                versionDescription: "This is an updated version of the Weather Assistant Prompt.",
-            },
-        );
+        const response = await client.empathicVoice.prompts.createPromptVersion({
+            id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+            text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
+            versionDescription: "This is an updated version of the Weather Assistant Prompt.",
+        });
         expect(response).toEqual({
             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
             version: 1,
@@ -295,7 +297,8 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.prompts.createPromptVersion("id", {
+            return await client.empathicVoice.prompts.createPromptVersion({
+                id: "id",
                 text: "text",
             });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
@@ -315,7 +318,9 @@ describe("Prompts", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5");
+        const response = await client.empathicVoice.prompts.deletePrompt({
+            id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -336,7 +341,9 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.prompts.deletePrompt("id");
+            return await client.empathicVoice.prompts.deletePrompt({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -365,7 +372,10 @@ describe("Prompts", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0);
+        const response = await client.empathicVoice.prompts.getPromptVersion({
+            id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+            version: 0,
+        });
         expect(response).toEqual({
             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
             version: 0,
@@ -395,7 +405,10 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.prompts.getPromptVersion("id", 1);
+            return await client.empathicVoice.prompts.getPromptVersion({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -413,10 +426,10 @@ describe("Prompts", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.empathicVoice.prompts.deletePromptVersion(
-            "af699d45-2985-42cc-91b9-af9e5da3bac5",
-            1,
-        );
+        const response = await client.empathicVoice.prompts.deletePromptVersion({
+            id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+            version: 1,
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -437,7 +450,10 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.prompts.deletePromptVersion("id", 1);
+            return await client.empathicVoice.prompts.deletePromptVersion({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -467,13 +483,11 @@ describe("Prompts", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.updatePromptDescription(
-            "af699d45-2985-42cc-91b9-af9e5da3bac5",
-            1,
-            {
-                versionDescription: "This is an updated version_description.",
-            },
-        );
+        const response = await client.empathicVoice.prompts.updatePromptDescription({
+            id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+            version: 1,
+            versionDescription: "This is an updated version_description.",
+        });
         expect(response).toEqual({
             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
             version: 1,
@@ -504,7 +518,10 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.prompts.updatePromptDescription("id", 1);
+            return await client.empathicVoice.prompts.updatePromptDescription({
+                id: "id",
+                version: 1,
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 });

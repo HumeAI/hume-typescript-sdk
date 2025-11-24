@@ -5,6 +5,7 @@ import type * as Hume from "../../../../../../index.js";
 /**
  * @example
  *     {
+ *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
  *         versionDescription: "This is an updated version of the Weather Assistant Config.",
  *         eviVersion: "3",
  *         prompt: {
@@ -40,15 +41,17 @@ import type * as Hume from "../../../../../../index.js";
  *     }
  */
 export interface PostedConfigVersion {
+    /** Identifier for a Config. Formatted as a UUID. */
+    id: string;
     /** List of built-in tools associated with this Config version. */
-    builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
+    builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | null)[] | null;
     /**
      * The eLLM setup associated with this Config version.
      *
      * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
      */
-    ellmModel?: Hume.empathicVoice.PostedEllmModel;
-    eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
+    ellmModel?: Hume.empathicVoice.PostedEllmModel | null;
+    eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs | null;
     /** The version of the EVI used with this config. */
     eviVersion: string;
     /**
@@ -56,16 +59,16 @@ export interface PostedConfigVersion {
      *
      * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
      */
-    languageModel?: Hume.empathicVoice.PostedLanguageModel;
-    nudges?: Hume.empathicVoice.PostedNudgeSpec;
-    prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
-    timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
+    languageModel?: Hume.empathicVoice.PostedLanguageModel | null;
+    nudges?: Hume.empathicVoice.PostedNudgeSpec | null;
+    prompt?: Hume.empathicVoice.PostedConfigPromptSpec | null;
+    timeouts?: Hume.empathicVoice.PostedTimeoutSpecs | null;
     /** List of user-defined tools associated with this Config version. */
-    tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
+    tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | null)[] | null;
     /** An optional description of the Config version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
     /** A voice specification associated with this Config version. */
     voice?: Hume.empathicVoice.VoiceRef;
     /** Webhook config specifications for each subscriber. */
-    webhooks?: (Hume.empathicVoice.PostedWebhookSpec | undefined)[];
+    webhooks?: (Hume.empathicVoice.PostedWebhookSpec | null)[] | null;
 }

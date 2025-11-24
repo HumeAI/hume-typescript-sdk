@@ -10,13 +10,16 @@ export const PostedPrompt: core.serialization.Schema<
 > = core.serialization.object({
     name: core.serialization.string(),
     text: core.serialization.string(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
 });
 
 export declare namespace PostedPrompt {
     export interface Raw {
         name: string;
         text: string;
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
     }
 }

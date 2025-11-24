@@ -17,9 +17,9 @@ export interface ReturnEventMessageSpecs {
      *
      * However, if the inactivity message is not enabled, then reaching the inactivity timeout will immediately end the connection.
      */
-    onInactivityTimeout?: Hume.empathicVoice.ReturnEventMessageSpec;
+    onInactivityTimeout?: Hume.empathicVoice.ReturnEventMessageSpec | null;
     /** Specifies the message EVI provides when the chat is disconnected due to reaching the maximum chat duration, such as a message mentioning the time limit for the chat has been reached. */
-    onMaxDurationTimeout?: Hume.empathicVoice.ReturnEventMessageSpec;
+    onMaxDurationTimeout?: Hume.empathicVoice.ReturnEventMessageSpec | null;
     /** Specifies the initial message EVI provides when a new chat is started, such as a greeting or welcome message. */
-    onNewChat?: Hume.empathicVoice.ReturnEventMessageSpec;
+    onNewChat?: Hume.empathicVoice.ReturnEventMessageSpec | null;
 }

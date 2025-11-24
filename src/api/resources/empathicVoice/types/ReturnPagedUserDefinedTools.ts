@@ -19,7 +19,7 @@ export interface ReturnPagedUserDefinedTools {
      */
     pageSize: number;
     /** List of tools returned for the specified `page_number` and `page_size`. */
-    toolsPage: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    toolsPage: (Hume.empathicVoice.ReturnUserDefinedTool | null)[];
     /** The total number of pages in the collection. */
     totalPages: number;
 }

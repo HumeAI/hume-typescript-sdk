@@ -9,12 +9,12 @@ export const ReturnConfigSpec: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnConfigSpec
 > = core.serialization.object({
     id: core.serialization.string(),
-    version: core.serialization.number().optional(),
+    version: core.serialization.number().optionalNullable(),
 });
 
 export declare namespace ReturnConfigSpec {
     export interface Raw {
         id: string;
-        version?: number | null;
+        version?: (number | null | undefined) | null;
     }
 }

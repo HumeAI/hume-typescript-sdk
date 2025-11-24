@@ -3,6 +3,7 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { ChatMetadataType } from "./ChatMetadataType.js";
 
 export const ChatMetadata: core.serialization.ObjectSchema<
     serializers.empathicVoice.ChatMetadata.Raw,
@@ -10,17 +11,17 @@ export const ChatMetadata: core.serialization.ObjectSchema<
 > = core.serialization.object({
     chatGroupId: core.serialization.property("chat_group_id", core.serialization.string()),
     chatId: core.serialization.property("chat_id", core.serialization.string()),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    requestId: core.serialization.property("request_id", core.serialization.string().optional()),
-    type: core.serialization.stringLiteral("chat_metadata"),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
+    requestId: core.serialization.property("request_id", core.serialization.string().nullable()),
+    type: ChatMetadataType,
 });
 
 export declare namespace ChatMetadata {
     export interface Raw {
         chat_group_id: string;
         chat_id: string;
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         request_id?: string | null;
-        type: "chat_metadata";
+        type: ChatMetadataType.Raw;
     }
 }

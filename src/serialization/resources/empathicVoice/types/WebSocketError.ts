@@ -3,26 +3,27 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { ErrorType } from "./ErrorType.js";
 
 export const WebSocketError: core.serialization.ObjectSchema<
     serializers.empathicVoice.WebSocketError.Raw,
     Hume.empathicVoice.WebSocketError
 > = core.serialization.object({
     code: core.serialization.string(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     message: core.serialization.string(),
-    requestId: core.serialization.property("request_id", core.serialization.string().optional()),
+    requestId: core.serialization.property("request_id", core.serialization.string().optionalNullable()),
     slug: core.serialization.string(),
-    type: core.serialization.stringLiteral("error"),
+    type: ErrorType,
 });
 
 export declare namespace WebSocketError {
     export interface Raw {
         code: string;
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         message: string;
-        request_id?: string | null;
+        request_id?: (string | null | undefined) | null;
         slug: string;
-        type: "error";
+        type: ErrorType.Raw;
     }
 }

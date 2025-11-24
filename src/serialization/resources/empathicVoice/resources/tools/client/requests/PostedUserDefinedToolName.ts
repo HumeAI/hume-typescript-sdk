@@ -6,7 +6,7 @@ import type * as serializers from "../../../../../../index.js";
 
 export const PostedUserDefinedToolName: core.serialization.Schema<
     serializers.empathicVoice.PostedUserDefinedToolName.Raw,
-    Hume.empathicVoice.PostedUserDefinedToolName
+    Omit<Hume.empathicVoice.PostedUserDefinedToolName, "id">
 > = core.serialization.object({
     name: core.serialization.string(),
 });

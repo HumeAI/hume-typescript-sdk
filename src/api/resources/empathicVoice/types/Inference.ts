@@ -8,5 +8,5 @@ export interface Inference {
      *
      * EVI uses the prosody model to measure 48 emotions related to speech and vocal characteristics within a given expression.
      */
-    prosody?: Hume.empathicVoice.ProsodyInference;
+    prosody: Hume.empathicVoice.ProsodyInference | null;
 }

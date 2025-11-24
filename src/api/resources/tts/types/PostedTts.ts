@@ -4,7 +4,7 @@ import type * as Hume from "../../../index.js";
 
 export interface PostedTts {
     /** Utterances to use as context for generating consistent speech style and prosody across multiple requests. These will not be converted to speech output. */
-    context?: Hume.tts.PostedContext;
+    context?: Hume.tts.PostedContext | null;
     /** Specifies the output audio file format. */
     format?: Hume.tts.Format;
     /** The set of timestamp types to include in the response. Only supported for Octave 2 requests. */

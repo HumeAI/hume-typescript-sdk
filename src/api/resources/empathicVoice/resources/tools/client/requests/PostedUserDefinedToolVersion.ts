@@ -3,6 +3,7 @@
 /**
  * @example
  *     {
+ *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
  *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
  *         versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
  *         fallbackContent: "Unable to fetch current weather.",
@@ -10,10 +11,12 @@
  *     }
  */
 export interface PostedUserDefinedToolVersion {
+    /** Identifier for a Tool. Formatted as a UUID. */
+    id: string;
     /** An optional description of what the Tool does, used by the supplemental LLM to choose when and how to call the function. */
-    description?: string;
+    description?: string | null;
     /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
-    fallbackContent?: string;
+    fallbackContent?: string | null;
     /**
      * Stringified JSON defining the parameters used by this version of the Tool.
      *
@@ -21,5 +24,5 @@ export interface PostedUserDefinedToolVersion {
      */
     parameters: string;
     /** An optional description of the Tool version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

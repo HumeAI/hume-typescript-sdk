@@ -11,7 +11,7 @@ export const ReturnPagedPrompts: core.serialization.ObjectSchema<
 > = core.serialization.object({
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
-    promptsPage: core.serialization.property("prompts_page", core.serialization.list(ReturnPrompt.optional())),
+    promptsPage: core.serialization.property("prompts_page", core.serialization.list(ReturnPrompt.nullable())),
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
 });
 
