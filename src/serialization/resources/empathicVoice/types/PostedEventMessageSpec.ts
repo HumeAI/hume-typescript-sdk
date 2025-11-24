@@ -9,12 +9,12 @@ export const PostedEventMessageSpec: core.serialization.ObjectSchema<
     Hume.empathicVoice.PostedEventMessageSpec
 > = core.serialization.object({
     enabled: core.serialization.boolean(),
-    text: core.serialization.string().optional(),
+    text: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace PostedEventMessageSpec {
     export interface Raw {
         enabled: boolean;
-        text?: string | null;
+        text?: (string | null | undefined) | null;
     }
 }

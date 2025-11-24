@@ -9,7 +9,7 @@ export interface PublishTts {
     /** Force the generation of audio and close the stream. */
     close?: boolean;
     /** Natural language instructions describing how the text should be spoken by the model (e.g., `"a soft, gentle voice with a strong British accent"`). */
-    description?: string;
+    description?: string | null;
     /** Force the generation of audio regardless of how much text has been supplied. */
     flush?: boolean;
     /** A relative measure of how fast this utterance should be spoken. */
@@ -19,5 +19,5 @@ export interface PublishTts {
     /** Duration of trailing silence (in seconds) to add to this utterance */
     trailingSilence?: number;
     /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this and all subsequent utterances, until the `"voice"` field is updated again. */
-    voice?: Hume.tts.PostedUtteranceVoice;
+    voice?: Hume.tts.PostedUtteranceVoice | null;
 }

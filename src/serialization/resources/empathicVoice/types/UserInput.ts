@@ -3,20 +3,21 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { UserInputType } from "./UserInputType.js";
 
 export const UserInput: core.serialization.ObjectSchema<
     serializers.empathicVoice.UserInput.Raw,
     Hume.empathicVoice.UserInput
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     text: core.serialization.string(),
-    type: core.serialization.stringLiteral("user_input"),
+    type: UserInputType,
 });
 
 export declare namespace UserInput {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         text: string;
-        type: "user_input";
+        type: UserInputType.Raw;
     }
 }

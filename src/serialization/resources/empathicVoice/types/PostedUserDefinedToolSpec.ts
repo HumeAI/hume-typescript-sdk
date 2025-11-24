@@ -9,12 +9,12 @@ export const PostedUserDefinedToolSpec: core.serialization.ObjectSchema<
     Hume.empathicVoice.PostedUserDefinedToolSpec
 > = core.serialization.object({
     id: core.serialization.string(),
-    version: core.serialization.number().optional(),
+    version: core.serialization.number().optionalNullable(),
 });
 
 export declare namespace PostedUserDefinedToolSpec {
     export interface Raw {
         id: string;
-        version?: number | null;
+        version?: (number | null | undefined) | null;
     }
 }

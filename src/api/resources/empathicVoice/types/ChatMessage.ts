@@ -4,11 +4,11 @@ import type * as Hume from "../../../index.js";
 
 export interface ChatMessage {
     /** Transcript of the message. */
-    content?: string;
+    content?: string | null;
     /** Role of who is providing the message. */
     role: Hume.empathicVoice.Role;
     /** Function call name and arguments. */
-    toolCall?: Hume.empathicVoice.ToolCallMessage;
+    toolCall?: Hume.empathicVoice.ToolCallMessage | null;
     /** Function call response from client. */
-    toolResult?: Hume.empathicVoice.ChatMessageToolResult;
+    toolResult?: Hume.empathicVoice.ChatMessageToolResult | null;
 }

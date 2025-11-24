@@ -8,15 +8,15 @@ export const PostedConfigPromptSpec: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedConfigPromptSpec.Raw,
     Hume.empathicVoice.PostedConfigPromptSpec
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    text: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
+    id: core.serialization.string().optionalNullable(),
+    text: core.serialization.string().optionalNullable(),
+    version: core.serialization.number().optionalNullable(),
 });
 
 export declare namespace PostedConfigPromptSpec {
     export interface Raw {
-        id?: string | null;
-        text?: string | null;
-        version?: number | null;
+        id?: (string | null | undefined) | null;
+        text?: (string | null | undefined) | null;
+        version?: (number | null | undefined) | null;
     }
 }

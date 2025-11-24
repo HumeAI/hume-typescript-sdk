@@ -19,5 +19,5 @@ export interface PostedPrompt {
      */
     text: string;
     /** An optional description of the Prompt version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

@@ -11,7 +11,7 @@ export const StreamModelPredictionsFacePredictionsItem: core.serialization.Objec
     Hume.expressionMeasurement.stream.StreamModelPredictionsFacePredictionsItem
 > = core.serialization.object({
     frame: core.serialization.number().optional(),
-    time: core.serialization.number().optional(),
+    time: core.serialization.number().optionalNullable(),
     bbox: StreamBoundingBox.optional(),
     prob: core.serialization.number().optional(),
     faceId: core.serialization.property("face_id", core.serialization.string().optional()),
@@ -23,7 +23,7 @@ export const StreamModelPredictionsFacePredictionsItem: core.serialization.Objec
 export declare namespace StreamModelPredictionsFacePredictionsItem {
     export interface Raw {
         frame?: number | null;
-        time?: number | null;
+        time?: (number | null | undefined) | null;
         bbox?: StreamBoundingBox.Raw | null;
         prob?: number | null;
         face_id?: string | null;

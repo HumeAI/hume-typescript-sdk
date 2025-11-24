@@ -8,15 +8,15 @@ import type * as Hume from "../../../index.js";
 export interface ReturnChatPagedEvents {
     /** Identifier for the Chat Group. Any chat resumed from this Chat will have the same `chat_group_id`. Formatted as a UUID. */
     chatGroupId: string;
-    config?: Hume.empathicVoice.ReturnConfigSpec;
+    config?: Hume.empathicVoice.ReturnConfigSpec | null;
     /** Time at which the Chat ended. Measured in seconds since the Unix epoch. */
-    endTimestamp?: number;
+    endTimestamp?: number | null;
     /** List of Chat Events for the specified `page_number` and `page_size`. */
     eventsPage: Hume.empathicVoice.ReturnChatEvent[];
     /** Identifier for a Chat. Formatted as a UUID. */
     id: string;
     /** Stringified JSON with additional metadata about the chat. */
-    metadata?: string;
+    metadata?: string | null;
     /**
      * The page number of the returned list.
      *

@@ -11,7 +11,7 @@ export const ReturnPagedUserDefinedTools: core.serialization.ObjectSchema<
 > = core.serialization.object({
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
-    toolsPage: core.serialization.property("tools_page", core.serialization.list(ReturnUserDefinedTool.optional())),
+    toolsPage: core.serialization.property("tools_page", core.serialization.list(ReturnUserDefinedTool.nullable())),
     totalPages: core.serialization.property("total_pages", core.serialization.number()),
 });
 
