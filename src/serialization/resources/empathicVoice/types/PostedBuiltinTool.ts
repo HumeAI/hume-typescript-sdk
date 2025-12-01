@@ -9,13 +9,13 @@ export const PostedBuiltinTool: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedBuiltinTool.Raw,
     Hume.empathicVoice.PostedBuiltinTool
 > = core.serialization.object({
-    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optional()),
+    fallbackContent: core.serialization.property("fallback_content", core.serialization.string().optionalNullable()),
     name: PostedBuiltinToolName,
 });
 
 export declare namespace PostedBuiltinTool {
     export interface Raw {
-        fallback_content?: string | null;
+        fallback_content?: (string | null | undefined) | null;
         name: PostedBuiltinToolName.Raw;
     }
 }

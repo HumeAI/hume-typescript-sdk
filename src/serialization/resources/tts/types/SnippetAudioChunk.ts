@@ -19,9 +19,9 @@ export const SnippetAudioChunk: core.serialization.ObjectSchema<
     snippet: Snippet.optional(),
     snippetId: core.serialization.property("snippet_id", core.serialization.string()),
     text: core.serialization.string(),
-    transcribedText: core.serialization.property("transcribed_text", core.serialization.string().optional()),
+    transcribedText: core.serialization.property("transcribed_text", core.serialization.string().nullable()),
     type: core.serialization.stringLiteral("audio"),
-    utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
+    utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().nullable()),
 });
 
 export declare namespace SnippetAudioChunk {

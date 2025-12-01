@@ -12,8 +12,8 @@ export const Snippet: core.serialization.ObjectSchema<serializers.tts.Snippet.Ra
         id: core.serialization.string(),
         text: core.serialization.string(),
         timestamps: core.serialization.list(Timestamp),
-        transcribedText: core.serialization.property("transcribed_text", core.serialization.string().optional()),
-        utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().optional()),
+        transcribedText: core.serialization.property("transcribed_text", core.serialization.string().nullable()),
+        utteranceIndex: core.serialization.property("utterance_index", core.serialization.number().nullable()),
     });
 
 export declare namespace Snippet {

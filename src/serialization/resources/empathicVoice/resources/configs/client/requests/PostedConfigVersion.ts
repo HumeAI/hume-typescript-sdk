@@ -16,38 +16,41 @@ import { VoiceRef } from "../../../../types/VoiceRef.js";
 
 export const PostedConfigVersion: core.serialization.Schema<
     serializers.empathicVoice.PostedConfigVersion.Raw,
-    Hume.empathicVoice.PostedConfigVersion
+    Omit<Hume.empathicVoice.PostedConfigVersion, "id">
 > = core.serialization.object({
     builtinTools: core.serialization.property(
         "builtin_tools",
-        core.serialization.list(PostedBuiltinTool.optional()).optional(),
+        core.serialization.list(PostedBuiltinTool.nullable()).optionalNullable(),
     ),
-    ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
-    eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
+    ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optionalNullable()),
+    eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optionalNullable()),
     eviVersion: core.serialization.property("evi_version", core.serialization.string()),
-    languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
-    nudges: PostedNudgeSpec.optional(),
-    prompt: PostedConfigPromptSpec.optional(),
-    timeouts: PostedTimeoutSpecs.optional(),
-    tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    languageModel: core.serialization.property("language_model", PostedLanguageModel.optionalNullable()),
+    nudges: PostedNudgeSpec.optionalNullable(),
+    prompt: PostedConfigPromptSpec.optionalNullable(),
+    timeouts: PostedTimeoutSpecs.optionalNullable(),
+    tools: core.serialization.list(PostedUserDefinedToolSpec.nullable()).optionalNullable(),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
     voice: VoiceRef.optional(),
-    webhooks: core.serialization.list(PostedWebhookSpec.optional()).optional(),
+    webhooks: core.serialization.list(PostedWebhookSpec.nullable()).optionalNullable(),
 });
 
 export declare namespace PostedConfigVersion {
     export interface Raw {
-        builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;
-        ellm_model?: PostedEllmModel.Raw | null;
-        event_messages?: PostedEventMessageSpecs.Raw | null;
+        builtin_tools?: ((PostedBuiltinTool.Raw | null | undefined)[] | null | undefined) | null;
+        ellm_model?: (PostedEllmModel.Raw | null | undefined) | null;
+        event_messages?: (PostedEventMessageSpecs.Raw | null | undefined) | null;
         evi_version: string;
-        language_model?: PostedLanguageModel.Raw | null;
-        nudges?: PostedNudgeSpec.Raw | null;
-        prompt?: PostedConfigPromptSpec.Raw | null;
-        timeouts?: PostedTimeoutSpecs.Raw | null;
-        tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
-        version_description?: string | null;
+        language_model?: (PostedLanguageModel.Raw | null | undefined) | null;
+        nudges?: (PostedNudgeSpec.Raw | null | undefined) | null;
+        prompt?: (PostedConfigPromptSpec.Raw | null | undefined) | null;
+        timeouts?: (PostedTimeoutSpecs.Raw | null | undefined) | null;
+        tools?: ((PostedUserDefinedToolSpec.Raw | null | undefined)[] | null | undefined) | null;
+        version_description?: (string | null | undefined) | null;
         voice?: VoiceRef.Raw | null;
-        webhooks?: (PostedWebhookSpec.Raw | null | undefined)[] | null;
+        webhooks?: ((PostedWebhookSpec.Raw | null | undefined)[] | null | undefined) | null;
     }
 }

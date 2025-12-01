@@ -13,11 +13,11 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnChatPagedEvents
 > = core.serialization.object({
     chatGroupId: core.serialization.property("chat_group_id", core.serialization.string()),
-    config: ReturnConfigSpec.optional(),
-    endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optional()),
+    config: ReturnConfigSpec.optionalNullable(),
+    endTimestamp: core.serialization.property("end_timestamp", core.serialization.number().optionalNullable()),
     eventsPage: core.serialization.property("events_page", core.serialization.list(ReturnChatEvent)),
     id: core.serialization.string(),
-    metadata: core.serialization.string().optional(),
+    metadata: core.serialization.string().optionalNullable(),
     pageNumber: core.serialization.property("page_number", core.serialization.number()),
     pageSize: core.serialization.property("page_size", core.serialization.number()),
     paginationDirection: core.serialization.property("pagination_direction", ReturnChatPagedEventsPaginationDirection),
@@ -29,11 +29,11 @@ export const ReturnChatPagedEvents: core.serialization.ObjectSchema<
 export declare namespace ReturnChatPagedEvents {
     export interface Raw {
         chat_group_id: string;
-        config?: ReturnConfigSpec.Raw | null;
-        end_timestamp?: number | null;
+        config?: (ReturnConfigSpec.Raw | null | undefined) | null;
+        end_timestamp?: (number | null | undefined) | null;
         events_page: ReturnChatEvent.Raw[];
         id: string;
-        metadata?: string | null;
+        metadata?: (string | null | undefined) | null;
         page_number: number;
         page_size: number;
         pagination_direction: ReturnChatPagedEventsPaginationDirection.Raw;

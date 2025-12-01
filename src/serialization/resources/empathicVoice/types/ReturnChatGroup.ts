@@ -12,8 +12,11 @@ export const ReturnChatGroup: core.serialization.ObjectSchema<
     active: core.serialization.boolean().optional(),
     firstStartTimestamp: core.serialization.property("first_start_timestamp", core.serialization.number()),
     id: core.serialization.string(),
-    mostRecentChatId: core.serialization.property("most_recent_chat_id", core.serialization.string().optional()),
-    mostRecentConfig: core.serialization.property("most_recent_config", ReturnConfigSpec.optional()),
+    mostRecentChatId: core.serialization.property(
+        "most_recent_chat_id",
+        core.serialization.string().optionalNullable(),
+    ),
+    mostRecentConfig: core.serialization.property("most_recent_config", ReturnConfigSpec.optionalNullable()),
     mostRecentStartTimestamp: core.serialization.property("most_recent_start_timestamp", core.serialization.number()),
     numChats: core.serialization.property("num_chats", core.serialization.number()),
 });
@@ -23,8 +26,8 @@ export declare namespace ReturnChatGroup {
         active?: boolean | null;
         first_start_timestamp: number;
         id: string;
-        most_recent_chat_id?: string | null;
-        most_recent_config?: ReturnConfigSpec.Raw | null;
+        most_recent_chat_id?: (string | null | undefined) | null;
+        most_recent_config?: (ReturnConfigSpec.Raw | null | undefined) | null;
         most_recent_start_timestamp: number;
         num_chats: number;
     }

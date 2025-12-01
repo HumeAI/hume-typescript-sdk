@@ -3,10 +3,22 @@
 /**
  * @example
  *     {
+ *         id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+ *         version: 1,
  *         versionDescription: "This is an updated version_description."
  *     }
  */
 export interface PostedConfigVersionDescription {
+    /** Identifier for a Config. Formatted as a UUID. */
+    id: string;
+    /**
+     * Version number for a Config.
+     *
+     * Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
+     *
+     * Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     */
+    version: number;
     /** An optional description of the Config version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

@@ -6,13 +6,16 @@ import type * as serializers from "../../../../../../index.js";
 
 export const PostedUserDefinedToolVersionDescription: core.serialization.Schema<
     serializers.empathicVoice.PostedUserDefinedToolVersionDescription.Raw,
-    Hume.empathicVoice.PostedUserDefinedToolVersionDescription
+    Omit<Hume.empathicVoice.PostedUserDefinedToolVersionDescription, "id" | "version">
 > = core.serialization.object({
-    versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
+    versionDescription: core.serialization.property(
+        "version_description",
+        core.serialization.string().optionalNullable(),
+    ),
 });
 
 export declare namespace PostedUserDefinedToolVersionDescription {
     export interface Raw {
-        version_description?: string | null;
+        version_description?: (string | null | undefined) | null;
     }
 }

@@ -4,31 +4,32 @@ import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
 import { ErrorLevel } from "./ErrorLevel.js";
+import { ToolErrorMessageType } from "./ToolErrorMessageType.js";
 import { ToolType } from "./ToolType.js";
 
 export const ToolErrorMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.ToolErrorMessage.Raw,
     Hume.empathicVoice.ToolErrorMessage
 > = core.serialization.object({
-    code: core.serialization.string().optional(),
-    content: core.serialization.string().optional(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    code: core.serialization.string().optionalNullable(),
+    content: core.serialization.string().optionalNullable(),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     error: core.serialization.string(),
-    level: ErrorLevel.optional(),
+    level: ErrorLevel.optionalNullable(),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
-    toolType: core.serialization.property("tool_type", ToolType.optional()),
-    type: core.serialization.stringLiteral("tool_error"),
+    toolType: core.serialization.property("tool_type", ToolType.optionalNullable()),
+    type: ToolErrorMessageType,
 });
 
 export declare namespace ToolErrorMessage {
     export interface Raw {
-        code?: string | null;
-        content?: string | null;
-        custom_session_id?: string | null;
+        code?: (string | null | undefined) | null;
+        content?: (string | null | undefined) | null;
+        custom_session_id?: (string | null | undefined) | null;
         error: string;
-        level?: ErrorLevel.Raw | null;
+        level?: (ErrorLevel.Raw | null | undefined) | null;
         tool_call_id: string;
-        tool_type?: ToolType.Raw | null;
-        type: "tool_error";
+        tool_type?: (ToolType.Raw | null | undefined) | null;
+        type: ToolErrorMessageType.Raw;
     }
 }

@@ -4,26 +4,27 @@ import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
 import { ToolCallMessage } from "./ToolCallMessage.js";
-import { WebhookEventBase } from "./WebhookEventBase.js";
+import { WebhookBaseEvent } from "./WebhookBaseEvent.js";
+import { WebhookEventToolCallEventName } from "./WebhookEventToolCallEventName.js";
 
 export const WebhookEventToolCall: core.serialization.ObjectSchema<
     serializers.empathicVoice.WebhookEventToolCall.Raw,
     Hume.empathicVoice.WebhookEventToolCall
 > = core.serialization
     .object({
-        callerNumber: core.serialization.property("caller_number", core.serialization.string().optional()),
-        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-        eventName: core.serialization.property("event_name", core.serialization.stringLiteral("tool_call").optional()),
+        callerNumber: core.serialization.property("caller_number", core.serialization.string().nullable()),
+        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().nullable()),
+        eventName: core.serialization.property("event_name", WebhookEventToolCallEventName.optional()),
         timestamp: core.serialization.number(),
         toolCallMessage: core.serialization.property("tool_call_message", ToolCallMessage),
     })
-    .extend(WebhookEventBase);
+    .extend(WebhookBaseEvent);
 
 export declare namespace WebhookEventToolCall {
-    export interface Raw extends WebhookEventBase.Raw {
+    export interface Raw extends WebhookBaseEvent.Raw {
         caller_number?: string | null;
         custom_session_id?: string | null;
-        event_name?: "tool_call" | null;
+        event_name?: WebhookEventToolCallEventName.Raw | null;
         timestamp: number;
         tool_call_message: ToolCallMessage.Raw;
     }

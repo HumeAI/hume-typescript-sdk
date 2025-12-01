@@ -15,5 +15,5 @@ export interface ReturnLanguageModel {
      *
      * Controls the randomness of the LLM's output, with values closer to 0 yielding focused, deterministic responses and values closer to 1 producing more creative, diverse responses.
      */
-    temperature?: number;
+    temperature?: number | null;
 }

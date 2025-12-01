@@ -7,7 +7,6 @@ import { AssistantEnd } from "./AssistantEnd.js";
 import { AssistantMessage } from "./AssistantMessage.js";
 import { AssistantProsody } from "./AssistantProsody.js";
 import { ChatMetadata } from "./ChatMetadata.js";
-import { SessionSettings } from "./SessionSettings.js";
 import { ToolCallMessage } from "./ToolCallMessage.js";
 import { ToolErrorMessage } from "./ToolErrorMessage.js";
 import { ToolResponseMessage } from "./ToolResponseMessage.js";
@@ -29,7 +28,6 @@ export const JsonMessage: core.serialization.Schema<
     ToolCallMessage,
     ToolResponseMessage,
     ToolErrorMessage,
-    SessionSettings,
 ]);
 
 export declare namespace JsonMessage {
@@ -43,6 +41,5 @@ export declare namespace JsonMessage {
         | UserMessage.Raw
         | ToolCallMessage.Raw
         | ToolResponseMessage.Raw
-        | ToolErrorMessage.Raw
-        | SessionSettings.Raw;
+        | ToolErrorMessage.Raw;
 }

@@ -12,9 +12,9 @@
  */
 export interface PostedUserDefinedTool {
     /** An optional description of what the Tool does, used by the supplemental LLM to choose when and how to call the function. */
-    description?: string;
+    description?: string | null;
     /** Optional text passed to the supplemental LLM in place of the tool call result. The LLM then uses this text to generate a response back to the user, ensuring continuity in the conversation if the Tool errors. */
-    fallbackContent?: string;
+    fallbackContent?: string | null;
     /** Name applied to all versions of a particular Tool. */
     name: string;
     /**
@@ -24,5 +24,5 @@ export interface PostedUserDefinedTool {
      */
     parameters: string;
     /** An optional description of the Tool version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

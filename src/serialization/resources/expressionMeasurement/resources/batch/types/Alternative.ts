@@ -7,7 +7,7 @@ import type * as serializers from "../../../../../index.js";
 export const Alternative: core.serialization.Schema<
     serializers.expressionMeasurement.batch.Alternative.Raw,
     Hume.expressionMeasurement.batch.Alternative
-> = core.serialization.stringLiteral("language_only");
+> = core.serialization.enum_(["language_only"]);
 
 export declare namespace Alternative {
     export type Raw = "language_only";

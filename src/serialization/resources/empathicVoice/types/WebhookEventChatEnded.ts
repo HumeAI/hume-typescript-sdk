@@ -3,7 +3,8 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
-import { WebhookEventBase } from "./WebhookEventBase.js";
+import { WebhookBaseEvent } from "./WebhookBaseEvent.js";
+import { WebhookEventChatEndedEventName } from "./WebhookEventChatEndedEventName.js";
 import { WebhookEventChatStatus } from "./WebhookEventChatStatus.js";
 
 export const WebhookEventChatEnded: core.serialization.ObjectSchema<
@@ -11,22 +12,22 @@ export const WebhookEventChatEnded: core.serialization.ObjectSchema<
     Hume.empathicVoice.WebhookEventChatEnded
 > = core.serialization
     .object({
-        callerNumber: core.serialization.property("caller_number", core.serialization.string().optional()),
-        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+        callerNumber: core.serialization.property("caller_number", core.serialization.string().nullable()),
+        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().nullable()),
         durationSeconds: core.serialization.property("duration_seconds", core.serialization.number()),
         endReason: core.serialization.property("end_reason", WebhookEventChatStatus),
         endTime: core.serialization.property("end_time", core.serialization.number()),
-        eventName: core.serialization.property("event_name", core.serialization.stringLiteral("chat_ended").optional()),
+        eventName: core.serialization.property("event_name", WebhookEventChatEndedEventName.optional()),
     })
-    .extend(WebhookEventBase);
+    .extend(WebhookBaseEvent);
 
 export declare namespace WebhookEventChatEnded {
-    export interface Raw extends WebhookEventBase.Raw {
+    export interface Raw extends WebhookBaseEvent.Raw {
         caller_number?: string | null;
         custom_session_id?: string | null;
         duration_seconds: number;
         end_reason: WebhookEventChatStatus.Raw;
         end_time: number;
-        event_name?: "chat_ended" | null;
+        event_name?: WebhookEventChatEndedEventName.Raw | null;
     }
 }

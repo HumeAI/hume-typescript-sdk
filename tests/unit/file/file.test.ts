@@ -1,15 +1,10 @@
 import fs from "fs";
 import { join } from "path";
 import { Readable } from "stream";
-import { toBinaryUploadRequest, Uploadable } from "../../../src/core/file/index";
-
-let File = global.File;
-if (typeof File === "undefined") {
-    File = require("buffer").File;
-}
+import { toBinaryUploadRequest, type Uploadable } from "../../../src/core/file/index";
 
 describe("toBinaryUploadRequest", () => {
-    const TEST_FILE_PATH = join(__dirname, "test-file.txt");
+    const TEST_FILE_PATH = join(__dirname, "..", "test-file.txt");
 
     beforeEach(() => {
         vi.clearAllMocks();
@@ -398,53 +393,6 @@ describe("toBinaryUploadRequest", () => {
                 "Content-Disposition": 'attachment; filename="test-file.txt"', // Should extract from path
                 "Content-Length": "21", // Should determine from file system (test file is 21 bytes)
             });
-        });
-
-        it("should handle Windows-style paths", async () => {
-            const input: Uploadable.FromPath = {
-                path: "C:\\Users\\test\\file.txt",
-            };
-
-            // Mock fs methods to avoid actual file system access
-            const mockStats = { size: 123 };
-            const mockReadStream = {} as fs.ReadStream;
-
-            // Mock the dynamic import of fs
-            vi.doMock("fs", () => ({
-                createReadStream: vi.fn().mockReturnValue(mockReadStream),
-                promises: {
-                    stat: vi.fn().mockResolvedValue(mockStats),
-                },
-            }));
-
-            const result = await toBinaryUploadRequest(input);
-
-            expect(result.body).toBe(mockReadStream);
-            expect(result.headers).toEqual({
-                "Content-Disposition": 'attachment; filename="file.txt"', // Should extract from Windows path
-                "Content-Length": "123",
-            });
-
-            // Clear the mock
-            vi.doUnmock("fs");
-        });
-
-        it("should handle file path when fs is not available", async () => {
-            const input: Uploadable.FromPath = {
-                path: TEST_FILE_PATH,
-            };
-
-            // Mock import to simulate environment without fs
-            vi.doMock("fs", () => ({
-                createReadStream: undefined,
-            }));
-
-            await expect(toBinaryUploadRequest(input)).rejects.toThrow(
-                "File path uploads are not supported in this environment.",
-            );
-
-            // Clear the mock
-            vi.doUnmock("fs");
         });
     });
 

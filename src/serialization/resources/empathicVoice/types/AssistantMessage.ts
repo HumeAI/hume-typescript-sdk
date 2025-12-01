@@ -10,11 +10,10 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantMessage.Raw,
     Hume.empathicVoice.AssistantMessage
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     fromText: core.serialization.property("from_text", core.serialization.boolean()),
     id: core.serialization.string().optional(),
-    isQuickResponse: core.serialization.property("is_quick_response", core.serialization.boolean()),
-    language: core.serialization.string().optional(),
+    language: core.serialization.string().optionalNullable(),
     message: ChatMessage,
     models: Inference,
     type: core.serialization.stringLiteral("assistant_message"),
@@ -22,11 +21,10 @@ export const AssistantMessage: core.serialization.ObjectSchema<
 
 export declare namespace AssistantMessage {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         from_text: boolean;
         id?: string | null;
-        is_quick_response: boolean;
-        language?: string | null;
+        language?: (string | null | undefined) | null;
         message: ChatMessage.Raw;
         models: Inference.Raw;
         type: "assistant_message";

@@ -36,30 +36,31 @@ export class ControlPlane {
     /**
      * Send a message to a specific chat.
      *
-     * @param {string} chatId
-     * @param {Hume.empathicVoice.ControlPlanePublishEvent} request
+     * @param {Hume.empathicVoice.SendControlPlaneRequest} request
      * @param {ControlPlane.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.UnprocessableEntityError}
      *
      * @example
-     *     await client.empathicVoice.controlPlane.send("chat_id", {
-     *         type: "session_settings"
+     *     await client.empathicVoice.controlPlane.send({
+     *         chatId: "chat_id",
+     *         body: {
+     *             type: "session_settings"
+     *         }
      *     })
      */
     public send(
-        chatId: string,
-        request: Hume.empathicVoice.ControlPlanePublishEvent,
+        request: Hume.empathicVoice.SendControlPlaneRequest,
         requestOptions?: ControlPlane.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__send(chatId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
     }
 
     private async __send(
-        chatId: string,
-        request: Hume.empathicVoice.ControlPlanePublishEvent,
+        request: Hume.empathicVoice.SendControlPlaneRequest,
         requestOptions?: ControlPlane.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
+        const { chatId, body: _body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -76,7 +77,7 @@ export class ControlPlane {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.ControlPlanePublishEvent.jsonOrThrow(request, {
+            body: serializers.empathicVoice.ControlPlanePublishEvent.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -144,7 +145,7 @@ export class ControlPlane {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).evi,
-                `/chat/${core.url.encodePathParam(chat_id)}/connect`,
+                `/chat/${core.url.encodePathParam(chatId)}/connect`,
             ),
             protocols: [],
             queryParameters: _queryParams,
@@ -153,12 +154,9 @@ export class ControlPlane {
         });
         return new ControlPlaneSocket({ socket });
     }
-    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | null | undefined>> {
-        const apiKeyValue = core.Supplier.get(this._options.apiKey);
-        // This `authHeaderValue` is manually added as if you don't provide it it will
-        // be omitted from the headers which means it won't reach the logic in ws.ts that
-        // extracts values from the headers and adds them to query parameters.
-        const authHeaderValue = core.Supplier.get(this._options.headers?.authorization);
-        return { "X-Hume-Api-Key": apiKeyValue, Authorization: authHeaderValue };
+
+    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | undefined>> {
+        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
+        return { "X-Hume-Api-Key": apiKeyValue };
     }
 }

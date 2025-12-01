@@ -8,13 +8,13 @@ export const AssistantEnd: core.serialization.ObjectSchema<
     serializers.empathicVoice.AssistantEnd.Raw,
     Hume.empathicVoice.AssistantEnd
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     type: core.serialization.stringLiteral("assistant_end"),
 });
 
 export declare namespace AssistantEnd {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         type: "assistant_end";
     }
 }
