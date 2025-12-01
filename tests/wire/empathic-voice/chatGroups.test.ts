@@ -122,7 +122,8 @@ describe("ChatGroups", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+        const response = await client.empathicVoice.chatGroups.getChatGroup({
+            id: "697056f0-6c7e-487d-9bd8-9c19df79f05f",
             pageNumber: 0,
             pageSize: 1,
             ascendingOrder: true,
@@ -167,7 +168,9 @@ describe("ChatGroups", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.chatGroups.getChatGroup("id");
+            return await client.empathicVoice.chatGroups.getChatGroup({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -207,7 +210,8 @@ describe("ChatGroups", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+        const response = await client.empathicVoice.chatGroups.getAudio({
+            id: "369846cf-6ad5-404d-905e-a8acb5cdfc78",
             pageNumber: 0,
             pageSize: 10,
             ascendingOrder: true,
@@ -252,7 +256,9 @@ describe("ChatGroups", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.chatGroups.getAudio("id");
+            return await client.empathicVoice.chatGroups.getAudio({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -357,7 +363,8 @@ describe("ChatGroups", () => {
                 },
             ],
         };
-        const page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+        const page = await client.empathicVoice.chatGroups.listChatGroupEvents({
+            id: "697056f0-6c7e-487d-9bd8-9c19df79f05f",
             pageNumber: 0,
             pageSize: 3,
             ascendingOrder: true,
@@ -386,7 +393,9 @@ describe("ChatGroups", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.chatGroups.listChatGroupEvents("id");
+            return await client.empathicVoice.chatGroups.listChatGroupEvents({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 });

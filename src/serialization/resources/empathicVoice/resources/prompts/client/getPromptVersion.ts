@@ -7,8 +7,8 @@ import { ReturnPrompt } from "../../../types/ReturnPrompt.js";
 
 export const Response: core.serialization.Schema<
     serializers.empathicVoice.prompts.getPromptVersion.Response.Raw,
-    Hume.empathicVoice.ReturnPrompt | undefined
-> = ReturnPrompt.optional();
+    Hume.empathicVoice.ReturnPrompt | null
+> = ReturnPrompt.nullable();
 
 export declare namespace Response {
     export type Raw = ReturnPrompt.Raw | null | undefined;

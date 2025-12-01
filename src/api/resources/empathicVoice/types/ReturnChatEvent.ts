@@ -13,15 +13,15 @@ export interface ReturnChatEvent {
      *
      * EVI uses the prosody model to measure 48 expressions related to speech and vocal characteristics. These results contain a detailed emotional and tonal analysis of the audio. Scores typically range from 0 to 1, with higher values indicating a stronger confidence level in the measured attribute.
      */
-    emotionFeatures?: string;
+    emotionFeatures?: string | null;
     /** Identifier for a Chat Event. Formatted as a UUID. */
     id: string;
     /** The text of the Chat Event. This field contains the message content for each event type listed in the `type` field. */
-    messageText?: string;
+    messageText?: string | null;
     /** Stringified JSON with additional metadata about the chat event. */
-    metadata?: string;
+    metadata?: string | null;
     /** Identifier for a related chat event. Currently only seen on ASSISTANT_PROSODY events, to point back to the ASSISTANT_MESSAGE that generated these prosody scores */
-    relatedEventId?: string;
+    relatedEventId?: string | null;
     /**
      * The role of the entity which generated the Chat Event. There are four possible values:
      * - `USER`: The user, capable of sending user messages and interruptions.

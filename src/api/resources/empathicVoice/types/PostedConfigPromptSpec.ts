@@ -5,9 +5,9 @@
  */
 export interface PostedConfigPromptSpec {
     /** Identifier for a Prompt. Formatted as a UUID. */
-    id?: string;
+    id?: string | null;
     /** Text used to create a new prompt for a particular config. */
-    text?: string;
+    text?: string | null;
     /** Version number for a Prompt. Version numbers should be integers. The combination of configId and version number is unique. */
-    version?: number;
+    version?: number | null;
 }

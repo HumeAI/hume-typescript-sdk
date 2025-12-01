@@ -9,19 +9,19 @@ export const PostedUtterance: core.serialization.ObjectSchema<
     serializers.tts.PostedUtterance.Raw,
     Hume.tts.PostedUtterance
 > = core.serialization.object({
-    description: core.serialization.string().optional(),
+    description: core.serialization.string().optionalNullable(),
     speed: core.serialization.number().optional(),
     text: core.serialization.string(),
     trailingSilence: core.serialization.property("trailing_silence", core.serialization.number().optional()),
-    voice: PostedUtteranceVoice.optional(),
+    voice: PostedUtteranceVoice.optionalNullable(),
 });
 
 export declare namespace PostedUtterance {
     export interface Raw {
-        description?: string | null;
+        description?: (string | null | undefined) | null;
         speed?: number | null;
         text: string;
         trailing_silence?: number | null;
-        voice?: PostedUtteranceVoice.Raw | null;
+        voice?: (PostedUtteranceVoice.Raw | null | undefined) | null;
     }
 }

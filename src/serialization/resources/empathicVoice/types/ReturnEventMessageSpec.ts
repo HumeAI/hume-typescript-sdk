@@ -9,12 +9,12 @@ export const ReturnEventMessageSpec: core.serialization.ObjectSchema<
     Hume.empathicVoice.ReturnEventMessageSpec
 > = core.serialization.object({
     enabled: core.serialization.boolean(),
-    text: core.serialization.string().optional(),
+    text: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace ReturnEventMessageSpec {
     export interface Raw {
         enabled: boolean;
-        text?: string | null;
+        text?: (string | null | undefined) | null;
     }
 }

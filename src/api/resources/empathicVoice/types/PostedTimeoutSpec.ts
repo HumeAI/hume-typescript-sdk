@@ -5,7 +5,7 @@
  */
 export interface PostedTimeoutSpec {
     /** Duration in seconds for the timeout. */
-    durationSecs?: number;
+    durationSecs?: number | null;
     /** Boolean indicating if this event message is enabled. */
     enabled: boolean;
 }

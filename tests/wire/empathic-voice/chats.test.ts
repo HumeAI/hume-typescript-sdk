@@ -196,7 +196,8 @@ describe("Chats", () => {
                 version: 0,
             },
         };
-        const page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+        const page = await client.empathicVoice.chats.listChatEvents({
+            id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
             pageNumber: 0,
             pageSize: 3,
             ascendingOrder: true,
@@ -219,7 +220,9 @@ describe("Chats", () => {
         server.mockEndpoint().get("/v0/evi/chats/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.empathicVoice.chats.listChatEvents("id");
+            return await client.empathicVoice.chats.listChatEvents({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 
@@ -248,7 +251,9 @@ describe("Chats", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0");
+        const response = await client.empathicVoice.chats.getAudio({
+            id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
+        });
         expect(response).toEqual({
             id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
             userId: "e6235940-cfda-3988-9147-ff531627cf42",
@@ -278,7 +283,9 @@ describe("Chats", () => {
             .build();
 
         await expect(async () => {
-            return await client.empathicVoice.chats.getAudio("id");
+            return await client.empathicVoice.chats.getAudio({
+                id: "id",
+            });
         }).rejects.toThrow(Hume.empathicVoice.BadRequestError);
     });
 });

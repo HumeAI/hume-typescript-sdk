@@ -8,7 +8,7 @@ export const AudioOutput: core.serialization.ObjectSchema<
     serializers.empathicVoice.AudioOutput.Raw,
     Hume.empathicVoice.AudioOutput
 > = core.serialization.object({
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
     data: core.serialization.string(),
     id: core.serialization.string(),
     index: core.serialization.number(),
@@ -17,7 +17,7 @@ export const AudioOutput: core.serialization.ObjectSchema<
 
 export declare namespace AudioOutput {
     export interface Raw {
-        custom_session_id?: string | null;
+        custom_session_id?: (string | null | undefined) | null;
         data: string;
         id: string;
         index: number;

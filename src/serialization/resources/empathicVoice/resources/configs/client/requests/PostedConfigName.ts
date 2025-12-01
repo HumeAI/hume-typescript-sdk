@@ -6,7 +6,7 @@ import type * as serializers from "../../../../../../index.js";
 
 export const PostedConfigName: core.serialization.Schema<
     serializers.empathicVoice.PostedConfigName.Raw,
-    Hume.empathicVoice.PostedConfigName
+    Omit<Hume.empathicVoice.PostedConfigName, "id">
 > = core.serialization.object({
     name: core.serialization.string(),
 });

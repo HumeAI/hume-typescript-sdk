@@ -3,11 +3,14 @@
 /**
  * @example
  *     {
+ *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
  *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
  *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
  *     }
  */
 export interface PostedPromptVersion {
+    /** Identifier for a Prompt. Formatted as a UUID. */
+    id: string;
     /**
      * Instructions used to shape EVI's behavior, responses, and style for this version of the Prompt.
      *
@@ -17,5 +20,5 @@ export interface PostedPromptVersion {
      */
     text: string;
     /** An optional description of the Prompt version. */
-    versionDescription?: string;
+    versionDescription?: string | null;
 }

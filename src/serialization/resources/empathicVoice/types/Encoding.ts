@@ -5,7 +5,7 @@ import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
 
 export const Encoding: core.serialization.Schema<serializers.empathicVoice.Encoding.Raw, Hume.empathicVoice.Encoding> =
-    core.serialization.stringLiteral("linear16");
+    core.serialization.enum_(["linear16"]);
 
 export declare namespace Encoding {
     export type Raw = "linear16";
