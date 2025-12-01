@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
+ *         id: "00183a3f-79ba-413d-9f3b-609864268bea",
  *         name: "get_current_temperature"
  *     }
  */
 export interface PostedUserDefinedToolName {
+    /** Identifier for a Tool. Formatted as a UUID. */
+    id: string;
     /** Name applied to all versions of a particular Tool. */
     name: string;
 }

@@ -26,7 +26,7 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {Hume.empathicVoice.PromptsListPromptsRequest} request
+     * @param {Hume.empathicVoice.ListPromptsPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -38,12 +38,12 @@ export class Prompts {
      *     })
      */
     public async listPrompts(
-        request: Hume.empathicVoice.PromptsListPromptsRequest = {},
+        request: Hume.empathicVoice.ListPromptsPromptsRequest = {},
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.Page<Hume.empathicVoice.ReturnPrompt | undefined, Hume.empathicVoice.ReturnPagedPrompts>> {
+    ): Promise<core.Page<Hume.empathicVoice.ReturnPrompt | null, Hume.empathicVoice.ReturnPagedPrompts>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
-                request: Hume.empathicVoice.PromptsListPromptsRequest,
+                request: Hume.empathicVoice.ListPromptsPromptsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedPrompts>> => {
                 const { pageNumber, pageSize, restrictToMostRecent, name } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -132,7 +132,7 @@ export class Prompts {
         );
         let _offset = request?.pageNumber != null ? request?.pageNumber : 0;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Page<Hume.empathicVoice.ReturnPrompt | undefined, Hume.empathicVoice.ReturnPagedPrompts>({
+        return new core.Page<Hume.empathicVoice.ReturnPrompt | null, Hume.empathicVoice.ReturnPagedPrompts>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.promptsPage ?? []).length > 0,
@@ -163,14 +163,14 @@ export class Prompts {
     public createPrompt(
         request: Hume.empathicVoice.PostedPrompt,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | null> {
         return core.HttpResponsePromise.fromPromise(this.__createPrompt(request, requestOptions));
     }
 
     private async __createPrompt(
         request: Hume.empathicVoice.PostedPrompt,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | null>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -254,29 +254,28 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
-     * @param {Hume.empathicVoice.PromptsListPromptVersionsRequest} request
+     * @param {Hume.empathicVoice.ListPromptVersionsPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5")
+     *     await client.empathicVoice.prompts.listPromptVersions({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5"
+     *     })
      */
     public listPromptVersions(
-        id: string,
-        request: Hume.empathicVoice.PromptsListPromptVersionsRequest = {},
+        request: Hume.empathicVoice.ListPromptVersionsPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPagedPrompts> {
-        return core.HttpResponsePromise.fromPromise(this.__listPromptVersions(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__listPromptVersions(request, requestOptions));
     }
 
     private async __listPromptVersions(
-        id: string,
-        request: Hume.empathicVoice.PromptsListPromptVersionsRequest = {},
+        request: Hume.empathicVoice.ListPromptVersionsPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedPrompts>> {
-        const { pageNumber, pageSize, restrictToMostRecent } = request;
+        const { id, pageNumber, pageSize, restrictToMostRecent } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams.page_number = pageNumber.toString();
@@ -367,31 +366,30 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptVersion} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+     *     await client.empathicVoice.prompts.createPromptVersion({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
      *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
      *     })
      */
     public createPromptVersion(
-        id: string,
         request: Hume.empathicVoice.PostedPromptVersion,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
-        return core.HttpResponsePromise.fromPromise(this.__createPromptVersion(id, request, requestOptions));
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | null> {
+        return core.HttpResponsePromise.fromPromise(this.__createPromptVersion(request, requestOptions));
     }
 
     private async __createPromptVersion(
-        id: string,
         request: Hume.empathicVoice.PostedPromptVersion,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | null>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -408,7 +406,7 @@ export class Prompts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedPromptVersion.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedPromptVersion.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -475,22 +473,28 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {Hume.empathicVoice.DeletePromptPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5")
+     *     await client.empathicVoice.prompts.deletePrompt({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5"
+     *     })
      */
-    public deletePrompt(id: string, requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deletePrompt(id, requestOptions));
+    public deletePrompt(
+        request: Hume.empathicVoice.DeletePromptPromptsRequest,
+        requestOptions?: Prompts.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deletePrompt(request, requestOptions));
     }
 
     private async __deletePrompt(
-        id: string,
+        request: Hume.empathicVoice.DeletePromptPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -559,30 +563,29 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptName} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+     *     await client.empathicVoice.prompts.updatePromptName({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
      *         name: "Updated Weather Assistant Prompt Name"
      *     })
      */
     public updatePromptName(
-        id: string,
         request: Hume.empathicVoice.PostedPromptName,
         requestOptions?: Prompts.RequestOptions,
     ): core.HttpResponsePromise<string> {
-        return core.HttpResponsePromise.fromPromise(this.__updatePromptName(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updatePromptName(request, requestOptions));
     }
 
     private async __updatePromptName(
-        id: string,
         request: Hume.empathicVoice.PostedPromptName,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<string>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -599,7 +602,7 @@ export class Prompts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedPromptName.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedPromptName.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -658,32 +661,29 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a Prompt.
-     *
-     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+     * @param {Hume.empathicVoice.GetPromptVersionPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0)
+     *     await client.empathicVoice.prompts.getPromptVersion({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+     *         version: 0
+     *     })
      */
     public getPromptVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.GetPromptVersionPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
-        return core.HttpResponsePromise.fromPromise(this.__getPromptVersion(id, version, requestOptions));
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | null> {
+        return core.HttpResponsePromise.fromPromise(this.__getPromptVersion(request, requestOptions));
     }
 
     private async __getPromptVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.GetPromptVersionPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | null>> {
+        const { id, version } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -763,32 +763,29 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a Prompt.
-     *
-     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+     * @param {Hume.empathicVoice.DeletePromptVersionPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1)
+     *     await client.empathicVoice.prompts.deletePromptVersion({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+     *         version: 1
+     *     })
      */
     public deletePromptVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.DeletePromptVersionPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deletePromptVersion(id, version, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deletePromptVersion(request, requestOptions));
     }
 
     private async __deletePromptVersion(
-        id: string,
-        version: number,
+        request: Hume.empathicVoice.DeletePromptVersionPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
+        const { id, version } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -859,39 +856,30 @@ export class Prompts {
      *
      * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
      *
-     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a Prompt.
-     *
-     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Hume.empathicVoice.PostedPromptVersionDescription} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
+     *     await client.empathicVoice.prompts.updatePromptDescription({
+     *         id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+     *         version: 1,
      *         versionDescription: "This is an updated version_description."
      *     })
      */
     public updatePromptDescription(
-        id: string,
-        version: number,
-        request: Hume.empathicVoice.PostedPromptVersionDescription = {},
+        request: Hume.empathicVoice.PostedPromptVersionDescription,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | undefined> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__updatePromptDescription(id, version, request, requestOptions),
-        );
+    ): core.HttpResponsePromise<Hume.empathicVoice.ReturnPrompt | null> {
+        return core.HttpResponsePromise.fromPromise(this.__updatePromptDescription(request, requestOptions));
     }
 
     private async __updatePromptDescription(
-        id: string,
-        version: number,
-        request: Hume.empathicVoice.PostedPromptVersionDescription = {},
+        request: Hume.empathicVoice.PostedPromptVersionDescription,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | undefined>> {
+    ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPrompt | null>> {
+        const { id, version, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -908,7 +896,7 @@ export class Prompts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.empathicVoice.PostedPromptVersionDescription.jsonOrThrow(request, {
+            body: serializers.empathicVoice.PostedPromptVersionDescription.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

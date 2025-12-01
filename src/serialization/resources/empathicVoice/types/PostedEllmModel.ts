@@ -8,11 +8,14 @@ export const PostedEllmModel: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedEllmModel.Raw,
     Hume.empathicVoice.PostedEllmModel
 > = core.serialization.object({
-    allowShortResponses: core.serialization.property("allow_short_responses", core.serialization.boolean().optional()),
+    allowShortResponses: core.serialization.property(
+        "allow_short_responses",
+        core.serialization.boolean().optionalNullable(),
+    ),
 });
 
 export declare namespace PostedEllmModel {
     export interface Raw {
-        allow_short_responses?: boolean | null;
+        allow_short_responses?: (boolean | null | undefined) | null;
     }
 }

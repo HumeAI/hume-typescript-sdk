@@ -12,7 +12,7 @@ export interface ConvertVoiceJsonRequest {
     stripHeaders?: boolean;
     audio?: core.file.Uploadable | undefined;
     /** Utterances to use as context for generating consistent speech style and prosody across multiple requests. These will not be converted to speech output. */
-    context?: Hume.tts.PostedContext;
+    context?: Hume.tts.PostedContext | null;
     voice?: Hume.tts.PostedUtteranceVoice;
     /** Specifies the output audio file format. */
     format?: Hume.tts.Format;

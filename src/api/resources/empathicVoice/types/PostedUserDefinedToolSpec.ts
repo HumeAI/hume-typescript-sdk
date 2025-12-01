@@ -13,5 +13,5 @@ export interface PostedUserDefinedToolSpec {
      *
      * Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      */
-    version?: number;
+    version?: number | null;
 }

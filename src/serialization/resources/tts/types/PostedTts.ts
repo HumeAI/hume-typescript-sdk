@@ -11,7 +11,7 @@ import { TimestampType } from "./TimestampType.js";
 
 export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTts.Raw, Hume.tts.PostedTts> =
     core.serialization.object({
-        context: PostedContext.optional(),
+        context: PostedContext.optionalNullable(),
         format: Format.optional(),
         includeTimestampTypes: core.serialization.property(
             "include_timestamp_types",
@@ -27,7 +27,7 @@ export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTt
 
 export declare namespace PostedTts {
     export interface Raw {
-        context?: PostedContext.Raw | null;
+        context?: (PostedContext.Raw | null | undefined) | null;
         format?: Format.Raw | null;
         include_timestamp_types?: TimestampType.Raw[] | null;
         num_generations?: number | null;

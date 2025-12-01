@@ -6,6 +6,7 @@ import type * as serializers from "../../../index.js";
 import { AudioConfiguration } from "./AudioConfiguration.js";
 import { BuiltinToolConfig } from "./BuiltinToolConfig.js";
 import { Context } from "./Context.js";
+import { SessionSettingsType } from "./SessionSettingsType.js";
 import { SessionSettingsVariablesValue } from "./SessionSettingsVariablesValue.js";
 import { Tool } from "./Tool.js";
 
@@ -13,31 +14,37 @@ export const SessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.SessionSettings.Raw,
     Hume.empathicVoice.SessionSettings
 > = core.serialization.object({
-    audio: AudioConfiguration.optional(),
-    builtinTools: core.serialization.property("builtin_tools", core.serialization.list(BuiltinToolConfig).optional()),
-    context: Context.optional(),
-    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-    languageModelApiKey: core.serialization.property("language_model_api_key", core.serialization.string().optional()),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
-    tools: core.serialization.list(Tool).optional(),
-    type: core.serialization.stringLiteral("session_settings"),
+    audio: AudioConfiguration.optionalNullable(),
+    builtinTools: core.serialization.property(
+        "builtin_tools",
+        core.serialization.list(BuiltinToolConfig).optionalNullable(),
+    ),
+    context: Context.optionalNullable(),
+    customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optionalNullable()),
+    languageModelApiKey: core.serialization.property(
+        "language_model_api_key",
+        core.serialization.string().optionalNullable(),
+    ),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optionalNullable(),
+    systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optionalNullable()),
+    tools: core.serialization.list(Tool).optionalNullable(),
+    type: SessionSettingsType,
     variables: core.serialization.record(core.serialization.string(), SessionSettingsVariablesValue).optional(),
-    voiceId: core.serialization.property("voice_id", core.serialization.string().optional()),
+    voiceId: core.serialization.property("voice_id", core.serialization.string().optionalNullable()),
 });
 
 export declare namespace SessionSettings {
     export interface Raw {
-        audio?: AudioConfiguration.Raw | null;
-        builtin_tools?: BuiltinToolConfig.Raw[] | null;
-        context?: Context.Raw | null;
-        custom_session_id?: string | null;
-        language_model_api_key?: string | null;
-        metadata?: Record<string, unknown> | null;
-        system_prompt?: string | null;
-        tools?: Tool.Raw[] | null;
-        type: "session_settings";
+        audio?: (AudioConfiguration.Raw | null | undefined) | null;
+        builtin_tools?: (BuiltinToolConfig.Raw[] | null | undefined) | null;
+        context?: (Context.Raw | null | undefined) | null;
+        custom_session_id?: (string | null | undefined) | null;
+        language_model_api_key?: (string | null | undefined) | null;
+        metadata?: (Record<string, unknown> | null | undefined) | null;
+        system_prompt?: (string | null | undefined) | null;
+        tools?: (Tool.Raw[] | null | undefined) | null;
+        type: SessionSettingsType.Raw;
         variables?: Record<string, SessionSettingsVariablesValue.Raw> | null;
-        voice_id?: string | null;
+        voice_id?: (string | null | undefined) | null;
     }
 }

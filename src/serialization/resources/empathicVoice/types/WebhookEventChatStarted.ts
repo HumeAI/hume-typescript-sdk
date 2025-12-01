@@ -3,7 +3,8 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
-import { WebhookEventBase } from "./WebhookEventBase.js";
+import { WebhookBaseEvent } from "./WebhookBaseEvent.js";
+import { WebhookEventChatStartedEventName } from "./WebhookEventChatStartedEventName.js";
 import { WebhookEventChatStartType } from "./WebhookEventChatStartType.js";
 
 export const WebhookEventChatStarted: core.serialization.ObjectSchema<
@@ -11,23 +12,20 @@ export const WebhookEventChatStarted: core.serialization.ObjectSchema<
     Hume.empathicVoice.WebhookEventChatStarted
 > = core.serialization
     .object({
-        callerNumber: core.serialization.property("caller_number", core.serialization.string().optional()),
+        callerNumber: core.serialization.property("caller_number", core.serialization.string().nullable()),
         chatStartType: core.serialization.property("chat_start_type", WebhookEventChatStartType),
-        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
-        eventName: core.serialization.property(
-            "event_name",
-            core.serialization.stringLiteral("chat_started").optional(),
-        ),
+        customSessionId: core.serialization.property("custom_session_id", core.serialization.string().nullable()),
+        eventName: core.serialization.property("event_name", WebhookEventChatStartedEventName.optional()),
         startTime: core.serialization.property("start_time", core.serialization.number()),
     })
-    .extend(WebhookEventBase);
+    .extend(WebhookBaseEvent);
 
 export declare namespace WebhookEventChatStarted {
-    export interface Raw extends WebhookEventBase.Raw {
+    export interface Raw extends WebhookBaseEvent.Raw {
         caller_number?: string | null;
         chat_start_type: WebhookEventChatStartType.Raw;
         custom_session_id?: string | null;
-        event_name?: "chat_started" | null;
+        event_name?: WebhookEventChatStartedEventName.Raw | null;
         start_time: number;
     }
 }

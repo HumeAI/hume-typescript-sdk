@@ -24,7 +24,7 @@ export class Voices {
     /**
      * Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
      *
-     * @param {Hume.tts.VoicesListRequest} request
+     * @param {Hume.tts.ListVoicesRequest} request
      * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.tts.BadRequestError}
@@ -35,12 +35,12 @@ export class Voices {
      *     })
      */
     public async list(
-        request: Hume.tts.VoicesListRequest,
+        request: Hume.tts.ListVoicesRequest,
         requestOptions?: Voices.RequestOptions,
     ): Promise<core.Page<Hume.tts.ReturnVoice, Hume.tts.ReturnPagedVoices>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (request: Hume.tts.VoicesListRequest): Promise<core.WithRawResponse<Hume.tts.ReturnPagedVoices>> => {
-                const { provider, pageNumber, pageSize, ascendingOrder, filterTag } = request;
+            async (request: Hume.tts.ListVoicesRequest): Promise<core.WithRawResponse<Hume.tts.ReturnPagedVoices>> => {
+                const { provider, pageNumber, pageSize, ascendingOrder } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 _queryParams.provider = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
                     unrecognizedObjectKeys: "strip",
@@ -54,13 +54,6 @@ export class Voices {
                 }
                 if (ascendingOrder != null) {
                     _queryParams.ascending_order = ascendingOrder.toString();
-                }
-                if (filterTag != null) {
-                    if (Array.isArray(filterTag)) {
-                        _queryParams.filter_tag = filterTag.map((item) => item);
-                    } else {
-                        _queryParams.filter_tag = filterTag;
-                    }
                 }
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     this._options?.headers,
@@ -255,7 +248,7 @@ export class Voices {
     /**
      * Deletes a previously generated custom voice.
      *
-     * @param {Hume.tts.VoicesDeleteRequest} request
+     * @param {Hume.tts.DeleteVoicesRequest} request
      * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.tts.BadRequestError}
@@ -266,14 +259,14 @@ export class Voices {
      *     })
      */
     public delete(
-        request: Hume.tts.VoicesDeleteRequest,
+        request: Hume.tts.DeleteVoicesRequest,
         requestOptions?: Voices.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        request: Hume.tts.VoicesDeleteRequest,
+        request: Hume.tts.DeleteVoicesRequest,
         requestOptions?: Voices.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const { name } = request;
