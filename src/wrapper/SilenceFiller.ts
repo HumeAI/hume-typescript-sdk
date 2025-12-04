@@ -1,10 +1,25 @@
-import { Readable } from "stream";
+/**
+ * A minimal Writable-like interface that SilenceFiller can pipe to.
+ * This matches the subset of Node.js Writable that we need.
+ */
+export interface PipeDestination {
+    write(chunk: Uint8Array): boolean;
+    end?(): void;
+    on?(event: "drain", listener: () => void): this;
+    once?(event: "drain", listener: () => void): this;
+    removeListener?(event: "drain", listener: () => void): this;
+}
+
+type EventListener = (...args: unknown[]) => void;
 
 /**
- * SilenceFiller is a Readable stream that intersperses incoming audio data
+ * SilenceFiller is a pipeable stream that intersperses incoming audio data
  * with bytes of silence. This is important in some cases to keep an audio
  * stream "alive". Audio players, such as ffmpeg, can interpret inactivity as
  * meaning the stream is ended, or disconnected.
+ *
+ * This implementation does not depend on Node.js built-ins and can work in
+ * any JavaScript environment, while still being pipeable to Node.js streams.
  *
  * @example
  * ```typescript
@@ -30,12 +45,15 @@ import { Readable } from "stream";
  * await silenceFiller.endStream();
  * ```
  */
-export class SilenceFiller extends Readable {
+export class SilenceFiller {
     private unclockedSilenceFiller: UnclockedSilenceFiller;
     private isStarted: boolean = false;
-    private pushInterval: NodeJS.Timeout | null = null;
+    private pushIntervalId: ReturnType<typeof setInterval> | null = null;
     private bytesPerSample: number;
     private pushIntervalMs: number;
+    private destination: PipeDestination | null = null;
+    private eventListeners: Map<string, Set<EventListener>> = new Map();
+    private ended: boolean = false;
 
     /**
      * Creates a new SilenceFiller instance.
@@ -51,20 +69,94 @@ export class SilenceFiller extends Readable {
         pushIntervalMs: number = 5,
         sampleRate: number = 48000,
         bytesPerSample: number = 2,
-        bufferSize: number = 9600,
+        bufferSize: number = 9600
     ) {
-        super({ objectMode: false });
         this.unclockedSilenceFiller = new UnclockedSilenceFiller(bufferSize, sampleRate, bytesPerSample);
         this.bytesPerSample = bytesPerSample;
         this.pushIntervalMs = pushIntervalMs;
     }
 
     /**
+     * Pipes the output of this SilenceFiller to a writable destination.
+     *
+     * @param destination - The destination to pipe to (e.g., a Node.js Writable stream).
+     * @returns The destination, for chaining.
+     */
+    pipe<T extends PipeDestination>(destination: T): T {
+        this.destination = destination;
+        return destination;
+    }
+
+    /**
+     * Registers an event listener.
+     *
+     * @param event - The event name ('error', 'end').
+     * @param listener - The listener function.
+     * @returns This instance, for chaining.
+     */
+    on(event: string, listener: EventListener): this {
+        if (!this.eventListeners.has(event)) {
+            this.eventListeners.set(event, new Set());
+        }
+        this.eventListeners.get(event)!.add(listener);
+        return this;
+    }
+
+    /**
+     * Registers a one-time event listener.
+     *
+     * @param event - The event name ('error', 'end').
+     * @param listener - The listener function.
+     * @returns This instance, for chaining.
+     */
+    once(event: string, listener: EventListener): this {
+        const onceWrapper: EventListener = (...args: unknown[]) => {
+            this.off(event, onceWrapper);
+            listener(...args);
+        };
+        return this.on(event, onceWrapper);
+    }
+
+    /**
+     * Removes an event listener.
+     *
+     * @param event - The event name.
+     * @param listener - The listener function to remove.
+     * @returns This instance, for chaining.
+     */
+    off(event: string, listener: EventListener): this {
+        const listeners = this.eventListeners.get(event);
+        if (listeners) {
+            listeners.delete(listener);
+        }
+        return this;
+    }
+
+    /**
+     * Emits an event to all registered listeners.
+     *
+     * @param event - The event name.
+     * @param args - Arguments to pass to listeners.
+     */
+    private emit(event: string, ...args: unknown[]): void {
+        const listeners = this.eventListeners.get(event);
+        if (listeners) {
+            for (const listener of listeners) {
+                try {
+                    listener(...args);
+                } catch {
+                    // Ignore errors in listeners
+                }
+            }
+        }
+    }
+
+    /**
      * Writes audio data to the silence filler.
      *
-     * @param audioBuffer - The audio buffer to write.
+     * @param audioBuffer - The audio buffer to write (Uint8Array or Buffer).
      */
-    writeAudio(audioBuffer: Buffer): void {
+    writeAudio(audioBuffer: Uint8Array): void {
         const now = Date.now();
         try {
             this.unclockedSilenceFiller.writeAudio(audioBuffer, now);
@@ -79,13 +171,13 @@ export class SilenceFiller extends Readable {
     }
 
     private startPushInterval(): void {
-        this.pushInterval = setInterval(() => {
+        this.pushIntervalId = setInterval(() => {
             this.pushData();
         }, this.pushIntervalMs);
     }
 
     private pushData(): void {
-        if (!this.isStarted) return;
+        if (!this.isStarted || !this.destination) return;
 
         try {
             const now = Date.now();
@@ -97,19 +189,13 @@ export class SilenceFiller extends Readable {
 
                 if (alignedChunkSize > 0) {
                     const chunk = audioChunk.subarray(0, alignedChunkSize);
-                    this.push(chunk);
+                    this.destination.write(chunk);
                 }
             }
         } catch (error) {
             console.error(`[SilenceFiller] Error pushing data:`, error);
             this.emit("error", error);
         }
-    }
-
-    _read(): void {}
-
-    _destroy(error: Error | null, callback: (error?: Error | null) => void): void {
-        super._destroy(error, callback);
     }
 
     /**
@@ -119,35 +205,39 @@ export class SilenceFiller extends Readable {
      */
     endStream(): Promise<void> {
         return new Promise((resolve) => {
+            if (this.ended) {
+                resolve();
+                return;
+            }
+            this.ended = true;
+
             // Stop pushing data
-            if (this.pushInterval) {
-                clearInterval(this.pushInterval);
-                this.pushInterval = null;
+            if (this.pushIntervalId) {
+                clearInterval(this.pushIntervalId);
+                this.pushIntervalId = null;
             }
 
             // Drain all remaining audio from SilenceFiller
             const now = Date.now();
 
             // Keep reading until no more audio is available
-            while (true) {
+            while (this.destination) {
                 const remainingChunk = this.unclockedSilenceFiller.readAudio(now);
 
                 if (!remainingChunk || remainingChunk.length === 0) {
                     break;
                 }
 
-                const alignedChunkSize = Math.floor(remainingChunk.length / this.bytesPerSample) * this.bytesPerSample;
+                const alignedChunkSize =
+                    Math.floor(remainingChunk.length / this.bytesPerSample) * this.bytesPerSample;
                 if (alignedChunkSize > 0) {
                     const chunk = remainingChunk.subarray(0, alignedChunkSize);
-                    this.push(chunk);
+                    this.destination.write(chunk);
                 }
             }
 
-            this.push(null); // Signal end of stream
-
-            this.once("end", () => {
-                resolve();
-            });
+            this.emit("end");
+            resolve();
         });
     }
 }
@@ -160,7 +250,7 @@ export class SilenceFiller extends Readable {
  * @internal
  */
 export class UnclockedSilenceFiller {
-    private audioQueue: Buffer[] = [];
+    private audioQueue: Uint8Array[] = [];
     private totalBufferedBytes: number = 0;
     private startTimestamp: number | null = null;
     private totalBytesSent: number = 0;
@@ -175,7 +265,7 @@ export class UnclockedSilenceFiller {
         this.bytesPerSample = bytesPerSample;
     }
 
-    writeAudio(audioBuffer: Buffer, timestamp: number): void {
+    writeAudio(audioBuffer: Uint8Array, timestamp: number): void {
         this.audioQueue.push(audioBuffer);
         this.totalBufferedBytes += audioBuffer.length;
 
@@ -188,7 +278,7 @@ export class UnclockedSilenceFiller {
         }
     }
 
-    readAudio(timestamp: number): Buffer | null {
+    readAudio(timestamp: number): Uint8Array | null {
         if (this.startTimestamp === null || !this.donePrebuffering) {
             return null;
         }
@@ -210,12 +300,12 @@ export class UnclockedSilenceFiller {
             return null;
         }
 
-        let chunk = Buffer.alloc(0);
+        let chunk = new Uint8Array(0);
 
         // Drain from queue until we have enough bytes
         while (chunk.length < alignedBytesNeeded && this.audioQueue.length > 0) {
             const nextBuffer = this.audioQueue.shift()!;
-            chunk = Buffer.concat([chunk, nextBuffer]);
+            chunk = concatUint8Arrays(chunk, nextBuffer);
             this.totalBufferedBytes -= nextBuffer.length;
         }
 
@@ -229,8 +319,8 @@ export class UnclockedSilenceFiller {
 
         // Fill remaining with silence if needed
         if (chunk.length < alignedBytesNeeded) {
-            const silenceNeeded = Buffer.alloc(alignedBytesNeeded - chunk.length, 0);
-            chunk = Buffer.concat([chunk, silenceNeeded]);
+            const silenceNeeded = new Uint8Array(alignedBytesNeeded - chunk.length); // Uint8Array is zero-filled by default
+            chunk = concatUint8Arrays(chunk, silenceNeeded);
         }
 
         // Update total bytes sent
@@ -238,4 +328,14 @@ export class UnclockedSilenceFiller {
 
         return chunk;
     }
+}
+
+/**
+ * Concatenates two Uint8Arrays into a new Uint8Array.
+ */
+function concatUint8Arrays(a: Uint8Array, b: Uint8Array): Uint8Array {
+    const result = new Uint8Array(a.length + b.length);
+    result.set(a, 0);
+    result.set(b, a.length);
+    return result;
 }
