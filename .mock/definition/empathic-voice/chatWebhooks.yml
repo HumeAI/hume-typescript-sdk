@@ -54,4 +54,5 @@ webhooks:
             response_required: true
             tool_call_id: tool_call_id
             tool_type: builtin
+            type: tool_call
     docs: Sent when EVI triggers a tool call
