@@ -69,7 +69,7 @@ export class SilenceFiller {
         pushIntervalMs: number = 5,
         sampleRate: number = 48000,
         bytesPerSample: number = 2,
-        bufferSize: number = 9600
+        bufferSize: number = 9600,
     ) {
         this.unclockedSilenceFiller = new UnclockedSilenceFiller(bufferSize, sampleRate, bytesPerSample);
         this.bytesPerSample = bytesPerSample;
@@ -228,8 +228,7 @@ export class SilenceFiller {
                     break;
                 }
 
-                const alignedChunkSize =
-                    Math.floor(remainingChunk.length / this.bytesPerSample) * this.bytesPerSample;
+                const alignedChunkSize = Math.floor(remainingChunk.length / this.bytesPerSample) * this.bytesPerSample;
                 if (alignedChunkSize > 0) {
                     const chunk = remainingChunk.subarray(0, alignedChunkSize);
                     this.destination.write(chunk);
