@@ -12,12 +12,13 @@ export { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasure
 export { EVIWebAudioPlayer } from "./EVIWebAudioPlayer.js";
 export type { EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer.js";
 export { collate } from "./collate.js";
+export { SilenceFiller } from "./SilenceFiller.js";
+export type { PipeDestination } from "./SilenceFiller.js";
 
-// SilenceFiller extends from Node.JS Readable -- this should not be exported in non-nodeJS environments. Otherwise the bundle will crash in the browser.
+/**
+ * @deprecated SilenceFiller no longer requires dynamic import. Use `import { SilenceFiller } from 'hume'` directly.
+ */
 export const createSilenceFiller = async (): Promise<typeof import("./SilenceFiller.js").SilenceFiller> => {
-    if (typeof process === "undefined" || !process.versions?.node) {
-        throw new Error("SilenceFiller is only available in Node.js environments");
-    }
     const { SilenceFiller } = await import("./SilenceFiller.js");
     return SilenceFiller;
 };
