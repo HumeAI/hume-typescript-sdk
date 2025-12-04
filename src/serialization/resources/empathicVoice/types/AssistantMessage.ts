@@ -13,7 +13,6 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     customSessionId: core.serialization.property("custom_session_id", core.serialization.string().optional()),
     fromText: core.serialization.property("from_text", core.serialization.boolean()),
     id: core.serialization.string().optional(),
-    isQuickResponse: core.serialization.property("is_quick_response", core.serialization.boolean()),
     language: core.serialization.string().optional(),
     message: ChatMessage,
     models: Inference,
@@ -25,7 +24,6 @@ export declare namespace AssistantMessage {
         custom_session_id?: string | null;
         from_text: boolean;
         id?: string | null;
-        is_quick_response: boolean;
         language?: string | null;
         message: ChatMessage.Raw;
         models: Inference.Raw;

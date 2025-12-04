@@ -44,7 +44,7 @@ export class Chats {
             async (
                 request: Hume.empathicVoice.ChatsListChatsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedChats>> => {
-                const { pageNumber, pageSize, ascendingOrder, configId, status } = request;
+                const { pageNumber, pageSize, ascendingOrder, configId } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (pageNumber != null) {
                     _queryParams.page_number = pageNumber.toString();
@@ -57,9 +57,6 @@ export class Chats {
                 }
                 if (configId != null) {
                     _queryParams.config_id = configId;
-                }
-                if (status != null) {
-                    _queryParams.status = status;
                 }
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     this._options?.headers,

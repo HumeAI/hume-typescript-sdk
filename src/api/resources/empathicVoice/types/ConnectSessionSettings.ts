@@ -37,8 +37,6 @@ export interface ConnectSessionSettings {
      * For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
      */
     systemPrompt?: string;
-    /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this EVI session. This will override the speaker set in the selected configuration. */
-    voiceId?: string;
     /**
      * This field allows you to assign values to dynamic variables referenced in your system prompt.
      *
@@ -49,4 +47,6 @@ export interface ConnectSessionSettings {
      * Using this field, you can personalize responses based on session-specific details. For more guidance, see our [guide on using dynamic variables](/docs/speech-to-speech-evi/features/dynamic-variables).
      */
     variables?: Record<string, Hume.empathicVoice.ConnectSessionSettingsVariablesValue>;
+    /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this EVI session. This will override the speaker set in the selected configuration. */
+    voiceId?: string;
 }
