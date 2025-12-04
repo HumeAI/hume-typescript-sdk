@@ -12,8 +12,6 @@ export interface AssistantMessage {
     fromText: boolean;
     /** ID of the assistant message. Allows the Assistant Message to be tracked and referenced. */
     id?: string;
-    /** Indicates if this message is a quick response or not. */
-    isQuickResponse: boolean;
     /** Detected language of the message text. */
     language?: string;
     /** Transcript of the message. */

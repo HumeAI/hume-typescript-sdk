@@ -93,9 +93,6 @@ types:
         docs: >-
           ID of the assistant message. Allows the Assistant Message to be
           tracked and referenced.
-      is_quick_response:
-        type: boolean
-        docs: Indicates if this message is a quick response or not.
       language:
         type: optional<string>
         docs: Detected language of the message text.
@@ -788,7 +785,18 @@ types:
     source:
       openapi: evi-openapi.json
   ToolCallMessage:
-    docs: When provided, the output is a tool call.
+    docs: >-
+      **Indicates that the supplemental LLM has detected a need to invoke the
+      specified tool.** This message is only received for user-defined function
+      tools.
+
+
+      Contains the tool name, parameters (as a stringified JSON schema), whether
+      a response is required from the developer (either in the form of a
+      `ToolResponseMessage` or a `ToolErrorMessage`), the unique tool call ID
+      for tracking the request and response, and the tool type. See our [Tool
+      Use Guide](/docs/speech-to-speech-evi/features/tool-use) for further
+      details.
     properties:
       custom_session_id:
         type: optional<string>
@@ -800,15 +808,22 @@ types:
         docs: Name of the tool called.
       parameters:
         type: string
-        docs: Parameters of the tool call. Is a stringified JSON schema.
+        docs: >-
+          Parameters of the tool.
+
+
+          These parameters define the inputs needed for the tool's execution,
+          including the expected data type and description for each input field.
+          Structured as a stringified JSON schema, this format ensures the tool
+          receives data in the expected format.
       response_required:
         type: boolean
         docs: >-
           Indicates whether a response to the tool call is required from the
           developer, either in the form of a [Tool Response
-          message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Response%20Message.type)
+          message](/reference/speech-to-speech-evi/chat#send.ToolResponseMessage)
           or a [Tool Error
-          message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Error%20Message.type).
+          message](/reference/speech-to-speech-evi/chat#send.ToolErrorMessage).
       tool_call_id:
         type: string
         docs: >-
@@ -819,12 +834,12 @@ types:
           invocation, ensuring that the correct response is linked to the
           appropriate request.
       tool_type:
-        type: ToolType
+        type: optional<ToolType>
         docs: >-
           Type of tool called. Either `builtin` for natively implemented tools,
           like web search, or `function` for user-defined tools.
       type:
-        type: optional<literal<"tool_call">>
+        type: literal<"tool_call">
         docs: >-
           The type of message sent through the socket; for a Tool Call message,
           this must be `tool_call`.
@@ -1210,17 +1225,6 @@ types:
           message type rather than a `ToolCallMessage` if the tool fails. See
           our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use) for
           further details.
-      - type: SessionSettings
-        docs: >-
-          **Settings for this chat session.** Session settings are temporary and
-          apply only to the current Chat session.
-
-
-          These settings can be adjusted dynamically based on the requirements
-          of each session to ensure optimal performance and user experience. See
-          our [Session Settings
-          Guide](/docs/speech-to-speech-evi/configuration/session-settings) for
-          a complete list of configurable settings.
     source:
       openapi: evi-asyncapi.json
   JsonMessage:
@@ -1323,17 +1327,6 @@ types:
           message type rather than a `ToolCallMessage` if the tool fails. See
           our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use) for
           further details.
-      - type: SessionSettings
-        docs: >-
-          **Settings for this chat session.** Session settings are temporary and
-          apply only to the current Chat session.
-
-
-          These settings can be adjusted dynamically based on the requirements
-          of each session to ensure optimal performance and user experience. See
-          our [Session Settings
-          Guide](/docs/speech-to-speech-evi/configuration/session-settings) for
-          a complete list of configurable settings.
     source:
       openapi: evi-asyncapi.json
   ConnectSessionSettingsAudio:
@@ -1488,12 +1481,6 @@ types:
 
           For help writing a system prompt, see our [Prompting
           Guide](/docs/speech-to-speech-evi/guides/prompting).
-      voice_id:
-        type: optional<string>
-        docs: >-
-          The name or ID of the voice from the `Voice Library` to be used as the
-          speaker for this EVI session. This will override the speaker set in
-          the selected configuration.
       variables:
         type: optional<map<string, ConnectSessionSettingsVariablesValue>>
         docs: >-
@@ -1517,6 +1504,12 @@ types:
           session-specific details. For more guidance, see our [guide on using
           dynamic
           variables](/docs/speech-to-speech-evi/features/dynamic-variables).
+      voice_id:
+        type: optional<string>
+        docs: >-
+          The name or ID of the voice from the `Voice Library` to be used as the
+          speaker for this EVI session. This will override the speaker set in
+          the selected configuration.
     source:
       openapi: evi-asyncapi.json
   ControlPlanePublishEvent:

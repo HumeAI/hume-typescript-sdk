@@ -25,6 +25,4 @@ export interface ChatsListChatsRequest {
     ascendingOrder?: boolean;
     /** Filter to only include chats that used this config. */
     configId?: string;
-    /** Chat status to apply to the chat. String from the ChatStatus enum. */
-    status?: string;
 }

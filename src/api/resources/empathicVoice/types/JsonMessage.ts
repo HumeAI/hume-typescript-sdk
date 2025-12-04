@@ -46,9 +46,4 @@ export type JsonMessage =
      * **Error message from the tool call**, not exposed to the LLM or user. Upon receiving a Tool Call message and failing to invoke the function, this message is sent to notify EVI of the tool's failure.
      *
      * For built-in tools implemented on the server, you will receive this message type rather than a `ToolCallMessage` if the tool fails. See our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use) for further details. */
-    | Hume.empathicVoice.ToolErrorMessage
-    /**
-     * **Settings for this chat session.** Session settings are temporary and apply only to the current Chat session.
-     *
-     * These settings can be adjusted dynamically based on the requirements of each session to ensure optimal performance and user experience. See our [Session Settings Guide](/docs/speech-to-speech-evi/configuration/session-settings) for a complete list of configurable settings. */
-    | Hume.empathicVoice.SessionSettings;
+    | Hume.empathicVoice.ToolErrorMessage;
