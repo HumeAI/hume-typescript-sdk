@@ -3545,20 +3545,58 @@ types:
     properties:
       id:
         type: string
-        docs: ID of the voice in the `Voice Library`.
+        docs: The unique ID associated with the **Voice**.
       provider:
         type: optional<VoiceProvider>
-        docs: Model provider associated with this Voice ID.
+        docs: >-
+          Specifies the source provider associated with the chosen voice.
+
+
+          - **`HUME_AI`**: Select voices from Hume's [Voice
+          Library](https://platform.hume.ai/tts/voice-library), containing a
+          variety of preset, shared voices.
+
+          - **`CUSTOM_VOICE`**: Select from voices you've personally generated
+          and saved in your account. 
+
+
+          If no provider is explicitly set, the default provider is
+          `CUSTOM_VOICE`. When using voices from Hume's **Voice Library**, you
+          must explicitly set the provider to `HUME_AI`.
+
+
+          Preset voices from Hume's **Voice Library** are accessible by all
+          users. In contrast, your custom voices are private and accessible only
+          via requests authenticated with your API key.
     source:
       openapi: evi-openapi.json
   VoiceName:
     properties:
       name:
         type: string
-        docs: Name of the voice in the `Voice Library`.
+        docs: The name of a **Voice**.
       provider:
         type: optional<VoiceProvider>
-        docs: Model provider associated with this Voice Name.
+        docs: >-
+          Specifies the source provider associated with the chosen voice.
+
+
+          - **`HUME_AI`**: Select voices from Hume's [Voice
+          Library](https://platform.hume.ai/tts/voice-library), containing a
+          variety of preset, shared voices.
+
+          - **`CUSTOM_VOICE`**: Select from voices you've personally generated
+          and saved in your account. 
+
+
+          If no provider is explicitly set, the default provider is
+          `CUSTOM_VOICE`. When using voices from Hume's **Voice Library**, you
+          must explicitly set the provider to `HUME_AI`.
+
+
+          Preset voices from Hume's **Voice Library** are accessible by all
+          users. In contrast, your custom voices are private and accessible only
+          via requests authenticated with your API key.
     source:
       openapi: evi-openapi.json
   VoiceRef:

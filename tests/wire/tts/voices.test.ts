@@ -4,10 +4,11 @@ import * as Hume from "../../../src/api/index";
 import { HumeClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Voices", () => {
+describe("VoicesClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -21,7 +22,13 @@ describe("Voices", () => {
                 { id: "d87352b0-26a3-4b11-081b-d157a5674d19", name: "Goliath Hume", provider: "CUSTOM_VOICE" },
             ],
         };
-        server.mockEndpoint().get("/v0/tts/voices").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/tts/voices")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const expected = {
             pageNumber: 0,
@@ -53,12 +60,19 @@ describe("Voices", () => {
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/tts/voices").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/tts/voices")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.tts.voices.list({
@@ -70,6 +84,7 @@ describe("Voices", () => {
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -102,6 +117,7 @@ describe("Voices", () => {
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -127,6 +143,7 @@ describe("Voices", () => {
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -142,6 +159,7 @@ describe("Voices", () => {
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
