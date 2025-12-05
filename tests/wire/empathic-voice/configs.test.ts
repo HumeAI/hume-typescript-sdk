@@ -4,10 +4,11 @@ import * as Hume from "../../../src/api/index";
 import { HumeClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Configs", () => {
+describe("ConfigsClient", () => {
     test("list-configs (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -56,7 +57,13 @@ describe("Configs", () => {
                 },
             ],
         };
-        server.mockEndpoint().get("/v0/evi/configs").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/configs")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const expected = {
             pageNumber: 0,
@@ -137,12 +144,19 @@ describe("Configs", () => {
     test("list-configs (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/configs").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/configs")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.configs.listConfigs();
@@ -152,6 +166,7 @@ describe("Configs", () => {
     test("create-config (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -303,6 +318,7 @@ describe("Configs", () => {
     test("create-config (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -328,6 +344,7 @@ describe("Configs", () => {
     test("list-config-versions (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -377,7 +394,7 @@ describe("Configs", () => {
             ],
         };
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/configs/1b60e1a0-cc59-424a-8d2c-189d354db3f3")
             .respondWith()
             .statusCode(200)
@@ -460,12 +477,19 @@ describe("Configs", () => {
     test("list-config-versions (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/configs/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/configs/id")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.configs.listConfigVersions("id");
@@ -475,6 +499,7 @@ describe("Configs", () => {
     test("create-config-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -633,6 +658,7 @@ describe("Configs", () => {
     test("create-config-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -657,6 +683,7 @@ describe("Configs", () => {
     test("delete-config (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -675,6 +702,7 @@ describe("Configs", () => {
     test("delete-config (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -696,6 +724,7 @@ describe("Configs", () => {
     test("get-config-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -805,6 +834,7 @@ describe("Configs", () => {
     test("get-config-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -826,6 +856,7 @@ describe("Configs", () => {
     test("delete-config-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -847,6 +878,7 @@ describe("Configs", () => {
     test("delete-config-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -868,6 +900,7 @@ describe("Configs", () => {
     test("update-config-description (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -984,6 +1017,7 @@ describe("Configs", () => {
     test("update-config-description (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });

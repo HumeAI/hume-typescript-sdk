@@ -4,10 +4,11 @@ import * as Hume from "../../../src/api/index";
 import { HumeClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Tools", () => {
+describe("ToolsClient", () => {
     test("list-tools (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -48,7 +49,13 @@ describe("Tools", () => {
                 },
             ],
         };
-        server.mockEndpoint().get("/v0/evi/tools").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/tools")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const expected = {
             pageNumber: 0,
@@ -100,12 +107,19 @@ describe("Tools", () => {
     test("list-tools (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/tools").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/tools")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.tools.listTools();
@@ -115,6 +129,7 @@ describe("Tools", () => {
     test("create-tool (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -176,6 +191,7 @@ describe("Tools", () => {
     test("create-tool (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -201,6 +217,7 @@ describe("Tools", () => {
     test("list-tool-versions (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -228,7 +245,7 @@ describe("Tools", () => {
             ],
         };
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea")
             .respondWith()
             .statusCode(200)
@@ -268,12 +285,19 @@ describe("Tools", () => {
     test("list-tool-versions (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/tools/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/tools/id")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.tools.listToolVersions("id");
@@ -283,6 +307,7 @@ describe("Tools", () => {
     test("create-tool-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -346,6 +371,7 @@ describe("Tools", () => {
     test("create-tool-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -370,6 +396,7 @@ describe("Tools", () => {
     test("delete-tool (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -388,6 +415,7 @@ describe("Tools", () => {
     test("delete-tool (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -409,6 +437,7 @@ describe("Tools", () => {
     test("get-tool-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -457,6 +486,7 @@ describe("Tools", () => {
     test("get-tool-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -478,6 +508,7 @@ describe("Tools", () => {
     test("delete-tool-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -496,6 +527,7 @@ describe("Tools", () => {
     test("delete-tool-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -517,6 +549,7 @@ describe("Tools", () => {
     test("update-tool-description (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -576,6 +609,7 @@ describe("Tools", () => {
     test("update-tool-description (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });

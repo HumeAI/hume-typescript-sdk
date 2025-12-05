@@ -4,10 +4,11 @@ import * as Hume from "../../../src/api/index";
 import { HumeClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Prompts", () => {
+describe("PromptsClient", () => {
     test("list-prompts (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -39,7 +40,13 @@ describe("Prompts", () => {
                 },
             ],
         };
-        server.mockEndpoint().get("/v0/evi/prompts").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/prompts")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const expected = {
             pageNumber: 0,
@@ -82,12 +89,19 @@ describe("Prompts", () => {
     test("list-prompts (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/prompts").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/prompts")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.prompts.listPrompts();
@@ -97,6 +111,7 @@ describe("Prompts", () => {
     test("create-prompt (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -140,6 +155,7 @@ describe("Prompts", () => {
     test("create-prompt (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -165,6 +181,7 @@ describe("Prompts", () => {
     test("list-prompt-versions (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -217,6 +234,7 @@ describe("Prompts", () => {
     test("list-prompt-versions (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -232,6 +250,7 @@ describe("Prompts", () => {
     test("create-prompt-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -280,6 +299,7 @@ describe("Prompts", () => {
     test("create-prompt-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -304,6 +324,7 @@ describe("Prompts", () => {
     test("delete-prompt (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -322,6 +343,7 @@ describe("Prompts", () => {
     test("delete-prompt (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -343,6 +365,7 @@ describe("Prompts", () => {
     test("get-prompt-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -381,6 +404,7 @@ describe("Prompts", () => {
     test("get-prompt-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -402,6 +426,7 @@ describe("Prompts", () => {
     test("delete-prompt-version (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -423,6 +448,7 @@ describe("Prompts", () => {
     test("delete-prompt-version (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -444,6 +470,7 @@ describe("Prompts", () => {
     test("update-prompt-description (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -489,6 +516,7 @@ describe("Prompts", () => {
     test("update-prompt-description (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });

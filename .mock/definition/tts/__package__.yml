@@ -339,9 +339,22 @@ types:
       description:
         type: optional<string>
         docs: >-
-          Natural language instructions describing how the text should be spoken
-          by the model (e.g., `"a soft, gentle voice with a strong British
-          accent"`).
+          Natural language instructions describing how the synthesized speech
+          should sound, including but not limited to tone, intonation, pacing,
+          and accent.
+
+
+          **This field behaves differently depending on whether a voice is
+          specified**:
+
+          - **Voice specified**: the description will serve as acting directions
+          for delivery. Keep directions concise—100 characters or fewer—for best
+          results. See our guide on [acting
+          instructions](/docs/text-to-speech-tts/acting-instructions).
+
+          - **Voice not specified**: the description will serve as a voice
+          prompt for generating a voice. See our [prompting
+          guide](/docs/text-to-speech-tts/prompting) for design tips.
         validation:
           maxLength: 1000
       flush:
@@ -352,14 +365,16 @@ types:
         default: false
       speed:
         type: optional<double>
-        docs: A relative measure of how fast this utterance should be spoken.
+        docs: >-
+          Speed multiplier for the synthesized speech. Extreme values below 0.75
+          and above 1.5 may sometimes cause instability to the generated output.
         default: 1
         validation:
           min: 0.25
           max: 3
       text:
         type: optional<string>
-        docs: The input text to be converted to speech output.
+        docs: The input text to be synthesized into speech.
         default: ''
         validation:
           maxLength: 5000
@@ -373,9 +388,11 @@ types:
       voice:
         type: optional<PostedUtteranceVoice>
         docs: >-
-          The name or ID of the voice from the `Voice Library` to be used as the
-          speaker for this and all subsequent utterances, until the `"voice"`
-          field is updated again.
+          The `name` or `id` associated with a **Voice** from the **Voice
+          Library** to be used as the speaker for this and all subsequent
+          `utterances`, until the `voice` field is updated again.
+
+           See our [voices guide](/docs/text-to-speech-tts/voices) for more details on generating and specifying **Voices**.
     source:
       openapi: tts-asyncapi.json
   MillisecondInterval:
@@ -551,19 +568,24 @@ types:
         name: Two
     docs: >-
       Selects the Octave model version used to synthesize speech for this
-      request. If you omit this field, Hume automatically routes the request to
-      the most appropriate model. Setting a specific version ensures stable and
+      request. If you omit this field, Hume
+
+      automatically routes the request to the most appropriate model. Setting a
+      specific version ensures stable and
+
       repeatable behavior across requests.
 
 
       Use `2` to opt into the latest Octave capabilities. When you specify
-      version `2`, you must also provide a `voice`. Requests that set `version:
-      2` without a voice will be rejected.
+      version `2`, you must also provide a
+
+      `voice`. Requests that set `version: 2` without a voice will be rejected.
 
 
-      For a comparison of Octave versions, see the [Octave
-      versions](/docs/text-to-speech-tts/overview#octave-versions) section in
-      the TTS overview.
+      For a comparison of Octave versions, see the
+
+      [Octave versions](/docs/text-to-speech-tts/overview#octave-versions)
+      section in the TTS overview.
     source:
       openapi: tts-openapi.json
   TtsOutput:
@@ -773,25 +795,6 @@ types:
           in the TTS overview.
       instant_mode:
         type: optional<boolean>
-        docs: >-
-          Enables ultra-low latency streaming, significantly reducing the time
-          until the first audio chunk is received. Recommended for real-time
-          applications requiring immediate audio playback. For further details,
-          see our documentation on [instant
-          mode](/docs/text-to-speech-tts/overview#ultra-low-latency-streaming-instant-mode). 
-
-          - A
-          [voice](/reference/text-to-speech-tts/synthesize-json-streaming#request.body.utterances.voice)
-          must be specified when instant mode is enabled. Dynamic voice
-          generation is not supported with this mode.
-
-          - Instant mode is only supported for streaming endpoints (e.g.,
-          [/v0/tts/stream/json](/reference/text-to-speech-tts/synthesize-json-streaming),
-          [/v0/tts/stream/file](/reference/text-to-speech-tts/synthesize-file-streaming)).
-
-          - Ensure only a single generation is requested
-          ([num_generations](/reference/text-to-speech-tts/synthesize-json-streaming#request.body.num_generations)
-          must be `1` or omitted).
         default: true
     source:
       openapi: tts-openapi.json
@@ -811,20 +814,9 @@ types:
     docs: An Octave voice available for text-to-speech
     properties:
       compatible_octave_models: optional<list<string>>
-      id:
-        type: optional<string>
-        docs: ID of the voice in the `Voice Library`.
-      name:
-        type: optional<string>
-        docs: Name of the voice in the `Voice Library`.
-      provider:
-        type: optional<VoiceProvider>
-        docs: >-
-          The provider associated with the created voice.
-
-
-          Voices created through this endpoint will always have the provider set
-          to `CUSTOM_VOICE`, indicating a custom voice stored in your account.
+      id: optional<string>
+      name: optional<string>
+      provider: optional<VoiceProvider>
     source:
       openapi: tts-openapi.json
   FormatPcm:
@@ -910,29 +902,9 @@ types:
   ReturnPagedVoices:
     docs: A paginated list Octave voices available for text-to-speech
     properties:
-      page_number:
-        type: optional<integer>
-        docs: >-
-          The page number of the returned list.
-
-
-          This value corresponds to the `page_number` parameter specified in the
-          request. Pagination uses zero-based indexing.
-      page_size:
-        type: optional<integer>
-        docs: >-
-          The maximum number of items returned per page.
-
-
-          This value corresponds to the `page_size` parameter specified in the
-          request.
-      total_pages:
-        type: optional<integer>
-        docs: The total number of pages in the collection.
-      voices_page:
-        type: optional<list<ReturnVoice>>
-        docs: >-
-          List of voices returned for the specified `page_number` and
-          `page_size`.
+      page_number: optional<integer>
+      page_size: optional<integer>
+      total_pages: optional<integer>
+      voices_page: optional<list<ReturnVoice>>
     source:
       openapi: tts-openapi.json

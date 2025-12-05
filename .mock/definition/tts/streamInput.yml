@@ -33,7 +33,9 @@ channel:
     include_timestamp_types:
       type: optional<root.TimestampType>
       allow-multiple: true
-      docs: The set of timestamp types to include in the response.
+      docs: >-
+        The set of timestamp types to include in the response. Only supported
+        for Octave 2 requests.
     instant_mode:
       type: optional<boolean>
       default: true
