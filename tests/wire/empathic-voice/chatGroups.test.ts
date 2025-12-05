@@ -4,10 +4,11 @@ import * as Hume from "../../../src/api/index";
 import { HumeClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("ChatGroups", () => {
+describe("ChatGroupsClient", () => {
     test("list-chat-groups (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -29,7 +30,7 @@ describe("ChatGroups", () => {
             ],
         };
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/chat_groups")
             .respondWith()
             .statusCode(200)
@@ -68,13 +69,14 @@ describe("ChatGroups", () => {
     test("list-chat-groups (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/chat_groups")
             .respondWith()
             .statusCode(400)
@@ -89,6 +91,7 @@ describe("ChatGroups", () => {
     test("get-chat-group (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -153,6 +156,7 @@ describe("ChatGroups", () => {
     test("get-chat-group (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -174,6 +178,7 @@ describe("ChatGroups", () => {
     test("get-audio (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -238,6 +243,7 @@ describe("ChatGroups", () => {
     test("get-audio (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -259,6 +265,7 @@ describe("ChatGroups", () => {
     test("list-chat-group-events (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -307,7 +314,7 @@ describe("ChatGroups", () => {
             ],
         };
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/chat_groups/697056f0-6c7e-487d-9bd8-9c19df79f05f/events")
             .respondWith()
             .statusCode(200)
@@ -372,13 +379,14 @@ describe("ChatGroups", () => {
     test("list-chat-group-events (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/chat_groups/id/events")
             .respondWith()
             .statusCode(400)
