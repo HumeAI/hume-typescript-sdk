@@ -4,10 +4,11 @@ import * as Hume from "../../../src/api/index";
 import { HumeClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Chats", () => {
+describe("ChatsClient", () => {
     test("list-chats (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -30,7 +31,13 @@ describe("Chats", () => {
                 },
             ],
         };
-        server.mockEndpoint().get("/v0/evi/chats").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/chats")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const expected = {
             pageNumber: 0,
@@ -68,12 +75,19 @@ describe("Chats", () => {
     test("list-chats (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/chats").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/chats")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.chats.listChats();
@@ -83,6 +97,7 @@ describe("Chats", () => {
     test("list-chat-events (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -137,7 +152,7 @@ describe("Chats", () => {
             config: { id: "1b60e1a0-cc59-424a-8d2c-189d354db3f3", version: 0 },
         };
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/v0/evi/chats/470a49f6-1dec-4afe-8b61-035d3b2d63b0")
             .respondWith()
             .statusCode(200)
@@ -211,12 +226,19 @@ describe("Chats", () => {
     test("list-chat-events (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
-        server.mockEndpoint().get("/v0/evi/chats/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/v0/evi/chats/id")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.empathicVoice.chats.listChatEvents("id");
@@ -226,6 +248,7 @@ describe("Chats", () => {
     test("get-audio (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
@@ -264,6 +287,7 @@ describe("Chats", () => {
     test("get-audio (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new HumeClient({
+            maxRetries: 0,
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
