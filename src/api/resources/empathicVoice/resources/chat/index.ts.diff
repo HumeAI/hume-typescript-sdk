@@ -1,5 +1,5 @@
 diff --git a/src/api/resources/empathicVoice/resources/chat/index.ts b/src/api/resources/empathicVoice/resources/chat/index.ts
-index a2f33dc..d9adb1a 100644
+index a2f33dc7..d9adb1af 100644
 --- a/src/api/resources/empathicVoice/resources/chat/index.ts
 +++ b/src/api/resources/empathicVoice/resources/chat/index.ts
 @@ -1,7 +1,2 @@

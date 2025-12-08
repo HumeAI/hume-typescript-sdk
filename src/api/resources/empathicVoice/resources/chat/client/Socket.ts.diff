@@ -1,5 +1,5 @@
 diff --git a/src/api/resources/empathicVoice/resources/chat/client/Socket.ts b/src/api/resources/empathicVoice/resources/chat/client/Socket.ts
-index a55c7b5..0f2f2a5 100644
+index a55c7b58..0f2f2a55 100644
 --- a/src/api/resources/empathicVoice/resources/chat/client/Socket.ts
 +++ b/src/api/resources/empathicVoice/resources/chat/client/Socket.ts
 @@ -1,17 +1,17 @@

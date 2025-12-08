@@ -1,5 +1,5 @@
 diff --git a/src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts b/src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts
-index e092f57..14ce2a9 100644
+index e092f572..14ce2a9c 100644
 --- a/src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts
 +++ b/src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts
 @@ -144,7 +144,7 @@ export class ControlPlane {
