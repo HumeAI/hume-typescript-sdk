@@ -109,7 +109,6 @@ jobs:
           echo "SDK version: $SDK_VERSION"
           echo "SDK path: $SDK_PATH"
           pnpm link --global
-          npm link
           cd ../examples/evi/evi-typescript-quickstart
           pnpm install --no-frozen-lockfile
           pnpm remove hume || true
@@ -137,10 +136,10 @@ jobs:
             echo "✓ Version matches: $INSTALLED_VERSION"
           fi
           echo "===================="
-          cd ../../tts/tts-typescript-quickstart
-          npm install
-          npm uninstall hume || true
-          npm link hume
+          cd ../examples/tts/tts-typescript-quickstart
+          pnpm install --no-frozen-lockfile
+          pnpm remove hume || true
+          pnpm link hume
           echo ""
           echo "=== Verifying Linked SDK ==="
           if [ -L node_modules/hume ]; then
@@ -173,7 +172,7 @@ jobs:
 
       - name: Run example tts-typescript-quickstart
         working-directory: ./examples/tts/tts-typescript-quickstart
-        run: npm run test
+        run: pnpm run test
         env:
           TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
 
