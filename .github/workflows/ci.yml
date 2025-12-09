@@ -169,12 +169,14 @@ jobs:
         run: pnpm run test
         env:
           TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
+          TEST_HUME_SECRET_KEY: ${{ secrets.TEST_HUME_SECRET_KEY }}
 
       - name: Run example tts-typescript-quickstart
         working-directory: ./examples/tts/tts-typescript-quickstart
         run: pnpm run test
         env:
           TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
+          TEST_HUME_SECRET_KEY: ${{ secrets.TEST_HUME_SECRET_KEY }}
 
   publish:
     needs: [compile, test]

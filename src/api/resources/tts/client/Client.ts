@@ -8,7 +8,7 @@ import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as Hume from "../../../index.js";
-import { StreamInput } from "../resources/streamInput/client/Client.js";
+import { StreamInputClient } from "../resources/streamInput/client/Client.js";
 import { Voices } from "../resources/voices/client/Client.js";
 
 export declare namespace Tts {
@@ -20,7 +20,7 @@ export declare namespace Tts {
 export class Tts {
     protected readonly _options: Tts.Options;
     protected _voices: Voices | undefined;
-    protected _streamInput: StreamInput | undefined;
+    protected _streamInput: StreamInputClient | undefined;
 
     constructor(_options: Tts.Options = {}) {
         this._options = _options;
@@ -30,8 +30,8 @@ export class Tts {
         return (this._voices ??= new Voices(this._options));
     }
 
-    public get streamInput(): StreamInput {
-        return (this._streamInput ??= new StreamInput(this._options));
+    public get streamInput(): StreamInputClient {
+        return (this._streamInput ??= new StreamInputClient(this._options));
     }
 
     /**
@@ -75,7 +75,9 @@ export class Tts {
     ): Promise<core.WithRawResponse<Hume.tts.ReturnTts>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -170,7 +172,9 @@ export class Tts {
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
@@ -255,7 +259,9 @@ export class Tts {
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
@@ -341,7 +347,9 @@ export class Tts {
     ): Promise<core.WithRawResponse<core.Stream<Hume.tts.TtsOutput>>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)<ReadableStream>({
