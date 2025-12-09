@@ -143,6 +143,12 @@ jobs:
         env:
           TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
 
+      - name: Run example tts-typescript-quickstart
+        working-directory: ./examples/tts/tts-typescript-quickstart
+        run: npm run test
+        env:
+          TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
+
   publish:
     needs: [compile, test]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
