@@ -136,7 +136,7 @@ jobs:
             echo "✓ Version matches: $INSTALLED_VERSION"
           fi
           echo "===================="
-          cd ../examples/tts/tts-typescript-quickstart
+          cd ../../tts/tts-typescript-quickstart
           pnpm install --no-frozen-lockfile
           pnpm remove hume || true
           pnpm link hume
