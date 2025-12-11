@@ -179,3 +179,16 @@ jobs:
           fi
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Trigger hume-react-sdk bump
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REACT_SDK_DISPATCH_TOKEN }}
+          repository: humeai/hume-react-sdk
+          event-type: typescript-sdk-published
+          client-payload: |
+            {
+              "version": "${{ github.ref_name }}",
+              "tag": "${{ github.ref }}",
+              "is_prerelease": "${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}"
+            }
