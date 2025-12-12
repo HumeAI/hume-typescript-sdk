@@ -22,7 +22,7 @@ export class Voices {
     }
 
     /**
-     * Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
+     * Lists voices you have saved in your account, or voices from the [Voice Library](https://app.hume.ai/tts/voice-library).
      *
      * @param {Hume.tts.VoicesListRequest} request
      * @param {Voices.RequestOptions} requestOptions - Request-specific configuration.

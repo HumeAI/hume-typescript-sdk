@@ -22,10 +22,6 @@ export class Configs {
     }
 
     /**
-     * Fetches a paginated list of **Configs**.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
      * @param {Hume.empathicVoice.ConfigsListConfigsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -145,10 +141,6 @@ export class Configs {
     }
 
     /**
-     * Creates a **Config** which can be applied to EVI.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
      * @param {Hume.empathicVoice.PostedConfig} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -277,11 +269,7 @@ export class Configs {
     }
 
     /**
-     * Fetches a list of a **Config's** versions.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
      * @param {Hume.empathicVoice.ConfigsListConfigVersionsRequest} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -396,11 +384,7 @@ export class Configs {
     }
 
     /**
-     * Updates a **Config** by creating a new version of the **Config**.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigVersion} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -534,11 +518,7 @@ export class Configs {
     }
 
     /**
-     * Deletes a **Config** and its versions.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -618,11 +598,7 @@ export class Configs {
     }
 
     /**
-     * Updates the name of a **Config**.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedConfigName} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -717,16 +693,8 @@ export class Configs {
     }
 
     /**
-     * Fetches a specified version of a **Config**.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {number} version - Version number for a Config.
-     *
-     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {number} version - Version number for a config. Version numbers should be integers.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -822,16 +790,8 @@ export class Configs {
     }
 
     /**
-     * Deletes a specified version of a **Config**.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {number} version - Version number for a Config.
-     *
-     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {number} version - Version number for a config. Version numbers should be integers.
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -918,16 +878,8 @@ export class Configs {
     }
 
     /**
-     * Updates the description of a **Config**.
-     *
-     * For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-     *
-     * @param {string} id - Identifier for a Config. Formatted as a UUID.
-     * @param {number} version - Version number for a Config.
-     *
-     *                           Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-     *
-     *                           Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+     * @param {string} id - Identifier for a config. Formatted as a UUID.
+     * @param {number} version - Version number for a config. Version numbers should be integers.
      * @param {Hume.empathicVoice.PostedConfigVersionDescription} request
      * @param {Configs.RequestOptions} requestOptions - Request-specific configuration.
      *

@@ -9,17 +9,17 @@ export const ReturnPagedVoices: core.serialization.ObjectSchema<
     serializers.tts.ReturnPagedVoices.Raw,
     Hume.tts.ReturnPagedVoices
 > = core.serialization.object({
-    pageNumber: core.serialization.property("page_number", core.serialization.number().optional()),
-    pageSize: core.serialization.property("page_size", core.serialization.number().optional()),
-    totalPages: core.serialization.property("total_pages", core.serialization.number().optional()),
-    voicesPage: core.serialization.property("voices_page", core.serialization.list(ReturnVoice).optional()),
+    pageNumber: core.serialization.property("page_number", core.serialization.number()),
+    pageSize: core.serialization.property("page_size", core.serialization.number()),
+    totalPages: core.serialization.property("total_pages", core.serialization.number()),
+    voicesPage: core.serialization.property("voices_page", core.serialization.list(ReturnVoice)),
 });
 
 export declare namespace ReturnPagedVoices {
     export interface Raw {
-        page_number?: number | null;
-        page_size?: number | null;
-        total_pages?: number | null;
-        voices_page?: ReturnVoice.Raw[] | null;
+        page_number: number;
+        page_size: number;
+        total_pages: number;
+        voices_page: ReturnVoice.Raw[];
     }
 }
