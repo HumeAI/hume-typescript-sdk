@@ -8,7 +8,7 @@ import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as Hume from "../../../index.js";
-import { StreamInputClient } from "../resources/streamInput/client/Client.js";
+import { StreamInput } from "../resources/streamInput/client/Client.js";
 import { Voices } from "../resources/voices/client/Client.js";
 
 export declare namespace Tts {
@@ -20,7 +20,7 @@ export declare namespace Tts {
 export class Tts {
     protected readonly _options: Tts.Options;
     protected _voices: Voices | undefined;
-    protected _streamInput: StreamInputClient | undefined;
+    protected _streamInput: StreamInput | undefined;
 
     constructor(_options: Tts.Options = {}) {
         this._options = _options;
@@ -30,8 +30,8 @@ export class Tts {
         return (this._voices ??= new Voices(this._options));
     }
 
-    public get streamInput(): StreamInputClient {
-        return (this._streamInput ??= new StreamInputClient(this._options));
+    public get streamInput(): StreamInput {
+        return (this._streamInput ??= new StreamInput(this._options));
     }
 
     /**
@@ -75,9 +75,7 @@ export class Tts {
     ): Promise<core.WithRawResponse<Hume.tts.ReturnTts>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                ...(await this._getCustomAuthorizationHeaders()),
-            }),
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -172,9 +170,7 @@ export class Tts {
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                ...(await this._getCustomAuthorizationHeaders()),
-            }),
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
@@ -259,9 +255,7 @@ export class Tts {
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                ...(await this._getCustomAuthorizationHeaders()),
-            }),
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)<core.BinaryResponse>({
@@ -330,6 +324,246 @@ export class Tts {
     }
 
     /**
+     * @param {Hume.tts.TtsConversionStreamFileV0TtsStreamFileMultipartPostRequest} request
+     * @param {Tts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.tts.UnprocessableEntityError}
+     *
+     * @example
+     *     import { createReadStream } from "fs";
+     *     await client.tts.ttsConversionStreamFileV0TtsStreamFileMultipartPost({
+     *         accessToken: "access_token"
+     *     })
+     */
+    public ttsConversionStreamFileV0TtsStreamFileMultipartPost(
+        request: Hume.tts.TtsConversionStreamFileV0TtsStreamFileMultipartPostRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): core.HttpResponsePromise<unknown> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__ttsConversionStreamFileV0TtsStreamFileMultipartPost(request, requestOptions),
+        );
+    }
+
+    private async __ttsConversionStreamFileV0TtsStreamFileMultipartPost(
+        request: Hume.tts.TtsConversionStreamFileV0TtsStreamFileMultipartPostRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<unknown>> {
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (request.accessToken != null) {
+            _queryParams.access_token = request.accessToken;
+        }
+
+        const _request = await core.newFormData();
+        if (request.contextGenerationId != null) {
+            _request.append("context[generation_id]", request.contextGenerationId);
+        }
+
+        if (request.contextUtterancesNDescription != null) {
+            _request.append("context[utterances][<n>][description]", request.contextUtterancesNDescription);
+        }
+
+        if (request.contextUtterancesNSpeed != null) {
+            _request.append("context[utterances][<n>][speed]", request.contextUtterancesNSpeed.toString());
+        }
+
+        if (request.contextUtterancesNText != null) {
+            _request.append("context[utterances][<n>][text]", request.contextUtterancesNText);
+        }
+
+        if (request.contextUtterancesNTrailingSilence != null) {
+            _request.append(
+                "context[utterances][<n>][trailing_silence]",
+                request.contextUtterancesNTrailingSilence.toString(),
+            );
+        }
+
+        if (request.contextUtterancesNVoiceId != null) {
+            _request.append("context[utterances][<n>][voice][id]", request.contextUtterancesNVoiceId);
+        }
+
+        if (request.contextUtterancesNVoiceName != null) {
+            _request.append("context[utterances][<n>][voice][name]", request.contextUtterancesNVoiceName);
+        }
+
+        if (request.contextUtterancesNVoiceProvider != null) {
+            _request.append(
+                "context[utterances][<n>][voice][provider]",
+                serializers.tts.VoiceProvider.jsonOrThrow(request.contextUtterancesNVoiceProvider, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        if (request.expandDescription != null) {
+            _request.append("expand_description", request.expandDescription.toString());
+        }
+
+        if (request.filterGenerations != null) {
+            _request.append("filter_generations", request.filterGenerations.toString());
+        }
+
+        if (request.formatType != null) {
+            _request.append("format[type]", request.formatType);
+        }
+
+        if (request.includeTimestampTypesN != null) {
+            _request.append(
+                "include_timestamp_types[<n>]",
+                serializers.tts.TimestampType.jsonOrThrow(request.includeTimestampTypesN, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        if (request.instantMode != null) {
+            _request.append("instant_mode", request.instantMode.toString());
+        }
+
+        if (request.model != null) {
+            _request.append("model", request.model);
+        }
+
+        if (request.multiSpeaker != null) {
+            _request.append("multi_speaker", request.multiSpeaker.toString());
+        }
+
+        if (request.noBinary != null) {
+            _request.append("no_binary", request.noBinary.toString());
+        }
+
+        if (request.numGenerations != null) {
+            _request.append("num_generations", request.numGenerations.toString());
+        }
+
+        if (request.splitUtterances != null) {
+            _request.append("split_utterances", request.splitUtterances.toString());
+        }
+
+        if (request.stripHeaders != null) {
+            _request.append("strip_headers", request.stripHeaders.toString());
+        }
+
+        if (request.utterancesNAudio != null) {
+            await _request.appendFile("utterances[<n>][audio]", request.utterancesNAudio);
+        }
+
+        if (request.utterancesNDescription != null) {
+            _request.append("utterances[<n>][description]", request.utterancesNDescription);
+        }
+
+        if (request.utterancesNSpeed != null) {
+            _request.append("utterances[<n>][speed]", request.utterancesNSpeed.toString());
+        }
+
+        if (request.utterancesNText != null) {
+            _request.append("utterances[<n>][text]", request.utterancesNText);
+        }
+
+        if (request.utterancesNTrailingSilence != null) {
+            _request.append("utterances[<n>][trailing_silence]", request.utterancesNTrailingSilence.toString());
+        }
+
+        if (request.utterancesNVoiceId != null) {
+            _request.append("utterances[<n>][voice][id]", request.utterancesNVoiceId);
+        }
+
+        if (request.utterancesNVoiceName != null) {
+            _request.append("utterances[<n>][voice][name]", request.utterancesNVoiceName);
+        }
+
+        if (request.utterancesNVoiceProvider != null) {
+            _request.append(
+                "utterances[<n>][voice][provider]",
+                serializers.tts.VoiceProvider.jsonOrThrow(request.utterancesNVoiceProvider, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        if (request.version != null) {
+            _request.append(
+                "version",
+                serializers.tts.OctaveVersion.jsonOrThrow(request.version, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+                ..._maybeEncodedRequest.headers,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
+                "v0/tts/stream/file/multipart",
+            ),
+            method: "POST",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/file/multipart.");
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      *
      * The response is a stream of JSON objects including audio encoded in base64.
@@ -347,9 +581,7 @@ export class Tts {
     ): Promise<core.WithRawResponse<core.Stream<Hume.tts.TtsOutput>>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                ...(await this._getCustomAuthorizationHeaders()),
-            }),
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)<ReadableStream>({
@@ -428,6 +660,258 @@ export class Tts {
                 });
             case "timeout":
                 throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/json.");
+            case "unknown":
+                throw new errors.HumeError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {Hume.tts.TtsConversionStreamJsonV0TtsStreamJsonMultipartPostRequest} request
+     * @param {Tts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Hume.tts.UnprocessableEntityError}
+     *
+     * @example
+     *     import { createReadStream } from "fs";
+     *     await client.tts.ttsConversionStreamJsonV0TtsStreamJsonMultipartPost({
+     *         accessToken: "access_token"
+     *     })
+     */
+    public ttsConversionStreamJsonV0TtsStreamJsonMultipartPost(
+        request: Hume.tts.TtsConversionStreamJsonV0TtsStreamJsonMultipartPostRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): core.HttpResponsePromise<Hume.tts.TtsConversionStreamJsonV0TtsStreamJsonMultipartPostResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__ttsConversionStreamJsonV0TtsStreamJsonMultipartPost(request, requestOptions),
+        );
+    }
+
+    private async __ttsConversionStreamJsonV0TtsStreamJsonMultipartPost(
+        request: Hume.tts.TtsConversionStreamJsonV0TtsStreamJsonMultipartPostRequest,
+        requestOptions?: Tts.RequestOptions,
+    ): Promise<core.WithRawResponse<Hume.tts.TtsConversionStreamJsonV0TtsStreamJsonMultipartPostResponse>> {
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (request.accessToken != null) {
+            _queryParams.access_token = request.accessToken;
+        }
+
+        const _request = await core.newFormData();
+        if (request.contextGenerationId != null) {
+            _request.append("context[generation_id]", request.contextGenerationId);
+        }
+
+        if (request.contextUtterancesNDescription != null) {
+            _request.append("context[utterances][<n>][description]", request.contextUtterancesNDescription);
+        }
+
+        if (request.contextUtterancesNSpeed != null) {
+            _request.append("context[utterances][<n>][speed]", request.contextUtterancesNSpeed.toString());
+        }
+
+        if (request.contextUtterancesNText != null) {
+            _request.append("context[utterances][<n>][text]", request.contextUtterancesNText);
+        }
+
+        if (request.contextUtterancesNTrailingSilence != null) {
+            _request.append(
+                "context[utterances][<n>][trailing_silence]",
+                request.contextUtterancesNTrailingSilence.toString(),
+            );
+        }
+
+        if (request.contextUtterancesNVoiceId != null) {
+            _request.append("context[utterances][<n>][voice][id]", request.contextUtterancesNVoiceId);
+        }
+
+        if (request.contextUtterancesNVoiceName != null) {
+            _request.append("context[utterances][<n>][voice][name]", request.contextUtterancesNVoiceName);
+        }
+
+        if (request.contextUtterancesNVoiceProvider != null) {
+            _request.append(
+                "context[utterances][<n>][voice][provider]",
+                serializers.tts.VoiceProvider.jsonOrThrow(request.contextUtterancesNVoiceProvider, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        if (request.expandDescription != null) {
+            _request.append("expand_description", request.expandDescription.toString());
+        }
+
+        if (request.filterGenerations != null) {
+            _request.append("filter_generations", request.filterGenerations.toString());
+        }
+
+        if (request.formatType != null) {
+            _request.append("format[type]", request.formatType);
+        }
+
+        if (request.includeTimestampTypesN != null) {
+            _request.append(
+                "include_timestamp_types[<n>]",
+                serializers.tts.TimestampType.jsonOrThrow(request.includeTimestampTypesN, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        if (request.instantMode != null) {
+            _request.append("instant_mode", request.instantMode.toString());
+        }
+
+        if (request.model != null) {
+            _request.append("model", request.model);
+        }
+
+        if (request.multiSpeaker != null) {
+            _request.append("multi_speaker", request.multiSpeaker.toString());
+        }
+
+        if (request.noBinary != null) {
+            _request.append("no_binary", request.noBinary.toString());
+        }
+
+        if (request.numGenerations != null) {
+            _request.append("num_generations", request.numGenerations.toString());
+        }
+
+        if (request.splitUtterances != null) {
+            _request.append("split_utterances", request.splitUtterances.toString());
+        }
+
+        if (request.stripHeaders != null) {
+            _request.append("strip_headers", request.stripHeaders.toString());
+        }
+
+        if (request.utterancesNAudio != null) {
+            await _request.appendFile("utterances[<n>][audio]", request.utterancesNAudio);
+        }
+
+        if (request.utterancesNDescription != null) {
+            _request.append("utterances[<n>][description]", request.utterancesNDescription);
+        }
+
+        if (request.utterancesNSpeed != null) {
+            _request.append("utterances[<n>][speed]", request.utterancesNSpeed.toString());
+        }
+
+        if (request.utterancesNText != null) {
+            _request.append("utterances[<n>][text]", request.utterancesNText);
+        }
+
+        if (request.utterancesNTrailingSilence != null) {
+            _request.append("utterances[<n>][trailing_silence]", request.utterancesNTrailingSilence.toString());
+        }
+
+        if (request.utterancesNVoiceId != null) {
+            _request.append("utterances[<n>][voice][id]", request.utterancesNVoiceId);
+        }
+
+        if (request.utterancesNVoiceName != null) {
+            _request.append("utterances[<n>][voice][name]", request.utterancesNVoiceName);
+        }
+
+        if (request.utterancesNVoiceProvider != null) {
+            _request.append(
+                "utterances[<n>][voice][provider]",
+                serializers.tts.VoiceProvider.jsonOrThrow(request.utterancesNVoiceProvider, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        if (request.version != null) {
+            _request.append(
+                "version",
+                serializers.tts.OctaveVersion.jsonOrThrow(request.version, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+            );
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                ...(await this._getCustomAuthorizationHeaders()),
+                ..._maybeEncodedRequest.headers,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.HumeEnvironment.Prod).base,
+                "v0/tts/stream/json/multipart",
+            ),
+            method: "POST",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.tts.TtsConversionStreamJsonV0TtsStreamJsonMultipartPostResponse.parseOrThrow(
+                    _response.body,
+                    {
+                        unrecognizedObjectKeys: "passthrough",
+                        allowUnrecognizedUnionMembers: true,
+                        allowUnrecognizedEnumValues: true,
+                        skipValidation: true,
+                        breadcrumbsPrefix: ["response"],
+                    },
+                ),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Hume.tts.UnprocessableEntityError(
+                        serializers.tts.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.HumeError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.HumeError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/tts/stream/json/multipart.");
             case "unknown":
                 throw new errors.HumeError({
                     message: _response.error.errorMessage,

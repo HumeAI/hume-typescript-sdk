@@ -3,22 +3,16 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * **Indicates that the supplemental LLM has detected a need to invoke the specified tool.** This message is only received for user-defined function tools.
- *
- * Contains the tool name, parameters (as a stringified JSON schema), whether a response is required from the developer (either in the form of a `ToolResponseMessage` or a `ToolErrorMessage`), the unique tool call ID for tracking the request and response, and the tool type. See our [Tool Use Guide](/docs/speech-to-speech-evi/features/tool-use) for further details.
+ * When provided, the output is a tool call.
  */
 export interface ToolCallMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
     /** Name of the tool called. */
     name: string;
-    /**
-     * Parameters of the tool.
-     *
-     * These parameters define the inputs needed for the tool's execution, including the expected data type and description for each input field. Structured as a stringified JSON schema, this format ensures the tool receives data in the expected format.
-     */
+    /** Parameters of the tool call. Is a stringified JSON schema. */
     parameters: string;
-    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/speech-to-speech-evi/chat#send.ToolResponseMessage) or a [Tool Error message](/reference/speech-to-speech-evi/chat#send.ToolErrorMessage). */
+    /** Indicates whether a response to the tool call is required from the developer, either in the form of a [Tool Response message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Response%20Message.type) or a [Tool Error message](/reference/empathic-voice-interface-evi/chat/chat#send.Tool%20Error%20Message.type). */
     responseRequired: boolean;
     /**
      * The unique identifier for a specific tool call instance.
