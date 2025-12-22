@@ -22,8 +22,6 @@ export class Chats {
     }
 
     /**
-     * Fetches a paginated list of **Chats**.
-     *
      * @param {Hume.empathicVoice.ChatsListChatsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -147,9 +145,7 @@ export class Chats {
     }
 
     /**
-     * Fetches a paginated list of **Chat** events.
-     *
-     * @param {string} id - Identifier for a Chat. Formatted as a UUID.
+     * @param {string} id - Identifier for a chat. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatsListChatEventsRequest} request
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -268,8 +264,6 @@ export class Chats {
     }
 
     /**
-     * Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
-     *
      * @param {string} id - Identifier for a chat. Formatted as a UUID.
      * @param {Chats.RequestOptions} requestOptions - Request-specific configuration.
      *

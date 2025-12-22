@@ -7,7 +7,7 @@ import { AssistantInput } from "../../../types/AssistantInput.js";
 import { AudioInput } from "../../../types/AudioInput.js";
 import { PauseAssistantMessage } from "../../../types/PauseAssistantMessage.js";
 import { ResumeAssistantMessage } from "../../../types/ResumeAssistantMessage.js";
-import { SessionSettings } from "../../../types/SessionSettings.js";
+import { SessionSettingsMessage } from "../../../types/SessionSettingsMessage.js";
 import { ToolErrorMessage } from "../../../types/ToolErrorMessage.js";
 import { ToolResponseMessage } from "../../../types/ToolResponseMessage.js";
 import { UserInput } from "../../../types/UserInput.js";
@@ -17,7 +17,7 @@ export const PublishEvent: core.serialization.Schema<
     Hume.empathicVoice.PublishEvent
 > = core.serialization.undiscriminatedUnion([
     AudioInput,
-    SessionSettings,
+    SessionSettingsMessage,
     UserInput,
     AssistantInput,
     ToolResponseMessage,
@@ -29,7 +29,7 @@ export const PublishEvent: core.serialization.Schema<
 export declare namespace PublishEvent {
     export type Raw =
         | AudioInput.Raw
-        | SessionSettings.Raw
+        | SessionSettingsMessage.Raw
         | UserInput.Raw
         | AssistantInput.Raw
         | ToolResponseMessage.Raw

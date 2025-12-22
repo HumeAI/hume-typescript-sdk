@@ -7,7 +7,9 @@ import type * as Hume from "../../../index.js";
  */
 export interface ReturnVoice {
     compatibleOctaveModels?: string[];
-    id?: string;
-    name?: string;
-    provider?: Hume.empathicVoice.VoiceProvider;
+    /** ID of the voice in the `Voice Library`. */
+    id: string;
+    /** Name of the voice in the `Voice Library`. */
+    name: string;
+    provider: Hume.empathicVoice.VoiceProvider;
 }

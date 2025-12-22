@@ -5,7 +5,7 @@ import type * as Hume from "../../../index.js";
 /**
  * Settings for this chat session.
  */
-export interface SessionSettings {
+export interface SessionSettingsMessage {
     /**
      * Configuration details for the audio input used during the session. Ensures the audio is being correctly set up for processing.
      *
@@ -68,6 +68,6 @@ export interface SessionSettings {
      */
     type: "session_settings";
     /** Dynamic values that can be used to populate EVI prompts. */
-    variables?: Record<string, Hume.empathicVoice.SessionSettingsVariablesValue>;
+    variables?: Record<string, unknown>;
     voiceId?: string;
 }
