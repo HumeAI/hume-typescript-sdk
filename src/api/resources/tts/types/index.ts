@@ -26,6 +26,7 @@ export * from "./SnippetAudioChunk.js";
 export * from "./Timestamp.js";
 export * from "./TimestampMessage.js";
 export * from "./TimestampType.js";
+export * from "./TtsConversionStreamJsonV0TtsStreamJsonMultipartPostResponse.js";
 export * from "./TtsOutput.js";
 export * from "./ValidationError.js";
 export * from "./ValidationErrorLocItem.js";

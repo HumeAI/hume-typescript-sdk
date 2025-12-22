@@ -90,6 +90,7 @@ export * from "./ReturnWebhookEventType.js";
 export * from "./ReturnWebhookSpec.js";
 export * from "./Role.js";
 export * from "./SessionSettings.js";
+export * from "./SessionSettingsMessage.js";
 export * from "./SessionSettingsVariablesValue.js";
 export * from "./SubscribeEvent.js";
 export * from "./Tool.js";

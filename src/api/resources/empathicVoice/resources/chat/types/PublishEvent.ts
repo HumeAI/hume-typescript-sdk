@@ -4,7 +4,7 @@ import type * as Hume from "../../../../../index.js";
 
 export type PublishEvent =
     | Hume.empathicVoice.AudioInput
-    | Hume.empathicVoice.SessionSettings
+    | Hume.empathicVoice.SessionSettingsMessage
     | Hume.empathicVoice.UserInput
     | Hume.empathicVoice.AssistantInput
     | Hume.empathicVoice.ToolResponseMessage
