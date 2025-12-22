@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       uuid:
-        specifier: 9.0.1
-        version: 9.0.1
+        specifier: 13.0.0
+        version: 13.0.0
       ws:
         specifier: ^8.16.0
         version: 8.18.3
@@ -1037,8 +1037,8 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
 
   vite-node@3.2.4:
@@ -2031,7 +2031,7 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
-  uuid@9.0.1: {}
+  uuid@13.0.0: {}
 
   vite-node@3.2.4(@types/node@18.19.130)(terser@5.44.1):
     dependencies:
