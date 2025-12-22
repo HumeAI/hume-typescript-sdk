@@ -59,7 +59,7 @@ jobs:
   test-examples:
     runs-on: ubuntu-latest
     # Run on pull_request events and push events (to test feature branches)
-    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    if: (github.event_name == 'pull_request' || github.event_name == 'push') && github.actor != 'dependabot[bot]'
     permissions:
       contents: read
     steps:
