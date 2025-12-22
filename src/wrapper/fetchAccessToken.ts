@@ -40,7 +40,7 @@ export const fetchAccessToken = async ({
         }).toString(),
         cache: "no-cache",
     });
-    if (res.ok) {
+    if (!res.ok) {
         throw new Error(`Failed to fetch access token: (${res.status} ${res.statusText})\n ${await res.text()}`);
     }
     return z
