@@ -7,6 +7,6 @@
  *     }
  */
 export interface PostedPromptVersionDescription {
-    /** An optional description of the Prompt version. */
+    /** Description that is appended to a specific version of a Prompt. */
     versionDescription?: string;
 }
