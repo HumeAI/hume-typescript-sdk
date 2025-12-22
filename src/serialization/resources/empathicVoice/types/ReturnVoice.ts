@@ -13,16 +13,16 @@ export const ReturnVoice: core.serialization.ObjectSchema<
         "compatible_octave_models",
         core.serialization.list(core.serialization.string()).optional(),
     ),
-    id: core.serialization.string().optional(),
-    name: core.serialization.string().optional(),
-    provider: VoiceProvider.optional(),
+    id: core.serialization.string(),
+    name: core.serialization.string(),
+    provider: VoiceProvider,
 });
 
 export declare namespace ReturnVoice {
     export interface Raw {
         compatible_octave_models?: string[] | null;
-        id?: string | null;
-        name?: string | null;
-        provider?: VoiceProvider.Raw | null;
+        id: string;
+        name: string;
+        provider: VoiceProvider.Raw;
     }
 }

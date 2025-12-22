@@ -10,6 +10,6 @@
 export interface PostedVoice {
     /** A unique ID associated with this TTS generation that can be used as context for generating consistent speech style and prosody across multiple requests. */
     generationId: string;
-    /** Name of the voice in the `Voice Library`. */
+    /** The name of a **Voice**. */
     name: string;
 }
