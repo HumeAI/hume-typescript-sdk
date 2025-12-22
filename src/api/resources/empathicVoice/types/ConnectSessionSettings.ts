@@ -17,9 +17,14 @@ export interface ConnectSessionSettings {
      * Set to `null` to disable context injection.
      */
     context?: Hume.empathicVoice.ConnectSessionSettingsContext;
-    /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
+    /**
+     * Unique identifier for the session. Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions.
+     *
+     * If included, the response sent from Hume to your backend will include this ID. This allows you to correlate frontend users with their incoming messages.
+     *
+     * It is recommended to pass a `custom_session_id` if you are using a Custom Language Model. Please see our guide to [using a custom language model](/docs/empathic-voice-interface-evi/custom-language-model) with EVI to learn more.
+     */
     customSessionId?: string;
-    /** The maximum number of chat events to return from chat history. By default, the system returns up to 300 events (100 events per page × 3 pages). Set this parameter to a smaller value to limit the number of events returned. */
     eventLimit?: number;
     /**
      * Third party API key for the supplemental language model.
@@ -34,10 +39,9 @@ export interface ConnectSessionSettings {
      *
      * You can use the Prompt to define a specific goal or role for EVI, specifying how it should act or what it should focus on during the conversation. For example, EVI can be instructed to act as a customer support representative, a fitness coach, or a travel advisor, each with its own set of behaviors and response styles.
      *
-     * For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
+     * For help writing a system prompt, see our [Prompting Guide](/docs/empathic-voice-interface-evi/prompting).
      */
     systemPrompt?: string;
-    /** The name or ID of the voice from the `Voice Library` to be used as the speaker for this EVI session. This will override the speaker set in the selected configuration. */
     voiceId?: string;
     /**
      * This field allows you to assign values to dynamic variables referenced in your system prompt.
