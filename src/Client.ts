@@ -34,8 +34,8 @@ const fetcherThatAddsHeaders = (fetcherToWrap: core.FetchFunction): core.FetchFu
     return (args: core.Fetcher.Args) => {
         const newArgs = { ...args };
         newArgs.headers = newArgs.headers ?? {};
-        ((newArgs.headers["X-Hume-Client-Name"] = "typescript_sdk"),
-            (newArgs.headers["X-Hume-Client-Version"] = SDK_VERSION));
+        (newArgs.headers["X-Hume-Client-Name"] = "typescript_sdk"),
+            (newArgs.headers["X-Hume-Client-Version"] = SDK_VERSION);
         return fetcherToWrap(args);
     };
 };
