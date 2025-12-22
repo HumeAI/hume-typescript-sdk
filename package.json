@@ -66,7 +66,7 @@
         "vitest": "^3.2.4",
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
-        "typescript": "~5.7.2",
+        "typescript": "~5.9.3",
         "@biomejs/biome": "2.3.1",
         "@types/uuid": "9.0.7"
     },
