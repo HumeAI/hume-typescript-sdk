@@ -13,13 +13,16 @@ updates:
           prefix: "[github actions] "
       open-pull-requests-limit: 5
 
+    # commented out for now because dep versions are defined in fern-config,
+    # so each Fern generation will overwrite any updates made by Dependabot in this SDK
+
     # check for updated versions of npm dependencies on a daily basis
-    - package-ecosystem: "npm"
-      directory: "/"
-      schedule:
-          interval: "daily"
-          time: "06:00"
-          timezone: "America/New_York"
-      commit-message:
-          prefix: "[npm] "
-      open-pull-requests-limit: 5
+    # - package-ecosystem: "npm"
+    #   directory: "/"
+    #   schedule:
+    #       interval: "daily"
+    #       time: "06:00"
+    #       timezone: "America/New_York"
+    #   commit-message:
+    #       prefix: "[npm] "
+    #   open-pull-requests-limit: 5
