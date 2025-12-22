@@ -1,81 +1,81 @@
-name: ci
+name: test-examples-dependabot
 
 on:
-  push:
-  pull_request:
-    types: [synchronize, reopened, ready_for_review]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  compile:
+  test-examples-dependabot:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]'
     permissions:
       contents: read
+      pull-requests: read
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Compile
-        run: pnpm build
-
-  test:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Check for formatting issues
-        run: pnpm format:check
-
-      - name: Run tests
-        # --configLoader runner is used to make vitest able to load its config as a ESM module in node 18. We wouldn't need to specify this if we didn't support node 18.
-        run: pnpm test --configLoader runner
-
-  test-examples:
-    runs-on: ubuntu-latest
-    # Run on pull_request events and push events (to test feature branches)
-    if: (github.event_name == 'pull_request' || github.event_name == 'push') && github.actor != 'dependabot[bot]'
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout SDK repo (PR branch)
+      - name: Checkout base SHA (trusted)
         uses: actions/checkout@v4
         with:
           path: sdk
-          # checkout the PR branch, not main
-          ref: ${{ github.event.pull_request.head.sha || github.head_ref || github.ref }}
+          ref: ${{ github.event.pull_request.base.sha }}
           fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify PR changes are dependency-only
+        working-directory: sdk
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          files="$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/pulls/$PR/files?per_page=100" \
+            | jq -r '.[].filename')"
+
+          echo "Changed files:"
+          echo "$files"
+
+          allowed='^(
+            package\.json|
+            pnpm-lock\.yaml|
+            pnpm-workspace\.yaml|
+            \.npmrc|
+            examples/.*/package\.json|
+            examples/.*/pnpm-lock\.yaml
+          )$'
+
+          bad="$(echo "$files" | tr -d '\r' | grep -Ev "$allowed" || true)"
+          if [ -n "$bad" ]; then
+            echo "::error::Disallowed file changes in Dependabot PR:"
+            echo "$bad"
+            exit 1
+          fi
+
+      - name: Apply Dependabot PR patch
+        working-directory: sdk
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3.patch" \
+            "https://api.github.com/repos/$REPO/pulls/$PR" \
+            > pr.patch
+          git apply --whitespace=nowarn pr.patch
 
       - name: Checkout examples repo
         uses: actions/checkout@v4
         with:
           repository: humeai/hume-api-examples
           path: examples
+          fetch-depth: 0
 
       - name: Set up node
         uses: actions/setup-node@v4
@@ -85,7 +85,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.20.0
+          version: '10.20.0'
 
       - name: Build SDK
         working-directory: ./sdk
@@ -109,10 +109,12 @@ jobs:
           echo "SDK version: $SDK_VERSION"
           echo "SDK path: $SDK_PATH"
           pnpm link --global
+
           cd ../examples/evi/evi-typescript-quickstart
           pnpm install --no-frozen-lockfile
           pnpm remove hume || true
           pnpm link hume
+
           echo ""
           echo "=== Verifying Linked SDK ==="
           if [ -L node_modules/hume ]; then
@@ -128,6 +130,7 @@ jobs:
             echo "✗ ERROR: node_modules/hume is NOT a symlink - using npm package!"
             exit 1
           fi
+
           INSTALLED_VERSION=$(node -p "require('hume/package.json').version")
           echo "Installed hume version: $INSTALLED_VERSION"
           if [ "$INSTALLED_VERSION" != "$SDK_VERSION" ]; then
@@ -136,10 +139,12 @@ jobs:
             echo "✓ Version matches: $INSTALLED_VERSION"
           fi
           echo "===================="
+
           cd ../../tts/tts-typescript-quickstart
           pnpm install --no-frozen-lockfile
           pnpm remove hume || true
           pnpm link hume
+
           echo ""
           echo "=== Verifying Linked SDK ==="
           if [ -L node_modules/hume ]; then
@@ -155,6 +160,7 @@ jobs:
             echo "✗ ERROR: node_modules/hume is NOT a symlink - using npm package!"
             exit 1
           fi
+
           INSTALLED_VERSION=$(node -p "require('hume/package.json').version")
           echo "Installed hume version: $INSTALLED_VERSION"
           if [ "$INSTALLED_VERSION" != "$SDK_VERSION" ]; then
@@ -166,63 +172,14 @@ jobs:
 
       - name: Run example evi-typescript-quickstart
         working-directory: ./examples/evi/evi-typescript-quickstart
-        run: pnpm run test
         env:
           TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
           TEST_HUME_SECRET_KEY: ${{ secrets.TEST_HUME_SECRET_KEY }}
+        run: pnpm run test
 
       - name: Run example tts-typescript-quickstart
         working-directory: ./examples/tts/tts-typescript-quickstart
-        run: pnpm run test
         env:
           TEST_HUME_API_KEY: ${{ secrets.TEST_HUME_API_KEY }}
           TEST_HUME_SECRET_KEY: ${{ secrets.TEST_HUME_SECRET_KEY }}
-
-  publish:
-    needs: [compile, test]
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0'
-
-      - name: Setup pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build
-        run: pnpm build
-
-      - name: Publish to npm
-        run: |
-          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          if [[ ${GITHUB_REF} == *alpha* ]]; then
-            npm publish --access public --tag alpha
-          elif [[ ${GITHUB_REF} == *beta* ]]; then
-            npm publish --access public --tag beta
-          else
-            npm publish --access public
-          fi
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Trigger React SDK bump
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
-          repository: HumeAI/hume-react-sdk
-          event-type: typescript-sdk-published
-          client-payload: |
-            {
-              "version": "${{ github.ref_name }}",
-              "tag": "${{ github.ref_name }}",
-              "is_prerelease": ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
-            }
+        run: pnpm run test
