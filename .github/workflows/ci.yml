@@ -215,7 +215,7 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Trigger React SDK bump
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.REPO_DISPATCH_TOKEN }}
           repository: HumeAI/hume-react-sdk
