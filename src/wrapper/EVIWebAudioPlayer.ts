@@ -1,5 +1,7 @@
-import { convertBase64ToBlob } from "./convertBase64ToBlob";
+import { convertBase64ToBlob } from "./convertBase64ToBlob.js";
 import type { AudioOutput } from "api/resources/empathicVoice";
+import { convertLinearFrequenciesToBark } from "./convertFrequencyScale.js";
+import { generateEmptyFft } from "./generateEmptyFft.js";
 
 /**
  * Options for configuring an {@link EVIWebAudioPlayer}.
@@ -14,6 +16,12 @@ export interface EVIWebAudioPlayerOptions {
      * @default 1
      */
     volume?: number;
+    /**
+     * Disable AudioWorklet Mode and use Regular Buffer Mode instead.
+     * Regular Buffer Mode falls back to AudioBufferSourceNode in the main thread if worklets aren't available.
+     * @default false (AudioWorklet Mode enabled)
+     */
+    disableAudioWorklet?: boolean;
     /**
      * Real-time FFT (frequency-domain) settings **only** for visualization.
      *
@@ -95,13 +103,6 @@ export class EVIWebAudioPlayer extends EventTarget {
     static #DEFAULT_FFT_SIZE = 2048;
     /** Default analyser poll interval (16 ms). */
     static #DEFAULT_FFT_INTERVAL = 16;
-    /** Bark‑scale center frequencies (hz) used by the default transform. https://en.wikipedia.org/wiki/Bark_scale */
-    static #BARK_CENTER_FREQUENCIES = [
-        50, 150, 250, 350, 450, 570, 700, 840, 1000, 1170, 1370, 1600, 1850, 2150, 2500, 2900, 3400, 4000, 4800, 5800,
-        7000, 8500, 10500, 13500,
-    ] as const;
-    /** Max byte magnitude (255) returned by `AnalyserNode.getByteFrequencyData`. */
-    static #BYTE_MAX = 255;
 
     /** `true` while any clip is currently audible. */
     get playing(): boolean {
@@ -129,14 +130,25 @@ export class EVIWebAudioPlayer extends EventTarget {
     #playing = false;
     #muted = false;
     #volume: number;
+    #disableAudioWorklet: boolean;
 
-    #fft: number[] = EVIWebAudioPlayer.emptyFft();
+    #fft: number[] = generateEmptyFft();
     #fftTimer: number | null = null;
     #fftOptions: ResolvedFftOptions | null = null;
+
+    #clipQueue: Array<{ id: string; buffer: AudioBuffer; index: number }> = [];
+    #currentlyPlayingAudioBuffer: AudioBufferSourceNode | null = null;
+    #isProcessing = false;
+    // chunkBufferQueues and #lastQueuedChunk are used to make sure that
+    // we don't play chunks out of order. #chunkBufferQueues is NOT the
+    // audio playback queue.
+    #lastQueuedChunk: { id: string; index: number } | null = null;
+    #chunkBufferQueues: Record<string, Array<AudioBuffer | undefined>> = {};
 
     constructor(private readonly opts: EVIWebAudioPlayerOptions = {}) {
         super();
         this.#volume = opts.volume ?? 1.0;
+        this.#disableAudioWorklet = opts.disableAudioWorklet ?? false;
 
         // Resolve FFT options if enabled
         if (opts.fft?.enabled) {
@@ -144,31 +156,9 @@ export class EVIWebAudioPlayer extends EventTarget {
             this.#fftOptions = {
                 size: size ?? EVIWebAudioPlayer.#DEFAULT_FFT_SIZE,
                 interval: interval ?? EVIWebAudioPlayer.#DEFAULT_FFT_INTERVAL,
-                transform: transform ?? EVIWebAudioPlayer.#linearHzToBark,
+                transform: transform ?? ((bins, sampleRate) => convertLinearFrequenciesToBark(bins, sampleRate)),
             };
         }
-    }
-
-    /**
-     * Generate an empty FFT frame array.
-     * Useful as an initial or placeholder FFT dataset before any real analysis.
-     *
-     * @returns A number[] filled with zeros, length equal to the Bark band count (24).
-     */
-    static emptyFft(): number[] {
-        return Array(EVIWebAudioPlayer.#BARK_CENTER_FREQUENCIES.length).fill(0);
-    }
-
-    /** Map linear‑Hz byte magnitudes to 24 Bark‑band floats in [0, 2]. */
-    static #linearHzToBark(linearData: Uint8Array, sampleRate: number): number[] {
-        const maxFrequency = sampleRate / 2;
-        const frequencyResolution = maxFrequency / linearData.length;
-
-        return EVIWebAudioPlayer.#BARK_CENTER_FREQUENCIES.map((barkFreq) => {
-            const linearDataIndex = Math.round(barkFreq / frequencyResolution);
-            const magnitude = linearData[linearDataIndex] ?? 0;
-            return (magnitude / EVIWebAudioPlayer.#BYTE_MAX) * 2;
-        });
     }
 
     /**
@@ -218,9 +208,8 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         // Fail fast if AudioWorklet isn’t supported
         if (!this.#ctx.audioWorklet) {
-            const msg = "AudioWorklet is not supported in this browser";
-            this.#emitError(msg);
-            throw new Error(msg);
+            console.warn("AudioWorklet is not supported in this browser. Falling back to Regular Buffer Mode.");
+            this.#disableAudioWorklet = true;
         }
 
         try {
@@ -232,33 +221,48 @@ export class EVIWebAudioPlayer extends EventTarget {
             if (this.#fftOptions) {
                 this.#analyserNode = this.#ctx.createAnalyser();
                 this.#analyserNode.fftSize = this.#fftOptions.size;
+            } else {
+                // Always create AnalyserNode, even if FFT is disabled, to avoid null checks in Buffer Mode
+                this.#analyserNode = this.#ctx.createAnalyser();
+                this.#analyserNode.fftSize = EVIWebAudioPlayer.#DEFAULT_FFT_SIZE;
             }
 
-            // Loads the AudioWorklet processor module.
-            await this.#ctx.audioWorklet.addModule(EVIWebAudioPlayer.#DEFAULT_WORKLET_URL);
+            if (!this.#disableAudioWorklet) {
+                // Loads the AudioWorklet processor module.
+                await this.#ctx.audioWorklet.addModule(EVIWebAudioPlayer.#DEFAULT_WORKLET_URL);
 
-            // Build AudioWorkletNode
-            this.#workletNode = new AudioWorkletNode(this.#ctx, "audio-processor");
+                // Build AudioWorkletNode
+                this.#workletNode = new AudioWorkletNode(this.#ctx, "audio-processor");
 
-            // When the worklet posts { type: "ended" }, mark playback stopped and emit a `'stop'` event.
-            this.#workletNode.port.onmessage = (e: MessageEvent) => {
-                if ((e.data as { type?: string }).type === "ended") {
-                    this.#playing = false;
-                    this.dispatchEvent(new CustomEvent("stop", { detail: { id: "stream" } }));
-                }
-            };
+                // When the worklet posts { type: "ended" }, mark playback stopped and emit a `'stop'` event.
+                this.#workletNode.port.onmessage = (e: MessageEvent) => {
+                    if ((e.data as { type?: string }).type === "ended") {
+                        this.#playing = false;
+                        this.dispatchEvent(new CustomEvent("stop", { detail: { id: "stream" } }));
+                    }
+                };
 
-            // Audio graph nodes
-            const workletNode = this.#workletNode; // AudioWorkletNode (PCM processor)
-            const analyserNode = this.#analyserNode; // Optional AnalyserNode (FFT)
-            const gainNode = this.#gainNode; // GainNode (volume control)
-            const destination = this.#ctx.destination; // AudioDestinationNode (speakers)
+                // Audio graph nodes
+                const workletNode = this.#workletNode; // AudioWorkletNode (PCM processor)
+                const analyserNode = this.#analyserNode; // Optional AnalyserNode (FFT)
+                const gainNode = this.#gainNode; // GainNode (volume control)
+                const destination = this.#ctx.destination; // AudioDestinationNode (speakers)
 
-            // Analyser node is filtered out of audio graph if null (FFT disabled)
-            const audioGraph = [workletNode, analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
+                // Analyser node is filtered out of audio graph if null (FFT disabled)
+                const audioGraph = [workletNode, analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
 
-            // Wire nodes: AudioWorkletNode → (AnalyserNode?) → GainNode → AudioDestinationNode
-            audioGraph.reduce((prev, next) => (prev.connect(next), next));
+                // Wire nodes: AudioWorkletNode → (AnalyserNode?) → GainNode → AudioDestinationNode
+                audioGraph.reduce((prev, next) => (prev.connect(next), next));
+            } else {
+                // Regular Buffer Mode
+                const analyserNode = this.#analyserNode;
+                const gainNode = this.#gainNode;
+                const destination = this.#ctx.destination;
+
+                // Wire nodes: (AnalyserNode?) → GainNode → AudioDestinationNode
+                const audioGraph = [analyserNode, gainNode, destination].filter(Boolean) as AudioNode[];
+                audioGraph.reduce((prev, next) => (prev.connect(next), next));
+            }
 
             // If an analyser is configured, begin polling it at the resolved interval and dispatching `'fft'` events for each frame.
             this.#startAnalyserPollingIfEnabled();
@@ -291,31 +295,72 @@ export class EVIWebAudioPlayer extends EventTarget {
             return;
         }
 
-        try {
-            const { data, id } = message;
+        if (!this.#disableAudioWorklet) {
+            try {
+                const { data, id } = message;
 
-            const blob = convertBase64ToBlob(data);
-            const buffer = await blob.arrayBuffer();
+                const blob = convertBase64ToBlob(data);
+                const buffer = await blob.arrayBuffer();
 
-            const audio = await this.#ctx.decodeAudioData(buffer);
-            const pcmData = audio.getChannelData(0);
+                const audio = await this.#ctx.decodeAudioData(buffer);
+                const pcmData = audio.getChannelData(0);
 
-            this.#workletNode!.port.postMessage({ type: "audio", data: pcmData });
+                this.#workletNode!.port.postMessage({ type: "audio", data: pcmData });
 
-            this.#playing = true;
-            this.dispatchEvent(new CustomEvent("play", { detail: { id } }));
-        } catch (err) {
-            const msg = err instanceof Error ? err.message : "Unknown error";
-            this.#emitError(`Failed to queue clip: ${msg}`);
+                this.#playing = true;
+                this.dispatchEvent(new CustomEvent("play", { detail: { id } }));
+            } catch (err) {
+                const msg = err instanceof Error ? err.message : "Unknown error";
+                this.#emitError(`Failed to queue clip: ${msg}`);
+            }
+        } else {
+            // Regular Buffer Mode
+            try {
+                const audioBuffer = await this.#convertToAudioBuffer(message);
+                if (!audioBuffer) {
+                    this.#emitError("Failed to convert data to audio buffer");
+                    return;
+                }
+
+                const playableBuffers = this.#getNextAudioBuffers(message, audioBuffer);
+                if (playableBuffers.length === 0) {
+                    return;
+                }
+
+                for (const nextAudioBufferToPlay of playableBuffers) {
+                    this.#clipQueue.push({
+                        id: nextAudioBufferToPlay.id,
+                        buffer: nextAudioBufferToPlay.buffer,
+                        index: nextAudioBufferToPlay.index,
+                    });
+                    if (this.#clipQueue.length === 1) {
+                        this.#playNextClip();
+                    }
+                }
+            } catch (e) {
+                const eMessage = e instanceof Error ? e.message : "Unknown error";
+                this.#emitError(`Failed to add clip to queue: ${eMessage}`);
+            }
         }
     }
 
     /**
      * Flush the worklet queue and output silence.
      */
-    stop() {
-        // Clear buffered audio from the worklet queue
-        this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
+    stop(): void {
+        if (!this.#disableAudioWorklet) {
+            // Clear buffered audio from the worklet queue
+            this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
+        } else {
+            // Regular Buffer mode
+            if (this.#currentlyPlayingAudioBuffer) {
+                this.#currentlyPlayingAudioBuffer.stop();
+                this.#currentlyPlayingAudioBuffer.disconnect();
+                this.#currentlyPlayingAudioBuffer = null;
+            }
+            this.#clipQueue = [];
+            this.#isProcessing = false;
+        }
 
         // Restart analyser polling so fft events continue after stopping or clearing the queue
         this.#startAnalyserPollingIfEnabled();
@@ -333,7 +378,7 @@ export class EVIWebAudioPlayer extends EventTarget {
      *
      * @param volume Desired gain; clamped to [0, 1].
      */
-    setVolume(volume: number) {
+    setVolume(volume: number): void {
         const clampedVolume = Math.max(0, Math.min(volume, 1));
         this.#volume = clampedVolume;
 
@@ -345,7 +390,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Mute output instantly by setting the gain to 0. Retains the last volume internally for later restore.
      */
-    mute() {
+    mute(): void {
         if (!this.#gainNode || !this.#ctx) return;
         this.#gainNode.gain.setValueAtTime(0, this.#ctx.currentTime);
         this.#muted = true;
@@ -354,7 +399,7 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Restore output gain to the last set volume (via setVolume).
      */
-    unmute() {
+    unmute(): void {
         if (!this.#gainNode || !this.#ctx) return;
         this.#gainNode.gain.setValueAtTime(this.#volume, this.#ctx.currentTime);
         this.#muted = false;
@@ -363,16 +408,27 @@ export class EVIWebAudioPlayer extends EventTarget {
     /**
      * Tear down all Web-Audio resources (worklet, analyser, gain, context) and reset state so {@link init} can be called again.
      */
-    dispose() {
+    dispose(): void {
         if (this.#fftTimer != null) {
             clearInterval(this.#fftTimer);
             this.#fftTimer = null;
         }
 
-        this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
-        this.#workletNode?.port.postMessage({ type: "end" });
-        this.#workletNode?.port.close();
-        this.#workletNode?.disconnect();
+        if (!this.#disableAudioWorklet) {
+            this.#workletNode?.port.postMessage({ type: "fadeAndClear" });
+            this.#workletNode?.port.postMessage({ type: "end" });
+            this.#workletNode?.port.close();
+            this.#workletNode?.disconnect();
+        } else {
+            // Regular Buffer mode
+            if (this.#currentlyPlayingAudioBuffer) {
+                this.#currentlyPlayingAudioBuffer.stop();
+                this.#currentlyPlayingAudioBuffer.disconnect();
+                this.#currentlyPlayingAudioBuffer = null;
+            }
+            this.#clipQueue = [];
+            this.#isProcessing = false;
+        }
 
         this.#analyserNode?.disconnect();
 
@@ -381,7 +437,7 @@ export class EVIWebAudioPlayer extends EventTarget {
 
         this.#initialized = false;
         this.#playing = false;
-        this.#fft = EVIWebAudioPlayer.emptyFft();
+        this.#fft = generateEmptyFft();
     }
 
     /**
@@ -407,5 +463,145 @@ export class EVIWebAudioPlayer extends EventTarget {
      */
     #emitError(message: string) {
         this.dispatchEvent(new CustomEvent("error", { detail: { message } }));
+    }
+
+    /**
+     * Converts a base64 encoded audio data message to an AudioBuffer.
+     */
+    async #convertToAudioBuffer(message: AudioOutput): Promise<AudioBuffer | undefined> {
+        if (!this.#initialized || !this.#ctx) {
+            this.#emitError("Audio player has not been initialized");
+            return;
+        }
+        const blob = convertBase64ToBlob(message.data);
+        const arrayBuffer = await blob.arrayBuffer();
+        const audioBuffer = await this.#ctx.decodeAudioData(arrayBuffer);
+        return audioBuffer;
+    }
+
+    /**
+     * Manages incoming audio chunks to ensure they are processed in the correct order.
+     */
+    #getNextAudioBuffers(
+        message: AudioOutput,
+        audioBuffer: AudioBuffer,
+    ): Array<{ id: string; index: number; buffer: AudioBuffer }> {
+        // Prevent prototype pollution by restricting dangerous property names.
+        if (message.id === "__proto__" || message.id === "constructor" || message.id === "prototype") {
+            this.#emitError(`Attempted to use a dangerous property name as message ID: ${message.id}`);
+            return [];
+        }
+        //1. Add the current buffer to the queue
+        if (!this.#chunkBufferQueues[message.id]) {
+            this.#chunkBufferQueues[message.id] = [];
+        }
+
+        // Ensure message.index is a safe, non-negative integer to prevent prototype pollution.
+        if (!Number.isInteger(message.index) || message.index < 0) {
+            this.#emitError(`Attempted to use an invalid index: ${message.index}`);
+            return [];
+        }
+
+        const queueForCurrMessage = this.#chunkBufferQueues[message.id] || [];
+        queueForCurrMessage[message.index] = audioBuffer;
+
+        // 2. Now collect buffers that are ready to be played
+        const lastId = this.#lastQueuedChunk?.id;
+        const buffers: Array<{ id: string; index: number; buffer: AudioBuffer }> = [];
+
+        // If the current message ID is different from the last one that was added
+        // to the queue, that means that we're playing a new message now, so the first chunk
+        // we play needs to be at index 0.
+        if (message.id !== lastId) {
+            if (queueForCurrMessage[0]) {
+                this.#lastQueuedChunk = { id: message.id, index: 0 };
+                buffers.push({
+                    id: message.id,
+                    index: 0,
+                    buffer: queueForCurrMessage[0],
+                });
+                queueForCurrMessage[0] = undefined;
+            } else {
+                return [];
+            }
+        }
+
+        // Drain the queue - basically if any chunks were received out of order previously,
+        // and they're now ready to be played because the earlier chunks
+        // have been received, we can add them to the buffers array.
+        let nextIdx = (this.#lastQueuedChunk?.index || 0) + 1;
+        let nextBuf = queueForCurrMessage[nextIdx];
+        while (nextBuf) {
+            buffers.push({ index: nextIdx, buffer: nextBuf, id: message.id });
+            queueForCurrMessage[nextIdx] = undefined;
+            this.#lastQueuedChunk = { id: message.id, index: nextIdx };
+            nextIdx += 1;
+            nextBuf = queueForCurrMessage[nextIdx];
+        }
+
+        return buffers;
+    }
+
+    /**
+     * Only for Regular Buffer mode.
+     * This function is called when the current audio clip ends.
+     * It will play the next clip in the queue if there is one.
+     */
+    #playNextClip() {
+        if (this.#clipQueue.length === 0 || this.#isProcessing) {
+            return;
+        }
+
+        if (this.#analyserNode === null || this.#ctx === null) {
+            this.#emitError("Audio player is not initialized");
+            return;
+        }
+
+        const nextClip = this.#clipQueue.shift();
+
+        if (!nextClip) {
+            return;
+        }
+
+        this.#isProcessing = true;
+        this.#playing = true;
+
+        const bufferSource = this.#ctx.createBufferSource();
+
+        bufferSource.buffer = nextClip.buffer;
+
+        if (this.#analyserNode) {
+            bufferSource.connect(this.#analyserNode);
+        }
+
+        if (this.#gainNode) {
+            this.#analyserNode?.connect(this.#gainNode);
+            this.#gainNode.connect(this.#ctx.destination);
+        } else {
+            this.#analyserNode?.connect(this.#ctx.destination);
+        }
+
+        this.#currentlyPlayingAudioBuffer = bufferSource;
+
+        this.#startAnalyserPollingIfEnabled();
+
+        bufferSource.start(0);
+        if (nextClip.index === 0) {
+            this.dispatchEvent(new CustomEvent("play", { detail: { id: nextClip.id } }));
+        }
+
+        bufferSource.onended = () => {
+            if (this.#fftTimer) {
+                clearInterval(this.#fftTimer);
+                this.#fftTimer = null;
+            }
+            this.#fft = generateEmptyFft();
+            bufferSource.disconnect();
+            this.#isProcessing = false;
+            this.#playing = false;
+            this.dispatchEvent(new CustomEvent("stop", { detail: { id: nextClip.id } }));
+            this.#currentlyPlayingAudioBuffer = null;
+            this.#playNextClip();
+        };
     }
 }

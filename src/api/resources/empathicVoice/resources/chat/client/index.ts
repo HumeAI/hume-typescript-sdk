@@ -1,3 +1,3 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-export { ChatSocket } from "./Socket";
-export { Chat } from "./Client";
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
+export { ChatSocket } from "./Socket.js";
+export { Chat } from "./Client.js";

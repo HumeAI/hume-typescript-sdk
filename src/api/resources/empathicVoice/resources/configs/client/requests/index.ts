@@ -1,6 +1,6 @@
-export { type ConfigsListConfigsRequest } from "./ConfigsListConfigsRequest";
-export { type PostedConfig } from "./PostedConfig";
-export { type ConfigsListConfigVersionsRequest } from "./ConfigsListConfigVersionsRequest";
-export { type PostedConfigVersion } from "./PostedConfigVersion";
-export { type PostedConfigName } from "./PostedConfigName";
-export { type PostedConfigVersionDescription } from "./PostedConfigVersionDescription";
+export type { ConfigsListConfigsRequest } from "./ConfigsListConfigsRequest.js";
+export type { ConfigsListConfigVersionsRequest } from "./ConfigsListConfigVersionsRequest.js";
+export type { PostedConfig } from "./PostedConfig.js";
+export type { PostedConfigName } from "./PostedConfigName.js";
+export type { PostedConfigVersion } from "./PostedConfigVersion.js";
+export type { PostedConfigVersionDescription } from "./PostedConfigVersionDescription.js";

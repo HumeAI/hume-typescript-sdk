@@ -1,6 +1,4 @@
-import { Readable } from "stream";
-
-import { RUNTIME } from "../runtime";
+import { RUNTIME } from "../runtime/index.js";
 
 export declare namespace Stream {
     interface Args {
@@ -8,7 +6,7 @@ export declare namespace Stream {
          * The HTTP response stream to read from.
          */
 
-        stream: Readable | ReadableStream;
+        stream: ReadableStream;
 
         /**
          * The event shape to use for parsing the stream data.
@@ -34,7 +32,7 @@ export declare namespace Stream {
 const DATA_PREFIX = "data:";
 
 export class Stream<T> implements AsyncIterable<T> {
-    private stream: Readable | ReadableStream;
+    private stream: ReadableStream;
 
     private parse: (val: unknown) => Promise<T>;
     /**
@@ -45,6 +43,7 @@ export class Stream<T> implements AsyncIterable<T> {
     private messageTerminator: string;
     private streamTerminator: string | undefined;
     private controller: AbortController = new AbortController();
+    private decoder: TextDecoder | undefined;
 
     constructor({ stream, parse, eventShape, signal }: Stream.Args & { parse: (val: unknown) => Promise<T> }) {
         this.stream = stream;
@@ -57,6 +56,11 @@ export class Stream<T> implements AsyncIterable<T> {
             this.messageTerminator = eventShape.messageTerminator;
         }
         signal?.addEventListener("abort", () => this.controller.abort());
+
+        // Initialize shared TextDecoder
+        if (typeof TextDecoder !== "undefined") {
+            this.decoder = new TextDecoder("utf-8");
+        }
     }
 
     private async *iterMessages(): AsyncGenerator<T, void> {
@@ -69,7 +73,7 @@ export class Stream<T> implements AsyncIterable<T> {
 
             let terminatorIndex: number;
             while ((terminatorIndex = buf.indexOf(this.messageTerminator)) >= 0) {
-                let line = buf.slice(0, terminatorIndex + 1);
+                let line = buf.slice(0, terminatorIndex);
                 buf = buf.slice(terminatorIndex + this.messageTerminator.length);
 
                 if (!line.trim()) {
@@ -103,10 +107,9 @@ export class Stream<T> implements AsyncIterable<T> {
 
     private decodeChunk(chunk: any): string {
         let decoded = "";
-        // If TextDecoder is present, use it
-        if (typeof TextDecoder !== "undefined") {
-            const decoder = new TextDecoder("utf8");
-            decoded += decoder.decode(chunk);
+        // If TextDecoder is available, use the streaming decoder instance
+        if (this.decoder != null) {
+            decoded += this.decoder.decode(chunk, { stream: true });
         }
         // Buffer is present in Node.js environment
         else if (RUNTIME.type === "node" && typeof chunk !== "undefined") {
@@ -119,7 +122,7 @@ export class Stream<T> implements AsyncIterable<T> {
 /**
  * Browser polyfill for ReadableStream
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: allow explicit any
 export function readableStreamAsyncIterable<T>(stream: any): AsyncIterableIterator<T> {
     if (stream[Symbol.asyncIterator]) {
         return stream;

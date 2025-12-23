@@ -1,2 +1,2 @@
-export { type ChatsListChatsRequest } from "./ChatsListChatsRequest";
-export { type ChatsListChatEventsRequest } from "./ChatsListChatEventsRequest";
+export type { ChatsListChatEventsRequest } from "./ChatsListChatEventsRequest.js";
+export type { ChatsListChatsRequest } from "./ChatsListChatsRequest.js";

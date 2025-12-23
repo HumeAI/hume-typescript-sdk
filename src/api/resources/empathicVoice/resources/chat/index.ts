@@ -1,3 +1,7 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
-export * from "./types";
-export * from "./client";
+export * from "./types/index.js";
+export * from "./client/index.js";
+/**
+ * @deprecated Use `Hume.empathicVoice.SubscribeEvent` instead.
+ * This type alias will be removed in a future version.
+ */
+export type { SubscribeEvent } from "./types/SubscribeEvent.js";

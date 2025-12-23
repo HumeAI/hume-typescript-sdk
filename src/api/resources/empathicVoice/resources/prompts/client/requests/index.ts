@@ -1,6 +1,6 @@
-export { type PromptsListPromptsRequest } from "./PromptsListPromptsRequest";
-export { type PostedPrompt } from "./PostedPrompt";
-export { type PromptsListPromptVersionsRequest } from "./PromptsListPromptVersionsRequest";
-export { type PostedPromptVersion } from "./PostedPromptVersion";
-export { type PostedPromptName } from "./PostedPromptName";
-export { type PostedPromptVersionDescription } from "./PostedPromptVersionDescription";
+export type { PostedPrompt } from "./PostedPrompt.js";
+export type { PostedPromptName } from "./PostedPromptName.js";
+export type { PostedPromptVersion } from "./PostedPromptVersion.js";
+export type { PostedPromptVersionDescription } from "./PostedPromptVersionDescription.js";
+export type { PromptsListPromptsRequest } from "./PromptsListPromptsRequest.js";
+export type { PromptsListPromptVersionsRequest } from "./PromptsListPromptVersionsRequest.js";

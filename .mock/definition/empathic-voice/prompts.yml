@@ -7,14 +7,13 @@ service:
     list-prompts:
       path: /v0/evi/prompts
       method: GET
-      auth: true
       docs: >-
         Fetches a paginated list of **Prompts**.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       pagination:
         offset: $request.page_number
         results: $response.prompts_page
@@ -101,15 +100,14 @@ service:
     create-prompt:
       path: /v0/evi/prompts
       method: POST
-      auth: true
       docs: >-
         Creates a **Prompt** that can be added to an [EVI
-        configuration](/reference/empathic-voice-interface-evi/configs/create-config).
+        configuration](/reference/speech-to-speech-evi/configs/create-config).
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       display-name: Create prompt
@@ -120,13 +118,10 @@ service:
             name:
               type: string
               docs: Name applied to all versions of a particular Prompt.
-            version_description:
-              type: optional<string>
-              docs: An optional description of the Prompt version.
             text:
               type: string
               docs: >-
-                Instructions used to shape EVI’s behavior, responses, and style.
+                Instructions used to shape EVI's behavior, responses, and style.
 
 
                 You can use the Prompt to define a specific goal or role for
@@ -138,7 +133,10 @@ service:
 
 
                 For help writing a system prompt, see our [Prompting
-                Guide](/docs/empathic-voice-interface-evi/guides/prompting).
+                Guide](/docs/speech-to-speech-evi/guides/prompting).
+            version_description:
+              type: optional<string>
+              docs: An optional description of the Prompt version.
         content-type: application/json
       response:
         docs: Created
@@ -175,14 +173,13 @@ service:
     list-prompt-versions:
       path: /v0/evi/prompts/{id}
       method: GET
-      auth: true
       docs: >-
         Fetches a list of a **Prompt's** versions.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -253,14 +250,13 @@ service:
     create-prompt-version:
       path: /v0/evi/prompts/{id}
       method: POST
-      auth: true
       docs: >-
         Updates a **Prompt** by creating a new version of the **Prompt**.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -272,13 +268,10 @@ service:
         name: PostedPromptVersion
         body:
           properties:
-            version_description:
-              type: optional<string>
-              docs: An optional description of the Prompt version.
             text:
               type: string
               docs: >-
-                Instructions used to shape EVI’s behavior, responses, and style
+                Instructions used to shape EVI's behavior, responses, and style
                 for this version of the Prompt.
 
 
@@ -291,7 +284,10 @@ service:
 
 
                 For help writing a system prompt, see our [Prompting
-                Guide](/docs/empathic-voice-interface-evi/guides/prompting).
+                Guide](/docs/speech-to-speech-evi/guides/prompting).
+            version_description:
+              type: optional<string>
+              docs: An optional description of the Prompt version.
         content-type: application/json
       response:
         docs: Created
@@ -330,14 +326,13 @@ service:
     delete-prompt:
       path: /v0/evi/prompts/{id}
       method: DELETE
-      auth: true
       docs: >-
         Deletes a **Prompt** and its versions.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -353,14 +348,13 @@ service:
     update-prompt-name:
       path: /v0/evi/prompts/{id}
       method: PATCH
-      auth: true
       docs: >-
         Updates the name of a **Prompt**.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -390,14 +384,13 @@ service:
     get-prompt-version:
       path: /v0/evi/prompts/{id}/version/{version}
       method: GET
-      auth: true
       docs: >-
         Fetches a specified version of a **Prompt**.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -449,14 +442,13 @@ service:
     delete-prompt-version:
       path: /v0/evi/prompts/{id}/version/{version}
       method: DELETE
-      auth: true
       docs: >-
         Deletes a specified version of a **Prompt**.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:
@@ -488,14 +480,13 @@ service:
     update-prompt-description:
       path: /v0/evi/prompts/{id}/version/{version}
       method: PATCH
-      auth: true
       docs: >-
         Updates the description of a **Prompt**.
 
 
         See our [prompting
-        guide](/docs/empathic-voice-interface-evi/guides/phone-calling) for tips
-        on crafting your system prompt.
+        guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on
+        crafting your system prompt.
       source:
         openapi: evi-openapi.json
       path-parameters:

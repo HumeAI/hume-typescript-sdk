@@ -1,4 +1,4 @@
-import { base64Encode } from "./base64Encode";
+import { base64Encode } from "./base64Encode.js";
 import { z } from "zod";
 
 /**
@@ -38,7 +38,6 @@ export const fetchAccessToken = async ({
         body: new URLSearchParams({
             grant_type: "client_credentials",
         }).toString(),
-        cache: "no-cache",
     });
     if (!res.ok) {
         throw new Error(`Failed to fetch access token: (${res.status} ${res.statusText})\n ${await res.text()}`);

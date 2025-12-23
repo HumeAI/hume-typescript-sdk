@@ -1,3 +1,3 @@
-export * as tts from "./tts";
-export * as empathicVoice from "./empathicVoice";
-export * as expressionMeasurement from "./expressionMeasurement";
+export * as empathicVoice from "./empathicVoice/index.js";
+export * as expressionMeasurement from "./expressionMeasurement/index.js";
+export * as tts from "./tts/index.js";

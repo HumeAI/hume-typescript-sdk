@@ -1,3 +1,3 @@
-export { type VoicesListRequest } from "./VoicesListRequest";
-export { type PostedVoice } from "./PostedVoice";
-export { type VoicesDeleteRequest } from "./VoicesDeleteRequest";
+export type { PostedVoice } from "./PostedVoice.js";
+export type { VoicesDeleteRequest } from "./VoicesDeleteRequest.js";
+export type { VoicesListRequest } from "./VoicesListRequest.js";

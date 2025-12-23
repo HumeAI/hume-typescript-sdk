@@ -7,7 +7,6 @@ service:
     list-chats:
       path: /v0/evi/chats
       method: GET
-      auth: true
       docs: Fetches a paginated list of **Chats**.
       pagination:
         offset: $request.page_number
@@ -53,6 +52,9 @@ service:
             docs: Filter to only include chats that used this config.
             validation:
               format: uuid
+          status:
+            type: optional<string>
+            docs: Chat status to apply to the chat. String from the ChatStatus enum.
       response:
         docs: Success
         type: root.ReturnPagedChats
@@ -84,7 +86,6 @@ service:
     list-chat-events:
       path: /v0/evi/chats/{id}
       method: GET
-      auth: true
       docs: Fetches a paginated list of **Chat** events.
       pagination:
         offset: $request.page_number
@@ -471,11 +472,10 @@ service:
     get-audio:
       path: /v0/evi/chats/{id}/audio
       method: GET
-      auth: true
       docs: >-
         Fetches the audio of a previous **Chat**. For more details, see our
         guide on audio reconstruction
-        [here](/docs/empathic-voice-interface-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+        [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
       source:
         openapi: evi-openapi.json
       path-parameters:

@@ -1,6 +1,8 @@
-import { DefaultBodyType, HttpHandler, HttpResponse, HttpResponseResolver, http } from "msw";
+import { type DefaultBodyType, type HttpHandler, HttpResponse, type HttpResponseResolver, http } from "msw";
 
+import { url } from "../../src/core";
 import { toJson } from "../../src/core/json";
+import { withFormUrlEncoded } from "./withFormUrlEncoded";
 import { withHeaders } from "./withHeaders";
 import { withJson } from "./withJson";
 
@@ -25,6 +27,7 @@ interface RequestHeadersStage extends RequestBodyStage, ResponseStage {
 
 interface RequestBodyStage extends ResponseStage {
     jsonBody(body: unknown): ResponseStage;
+    formUrlEncodedBody(body: unknown): ResponseStage;
 }
 
 interface ResponseStage {
@@ -127,28 +130,35 @@ class RequestBuilder implements MethodStage, RequestHeadersStage, RequestBodySta
     }
 
     jsonBody(body: unknown): ResponseStage {
+        if (body === undefined) {
+            throw new Error("Undefined is not valid JSON. Do not call jsonBody if you want an empty body.");
+        }
         this.predicates.push((resolver) => withJson(body, resolver));
         return this;
     }
 
-    respondWith(): ResponseStatusStage {
-        return new ResponseBuilder(this.method, this.buildPath(), this.predicates, this.handlerOptions);
+    formUrlEncodedBody(body: unknown): ResponseStage {
+        if (body === undefined) {
+            throw new Error(
+                "Undefined is not valid for form-urlencoded. Do not call formUrlEncodedBody if you want an empty body.",
+            );
+        }
+        this.predicates.push((resolver) => withFormUrlEncoded(body, resolver));
+        return this;
     }
 
-    private buildPath(): string {
-        if (this._baseUrl.endsWith("/") && this.path.startsWith("/")) {
-            return this._baseUrl + this.path.slice(1);
-        }
-        if (!this._baseUrl.endsWith("/") && !this.path.startsWith("/")) {
-            return this._baseUrl + "/" + this.path;
-        }
-        return this._baseUrl + this.path;
+    respondWith(): ResponseStatusStage {
+        return new ResponseBuilder(this.method, this.buildUrl(), this.predicates, this.handlerOptions);
+    }
+
+    private buildUrl(): string {
+        return url.join(this._baseUrl, this.path);
     }
 }
 
 class ResponseBuilder implements ResponseStatusStage, ResponseHeaderStage, ResponseBodyStage, BuildStage {
     private readonly method: HttpMethod;
-    private readonly path: string;
+    private readonly url: string;
     private readonly requestPredicates: ((resolver: HttpResponseResolver) => HttpResponseResolver)[];
     private readonly handlerOptions?: HttpHandlerBuilderOptions;
 
@@ -158,12 +168,12 @@ class ResponseBuilder implements ResponseStatusStage, ResponseHeaderStage, Respo
 
     constructor(
         method: HttpMethod,
-        path: string,
+        url: string,
         requestPredicates: ((resolver: HttpResponseResolver) => HttpResponseResolver)[],
         options?: HttpHandlerBuilderOptions,
     ) {
         this.method = method;
-        this.path = path;
+        this.url = url;
         this.requestPredicates = requestPredicates;
         this.handlerOptions = options;
     }
@@ -184,21 +194,29 @@ class ResponseBuilder implements ResponseStatusStage, ResponseHeaderStage, Respo
     }
 
     public jsonBody(body: unknown): BuildStage {
+        if (body === undefined) {
+            throw new Error("Undefined is not valid JSON. Do not call jsonBody if you expect an empty body.");
+        }
         this.responseBody = toJson(body);
         return this;
     }
 
     public build(): HttpHandler {
         const responseResolver: HttpResponseResolver = () => {
-            return new HttpResponse(this.responseBody, {
+            const response = new HttpResponse(this.responseBody, {
                 status: this.responseStatusCode,
                 headers: this.responseHeaders,
             });
+            // if no Content-Type header is set, delete the default text content type that is set
+            if (Object.keys(this.responseHeaders).some((key) => key.toLowerCase() === "content-type") === false) {
+                response.headers.delete("Content-Type");
+            }
+            return response;
         };
 
         const finalResolver = this.requestPredicates.reduceRight((acc, predicate) => predicate(acc), responseResolver);
 
-        const handler = http[this.method](this.path, finalResolver, this.handlerOptions);
+        const handler = http[this.method](this.url, finalResolver, this.handlerOptions);
         this.handlerOptions?.onBuild?.(handler);
         return handler;
     }

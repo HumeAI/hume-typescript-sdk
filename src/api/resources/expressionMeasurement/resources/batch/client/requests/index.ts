@@ -1,2 +1,2 @@
-export { type BatchListJobsRequest } from "./BatchListJobsRequest";
-export { type BatchStartInferenceJobFromLocalFileRequest } from "./BatchStartInferenceJobFromLocalFileRequest";
+export type { BatchListJobsRequest } from "./BatchListJobsRequest.js";
+export type { BatchStartInferenceJobFromLocalFileRequest } from "./BatchStartInferenceJobFromLocalFileRequest.js";

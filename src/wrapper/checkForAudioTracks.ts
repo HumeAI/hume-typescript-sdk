@@ -5,7 +5,7 @@
  * @param stream
  * The MediaStream to check
  */
-export const checkForAudioTracks = (stream: MediaStream) => {
+export const checkForAudioTracks = (stream: MediaStream): void => {
     const tracks = stream.getAudioTracks();
 
     if (tracks.length === 0) {
