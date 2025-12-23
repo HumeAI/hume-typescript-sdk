@@ -39,6 +39,9 @@ export const fetchAccessToken = async ({
             grant_type: "client_credentials",
         }).toString(),
     });
+    if (!res.ok) {
+        throw new Error(`Failed to fetch access token: (${res.status} ${res.statusText})\n ${await res.text()}`);
+    }
     return z
         .object({
             access_token: z.string(),
