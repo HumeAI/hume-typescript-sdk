@@ -6,17 +6,16 @@ import type * as Hume from "../../../index.js";
  * A description of chat_group and its status
  */
 export interface ReturnChatGroup {
-    /** Denotes whether there is an active Chat associated with this Chat Group. */
     active?: boolean;
-    /** Time at which the first Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
+    /** The timestamp when the first chat in this chat group started, formatted as a Unix epoch milliseconds. */
     firstStartTimestamp: number;
-    /** Identifier for the Chat Group. Any Chat resumed from this Chat Group will have the same `chat_group_id`. Formatted as a UUID. */
+    /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
     id: string;
-    /** The `chat_id` of the most recent Chat in this Chat Group. Formatted as a UUID. */
+    /** The chat_id of the most recent chat in this chat group. Formatted as a UUID. */
     mostRecentChatId?: string;
     mostRecentConfig?: Hume.empathicVoice.ReturnConfigSpec;
-    /** Time at which the most recent Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
+    /** The timestamp when the most recent chat in this chat group started, formatted as a Unix epoch milliseconds. */
     mostRecentStartTimestamp: number;
-    /** The total number of Chats in this Chat Group. */
+    /** The total number of chats in this chat group. */
     numChats: number;
 }

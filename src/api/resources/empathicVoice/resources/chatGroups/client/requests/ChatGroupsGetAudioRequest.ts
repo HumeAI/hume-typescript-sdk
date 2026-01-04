@@ -21,6 +21,6 @@ export interface ChatGroupsGetAudioRequest {
      * For example, if `page_size` is set to 10, each page will include up to 10 items. Defaults to 10.
      */
     pageSize?: number;
-    /** Specifies the sorting order of the results based on their creation date. Set to true for ascending order (chronological, with the oldest records first) and false for descending order (reverse-chronological, with the newest records first). Defaults to true. */
+    /** Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true. */
     ascendingOrder?: boolean;
 }

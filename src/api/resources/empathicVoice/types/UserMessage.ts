@@ -3,23 +3,14 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * **Transcript of the user's message.** Contains the message role and content, along with a `from_text` field indicating if this message was inserted into the conversation as text from a `UserInput` message.
- *
- * Includes an `interim` field indicating whether the transcript is provisional (words may be repeated or refined in subsequent `UserMessage` responses as additional audio is processed) or final and complete. Interim transcripts are only sent when the `verbose_transcription` query parameter is set to true in the initial handshake.
+ * When provided, the output is a user message.
  */
 export interface UserMessage {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */
     customSessionId?: string;
-    /** Indicates if this message was inserted into the conversation as text from a [User Input](/reference/speech-to-speech-evi/chat#send.UserInput.text) message. */
+    /** Indicates if this message was inserted into the conversation as text from a [User Input](/reference/empathic-voice-interface-evi/chat/chat#send.User%20Input.text) message. */
     fromText: boolean;
-    /**
-     * Indicates whether this `UserMessage` contains an interim (unfinalized) transcript.
-     *
-     * - `true`: the transcript is provisional; words may be repeated or refined in subsequent `UserMessage` responses as additional audio is processed.
-     * - `false`: the transcript is final and complete.
-     *
-     * Interim transcripts are only sent when the [`verbose_transcription`](/reference/speech-to-speech-evi/chat#request.query.verbose_transcription) query parameter is set to `true` in the initial handshake.
-     */
+    /** Indicates if this message contains an immediate and unfinalized transcript of the user's audio input. If it does, words may be repeated across successive UserMessage messages as our transcription model becomes more confident about what was said with additional context. Interim messages are useful to detect if the user is interrupting during audio playback on the client. Even without a finalized transcription, along with `UserInterrupt` messages, interim `UserMessages` are useful for detecting if the user is interrupting during audio playback on the client, signaling to stop playback in your application. */
     interim: boolean;
     /** Detected language of the message text. */
     language?: string;
@@ -29,10 +20,5 @@ export interface UserMessage {
     models: Hume.empathicVoice.Inference;
     /** Start and End time of user message. */
     time: Hume.empathicVoice.MillisecondInterval;
-    /**
-     * The type of message sent through the socket; for a User Message, this must be `user_message`.
-     *
-     * This message contains both a transcript of the user's input and the expression measurement predictions if the input was sent as an [Audio Input message](/reference/speech-to-speech-evi/chat#send.AudioInput). Expression measurement predictions are not provided for a [User Input message](/reference/speech-to-speech-evi/chat#send.UserInput), as the prosody model relies on audio input and cannot process text alone.
-     */
     type: "user_message";
 }

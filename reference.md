@@ -78,20 +78,6 @@ await client.empathicVoice.controlPlane.send("chat_id", {
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Chat Groups**.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -163,20 +149,6 @@ const response = page.response;
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associated with the **ChatGroup**.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -206,7 +178,7 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -238,20 +210,6 @@ await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -281,7 +239,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -312,20 +270,6 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 <details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatGroupPagedEvents></code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Chat** events associated with a **Chat Group**.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -372,7 +316,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat Group. Formatted as a UUID.
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -404,20 +348,6 @@ const response = page.response;
 <details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> core.Page<Hume.ReturnChat, Hume.ReturnPagedChats></code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Chats**.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -488,20 +418,6 @@ const response = page.response;
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Chat** events.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -547,7 +463,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Chat. Formatted as a UUID.
+**id:** `string` — Identifier for a chat. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -578,20 +494,6 @@ const response = page.response;
 <details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">getAudio</a>(id) -> Hume.ReturnChatAudioReconstruction</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches the audio of a previous **Chat**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -642,22 +544,6 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> core.Page<Hume.ReturnConfig, Hume.ReturnPagedConfigs></code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Configs**.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -725,22 +611,6 @@ const response = page.response;
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">createConfig</a>({ ...params }) -> Hume.ReturnConfig</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a **Config** which can be applied to EVI.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -821,22 +691,6 @@ await client.empathicVoice.configs.createConfig({
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a list of a **Config's** versions.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -874,7 +728,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -905,22 +759,6 @@ const response = page.response;
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">createConfigVersion</a>(id, { ...params }) -> Hume.ReturnConfig</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a **Config** by creating a new version of the **Config**.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -980,7 +818,7 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1012,22 +850,6 @@ await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a **Config** and its versions.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1053,7 +875,7 @@ await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1076,22 +898,6 @@ await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">updateConfigName</a>(id, { ...params }) -> string</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Config**.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1120,7 +926,7 @@ await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1152,22 +958,6 @@ await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a specified version of a **Config**.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1193,7 +983,7 @@ await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1201,13 +991,7 @@ await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Config.
-
-Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+**version:** `number` — Version number for a config. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -1230,22 +1014,6 @@ Version numbers are integer values representing different iterations of the Conf
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">deleteConfigVersion</a>(id, version) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a specified version of a **Config**.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1272,7 +1040,7 @@ await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1280,13 +1048,7 @@ await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Config.
-
-Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+**version:** `number` — Version number for a config. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -1309,22 +1071,6 @@ Version numbers are integer values representing different iterations of the Conf
 <details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">updateConfigDescription</a>(id, version, { ...params }) -> Hume.ReturnConfig</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the description of a **Config**.
-
-For more details on configuration options and how to configure EVI, see our [configuration guide](/docs/speech-to-speech-evi/configuration).
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1353,7 +1099,7 @@ await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Config. Formatted as a UUID.
+**id:** `string` — Identifier for a config. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1361,13 +1107,7 @@ await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Config.
-
-Configs, Prompts, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine configurations and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Config. Each update to the Config increments its version number.
+**version:** `number` — Version number for a config. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -1399,22 +1139,6 @@ Version numbers are integer values representing different iterations of the Conf
 <details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> core.Page<(Hume.ReturnPrompt | undefined), Hume.ReturnPagedPrompts></code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Prompts**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1483,22 +1207,6 @@ const response = page.response;
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a **Prompt** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1551,22 +1259,6 @@ await client.empathicVoice.prompts.createPrompt({
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a list of a **Prompt's** versions.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1592,7 +1284,7 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` 
     
 </dd>
 </dl>
@@ -1624,22 +1316,6 @@ await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-a
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a **Prompt** by creating a new version of the **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1668,7 +1344,7 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a prompt. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1700,22 +1376,6 @@ await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a **Prompt** and its versions.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1741,7 +1401,7 @@ await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a prompt. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1764,22 +1424,6 @@ await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da
 <details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptName</a>(id, { ...params }) -> string</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1808,7 +1452,7 @@ await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a prompt. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1840,22 +1484,6 @@ await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a specified version of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -1881,7 +1509,7 @@ await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a prompt. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1889,13 +1517,7 @@ await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Prompt.
-
-Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+**version:** `number` — Version number for a prompt. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -1918,22 +1540,6 @@ Version numbers are integer values representing different iterations of the Prom
 <details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">deletePromptVersion</a>(id, version) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a specified version of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1960,7 +1566,7 @@ await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a prompt. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -1968,13 +1574,7 @@ await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Prompt.
-
-Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+**version:** `number` — Version number for a prompt. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -1997,22 +1597,6 @@ Version numbers are integer values representing different iterations of the Prom
 <details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">updatePromptDescription</a>(id, version, { ...params }) -> Hume.ReturnPrompt | undefined</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the description of a **Prompt**.
-
-See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2041,7 +1625,7 @@ await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-9
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Prompt. Formatted as a UUID.
+**id:** `string` — Identifier for a prompt. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2049,13 +1633,7 @@ await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-9
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Prompt.
-
-Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
+**version:** `number` — Version number for a prompt. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -2087,22 +1665,6 @@ Version numbers are integer values representing different iterations of the Prom
 <details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a paginated list of **Tools**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2171,22 +1733,6 @@ const response = page.response;
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a **Tool** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2242,22 +1788,6 @@ await client.empathicVoice.tools.createTool({
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a list of a **Tool's** versions.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2295,7 +1825,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` 
     
 </dd>
 </dl>
@@ -2327,22 +1857,6 @@ const response = page.response;
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a **Tool** by creating a new version of the **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2373,7 +1887,7 @@ await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-6098
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` — Identifier for a tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2405,22 +1919,6 @@ await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-6098
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a **Tool** and its versions.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2446,7 +1944,7 @@ await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268be
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` — Identifier for a tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2469,22 +1967,6 @@ await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268be
 <details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolName</a>(id, { ...params }) -> string</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the name of a **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2513,7 +1995,7 @@ await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-6098642
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` — Identifier for a tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2545,22 +2027,6 @@ await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-6098642
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Fetches a specified version of a **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2586,7 +2052,7 @@ await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-6098642
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` — Identifier for a tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2594,13 +2060,7 @@ await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-6098642
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Tool.
-
-Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+**version:** `number` — Version number for a tool. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -2623,22 +2083,6 @@ Version numbers are integer values representing different iterations of the Tool
 <details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">deleteToolVersion</a>(id, version) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a specified version of a **Tool**.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2665,7 +2109,7 @@ await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-6098
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` — Identifier for a tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2673,13 +2117,7 @@ await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-6098
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Tool.
-
-Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+**version:** `number` — Version number for a tool. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -2702,22 +2140,6 @@ Version numbers are integer values representing different iterations of the Tool
 <details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">updateToolDescription</a>(id, version, { ...params }) -> Hume.ReturnUserDefinedTool | undefined</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the description of a specified **Tool** version.
-
-Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2746,7 +2168,7 @@ await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-
 <dl>
 <dd>
 
-**id:** `string` — Identifier for a Tool. Formatted as a UUID.
+**id:** `string` — Identifier for a tool. Formatted as a UUID.
     
 </dd>
 </dl>
@@ -2754,13 +2176,7 @@ await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-
 <dl>
 <dd>
 
-**version:** `number` 
-
-Version number for a Tool.
-
-Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
-
-Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
+**version:** `number` — Version number for a tool. Version numbers should be integers.
     
 </dd>
 </dl>
@@ -3158,7 +2574,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-Lists voices you have saved in your account, or voices from the [Voice Library](https://platform.hume.ai/tts/voice-library).
+Lists voices you have saved in your account, or voices from the [Voice Library](https://app.hume.ai/voices).
 </dd>
 </dl>
 </dd>
