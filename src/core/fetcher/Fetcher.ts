@@ -8,6 +8,7 @@ import { getErrorResponseBody } from "./getErrorResponseBody.js";
 import { getFetchFn } from "./getFetchFn.js";
 import { getRequestBody } from "./getRequestBody.js";
 import { getResponseBody } from "./getResponseBody.js";
+import { Headers } from "./Headers.js";
 import { makeRequest } from "./makeRequest.js";
 import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse.js";
 import { requestWithRetries } from "./requestWithRetries.js";
@@ -19,7 +20,7 @@ export declare namespace Fetcher {
         url: string;
         method: string;
         contentType?: string;
-        headers?: Record<string, string | EndpointSupplier<string | null | undefined> | null | undefined>;
+        headers?: Record<string, unknown>;
         queryParameters?: Record<string, unknown>;
         body?: unknown;
         timeoutMs?: number;
@@ -34,7 +35,7 @@ export declare namespace Fetcher {
         logging?: LogConfig | Logger;
     }
 
-    export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
+    export type Error = FailedStatusCodeError | NonJsonError | BodyIsNullError | TimeoutError | UnknownError;
 
     export interface FailedStatusCodeError {
         reason: "status-code";
@@ -46,6 +47,11 @@ export declare namespace Fetcher {
         reason: "non-json";
         statusCode: number;
         rawBody: string;
+    }
+
+    export interface BodyIsNullError {
+        reason: "body-is-null";
+        statusCode: number;
     }
 
     export interface TimeoutError {
@@ -60,19 +66,26 @@ export declare namespace Fetcher {
 
 const SENSITIVE_HEADERS = new Set([
     "authorization",
+    "www-authenticate",
     "x-api-key",
     "api-key",
+    "apikey",
+    "x-api-token",
     "x-auth-token",
+    "auth-token",
     "cookie",
     "set-cookie",
     "proxy-authorization",
+    "proxy-authenticate",
     "x-csrf-token",
     "x-xsrf-token",
+    "x-session-token",
+    "x-access-token",
 ]);
 
-function redactHeaders(headers: Record<string, string>): Record<string, string> {
+function redactHeaders(headers: Headers | Record<string, string>): Record<string, string> {
     const filtered: Record<string, string> = {};
-    for (const [key, value] of Object.entries(headers)) {
+    for (const [key, value] of headers instanceof Headers ? headers.entries() : Object.entries(headers)) {
         if (SENSITIVE_HEADERS.has(key.toLowerCase())) {
             filtered[key] = "[REDACTED]";
         } else {
@@ -123,28 +136,35 @@ function redactUrl(url: string): string {
     if (protocolIndex === -1) return url;
 
     const afterProtocol = protocolIndex + 3;
-    const atIndex = url.indexOf("@", afterProtocol);
 
-    if (atIndex !== -1) {
-        const pathStart = url.indexOf("/", afterProtocol);
-        const queryStart = url.indexOf("?", afterProtocol);
-        const fragmentStart = url.indexOf("#", afterProtocol);
+    // Find the first delimiter that marks the end of the authority section
+    const pathStart = url.indexOf("/", afterProtocol);
+    let queryStart = url.indexOf("?", afterProtocol);
+    let fragmentStart = url.indexOf("#", afterProtocol);
 
-        const firstDelimiter = Math.min(
-            pathStart === -1 ? url.length : pathStart,
-            queryStart === -1 ? url.length : queryStart,
-            fragmentStart === -1 ? url.length : fragmentStart,
-        );
+    const firstDelimiter = Math.min(
+        pathStart === -1 ? url.length : pathStart,
+        queryStart === -1 ? url.length : queryStart,
+        fragmentStart === -1 ? url.length : fragmentStart,
+    );
 
-        if (atIndex < firstDelimiter) {
-            url = `${url.slice(0, afterProtocol)}[REDACTED]@${url.slice(atIndex + 1)}`;
+    // Find the LAST @ before the delimiter (handles multiple @ in credentials)
+    let atIndex = -1;
+    for (let i = afterProtocol; i < firstDelimiter; i++) {
+        if (url[i] === "@") {
+            atIndex = i;
         }
     }
 
-    const queryStart = url.indexOf("?");
+    if (atIndex !== -1) {
+        url = `${url.slice(0, afterProtocol)}[REDACTED]@${url.slice(atIndex + 1)}`;
+    }
+
+    // Recalculate queryStart since url might have changed
+    queryStart = url.indexOf("?");
     if (queryStart === -1) return url;
 
-    const fragmentStart = url.indexOf("#", queryStart);
+    fragmentStart = url.indexOf("#", queryStart);
     const queryEnd = fragmentStart !== -1 ? fragmentStart : url.length;
     const queryString = url.slice(queryStart + 1, queryEnd);
 
@@ -154,16 +174,16 @@ function redactUrl(url: string): string {
     // Using indexOf is faster than regex for simple substring matching
     const lower = queryString.toLowerCase();
     const hasSensitive =
-        lower.includes("token") || // catches token, access_token, auth_token, etc.
-        lower.includes("key") || // catches key, api_key, apikey, api-key, etc.
-        lower.includes("password") || // catches password
-        lower.includes("passwd") || // catches passwd
-        lower.includes("secret") || // catches secret, api_secret, etc.
-        lower.includes("session") || // catches session, session_id, session-id
-        lower.includes("auth"); // catches auth_token, auth-token, etc.
+        lower.includes("token") ||
+        lower.includes("key") ||
+        lower.includes("password") ||
+        lower.includes("passwd") ||
+        lower.includes("secret") ||
+        lower.includes("session") ||
+        lower.includes("auth");
 
     if (!hasSensitive) {
-        return url; // Early exit - no sensitive params
+        return url;
     }
 
     // SLOW PATH: Parse and redact
@@ -193,10 +213,15 @@ function redactUrl(url: string): string {
     return url.slice(0, queryStart + 1) + redactedParams.join("&") + url.slice(queryEnd);
 }
 
-async function getHeaders(args: Fetcher.Args): Promise<Record<string, string>> {
-    const newHeaders: Record<string, string> = {};
+async function getHeaders(args: Fetcher.Args): Promise<Headers> {
+    const newHeaders: Headers = new Headers();
+
+    newHeaders.set(
+        "Accept",
+        args.responseType === "json" ? "application/json" : args.responseType === "text" ? "text/plain" : "*/*",
+    );
     if (args.body !== undefined && args.contentType != null) {
-        newHeaders["Content-Type"] = args.contentType;
+        newHeaders.set("Content-Type", args.contentType);
     }
 
     if (args.headers == null) {
@@ -206,13 +231,13 @@ async function getHeaders(args: Fetcher.Args): Promise<Record<string, string>> {
     for (const [key, value] of Object.entries(args.headers)) {
         const result = await EndpointSupplier.get(value, { endpointMetadata: args.endpointMetadata ?? {} });
         if (typeof result === "string") {
-            newHeaders[key] = result;
+            newHeaders.set(key, result);
             continue;
         }
         if (result == null) {
             continue;
         }
-        newHeaders[key] = `${result}`;
+        newHeaders.set(key, `${result}`);
     }
     return newHeaders;
 }
@@ -261,12 +286,14 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     method: args.method,
                     url: redactUrl(url),
                     statusCode: response.status,
+                    responseHeaders: redactHeaders(response.headers),
                 };
                 logger.debug("HTTP request succeeded", metadata);
             }
+            const body = await getResponseBody(response, args.responseType);
             return {
                 ok: true,
-                body: (await getResponseBody(response, args.responseType)) as R,
+                body: body as R,
                 headers: response.headers,
                 rawResponse: toRawResponse(response),
             };
@@ -276,6 +303,7 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     method: args.method,
                     url: redactUrl(url),
                     statusCode: response.status,
+                    responseHeaders: redactHeaders(Object.fromEntries(response.headers.entries())),
                 };
                 logger.error("HTTP request failed with error status", metadata);
             }

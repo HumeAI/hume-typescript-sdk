@@ -1,0 +1,22 @@
+{
+    "cliVersion": "3.4.3",
+    "generatorName": "fernapi/fern-typescript-node-sdk",
+    "generatorVersion": "3.43.1",
+    "generatorConfig": {
+        "extraDependencies": {
+            "uuid": "9.0.1",
+            "zod": "^3.23.8"
+        },
+        "extraDevDependencies": {
+            "@types/uuid": "9.0.7",
+            "@types/ws": "^8.5.9"
+        },
+        "formDataSupport": "Node18",
+        "noSerdeLayer": false,
+        "enableInlineTypes": false,
+        "allowCustomFetcher": true,
+        "shouldGenerateWebsocketClients": true,
+        "namespaceExport": "Hume"
+    },
+    "sdkVersion": "0.15.10"
+}

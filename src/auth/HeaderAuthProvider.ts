@@ -3,35 +3,46 @@
 import * as core from "../core/index.js";
 import * as errors from "../errors/index.js";
 
-export namespace HeaderAuthProvider {
-    export interface Options {
-        apiKey?: core.Supplier<string | undefined>;
-    }
-}
+const PARAM_KEY = "apiKey" as const;
+const HEADER_NAME = "X-Hume-Api-Key" as const;
 
 export class HeaderAuthProvider implements core.AuthProvider {
-    private readonly headerValue: core.Supplier<string | undefined>;
+    private readonly options: HeaderAuthProvider.Options;
 
     constructor(options: HeaderAuthProvider.Options) {
-        this.headerValue = options.apiKey;
+        this.options = options;
     }
 
-    public static canCreate(options: HeaderAuthProvider.Options): boolean {
-        return options.apiKey != null;
+    public static canCreate(options: Partial<HeaderAuthProvider.Options>): boolean {
+        return options?.[PARAM_KEY] != null;
     }
 
-    public async getAuthRequest(_arg?: { endpointMetadata?: core.EndpointMetadata }): Promise<core.AuthRequest> {
-        const apiKey = await core.Supplier.get(this.headerValue);
-        if (apiKey == null) {
+    public async getAuthRequest({
+        endpointMetadata,
+    }: {
+        endpointMetadata?: core.EndpointMetadata;
+    } = {}): Promise<core.AuthRequest> {
+        const headerValue = await core.Supplier.get(this.options[PARAM_KEY]);
+        if (headerValue == null) {
             throw new errors.HumeError({
-                message: "Please specify a apiKey by passing it in to the constructor",
+                message: HeaderAuthProvider.AUTH_CONFIG_ERROR_MESSAGE,
             });
         }
 
-        const headerValue = apiKey;
-
         return {
-            headers: { "X-Hume-Api-Key": headerValue },
+            headers: { [HEADER_NAME]: headerValue },
         };
+    }
+}
+
+export namespace HeaderAuthProvider {
+    export const AUTH_SCHEME = "HeaderAuthScheme" as const;
+    export const AUTH_CONFIG_ERROR_MESSAGE: string =
+        `Please provide '${PARAM_KEY}' when initializing the client` as const;
+    export type Options = AuthOptions;
+    export type AuthOptions = { [PARAM_KEY]: core.Supplier<string> };
+
+    export function createInstance(options: Options): core.AuthProvider {
+        return new HeaderAuthProvider(options);
     }
 }
