@@ -7,7 +7,7 @@ import { mergeOnlyDefinedHeaders, mergeHeaders } from "../../../../../../core/he
 import * as serializers from "../../../../../../serialization/index.js";
 import { ChatSocket } from "./Socket.js";
 
-export declare namespace Chat {
+export declare namespace ChatClient {
     export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
@@ -40,14 +40,14 @@ export declare namespace Chat {
     }
 }
 
-export class Chat {
-    protected readonly _options: Chat.Options;
+export class ChatClient {
+    protected readonly _options: ChatClient.Options;
 
-    constructor(_options: Chat.Options = {}) {
+    constructor(_options: ChatClient.Options = {}) {
         this._options = _options;
     }
 
-    public connect(args: Chat.ConnectArgs = {}): ChatSocket {
+    public connect(args: ChatClient.ConnectArgs = {}): ChatSocket {
         const {
             accessToken,
             configId,

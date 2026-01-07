@@ -4,12 +4,13 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
 import * as environments from "../../../../../../environments.js";
+import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as serializers from "../../../../../../serialization/index.js";
 import * as Hume from "../../../../../index.js";
 import { ControlPlaneSocket } from "./Socket.js";
 
-export declare namespace ControlPlane {
+export declare namespace ControlPlaneClient {
     export interface Options extends BaseClientOptions {}
 
     export interface RequestOptions extends BaseRequestOptions {}
@@ -26,10 +27,10 @@ export declare namespace ControlPlane {
     }
 }
 
-export class ControlPlane {
-    protected readonly _options: ControlPlane.Options;
+export class ControlPlaneClient {
+    protected readonly _options: ControlPlaneClient.Options;
 
-    constructor(_options: ControlPlane.Options = {}) {
+    constructor(_options: ControlPlaneClient.Options = {}) {
         this._options = _options;
     }
 
@@ -38,7 +39,7 @@ export class ControlPlane {
      *
      * @param {string} chatId
      * @param {Hume.empathicVoice.ControlPlanePublishEvent} request
-     * @param {ControlPlane.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {ControlPlaneClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.UnprocessableEntityError}
      *
@@ -50,7 +51,7 @@ export class ControlPlane {
     public send(
         chatId: string,
         request: Hume.empathicVoice.ControlPlanePublishEvent,
-        requestOptions?: ControlPlane.RequestOptions,
+        requestOptions?: ControlPlaneClient.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__send(chatId, request, requestOptions));
     }
@@ -58,7 +59,7 @@ export class ControlPlane {
     private async __send(
         chatId: string,
         request: Hume.empathicVoice.ControlPlanePublishEvent,
-        requestOptions?: ControlPlane.RequestOptions,
+        requestOptions?: ControlPlaneClient.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
@@ -112,24 +113,10 @@ export class ControlPlane {
             }
         }
 
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.HumeError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.HumeTimeoutError("Timeout exceeded when calling POST /v0/evi/chat/{chat_id}/send.");
-            case "unknown":
-                throw new errors.HumeError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/v0/evi/chat/{chat_id}/send");
     }
 
-    public async connect(args: ControlPlane.ConnectArgs): Promise<ControlPlaneSocket> {
+    public async connect(args: ControlPlaneClient.ConnectArgs): Promise<ControlPlaneSocket> {
         const { chat_id, accessToken, headers, debug, reconnectAttempts } = args;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (accessToken != null) {
