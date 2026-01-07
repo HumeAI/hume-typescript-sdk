@@ -45,52 +45,44 @@ export class BatchClient {
         requestOptions?: BatchClient.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.UnionJob[]>> {
         const { limit, status, when, timestampMs, sortBy, direction } = request;
-        const _queryParams: Record<string, unknown> = {};
-        if (limit != null) {
-            _queryParams.limit = limit;
-        }
-
-        if (status != null) {
-            if (Array.isArray(status)) {
-                _queryParams.status = status.map((item) =>
-                    serializers.expressionMeasurement.batch.Status.jsonOrThrow(item, {
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            status: Array.isArray(status)
+                ? status.map((item) =>
+                      serializers.expressionMeasurement.batch.Status.jsonOrThrow(item, {
+                          unrecognizedObjectKeys: "strip",
+                          omitUndefined: true,
+                      }),
+                  )
+                : status != null
+                  ? serializers.expressionMeasurement.batch.Status.jsonOrThrow(status, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
-                    }),
-                );
-            } else {
-                _queryParams.status = serializers.expressionMeasurement.batch.Status.jsonOrThrow(status, {
-                    unrecognizedObjectKeys: "strip",
-                    omitUndefined: true,
-                });
-            }
-        }
-
-        if (when != null) {
-            _queryParams.when = serializers.expressionMeasurement.batch.When.jsonOrThrow(when, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            });
-        }
-
-        if (timestampMs != null) {
-            _queryParams.timestamp_ms = timestampMs;
-        }
-
-        if (sortBy != null) {
-            _queryParams.sort_by = serializers.expressionMeasurement.batch.SortBy.jsonOrThrow(sortBy, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            });
-        }
-
-        if (direction != null) {
-            _queryParams.direction = serializers.expressionMeasurement.batch.Direction.jsonOrThrow(direction, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            });
-        }
-
+                    })
+                  : undefined,
+            when:
+                when != null
+                    ? serializers.expressionMeasurement.batch.When.jsonOrThrow(when, {
+                          unrecognizedObjectKeys: "strip",
+                          omitUndefined: true,
+                      })
+                    : undefined,
+            timestamp_ms: timestampMs,
+            sort_by:
+                sortBy != null
+                    ? serializers.expressionMeasurement.batch.SortBy.jsonOrThrow(sortBy, {
+                          unrecognizedObjectKeys: "strip",
+                          omitUndefined: true,
+                      })
+                    : undefined,
+            direction:
+                direction != null
+                    ? serializers.expressionMeasurement.batch.Direction.jsonOrThrow(direction, {
+                          unrecognizedObjectKeys: "strip",
+                          omitUndefined: true,
+                      })
+                    : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -419,9 +411,9 @@ export class BatchClient {
         request: Hume.expressionMeasurement.batch.BatchStartInferenceJobFromLocalFileRequest,
         requestOptions?: BatchClient.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.expressionMeasurement.batch.JobId>> {
-        const _request = await core.newFormData();
+        const _body = await core.newFormData();
         if (request.json != null) {
-            _request.append(
+            _body.append(
                 "json",
                 toJson(
                     serializers.expressionMeasurement.batch.InferenceBaseRequest.jsonOrThrow(request.json, {
@@ -433,10 +425,10 @@ export class BatchClient {
         }
 
         for (const _file of request.file) {
-            await _request.appendFile("file", _file);
+            await _body.appendFile("file", _file);
         }
 
-        const _maybeEncodedRequest = await _request.getRequest();
+        const _maybeEncodedRequest = await _body.getRequest();
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

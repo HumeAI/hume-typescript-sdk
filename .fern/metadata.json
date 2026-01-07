@@ -1,7 +1,7 @@
 {
     "cliVersion": "3.4.3",
     "generatorName": "fernapi/fern-typescript-node-sdk",
-    "generatorVersion": "3.43.1",
+    "generatorVersion": "3.43.3",
     "generatorConfig": {
         "extraDependencies": {
             "uuid": "9.0.1",

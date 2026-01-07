@@ -43,27 +43,16 @@ export class VoicesClient {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Hume.tts.VoicesListRequest): Promise<core.WithRawResponse<Hume.tts.ReturnPagedVoices>> => {
                 const { provider, pageNumber, pageSize, ascendingOrder, filterTag } = request;
-                const _queryParams: Record<string, unknown> = {};
-                _queryParams.provider = serializers.tts.VoiceProvider.jsonOrThrow(provider, {
-                    unrecognizedObjectKeys: "strip",
-                    omitUndefined: true,
-                });
-                if (pageNumber != null) {
-                    _queryParams.page_number = pageNumber;
-                }
-                if (pageSize != null) {
-                    _queryParams.page_size = pageSize;
-                }
-                if (ascendingOrder != null) {
-                    _queryParams.ascending_order = ascendingOrder;
-                }
-                if (filterTag != null) {
-                    if (Array.isArray(filterTag)) {
-                        _queryParams.filter_tag = filterTag.map((item) => item);
-                    } else {
-                        _queryParams.filter_tag = filterTag;
-                    }
-                }
+                const _queryParams: Record<string, unknown> = {
+                    provider: serializers.tts.VoiceProvider.jsonOrThrow(provider, {
+                        unrecognizedObjectKeys: "strip",
+                        omitUndefined: true,
+                    }),
+                    page_number: pageNumber,
+                    page_size: pageSize,
+                    ascending_order: ascendingOrder,
+                    filter_tag: filterTag,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
@@ -253,8 +242,9 @@ export class VoicesClient {
         requestOptions?: VoicesClient.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const { name } = request;
-        const _queryParams: Record<string, unknown> = {};
-        _queryParams.name = name;
+        const _queryParams: Record<string, unknown> = {
+            name,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

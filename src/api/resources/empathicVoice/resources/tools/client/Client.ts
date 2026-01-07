@@ -46,19 +46,12 @@ export class ToolsClient {
                 request: Hume.empathicVoice.ToolsListToolsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedUserDefinedTools>> => {
                 const { pageNumber, pageSize, restrictToMostRecent, name } = request;
-                const _queryParams: Record<string, unknown> = {};
-                if (pageNumber != null) {
-                    _queryParams.page_number = pageNumber;
-                }
-                if (pageSize != null) {
-                    _queryParams.page_size = pageSize;
-                }
-                if (restrictToMostRecent != null) {
-                    _queryParams.restrict_to_most_recent = restrictToMostRecent;
-                }
-                if (name != null) {
-                    _queryParams.name = name;
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page_number: pageNumber,
+                    page_size: pageSize,
+                    restrict_to_most_recent: restrictToMostRecent,
+                    name,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
@@ -247,16 +240,11 @@ export class ToolsClient {
                 request: Hume.empathicVoice.ToolsListToolVersionsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedUserDefinedTools>> => {
                 const { pageNumber, pageSize, restrictToMostRecent } = request;
-                const _queryParams: Record<string, unknown> = {};
-                if (pageNumber != null) {
-                    _queryParams.page_number = pageNumber;
-                }
-                if (pageSize != null) {
-                    _queryParams.page_size = pageSize;
-                }
-                if (restrictToMostRecent != null) {
-                    _queryParams.restrict_to_most_recent = restrictToMostRecent;
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page_number: pageNumber,
+                    page_size: pageSize,
+                    restrict_to_most_recent: restrictToMostRecent,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,

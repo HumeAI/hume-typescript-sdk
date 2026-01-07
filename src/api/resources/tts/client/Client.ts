@@ -392,14 +392,14 @@ export class TtsClient {
         request: Hume.tts.ConvertVoiceFileRequest,
         requestOptions?: TtsClient.RequestOptions,
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
-        const _request = await core.newFormData();
+        const _body = await core.newFormData();
         if (request.stripHeaders != null) {
-            _request.append("strip_headers", request.stripHeaders.toString());
+            _body.append("strip_headers", request.stripHeaders?.toString());
         }
 
-        await _request.appendFile("audio", request.audio);
+        await _body.appendFile("audio", request.audio);
         if (request.context != null) {
-            _request.append(
+            _body.append(
                 "context",
                 (() => {
                     const mapped = serializers.tts.PostedContext.jsonOrThrow(request.context, {
@@ -412,7 +412,7 @@ export class TtsClient {
         }
 
         if (request.voice != null) {
-            _request.append(
+            _body.append(
                 "voice",
                 (() => {
                     const mapped = serializers.tts.PostedUtteranceVoice.jsonOrThrow(request.voice, {
@@ -425,7 +425,7 @@ export class TtsClient {
         }
 
         if (request.format != null) {
-            _request.append(
+            _body.append(
                 "format",
                 (() => {
                     const mapped = serializers.tts.Format.jsonOrThrow(request.format, {
@@ -439,7 +439,7 @@ export class TtsClient {
 
         if (request.includeTimestampTypes != null) {
             for (const _item of request.includeTimestampTypes) {
-                _request.append(
+                _body.append(
                     "include_timestamp_types",
                     serializers.tts.TimestampType.jsonOrThrow(_item, {
                         unrecognizedObjectKeys: "strip",
@@ -449,7 +449,7 @@ export class TtsClient {
             }
         }
 
-        const _maybeEncodedRequest = await _request.getRequest();
+        const _maybeEncodedRequest = await _body.getRequest();
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -521,17 +521,17 @@ export class TtsClient {
         request: Hume.tts.ConvertVoiceJsonRequest,
         requestOptions?: TtsClient.RequestOptions,
     ): Promise<core.WithRawResponse<core.Stream<Hume.tts.TtsOutput>>> {
-        const _request = await core.newFormData();
+        const _body = await core.newFormData();
         if (request.stripHeaders != null) {
-            _request.append("strip_headers", request.stripHeaders.toString());
+            _body.append("strip_headers", request.stripHeaders?.toString());
         }
 
         if (request.audio != null) {
-            await _request.appendFile("audio", request.audio);
+            await _body.appendFile("audio", request.audio);
         }
 
         if (request.context != null) {
-            _request.append(
+            _body.append(
                 "context",
                 (() => {
                     const mapped = serializers.tts.PostedContext.jsonOrThrow(request.context, {
@@ -544,7 +544,7 @@ export class TtsClient {
         }
 
         if (request.voice != null) {
-            _request.append(
+            _body.append(
                 "voice",
                 (() => {
                     const mapped = serializers.tts.PostedUtteranceVoice.jsonOrThrow(request.voice, {
@@ -557,7 +557,7 @@ export class TtsClient {
         }
 
         if (request.format != null) {
-            _request.append(
+            _body.append(
                 "format",
                 (() => {
                     const mapped = serializers.tts.Format.jsonOrThrow(request.format, {
@@ -571,7 +571,7 @@ export class TtsClient {
 
         if (request.includeTimestampTypes != null) {
             for (const _item of request.includeTimestampTypes) {
-                _request.append(
+                _body.append(
                     "include_timestamp_types",
                     serializers.tts.TimestampType.jsonOrThrow(_item, {
                         unrecognizedObjectKeys: "strip",
@@ -581,7 +581,7 @@ export class TtsClient {
             }
         }
 
-        const _maybeEncodedRequest = await _request.getRequest();
+        const _maybeEncodedRequest = await _body.getRequest();
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

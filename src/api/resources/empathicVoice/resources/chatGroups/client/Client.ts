@@ -46,19 +46,12 @@ export class ChatGroupsClient {
                 request: Hume.empathicVoice.ChatGroupsListChatGroupsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnPagedChatGroups>> => {
                 const { pageNumber, pageSize, ascendingOrder, configId } = request;
-                const _queryParams: Record<string, unknown> = {};
-                if (pageNumber != null) {
-                    _queryParams.page_number = pageNumber;
-                }
-                if (pageSize != null) {
-                    _queryParams.page_size = pageSize;
-                }
-                if (ascendingOrder != null) {
-                    _queryParams.ascending_order = ascendingOrder;
-                }
-                if (configId != null) {
-                    _queryParams.config_id = configId;
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page_number: pageNumber,
+                    page_size: pageSize,
+                    ascending_order: ascendingOrder,
+                    config_id: configId,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
@@ -159,23 +152,12 @@ export class ChatGroupsClient {
         requestOptions?: ChatGroupsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedChats>> {
         const { status, pageSize, pageNumber, ascendingOrder } = request;
-        const _queryParams: Record<string, unknown> = {};
-        if (status != null) {
-            _queryParams.status = status;
-        }
-
-        if (pageSize != null) {
-            _queryParams.page_size = pageSize;
-        }
-
-        if (pageNumber != null) {
-            _queryParams.page_number = pageNumber;
-        }
-
-        if (ascendingOrder != null) {
-            _queryParams.ascending_order = ascendingOrder;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            status,
+            page_size: pageSize,
+            page_number: pageNumber,
+            ascending_order: ascendingOrder,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -263,19 +245,11 @@ export class ChatGroupsClient {
         requestOptions?: ChatGroupsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedAudioReconstructions>> {
         const { pageNumber, pageSize, ascendingOrder } = request;
-        const _queryParams: Record<string, unknown> = {};
-        if (pageNumber != null) {
-            _queryParams.page_number = pageNumber;
-        }
-
-        if (pageSize != null) {
-            _queryParams.page_size = pageSize;
-        }
-
-        if (ascendingOrder != null) {
-            _queryParams.ascending_order = ascendingOrder;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            page_number: pageNumber,
+            page_size: pageSize,
+            ascending_order: ascendingOrder,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -364,16 +338,11 @@ export class ChatGroupsClient {
                 request: Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest,
             ): Promise<core.WithRawResponse<Hume.empathicVoice.ReturnChatGroupPagedEvents>> => {
                 const { pageSize, pageNumber, ascendingOrder } = request;
-                const _queryParams: Record<string, unknown> = {};
-                if (pageSize != null) {
-                    _queryParams.page_size = pageSize;
-                }
-                if (pageNumber != null) {
-                    _queryParams.page_number = pageNumber;
-                }
-                if (ascendingOrder != null) {
-                    _queryParams.ascending_order = ascendingOrder;
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page_size: pageSize,
+                    page_number: pageNumber,
+                    ascending_order: ascendingOrder,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
