@@ -76,7 +76,7 @@ export class ChatSocket {
      * });
      * ```
      */
-    public on<T extends keyof ChatSocket.EventHandlers>(event: T, callback: ChatSocket.EventHandlers[T]) {
+    public on<T extends keyof ChatSocket.EventHandlers>(event: T, callback: ChatSocket.EventHandlers[T]): void {
         this.eventHandlers[event] = callback;
     }
 

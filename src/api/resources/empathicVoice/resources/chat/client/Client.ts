@@ -7,7 +7,7 @@ import { mergeOnlyDefinedHeaders, mergeHeaders } from "../../../../../../core/he
 import * as serializers from "../../../../../../serialization/index.js";
 import { ChatSocket } from "./Socket.js";
 
-export declare namespace Chat {
+export declare namespace ChatClient {
     export interface Options {
         environment?: core.Supplier<environments.HumeEnvironment | environments.HumeEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
@@ -24,6 +24,7 @@ export declare namespace Chat {
         eventLimit?: number | undefined;
         resumedChatGroupId?: string | undefined;
         verboseTranscription?: boolean | undefined;
+        allowConnection?: boolean | undefined;
         /** @deprecated Use sessionSettings.voiceId instead */
         voiceId?: string | undefined;
         apiKey?: string | undefined;
@@ -39,14 +40,14 @@ export declare namespace Chat {
     }
 }
 
-export class Chat {
-    protected readonly _options: Chat.Options;
+export class ChatClient {
+    protected readonly _options: ChatClient.Options;
 
-    constructor(_options: Chat.Options = {}) {
+    constructor(_options: ChatClient.Options = {}) {
         this._options = _options;
     }
 
-    public connect(args: Chat.ConnectArgs = {}): ChatSocket {
+    public connect(args: ChatClient.ConnectArgs = {}): ChatSocket {
         const {
             accessToken,
             configId,
@@ -61,6 +62,7 @@ export class Chat {
             headers,
             debug,
             reconnectAttempts,
+            allowConnection,
         } = args;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
 
@@ -95,6 +97,10 @@ export class Chat {
 
         if (apiKey != null) {
             _queryParams["api_key"] = apiKey;
+        }
+
+        if (allowConnection != null) {
+            _queryParams["allow_connection"] = allowConnection === true ? "true" : "false";
         }
 
         if (sessionSettings != null) {
@@ -136,12 +142,12 @@ export class Chat {
         return new ChatSocket({ socket });
     }
 
-    protected _getCustomAuthorizationHeaders() {
+    protected _getCustomAuthorizationHeaders(): Record<string, string | null | undefined> {
         const apiKeyValue = core.Supplier.get(this._options.apiKey);
         // This `authHeaderValue` is manually added as if you don't provide it it will
         // be omitted from the headers which means it won't reach the logic in ws.ts that
         // extracts values from the headers and adds them to query parameters.
-        const authHeaderValue = core.Supplier.get(this._options.headers?.Authorization);
+        const authHeaderValue = core.Supplier.get(this._options.headers?.authorization);
         return { "X-Hume-Api-Key": apiKeyValue, Authorization: authHeaderValue };
     }
 }

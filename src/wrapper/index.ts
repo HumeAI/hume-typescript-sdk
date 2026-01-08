@@ -9,14 +9,16 @@ export { getAudioStream } from "./getAudioStream.js";
 export { MimeType, getBrowserSupportedMimeType } from "./getBrowserSupportedMimeType.js";
 export { HumeClient } from "./HumeClient.js";
 export { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient.js";
-export { EVIWebAudioPlayer, EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer.js";
+export { EVIWebAudioPlayer } from "./EVIWebAudioPlayer.js";
+export type { EVIWebAudioPlayerFFTOptions, EVIWebAudioPlayerOptions } from "./EVIWebAudioPlayer.js";
 export { collate } from "./collate.js";
+export { SilenceFiller } from "./SilenceFiller.js";
+export type { PipeDestination } from "./SilenceFiller.js";
 
-// SilenceFiller extends from Node.JS Readable -- this should not be exported in non-nodeJS environments. Otherwise the bundle will crash in the browser.
-export const createSilenceFiller = async () => {
-    if (typeof process === "undefined" || !process.versions?.node) {
-        throw new Error("SilenceFiller is only available in Node.js environments");
-    }
+/**
+ * @deprecated SilenceFiller no longer requires dynamic import. Use `import { SilenceFiller } from 'hume'` directly.
+ */
+export const createSilenceFiller = async (): Promise<typeof import("./SilenceFiller.js").SilenceFiller> => {
     const { SilenceFiller } = await import("./SilenceFiller.js");
     return SilenceFiller;
 };

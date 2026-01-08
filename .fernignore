@@ -37,6 +37,10 @@ src/core/fetcher/Supplier.ts
 # - Merges custom queryParams into query parameters
 src/api/resources/empathicVoice/resources/chat/client/Client.ts
 
+# The below websocket clients also need a custom _getCustomAuthorizationHeaders
+src/api/resources/tts/resources/streamInput/client/Client.ts
+src/api/resources/empathicVoice/resources/controlPlane/client/Client.ts
+
 # Socket.ts changes from generated version:
 # - Response type includes receivedAt: Date timestamp
 # - handleMessage adds receivedAt timestamp to messages
@@ -60,6 +64,7 @@ tests/expressionMeasurement/streaming.test.ts
 # Required manual edits for Node 18 compatibility
 tests/unit/fetcher/Fetcher.test.ts
 tests/unit/file/file.test.ts
+tests/unit/file/test-file.txt
 
 # Needed because node 18 doesn't actually have a global.File
 tests/BrowserTestEnvironment.ts
@@ -71,3 +76,19 @@ src/core/websocket/ws.ts
 # Needed to export the utilities under src/wrapper
 src/wrapper
 src/index.ts
+
+# Deprecated type aliases for backward compatibility
+src/api/resources/empathicVoice/resources/chat/types/SubscribeEvent.ts
+src/serialization/resources/empathicVoice/resources/chat/types/SubscribeEvent.ts
+# Modified index files to support deprecated aliases
+src/api/resources/empathicVoice/resources/chat/index.ts
+src/serialization/resources/empathicVoice/resources/chat/index.ts
+
+scripts/test-examples-local.sh
+justfile
+
+# Custom HeaderAuthProvider to support both apiKey and accessToken authentication
+src/auth/HeaderAuthProvider.ts
+
+# Auth tests
+tests/unit/auth/auth.test.ts

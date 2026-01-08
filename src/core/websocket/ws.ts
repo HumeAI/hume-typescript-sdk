@@ -77,9 +77,9 @@ function addApiKeyFromHeader({
     headers: Record<string, any> | undefined;
     queryParameters: Record<string, any> | undefined;
 }) {
-    const apiKeyValue = headers?.["X-Hume-Api-Key"];
+    const apiKeyValue = Object.entries(headers ?? {}).find(([k]) => k.toLowerCase() === "x-hume-api-key")?.[1];
     if (apiKeyValue && !queryParameters?.["api_key"]) {
-        return { ...queryParameters, apiKey: apiKeyValue };
+        return { ...queryParameters, api_key: apiKeyValue };
     }
     return queryParameters;
 }
@@ -170,16 +170,16 @@ export class ReconnectingWebSocket {
         return 3;
     }
 
-    get CONNECTING() {
+    get CONNECTING(): number {
         return ReconnectingWebSocket.CONNECTING;
     }
-    get OPEN() {
+    get OPEN(): number {
         return ReconnectingWebSocket.OPEN;
     }
-    get CLOSING() {
+    get CLOSING(): number {
         return ReconnectingWebSocket.CLOSING;
     }
-    get CLOSED() {
+    get CLOSED(): number {
         return ReconnectingWebSocket.CLOSED;
     }
 
@@ -280,7 +280,7 @@ export class ReconnectingWebSocket {
      * Closes the WebSocket connection or connection attempt, if any. If the connection is already
      * CLOSED, this method does nothing
      */
-    public close(code = 1000, reason?: string) {
+    public close(code = 1000, reason?: string): void {
         this._closeCalled = true;
         this._shouldReconnect = false;
         this._clearTimeouts();
@@ -299,7 +299,7 @@ export class ReconnectingWebSocket {
      * Closes the WebSocket connection or connection attempt and connects again.
      * Resets retry counter;
      */
-    public reconnect(code?: number, reason?: string) {
+    public reconnect(code?: number, reason?: string): void {
         this._shouldReconnect = true;
         this._closeCalled = false;
         this._retryCount = -1;
@@ -314,7 +314,7 @@ export class ReconnectingWebSocket {
     /**
      * Enqueue specified data to be transmitted to the server over the WebSocket connection
      */
-    public send(data: ReconnectingWebSocket.Message) {
+    public send(data: ReconnectingWebSocket.Message): void {
         if (this._ws && this._ws.readyState === this.OPEN) {
             this._debug("send", data);
             this._ws.send(data);

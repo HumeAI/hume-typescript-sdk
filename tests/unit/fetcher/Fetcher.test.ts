@@ -5,6 +5,12 @@ import { join } from "path";
 import { Fetcher, fetcherImpl } from "../../../src/core/fetcher/Fetcher";
 import type { BinaryResponse } from "../../../src/core";
 
+function expectHeadersToContain(headers: Headers, expected: Record<string, string>) {
+    for (const [key, value] of Object.entries(expected)) {
+        expect(headers.get(key)).toBe(value);
+    }
+}
+
 describe("Test fetcherImpl", () => {
     it("should handle successful request", async () => {
         const mockArgs: Fetcher.Args = {
@@ -17,7 +23,7 @@ describe("Test fetcherImpl", () => {
             responseType: "json",
         };
 
-        global.fetch = jest.fn().mockResolvedValue(
+        global.fetch = vi.fn().mockResolvedValue(
             new Response(JSON.stringify({ data: "test" }), {
                 status: 200,
                 statusText: "OK",
@@ -34,10 +40,11 @@ describe("Test fetcherImpl", () => {
             "https://httpbin.org/post",
             expect.objectContaining({
                 method: "POST",
-                headers: expect.objectContaining({ "X-Test": "x-test-header" }),
                 body: JSON.stringify({ data: "test" }),
             }),
         );
+        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
+        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
     });
 
     it("should send octet stream", async () => {
@@ -52,7 +59,7 @@ describe("Test fetcherImpl", () => {
             body: fs.createReadStream(join(__dirname, "test-file.txt")),
         };
 
-        global.fetch = jest.fn().mockResolvedValue(
+        global.fetch = vi.fn().mockResolvedValue(
             new Response(JSON.stringify({ data: "test" }), {
                 status: 200,
                 statusText: "OK",
@@ -65,10 +72,11 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "POST",
-                headers: expect.objectContaining({ "X-Test": "x-test-header" }),
                 body: expect.any(fs.ReadStream),
             }),
         );
+        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
+        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             expect(result.body).toEqual({ data: "test" });
@@ -84,7 +92,7 @@ describe("Test fetcherImpl", () => {
             responseType: "binary-response",
         };
 
-        global.fetch = jest.fn().mockResolvedValue(
+        global.fetch = vi.fn().mockResolvedValue(
             new Response(
                 stream.Readable.toWeb(fs.createReadStream(join(__dirname, "test-file.txt"))) as ReadableStream,
                 {
@@ -100,9 +108,10 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
-                headers: expect.objectContaining({ "X-Test": "x-test-header" }),
             }),
         );
+        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
+        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
@@ -129,7 +138,7 @@ describe("Test fetcherImpl", () => {
             responseType: "binary-response",
         };
 
-        global.fetch = jest.fn().mockResolvedValue(
+        global.fetch = vi.fn().mockResolvedValue(
             new Response(
                 stream.Readable.toWeb(fs.createReadStream(join(__dirname, "test-file.txt"))) as ReadableStream,
                 {
@@ -145,9 +154,10 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
-                headers: expect.objectContaining({ "X-Test": "x-test-header" }),
             }),
         );
+        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
+        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
@@ -174,7 +184,7 @@ describe("Test fetcherImpl", () => {
             responseType: "binary-response",
         };
 
-        global.fetch = jest.fn().mockResolvedValue(
+        global.fetch = vi.fn().mockResolvedValue(
             new Response(
                 stream.Readable.toWeb(fs.createReadStream(join(__dirname, "test-file.txt"))) as ReadableStream,
                 {
@@ -190,9 +200,10 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
-                headers: expect.objectContaining({ "X-Test": "x-test-header" }),
             }),
         );
+        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
+        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
@@ -217,7 +228,7 @@ describe("Test fetcherImpl", () => {
             responseType: "binary-response",
         };
 
-        global.fetch = jest.fn().mockResolvedValue(
+        global.fetch = vi.fn().mockResolvedValue(
             new Response(
                 stream.Readable.toWeb(fs.createReadStream(join(__dirname, "test-file.txt"))) as ReadableStream,
                 {
@@ -233,9 +244,10 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
-                headers: expect.objectContaining({ "X-Test": "x-test-header" }),
             }),
         );
+        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
+        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
