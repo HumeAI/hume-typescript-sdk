@@ -86,3 +86,9 @@ src/serialization/resources/empathicVoice/resources/chat/index.ts
 
 scripts/test-examples-local.sh
 justfile
+
+# Custom HeaderAuthProvider to support both apiKey and accessToken authentication
+src/auth/HeaderAuthProvider.ts
+
+# Auth tests
+tests/unit/auth/auth.test.ts
