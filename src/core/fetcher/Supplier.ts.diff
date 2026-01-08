@@ -1,5 +1,5 @@
 diff --git a/src/core/fetcher/Supplier.ts b/src/core/fetcher/Supplier.ts
-index aa95dd8..867c931 100644
+index aa95dd85..867c931c 100644
 --- a/src/core/fetcher/Supplier.ts
 +++ b/src/core/fetcher/Supplier.ts
 @@ -1,19 +1,11 @@

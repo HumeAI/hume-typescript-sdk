@@ -1,4 +1,4 @@
-import { ExpressionMeasurement as FernClient } from "../../api/resources/expressionMeasurement/client/Client.js";
+import { ExpressionMeasurementClient as FernClient } from "../../api/resources/expressionMeasurement/client/Client.js";
 import { BatchClient } from "./batch/BatchClient.js";
 import { StreamClient } from "./streaming/StreamingClient.js";
 

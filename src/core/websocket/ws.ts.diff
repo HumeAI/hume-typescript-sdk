@@ -1,5 +1,5 @@
 diff --git a/src/core/websocket/ws.ts b/src/core/websocket/ws.ts
-index 9a16477..cba4f69 100644
+index 9a16477e..60895584 100644
 --- a/src/core/websocket/ws.ts
 +++ b/src/core/websocket/ws.ts
 @@ -3,7 +3,6 @@ import { WebSocket as NodeWebSocket } from "ws";
@@ -10,6 +10,15 @@ index 9a16477..cba4f69 100644
  
  const getGlobalWebSocket = (): WebSocket | undefined => {
      if (typeof WebSocket !== "undefined") {
+@@ -30,7 +29,7 @@ export declare namespace ReconnectingWebSocket {
+         protocols?: string | string[];
+         options?: ReconnectingWebSocket.Options;
+         headers?: Record<string, unknown>;
+-        queryParameters?: Record<string, string | string[] | object | object[] | null | undefined>;
++        queryParameters?: Record<string, unknown>;
+     }
+ 
+     export type Options = {
 @@ -70,49 +69,6 @@ const DEFAULT_OPTIONS = {
      debug: false,
  };
