@@ -43,15 +43,13 @@ describe("Authentication", () => {
         it("throws when neither apiKey nor Authorization header is provided", async () => {
             const provider = new HeaderAuthProvider({});
             await expect(provider.getAuthRequest()).rejects.toThrow(
-                "Please provide either 'apiKey' or 'accessToken' when initializing the client"
+                "Please provide either 'apiKey' or 'accessToken' when initializing the client",
             );
         });
 
         it("throws when apiKey is undefined and no Authorization header", async () => {
             const provider = new HeaderAuthProvider({ apiKey: undefined });
-            await expect(provider.getAuthRequest()).rejects.toThrow(
-                "Please provide either 'apiKey' or 'accessToken'"
-            );
+            await expect(provider.getAuthRequest()).rejects.toThrow("Please provide either 'apiKey' or 'accessToken'");
         });
 
         it("supports Supplier function for apiKey", async () => {
@@ -82,7 +80,7 @@ describe("Authentication", () => {
                 expect(
                     HeaderAuthProvider.canCreate({
                         headers: { Authorization: "Bearer token" },
-                    })
+                    }),
                 ).toBe(true);
             });
 
@@ -90,7 +88,7 @@ describe("Authentication", () => {
                 expect(
                     HeaderAuthProvider.canCreate({
                         headers: { authorization: "Bearer token" },
-                    })
+                    }),
                 ).toBe(true);
             });
 
@@ -102,7 +100,7 @@ describe("Authentication", () => {
                 expect(
                     HeaderAuthProvider.canCreate({
                         headers: { "X-Custom-Header": "value" },
-                    })
+                    }),
                 ).toBe(false);
             });
         });
@@ -126,9 +124,7 @@ describe("Authentication", () => {
             expect(options.headers).toBeDefined();
             // The Authorization header is set as a Supplier, so we can't easily check the value directly
             // but we can verify the header key exists
-            const hasAuthHeader = Object.keys(options.headers).some(
-                (key) => key.toLowerCase() === "authorization"
-            );
+            const hasAuthHeader = Object.keys(options.headers).some((key) => key.toLowerCase() === "authorization");
             expect(hasAuthHeader).toBe(true);
         });
 
@@ -138,7 +134,7 @@ describe("Authentication", () => {
                     new HumeClient({
                         accessToken: "token",
                         headers: { Authorization: "Bearer another" },
-                    })
+                    }),
             ).toThrow("Cannot provide both 'accessToken' and 'headers.Authorization'");
         });
 

@@ -13,7 +13,7 @@ import * as errors from "../errors/index.js";
 export namespace HeaderAuthProvider {
     export type AuthOptions = {
         apiKey?: core.Supplier<string | undefined>;
-    }
+    };
 
     export type Options = {
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
@@ -32,15 +32,13 @@ export class HeaderAuthProvider implements core.AuthProvider {
     }
 
     private static hasAuthorizationHeader(
-        headers: Record<string, string | core.Supplier<string | null | undefined> | null | undefined> | undefined
+        headers: Record<string, string | core.Supplier<string | null | undefined> | null | undefined> | undefined,
     ): boolean {
         if (!headers) return false;
         return Object.keys(headers).some((key) => key.toLowerCase() === "authorization");
     }
 
-    public async getAuthRequest(
-        _arg?: { endpointMetadata?: core.EndpointMetadata }
-    ): Promise<core.AuthRequest> {
+    public async getAuthRequest(_arg?: { endpointMetadata?: core.EndpointMetadata }): Promise<core.AuthRequest> {
         // Check apiKey first (preferred method)
         const apiKey = await core.Supplier.get(this.options.apiKey);
         if (apiKey != null) {
@@ -49,9 +47,7 @@ export class HeaderAuthProvider implements core.AuthProvider {
 
         // Check for Authorization header (from accessToken)
         if (this.options.headers) {
-            const authKey = Object.keys(this.options.headers).find(
-                (key) => key.toLowerCase() === "authorization"
-            );
+            const authKey = Object.keys(this.options.headers).find((key) => key.toLowerCase() === "authorization");
             if (authKey) {
                 const authValue = await core.Supplier.get(this.options.headers[authKey]);
                 if (authValue != null) {
