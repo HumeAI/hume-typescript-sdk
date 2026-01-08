@@ -11,10 +11,13 @@ import * as core from "../core/index.js";
 import * as errors from "../errors/index.js";
 
 export namespace HeaderAuthProvider {
-    export interface Options {
+    export type AuthOptions = {
         apiKey?: core.Supplier<string | undefined>;
-        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
+
+    export type Options = {
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
+    } & AuthOptions;
 }
 
 export class HeaderAuthProvider implements core.AuthProvider {
