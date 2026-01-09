@@ -1,4 +1,4 @@
-/** THIS FILE IS MANUALLY MAINAINED: see .fernignore */
+/** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 export type Supplier<T> = T | (() => T);
 
 export const Supplier = {
