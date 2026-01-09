@@ -1,6 +1,1 @@
-packages:
-  - .
-
-ignoredBuiltDependencies:
-  - esbuild
-  - msw
+packages: ['.']
