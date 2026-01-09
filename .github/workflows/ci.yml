@@ -5,6 +5,10 @@ on:
   pull_request:
     types: [synchronize, reopened, ready_for_review]
 
+permissions:
+  id-token: write  # Required for OIDC publishing to NPM
+  contents: read
+
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -203,8 +207,6 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        env:
-          NPM_TOKEN: "${{ secrets.NPM_TOKEN }}"
         run: |
 
             publish() {
