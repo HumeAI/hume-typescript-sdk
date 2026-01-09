@@ -5,4 +5,3 @@ export { HumeEnvironment, type HumeEnvironmentUrls } from "./environments.js";
 export { HumeError, HumeTimeoutError } from "./errors/index.js";
 export * from "./exports.js";
 export * as serialization from "./serialization/index.js";
-export * from "./wrapper/index.js";

@@ -1,17 +1,31 @@
 diff --git a/src/index.ts b/src/index.ts
-index 4d199020..c814670b 100644
+index d8305ceb..c814670b 100644
 --- a/src/index.ts
 +++ b/src/index.ts
-@@ -1,8 +1,7 @@
- export * as Hume from "./api/index.js";
--export * as serialization from "./serialization/index.js";
-+export type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
-+export { HumeClient } from "./Client.js";
-+export { HumeEnvironment, type HumeEnvironmentUrls } from "./environments.js";
+@@ -5,4 +5,3 @@ export { HumeEnvironment, type HumeEnvironmentUrls } from "./environments.js";
  export { HumeError, HumeTimeoutError } from "./errors/index.js";
--export { HumeEnvironment } from "./environments.js";
--export type { HumeEnvironmentUrls } from "./environments.js";
  export * from "./exports.js";
--
+ export * as serialization from "./serialization/index.js";
 -export * from "./wrapper/index.js";
-+export * as serialization from "./serialization/index.js";
+diff --git a/src/index.ts.diff b/src/index.ts.diff
+index 3c4cba14..e69de29b 100644
+--- a/src/index.ts.diff
++++ b/src/index.ts.diff
+@@ -1,17 +0,0 @@
+-diff --git a/src/index.ts b/src/index.ts
+-index 4d199020..c814670b 100644
+---- a/src/index.ts
+-+++ b/src/index.ts
+-@@ -1,8 +1,7 @@
+- export * as Hume from "./api/index.js";
+--export * as serialization from "./serialization/index.js";
+-+export type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
+-+export { HumeClient } from "./Client.js";
+-+export { HumeEnvironment, type HumeEnvironmentUrls } from "./environments.js";
+- export { HumeError, HumeTimeoutError } from "./errors/index.js";
+--export { HumeEnvironment } from "./environments.js";
+--export type { HumeEnvironmentUrls } from "./environments.js";
+- export * from "./exports.js";
+--
+--export * from "./wrapper/index.js";
+-+export * as serialization from "./serialization/index.js";
