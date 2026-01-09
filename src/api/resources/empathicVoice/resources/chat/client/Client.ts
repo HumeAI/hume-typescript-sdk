@@ -19,8 +19,12 @@ export declare namespace ChatClient {
         eventLimit?: number;
         resumedChatGroupId?: string;
         verboseTranscription?: boolean;
+        /** @deprecated Use sessionSettings.voiceId instead */
+        voiceId?: string;
         apiKey?: string;
-        sessionSettings: Hume.empathicVoice.ConnectSessionSettings;
+        sessionSettings?: Hume.empathicVoice.ConnectSessionSettings;
+        /** Extra query parameters sent at WebSocket connection */
+        queryParams?: Record<string, string | string[] | object | object[]>;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
         /** Enable debug mode on the websocket. Defaults to false. */
@@ -37,7 +41,7 @@ export class ChatClient {
         this._options = normalizeClientOptions(options);
     }
 
-    public async connect(args: ChatClient.ConnectArgs): Promise<ChatSocket> {
+    public async connect(args: ChatClient.ConnectArgs = {}): Promise<ChatSocket> {
         const {
             accessToken,
             allowConnection,
@@ -46,8 +50,10 @@ export class ChatClient {
             eventLimit,
             resumedChatGroupId,
             verboseTranscription,
+            voiceId,
             apiKey,
             sessionSettings,
+            queryParams,
             headers,
             debug,
             reconnectAttempts,
@@ -60,16 +66,24 @@ export class ChatClient {
             event_limit: eventLimit,
             resumed_chat_group_id: resumedChatGroupId,
             verbose_transcription: verboseTranscription,
+            voice_id: voiceId,
             api_key: apiKey,
-            session_settings: serializers.empathicVoice.ConnectSessionSettings.jsonOrThrow(sessionSettings, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                omitUndefined: true,
-                breadcrumbsPrefix: ["request", "sessionSettings"],
-            }),
+            session_settings:
+                sessionSettings != null
+                    ? serializers.empathicVoice.ConnectSessionSettings.jsonOrThrow(sessionSettings, {
+                          unrecognizedObjectKeys: "passthrough",
+                          allowUnrecognizedUnionMembers: true,
+                          allowUnrecognizedEnumValues: true,
+                          omitUndefined: true,
+                          breadcrumbsPrefix: ["request", "sessionSettings"],
+                      })
+                    : undefined,
+            ...queryParams,
         };
-        const _headers: Record<string, unknown> = { ...headers };
+        const _headers: Record<string, unknown> = {
+            ...(await this._getCustomAuthorizationHeaders()),
+            ...headers,
+        };
         const socket = new core.ReconnectingWebSocket({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -77,10 +91,16 @@ export class ChatClient {
                 "/chat",
             ),
             protocols: [],
-            queryParameters: _queryParams,
+            queryParameters: _queryParams as Record<string, string | string[] | object | object[] | null | undefined>,
             headers: _headers,
             options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
         });
         return new ChatSocket({ socket });
+    }
+
+    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | null | undefined>> {
+        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
+        const authHeaderValue = await core.Supplier.get(this._options.headers?.Authorization);
+        return { "X-Hume-Api-Key": apiKeyValue, Authorization: authHeaderValue };
     }
 }

@@ -123,7 +123,10 @@ export class ControlPlaneClient {
         const _queryParams: Record<string, unknown> = {
             access_token: accessToken,
         };
-        const _headers: Record<string, unknown> = { ...headers };
+        const _headers: Record<string, unknown> = {
+            ...(await this._getCustomAuthorizationHeaders()),
+            ...headers,
+        };
         const socket = new core.ReconnectingWebSocket({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -131,10 +134,16 @@ export class ControlPlaneClient {
                 `/chat/${core.url.encodePathParam(chatId)}/connect`,
             ),
             protocols: [],
-            queryParameters: _queryParams,
+            queryParameters: _queryParams as Record<string, string | string[] | object | object[] | null | undefined>,
             headers: _headers,
             options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
         });
         return new ControlPlaneSocket({ socket });
+    }
+
+    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | null | undefined>> {
+        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
+        const authHeaderValue = await core.Supplier.get(this._options.headers?.Authorization);
+        return { "X-Hume-Api-Key": apiKeyValue, Authorization: authHeaderValue };
     }
 }

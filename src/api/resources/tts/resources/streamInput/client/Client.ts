@@ -87,7 +87,10 @@ export class StreamInputClient {
                     : undefined,
             api_key: apiKey,
         };
-        const _headers: Record<string, unknown> = { ...headers };
+        const _headers: Record<string, unknown> = {
+            ...(await this._getCustomAuthorizationHeaders()),
+            ...headers,
+        };
         const socket = new core.ReconnectingWebSocket({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -95,10 +98,16 @@ export class StreamInputClient {
                 "/stream/input",
             ),
             protocols: [],
-            queryParameters: _queryParams,
+            queryParameters: _queryParams as Record<string, string | string[] | object | object[] | null | undefined>,
             headers: _headers,
             options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
         });
         return new StreamInputSocket({ socket });
+    }
+
+    protected async _getCustomAuthorizationHeaders(): Promise<Record<string, string | null | undefined>> {
+        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
+        const authHeaderValue = await core.Supplier.get(this._options.headers?.Authorization);
+        return { "X-Hume-Api-Key": apiKeyValue, Authorization: authHeaderValue };
     }
 }
