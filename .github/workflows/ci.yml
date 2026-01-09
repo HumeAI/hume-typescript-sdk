@@ -5,10 +5,6 @@ on:
   pull_request:
     types: [synchronize, reopened, ready_for_review]
 
-permissions:
-  id-token: write  # Required for OIDC publishing to NPM
-  contents: read
-
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -187,6 +183,7 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     permissions:
+      id-token: write  # Required for OIDC publishing to NPM
       contents: read
     steps:
       - name: Checkout repo
@@ -210,7 +207,7 @@ jobs:
         run: |
 
             publish() {
-              npx -y npm@latest publish "$@"
+              npx -y npm@latest publish --provenance "$@"
             }
             if [[ ${GITHUB_REF} == *alpha* ]]; then
               publish --access public --tag alpha
