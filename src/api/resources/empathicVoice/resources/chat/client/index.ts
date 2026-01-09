@@ -23,23 +23,18 @@
  * @module
  */
 
-import { ChatClient } from "./Client.js";
-import { ChatSocket } from "./Socket.js";
+import { ChatSocket as _ChatSocket } from "./Socket.js";
+import { ChatClient as _Chat } from "./Client.js";
 
 /**
  * @deprecated Do not use. This export will be removed in a future version.
  */
-export { ChatSocket };
+export const ChatSocket: typeof _ChatSocket = _ChatSocket;
 
 /**
  * @deprecated Do not use. This export will be removed in a future version.
  */
-export { ChatClient };
-
-/**
- * @deprecated Do not use. This export will be removed in a future version.
- */
-export const Chat: typeof ChatClient = ChatClient;
+export const Chat: typeof _Chat = _Chat;
 
 /**
  * @deprecated Do not use. Use `typeof` to reference types instead.
@@ -60,10 +55,10 @@ export declare namespace Chat {
     /**
      * @deprecated Do not use. Use `typeof` to reference this type.
      */
-    export type Options = ChatClient.Options;
+    export type Options = _Chat.Options;
 
     /**
      * @deprecated Do not use. Use `typeof` to reference this type.
      */
-    export type ConnectArgs = ChatClient.ConnectArgs;
+    export type ConnectArgs = _Chat.ConnectArgs;
 }
