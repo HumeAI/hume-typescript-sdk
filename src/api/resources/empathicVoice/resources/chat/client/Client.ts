@@ -88,7 +88,7 @@ export class ChatClient {
       ),
       protocols: [],
       queryParameters: _queryParams,
-      headers: _headers,
+      headers: headers,
       options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
     });
     return new ChatSocket({ socket });
