@@ -14,8 +14,6 @@ import {
 import * as serializers from '../../../../../../serialization/index.js';
 import { ChatSocket } from './Socket.js';
 
-// throw new Error('😭😭😭😭😭😭😭😭😭 HELP');
-
 export declare namespace ChatClient {
   export type Options = BaseClientOptions;
 
@@ -60,6 +58,7 @@ export class ChatClient {
       verboseTranscription,
       apiKey,
       sessionSettings,
+      queryParams,
       headers,
       debug,
       reconnectAttempts,
@@ -75,21 +74,31 @@ export class ChatClient {
       verbose_transcription: verboseTranscription,
       api_key: apiKey,
       session_settings:
-        serializers.empathicVoice.ConnectSessionSettings.jsonOrThrow(
-          sessionSettings,
-          {
-            unrecognizedObjectKeys: 'passthrough',
-            allowUnrecognizedUnionMembers: true,
-            allowUnrecognizedEnumValues: true,
-            omitUndefined: true,
-            breadcrumbsPrefix: ['request', 'sessionSettings'],
-          },
-        ),
+        sessionSettings != null
+          ? serializers.empathicVoice.ConnectSessionSettings.jsonOrThrow(
+              sessionSettings,
+              {
+                unrecognizedObjectKeys: 'passthrough',
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
+                breadcrumbsPrefix: ['request', 'sessionSettings'],
+              },
+            )
+          : undefined,
     };
 
-    console.log('👍🏻👍🏻👍🏻 _queryParams', _queryParams);
+    // Merge in any additional query parameters
+    if (queryParams != null) {
+      for (const [name, value] of Object.entries(queryParams)) {
+        _queryParams[name] = value;
+      }
+    }
 
-    const _headers: Record<string, unknown> = { ...headers };
+    const _headers: Record<string, unknown> = mergeHeaders(
+      mergeOnlyDefinedHeaders({ ...this._getCustomAuthorizationHeaders() }),
+      headers,
+    );
 
     const socket = new core.ReconnectingWebSocket({
       url: core.url.join(
@@ -101,17 +110,13 @@ export class ChatClient {
         '/chat',
       ),
       protocols: [],
-      headers: mergeOnlyDefinedHeaders({
-        ...this._getCustomAuthorizationHeaders(),
-      }),
+      queryParameters: _queryParams as Record<
+        string,
+        string | string[] | object | object[] | null | undefined
+      >,
+      headers: _headers,
       options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
     });
-
-    console.log(
-      '🧟 headers',
-      mergeOnlyDefinedHeaders({ ...this._getCustomAuthorizationHeaders() }),
-    );
-    console.log('😭 this._options', this._options);
 
     return new ChatSocket({ socket });
   }
