@@ -18,5 +18,5 @@
         "shouldGenerateWebsocketClients": true,
         "namespaceExport": "Hume"
     },
-    "sdkVersion": "0.15.11"
+    "sdkVersion": "0.15.12"
 }
