@@ -1,35 +1,28 @@
 /** THIS FILE IS MANUALLY MAINTAINED: see .fernignore */
 import type { BaseClientOptions } from "../../../../../../BaseClient.js";
 import { type NormalizedClientOptions, normalizeClientOptions } from "../../../../../../BaseClient.js";
-import * as environments from "../../../../../../environments.js";
 import * as core from "../../../../../../core/index.js";
-import * as Hume from "../../../../../index.js";
-import { mergeOnlyDefinedHeaders, mergeHeaders } from "../../../../../../core/headers.js";
+import * as environments from "../../../../../../environments.js";
 import * as serializers from "../../../../../../serialization/index.js";
+import type * as Hume from "../../../../../index.js";
+import { mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import { ChatSocket } from "./Socket.js";
 
 export declare namespace ChatClient {
     export type Options = BaseClientOptions;
 
     export interface ConnectArgs {
-        accessToken?: string | undefined;
-        configId?: string | undefined;
-        configVersion?: string | number | undefined;
-        eventLimit?: number | undefined;
-        resumedChatGroupId?: string | undefined;
-        verboseTranscription?: boolean | undefined;
+        accessToken?: string;
         allowConnection?: boolean;
-        /** @deprecated Use sessionSettings.voiceId instead */
-        voiceId?: string | undefined;
-        apiKey?: string | undefined;
+        configId?: string;
+        configVersion?: number;
+        eventLimit?: number;
+        resumedChatGroupId?: string;
+        verboseTranscription?: boolean;
+        apiKey?: string;
         sessionSettings?: Hume.empathicVoice.ConnectSessionSettings;
-        /** Extra query parameters sent at WebSocket connection */
-        queryParams?: Record<string, string | string[] | object | object[]>;
-        /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
-        /** Enable debug mode on the websocket. Defaults to false. */
         debug?: boolean;
-        /** Number of reconnect attempts. Defaults to 30. */
         reconnectAttempts?: number;
     }
 }
@@ -52,7 +45,6 @@ export class ChatClient {
             verboseTranscription,
             apiKey,
             sessionSettings,
-            queryParams,
             headers,
             debug,
             reconnectAttempts,
@@ -78,19 +70,10 @@ export class ChatClient {
                       })
                     : undefined,
         };
-
-        // Merge in any additional query parameters
-        if (queryParams != null) {
-            for (const [name, value] of Object.entries(queryParams)) {
-                _queryParams[name] = value;
-            }
-        }
-
-        const _headers: Record<string, unknown> = mergeHeaders(
-            mergeOnlyDefinedHeaders({ ...this._getCustomAuthorizationHeaders() }),
-            headers,
-        );
-
+        const _headers: Record<string, unknown> = mergeOnlyDefinedHeaders({
+            ...this._getCustomAuthorizationHeaders(),
+            ...headers,
+        });
         const socket = new core.ReconnectingWebSocket({
             url: core.url.join(
                 core.Supplier.get(this._options.baseUrl) ??
