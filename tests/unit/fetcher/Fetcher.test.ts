@@ -1,15 +1,8 @@
 import fs from "fs";
-import stream from "stream";
 import { join } from "path";
-
-import { Fetcher, fetcherImpl } from "../../../src/core/fetcher/Fetcher";
+import stream from "stream";
 import type { BinaryResponse } from "../../../src/core";
-
-function expectHeadersToContain(headers: Headers, expected: Record<string, string>) {
-    for (const [key, value] of Object.entries(expected)) {
-        expect(headers.get(key)).toBe(value);
-    }
-}
+import { type Fetcher, fetcherImpl } from "../../../src/core/fetcher/Fetcher";
 
 describe("Test fetcherImpl", () => {
     it("should handle successful request", async () => {
@@ -20,6 +13,7 @@ describe("Test fetcherImpl", () => {
             body: { data: "test" },
             contentType: "application/json",
             requestType: "json",
+            maxRetries: 0,
             responseType: "json",
         };
 
@@ -40,11 +34,10 @@ describe("Test fetcherImpl", () => {
             "https://httpbin.org/post",
             expect.objectContaining({
                 method: "POST",
+                headers: expect.toContainHeaders({ "X-Test": "x-test-header" }),
                 body: JSON.stringify({ data: "test" }),
             }),
         );
-        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
-        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
     });
 
     it("should send octet stream", async () => {
@@ -55,6 +48,7 @@ describe("Test fetcherImpl", () => {
             headers: { "X-Test": "x-test-header" },
             contentType: "application/octet-stream",
             requestType: "bytes",
+            maxRetries: 0,
             responseType: "json",
             body: fs.createReadStream(join(__dirname, "test-file.txt")),
         };
@@ -72,11 +66,10 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "POST",
+                headers: expect.toContainHeaders({ "X-Test": "x-test-header" }),
                 body: expect.any(fs.ReadStream),
             }),
         );
-        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
-        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             expect(result.body).toEqual({ data: "test" });
@@ -89,6 +82,7 @@ describe("Test fetcherImpl", () => {
             url,
             method: "GET",
             headers: { "X-Test": "x-test-header" },
+            maxRetries: 0,
             responseType: "binary-response",
         };
 
@@ -108,10 +102,9 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
+                headers: expect.toContainHeaders({ "X-Test": "x-test-header" }),
             }),
         );
-        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
-        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
@@ -120,7 +113,8 @@ describe("Test fetcherImpl", () => {
             expect(typeof body.stream).toBe("function");
             const stream = body.stream();
             expect(stream).toBeInstanceOf(ReadableStream);
-            const reader = stream.getReader();
+            const readableStream = stream as ReadableStream;
+            const reader = readableStream.getReader();
             const { value } = await reader.read();
             const decoder = new TextDecoder();
             const streamContent = decoder.decode(value);
@@ -135,6 +129,7 @@ describe("Test fetcherImpl", () => {
             url,
             method: "GET",
             headers: { "X-Test": "x-test-header" },
+            maxRetries: 0,
             responseType: "binary-response",
         };
 
@@ -154,10 +149,9 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
+                headers: expect.toContainHeaders({ "X-Test": "x-test-header" }),
             }),
         );
-        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
-        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
@@ -181,6 +175,7 @@ describe("Test fetcherImpl", () => {
             url,
             method: "GET",
             headers: { "X-Test": "x-test-header" },
+            maxRetries: 0,
             responseType: "binary-response",
         };
 
@@ -200,10 +195,9 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
+                headers: expect.toContainHeaders({ "X-Test": "x-test-header" }),
             }),
         );
-        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
-        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
@@ -225,6 +219,7 @@ describe("Test fetcherImpl", () => {
             url,
             method: "GET",
             headers: { "X-Test": "x-test-header" },
+            maxRetries: 0,
             responseType: "binary-response",
         };
 
@@ -244,19 +239,18 @@ describe("Test fetcherImpl", () => {
             url,
             expect.objectContaining({
                 method: "GET",
+                headers: expect.toContainHeaders({ "X-Test": "x-test-header" }),
             }),
         );
-        const callArgs = vi.mocked(global.fetch).mock.calls[0]![1]!;
-        expectHeadersToContain(callArgs.headers as Headers, { "X-Test": "x-test-header" });
         expect(result.ok).toBe(true);
         if (result.ok) {
             const body = result.body as BinaryResponse;
             expect(body).toBeDefined();
             expect(body.bodyUsed).toBe(false);
+            expect(typeof body.bytes).toBe("function");
             if (!body.bytes) {
                 return;
             }
-            expect(typeof body.bytes).toBe("function");
             const bytes = await body.bytes();
             expect(bytes).toBeInstanceOf(Uint8Array);
             const decoder = new TextDecoder();
