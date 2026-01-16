@@ -6,18 +6,18 @@ import type * as Hume from "../../../index.js";
  * A description of chat and its status
  */
 export interface ReturnChat {
-    /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
+    /** Identifier for the Chat Group. Any chat resumed from this Chat will have the same `chat_group_id`. Formatted as a UUID. */
     chatGroupId: string;
     config?: Hume.empathicVoice.ReturnConfigSpec;
-    /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
+    /** Time at which the Chat ended. Measured in seconds since the Unix epoch. */
     endTimestamp?: number;
     /** The total number of events currently in this chat. */
     eventCount?: number;
-    /** Identifier for a chat. Formatted as a UUID. */
+    /** Identifier for a Chat. Formatted as a UUID. */
     id: string;
     /** Stringified JSON with additional metadata about the chat. */
     metadata?: string;
-    /** The timestamp when the chat started, formatted as a Unix epoch milliseconds. */
+    /** Time at which the Chat started. Measured in seconds since the Unix epoch. */
     startTimestamp: number;
     status: Hume.empathicVoice.ReturnChatStatus;
 }

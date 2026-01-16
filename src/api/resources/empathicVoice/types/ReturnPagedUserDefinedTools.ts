@@ -6,7 +6,11 @@ import type * as Hume from "../../../index.js";
  * A paginated list of user defined tool versions returned from the server
  */
 export interface ReturnPagedUserDefinedTools {
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.
@@ -14,7 +18,7 @@ export interface ReturnPagedUserDefinedTools {
      * This value corresponds to the `page_size` parameter specified in the request.
      */
     pageSize: number;
-    /** List of tools returned for the specified page number and page size. */
+    /** List of tools returned for the specified `page_number` and `page_size`. */
     toolsPage: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
     /** The total number of pages in the collection. */
     totalPages: number;
