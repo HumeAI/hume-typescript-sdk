@@ -16,6 +16,10 @@ export const WebhookEventToolCall: core.serialization.ObjectSchema<
         eventName: core.serialization.property("event_name", core.serialization.stringLiteral("tool_call").optional()),
         timestamp: core.serialization.number(),
         toolCallMessage: core.serialization.property("tool_call_message", ToolCallMessage),
+        twilioMetadata: core.serialization.property(
+            "twilio_metadata",
+            core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+        ),
     })
     .extend(WebhookEventBase);
 
@@ -26,5 +30,6 @@ export declare namespace WebhookEventToolCall {
         event_name?: "tool_call" | null;
         timestamp: number;
         tool_call_message: ToolCallMessage.Raw;
+        twilio_metadata?: Record<string, string | null | undefined> | null;
     }
 }
