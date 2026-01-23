@@ -71,7 +71,7 @@ tests/BrowserTestEnvironment.ts
 
 # Needed to send apiKey on websocket queryParams
 # See https://github.com/fern-demo/hume-typescript-sdk/pull/1
-src/core/websocket/ws.ts
+; src/core/websocket/ws.ts
 
 # Needed to export the utilities under src/wrapper
 src/wrapper
@@ -88,7 +88,7 @@ scripts/test-examples-local.sh
 justfile
 
 # Custom HeaderAuthProvider to support both apiKey and accessToken authentication
-src/auth/HeaderAuthProvider.ts
+; src/auth/HeaderAuthProvider.ts
 
 # Auth tests
 tests/unit/auth/auth.test.ts
