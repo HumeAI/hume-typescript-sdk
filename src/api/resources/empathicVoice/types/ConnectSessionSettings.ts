@@ -10,11 +10,11 @@ export interface ConnectSessionSettings {
      */
     audio?: Hume.empathicVoice.ConnectSessionSettingsAudio;
     /**
-     * Allows developers to inject additional context into the conversation, which is appended to the end of user messages for the session.
+     * Field for injecting additional context into the conversation, which is appended to the end of user messages for the session.
      *
      * When included in a Session Settings message, the provided context can be used to remind the LLM of its role in every user message, prevent it from forgetting important details, or add new relevant information to the conversation.
      *
-     * Set to `null` to disable context injection.
+     * Set to `null` to clear injected context.
      */
     context?: Hume.empathicVoice.ConnectSessionSettingsContext;
     /**
@@ -25,6 +25,7 @@ export interface ConnectSessionSettings {
      * It is recommended to pass a `custom_session_id` if you are using a Custom Language Model. Please see our guide to [using a custom language model](/docs/empathic-voice-interface-evi/custom-language-model) with EVI to learn more.
      */
     customSessionId?: string;
+    /** The maximum number of chat events to return from chat history. By default, the system returns up to 300 events (100 events per page × 3 pages). Set this parameter to a smaller value to limit the number of events returned. */
     eventLimit?: number;
     /**
      * Third party API key for the supplemental language model.
@@ -42,6 +43,7 @@ export interface ConnectSessionSettings {
      * For help writing a system prompt, see our [Prompting Guide](/docs/empathic-voice-interface-evi/prompting).
      */
     systemPrompt?: string;
+    /** Allows you to change the voice during an active chat. Updating the voice does not affect chat context or conversation history. */
     voiceId?: string;
     /**
      * This field allows you to assign values to dynamic variables referenced in your system prompt.

@@ -3,7 +3,9 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * Settings for this chat session.
+ * **Settings for this chat session.** Session settings are temporary and apply only to the current Chat session.
+ *
+ * These settings can be adjusted dynamically based on the requirements of each session to ensure optimal performance and user experience. See our [Session Settings Guide](/docs/speech-to-speech-evi/configuration/session-settings) for a complete list of configurable settings.
  */
 export interface SessionSettings {
     /**
@@ -21,11 +23,11 @@ export interface SessionSettings {
      */
     builtinTools?: Hume.empathicVoice.BuiltinToolConfig[];
     /**
-     * Allows developers to inject additional context into the conversation, which is appended to the end of user messages for the session.
+     * Field for injecting additional context into the conversation, which is appended to the end of user messages for the session.
      *
      * When included in a Session Settings message, the provided context can be used to remind the LLM of its role in every user message, prevent it from forgetting important details, or add new relevant information to the conversation.
      *
-     * Set to `null` to disable context injection.
+     * Set to `null` to clear injected context.
      */
     context?: Hume.empathicVoice.Context;
     /**
@@ -67,7 +69,14 @@ export interface SessionSettings {
      * For more information, please refer to the [Session Settings section](/docs/empathic-voice-interface-evi/configuration#session-settings) on the EVI Configuration page.
      */
     type: "session_settings";
-    /** Dynamic values that can be used to populate EVI prompts. */
+    /**
+     * This field allows you to assign values to dynamic variables referenced in your system prompt.
+     *
+     * Each key represents the variable name, and the corresponding value is the specific content you wish to assign to that variable within the session. While the values for variables can be strings, numbers, or booleans, the value will ultimately be converted to a string when injected into your system prompt.
+     *
+     * Using this field, you can personalize responses based on session-specific details. For more guidance, see our [guide on using dynamic variables](/docs/speech-to-speech-evi/features/dynamic-variables).
+     */
     variables?: Record<string, Hume.empathicVoice.SessionSettingsVariablesValue>;
+    /** Allows you to change the voice during an active chat. Updating the voice does not affect chat context or conversation history. */
     voiceId?: string;
 }
