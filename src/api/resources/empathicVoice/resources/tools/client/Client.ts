@@ -24,6 +24,10 @@ export class ToolsClient {
     }
 
     /**
+     * Fetches a paginated list of **Tools**.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
      * @param {Hume.empathicVoice.ToolsListToolsRequest} request
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -128,6 +132,10 @@ export class ToolsClient {
     }
 
     /**
+     * Creates a **Tool** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
      * @param {Hume.empathicVoice.PostedUserDefinedTool} request
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -219,6 +227,10 @@ export class ToolsClient {
     }
 
     /**
+     * Fetches a list of a **Tool's** versions.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
      * @param {string} id
      * @param {Hume.empathicVoice.ToolsListToolVersionsRequest} request
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -321,7 +333,11 @@ export class ToolsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
+     * Updates a **Tool** by creating a new version of the **Tool**.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
+     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersion} request
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -414,7 +430,11 @@ export class ToolsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
+     * Deletes a **Tool** and its versions.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
+     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -481,7 +501,11 @@ export class ToolsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
+     * Updates the name of a **Tool**.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
+     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedUserDefinedToolName} request
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -563,8 +587,16 @@ export class ToolsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
-     * @param {number} version - Version number for a tool. Version numbers should be integers.
+     * Fetches a specified version of a **Tool**.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
+     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+     * @param {number} version - Version number for a Tool.
+     *
+     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -650,8 +682,16 @@ export class ToolsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
-     * @param {number} version - Version number for a tool. Version numbers should be integers.
+     * Deletes a specified version of a **Tool**.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
+     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+     * @param {number} version - Version number for a Tool.
+     *
+     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -728,8 +768,16 @@ export class ToolsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a tool. Formatted as a UUID.
-     * @param {number} version - Version number for a tool. Version numbers should be integers.
+     * Updates the description of a specified **Tool** version.
+     *
+     * Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-calling) guide for comprehensive instructions on defining and integrating tools into EVI.
+     *
+     * @param {string} id - Identifier for a Tool. Formatted as a UUID.
+     * @param {number} version - Version number for a Tool.
+     *
+     *                           Tools, Configs, Custom Voices, and Prompts are versioned. This versioning system supports iterative development, allowing you to progressively refine tools and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Tool. Each update to the Tool increments its version number.
      * @param {Hume.empathicVoice.PostedUserDefinedToolVersionDescription} request
      * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
