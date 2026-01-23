@@ -6,9 +6,13 @@ import type * as Hume from "../../../index.js";
  * A paginated list of chats returned from the server
  */
 export interface ReturnPagedChats {
-    /** List of chats and their metadata returned for the specified page number and page size. */
+    /** List of Chats and their metadata returned for the specified `page_number` and `page_size`. */
     chatsPage: Hume.empathicVoice.ReturnChat[];
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.

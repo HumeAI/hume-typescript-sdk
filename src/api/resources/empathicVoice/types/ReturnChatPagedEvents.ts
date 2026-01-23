@@ -6,18 +6,22 @@ import type * as Hume from "../../../index.js";
  * A description of chat status with a paginated list of chat events returned from the server
  */
 export interface ReturnChatPagedEvents {
-    /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
+    /** Identifier for the Chat Group. Any chat resumed from this Chat will have the same `chat_group_id`. Formatted as a UUID. */
     chatGroupId: string;
     config?: Hume.empathicVoice.ReturnConfigSpec;
-    /** The timestamp when the chat ended, formatted as a Unix epoch milliseconds. */
+    /** Time at which the Chat ended. Measured in seconds since the Unix epoch. */
     endTimestamp?: number;
-    /** List of chat events with the specified page number and page size. */
+    /** List of Chat Events for the specified `page_number` and `page_size`. */
     eventsPage: Hume.empathicVoice.ReturnChatEvent[];
-    /** Identifier for a chat. Formatted as a UUID. */
+    /** Identifier for a Chat. Formatted as a UUID. */
     id: string;
     /** Stringified JSON with additional metadata about the chat. */
     metadata?: string;
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.
@@ -26,7 +30,7 @@ export interface ReturnChatPagedEvents {
      */
     pageSize: number;
     paginationDirection: Hume.empathicVoice.ReturnChatPagedEventsPaginationDirection;
-    /** The timestamp when the chat started, formatted as a Unix epoch milliseconds. */
+    /** Time at which the Chat started. Measured in seconds since the Unix epoch. */
     startTimestamp: number;
     status: Hume.empathicVoice.ReturnChatPagedEventsStatus;
     /** The total number of pages in the collection. */

@@ -22,8 +22,12 @@ export interface ChatGroupsListChatGroupsRequest {
      * For example, if `page_size` is set to 10, each page will include up to 10 items. Defaults to 10.
      */
     pageSize?: number;
-    /** Boolean to indicate if the results should be paginated in chronological order or reverse-chronological order. Defaults to true. */
+    /** Specifies the sorting order of the results based on their creation date. Set to true for ascending order (chronological, with the oldest records first) and false for descending order (reverse-chronological, with the newest records first). Defaults to true. */
     ascendingOrder?: boolean;
-    /** Filter chatgroups to only include chats that used this config in their most recent chat. */
+    /**
+     * The unique identifier for an EVI configuration.
+     *
+     * Filter Chat Groups to only include Chats that used this `config_id` in their most recent Chat.
+     */
     configId?: string;
 }
