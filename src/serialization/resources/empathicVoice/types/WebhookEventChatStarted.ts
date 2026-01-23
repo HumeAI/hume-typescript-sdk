@@ -19,6 +19,10 @@ export const WebhookEventChatStarted: core.serialization.ObjectSchema<
             core.serialization.stringLiteral("chat_started").optional(),
         ),
         startTime: core.serialization.property("start_time", core.serialization.number()),
+        twilioMetadata: core.serialization.property(
+            "twilio_metadata",
+            core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+        ),
     })
     .extend(WebhookEventBase);
 
@@ -29,5 +33,6 @@ export declare namespace WebhookEventChatStarted {
         custom_session_id?: string | null;
         event_name?: "chat_started" | null;
         start_time: number;
+        twilio_metadata?: Record<string, string | null | undefined> | null;
     }
 }
