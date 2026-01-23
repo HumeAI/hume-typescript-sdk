@@ -8,6 +8,10 @@ import type * as Hume from "../../../index.js";
 export interface ReturnLanguageModel {
     modelProvider?: Hume.empathicVoice.ModelProviderEnum;
     modelResource?: Hume.empathicVoice.LanguageModelType;
-    /** Model temperature. */
+    /**
+     * The model temperature, with values between 0 to 1 (inclusive).
+     *
+     * Controls the randomness of the LLM's output, with values closer to 0 yielding focused, deterministic responses and values closer to 1 producing more creative, diverse responses.
+     */
     temperature?: number;
 }
