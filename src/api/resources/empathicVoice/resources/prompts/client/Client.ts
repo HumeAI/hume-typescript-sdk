@@ -24,6 +24,10 @@ export class PromptsClient {
     }
 
     /**
+     * Fetches a paginated list of **Prompts**.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
      * @param {Hume.empathicVoice.PromptsListPromptsRequest} request
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -123,6 +127,10 @@ export class PromptsClient {
     }
 
     /**
+     * Creates a **Prompt** that can be added to an [EVI configuration](/reference/speech-to-speech-evi/configs/create-config).
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
      * @param {Hume.empathicVoice.PostedPrompt} request
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -211,6 +219,10 @@ export class PromptsClient {
     }
 
     /**
+     * Fetches a list of a **Prompt's** versions.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
      * @param {string} id
      * @param {Hume.empathicVoice.PromptsListPromptVersionsRequest} request
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -299,7 +311,11 @@ export class PromptsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * Updates a **Prompt** by creating a new version of the **Prompt**.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptVersion} request
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -390,7 +406,11 @@ export class PromptsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * Deletes a **Prompt** and its versions.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -457,7 +477,11 @@ export class PromptsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
+     * Updates the name of a **Prompt**.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
      * @param {Hume.empathicVoice.PostedPromptName} request
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -539,8 +563,16 @@ export class PromptsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * Fetches a specified version of a **Prompt**.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a Prompt.
+     *
+     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -626,8 +658,16 @@ export class PromptsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * Deletes a specified version of a **Prompt**.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a Prompt.
+     *
+     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Hume.empathicVoice.BadRequestError}
@@ -704,8 +744,16 @@ export class PromptsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a prompt. Formatted as a UUID.
-     * @param {number} version - Version number for a prompt. Version numbers should be integers.
+     * Updates the description of a **Prompt**.
+     *
+     * See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for tips on crafting your system prompt.
+     *
+     * @param {string} id - Identifier for a Prompt. Formatted as a UUID.
+     * @param {number} version - Version number for a Prompt.
+     *
+     *                           Prompts, Configs, Custom Voices, and Tools are versioned. This versioning system supports iterative development, allowing you to progressively refine prompts and revert to previous versions if needed.
+     *
+     *                           Version numbers are integer values representing different iterations of the Prompt. Each update to the Prompt increments its version number.
      * @param {Hume.empathicVoice.PostedPromptVersionDescription} request
      * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
      *

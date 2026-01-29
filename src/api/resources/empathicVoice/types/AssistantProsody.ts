@@ -3,7 +3,7 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * When provided, the output is an Assistant Prosody message.
+ * **Expression measurement predictions of the assistant's audio output.** Contains inference model results including prosody scores for 48 emotions within the detected expression of the assistant's audio sample.
  */
 export interface AssistantProsody {
     /** Used to manage conversational state, correlate frontend and backend data, and persist conversations across EVI sessions. */

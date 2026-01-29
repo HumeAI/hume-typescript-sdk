@@ -6,7 +6,11 @@ import type * as Hume from "../../../index.js";
  * A paginated list Octave voices available for text-to-speech
  */
 export interface ReturnPagedVoices {
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.
