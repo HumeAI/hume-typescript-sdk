@@ -24,7 +24,7 @@ export class VoicesClient {
     }
 
     /**
-     * Lists voices you have saved in your account, or voices from the [Voice Library](https://app.hume.ai/voices).
+     * Lists voices you have saved in your account, or voices from the [Voice Library](https://app.hume.ai/tts/voice-library).
      *
      * @param {Hume.tts.VoicesListRequest} request
      * @param {VoicesClient.RequestOptions} requestOptions - Request-specific configuration.
