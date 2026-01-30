@@ -6,7 +6,11 @@ import type * as Hume from "../../../index.js";
  * A paginated list of prompt versions returned from the server
  */
 export interface ReturnPagedPrompts {
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.
@@ -14,7 +18,7 @@ export interface ReturnPagedPrompts {
      * This value corresponds to the `page_size` parameter specified in the request.
      */
     pageSize: number;
-    /** List of prompts returned for the specified page number and page size. */
+    /** List of prompts returned for the specified `page_number` and `page_size`. */
     promptsPage: (Hume.empathicVoice.ReturnPrompt | undefined)[];
     /** The total number of pages in the collection. */
     totalPages: number;

@@ -6,9 +6,13 @@ import type * as Hume from "../../../index.js";
  * A paginated list of config versions returned from the server
  */
 export interface ReturnPagedConfigs {
-    /** List of prompts returned for the specified page number and page size. */
+    /** List of configs returned for the specified `page_number` and `page_size`. */
     configsPage?: Hume.empathicVoice.ReturnConfig[];
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber?: number;
     /**
      * The maximum number of items returned per page.
