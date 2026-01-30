@@ -15,12 +15,18 @@ export declare namespace ChatClient {
         accessToken?: string;
         allowConnection?: boolean;
         configId?: string;
-        configVersion?: number;
+        /** Accepts both string and number for backward compatibility */
+        configVersion?: string | number;
         eventLimit?: number;
         resumedChatGroupId?: string;
         verboseTranscription?: boolean;
+        /** @deprecated Use sessionSettings.voiceId instead */
+        voiceId?: string;
         apiKey?: string;
         sessionSettings?: Hume.empathicVoice.ConnectSessionSettings;
+        /** Extra query parameters sent at WebSocket connection  for backward compatibility */
+        queryParams?: Record<string, string | string[] | object | object[]>;
+        /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
         debug?: boolean;
         reconnectAttempts?: number;
@@ -43,21 +49,29 @@ export class ChatClient {
             eventLimit,
             resumedChatGroupId,
             verboseTranscription,
+            voiceId,
             apiKey,
             sessionSettings,
+            queryParams,
             headers,
             debug,
             reconnectAttempts,
         } = args;
 
-        const _queryParams: Record<string, unknown> = {
+        const _queryParams: Record<string, string | string[] | object | object[] | null | undefined> = {
             access_token: accessToken,
-            allow_connection: allowConnection,
+            allow_connection: allowConnection != null ? (allowConnection ? "true" : "false") : undefined,
             config_id: configId,
-            config_version: configVersion,
-            event_limit: eventLimit,
+            config_version:
+                configVersion != null
+                    ? typeof configVersion === "number"
+                        ? configVersion.toString()
+                        : configVersion
+                    : undefined,
+            event_limit: eventLimit != null ? eventLimit.toString() : undefined,
             resumed_chat_group_id: resumedChatGroupId,
-            verbose_transcription: verboseTranscription,
+            verbose_transcription: verboseTranscription != null ? verboseTranscription.toString() : undefined,
+            voice_id: voiceId,
             api_key: apiKey,
             session_settings:
                 sessionSettings != null
@@ -70,6 +84,14 @@ export class ChatClient {
                       })
                     : undefined,
         };
+
+        // Merge in any additional query parameters
+        if (queryParams != null) {
+            for (const [name, value] of Object.entries(queryParams)) {
+                _queryParams[name] = value;
+            }
+        }
+
         const _headers: Record<string, unknown> = mergeOnlyDefinedHeaders({
             ...this._getCustomAuthorizationHeaders(),
             ...headers,
@@ -81,7 +103,7 @@ export class ChatClient {
                 "/chat",
             ),
             protocols: [],
-            queryParameters: _queryParams as Record<string, string | string[] | object | object[] | null | undefined>,
+            queryParameters: _queryParams,
             headers: _headers,
             options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
         });
