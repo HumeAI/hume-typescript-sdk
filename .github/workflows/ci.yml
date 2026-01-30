@@ -6,9 +6,56 @@ on:
     types: [synchronize, reopened, ready_for_review]
 
 jobs:
+  format:
+    runs-on: ubuntu-latest
+    # Only run on push events to branches (not tags), and not on main/master
+    if: github.event_name == 'push' && !contains(github.ref, 'refs/tags/') && github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.18.0'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run formatter
+        run: pnpm format
+
+      - name: Check for formatting changes
+        id: verify_diff
+        run: |
+          git diff --exit-code || echo "has_changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit formatting changes
+        if: steps.verify_diff.outputs.has_changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'style: auto-format code'
+          commit_options: '--no-verify'
+
+      - name: Fail if formatting was needed
+        if: steps.verify_diff.outputs.has_changes == 'true'
+        run: |
+          echo "::error::Code was not properly formatted. Auto-format commit has been pushed. Please pull the latest changes."
+          exit 1
+
   compile:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    needs: [format]
+    # Run if format succeeded or was skipped (on main/tags)
+    if: always() && github.event_name == 'push' && (needs.format.result == 'success' || needs.format.result == 'skipped')
     permissions:
       contents: read
     steps:
@@ -31,7 +78,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    needs: [format]
+    # Run if format succeeded or was skipped (on main/tags)
+    if: always() && github.event_name == 'push' && (needs.format.result == 'success' || needs.format.result == 'skipped')
     permissions:
       contents: read
     steps:
@@ -183,7 +232,7 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # Required for OIDC publishing to NPM
+      id-token: write # Required for OIDC publishing to NPM
       contents: read
     steps:
       - name: Checkout repo
@@ -206,16 +255,16 @@ jobs:
       - name: Publish to npm
         run: |
 
-            publish() {
-              npx -y npm@latest publish --provenance "$@"
-            }
-            if [[ ${GITHUB_REF} == *alpha* ]]; then
-              publish --access public --tag alpha
-            elif [[ ${GITHUB_REF} == *beta* ]]; then
-              publish --access public --tag beta
-            else
-              publish --access public
-            fi
+          publish() {
+            npx -y npm@latest publish --provenance "$@"
+          }
+          if [[ ${GITHUB_REF} == *alpha* ]]; then
+            publish --access public --tag alpha
+          elif [[ ${GITHUB_REF} == *beta* ]]; then
+            publish --access public --tag beta
+          else
+            publish --access public
+          fi
       - name: Trigger React SDK bump
         uses: peter-evans/repository-dispatch@v4
         with:
