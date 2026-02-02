@@ -40,7 +40,7 @@ jobs:
 
       - name: Commit formatting changes
         if: steps.verify_diff.outputs.has_changes == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'style: auto-format code'
           commit_options: '--no-verify'
