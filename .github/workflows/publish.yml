@@ -21,6 +21,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: read
     steps:
       - name: Checkout repo at tag
@@ -59,9 +60,7 @@ jobs:
           fi
 
       - name: Publish to npm
-        run: npx -y npm@latest publish --access public --tag ${{ inputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx -y npm@latest publish --provenance --access public --tag ${{ inputs.npm_tag }}
 
       - name: Trigger React SDK bump
         if: inputs.npm_tag == 'latest'
