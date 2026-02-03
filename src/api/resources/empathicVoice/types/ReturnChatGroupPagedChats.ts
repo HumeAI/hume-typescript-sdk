@@ -7,17 +7,21 @@ import type * as Hume from "../../../index.js";
  */
 export interface ReturnChatGroupPagedChats {
     active?: boolean;
-    /** List of chats and their metadata returned for the specified page number and page size. */
+    /** List of Chats and their metadata returned for the specified `page_number` and `page_size`. */
     chatsPage: Hume.empathicVoice.ReturnChat[];
-    /** The timestamp when the first chat in this chat group started, formatted as a Unix epoch milliseconds. */
+    /** Time at which the first Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
     firstStartTimestamp: number;
-    /** Identifier for the chat group. Any chat resumed from this chat will have the same chat_group_id. Formatted as a UUID. */
+    /** Identifier for the Chat Group. Any Chat resumed from this Chat Group will have the same `chat_group_id`. Formatted as a UUID. */
     id: string;
-    /** The timestamp when the most recent chat in this chat group started, formatted as a Unix epoch milliseconds. */
+    /** Time at which the most recent Chat in this Chat Group was created. Measured in seconds since the Unix epoch. */
     mostRecentStartTimestamp: number;
-    /** The total number of chats in this chat group. */
+    /** The total number of Chats associated with this Chat Group. */
     numChats: number;
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.

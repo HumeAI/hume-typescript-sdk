@@ -24,6 +24,8 @@ export class ChatGroupsClient {
     }
 
     /**
+     * Fetches a paginated list of **Chat Groups**.
+     *
      * @param {Hume.empathicVoice.ChatGroupsListChatGroupsRequest} request
      * @param {ChatGroupsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -125,7 +127,9 @@ export class ChatGroupsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associated with the **ChatGroup**.
+     *
+     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatGroupsGetChatGroupRequest} request
      * @param {ChatGroupsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -218,7 +222,9 @@ export class ChatGroupsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * Fetches a paginated list of audio for each **Chat** within the specified **Chat Group**. For more details, see our guide on audio reconstruction [here](/docs/speech-to-speech-evi/faq#can-i-access-the-audio-of-previous-conversations-with-evi).
+     *
+     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatGroupsGetAudioRequest} request
      * @param {ChatGroupsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -315,7 +321,9 @@ export class ChatGroupsClient {
     }
 
     /**
-     * @param {string} id - Identifier for a chat. Formatted as a UUID.
+     * Fetches a paginated list of **Chat** events associated with a **Chat Group**.
+     *
+     * @param {string} id - Identifier for a Chat Group. Formatted as a UUID.
      * @param {Hume.empathicVoice.ChatGroupsListChatGroupEventsRequest} request
      * @param {ChatGroupsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
