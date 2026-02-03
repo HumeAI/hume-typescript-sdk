@@ -1,0 +1,17 @@
+diff --git a/src/index.ts b/src/index.ts
+index 4d19902..c814670 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,8 +1,7 @@
+ export * as Hume from "./api/index.js";
+-export * as serialization from "./serialization/index.js";
++export type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
++export { HumeClient } from "./Client.js";
++export { HumeEnvironment, type HumeEnvironmentUrls } from "./environments.js";
+ export { HumeError, HumeTimeoutError } from "./errors/index.js";
+-export { HumeEnvironment } from "./environments.js";
+-export type { HumeEnvironmentUrls } from "./environments.js";
+ export * from "./exports.js";
+-
+-export * from "./wrapper/index.js";
++export * as serialization from "./serialization/index.js";
