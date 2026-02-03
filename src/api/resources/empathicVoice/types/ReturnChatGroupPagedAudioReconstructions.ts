@@ -12,7 +12,11 @@ export interface ReturnChatGroupPagedAudioReconstructions {
     id: string;
     /** Total number of chats in this chatgroup */
     numChats: number;
-    /** The page number of the returned results. */
+    /**
+     * The page number of the returned list.
+     *
+     * This value corresponds to the `page_number` parameter specified in the request. Pagination uses zero-based indexing.
+     */
     pageNumber: number;
     /**
      * The maximum number of items returned per page.

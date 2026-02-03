@@ -4,19 +4,23 @@
  * A specific prompt version returned from the server
  */
 export interface ReturnPrompt {
-    /** The timestamp when the first version of this prompt was created. */
+    /** Time at which the Prompt was created. Measured in seconds since the Unix epoch. */
     createdOn: number;
     /** Identifier for a Prompt. Formatted as a UUID. */
     id: string;
-    /** The timestamp when this version of the prompt was created. */
+    /** Time at which the Prompt was last modified. Measured in seconds since the Unix epoch. */
     modifiedOn: number;
     /** Name applied to all versions of a particular Prompt. */
     name: string;
-    /** Text used for this version of the Prompt. */
+    /**
+     * Instructions used to shape EVI's behavior, responses, and style.
+     *
+     * You can use the Prompt to define a specific goal or role for EVI, specifying how it should act or what it should focus on during the conversation. For example, EVI can be instructed to act as a customer support representative, a fitness coach, or a travel advisor, each with its own set of behaviors and response styles. For help writing a system prompt, see our [Prompting Guide](/docs/speech-to-speech-evi/guides/prompting).
+     */
     text: string;
     /** Version number for a Prompt. Version numbers should be integers. The combination of configId and version number is unique. */
     version: number;
-    /** Description that is appended to a specific version of a Prompt. */
+    /** An optional description of the Prompt version. */
     versionDescription?: string;
     /** Indicates whether this prompt is using a fixed version number or auto-updating to the latest version. Values from the VersionType enum. */
     versionType: string;
