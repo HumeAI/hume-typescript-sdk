@@ -4,8 +4,8 @@
  * A nudge specification posted to the server
  */
 export interface PostedNudgeSpec {
-    /** EVI will nudge user after inactivity */
+    /** If true, EVI will 'nudge' the user to speak after a determined interval of silence. */
     enabled?: boolean;
-    /** Time interval in seconds after which the nudge will be sent. */
+    /** The interval of inactivity (in seconds) before a nudge is triggered. */
     intervalSecs?: number;
 }

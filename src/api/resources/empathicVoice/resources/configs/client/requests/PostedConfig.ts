@@ -41,7 +41,7 @@ export interface PostedConfig {
     builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
     ellmModel?: Hume.empathicVoice.PostedEllmModel;
     eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
-    /** The version of the EVI used with this config. */
+    /** EVI version to use. Only versions `3` and `4-mini` are supported. */
     eviVersion: string;
     languageModel?: Hume.empathicVoice.PostedLanguageModel;
     /** Name applied to all versions of a particular Config. */
@@ -51,8 +51,9 @@ export interface PostedConfig {
     timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
     /** Tool specification for a Config. */
     tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
-    /** Description that is appended to a specific version of a Config. */
+    /** An optional description of the Config version. */
     versionDescription?: string;
+    /** A voice specification associated with this Config. */
     voice?: Hume.empathicVoice.VoiceRef;
     /** Webhook config specifications for each subscriber. */
     webhooks?: (Hume.empathicVoice.PostedWebhookSpec | undefined)[];
