@@ -3,7 +3,9 @@
 import type * as Hume from "../../../index.js";
 
 /**
- * Collection of event_message specs to be returned from the server
+ * Collection of event messages returned by the server.
+ *
+ * Event messages are sent by the server when specific events occur during a chat session. These messages are used to configure behaviors for EVI, such as controlling how EVI starts a new conversation.
  */
 export interface ReturnEventMessageSpecs {
     onInactivityTimeout?: Hume.empathicVoice.ReturnEventMessageSpec;
