@@ -17,6 +17,10 @@ export const WebhookEventChatEnded: core.serialization.ObjectSchema<
         endReason: core.serialization.property("end_reason", WebhookEventChatStatus),
         endTime: core.serialization.property("end_time", core.serialization.number()),
         eventName: core.serialization.property("event_name", core.serialization.stringLiteral("chat_ended").optional()),
+        twilioMetadata: core.serialization.property(
+            "twilio_metadata",
+            core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+        ),
     })
     .extend(WebhookEventBase);
 
@@ -28,5 +32,6 @@ export declare namespace WebhookEventChatEnded {
         end_reason: WebhookEventChatStatus.Raw;
         end_time: number;
         event_name?: "chat_ended" | null;
+        twilio_metadata?: Record<string, string | null | undefined> | null;
     }
 }
