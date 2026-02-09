@@ -20,7 +20,7 @@ export interface PromptsListPromptsRequest {
      * For example, if `page_size` is set to 10, each page will include up to 10 items. Defaults to 10.
      */
     pageSize?: number;
-    /** Only include the most recent version of each prompt in the list. */
+    /** By default, `restrict_to_most_recent` is set to true, returning only the latest version of each prompt. To include all versions of each prompt in the list, set `restrict_to_most_recent` to false. */
     restrictToMostRecent?: boolean;
     /** Filter to only include prompts with name. */
     name?: string;
