@@ -228,7 +228,7 @@ await client.tts.synthesizeFileStreaming({
 </dl>
 </details>
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream&lt;Hume.TtsOutput&gt;</code></summary>
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">synthesizeJsonStreaming</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
 <dl>
 <dd>
 
@@ -304,7 +304,7 @@ for await (const item of response) {
 </dl>
 </details>
 
-<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">convertVoiceJson</a>({ ...params }) -> core.Stream&lt;Hume.TtsOutput&gt;</code></summary>
+<details><summary><code>client.tts.<a href="/src/api/resources/tts/client/Client.ts">convertVoiceJson</a>({ ...params }) -> core.Stream<Hume.TtsOutput></code></summary>
 <dl>
 <dd>
 
@@ -357,7 +357,7 @@ for await (const item of response) {
 </details>
 
 ## Tts Voices
-<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Hume.ReturnVoice, Hume.ReturnPagedVoices&gt;</code></summary>
+<details><summary><code>client.tts.voices.<a href="/src/api/resources/tts/resources/voices/client/Client.ts">list</a>({ ...params }) -> core.Page<Hume.ReturnVoice, Hume.ReturnPagedVoices></code></summary>
 <dl>
 <dd>
 
@@ -644,7 +644,7 @@ await client.empathicVoice.controlPlane.send("chat_id", {
 </details>
 
 ## EmpathicVoice ChatGroups
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> core.Page&lt;Hume.ReturnChatGroup, Hume.ReturnPagedChatGroups&gt;</code></summary>
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroups</a>({ ...params }) -> core.Page<Hume.ReturnChatGroup, Hume.ReturnPagedChatGroups></code></summary>
 <dl>
 <dd>
 
@@ -879,7 +879,7 @@ await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cd
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> core.Page&lt;Hume.ReturnChatEvent, Hume.ReturnChatGroupPagedEvents&gt;</code></summary>
+<details><summary><code>client.empathicVoice.chatGroups.<a href="/src/api/resources/empathicVoice/resources/chatGroups/client/Client.ts">listChatGroupEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatGroupPagedEvents></code></summary>
 <dl>
 <dd>
 
@@ -971,7 +971,7 @@ const response = page.response;
 </details>
 
 ## EmpathicVoice Chats
-<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> core.Page&lt;Hume.ReturnChat, Hume.ReturnPagedChats&gt;</code></summary>
+<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChats</a>({ ...params }) -> core.Page<Hume.ReturnChat, Hume.ReturnPagedChats></code></summary>
 <dl>
 <dd>
 
@@ -1054,7 +1054,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> core.Page&lt;Hume.ReturnChatEvent, Hume.ReturnChatPagedEvents&gt;</code></summary>
+<details><summary><code>client.empathicVoice.chats.<a href="/src/api/resources/empathicVoice/resources/chats/client/Client.ts">listChatEvents</a>(id, { ...params }) -> core.Page<Hume.ReturnChatEvent, Hume.ReturnChatPagedEvents></code></summary>
 <dl>
 <dd>
 
@@ -1209,7 +1209,7 @@ await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0"
 </details>
 
 ## EmpathicVoice Configs
-<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> core.Page&lt;Hume.ReturnConfig, Hume.ReturnPagedConfigs&gt;</code></summary>
+<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigs</a>({ ...params }) -> core.Page<Hume.ReturnConfig, Hume.ReturnPagedConfigs></code></summary>
 <dl>
 <dd>
 
@@ -1387,7 +1387,7 @@ await client.empathicVoice.configs.createConfig({
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> core.Page&lt;Hume.ReturnConfig, Hume.ReturnPagedConfigs&gt;</code></summary>
+<details><summary><code>client.empathicVoice.configs.<a href="/src/api/resources/empathicVoice/resources/configs/client/Client.ts">listConfigVersions</a>(id, { ...params }) -> core.Page<Hume.ReturnConfig, Hume.ReturnPagedConfigs></code></summary>
 <dl>
 <dd>
 
@@ -1966,7 +1966,7 @@ Version numbers are integer values representing different iterations of the Conf
 </details>
 
 ## EmpathicVoice Prompts
-<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> core.Page&lt;(Hume.ReturnPrompt | undefined), Hume.ReturnPagedPrompts&gt;</code></summary>
+<details><summary><code>client.empathicVoice.prompts.<a href="/src/api/resources/empathicVoice/resources/prompts/client/Client.ts">listPrompts</a>({ ...params }) -> core.Page<(Hume.ReturnPrompt | undefined), Hume.ReturnPagedPrompts></code></summary>
 <dl>
 <dd>
 
@@ -2654,7 +2654,7 @@ Version numbers are integer values representing different iterations of the Prom
 </details>
 
 ## EmpathicVoice Tools
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page&lt;(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools&gt;</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listTools</a>({ ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
 <dl>
 <dd>
 
@@ -2808,7 +2808,7 @@ await client.empathicVoice.tools.createTool({
 </dl>
 </details>
 
-<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> core.Page&lt;(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools&gt;</code></summary>
+<details><summary><code>client.empathicVoice.tools.<a href="/src/api/resources/empathicVoice/resources/tools/client/Client.ts">listToolVersions</a>(id, { ...params }) -> core.Page<(Hume.ReturnUserDefinedTool | undefined), Hume.ReturnPagedUserDefinedTools></code></summary>
 <dl>
 <dd>
 

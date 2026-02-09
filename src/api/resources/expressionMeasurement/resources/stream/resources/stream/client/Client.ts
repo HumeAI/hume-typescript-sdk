@@ -12,8 +12,6 @@ export declare namespace StreamClient {
 
     export interface ConnectArgs {
         "X-Hume-Api-Key": string;
-        /** Additional query parameters to send with the websocket connect request. */
-        queryParams?: Record<string, unknown>;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, string>;
         /** Enable debug mode on the websocket. Defaults to false. */
@@ -31,7 +29,7 @@ export class StreamClient {
     }
 
     public async connect(args: StreamClient.ConnectArgs): Promise<StreamSocket> {
-        const { queryParams, headers, debug, reconnectAttempts } = args;
+        const { headers, debug, reconnectAttempts } = args;
         const _headers: Record<string, unknown> = mergeHeaders(
             mergeOnlyDefinedHeaders({ "X-Hume-Api-Key": args["X-Hume-Api-Key"] }),
             headers,
@@ -43,10 +41,7 @@ export class StreamClient {
                 "/models",
             ),
             protocols: [],
-            queryParameters: (queryParams ?? {}) as Record<
-                string,
-                string | object | string[] | object[] | null | undefined
-            >,
+            queryParameters: {},
             headers: _headers,
             options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
         });
