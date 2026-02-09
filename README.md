@@ -71,7 +71,7 @@ hume.emapthicVoice. // APIs specific to Empathic Voice
 
 ## Websockets
 
-The SDK supports interacting with both WebSocket and REST APIs.
+The SDK supports interacting with both WebSocket and REST APIs.  
 
 ### Request-Reply
 
