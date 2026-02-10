@@ -43,10 +43,7 @@ export class StreamClient {
                 "/models",
             ),
             protocols: [],
-            queryParameters: (queryParams ?? {}) as Record<
-                string,
-                string | object | string[] | object[] | null | undefined
-            >,
+            queryParameters: queryParams ?? {},
             headers: _headers,
             options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
         });
