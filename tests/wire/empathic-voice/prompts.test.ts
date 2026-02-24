@@ -205,13 +205,13 @@ describe("PromptsClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/v0/evi/prompts/af699d45-2985-42cc-91b9-af9e5da3bac5")
+            .get("/v0/evi/prompts/your-prompt-id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5");
+        const response = await client.empathicVoice.prompts.listPromptVersions("your-prompt-id");
         expect(response).toEqual({
             pageNumber: 0,
             pageSize: 10,
@@ -270,20 +270,17 @@ describe("PromptsClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/v0/evi/prompts/af699d45-2985-42cc-91b9-af9e5da3bac5")
+            .post("/v0/evi/prompts/your-prompt-id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.createPromptVersion(
-            "af699d45-2985-42cc-91b9-af9e5da3bac5",
-            {
-                text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
-                versionDescription: "This is an updated version of the Weather Assistant Prompt.",
-            },
-        );
+        const response = await client.empathicVoice.prompts.createPromptVersion("your-prompt-id", {
+            text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
+            versionDescription: "This is an updated version of the Weather Assistant Prompt.",
+        });
         expect(response).toEqual({
             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
             version: 1,
@@ -329,14 +326,9 @@ describe("PromptsClient", () => {
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
-        server
-            .mockEndpoint()
-            .delete("/v0/evi/prompts/af699d45-2985-42cc-91b9-af9e5da3bac5")
-            .respondWith()
-            .statusCode(200)
-            .build();
+        server.mockEndpoint().delete("/v0/evi/prompts/your-prompt-id").respondWith().statusCode(200).build();
 
-        const response = await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5");
+        const response = await client.empathicVoice.prompts.deletePrompt("your-prompt-id");
         expect(response).toEqual(undefined);
     });
 
@@ -382,13 +374,13 @@ describe("PromptsClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/v0/evi/prompts/af699d45-2985-42cc-91b9-af9e5da3bac5/version/0")
+            .get("/v0/evi/prompts/your-prompt-id/version/0")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0);
+        const response = await client.empathicVoice.prompts.getPromptVersion("your-prompt-id", 0);
         expect(response).toEqual({
             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
             version: 0,
@@ -431,17 +423,9 @@ describe("PromptsClient", () => {
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
-        server
-            .mockEndpoint()
-            .delete("/v0/evi/prompts/af699d45-2985-42cc-91b9-af9e5da3bac5/version/1")
-            .respondWith()
-            .statusCode(200)
-            .build();
+        server.mockEndpoint().delete("/v0/evi/prompts/your-prompt-id/version/1").respondWith().statusCode(200).build();
 
-        const response = await client.empathicVoice.prompts.deletePromptVersion(
-            "af699d45-2985-42cc-91b9-af9e5da3bac5",
-            1,
-        );
+        const response = await client.empathicVoice.prompts.deletePromptVersion("your-prompt-id", 1);
         expect(response).toEqual(undefined);
     });
 
@@ -487,20 +471,16 @@ describe("PromptsClient", () => {
         };
         server
             .mockEndpoint()
-            .patch("/v0/evi/prompts/af699d45-2985-42cc-91b9-af9e5da3bac5/version/1")
+            .patch("/v0/evi/prompts/your-prompt-id/version/1")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.prompts.updatePromptDescription(
-            "af699d45-2985-42cc-91b9-af9e5da3bac5",
-            1,
-            {
-                versionDescription: "This is an updated version_description.",
-            },
-        );
+        const response = await client.empathicVoice.prompts.updatePromptDescription("your-prompt-id", 1, {
+            versionDescription: "This is an updated version_description.",
+        });
         expect(response).toEqual({
             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
             version: 1,

@@ -12,5 +12,6 @@ export const ModelProviderEnum = {
     Perplexity: "PERPLEXITY",
     Sambanova: "SAMBANOVA",
     Cerebras: "CEREBRAS",
+    XAi: "X_AI",
 } as const;
 export type ModelProviderEnum = (typeof ModelProviderEnum)[keyof typeof ModelProviderEnum];

@@ -7,7 +7,7 @@ import type * as Hume from "../../../../../../index.js";
  *     {
  *         name: "Weather Assistant Config",
  *         prompt: {
- *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+ *             id: "",
  *             version: 0
  *         },
  *         eviVersion: "3",
