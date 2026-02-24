@@ -246,7 +246,7 @@ describe("ToolsClient", () => {
         };
         server
             .mockEndpoint({ once: false })
-            .get("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea")
+            .get("/v0/evi/tools/your-tool-id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -274,7 +274,7 @@ describe("ToolsClient", () => {
                 },
             ],
         };
-        const page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+        const page = await client.empathicVoice.tools.listToolVersions("your-tool-id");
 
         expect(expected.toolsPage).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -336,14 +336,14 @@ describe("ToolsClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea")
+            .post("/v0/evi/tools/your-tool-id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+        const response = await client.empathicVoice.tools.createToolVersion("your-tool-id", {
             parameters:
                 '{ "type": "object", "properties": { "location": { "type": "string", "description": "The city and state, e.g. San Francisco, CA" }, "format": { "type": "string", "enum": ["celsius", "fahrenheit", "kelvin"], "description": "The temperature unit to use. Infer this from the users location." } }, "required": ["location", "format"] }',
             versionDescription:
@@ -401,14 +401,9 @@ describe("ToolsClient", () => {
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
-        server
-            .mockEndpoint()
-            .delete("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea")
-            .respondWith()
-            .statusCode(200)
-            .build();
+        server.mockEndpoint().delete("/v0/evi/tools/your-tool-id").respondWith().statusCode(200).build();
 
-        const response = await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
+        const response = await client.empathicVoice.tools.deleteTool("your-tool-id");
         expect(response).toEqual(undefined);
     });
 
@@ -459,13 +454,13 @@ describe("ToolsClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea/version/1")
+            .get("/v0/evi/tools/your-tool-id/version/1")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+        const response = await client.empathicVoice.tools.getToolVersion("your-tool-id", 1);
         expect(response).toEqual({
             toolType: "FUNCTION",
             id: "00183a3f-79ba-413d-9f3b-609864268bea",
@@ -513,14 +508,9 @@ describe("ToolsClient", () => {
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
-        server
-            .mockEndpoint()
-            .delete("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea/version/1")
-            .respondWith()
-            .statusCode(200)
-            .build();
+        server.mockEndpoint().delete("/v0/evi/tools/version/1").respondWith().statusCode(200).build();
 
-        const response = await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+        const response = await client.empathicVoice.tools.deleteToolVersion("", 1);
         expect(response).toEqual(undefined);
     });
 
@@ -574,21 +564,17 @@ describe("ToolsClient", () => {
         };
         server
             .mockEndpoint()
-            .patch("/v0/evi/tools/00183a3f-79ba-413d-9f3b-609864268bea/version/1")
+            .patch("/v0/evi/tools/your-tool-id/version/1")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.tools.updateToolDescription(
-            "00183a3f-79ba-413d-9f3b-609864268bea",
-            1,
-            {
-                versionDescription:
-                    "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
-            },
-        );
+        const response = await client.empathicVoice.tools.updateToolDescription("your-tool-id", 1, {
+            versionDescription:
+                "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region.",
+        });
         expect(response).toEqual({
             toolType: "FUNCTION",
             id: "00183a3f-79ba-413d-9f3b-609864268bea",

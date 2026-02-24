@@ -36,7 +36,7 @@ export class ChatGroupsClient {
      *         pageNumber: 0,
      *         pageSize: 1,
      *         ascendingOrder: true,
-     *         configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+     *         configId: "your-config-id"
      *     })
      */
     public async listChatGroups(
@@ -136,7 +136,7 @@ export class ChatGroupsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+     *     await client.empathicVoice.chatGroups.getChatGroup("your-chat-group-id", {
      *         pageNumber: 0,
      *         pageSize: 1,
      *         ascendingOrder: true
@@ -231,7 +231,7 @@ export class ChatGroupsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+     *     await client.empathicVoice.chatGroups.getAudio("your-chat-group-id", {
      *         pageNumber: 0,
      *         pageSize: 10,
      *         ascendingOrder: true
@@ -330,7 +330,7 @@ export class ChatGroupsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+     *     await client.empathicVoice.chatGroups.listChatGroupEvents("your-chat-group-id", {
      *         pageNumber: 0,
      *         pageSize: 3,
      *         ascendingOrder: true
