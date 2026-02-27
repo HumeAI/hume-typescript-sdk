@@ -573,9 +573,9 @@ describe("ToolsClient", () => {
             },
         });
 
-        server.mockEndpoint().delete("/v0/evi/tools//version/1").respondWith().statusCode(200).build();
+        server.mockEndpoint().delete("/v0/evi/tools/your-tool-id/version/1").respondWith().statusCode(200).build();
 
-        const response = await client.empathicVoice.tools.deleteToolVersion("", 1);
+        const response = await client.empathicVoice.tools.deleteToolVersion("your-tool-id", 1);
         expect(response).toEqual(undefined);
     });
 
