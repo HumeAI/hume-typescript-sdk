@@ -8,6 +8,9 @@ import type * as Hume from "../../../../../index.js";
 import { mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import { ChatSocket } from "./Socket.js";
 
+/** Maximum systemPrompt length when passed at connect (serialized as query param). */
+const MAX_SYSTEM_PROMPT_LENGTH = 1000;
+
 export declare namespace ChatClient {
     export type Options = BaseClientOptions;
 
@@ -90,6 +93,13 @@ export class ChatClient {
             for (const [name, value] of Object.entries(queryParams)) {
                 _queryParams[name] = value;
             }
+        }
+
+        // Warn when systemPrompt exceeds recommended length - it's serialized as a query param with URL length limits
+        if (sessionSettings?.systemPrompt != null && sessionSettings.systemPrompt.length > MAX_SYSTEM_PROMPT_LENGTH) {
+            console.warn(
+                `[Hume SDK] systemPrompt (${sessionSettings.systemPrompt.length} chars) exceeds recommended max of ${MAX_SYSTEM_PROMPT_LENGTH} when passed at connect. The connection may fail or the prompt may be truncated. Consider using sendSessionSettings() after connecting for longer prompts.`,
+            );
         }
 
         const _headers: Record<string, unknown> = mergeOnlyDefinedHeaders({
