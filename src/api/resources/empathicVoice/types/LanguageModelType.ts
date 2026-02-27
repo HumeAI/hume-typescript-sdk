@@ -2,7 +2,6 @@
 
 export const LanguageModelType = {
     Claude37SonnetLatest: "claude-3-7-sonnet-latest",
-    ClaudeOpus46: "claude-opus-4-6",
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
     Claude35HaikuLatest: "claude-3-5-haiku-latest",
     Claude35Sonnet20240620: "claude-3-5-sonnet-20240620",

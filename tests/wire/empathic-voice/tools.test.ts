@@ -10,12 +10,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -114,12 +109,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
@@ -141,12 +131,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = {
             name: "get_current_weather",
@@ -208,12 +193,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = { name: "name", parameters: "parameters" };
         const rawResponseBody = {};
@@ -239,12 +219,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -312,12 +287,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
@@ -339,12 +309,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = {
             parameters:
@@ -408,12 +373,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = { parameters: "parameters" };
         const rawResponseBody = {};
@@ -438,12 +398,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         server.mockEndpoint().delete("/v0/evi/tools/your-tool-id").respondWith().statusCode(200).build();
@@ -457,12 +412,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
@@ -484,12 +434,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -538,12 +483,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
@@ -565,12 +505,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         server.mockEndpoint().delete("/v0/evi/tools/your-tool-id/version/1").respondWith().statusCode(200).build();
@@ -584,12 +519,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
 
         const rawResponseBody = {};
@@ -611,12 +541,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = {
             version_description:
@@ -672,12 +597,7 @@ describe("ToolsClient", () => {
         const client = new HumeClient({
             maxRetries: 0,
             apiKey: "test",
-            environment: {
-                base: server.baseUrl,
-                evi: server.baseUrl,
-                tts: server.baseUrl,
-                stream: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
         const rawRequestBody = {};
         const rawResponseBody = {};
