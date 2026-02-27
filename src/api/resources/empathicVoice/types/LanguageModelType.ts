@@ -2,6 +2,7 @@
 
 export const LanguageModelType = {
     Claude37SonnetLatest: "claude-3-7-sonnet-latest",
+    ClaudeOpus46: "claude-opus-4-6",
     Claude35SonnetLatest: "claude-3-5-sonnet-latest",
     Claude35HaikuLatest: "claude-3-5-haiku-latest",
     Claude35Sonnet20240620: "claude-3-5-sonnet-20240620",
@@ -25,7 +26,6 @@ export const LanguageModelType = {
     Gemini20Flash: "gemini-2.0-flash",
     Gemini25Flash: "gemini-2.5-flash",
     Gemini25FlashPreview0417: "gemini-2.5-flash-preview-04-17",
-    Gemini3FlashPreview: "gemini-3-flash-preview",
     Gpt4Turbo: "gpt-4-turbo",
     Gpt4TurboPreview: "gpt-4-turbo-preview",
     Gpt35Turbo0125: "gpt-3.5-turbo-0125",

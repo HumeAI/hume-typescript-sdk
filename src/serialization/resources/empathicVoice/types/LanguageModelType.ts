@@ -9,6 +9,7 @@ export const LanguageModelType: core.serialization.Schema<
     Hume.empathicVoice.LanguageModelType
 > = core.serialization.enum_([
     "claude-3-7-sonnet-latest",
+    "claude-opus-4-6",
     "claude-3-5-sonnet-latest",
     "claude-3-5-haiku-latest",
     "claude-3-5-sonnet-20240620",
@@ -32,7 +33,6 @@ export const LanguageModelType: core.serialization.Schema<
     "gemini-2.0-flash",
     "gemini-2.5-flash",
     "gemini-2.5-flash-preview-04-17",
-    "gemini-3-flash-preview",
     "gpt-4-turbo",
     "gpt-4-turbo-preview",
     "gpt-3.5-turbo-0125",
@@ -79,6 +79,7 @@ export const LanguageModelType: core.serialization.Schema<
 export declare namespace LanguageModelType {
     export type Raw =
         | "claude-3-7-sonnet-latest"
+        | "claude-opus-4-6"
         | "claude-3-5-sonnet-latest"
         | "claude-3-5-haiku-latest"
         | "claude-3-5-sonnet-20240620"
@@ -102,7 +103,6 @@ export declare namespace LanguageModelType {
         | "gemini-2.0-flash"
         | "gemini-2.5-flash"
         | "gemini-2.5-flash-preview-04-17"
-        | "gemini-3-flash-preview"
         | "gpt-4-turbo"
         | "gpt-4-turbo-preview"
         | "gpt-3.5-turbo-0125"
