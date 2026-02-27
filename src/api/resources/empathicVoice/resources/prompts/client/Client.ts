@@ -230,7 +230,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5")
+     *     await client.empathicVoice.prompts.listPromptVersions("your-prompt-id")
      */
     public listPromptVersions(
         id: string,
@@ -322,7 +322,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+     *     await client.empathicVoice.prompts.createPromptVersion("your-prompt-id", {
      *         text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
      *         versionDescription: "This is an updated version of the Weather Assistant Prompt."
      *     })
@@ -416,7 +416,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5")
+     *     await client.empathicVoice.prompts.deletePrompt("your-prompt-id")
      */
     public deletePrompt(id: string, requestOptions?: PromptsClient.RequestOptions): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__deletePrompt(id, requestOptions));
@@ -488,7 +488,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+     *     await client.empathicVoice.prompts.updatePromptName("your-prompt-id", {
      *         name: "Updated Weather Assistant Prompt Name"
      *     })
      */
@@ -578,7 +578,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0)
+     *     await client.empathicVoice.prompts.getPromptVersion("your-prompt-id", 0)
      */
     public getPromptVersion(
         id: string,
@@ -673,7 +673,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1)
+     *     await client.empathicVoice.prompts.deletePromptVersion("your-prompt-id", 1)
      */
     public deletePromptVersion(
         id: string,
@@ -760,7 +760,7 @@ export class PromptsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
+     *     await client.empathicVoice.prompts.updatePromptDescription("your-prompt-id", 1, {
      *         versionDescription: "This is an updated version_description."
      *     })
      */

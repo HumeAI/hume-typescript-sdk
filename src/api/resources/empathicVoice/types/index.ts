@@ -43,6 +43,7 @@ export * from "./PostedTimeoutSpecsMaxDuration.js";
 export * from "./PostedUserDefinedToolSpec.js";
 export * from "./PostedWebhookEventType.js";
 export * from "./PostedWebhookSpec.js";
+export * from "./PromptExpansionSpec.js";
 export * from "./ProsodyInference.js";
 export * from "./ResumeAssistantMessage.js";
 export * from "./ReturnBuiltinTool.js";

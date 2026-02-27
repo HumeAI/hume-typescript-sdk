@@ -19,6 +19,7 @@ export const ModelProviderEnum: core.serialization.Schema<
     "PERPLEXITY",
     "SAMBANOVA",
     "CEREBRAS",
+    "X_AI",
 ]);
 
 export declare namespace ModelProviderEnum {
@@ -33,5 +34,6 @@ export declare namespace ModelProviderEnum {
         | "AMAZON_BEDROCK"
         | "PERPLEXITY"
         | "SAMBANOVA"
-        | "CEREBRAS";
+        | "CEREBRAS"
+        | "X_AI";
 }

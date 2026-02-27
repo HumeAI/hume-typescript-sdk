@@ -6,7 +6,7 @@
  *         pageNumber: 0,
  *         pageSize: 1,
  *         ascendingOrder: true,
- *         configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+ *         configId: "your-config-id"
  *     }
  */
 export interface ChatGroupsListChatGroupsRequest {

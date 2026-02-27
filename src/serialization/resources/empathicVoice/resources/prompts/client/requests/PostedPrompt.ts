@@ -3,12 +3,14 @@
 import type * as Hume from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { PromptExpansionSpec } from "../../../../types/PromptExpansionSpec.js";
 
 export const PostedPrompt: core.serialization.Schema<
     serializers.empathicVoice.PostedPrompt.Raw,
     Hume.empathicVoice.PostedPrompt
 > = core.serialization.object({
     name: core.serialization.string(),
+    promptExpansion: core.serialization.property("prompt_expansion", PromptExpansionSpec.optional()),
     text: core.serialization.string(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
 });
@@ -16,6 +18,7 @@ export const PostedPrompt: core.serialization.Schema<
 export declare namespace PostedPrompt {
     export interface Raw {
         name: string;
+        prompt_expansion?: PromptExpansionSpec.Raw | null;
         text: string;
         version_description?: string | null;
     }

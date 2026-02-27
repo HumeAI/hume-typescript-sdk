@@ -153,7 +153,7 @@ describe("ChatsClient", () => {
         };
         server
             .mockEndpoint({ once: false })
-            .get("/v0/evi/chats/470a49f6-1dec-4afe-8b61-035d3b2d63b0")
+            .get("/v0/evi/chats/your-chat-id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -211,7 +211,7 @@ describe("ChatsClient", () => {
                 version: 0,
             },
         };
-        const page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+        const page = await client.empathicVoice.chats.listChatEvents("your-chat-id", {
             pageNumber: 0,
             pageSize: 3,
             ascendingOrder: true,
@@ -265,13 +265,13 @@ describe("ChatsClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/v0/evi/chats/470a49f6-1dec-4afe-8b61-035d3b2d63b0/audio")
+            .get("/v0/evi/chats/your-chat-id/audio")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0");
+        const response = await client.empathicVoice.chats.getAudio("your-chat-id");
         expect(response).toEqual({
             id: "470a49f6-1dec-4afe-8b61-035d3b2d63b0",
             userId: "e6235940-cfda-3988-9147-ff531627cf42",

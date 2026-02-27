@@ -1,6 +1,6 @@
 {
     "name": "hume",
-    "version": "0.15.13",
+    "version": "0.15.14",
     "private": false,
     "repository": {
         "type": "git",
@@ -12,7 +12,6 @@
     "types": "./dist/cjs/index.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/cjs/index.d.ts",
             "import": {
                 "types": "./dist/esm/index.d.mts",
                 "default": "./dist/esm/index.mjs"
@@ -24,7 +23,6 @@
             "default": "./dist/cjs/index.js"
         },
         "./serialization": {
-            "types": "./dist/cjs/serialization/index.d.ts",
             "import": {
                 "types": "./dist/esm/serialization/index.d.mts",
                 "default": "./dist/esm/serialization/index.mjs"
@@ -34,6 +32,160 @@
                 "default": "./dist/cjs/serialization/index.js"
             },
             "default": "./dist/cjs/serialization/index.js"
+        },
+        "./tts": {
+            "import": {
+                "types": "./dist/esm/api/resources/tts/exports.d.mts",
+                "default": "./dist/esm/api/resources/tts/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/tts/exports.d.ts",
+                "default": "./dist/cjs/api/resources/tts/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/tts/exports.js"
+        },
+        "./tts/voices": {
+            "import": {
+                "types": "./dist/esm/api/resources/tts/resources/voices/exports.d.mts",
+                "default": "./dist/esm/api/resources/tts/resources/voices/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/tts/resources/voices/exports.d.ts",
+                "default": "./dist/cjs/api/resources/tts/resources/voices/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/tts/resources/voices/exports.js"
+        },
+        "./tts/streamInput": {
+            "import": {
+                "types": "./dist/esm/api/resources/tts/resources/streamInput/exports.d.mts",
+                "default": "./dist/esm/api/resources/tts/resources/streamInput/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/tts/resources/streamInput/exports.d.ts",
+                "default": "./dist/cjs/api/resources/tts/resources/streamInput/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/tts/resources/streamInput/exports.js"
+        },
+        "./empathicVoice": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/exports.js"
+        },
+        "./empathicVoice/controlPlane": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/controlPlane/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/controlPlane/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/controlPlane/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/controlPlane/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/controlPlane/exports.js"
+        },
+        "./empathicVoice/chatGroups": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/chatGroups/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/chatGroups/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/chatGroups/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/chatGroups/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/chatGroups/exports.js"
+        },
+        "./empathicVoice/chats": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/chats/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/chats/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/chats/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/chats/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/chats/exports.js"
+        },
+        "./empathicVoice/configs": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/configs/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/configs/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/configs/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/configs/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/configs/exports.js"
+        },
+        "./empathicVoice/prompts": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/prompts/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/prompts/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/prompts/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/prompts/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/prompts/exports.js"
+        },
+        "./empathicVoice/tools": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/tools/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/tools/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/tools/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/tools/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/tools/exports.js"
+        },
+        "./empathicVoice/chat": {
+            "import": {
+                "types": "./dist/esm/api/resources/empathicVoice/resources/chat/exports.d.mts",
+                "default": "./dist/esm/api/resources/empathicVoice/resources/chat/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/empathicVoice/resources/chat/exports.d.ts",
+                "default": "./dist/cjs/api/resources/empathicVoice/resources/chat/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/empathicVoice/resources/chat/exports.js"
+        },
+        "./expressionMeasurement": {
+            "import": {
+                "types": "./dist/esm/api/resources/expressionMeasurement/exports.d.mts",
+                "default": "./dist/esm/api/resources/expressionMeasurement/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/expressionMeasurement/exports.d.ts",
+                "default": "./dist/cjs/api/resources/expressionMeasurement/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/expressionMeasurement/exports.js"
+        },
+        "./expressionMeasurement/batch": {
+            "import": {
+                "types": "./dist/esm/api/resources/expressionMeasurement/resources/batch/exports.d.mts",
+                "default": "./dist/esm/api/resources/expressionMeasurement/resources/batch/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/expressionMeasurement/resources/batch/exports.d.ts",
+                "default": "./dist/cjs/api/resources/expressionMeasurement/resources/batch/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/expressionMeasurement/resources/batch/exports.js"
+        },
+        "./expressionMeasurement/stream": {
+            "import": {
+                "types": "./dist/esm/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.d.mts",
+                "default": "./dist/esm/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.d.ts",
+                "default": "./dist/cjs/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.js"
         },
         "./package.json": "./package.json"
     },
@@ -70,14 +222,15 @@
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
         "typescript": "~5.7.2",
-        "@biomejs/biome": "2.3.11",
+        "@biomejs/biome": "2.4.3",
         "@types/uuid": "9.0.7"
     },
     "browser": {
         "fs": false,
         "os": false,
         "path": false,
-        "stream": false
+        "stream": false,
+        "crypto": false
     },
     "packageManager": "pnpm@10.20.0",
     "engines": {

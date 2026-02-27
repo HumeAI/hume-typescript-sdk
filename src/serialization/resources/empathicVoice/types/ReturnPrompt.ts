@@ -3,6 +3,7 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
+import { PromptExpansionSpec } from "./PromptExpansionSpec.js";
 
 export const ReturnPrompt: core.serialization.ObjectSchema<
     serializers.empathicVoice.ReturnPrompt.Raw,
@@ -12,6 +13,7 @@ export const ReturnPrompt: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number()),
     name: core.serialization.string(),
+    promptExpansion: core.serialization.property("prompt_expansion", PromptExpansionSpec.optional()),
     text: core.serialization.string(),
     version: core.serialization.number(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
@@ -24,6 +26,7 @@ export declare namespace ReturnPrompt {
         id: string;
         modified_on: number;
         name: string;
+        prompt_expansion?: PromptExpansionSpec.Raw | null;
         text: string;
         version: number;
         version_description?: string | null;

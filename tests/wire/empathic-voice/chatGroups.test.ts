@@ -57,7 +57,7 @@ describe("ChatGroupsClient", () => {
             pageNumber: 0,
             pageSize: 1,
             ascendingOrder: true,
-            configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3",
+            configId: "your-config-id",
         });
 
         expect(expected.chatGroupsPage).toEqual(page.data);
@@ -119,13 +119,13 @@ describe("ChatGroupsClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/v0/evi/chat_groups/697056f0-6c7e-487d-9bd8-9c19df79f05f")
+            .get("/v0/evi/chat_groups/your-chat-group-id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+        const response = await client.empathicVoice.chatGroups.getChatGroup("your-chat-group-id", {
             pageNumber: 0,
             pageSize: 1,
             ascendingOrder: true,
@@ -206,13 +206,13 @@ describe("ChatGroupsClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/v0/evi/chat_groups/369846cf-6ad5-404d-905e-a8acb5cdfc78/audio")
+            .get("/v0/evi/chat_groups/your-chat-group-id/audio")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+        const response = await client.empathicVoice.chatGroups.getAudio("your-chat-group-id", {
             pageNumber: 0,
             pageSize: 10,
             ascendingOrder: true,
@@ -315,7 +315,7 @@ describe("ChatGroupsClient", () => {
         };
         server
             .mockEndpoint({ once: false })
-            .get("/v0/evi/chat_groups/697056f0-6c7e-487d-9bd8-9c19df79f05f/events")
+            .get("/v0/evi/chat_groups/your-chat-group-id/events")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -364,7 +364,7 @@ describe("ChatGroupsClient", () => {
                 },
             ],
         };
-        const page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+        const page = await client.empathicVoice.chatGroups.listChatGroupEvents("your-chat-group-id", {
             pageNumber: 0,
             pageSize: 3,
             ascendingOrder: true,
