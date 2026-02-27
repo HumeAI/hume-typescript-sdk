@@ -144,6 +144,7 @@ export class TtsClient {
      * Synthesizes one or more input texts into speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
      *
      * The response contains the generated audio file in the requested format.
+     *
      * @throws {@link Hume.tts.UnprocessableEntityError}
      */
     public synthesizeFile(
@@ -216,6 +217,7 @@ export class TtsClient {
 
     /**
      * Streams synthesized speech using the specified voice. If no voice is provided, a novel voice will be generated dynamically. Optionally, additional context can be included to influence the speech's style and prosody.
+     *
      * @throws {@link Hume.tts.UnprocessableEntityError}
      */
     public synthesizeFileStreaming(
@@ -323,7 +325,7 @@ export class TtsClient {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
-            responseType: "sse",
+            responseType: "streaming",
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -601,7 +603,7 @@ export class TtsClient {
             requestType: "file",
             duplex: _maybeEncodedRequest.duplex,
             body: _maybeEncodedRequest.body,
-            responseType: "sse",
+            responseType: "streaming",
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

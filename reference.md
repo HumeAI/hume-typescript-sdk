@@ -111,7 +111,7 @@ The response contains the generated audio file in the requested format.
 ```typescript
 await client.tts.synthesizeFile({
     context: {
-        generationId: "09ad914d-8e7f-40f8-a279-e34f07f7dab2"
+        generationId: ""
     },
     format: {
         type: "mp3"
@@ -466,7 +466,7 @@ Once saved, this voice can be reused in subsequent TTS requests, ensuring consis
 
 ```typescript
 await client.tts.voices.create({
-    generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
+    generationId: "",
     name: "David Hume"
 });
 
@@ -675,7 +675,7 @@ const pageableResponse = await client.empathicVoice.chatGroups.listChatGroups({
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true,
-    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+    configId: "your-config-id"
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -686,7 +686,7 @@ let page = await client.empathicVoice.chatGroups.listChatGroups({
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true,
-    configId: "1b60e1a0-cc59-424a-8d2c-189d354db3f3"
+    configId: "your-config-id"
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -756,7 +756,7 @@ Fetches a **ChatGroup** by ID, including a paginated list of **Chats** associate
 <dd>
 
 ```typescript
-await client.empathicVoice.chatGroups.getChatGroup("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+await client.empathicVoice.chatGroups.getChatGroup("your-chat-group-id", {
     pageNumber: 0,
     pageSize: 1,
     ascendingOrder: true
@@ -831,7 +831,7 @@ Fetches a paginated list of audio for each **Chat** within the specified **Chat 
 <dd>
 
 ```typescript
-await client.empathicVoice.chatGroups.getAudio("369846cf-6ad5-404d-905e-a8acb5cdfc78", {
+await client.empathicVoice.chatGroups.getAudio("your-chat-group-id", {
     pageNumber: 0,
     pageSize: 10,
     ascendingOrder: true
@@ -906,7 +906,7 @@ Fetches a paginated list of **Chat** events associated with a **Chat Group**.
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+const pageableResponse = await client.empathicVoice.chatGroups.listChatGroupEvents("your-chat-group-id", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true
@@ -916,7 +916,7 @@ for await (const item of pageableResponse) {
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.chatGroups.listChatGroupEvents("697056f0-6c7e-487d-9bd8-9c19df79f05f", {
+let page = await client.empathicVoice.chatGroups.listChatGroupEvents("your-chat-group-id", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true
@@ -1081,7 +1081,7 @@ Fetches a paginated list of **Chat** events.
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+const pageableResponse = await client.empathicVoice.chats.listChatEvents("your-chat-id", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true
@@ -1091,7 +1091,7 @@ for await (const item of pageableResponse) {
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+let page = await client.empathicVoice.chats.listChatEvents("your-chat-id", {
     pageNumber: 0,
     pageSize: 3,
     ascendingOrder: true
@@ -1172,7 +1172,7 @@ Fetches the audio of a previous **Chat**. For more details, see our guide on aud
 <dd>
 
 ```typescript
-await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0");
+await client.empathicVoice.chats.getAudio("your-chat-id");
 
 ```
 </dd>
@@ -1324,7 +1324,7 @@ For more details on configuration options and how to configure EVI, see our [con
 await client.empathicVoice.configs.createConfig({
     name: "Weather Assistant Config",
     prompt: {
-        id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+        id: "",
         version: 0
     },
     eviVersion: "3",
@@ -1416,13 +1416,13 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+const pageableResponse = await client.empathicVoice.configs.listConfigVersions("your-config-id");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+let page = await client.empathicVoice.configs.listConfigVersions("your-config-id");
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }
@@ -1501,11 +1501,11 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+await client.empathicVoice.configs.createConfigVersion("your-config-id", {
     versionDescription: "This is an updated version of the Weather Assistant Config.",
     eviVersion: "3",
     prompt: {
-        id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+        id: "",
         version: 0
     },
     voice: {
@@ -1607,7 +1607,7 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3");
+await client.empathicVoice.configs.deleteConfig("your-config-id");
 
 ```
 </dd>
@@ -1672,7 +1672,7 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+await client.empathicVoice.configs.updateConfigName("your-config-id", {
     name: "Updated Weather Assistant Config Name"
 });
 
@@ -1747,7 +1747,7 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1);
+await client.empathicVoice.configs.getConfigVersion("your-config-id", 1);
 
 ```
 </dd>
@@ -1826,7 +1826,7 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1);
+await client.empathicVoice.configs.deleteConfigVersion("your-config-id", 1);
 
 ```
 </dd>
@@ -1905,7 +1905,7 @@ For more details on configuration options and how to configure EVI, see our [con
 <dd>
 
 ```typescript
-await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1, {
+await client.empathicVoice.configs.updateConfigDescription("your-config-id", 1, {
     versionDescription: "This is an updated version_description."
 });
 
@@ -2146,7 +2146,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.listPromptVersions("af699d45-2985-42cc-91b9-af9e5da3bac5");
+await client.empathicVoice.prompts.listPromptVersions("your-prompt-id");
 
 ```
 </dd>
@@ -2219,7 +2219,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.createPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+await client.empathicVoice.prompts.createPromptVersion("your-prompt-id", {
     text: "<role>You are an updated version of an AI weather assistant providing users with accurate and up-to-date weather information. Respond to user queries concisely and clearly. Use simple language and avoid technical jargon. Provide temperature, precipitation, wind conditions, and any weather alerts. Include helpful tips if severe weather is expected.</role>",
     versionDescription: "This is an updated version of the Weather Assistant Prompt."
 });
@@ -2295,7 +2295,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.deletePrompt("af699d45-2985-42cc-91b9-af9e5da3bac5");
+await client.empathicVoice.prompts.deletePrompt("your-prompt-id");
 
 ```
 </dd>
@@ -2360,7 +2360,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.updatePromptName("af699d45-2985-42cc-91b9-af9e5da3bac5", {
+await client.empathicVoice.prompts.updatePromptName("your-prompt-id", {
     name: "Updated Weather Assistant Prompt Name"
 });
 
@@ -2435,7 +2435,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.getPromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 0);
+await client.empathicVoice.prompts.getPromptVersion("your-prompt-id", 0);
 
 ```
 </dd>
@@ -2514,7 +2514,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.deletePromptVersion("af699d45-2985-42cc-91b9-af9e5da3bac5", 1);
+await client.empathicVoice.prompts.deletePromptVersion("your-prompt-id", 1);
 
 ```
 </dd>
@@ -2593,7 +2593,7 @@ See our [prompting guide](/docs/speech-to-speech-evi/guides/phone-calling) for t
 <dd>
 
 ```typescript
-await client.empathicVoice.prompts.updatePromptDescription("af699d45-2985-42cc-91b9-af9e5da3bac5", 1, {
+await client.empathicVoice.prompts.updatePromptDescription("your-prompt-id", 1, {
     versionDescription: "This is an updated version_description."
 });
 
@@ -2837,13 +2837,13 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-const pageableResponse = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+const pageableResponse = await client.empathicVoice.tools.listToolVersions("your-tool-id");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea");
+let page = await client.empathicVoice.tools.listToolVersions("your-tool-id");
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }
@@ -2922,7 +2922,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+await client.empathicVoice.tools.createToolVersion("your-tool-id", {
     parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
     versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
     fallbackContent: "Unable to fetch current weather.",
@@ -3000,7 +3000,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea");
+await client.empathicVoice.tools.deleteTool("your-tool-id");
 
 ```
 </dd>
@@ -3065,7 +3065,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+await client.empathicVoice.tools.updateToolName("your-tool-id", {
     name: "get_current_temperature"
 });
 
@@ -3140,7 +3140,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+await client.empathicVoice.tools.getToolVersion("your-tool-id", 1);
 
 ```
 </dd>
@@ -3219,7 +3219,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1);
+await client.empathicVoice.tools.deleteToolVersion("", 1);
 
 ```
 </dd>
@@ -3298,7 +3298,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+await client.empathicVoice.tools.updateToolDescription("your-tool-id", 1, {
     versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
 });
 
@@ -3678,3 +3678,4 @@ await client.expressionMeasurement.batch.startInferenceJobFromLocalFile({
 </dd>
 </dl>
 </details>
+

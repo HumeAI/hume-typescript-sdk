@@ -3,17 +3,20 @@
 import type * as Hume from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { PromptExpansionSpec } from "../../../../types/PromptExpansionSpec.js";
 
 export const PostedPromptVersion: core.serialization.Schema<
     serializers.empathicVoice.PostedPromptVersion.Raw,
     Hume.empathicVoice.PostedPromptVersion
 > = core.serialization.object({
+    promptExpansion: core.serialization.property("prompt_expansion", PromptExpansionSpec.optional()),
     text: core.serialization.string(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
 });
 
 export declare namespace PostedPromptVersion {
     export interface Raw {
+        prompt_expansion?: PromptExpansionSpec.Raw | null;
         text: string;
         version_description?: string | null;
     }

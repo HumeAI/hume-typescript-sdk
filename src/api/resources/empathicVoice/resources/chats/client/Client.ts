@@ -136,7 +136,7 @@ export class ChatsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chats.listChatEvents("470a49f6-1dec-4afe-8b61-035d3b2d63b0", {
+     *     await client.empathicVoice.chats.listChatEvents("your-chat-id", {
      *         pageNumber: 0,
      *         pageSize: 3,
      *         ascendingOrder: true
@@ -238,7 +238,7 @@ export class ChatsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.chats.getAudio("470a49f6-1dec-4afe-8b61-035d3b2d63b0")
+     *     await client.empathicVoice.chats.getAudio("your-chat-id")
      */
     public getAudio(
         id: string,

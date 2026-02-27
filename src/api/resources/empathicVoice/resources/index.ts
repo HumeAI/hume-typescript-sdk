@@ -4,6 +4,7 @@ export * from "./chatGroups/client/requests/index.js";
 export * as chatGroups from "./chatGroups/index.js";
 export * from "./chats/client/requests/index.js";
 export * as chats from "./chats/index.js";
+export * as chatWebhooks from "./chatWebhooks/index.js";
 export * from "./configs/client/requests/index.js";
 export * as configs from "./configs/index.js";
 export * as controlPlane from "./controlPlane/index.js";
