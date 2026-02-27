@@ -140,7 +140,7 @@ export class ConfigsClient {
      *     await client.empathicVoice.configs.createConfig({
      *         name: "Weather Assistant Config",
      *         prompt: {
-     *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+     *             id: "",
      *             version: 0
      *         },
      *         eviVersion: "3",
@@ -257,7 +257,7 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.listConfigVersions("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
+     *     await client.empathicVoice.configs.listConfigVersions("your-config-id")
      */
     public async listConfigVersions(
         id: string,
@@ -358,11 +358,11 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.createConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+     *     await client.empathicVoice.configs.createConfigVersion("your-config-id", {
      *         versionDescription: "This is an updated version of the Weather Assistant Config.",
      *         eviVersion: "3",
      *         prompt: {
-     *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+     *             id: "",
      *             version: 0
      *         },
      *         voice: {
@@ -482,7 +482,7 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.deleteConfig("1b60e1a0-cc59-424a-8d2c-189d354db3f3")
+     *     await client.empathicVoice.configs.deleteConfig("your-config-id")
      */
     public deleteConfig(id: string, requestOptions?: ConfigsClient.RequestOptions): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__deleteConfig(id, requestOptions));
@@ -554,7 +554,7 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.updateConfigName("1b60e1a0-cc59-424a-8d2c-189d354db3f3", {
+     *     await client.empathicVoice.configs.updateConfigName("your-config-id", {
      *         name: "Updated Weather Assistant Config Name"
      *     })
      */
@@ -644,7 +644,7 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.getConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
+     *     await client.empathicVoice.configs.getConfigVersion("your-config-id", 1)
      */
     public getConfigVersion(
         id: string,
@@ -739,7 +739,7 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.deleteConfigVersion("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1)
+     *     await client.empathicVoice.configs.deleteConfigVersion("your-config-id", 1)
      */
     public deleteConfigVersion(
         id: string,
@@ -826,7 +826,7 @@ export class ConfigsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.configs.updateConfigDescription("1b60e1a0-cc59-424a-8d2c-189d354db3f3", 1, {
+     *     await client.empathicVoice.configs.updateConfigDescription("your-config-id", 1, {
      *         versionDescription: "This is an updated version_description."
      *     })
      */

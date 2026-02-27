@@ -88,7 +88,7 @@ describe("VoicesClient", () => {
             apiKey: "test",
             environment: { base: server.baseUrl, evi: server.baseUrl, tts: server.baseUrl, stream: server.baseUrl },
         });
-        const rawRequestBody = { generation_id: "795c949a-1510-4a80-9646-7d0863b023ab", name: "David Hume" };
+        const rawRequestBody = { generation_id: "", name: "David Hume" };
         const rawResponseBody = {
             id: "c42352c0-4566-455d-b180-0f654b65b525",
             name: "David Hume",
@@ -104,7 +104,7 @@ describe("VoicesClient", () => {
             .build();
 
         const response = await client.tts.voices.create({
-            generationId: "795c949a-1510-4a80-9646-7d0863b023ab",
+            generationId: "",
             name: "David Hume",
         });
         expect(response).toEqual({

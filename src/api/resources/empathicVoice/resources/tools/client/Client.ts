@@ -238,7 +238,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.listToolVersions("00183a3f-79ba-413d-9f3b-609864268bea")
+     *     await client.empathicVoice.tools.listToolVersions("your-tool-id")
      */
     public async listToolVersions(
         id: string,
@@ -344,7 +344,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.createToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *     await client.empathicVoice.tools.createToolVersion("your-tool-id", {
      *         parameters: "{ \"type\": \"object\", \"properties\": { \"location\": { \"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\" }, \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"description\": \"The temperature unit to use. Infer this from the users location.\" } }, \"required\": [\"location\", \"format\"] }",
      *         versionDescription: "Fetches current weather and uses celsius, fahrenheit, or kelvin based on location of user.",
      *         fallbackContent: "Unable to fetch current weather.",
@@ -440,7 +440,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.deleteTool("00183a3f-79ba-413d-9f3b-609864268bea")
+     *     await client.empathicVoice.tools.deleteTool("your-tool-id")
      */
     public deleteTool(id: string, requestOptions?: ToolsClient.RequestOptions): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__deleteTool(id, requestOptions));
@@ -512,7 +512,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.updateToolName("00183a3f-79ba-413d-9f3b-609864268bea", {
+     *     await client.empathicVoice.tools.updateToolName("your-tool-id", {
      *         name: "get_current_temperature"
      *     })
      */
@@ -602,7 +602,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.getToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
+     *     await client.empathicVoice.tools.getToolVersion("your-tool-id", 1)
      */
     public getToolVersion(
         id: string,
@@ -697,7 +697,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.deleteToolVersion("00183a3f-79ba-413d-9f3b-609864268bea", 1)
+     *     await client.empathicVoice.tools.deleteToolVersion("", 1)
      */
     public deleteToolVersion(
         id: string,
@@ -784,7 +784,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.updateToolDescription("00183a3f-79ba-413d-9f3b-609864268bea", 1, {
+     *     await client.empathicVoice.tools.updateToolDescription("your-tool-id", 1, {
      *         versionDescription: "Fetches current temperature, precipitation, wind speed, AQI, and other weather conditions. Uses Celsius, Fahrenheit, or kelvin depending on user's region."
      *     })
      */

@@ -8,7 +8,7 @@ import type * as Hume from "../../../../../../index.js";
  *         versionDescription: "This is an updated version of the Weather Assistant Config.",
  *         eviVersion: "3",
  *         prompt: {
- *             id: "af699d45-2985-42cc-91b9-af9e5da3bac5",
+ *             id: "",
  *             version: 0
  *         },
  *         voice: {
