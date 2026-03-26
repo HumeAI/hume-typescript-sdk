@@ -10,6 +10,7 @@ import type * as Hume from "../../../../index.js";
 export interface ConvertVoiceJsonRequest {
     /** If enabled, the audio for all the chunks of a generation, once concatenated together, will constitute a single audio file. Otherwise, if disabled, each chunk's audio will be its own audio file, each with its own headers (if applicable). */
     stripHeaders?: boolean;
+    /** Audio file containing speech to be converted to the target voice. Supported formats include `MP3`, `WAV`, `M4A`, and `OGG`. */
     audio?: core.file.Uploadable | undefined;
     /** Utterances to use as context for generating consistent speech style and prosody across multiple requests. These will not be converted to speech output. */
     context?: Hume.tts.PostedContext;
