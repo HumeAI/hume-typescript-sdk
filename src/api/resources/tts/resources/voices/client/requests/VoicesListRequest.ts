@@ -29,5 +29,12 @@ export interface VoicesListRequest {
      */
     pageSize?: number;
     ascendingOrder?: boolean;
+    /**
+     * Filter voices by tag using `TAG:TAG_VALUE` syntax.
+     *
+     * For example, `GENDER:Male` returns only voices with the `GENDER` tag set to `Male`. Tag types are case-insensitive; tag values are case-sensitive.
+     *
+     * Multiple values are ANDed together; for example, `[GENDER:Male, LANGUAGE:Japanese]` returns only voices matching both criteria.
+     */
     filterTag?: string | string[];
 }
