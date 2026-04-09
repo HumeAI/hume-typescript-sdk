@@ -83,6 +83,12 @@ describe("join", () => {
                 expected: "https://example.com/base/api/v1",
             },
             {
+                description: "should normalize double slashes from empty path params",
+                base: "https://api.example.com",
+                segments: ["v0/evi/tools//version/1"],
+                expected: "https://api.example.com/v0/evi/tools/version/1",
+            },
+            {
                 description: "should preserve URL query parameters",
                 base: "https://example.com?query=1",
                 segments: ["api"],

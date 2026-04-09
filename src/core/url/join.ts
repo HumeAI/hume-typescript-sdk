@@ -25,6 +25,8 @@ export function join(base: string, ...segments: string[]): string {
             }
         }
 
+        url.pathname = url.pathname.replace(/\/\/+/g, "/");
+
         if (shouldPreserveTrailingSlash && !url.pathname.endsWith("/")) {
             url.pathname += "/";
         }
