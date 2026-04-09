@@ -20,6 +20,7 @@ export interface ReturnConfig {
     eviVersion?: string;
     /** Identifier for a Config. Formatted as a UUID. */
     id?: string;
+    interruption?: Hume.empathicVoice.ReturnInterruptionSpec;
     languageModel?: Hume.empathicVoice.ReturnLanguageModel;
     /** Time at which the Config was last modified. Measured in seconds since the Unix epoch. */
     modifiedOn?: number;
@@ -30,6 +31,7 @@ export interface ReturnConfig {
     timeouts?: Hume.empathicVoice.ReturnTimeoutSpecs;
     /** List of user-defined tools associated with this Config. */
     tools?: (Hume.empathicVoice.ReturnUserDefinedTool | undefined)[];
+    turnDetection?: Hume.empathicVoice.ReturnTurnDetectionSpec;
     /**
      * Version number for a Config.
      *

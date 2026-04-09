@@ -7,9 +7,11 @@ import { PostedBuiltinTool } from "../../../../types/PostedBuiltinTool.js";
 import { PostedConfigPromptSpec } from "../../../../types/PostedConfigPromptSpec.js";
 import { PostedEllmModel } from "../../../../types/PostedEllmModel.js";
 import { PostedEventMessageSpecs } from "../../../../types/PostedEventMessageSpecs.js";
+import { PostedInterruptionSpec } from "../../../../types/PostedInterruptionSpec.js";
 import { PostedLanguageModel } from "../../../../types/PostedLanguageModel.js";
 import { PostedNudgeSpec } from "../../../../types/PostedNudgeSpec.js";
 import { PostedTimeoutSpecs } from "../../../../types/PostedTimeoutSpecs.js";
+import { PostedTurnDetectionSpec } from "../../../../types/PostedTurnDetectionSpec.js";
 import { PostedUserDefinedToolSpec } from "../../../../types/PostedUserDefinedToolSpec.js";
 import { PostedWebhookSpec } from "../../../../types/PostedWebhookSpec.js";
 import { VoiceRef } from "../../../../types/VoiceRef.js";
@@ -25,12 +27,14 @@ export const PostedConfig: core.serialization.Schema<
     ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
     eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
     eviVersion: core.serialization.property("evi_version", core.serialization.string()),
+    interruption: PostedInterruptionSpec.optional(),
     languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
     name: core.serialization.string(),
     nudges: PostedNudgeSpec.optional(),
     prompt: PostedConfigPromptSpec.optional(),
     timeouts: PostedTimeoutSpecs.optional(),
     tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
+    turnDetection: core.serialization.property("turn_detection", PostedTurnDetectionSpec.optional()),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     voice: VoiceRef.optional(),
     webhooks: core.serialization.list(PostedWebhookSpec.optional()).optional(),
@@ -42,12 +46,14 @@ export declare namespace PostedConfig {
         ellm_model?: PostedEllmModel.Raw | null;
         event_messages?: PostedEventMessageSpecs.Raw | null;
         evi_version: string;
+        interruption?: PostedInterruptionSpec.Raw | null;
         language_model?: PostedLanguageModel.Raw | null;
         name: string;
         nudges?: PostedNudgeSpec.Raw | null;
         prompt?: PostedConfigPromptSpec.Raw | null;
         timeouts?: PostedTimeoutSpecs.Raw | null;
         tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
+        turn_detection?: PostedTurnDetectionSpec.Raw | null;
         version_description?: string | null;
         voice?: VoiceRef.Raw | null;
         webhooks?: (PostedWebhookSpec.Raw | null | undefined)[] | null;

@@ -6,10 +6,12 @@ import type * as serializers from "../../../index.js";
 import { ReturnBuiltinTool } from "./ReturnBuiltinTool.js";
 import { ReturnEllmModel } from "./ReturnEllmModel.js";
 import { ReturnEventMessageSpecs } from "./ReturnEventMessageSpecs.js";
+import { ReturnInterruptionSpec } from "./ReturnInterruptionSpec.js";
 import { ReturnLanguageModel } from "./ReturnLanguageModel.js";
 import { ReturnNudgeSpec } from "./ReturnNudgeSpec.js";
 import { ReturnPrompt } from "./ReturnPrompt.js";
 import { ReturnTimeoutSpecs } from "./ReturnTimeoutSpecs.js";
+import { ReturnTurnDetectionSpec } from "./ReturnTurnDetectionSpec.js";
 import { ReturnUserDefinedTool } from "./ReturnUserDefinedTool.js";
 import { ReturnVoice } from "./ReturnVoice.js";
 import { ReturnWebhookSpec } from "./ReturnWebhookSpec.js";
@@ -27,6 +29,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     eventMessages: core.serialization.property("event_messages", ReturnEventMessageSpecs.optional()),
     eviVersion: core.serialization.property("evi_version", core.serialization.string().optional()),
     id: core.serialization.string().optional(),
+    interruption: ReturnInterruptionSpec.optional(),
     languageModel: core.serialization.property("language_model", ReturnLanguageModel.optional()),
     modifiedOn: core.serialization.property("modified_on", core.serialization.number().optional()),
     name: core.serialization.string().optional(),
@@ -34,6 +37,7 @@ export const ReturnConfig: core.serialization.ObjectSchema<
     prompt: ReturnPrompt.optional(),
     timeouts: ReturnTimeoutSpecs.optional(),
     tools: core.serialization.list(ReturnUserDefinedTool.optional()).optional(),
+    turnDetection: core.serialization.property("turn_detection", ReturnTurnDetectionSpec.optional()),
     version: core.serialization.number().optional(),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
     voice: ReturnVoice.optional(),
@@ -48,6 +52,7 @@ export declare namespace ReturnConfig {
         event_messages?: ReturnEventMessageSpecs.Raw | null;
         evi_version?: string | null;
         id?: string | null;
+        interruption?: ReturnInterruptionSpec.Raw | null;
         language_model?: ReturnLanguageModel.Raw | null;
         modified_on?: number | null;
         name?: string | null;
@@ -55,6 +60,7 @@ export declare namespace ReturnConfig {
         prompt?: ReturnPrompt.Raw | null;
         timeouts?: ReturnTimeoutSpecs.Raw | null;
         tools?: (ReturnUserDefinedTool.Raw | null | undefined)[] | null;
+        turn_detection?: ReturnTurnDetectionSpec.Raw | null;
         version?: number | null;
         version_description?: string | null;
         voice?: ReturnVoice.Raw | null;

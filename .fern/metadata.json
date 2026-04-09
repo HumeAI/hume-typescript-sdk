@@ -1,5 +1,5 @@
 {
-    "cliVersion": "3.91.2",
+    "cliVersion": "4.62.5",
     "generatorName": "fernapi/fern-typescript-sdk",
     "generatorVersion": "3.52.4",
     "generatorConfig": {
@@ -18,5 +18,6 @@
         "shouldGenerateWebsocketClients": true,
         "namespaceExport": "Hume"
     },
-    "sdkVersion": "0.15.15"
+    "originGitCommit": "a07a0deaa640e8b286f9c8e4e47426b37a083a67",
+    "sdkVersion": "0.15.16"
 }

@@ -43,6 +43,7 @@ export interface PostedConfig {
     eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
     /** EVI version to use. Only versions `3` and `4-mini` are supported. */
     eviVersion: string;
+    interruption?: Hume.empathicVoice.PostedInterruptionSpec;
     languageModel?: Hume.empathicVoice.PostedLanguageModel;
     /** Name applied to all versions of a particular Config. */
     name: string;
@@ -51,6 +52,7 @@ export interface PostedConfig {
     timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
     /** Tool specification for a Config. */
     tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
+    turnDetection?: Hume.empathicVoice.PostedTurnDetectionSpec;
     /** An optional description of the Config version. */
     versionDescription?: string;
     /** A voice specification associated with this Config. */
