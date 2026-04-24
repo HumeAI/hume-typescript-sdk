@@ -1,5 +1,6 @@
 export * from "./AudioEncoding.js";
 export * from "./AudioFormatType.js";
+export * from "./Context.js";
 export * from "./ErrorResponse.js";
 export * from "./Format.js";
 export * from "./FormatMp3.js";
@@ -12,6 +13,7 @@ export * from "./PostedContext.js";
 export * from "./PostedContextWithGenerationId.js";
 export * from "./PostedContextWithUtterances.js";
 export * from "./PostedTts.js";
+export * from "./PostedTtsStream.js";
 export * from "./PostedUtterance.js";
 export * from "./PostedUtteranceVoice.js";
 export * from "./PostedUtteranceVoiceWithId.js";

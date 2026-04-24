@@ -22,7 +22,6 @@ export const PostedTts: core.serialization.ObjectSchema<serializers.tts.PostedTt
         stripHeaders: core.serialization.property("strip_headers", core.serialization.boolean().optional()),
         utterances: core.serialization.list(PostedUtterance),
         version: OctaveVersion.optional(),
-        instantMode: core.serialization.property("instant_mode", core.serialization.boolean().optional()),
     });
 
 export declare namespace PostedTts {
@@ -35,6 +34,5 @@ export declare namespace PostedTts {
         strip_headers?: boolean | null;
         utterances: PostedUtterance.Raw[];
         version?: OctaveVersion.Raw | null;
-        instant_mode?: boolean | null;
     }
 }

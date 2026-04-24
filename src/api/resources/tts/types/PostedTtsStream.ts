@@ -2,13 +2,20 @@
 
 import type * as Hume from "../../../index.js";
 
-export interface PostedTts {
+export interface PostedTtsStream {
     /** Utterances to use as context for generating consistent speech style and prosody across multiple requests. These will not be converted to speech output. */
-    context?: Hume.tts.PostedContext;
+    context?: Hume.tts.Context;
     /** Specifies the output audio file format. */
     format?: Hume.tts.Format;
     /** The set of timestamp types to include in the response. Only supported for Octave 2 requests. */
     includeTimestampTypes?: Hume.tts.TimestampType[];
+    /**
+     * Enables ultra-low latency streaming, significantly reducing the time until the first audio chunk is received. Recommended for real-time applications requiring immediate audio playback. For further details, see our documentation on [instant mode](/docs/text-to-speech-tts/overview#ultra-low-latency-streaming-instant-mode).
+     * - A [voice](/reference/text-to-speech-tts/synthesize-json-streaming#request.body.utterances.voice) must be specified when instant mode is enabled. Dynamic voice generation is not supported with this mode.
+     * - Instant mode is only supported for streaming endpoints (e.g., [/v0/tts/stream/json](/reference/text-to-speech-tts/synthesize-json-streaming), [/v0/tts/stream/file](/reference/text-to-speech-tts/synthesize-file-streaming)).
+     * - Ensure only a single generation is requested ([num_generations](/reference/text-to-speech-tts/synthesize-json-streaming#request.body.num_generations) must be `1` or omitted).
+     */
+    instantMode?: boolean;
     /**
      * Number of audio generations to produce from the input utterances.
      *
