@@ -221,14 +221,14 @@ export class TtsClient {
      * @throws {@link Hume.tts.UnprocessableEntityError}
      */
     public synthesizeFileStreaming(
-        request: Hume.tts.PostedTts,
+        request: Hume.tts.PostedTtsStream,
         requestOptions?: TtsClient.RequestOptions,
     ): core.HttpResponsePromise<core.BinaryResponse> {
         return core.HttpResponsePromise.fromPromise(this.__synthesizeFileStreaming(request, requestOptions));
     }
 
     private async __synthesizeFileStreaming(
-        request: Hume.tts.PostedTts,
+        request: Hume.tts.PostedTtsStream,
         requestOptions?: TtsClient.RequestOptions,
     ): Promise<core.WithRawResponse<core.BinaryResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -248,7 +248,7 @@ export class TtsClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, {
+            body: serializers.tts.PostedTtsStream.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -294,14 +294,14 @@ export class TtsClient {
      * The response is a stream of JSON objects including audio encoded in base64.
      */
     public synthesizeJsonStreaming(
-        request: Hume.tts.PostedTts,
+        request: Hume.tts.PostedTtsStream,
         requestOptions?: TtsClient.RequestOptions,
     ): core.HttpResponsePromise<core.Stream<Hume.tts.TtsOutput>> {
         return core.HttpResponsePromise.fromPromise(this.__synthesizeJsonStreaming(request, requestOptions));
     }
 
     private async __synthesizeJsonStreaming(
-        request: Hume.tts.PostedTts,
+        request: Hume.tts.PostedTtsStream,
         requestOptions?: TtsClient.RequestOptions,
     ): Promise<core.WithRawResponse<core.Stream<Hume.tts.TtsOutput>>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -321,7 +321,7 @@ export class TtsClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: serializers.tts.PostedTts.jsonOrThrow(request, {
+            body: serializers.tts.PostedTtsStream.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

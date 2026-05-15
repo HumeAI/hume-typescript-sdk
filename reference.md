@@ -2997,7 +2997,7 @@ await client.tts.synthesizeFileStreaming({
 <dl>
 <dd>
 
-**request:** `Hume.PostedTts` 
+**request:** `Hume.PostedTtsStream` 
     
 </dd>
 </dl>
@@ -3073,7 +3073,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**request:** `Hume.PostedTts` 
+**request:** `Hume.PostedTtsStream` 
     
 </dd>
 </dl>
