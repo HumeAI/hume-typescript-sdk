@@ -92,3 +92,6 @@ src/auth/HeaderAuthProvider.ts
 
 # Auth tests
 tests/unit/auth/auth.test.ts
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes
