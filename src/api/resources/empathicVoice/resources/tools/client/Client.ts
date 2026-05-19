@@ -697,7 +697,7 @@ export class ToolsClient {
      * @throws {@link Hume.empathicVoice.BadRequestError}
      *
      * @example
-     *     await client.empathicVoice.tools.deleteToolVersion("", 1)
+     *     await client.empathicVoice.tools.deleteToolVersion("your-tool-id", 1)
      */
     public deleteToolVersion(
         id: string,

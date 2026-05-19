@@ -2649,7 +2649,7 @@ Refer to our [tool use](/docs/speech-to-speech-evi/features/tool-use#function-ca
 <dd>
 
 ```typescript
-await client.empathicVoice.tools.deleteToolVersion("", 1);
+await client.empathicVoice.tools.deleteToolVersion("your-tool-id", 1);
 
 ```
 </dd>
