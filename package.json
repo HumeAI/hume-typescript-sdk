@@ -1,6 +1,6 @@
 {
     "name": "hume",
-    "version": "0.15.17",
+    "version": "0.15.18",
     "private": false,
     "repository": {
         "type": "git",
@@ -153,39 +153,6 @@
                 "default": "./dist/cjs/api/resources/tts/resources/streamInput/exports.js"
             },
             "default": "./dist/cjs/api/resources/tts/resources/streamInput/exports.js"
-        },
-        "./expressionMeasurement": {
-            "import": {
-                "types": "./dist/esm/api/resources/expressionMeasurement/exports.d.mts",
-                "default": "./dist/esm/api/resources/expressionMeasurement/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/expressionMeasurement/exports.d.ts",
-                "default": "./dist/cjs/api/resources/expressionMeasurement/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/expressionMeasurement/exports.js"
-        },
-        "./expressionMeasurement/batch": {
-            "import": {
-                "types": "./dist/esm/api/resources/expressionMeasurement/resources/batch/exports.d.mts",
-                "default": "./dist/esm/api/resources/expressionMeasurement/resources/batch/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/expressionMeasurement/resources/batch/exports.d.ts",
-                "default": "./dist/cjs/api/resources/expressionMeasurement/resources/batch/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/expressionMeasurement/resources/batch/exports.js"
-        },
-        "./expressionMeasurement/stream": {
-            "import": {
-                "types": "./dist/esm/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.d.mts",
-                "default": "./dist/esm/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.d.ts",
-                "default": "./dist/cjs/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/expressionMeasurement/resources/stream/resources/stream/exports.js"
         },
         "./package.json": "./package.json"
     },
