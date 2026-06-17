@@ -1,6 +1,5 @@
 import { HumeClient as FernClient } from "../Client.js";
 import * as core from "../core/index.js";
-import { ExpressionMeasurement } from "./expressionMeasurement/ExpressionMeasurementClient.js";
 import * as environments from "../environments.js";
 import { SDK_VERSION } from "../version.js";
 
@@ -80,13 +79,5 @@ export class HumeClient extends FernClient {
         }
 
         super(options);
-    }
-
-    // We need to override this from FernClient to use the extended
-    // `ExpressionMeasurement` from `wrapper` and not `api/resources/`
-    protected _expressionMeasurement: ExpressionMeasurement | undefined;
-
-    public get expressionMeasurement(): ExpressionMeasurement {
-        return (this._expressionMeasurement ??= new ExpressionMeasurement(this._options));
     }
 }
