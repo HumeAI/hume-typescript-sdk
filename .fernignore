@@ -58,8 +58,6 @@ src/api/resources/empathicVoice/resources/chat/client/index.ts
 
 # Manually added tests
 tests/unit/url-resolution.test.ts
-tests/expressionMeasurement/batch.test.ts
-tests/expressionMeasurement/streaming.test.ts
 
 # Required manual edits for Node 18 compatibility
 tests/unit/fetcher/Fetcher.test.ts
