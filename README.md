@@ -33,25 +33,16 @@ const hume = new HumeClient({
     apiKey: "YOUR_API_KEY",
 });
 
-const job = await hume.expressionMeasurement.batch.startInferenceJob({
-    models: {
-        face: {},
-    },
-    urls: ["https://hume-tutorials.s3.amazonaws.com/faces.zip"],
+const speech = await hume.tts.synthesizeJson({
+    utterances: [{ text: "Hello from Hume AI!" }],
 });
 
-console.log("Running...");
-
-await job.awaitCompletion();
-
-const predictions = await hume.expressionMeasurement.batch.getJobPredictions(job.jobId);
-
-console.log(predictions);
+console.log(speech);
 ```
 
 ## Namespaces
 
-This SDK contains the APIs for expression measurement, empathic voice and custom models. Even
+This SDK contains the APIs for empathic voice and text-to-speech. Even
 if you do not plan on using more than one API to start, the SDK provides easy access in
 case you find additional APIs in the future.
 
@@ -64,38 +55,14 @@ const hume = new HumeClient({
     apiKey: "YOUR_API_KEY"
 });
 
-hume.expressionMeasurement. // APIs specific to Expression Measurement
+hume.empathicVoice. // APIs specific to Empathic Voice
 
-hume.emapthicVoice. // APIs specific to Empathic Voice
+hume.tts. // APIs specific to Text-to-speech
 ```
 
 ## Websockets
 
 The SDK supports interacting with both WebSocket and REST APIs.
-
-### Request-Reply
-
-The SDK supports a request-reply pattern for the streaming expression measurement API.
-You'll be able to pass an inference request and `await` till the response is received.
-
-```typescript
-import { HumeClient } from "hume";
-
-const hume = new HumeClient({
-    apiKey: "YOUR_API_KEY",
-});
-
-const socket = hume.expressionMeasurement.stream.connect({
-    config: {
-        language: {},
-    },
-});
-
-for (const sample of samples) {
-    const result = await socket.sendText({ text: sample });
-    console.log(result);
-}
-```
 
 ### Empathic Voice
 
@@ -133,7 +100,7 @@ a subclass of [HumeError](./src/errors/HumeError.ts) will be thrown:
 import { HumeError, HumeTimeoutError } from "hume";
 
 try {
-    await hume.expressionMeasurement.batch.startInferenceJob(/* ... */);
+    await hume.tts.synthesizeJson(/* ... */);
 } catch (err) {
     if (err instanceof HumeTimeoutError) {
         console.log("Request timed out", err);
@@ -152,7 +119,7 @@ try {
 You can use the maxRetries option to configure this behavior:
 
 ```typescript
-await hume.expressionMeasurement.batch.startInferenceJob(..., {
+await hume.tts.synthesizeJson(..., {
     maxRetries: 0, // disable retries
 });
 ```
@@ -163,7 +130,7 @@ By default, the SDK has a timeout of 60s. You can use the `timeoutInSeconds` opt
 this behavior
 
 ```typescript
-await hume.expressionMeasurement.batch.startInferenceJob(..., {
+await hume.tts.synthesizeJson(..., {
     timeoutInSeconds: 10, // timeout after 10 seconds
 });
 ```
