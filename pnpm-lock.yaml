@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      uuid:
-        specifier: 9.0.1
-        version: 9.0.1
       ws:
         specifier: ^8.16.0
         version: 8.21.0
@@ -24,9 +21,6 @@ importers:
       '@types/node':
         specifier: ^18.19.70
         version: 18.19.130
-      '@types/uuid':
-        specifier: 9.0.7
-        version: 9.0.7
       '@types/ws':
         specifier: ^8.5.9
         version: 8.18.1
@@ -478,9 +472,6 @@ packages:
 
   '@types/statuses@2.0.6':
     resolution: {integrity: sha512-xMAgYwceFhRA2zY+XbEA7mxYbA093wdiW8Vu6gZPGWy9cmOyU9XesH1tNcEWsKFd5Vzrqx5T3D38PWx1FIIXkA==}
-
-  '@types/uuid@9.0.7':
-    resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
@@ -1056,11 +1047,6 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
-    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
-    hasBin: true
-
   vite-node@3.2.4:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -1487,8 +1473,6 @@ snapshots:
       undici-types: 5.26.5
 
   '@types/statuses@2.0.6': {}
-
-  '@types/uuid@9.0.7': {}
 
   '@types/ws@8.18.1':
     dependencies:
@@ -2064,8 +2048,6 @@ snapshots:
       browserslist: 4.28.1
       escalade: 3.2.0
       picocolors: 1.1.1
-
-  uuid@9.0.1: {}
 
   vite-node@3.2.4(@types/node@18.19.130)(terser@5.46.0):
     dependencies:
