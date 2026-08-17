@@ -4,15 +4,15 @@ import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
 
-export const SessionSettingsVariablesValue: core.serialization.Schema<
-    serializers.empathicVoice.SessionSettingsVariablesValue.Raw,
-    Hume.empathicVoice.SessionSettingsVariablesValue
+export const VariablesValue: core.serialization.Schema<
+    serializers.empathicVoice.VariablesValue.Raw,
+    Hume.empathicVoice.VariablesValue
 > = core.serialization.undiscriminatedUnion([
     core.serialization.string(),
     core.serialization.number(),
     core.serialization.boolean(),
 ]);
 
-export declare namespace SessionSettingsVariablesValue {
+export declare namespace VariablesValue {
     export type Raw = string | number | boolean;
 }

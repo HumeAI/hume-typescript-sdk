@@ -3,7 +3,7 @@
 import type * as Hume from "../../../index.js";
 
 export interface ValidationError {
-    loc: Hume.empathicVoice.ValidationErrorLocItem[];
+    loc: Hume.empathicVoice.LocationItem[];
     msg: string;
     type: string;
 }

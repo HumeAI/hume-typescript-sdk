@@ -6,8 +6,8 @@ import type * as serializers from "../../../index.js";
 import { AudioConfiguration } from "./AudioConfiguration.js";
 import { BuiltinToolConfig } from "./BuiltinToolConfig.js";
 import { Context } from "./Context.js";
-import { SessionSettingsVariablesValue } from "./SessionSettingsVariablesValue.js";
 import { Tool } from "./Tool.js";
+import { VariablesValue } from "./VariablesValue.js";
 
 export const SessionSettings: core.serialization.ObjectSchema<
     serializers.empathicVoice.SessionSettings.Raw,
@@ -22,7 +22,7 @@ export const SessionSettings: core.serialization.ObjectSchema<
     systemPrompt: core.serialization.property("system_prompt", core.serialization.string().optional()),
     tools: core.serialization.list(Tool).optional(),
     type: core.serialization.stringLiteral("session_settings"),
-    variables: core.serialization.record(core.serialization.string(), SessionSettingsVariablesValue).optional(),
+    variables: core.serialization.record(core.serialization.string(), VariablesValue).optional(),
     voiceId: core.serialization.property("voice_id", core.serialization.string().optional()),
 });
 
@@ -37,7 +37,7 @@ export declare namespace SessionSettings {
         system_prompt?: string | null;
         tools?: Tool.Raw[] | null;
         type: "session_settings";
-        variables?: Record<string, SessionSettingsVariablesValue.Raw> | null;
+        variables?: Record<string, VariablesValue.Raw> | null;
         voice_id?: string | null;
     }
 }

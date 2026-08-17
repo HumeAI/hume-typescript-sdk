@@ -4,17 +4,17 @@ import type * as Hume from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
 import { PostedBuiltinTool } from "../../../../types/PostedBuiltinTool.js";
-import { PostedConfigPromptSpec } from "../../../../types/PostedConfigPromptSpec.js";
-import { PostedEllmModel } from "../../../../types/PostedEllmModel.js";
-import { PostedEventMessageSpecs } from "../../../../types/PostedEventMessageSpecs.js";
 import { PostedInterruptionSpec } from "../../../../types/PostedInterruptionSpec.js";
-import { PostedLanguageModel } from "../../../../types/PostedLanguageModel.js";
-import { PostedNudgeSpec } from "../../../../types/PostedNudgeSpec.js";
-import { PostedTimeoutSpecs } from "../../../../types/PostedTimeoutSpecs.js";
 import { PostedTurnDetectionSpec } from "../../../../types/PostedTurnDetectionSpec.js";
 import { PostedUserDefinedToolSpec } from "../../../../types/PostedUserDefinedToolSpec.js";
 import { PostedWebhookSpec } from "../../../../types/PostedWebhookSpec.js";
 import { VoiceRef } from "../../../../types/VoiceRef.js";
+import { PostedConfigEllmModel } from "../../types/PostedConfigEllmModel.js";
+import { PostedConfigEventMessages } from "../../types/PostedConfigEventMessages.js";
+import { PostedConfigLanguageModel } from "../../types/PostedConfigLanguageModel.js";
+import { PostedConfigNudges } from "../../types/PostedConfigNudges.js";
+import { PostedConfigPrompt } from "../../types/PostedConfigPrompt.js";
+import { PostedConfigTimeouts } from "../../types/PostedConfigTimeouts.js";
 
 export const PostedConfig: core.serialization.Schema<
     serializers.empathicVoice.PostedConfig.Raw,
@@ -24,15 +24,15 @@ export const PostedConfig: core.serialization.Schema<
         "builtin_tools",
         core.serialization.list(PostedBuiltinTool.optional()).optional(),
     ),
-    ellmModel: core.serialization.property("ellm_model", PostedEllmModel.optional()),
-    eventMessages: core.serialization.property("event_messages", PostedEventMessageSpecs.optional()),
+    ellmModel: core.serialization.property("ellm_model", PostedConfigEllmModel.optional()),
+    eventMessages: core.serialization.property("event_messages", PostedConfigEventMessages.optional()),
     eviVersion: core.serialization.property("evi_version", core.serialization.string()),
     interruption: PostedInterruptionSpec.optional(),
-    languageModel: core.serialization.property("language_model", PostedLanguageModel.optional()),
+    languageModel: core.serialization.property("language_model", PostedConfigLanguageModel.optional()),
     name: core.serialization.string(),
-    nudges: PostedNudgeSpec.optional(),
-    prompt: PostedConfigPromptSpec.optional(),
-    timeouts: PostedTimeoutSpecs.optional(),
+    nudges: PostedConfigNudges.optional(),
+    prompt: PostedConfigPrompt.optional(),
+    timeouts: PostedConfigTimeouts.optional(),
     tools: core.serialization.list(PostedUserDefinedToolSpec.optional()).optional(),
     turnDetection: core.serialization.property("turn_detection", PostedTurnDetectionSpec.optional()),
     versionDescription: core.serialization.property("version_description", core.serialization.string().optional()),
@@ -43,15 +43,15 @@ export const PostedConfig: core.serialization.Schema<
 export declare namespace PostedConfig {
     export interface Raw {
         builtin_tools?: (PostedBuiltinTool.Raw | null | undefined)[] | null;
-        ellm_model?: PostedEllmModel.Raw | null;
-        event_messages?: PostedEventMessageSpecs.Raw | null;
+        ellm_model?: PostedConfigEllmModel.Raw | null;
+        event_messages?: PostedConfigEventMessages.Raw | null;
         evi_version: string;
         interruption?: PostedInterruptionSpec.Raw | null;
-        language_model?: PostedLanguageModel.Raw | null;
+        language_model?: PostedConfigLanguageModel.Raw | null;
         name: string;
-        nudges?: PostedNudgeSpec.Raw | null;
-        prompt?: PostedConfigPromptSpec.Raw | null;
-        timeouts?: PostedTimeoutSpecs.Raw | null;
+        nudges?: PostedConfigNudges.Raw | null;
+        prompt?: PostedConfigPrompt.Raw | null;
+        timeouts?: PostedConfigTimeouts.Raw | null;
         tools?: (PostedUserDefinedToolSpec.Raw | null | undefined)[] | null;
         turn_detection?: PostedTurnDetectionSpec.Raw | null;
         version_description?: string | null;

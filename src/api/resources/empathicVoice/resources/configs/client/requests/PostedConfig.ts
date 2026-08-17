@@ -39,17 +39,31 @@ import type * as Hume from "../../../../../../index.js";
 export interface PostedConfig {
     /** Built-in tool specification for a Config. */
     builtinTools?: (Hume.empathicVoice.PostedBuiltinTool | undefined)[];
-    ellmModel?: Hume.empathicVoice.PostedEllmModel;
-    eventMessages?: Hume.empathicVoice.PostedEventMessageSpecs;
+    /**
+     * The eLLM setup associated with this Config.
+     *
+     * Hume's eLLM (empathic Large Language Model) is a multimodal language model that takes into account both expression measures and language. The eLLM generates short, empathic language responses and guides text-to-speech (TTS) prosody.
+     */
+    ellmModel?: Hume.empathicVoice.PostedConfigEllmModel;
+    /** Map of event messages associated with this config. */
+    eventMessages?: Hume.empathicVoice.PostedConfigEventMessages;
     /** EVI version to use. Only versions `3` and `4-mini` are supported. */
     eviVersion: string;
     interruption?: Hume.empathicVoice.PostedInterruptionSpec;
-    languageModel?: Hume.empathicVoice.PostedLanguageModel;
+    /**
+     * The supplemental language model associated with this Config.
+     *
+     * This model is used to generate longer, more detailed responses from EVI. Choosing an appropriate supplemental language model for your use case is crucial for generating fast, high-quality responses from EVI.
+     */
+    languageModel?: Hume.empathicVoice.PostedConfigLanguageModel;
     /** Name applied to all versions of a particular Config. */
     name: string;
-    nudges?: Hume.empathicVoice.PostedNudgeSpec;
-    prompt?: Hume.empathicVoice.PostedConfigPromptSpec;
-    timeouts?: Hume.empathicVoice.PostedTimeoutSpecs;
+    /** Configures nudges, brief audio prompts that can guide conversations when users pause or need encouragement to continue speaking. Nudges help create more natural, flowing interactions by providing gentle conversational cues. */
+    nudges?: Hume.empathicVoice.PostedConfigNudges;
+    /** A Prompt associated with this Config. */
+    prompt?: Hume.empathicVoice.PostedConfigPrompt;
+    /** Map of timeouts associated with this config. */
+    timeouts?: Hume.empathicVoice.PostedConfigTimeouts;
     /** Tool specification for a Config. */
     tools?: (Hume.empathicVoice.PostedUserDefinedToolSpec | undefined)[];
     turnDetection?: Hume.empathicVoice.PostedTurnDetectionSpec;
