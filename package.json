@@ -178,7 +178,6 @@
     },
     "dependencies": {
         "ws": "^8.16.0",
-        "uuid": "9.0.1",
         "zod": "^3.23.8"
     },
     "devDependencies": {
@@ -189,8 +188,7 @@
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
         "typescript": "~5.7.2",
-        "@biomejs/biome": "2.4.3",
-        "@types/uuid": "9.0.7"
+        "@biomejs/biome": "2.4.3"
     },
     "browser": {
         "fs": false,
