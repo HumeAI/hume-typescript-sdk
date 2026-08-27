@@ -3,20 +3,20 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
-import { ValidationErrorLocItem } from "./ValidationErrorLocItem.js";
+import { LocationItem } from "./LocationItem.js";
 
 export const ValidationError: core.serialization.ObjectSchema<
     serializers.tts.ValidationError.Raw,
     Hume.tts.ValidationError
 > = core.serialization.object({
-    loc: core.serialization.list(ValidationErrorLocItem),
+    loc: core.serialization.list(LocationItem),
     msg: core.serialization.string(),
     type: core.serialization.string(),
 });
 
 export declare namespace ValidationError {
     export interface Raw {
-        loc: ValidationErrorLocItem.Raw[];
+        loc: LocationItem.Raw[];
         msg: string;
         type: string;
     }

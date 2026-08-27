@@ -3,21 +3,29 @@
 import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
-import { PostedEventMessageSpec } from "./PostedEventMessageSpec.js";
+import { PostedEventMessageSpecsOnInactivityTimeout } from "./PostedEventMessageSpecsOnInactivityTimeout.js";
+import { PostedEventMessageSpecsOnMaxDurationTimeout } from "./PostedEventMessageSpecsOnMaxDurationTimeout.js";
+import { PostedEventMessageSpecsOnNewChat } from "./PostedEventMessageSpecsOnNewChat.js";
 
 export const PostedEventMessageSpecs: core.serialization.ObjectSchema<
     serializers.empathicVoice.PostedEventMessageSpecs.Raw,
     Hume.empathicVoice.PostedEventMessageSpecs
 > = core.serialization.object({
-    onInactivityTimeout: core.serialization.property("on_inactivity_timeout", PostedEventMessageSpec.optional()),
-    onMaxDurationTimeout: core.serialization.property("on_max_duration_timeout", PostedEventMessageSpec.optional()),
-    onNewChat: core.serialization.property("on_new_chat", PostedEventMessageSpec.optional()),
+    onInactivityTimeout: core.serialization.property(
+        "on_inactivity_timeout",
+        PostedEventMessageSpecsOnInactivityTimeout.optional(),
+    ),
+    onMaxDurationTimeout: core.serialization.property(
+        "on_max_duration_timeout",
+        PostedEventMessageSpecsOnMaxDurationTimeout.optional(),
+    ),
+    onNewChat: core.serialization.property("on_new_chat", PostedEventMessageSpecsOnNewChat.optional()),
 });
 
 export declare namespace PostedEventMessageSpecs {
     export interface Raw {
-        on_inactivity_timeout?: PostedEventMessageSpec.Raw | null;
-        on_max_duration_timeout?: PostedEventMessageSpec.Raw | null;
-        on_new_chat?: PostedEventMessageSpec.Raw | null;
+        on_inactivity_timeout?: PostedEventMessageSpecsOnInactivityTimeout.Raw | null;
+        on_max_duration_timeout?: PostedEventMessageSpecsOnMaxDurationTimeout.Raw | null;
+        on_new_chat?: PostedEventMessageSpecsOnNewChat.Raw | null;
     }
 }

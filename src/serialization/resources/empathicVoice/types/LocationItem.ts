@@ -4,11 +4,11 @@ import type * as Hume from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import type * as serializers from "../../../index.js";
 
-export const ValidationErrorLocItem: core.serialization.Schema<
-    serializers.empathicVoice.ValidationErrorLocItem.Raw,
-    Hume.empathicVoice.ValidationErrorLocItem
+export const LocationItem: core.serialization.Schema<
+    serializers.empathicVoice.LocationItem.Raw,
+    Hume.empathicVoice.LocationItem
 > = core.serialization.undiscriminatedUnion([core.serialization.string(), core.serialization.number()]);
 
-export declare namespace ValidationErrorLocItem {
+export declare namespace LocationItem {
     export type Raw = string | number;
 }
