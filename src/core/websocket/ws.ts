@@ -307,6 +307,8 @@ export class ReconnectingWebSocket {
             this._connect();
         } else {
             this._disconnect(code, reason);
+            // _disconnect() dispatches a close event with code 1000, which clears _shouldReconnect
+            this._shouldReconnect = true;
             this._connect();
         }
     }
@@ -419,7 +421,6 @@ export class ReconnectingWebSocket {
         if (this._connectLock || !this._shouldReconnect) {
             return;
         }
-        this._connectLock = true;
 
         const {
             maxRetries = DEFAULT_OPTIONS.maxRetries,
@@ -431,6 +432,8 @@ export class ReconnectingWebSocket {
             this._debug("max retries reached", this._retryCount, ">=", maxRetries);
             return;
         }
+
+        this._connectLock = true;
 
         this._retryCount++;
 
