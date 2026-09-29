@@ -87,5 +87,49 @@ describe("ChatSocket", () => {
 
             expect(onMessage).toHaveBeenCalledTimes(1);
         });
+
+        it("opens a new connection when called on an open socket", async () => {
+            const chatSocket = createSocket();
+            await flush();
+            const first = FakeWebSocket.instances[0] as FakeWebSocket;
+            first.readyState = 1;
+            first.emit("open", { type: "open" });
+
+            chatSocket.connect();
+            await flush();
+
+            expect(first.readyState).toBe(3);
+            expect(FakeWebSocket.instances).toHaveLength(2);
+        });
+
+        it("opens a new connection when called after close()", async () => {
+            const chatSocket = createSocket();
+            await flush();
+            const first = FakeWebSocket.instances[0] as FakeWebSocket;
+            first.readyState = 1;
+            first.emit("open", { type: "open" });
+            chatSocket.close();
+
+            chatSocket.connect();
+            await flush();
+
+            expect(FakeWebSocket.instances).toHaveLength(2);
+        });
+
+        it("opens a new connection when called after the retries are exhausted", async () => {
+            const chatSocket = createSocket();
+            await flush();
+            const first = FakeWebSocket.instances[0] as FakeWebSocket;
+            first.readyState = 1;
+            first.emit("open", { type: "open" });
+            first.emit("close", { type: "close", code: 1006, reason: "abnormal", wasClean: false });
+            await flush();
+            expect(FakeWebSocket.instances).toHaveLength(1);
+
+            chatSocket.connect();
+            await flush();
+
+            expect(FakeWebSocket.instances).toHaveLength(2);
+        });
     });
 });
