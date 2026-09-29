@@ -360,6 +360,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             }
             this.#clipQueue = [];
             this.#isProcessing = false;
+            this.#resetChunkOrdering();
         }
 
         // Restart analyser polling so fft events continue after stopping or clearing the queue
@@ -428,6 +429,7 @@ export class EVIWebAudioPlayer extends EventTarget {
             }
             this.#clipQueue = [];
             this.#isProcessing = false;
+            this.#resetChunkOrdering();
         }
 
         this.#analyserNode?.disconnect();
@@ -444,6 +446,16 @@ export class EVIWebAudioPlayer extends EventTarget {
      * Polls the AnalyserNode at the configured interval, applies the FFT transform, and emits `'fft'` events.
      * No-ops if no analyser is present.
      */
+    /**
+     * Forget which chunks were queued and which are waiting for a gap to fill,
+     * so chunks of a stopped or disposed message that arrive later are dropped
+     * instead of being played.
+     */
+    #resetChunkOrdering() {
+        this.#lastQueuedChunk = null;
+        this.#chunkBufferQueues = {};
+    }
+
     #startAnalyserPollingIfEnabled() {
         if (!this.#fftOptions || !this.#analyserNode) return;
         if (this.#fftTimer) clearInterval(this.#fftTimer);

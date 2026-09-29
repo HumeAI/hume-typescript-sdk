@@ -93,3 +93,5 @@ tests/unit/auth/auth.test.ts
 .fern/replay.lock
 .fern/replay.yml
 .gitattributes
+
+tests/unit/wrapper/EVIWebAudioPlayer.test.ts
