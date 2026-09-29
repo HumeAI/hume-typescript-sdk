@@ -93,3 +93,6 @@ tests/unit/auth/auth.test.ts
 .fern/replay.lock
 .fern/replay.yml
 .gitattributes
+
+# Manually added tests
+tests/unit/empathic-voice/chat-socket.test.ts

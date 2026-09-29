@@ -176,6 +176,13 @@ export class ChatSocket {
     public connect(): ChatSocket {
         this.socket.reconnect();
 
+        // The constructor already registered these handlers; remove them first so repeated
+        // connect() calls do not deliver every event more than once.
+        this.socket.removeEventListener("open", this.handleOpen);
+        this.socket.removeEventListener("message", this.handleMessage);
+        this.socket.removeEventListener("close", this.handleClose);
+        this.socket.removeEventListener("error", this.handleError);
+
         this.socket.addEventListener("open", this.handleOpen);
         this.socket.addEventListener("message", this.handleMessage);
         this.socket.addEventListener("close", this.handleClose);
